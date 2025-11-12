@@ -18,6 +18,37 @@ Using Docker and Docker Compose is the simplest way to get the relay server runn
     cd foundryvtt-rest-api-relay
     ```
 
+Instead of cloning the repository you also just might download the docker-compose.yml file and use that (which will be the latest working version).
+
+Or copy the following and create your own docker-compose.yml
+```bash
+services:
+  relay:
+    image: threehats/foundryvtt-rest-api-relay:latest
+    container_name: foundryvtt-rest-api-relay
+    ports:
+      - "3010:3010"
+    environment:
+      - NODE_ENV=production
+      - PORT=3010
+      - DB_TYPE=sqlite
+      # Optional: Configure connection handling (defaults shown)
+      - WEBSOCKET_PING_INTERVAL_MS=20000  # (20 seconds)
+      - CLIENT_CLEANUP_INTERVAL_MS=15000  # (15 seconds)
+    volumes:
+      - ./data:/app/data
+    command: pnpm local:sqlite
+    restart: unless-stopped
+```
+By adding:   
+```bash
+# increase monthly request limit
+FREE_API_REQUEST_LIMIT=100000
+# increase daily request limit
+DAILY_REQUEST_LIMIT=3000   
+```
+in the enironment section you can increase the amount of API requests for your local installation.
+
 2.  **Start the server:**
     ```bash
     docker-compose up -d
@@ -35,6 +66,9 @@ Using Docker and Docker Compose is the simplest way to get the relay server runn
     ```bash
     docker-compose down
     ```
+
+4.  **Updating the server:**
+-   **[Updating the docker image](./update-docker-image):** Commands to update your docker image.
 
 ### Using PostgreSQL
 If you prefer to use PostgreSQL for your database, you can use the provided `docker-compose.postgres.yml` file. See the [PostgreSQL Setup Guide](/postgres-setup) for more details.
