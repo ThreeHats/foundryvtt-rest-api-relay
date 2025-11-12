@@ -350,8 +350,11 @@ try {
     const page = await browser.newPage();
 
     // Enable logging
-    page.on('pageerror', error => log.error(`Browser page error: ${error.message}`));
-    page.on('requestfailed', request => log.error(`Request failed: ${request.url()}`));
+    page.on('pageerror', (error: Error) => {
+      const message = error instanceof Error ? error.message : String(error);
+      log.error(`Browser page error: ${message}`);
+    });
+    page.on('requestfailed', (request: puppeteer.HTTPRequest) => log.error(`Request failed: ${request.url()}`));
     
     // Navigate to Foundry
     log.debug(`Navigating to Foundry URL: ${foundryUrl}`);
@@ -373,7 +376,10 @@ try {
         const elements = await page.$$(selector);
         if (elements.length > 0) {
         log.debug(`Found ${elements.length} ${selector} elements, attempting to dismiss`);
-        await page.click(selector).catch(e => log.debug(`Couldn't click ${selector}: ${e.message}`));
+        await page.click(selector).catch((e: unknown) => {
+          const message = e instanceof Error ? e.message : String(e);
+          log.debug(`Couldn't click ${selector}: ${message}`);
+        });
         await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for a second
         }
     }
@@ -390,7 +396,7 @@ try {
         await page.waitForSelector('li.package.world', { timeout: 10000 })
         .catch(() => {
             log.info('Could not find world list, checking page content');
-            return page.content().then(html => {
+            return page.content().then((html: string) => {
             log.info(`Page HTML preview: ${html.substring(0, 1000)}...`);
             });
         });
@@ -399,7 +405,7 @@ try {
         log.info('Attempting to find and launch the world');
         
         // Strategy 1: Try to find the play button directly associated with the world name
-        const worldLaunched = await page.evaluate((worldName) => {
+        const worldLaunched = await page.evaluate((worldName: string) => {
         // Find all world titles
         const titles = Array.from(document.querySelectorAll('h3.package-title'));
         
@@ -437,7 +443,7 @@ try {
             
             let launched = false;
             for (const worldElement of worlds) {
-            const title = await worldElement.$eval('h3.package-title', el => el.textContent?.trim())
+            const title = await worldElement.$eval('h3.package-title', (el: Element) => el.textContent?.trim())
                 .catch(() => null);
                 
             log.info(`Found world with title: ${title}`);
@@ -508,7 +514,7 @@ try {
     
     while (!userSelectFound && retries < maxRetries) {
     const hasUserSelect = await page.$('select[name="userid"]')
-        .then(element => !!element)
+        .then((element: puppeteer.ElementHandle | null) => !!element)
         .catch(() => false);
     
     if (hasUserSelect) {
@@ -516,14 +522,14 @@ try {
         userSelectFound = true;
         
         // Get all available users from dropdown
-        const options = await page.$$eval('select[name="userid"] option', options => 
-    options.map(opt => ({ value: opt.value, text: opt.textContent?.trim() }))
+        const options = await page.$$eval('select[name="userid"] option', (options: Element[]) => 
+    options.map((opt: any) => ({ value: opt.value, text: opt.textContent?.trim() }))
         );
         
         log.debug(`Available users: ${JSON.stringify(options)}`);
         
         // Find matching username
-        const matchingOption = options.find(opt => opt.text === username);
+        const matchingOption = options.find((opt: any) => opt.text === username);
         if (matchingOption) {
     log.info(`Selected user ${username} with value ${matchingOption.value}`);
     await page.select('select[name="userid"]', matchingOption.value);
@@ -541,7 +547,7 @@ try {
     log.info('Max retries reached. Assuming direct username input is required.');
     // Try to input username directly if there's an input field
     const hasUserInput = await page.$('input[name="userid"]')
-        .then(element => !!element)
+        .then((element: puppeteer.ElementHandle | null) => !!element)
         .catch(() => false);
         
     if (hasUserInput) {
@@ -567,8 +573,9 @@ try {
     // Wait for the game to load
     log.info('Waiting for game to load...');
     await page.waitForSelector('#ui-left, #sidebar, .vtt, #game', { timeout: 30000 })
-    .catch(async (error) => {
-        log.error(`Error waiting for game selectors: ${error.message}`);
+    .catch(async (error: unknown) => {
+        const message = error instanceof Error ? error.message : String(error);
+        log.error(`Error waiting for game selectors: ${message}`);
         throw error;
     });
     
