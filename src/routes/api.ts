@@ -31,7 +31,7 @@ import { log } from '../utils/logger';
 export const browserSessions = new Map<string, puppeteer.Browser>();
 export const apiKeyToSession = new Map<string, { sessionId: string, clientId: string, lastActivity: number }>();
 
-export const VERSION = '2.0.14';
+export const VERSION = '2.0.15';
 
 const INSTANCE_ID = process.env.INSTANCE_ID || 'default';
 
