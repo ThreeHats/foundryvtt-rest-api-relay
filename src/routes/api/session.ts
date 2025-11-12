@@ -350,7 +350,7 @@ try {
     const page = await browser.newPage();
 
     // Enable logging
-    page.on('pageerror', (error: Error) => {
+    page.on('pageerror', (error: unknown) => {
       const message = error instanceof Error ? error.message : String(error);
       log.error(`Browser page error: ${message}`);
     });
