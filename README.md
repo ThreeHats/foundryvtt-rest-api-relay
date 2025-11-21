@@ -41,14 +41,20 @@ The server will be available at http://localhost:3010 and will automatically res
 ### Install dependencies
 pnpm install
 
-### Run in development mode
-PORT=3010 pnpm dev
+### Build SQLite native module (required for local:sqlite mode)
+cd node_modules/.pnpm/sqlite3@5.1.7/node_modules/sqlite3 && npm run install && cd -
 
 ### Build for production
 pnpm build
 
-### Start production server
-pnpm local
+### Run with SQLite database (recommended)
+pnpm run local:sqlite
+
+### Run in development mode (requires postgres)
+pnpm dev
+
+### Start production server (requires postgres)
+pnpm start
 ```
 
 ### Configuration
