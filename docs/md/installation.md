@@ -95,7 +95,14 @@ If you prefer not to use Docker, you can run the server directly using Node.js.
     pnpm install
     ```
 
-4.  **Run the server:**
+4.  **Build SQLite native module (required for local:sqlite mode):**
+    ```bash
+    cd node_modules/.pnpm/sqlite3@5.1.7/node_modules/sqlite3 && npm run install && cd -
+    ```
+    
+    > **Note:** This step is necessary to compile the SQLite native bindings for your system. If you skip this step, you'll get a "Could not locate the bindings file" error when running with SQLite.
+
+5.  **Run the server:**
     - **For development (with auto-reloading):**
       ```bash
       pnpm dev
