@@ -102,7 +102,14 @@ If you prefer not to use Docker, you can run the server directly using Node.js.
     
     > **Note:** This step is necessary to compile the SQLite native bindings for your system. If you skip this step, you'll get a "Could not locate the bindings file" error when running with SQLite.
 
-5.  **Run the server:**
+5.  **Install Chrome for Puppeteer (required for headless Foundry sessions):**
+    ```bash
+    npx puppeteer browsers install chrome
+    ```
+    
+    > **Note:** Puppeteer is used to create headless browser sessions for interacting with Foundry VTT. If you skip this step, you'll get a "Could not find Chrome" error when the server tries to start headless sessions.
+
+6.  **Run the server:**
     - **For development (with auto-reloading):**
       ```bash
       pnpm dev

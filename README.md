@@ -44,6 +44,9 @@ pnpm install
 ### Build SQLite native module (required for local:sqlite mode)
 cd node_modules/.pnpm/sqlite3@5.1.7/node_modules/sqlite3 && npm run install && cd -
 
+### Install Chrome for Puppeteer (required for headless Foundry sessions)
+npx puppeteer browsers install chrome
+
 ### Build for production
 pnpm build
 
