@@ -13,7 +13,6 @@ import { dnd5eRouter } from './api/dnd5e';
 import { healthCheck } from '../routes/health';
 import { getRedisClient } from '../config/redis';
 import { returnHtmlTemplate } from "../config/htmlResponseTemplate";
-import * as puppeteer from 'puppeteer';
 import multer from "multer";
 import fs from "fs/promises";
 import { searchRouter } from './api/search';
@@ -27,17 +26,19 @@ import { sheetRouter } from './api/sheet';
 import { macroRouter } from './api/macro';
 import { structureRouter } from './api/structure';
 import { log } from '../utils/logger';
+// Import from session.ts instead of duplicating
+import { browserSessions, apiKeyToSession, pendingSessions } from './api/session';
 
-export const browserSessions = new Map<string, puppeteer.Browser>();
-export const apiKeyToSession = new Map<string, { sessionId: string, clientId: string, lastActivity: number }>();
+export { browserSessions, apiKeyToSession, pendingSessions };
 
 export const VERSION = '2.0.17';
 
 const INSTANCE_ID = process.env.INSTANCE_ID || 'default';
 
 const HEADLESS_SESSION_TIMEOUT = 10 * 60 * 1000; // 10 minutes in milliseconds
+const PENDING_SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes - matches the clientConnectionPromise timeout
 
-function cleanupInactiveSessions() {
+async function cleanupInactiveSessions() {
   const now = Date.now();
   
   for (const [apiKey, session] of apiKeyToSession.entries()) {
@@ -52,8 +53,14 @@ function cleanupInactiveSessions() {
           browserSessions.delete(session.sessionId);
         }
         
+        // Also remove the associated client from ClientManager
+        if (session.clientId) {
+          await ClientManager.removeClient(session.clientId);
+          log.info(`Removed stale client ${session.clientId} during session cleanup`);
+        }
+        
         // Clean up the session mapping
-        apiKeyToSession.delete(apiKey);
+        apiKeyToSession.deleteSession(apiKey, session.sessionId);
       } catch (error) {
         log.error(`Error during inactive session cleanup: ${error}`);
       }
@@ -61,8 +68,48 @@ function cleanupInactiveSessions() {
   }
 }
 
-// Start the session cleanup interval when the module is loaded
-setInterval(cleanupInactiveSessions, 60000); // Check every minute
+/**
+ * Cleanup orphaned pending sessions - browsers that were launched but never received
+ * a client connection. This can happen if:
+ * - The Foundry module's "primary GM" logic prevents the headless client from connecting
+ * - Network issues prevent the WebSocket connection
+ * - The test/process was interrupted before the timeout handler could run
+ */
+async function cleanupOrphanedPendingSessions() {
+  const now = Date.now();
+  
+  for (const [sessionId, pending] of pendingSessions.entries()) {
+    const waitingTime = now - pending.startTime;
+    
+    // If waiting longer than the timeout, this session is orphaned
+    if (waitingTime > PENDING_SESSION_TIMEOUT) {
+      const waitingMinutes = Math.round(waitingTime / 60000);
+      log.warn(`Found orphaned pending session ${sessionId} - waiting for ${pending.expectedClientId} for ${waitingMinutes} minutes. Cleaning up...`);
+      
+      try {
+        // Close the browser
+        await pending.browser.close();
+        log.info(`Closed orphaned browser for session ${sessionId}`);
+        
+        // Remove from pending sessions
+        pendingSessions.delete(sessionId);
+        
+        // Also remove from browserSessions if it was added there
+        browserSessions.delete(sessionId);
+        
+        log.info(`Cleaned up orphaned pending session ${sessionId} (was waiting for client ${pending.expectedClientId})`);
+      } catch (error) {
+        log.error(`Error cleaning up orphaned pending session ${sessionId}: ${error}`);
+        // Still remove from tracking even if browser close fails
+        pendingSessions.delete(sessionId);
+      }
+    }
+  }
+}
+
+// Start the session cleanup intervals when the module is loaded
+setInterval(cleanupInactiveSessions, 60000); // Check every minute for inactive established sessions
+setInterval(cleanupOrphanedPendingSessions, 30000); // Check every 30 seconds for orphaned pending sessions
 
 export const apiRoutes = (app: express.Application): void => {
   // Setup handlers for storing search results and entity data from WebSocket
@@ -401,11 +448,14 @@ function setupMessageHandlers() {
       if (data.requestId && pendingRequests.has(data.requestId)) {
         const pending = pendingRequests.get(data.requestId)!;
         
-        // Compare with either location
-        if (pending.type === 'get-sheet' && pending.uuid === responseUuid) {
-          if (data.error || (data.data && data.data.error)) {
+        // Check if this is an error response (handle even if UUID is undefined)
+        const hasError = data.error || (data.data && data.data.error);
+        
+        // Compare with either location, but allow error responses even if UUID is undefined
+        if (pending.type === 'get-sheet' && (pending.uuid === responseUuid || (hasError && responseUuid === undefined))) {
+          if (hasError) {
             const errorMsg = data.error || (data.data && data.data.error) || "Unknown error";
-            safeResponse(pending.res, 404, {
+            safeResponse(pending.res, 400, {
               requestId: data.requestId,
               clientId: pending.clientId,
               uuid: pending.uuid,

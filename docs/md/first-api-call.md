@@ -43,19 +43,33 @@ curl -X GET http://localhost:3010/clients \
 
 ### Expected Response
 
-If successful, you will receive a JSON response with a `clients` array. Each object in the array represents a connected Foundry VTT world.
+If successful, you will receive a JSON response with a `clients` array. Each object in the array represents a connected Foundry VTT world with detailed information about the world and system.
 
 ```json
 {
+  "total": 2,
   "clients": [
       {
-          "id": "foundry-5Rl5lM4VpyV9rNqI",
-          "instanceId": "90804e0a004e68",
-          "lastSeen": 1755293387916,
-          "connectedSince": 1755293387916,
+          "id": "foundry-vXdyKYLgpmko3kHx",
+          "instanceId": "default",
+          "lastSeen": 1765376805728,
+          "connectedSince": 1765376805728,
           "worldId": "rest-api",
           "worldTitle": "rest-api",
-          "foundryVersion": "13.346",
+          "foundryVersion": "12.331",
+          "systemId": "dnd5e",
+          "systemTitle": "Dungeons & Dragons Fifth Edition",
+          "systemVersion": "4.3.8",
+          "customName": "v12-test"
+      },
+      {
+          "id": "foundry-5ypAoBvOiyjDKiaZ",
+          "instanceId": "default",
+          "lastSeen": 1765376807068,
+          "connectedSince": 1765376807068,
+          "worldId": "testing",
+          "worldTitle": "testing",
+          "foundryVersion": "13.348",
           "systemId": "dnd5e",
           "systemTitle": "Dungeons & Dragons Fifth Edition",
           "systemVersion": "5.0.4",
@@ -63,6 +77,24 @@ If successful, you will receive a JSON response with a `clients` array. Each obj
       }
   ]
 }
+```
+
+**Response Fields:**
+
+| Field | Description |
+|-------|-------------|
+| `total` | Total number of connected clients |
+| `id` | Unique client identifier used in API calls |
+| `instanceId` | Server instance handling this connection |
+| `lastSeen` | Timestamp of last activity |
+| `connectedSince` | Timestamp when client connected |
+| `worldId` | Foundry world ID |
+| `worldTitle` | Human-readable world name |
+| `foundryVersion` | Foundry VTT version (e.g., "13.348") |
+| `systemId` | Game system ID (e.g., "dnd5e", "pf2e") |
+| `systemTitle` | Full game system name |
+| `systemVersion` | Game system version |
+| `customName` | Optional custom name set in module settings |
 ```
 
 ### Using the `clientId`

@@ -1,5 +1,10 @@
+---
+id: update-docker-image
+title: Update Docker Image
+sidebar_position: 10
+---
 
-# Maintainance and updates of the docker image
+# Maintenance and Updates of the Docker Image
 
 ## 1. Stop the docker image
 

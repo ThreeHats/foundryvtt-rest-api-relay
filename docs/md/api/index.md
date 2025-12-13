@@ -12,17 +12,17 @@ This is the API reference for the FoundryVTT REST API Relay server.
 
 The API is divided into several resource groups:
 
-- [DnD5e](dnd5e) - D&D 5th Edition specific endpoints
-- [Encounter](encounter) - Combat encounter management
-- [Entity](entity) - General entity manipulation (actors, items, etc.)
-- [File System](fileSystem) - File management operations
-- [Macro](macro) - Execute and manage macros
-- [Roll](roll) - Perform dice rolls
-- [Search](search) - Search the Foundry database
-- [Session](session) - Manage headless Foundry sessions
-- [Sheet](sheet) - Interact with character sheets
-- [Structure](structure) - Get information about world structure
-- [Utility](utility) - Miscellaneous utility endpoints
+- [DnD5e](/api/dnd5e/) - D&D 5th Edition specific endpoints
+- [Encounter](/api/encounter/) - Combat encounter management
+- [Entity](/api/entity/) - General entity manipulation (actors, items, etc.)
+- [File System](/api/fileSystem/) - File management operations
+- [Macro](/api/macro/) - Execute and manage macros
+- [Roll](/api/roll/) - Perform dice rolls
+- [Search](/api/search/) - Search the Foundry database
+- [Session](/api/session/) - Manage headless Foundry sessions
+- [Sheet](/api/sheet/) - Interact with character sheets
+- [Structure](/api/structure/) - Get information about world structure
+- [Utility](/api/utility/) - Miscellaneous utility endpoints
 
 Each endpoint is documented with its path, HTTP method, required and optional parameters, and expected response format.
 

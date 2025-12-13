@@ -1,0 +1,3 @@
+packages: []
+ignoredBuiltDependencies:
+  - sqlite3

@@ -297,8 +297,9 @@ function extractApiInfo(filePath) {
           
           // Always push the route for traditional endpoints if we have JSDoc content
           routes.push({
-            method: jsdoc.route ? jsdoc.route.method : method.toUpperCase(),
-            path: jsdoc.route ? jsdoc.route.path : path,
+            method: method.toUpperCase(),
+            path: path, // Use actual router path, not @route tag in case they don't match up
+            route: jsdoc.route ? jsdoc.route.path : path, // Capture this for use in api-docs.json, so that path prefixes are captured.
             description: jsdoc.description,
             params: jsdoc.params,
             returns: jsdoc.returns,
@@ -311,8 +312,9 @@ function extractApiInfo(filePath) {
         } else {
           // createApiRoute style endpoints
           routes.push({
-            method: jsdoc.route ? jsdoc.route.method : method.toUpperCase(),
-            path: jsdoc.route ? jsdoc.route.path : path,
+            method: method.toUpperCase(),
+            path: path, // Use actual router path, not @route tag in case they don't match up
+            route: jsdoc.route ? jsdoc.route.path : path, // Capture this for use in api-docs.json, so that path prefixes are captured.
             description: jsdoc.description,
             params: jsdoc.params,
             returns: jsdoc.returns,
@@ -344,8 +346,9 @@ function extractApiInfo(filePath) {
           }));
         
         routes.push({
-          method: jsdoc.route ? jsdoc.route.method : method.toUpperCase(),
-          path: jsdoc.route ? jsdoc.route.path : path,
+          method: method.toUpperCase(),
+          path: path, // Use actual router path, not @route tag in case they don't match up
+          route: jsdoc.route ? jsdoc.route.path : path, // Capture this for use in api-docs.json, so that path prefixes are captured.
           description: jsdoc.description,
           params: jsdoc.params,
           returns: jsdoc.returns,
@@ -580,8 +583,8 @@ function generateMarkdown(routes, moduleName) {
     markdown += `---\n\n`;
     markdown += `# ${moduleName}\n\n`;
 
-    routes.forEach(route => {
-        markdown += `### ${route.method} ${route.path}\n\n`;
+    routes.forEach((route, index) => {
+        markdown += `## ${route.method} ${route.path}\n\n`;
         if (route.description) {
             markdown += `${route.description}\n\n`;
         }
@@ -591,7 +594,7 @@ function generateMarkdown(routes, moduleName) {
         const hasOptionalParams = route.optionalParams && route.optionalParams.length > 0;
         
         if (hasRequiredParams || hasOptionalParams) {
-            markdown += `#### Parameters\n\n`;
+            markdown += `### Parameters\n\n`;
             markdown += `| Name | Type | Required | Source | Description |\n`;
             markdown += `|------|------|----------|--------|--------------|\n`;
             
@@ -616,48 +619,14 @@ function generateMarkdown(routes, moduleName) {
         
         // Returns
         if (route.returns) {
-            markdown += `#### Returns\n\n`;
+            markdown += `### Returns\n\n`;
             markdown += `**${route.returns.type}** - ${route.returns.description}\n\n`;
         }
         
-        // Example request
-        markdown += `#### Example Request\n\n`;
-        markdown += `\`\`\`http\n`;
-        markdown += `${route.method} ${route.path}\n`;
-        if (route.security) {
-            markdown += `Authorization: Bearer <your-api-key>\n`;
+        // Add separator between routes, but not after the last one
+        if (index < routes.length - 1) {
+            markdown += '---\n\n';
         }
-        
-        if (route.method !== 'GET') {
-            markdown += `Content-Type: application/json\n\n`;
-            
-            const exampleBody = {};
-            
-            // Add required params to example first
-            if (hasRequiredParams) {
-                route.requiredParams.forEach(param => {
-                    if (param.from && param.from.includes('body')) {
-                        exampleBody[param.name] = getExampleValue(param.type);
-                    }
-                });
-            }
-            
-            // Add some optional params if there are any
-            if (hasOptionalParams) {
-                route.optionalParams.slice(0, 2).forEach(param => {
-                    if (param.from && param.from.includes('body')) {
-                        exampleBody[param.name] = getExampleValue(param.type);
-                    }
-                });
-            }
-            
-            if (Object.keys(exampleBody).length > 0) {
-                markdown += JSON.stringify(exampleBody, null, 2);
-            }
-        }
-        
-        markdown += `\n\`\`\`\n\n`;
-        markdown += '---\n\n';
     });
 
     return markdown;
@@ -715,8 +684,12 @@ function main() {
         allRoutes.push(...routes);
 
         // Generate markdown for docusaurus
-        const markdown = generateMarkdown(routes, moduleName);
+        let markdown = generateMarkdown(routes, moduleName);
         const outputPath = path.join(markdownOutputDir, `${moduleName}.md`);
+        
+        // Do NOT preserve code examples - they will be regenerated by updateDocsWithExamples.ts
+        // This prevents duplication issues when running docs:generate multiple times
+        
         fs.writeFileSync(outputPath, markdown);
         console.log(`Generated documentation for ${routes.length} routes in ${moduleName}.md`);
       } else {
@@ -742,7 +715,7 @@ function main() {
       },
       endpoints: allRoutes.map(route => ({
           method: route.method.toUpperCase(),
-          path: route.path,
+          path: route.route, // Use the full path from @route JSDoc tag which includes any path prefixes (e.g., /dnd5e)
           description: route.description,
           requiredParameters: route.requiredParams.map(p => ({ name: p.name, type: p.type, description: p.description, location: p.from.join(', ') })),
           optionalParameters: route.optionalParams.map(p => ({ name: p.name, type: p.type, description: p.description, location: p.from.join(', ') })),

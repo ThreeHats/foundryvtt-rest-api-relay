@@ -110,8 +110,8 @@ export async function cleanupHeadlessSession(sessionId: string): Promise<boolean
 export function redisSessionMiddleware(req: Request, res: Response, next: NextFunction): void {
   const clientId = req.query.clientId as string;
   
-  // If no client ID, continue with the request
-  if (!clientId || !clientId.startsWith('foundry-')) {
+  // If no client ID or not a valid string, continue with the request
+  if (!clientId || typeof clientId !== 'string' || !clientId.startsWith('foundry-')) {
     return next();
   }
   

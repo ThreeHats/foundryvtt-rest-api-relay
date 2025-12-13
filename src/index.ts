@@ -15,7 +15,7 @@ import { WebSocketServer } from "ws";
 import { corsMiddleware } from "./middleware/cors";
 import { log } from "./utils/logger";
 import { wsRoutes } from "./routes/websocket";
-import { apiRoutes, browserSessions } from "./routes/api";
+import { apiRoutes, browserSessions, pendingSessions } from "./routes/api";
 import authRoutes from "./routes/auth";
 import { config } from "dotenv";
 import * as path from "path";
@@ -71,7 +71,14 @@ app.use('/upload', (req, res, next) => {
 });
 
 // Parse JSON bodies for all other routes with 250MB limit
-app.use(express.json({ limit: '250mb' }));
+// Only apply to methods that can have a body (not GET, HEAD, DELETE)
+app.use((req, res, next) => {
+  if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
+    express.json({ limit: '250mb' })(req, res, next);
+  } else {
+    next();
+  }
+});
 
 // Add Redis session middleware
 app.use(redisSessionMiddleware);
@@ -79,6 +86,7 @@ app.use(redisSessionMiddleware);
 // Add global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   log.error('Unhandled error:', err);
+  log.error(`Error on ${req.method} ${req.path}`);
   if (!res.headersSent) {
     // Handle JSON parsing errors
     if (err.type === 'entity.parse.failed' || err instanceof SyntaxError || 
@@ -123,14 +131,39 @@ const docsPath = path.resolve(__dirname, "../docs/build");
 try {
   // Check if docs build directory exists
   if (fs.existsSync(docsPath)) {
+    // Docusaurus builds static HTML files for each page, so we use redirect: false
+    // to prevent Express from auto-redirecting directories (which can cause loops)
     app.use("/docs", express.static(docsPath, { 
       index: 'index.html',
-      fallthrough: true
+      redirect: false
     }));
 
-    // Handle SPA routing for docs - serve index.html for any unmatched doc routes
-    app.get('/docs/*', (req, res) => {
+    // Handle /docs root path
+    app.get('/docs', (req, res) => {
       res.sendFile(path.join(docsPath, 'index.html'));
+    });
+
+    // Handle directory requests by serving their index.html
+    app.get('/docs/*', (req, res, next) => {
+      const requestPath = req.path.replace('/docs', '');
+      const filePath = path.join(docsPath, requestPath);
+      const indexPath = path.join(filePath, 'index.html');
+      const notFoundPath = path.join(docsPath, '404.html');
+      
+      // Try serving index.html first (for directory requests)
+      res.sendFile(indexPath, (err) => {
+        if (err) {
+          // Try serving the file directly (for assets)
+          res.sendFile(filePath, (err2) => {
+            if (err2) {
+              // Serve 404 page
+              res.status(404).sendFile(notFoundPath, (err3) => {
+                if (err3) next();
+              });
+            }
+          });
+        }
+      });
     });
   } else {
     log.warn('Documentation build directory not found, docs will not be available');
@@ -266,17 +299,83 @@ scheduleHeadlessSessionsCheck();
 // Note: Cron jobs are already initialized in initServices()
 
 // Handle graceful shutdown
-process.on('SIGTERM', async () => {
-  log.info('SIGTERM received, shutting down gracefully');
+async function gracefulShutdown(signal: string) {
+  log.info(`${signal} received, shutting down gracefully`);
+  
+  // First, stop accepting new HTTP connections
+  httpServer.close(() => {
+    log.info('HTTP server closed');
+  });
+  
+  // Close WebSocket server to stop accepting new WS connections
+  wss.close(() => {
+    log.info('WebSocket server closed');
+  });
+  
+  // Give in-flight requests a moment to complete
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  // Close all pending sessions first (browsers waiting for client connection)
+  if (pendingSessions.size > 0) {
+    log.info(`Closing ${pendingSessions.size} pending session(s)...`);
+    const pendingClosePromises: Promise<void>[] = [];
+    
+    for (const [sessionId, pendingSession] of pendingSessions.entries()) {
+      pendingClosePromises.push(
+        (async () => {
+          try {
+            await pendingSession.browser.close();
+            log.info(`Closed pending browser session: ${sessionId} (was waiting for ${pendingSession.expectedClientId})`);
+          } catch (error) {
+            log.error(`Error closing pending browser session ${sessionId}: ${error}`);
+          }
+        })()
+      );
+    }
+    
+    await Promise.race([
+      Promise.all(pendingClosePromises),
+      new Promise(resolve => setTimeout(resolve, 5000))
+    ]);
+    
+    pendingSessions.clear();
+    log.info('All pending sessions closed');
+  }
+  
+  // Close all established browser sessions
+  if (browserSessions.size > 0) {
+    log.info(`Closing ${browserSessions.size} browser session(s)...`);
+    const closePromises: Promise<void>[] = [];
+    
+    for (const [sessionId, browser] of browserSessions.entries()) {
+      closePromises.push(
+        (async () => {
+          try {
+            await browser.close();
+            log.info(`Closed browser session: ${sessionId}`);
+          } catch (error) {
+            log.error(`Error closing browser session ${sessionId}: ${error}`);
+          }
+        })()
+      );
+    }
+    
+    // Wait for all browsers to close with a timeout
+    await Promise.race([
+      Promise.all(closePromises),
+      new Promise(resolve => setTimeout(resolve, 5000)) // 5 second timeout
+    ]);
+    
+    browserSessions.clear();
+    log.info('All browser sessions closed');
+  }
+  
   await closeRedis();
   process.exit(0);
-});
+}
 
-process.on('SIGINT', async () => {
-  log.info('SIGINT received, shutting down gracefully');
-  await closeRedis();
-  process.exit(0);
-});
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // Initialize services and start server
 initializeServices().catch(err => {

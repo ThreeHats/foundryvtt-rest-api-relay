@@ -230,3 +230,43 @@ html {
   box-shadow: var(--docsearch-key-shadow);
   color: var(--ifm-color-emphasis-200);
 }
+
+/* API Documentation - Response JSON height limit */
+/* Target all JSON code blocks in markdown articles - these are typically the large response examples */
+article div.language-json {
+  max-height: 500px !important;
+  overflow-y: auto !important;
+}
+
+/* Smooth scrollbar styling for JSON code blocks */
+article div.language-json::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+article div.language-json::-webkit-scrollbar-track {
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 5px;
+}
+
+article div.language-json::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-400);
+  border-radius: 5px;
+}
+
+article div.language-json::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-emphasis-500);
+}
+
+/* Dark theme scrollbar colors */
+[data-theme='dark'] article div.language-json::-webkit-scrollbar-track {
+  background: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] article div.language-json::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-500);
+}
+
+[data-theme='dark'] article div.language-json::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-emphasis-600);
+}

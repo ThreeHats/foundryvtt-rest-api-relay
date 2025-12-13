@@ -14,6 +14,7 @@ primary_region = 'ord'
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
+  # TODO: reduce down to 0 min machines and allow to suspend
   min_machines_running = 2  # Ensure we always have 2 machines
   max_machines_running = 5  # Allow scaling up to 5 machines
   force_instance_key = true

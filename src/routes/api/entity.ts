@@ -15,7 +15,7 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  *
  * This endpoint retrieves the details of a specific entity.
  * 
- * @route GET /entity/get
+ * @route GET /get
  * @returns {object} Entity details object containing requested information
  */
 entityRouter.get("/get", ...commonMiddleware, createApiRoute({
@@ -35,7 +35,7 @@ entityRouter.get("/get", ...commonMiddleware, createApiRoute({
  *
  * This endpoint creates a new entity in the Foundry world.
  * 
- * @route POST /entity/create
+ * @route POST /create
  * @returns {object} Result of the entity creation operation
  */
 entityRouter.post("/create", ...commonMiddleware, express.json(), createApiRoute({
@@ -67,7 +67,7 @@ entityRouter.post("/create", ...commonMiddleware, express.json(), createApiRoute
  *
  * This endpoint updates an existing entity in the Foundry world.
  *
- * @route PUT /entity/update
+ * @route PUT /update
  * @returns {object} Result of the entity update operation
  */
 entityRouter.put("/update", ...commonMiddleware, express.json(), createApiRoute({
@@ -88,7 +88,7 @@ entityRouter.put("/update", ...commonMiddleware, express.json(), createApiRoute(
  * 
  * This endpoint deletes an entity from the Foundry world.
  * 
- * @route DELETE /entity/delete
+ * @route DELETE /delete
  * @returns {object} Result of the entity deletion operation
  */
 entityRouter.delete("/delete", ...commonMiddleware, createApiRoute({
@@ -108,7 +108,7 @@ entityRouter.delete("/delete", ...commonMiddleware, createApiRoute({
  * This endpoint gives an item to a specified entity.
  * Optionally, removes the item from the giver.
  * 
- * @route POST /entity/give
+ * @route POST /give
  * @returns {object} Result of the item giving operation
  */
 entityRouter.post("/give", ...commonMiddleware, express.json(), createApiRoute({
@@ -150,7 +150,7 @@ optionalParams: [
  *
  * This endpoint decreases an attribute of a specified entity.
  * 
- * @route POST /entity/decrease
+ * @route POST /decrease
  * @returns {object} Result of the attribute decrease operation
  */
 entityRouter.post("/decrease", ...commonMiddleware, express.json(), createApiRoute({
@@ -171,7 +171,7 @@ entityRouter.post("/decrease", ...commonMiddleware, express.json(), createApiRou
  *
  * This endpoint increases an attribute of a specified entity.
  * 
- * @route POST /entity/increase
+ * @route POST /increase
  * @returns {object} Result of the attribute increase operation
  */
 entityRouter.post("/increase", ...commonMiddleware, express.json(), createApiRoute({
@@ -194,7 +194,7 @@ entityRouter.post("/increase", ...commonMiddleware, express.json(), createApiRou
  * gives it the "dead" status,
  * and sets its health to 0 in the Foundry world.
  * 
- * @route POST /entity/kill
+ * @route POST /kill
  * @returns {object} Result of the entity kill operation
  */
 entityRouter.post("/kill", ...commonMiddleware, express.json(), createApiRoute({

@@ -1,5 +1,5 @@
 {
-  "version": "2.0.8",
+  "version": "2.0.15",
   "baseUrl": "https://your-relay-server.com",
   "authentication": {
     "required": true,
@@ -233,19 +233,19 @@
         {
           "name": "uuid",
           "type": "string",
-          "description": "The UUID of the actor to get the sheet for",
+          "description": "The UUID of the entity to get the sheet for",
           "location": "query"
         },
         {
           "name": "selected",
           "type": "boolean",
-          "description": "Whether to get the sheet for the selected actor",
+          "description": "Whether to get the sheet for the selected entity",
           "location": "query"
         },
         {
           "name": "actor",
           "type": "boolean",
-          "description": "Whether this is an actor sheet (true) or item sheet (false)",
+          "description": "Whether to get the sheet for the selected token's actor if selected is true",
           "location": "query"
         },
         {
@@ -796,7 +796,7 @@
     },
     {
       "method": "GET",
-      "path": "/entity/get",
+      "path": "/get",
       "description": "Get entity details This endpoint retrieves the details of a specific entity.",
       "requiredParameters": [
         {
@@ -829,7 +829,7 @@
     },
     {
       "method": "POST",
-      "path": "/entity/create",
+      "path": "/create",
       "description": "Create a new entity This endpoint creates a new entity in the Foundry world.",
       "requiredParameters": [
         {
@@ -862,7 +862,7 @@
     },
     {
       "method": "PUT",
-      "path": "/entity/update",
+      "path": "/update",
       "description": "Update an existing entity This endpoint updates an existing entity in the Foundry world.",
       "requiredParameters": [
         {
@@ -901,7 +901,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/entity/delete",
+      "path": "/delete",
       "description": "Delete an entity This endpoint deletes an entity from the Foundry world.",
       "requiredParameters": [
         {
@@ -928,7 +928,7 @@
     },
     {
       "method": "POST",
-      "path": "/entity/give",
+      "path": "/give",
       "description": "Give an item to an entity This endpoint gives an item to a specified entity. Optionally, removes the item from the giver.",
       "requiredParameters": [
         {
@@ -1024,7 +1024,7 @@
     },
     {
       "method": "POST",
-      "path": "/entity/decrease",
+      "path": "/decrease",
       "description": "Decrease an attribute This endpoint decreases an attribute of a specified entity.",
       "requiredParameters": [
         {
@@ -1063,7 +1063,7 @@
     },
     {
       "method": "POST",
-      "path": "/entity/increase",
+      "path": "/increase",
       "description": "Increase an attribute This endpoint increases an attribute of a specified entity.",
       "requiredParameters": [
         {
@@ -1102,7 +1102,7 @@
     },
     {
       "method": "POST",
-      "path": "/entity/kill",
+      "path": "/kill",
       "description": "Kill an entity Marks an entity as killed in the combat tracker, gives it the \"dead\" status, and sets its health to 0 in the Foundry world.",
       "requiredParameters": [
         {

@@ -4,11 +4,11 @@ tag: dnd5e
 
 # dnd5e
 
-### GET /dnd5e/get-actor-details
+## GET /get-actor-details
 
 Get detailed information for a specific D&D 5e actor. Retrieves comprehensive details about an actor including stats, inventory, spells, features, and other character information based on the requested details array.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -16,24 +16,17 @@ Get detailed information for a specific D&D 5e actor. Retrieves comprehensive de
 | actorUuid | string | ✓ | body, query | UUID of the actor |
 | details | array | ✓ | body, query | Array of detail types to retrieve (e.g., ["resources", "items", "spells", "features"]) |
 
-#### Returns
+### Returns
 
 **object** - Actor details object containing requested information
 
-#### Example Request
-
-```http
-GET /dnd5e/get-actor-details
-
-```
-
 ---
 
-### POST /dnd5e/modify-item-charges
+## POST /modify-item-charges
 
 Modify the charges for a specific item owned by an actor. Increases or decreases the charges/uses of an item in an actor's inventory. Useful for consumable items like potions, scrolls, or charged magic items.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -43,32 +36,17 @@ Modify the charges for a specific item owned by an actor. Increases or decreases
 | itemUuid | string |  | body, query | The UUID of the specific item (optional if itemName provided) |
 | itemName | string |  | body, query | The name of the item if UUID not provided (optional if itemUuid provided) |
 
-#### Returns
+### Returns
 
 **object** - Result of the charge modification operation
 
-#### Example Request
-
-```http
-POST /dnd5e/modify-item-charges
-Content-Type: application/json
-
-{
-  "clientId": "example-value",
-  "actorUuid": "example-value",
-  "amount": 123,
-  "itemUuid": "example-value",
-  "itemName": "example-value"
-}
-```
-
 ---
 
-### POST /dnd5e/use-ability
+## POST /use-ability
 
 Use a general ability for an actor. Triggers the use of any ability, feature, spell, or item for an actor. This is a generic endpoint that can handle various types of abilities.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -79,31 +57,17 @@ Use a general ability for an actor. Triggers the use of any ability, feature, sp
 | targetUuid | string |  | body, query | The UUID of the target for the ability (optional) |
 | targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
 
-#### Returns
+### Returns
 
 **object** - Result of the ability use operation
 
-#### Example Request
-
-```http
-POST /dnd5e/use-ability
-Content-Type: application/json
-
-{
-  "clientId": "example-value",
-  "actorUuid": "example-value",
-  "abilityUuid": "example-value",
-  "abilityName": "example-value"
-}
-```
-
 ---
 
-### POST /dnd5e/use-feature
+## POST /use-feature
 
 Use a class or racial feature for an actor. Activates class features (like Action Surge, Rage) or racial features (like Dragonborn Breath Weapon) for a character.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -114,31 +78,17 @@ Use a class or racial feature for an actor. Activates class features (like Actio
 | targetUuid | string |  | body, query | The UUID of the target for the feature (optional) |
 | targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
 
-#### Returns
+### Returns
 
 **object** - Result of the feature use operation
 
-#### Example Request
-
-```http
-POST /dnd5e/use-feature
-Content-Type: application/json
-
-{
-  "clientId": "example-value",
-  "actorUuid": "example-value",
-  "abilityUuid": "example-value",
-  "abilityName": "example-value"
-}
-```
-
 ---
 
-### POST /dnd5e/use-spell
+## POST /use-spell
 
 Cast a spell for an actor. Casts a spell from the actor's spell list, consuming spell slots as appropriate. Handles cantrips, leveled spells, and spell-like abilities.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -149,31 +99,17 @@ Cast a spell for an actor. Casts a spell from the actor's spell list, consuming 
 | targetUuid | string |  | body, query | The UUID of the target for the spell (optional) |
 | targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
 
-#### Returns
+### Returns
 
 **object** - Result of the spell casting operation
 
-#### Example Request
-
-```http
-POST /dnd5e/use-spell
-Content-Type: application/json
-
-{
-  "clientId": "example-value",
-  "actorUuid": "example-value",
-  "abilityUuid": "example-value",
-  "abilityName": "example-value"
-}
-```
-
 ---
 
-### POST /dnd5e/use-item
+## POST /use-item
 
 Use an item for an actor. Activates an item from the actor's inventory, such as drinking a potion, using a magic item, or activating equipment with special properties.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -184,31 +120,17 @@ Use an item for an actor. Activates an item from the actor's inventory, such as 
 | targetUuid | string |  | body, query | The UUID of the target for the item (optional) |
 | targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
 
-#### Returns
+### Returns
 
 **object** - Result of the item use operation
 
-#### Example Request
-
-```http
-POST /dnd5e/use-item
-Content-Type: application/json
-
-{
-  "clientId": "example-value",
-  "actorUuid": "example-value",
-  "abilityUuid": "example-value",
-  "abilityName": "example-value"
-}
-```
-
 ---
 
-### POST /dnd5e/modify-experience
+## POST /modify-experience
 
 Modify the experience points for a specific actor. Adds or removes experience points from an actor.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -217,23 +139,7 @@ Modify the experience points for a specific actor. Adds or removes experience po
 | actorUuid | string |  | body, query | UUID of the actor to modify |
 | selected | boolean |  | body, query | Modify the selected token's actor |
 
-#### Returns
+### Returns
 
 **object** - Result of the experience modification operation
-
-#### Example Request
-
-```http
-POST /dnd5e/modify-experience
-Content-Type: application/json
-
-{
-  "clientId": "example-value",
-  "amount": 123,
-  "actorUuid": "example-value",
-  "selected": true
-}
-```
-
----
 

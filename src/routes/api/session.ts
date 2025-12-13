@@ -25,7 +25,73 @@ interface PendingHandshake {
 const pendingHandshakes = new Map<string, PendingHandshake>();
 
 export const browserSessions = new Map<string, puppeteer.Browser>();
-export const apiKeyToSession = new Map<string, { sessionId: string, clientId: string, lastActivity: number }>();
+
+// Track pending sessions (browsers launched but waiting for client connection)
+// This is critical for cleanup - these can become orphaned if the connection never completes
+interface PendingSession {
+    sessionId: string;
+    browser: puppeteer.Browser;
+    apiKey: string;
+    expectedClientId: string;
+    startTime: number;
+    foundryUrl: string;
+    worldName?: string;
+    username: string;
+}
+export const pendingSessions = new Map<string, PendingSession>();
+
+// Changed to support multiple sessions per API key (especially for local mode testing)
+// Maps: apiKey -> sessionId -> session data
+export const apiKeyToSessions = new Map<string, Map<string, { sessionId: string, clientId: string, lastActivity: number }>>();
+// Legacy export for backward compatibility
+// TODO: Remove this once all clients are updated to use multiple sessions per API key
+export const apiKeyToSession = {
+    get: (apiKey: string) => {
+        const sessions = apiKeyToSessions.get(apiKey);
+        if (!sessions || sessions.size === 0) return undefined;
+        // Return the most recent session for backward compatibility
+        let mostRecent: { sessionId: string, clientId: string, lastActivity: number } | undefined;
+        for (const session of sessions.values()) {
+            if (!mostRecent || session.lastActivity > mostRecent.lastActivity) {
+                mostRecent = session;
+            }
+        }
+        return mostRecent;
+    },
+    set: (apiKey: string, session: { sessionId: string, clientId: string, lastActivity: number }) => {
+        let sessions = apiKeyToSessions.get(apiKey);
+        if (!sessions) {
+            sessions = new Map();
+            apiKeyToSessions.set(apiKey, sessions);
+        }
+        sessions.set(session.sessionId, session);
+    },
+    delete: (apiKey: string) => {
+        apiKeyToSessions.delete(apiKey);
+    },
+    deleteSession: (apiKey: string, sessionId: string) => {
+        const sessions = apiKeyToSessions.get(apiKey);
+        if (sessions) {
+            sessions.delete(sessionId);
+            if (sessions.size === 0) {
+                apiKeyToSessions.delete(apiKey);
+            }
+        }
+    },
+    getAll: (apiKey: string) => {
+        const sessions = apiKeyToSessions.get(apiKey);
+        return sessions ? Array.from(sessions.values()) : [];
+    },
+    entries: () => {
+        const allEntries: [string, { sessionId: string, clientId: string, lastActivity: number }][] = [];
+        for (const [apiKey, sessions] of apiKeyToSessions.entries()) {
+            for (const session of sessions.values()) {
+                allEntries.push([apiKey, session]);
+            }
+        }
+        return allEntries[Symbol.iterator]();
+    }
+};
 const pendingHeadlessSessionsRequests = new Map<string, string>();
 
 export const sessionRouter = Router();
@@ -140,16 +206,36 @@ try {
  * @param {string} x-api-key - [header] API key header
  * @returns {object} Session information including sessionId and clientId
  */
-sessionRouter.post("/start-session", requestForwarderMiddleware, authMiddleware, express.json(), async (req: Request, res: Response) => {
+sessionRouter.post("/start-session", requestForwarderMiddleware, authMiddleware, async (req: Request, res: Response) => {
 try {
     const { handshakeToken, encryptedPassword } = req.body;
     const apiKey = req.header('x-api-key') as string;
+    
+    const redis = getRedisClient();
+    const isLocalMode = !redis;
+    
+    // In non-local mode (Redis available), check if an active session already exists for this API key
+    // If so, return that session instead of creating a new one
+    if (!isLocalMode) {
+        const existingSessionId = await redis.get(`headless_apikey:${apiKey}:session`);
+        if (existingSessionId) {
+            const existingSessionData = await redis.hGetAll(`headless_session:${existingSessionId}`);
+            if (existingSessionData && existingSessionData.clientId) {
+                log.info(`Returning existing session ${existingSessionId} for API key ${apiKey.substring(0, 8)}...`);
+                return safeResponse(res, 200, {
+                    success: true,
+                    message: "Existing session returned (each API key is limited to one headless session)",
+                    sessionId: existingSessionId,
+                    clientId: existingSessionData.clientId,
+                    existingSession: true
+                });
+            }
+        }
+    }
 
     // Get handshake data from Redis or local storage
     let handshake: any = null;
     let fromRedis = false;
-    
-    const redis = getRedisClient();
     if (redis) {
     // Try to get handshake from Redis
     const handshakeExists = await redis.exists(`handshake:${handshakeToken}`);
@@ -179,7 +265,7 @@ try {
         log.info(`Waiting for instance ${handshakeInstanceId} to process headless session request`);
         
         // Set a timeout for waiting
-        const maxWaitTime = 600000; // 10 minute timeout
+        const maxWaitTime = 300000; // 5 minute timeout (matches Redis expiry)
         const startTime = Date.now();
         
         // Poll Redis for the result
@@ -219,10 +305,11 @@ try {
         }, 2000); // Check every 2 seconds
         }
         
-        // Parse numeric fields
-        handshakeData.expires = handshakeData.expires;
-        
-        handshake = handshakeData;
+        // Convert Redis string data to properly typed handshake object
+        handshake = {
+          ...handshakeData,
+          expires: parseInt(handshakeData.expires, 10)
+        };
         fromRedis = true;
     }
     }
@@ -590,6 +677,19 @@ try {
     const expectedClientId = `foundry-${userId}`;
     log.info(`Waiting for Foundry client connection with ID: ${expectedClientId}`);
     
+    // Track this as a pending session immediately so it can be cleaned up if something goes wrong
+    pendingSessions.set(sessionId, {
+        sessionId,
+        browser,
+        apiKey,
+        expectedClientId,
+        startTime: Date.now(),
+        foundryUrl,
+        worldName,
+        username
+    });
+    log.info(`Tracking pending session ${sessionId} for client ${expectedClientId}`);
+    
     // Create a promise that resolves when the client connects or rejects on timeout
     const clientConnectionPromise = new Promise<string>((resolve, reject) => {
     // Initial check for existing client
@@ -647,6 +747,10 @@ try {
     // Wait for client connection
     const connectedClientId = await clientConnectionPromise;
     
+    // Remove from pending sessions - connection successful
+    pendingSessions.delete(sessionId);
+    log.info(`Session ${sessionId} connected successfully, removed from pending`);
+    
     // Store the session in our API key mapping
     apiKeyToSession.set(apiKey, { 
         sessionId, 
@@ -663,6 +767,10 @@ try {
         clientId: connectedClientId
     });
     } catch (error) {
+    // Remove from pending sessions - connection failed
+    pendingSessions.delete(sessionId);
+    log.info(`Session ${sessionId} connection failed, removed from pending`);
+    
     // Close the browser if client connection times out
     await browser.close();
     browserSessions.delete(sessionId);
@@ -672,7 +780,11 @@ try {
     return safeResponse(res, 408, { 
         error: "Client connection timeout", 
         details: errorMessage,
-        message: "Foundry client failed to connect to the API within the timeout period"
+        message: "Foundry client failed to connect to the API within the 5 minute timeout period. " +
+                 "This usually happens when another GM is already logged in and is elected as the 'primary GM'. " +
+                 "The Foundry REST API module only allows one GM to connect to the relay at a time. " +
+                 "Try logging out other GM users before starting a headless session.",
+        expectedClientId
     });
     }
     } catch (error) {
@@ -703,7 +815,33 @@ try {
     return safeResponse(res, 400, { error: "Session ID is required" });
     }
     
-    // Check if we have this session locally
+    // First check if this is a pending session (browser launched but waiting for connection)
+    const pendingSession = pendingSessions.get(sessionId);
+    if (pendingSession) {
+        if (pendingSession.apiKey !== apiKey) {
+            return safeResponse(res, 403, { error: "Not authorized to terminate this session" });
+        }
+        
+        log.info(`Terminating pending session ${sessionId} (was waiting for ${pendingSession.expectedClientId})`);
+        
+        try {
+            await pendingSession.browser.close();
+            pendingSessions.delete(sessionId);
+            browserSessions.delete(sessionId);
+            
+            return safeResponse(res, 200, {
+                success: true,
+                message: "Pending Foundry session terminated",
+                details: `Session was waiting for client ${pendingSession.expectedClientId} to connect`
+            });
+        } catch (error) {
+            log.error(`Error closing pending session ${sessionId}: ${error}`);
+            pendingSessions.delete(sessionId);
+            return safeResponse(res, 500, { error: "Failed to close pending session browser" });
+        }
+    }
+    
+    // Check if we have this session locally (established session)
     const browser = browserSessions.get(sessionId);
     let sessionClosed = false;
     
@@ -730,6 +868,9 @@ try {
         // Delete all session-related keys
         if (sessionData.clientId) {
             await redis.del(`headless_client:${sessionData.clientId}`);
+            // Also remove from ClientManager
+            ClientManager.removeClient(sessionData.clientId);
+            log.info(`Removed client ${sessionData.clientId} from ClientManager`);
         }
         await redis.del(`headless_apikey:${apiKey}`);
         await redis.del(`headless_session:${sessionId}`);
@@ -747,9 +888,27 @@ try {
     log.error(`Error cleaning up Redis session data: ${error}`);
     }
     
+    // Clean up local session storage as well
+    // First check if it exists, then delete
+    const localSessions = apiKeyToSession.getAll(apiKey);
+    const localSession = localSessions.find(s => s.sessionId === sessionId);
+    
+    // Remove client from ClientManager if found
+    if (localSession && localSession.clientId) {
+        ClientManager.removeClient(localSession.clientId);
+        log.info(`Removed client ${localSession.clientId} from ClientManager`);
+    }
+    
+    apiKeyToSession.deleteSession(apiKey, sessionId);
+    
     // If we got here with sessionClosed true, we closed the browser but failed Redis cleanup
     if (sessionClosed) {
     return safeResponse(res, 200, { success: true, message: "Foundry session terminated (partial cleanup)" });
+    }
+    
+    // Check if session existed in local storage (for local mode without Redis)
+    if (localSession) {
+        return safeResponse(res, 200, { success: true, message: "Foundry session terminated" });
     }
     
     return safeResponse(res, 404, { error: "Session not found" });
@@ -772,6 +931,38 @@ sessionRouter.get("/session", requestForwarderMiddleware, authMiddleware, async 
         const redis = getRedisClient();
         let sessions: any[] = [];
         
+        // Helper function to get client details
+        const getClientDetails = async (clientId: string) => {
+            if (redis) {
+                // Try to get from Redis first
+                const [worldId, worldTitle, foundryVersion, systemId, systemTitle, systemVersion, customName] = await Promise.all([
+                    redis.get(`client:${clientId}:worldId`),
+                    redis.get(`client:${clientId}:worldTitle`),
+                    redis.get(`client:${clientId}:foundryVersion`),
+                    redis.get(`client:${clientId}:systemId`),
+                    redis.get(`client:${clientId}:systemTitle`),
+                    redis.get(`client:${clientId}:systemVersion`),
+                    redis.get(`client:${clientId}:customName`)
+                ]);
+                return { worldId, worldTitle, foundryVersion, systemId, systemTitle, systemVersion, customName };
+            }
+            
+            // Fallback to ClientManager
+            const client = await ClientManager.getClient(clientId);
+            if (client) {
+                return {
+                    worldId: client.getWorldId() || '',
+                    worldTitle: client.getWorldTitle() || '',
+                    foundryVersion: client.getFoundryVersion() || '',
+                    systemId: client.getSystemId() || '',
+                    systemTitle: client.getSystemTitle() || '',
+                    systemVersion: client.getSystemVersion() || '',
+                    customName: client.getCustomName() || ''
+                };
+            }
+            return null;
+        };
+        
         // Try to get session data from Redis first
         if (redis) {
         // Check if this API key has a headless session in Redis - FIX: Use correct key pattern
@@ -785,12 +976,25 @@ sessionRouter.get("/session", requestForwarderMiddleware, authMiddleware, async 
             // Parse timestamps
             const lastActivity = parseInt(sessionData.lastActivity || '0');
             
+            // Get client details
+            const clientDetails = sessionData.clientId ? await getClientDetails(sessionData.clientId) : null;
+            
             sessions.push({
                 id: sessionId,
                 clientId: sessionData.clientId || '',
                 lastActivity: lastActivity,
                 idleMinutes: Math.round((Date.now() - lastActivity) / 60000),
-                instanceId: sessionData.instanceId || 'unknown'
+                instanceId: sessionData.instanceId || 'unknown',
+                // Include client details if available
+                ...(clientDetails && {
+                    worldId: clientDetails.worldId || '',
+                    worldTitle: clientDetails.worldTitle || '',
+                    foundryVersion: clientDetails.foundryVersion || '',
+                    systemId: clientDetails.systemId || '',
+                    systemTitle: clientDetails.systemTitle || '',
+                    systemVersion: clientDetails.systemVersion || '',
+                    customName: clientDetails.customName || ''
+                })
             });
             }
         }
@@ -798,21 +1002,56 @@ sessionRouter.get("/session", requestForwarderMiddleware, authMiddleware, async 
         
         // Fall back to local storage if no Redis session found
         if (sessions.length === 0) {
-        const userSession = apiKeyToSession.get(apiKey);
+        // Get ALL sessions for this API key (supports multiple sessions in local mode)
+        const userSessions = apiKeyToSession.getAll(apiKey);
         
-        if (userSession) {
+        for (const userSession of userSessions) {
+            // Get client details
+            const clientDetails = await getClientDetails(userSession.clientId);
+            
             sessions.push({
             id: userSession.sessionId,
             clientId: userSession.clientId,
             lastActivity: userSession.lastActivity,
             idleMinutes: Math.round((Date.now() - userSession.lastActivity) / 60000),
-            instanceId: process.env.FLY_ALLOC_ID || 'local'
+            instanceId: process.env.FLY_ALLOC_ID || 'local',
+            // Include client details if available
+            ...(clientDetails && {
+                worldId: clientDetails.worldId || '',
+                worldTitle: clientDetails.worldTitle || '',
+                foundryVersion: clientDetails.foundryVersion || '',
+                systemId: clientDetails.systemId || '',
+                systemTitle: clientDetails.systemTitle || '',
+                systemVersion: clientDetails.systemVersion || '',
+                customName: clientDetails.customName || ''
+            })
             });
         }
         }
         
+        // Also include pending sessions (browsers launched but waiting for client connection)
+        // These are critical to track because they can become orphaned
+        const pendingForApiKey: any[] = [];
+        for (const [sessionId, pending] of pendingSessions.entries()) {
+            if (pending.apiKey === apiKey) {
+                const waitingSeconds = Math.round((Date.now() - pending.startTime) / 1000);
+                pendingForApiKey.push({
+                    id: sessionId,
+                    status: 'pending',
+                    expectedClientId: pending.expectedClientId,
+                    foundryUrl: pending.foundryUrl,
+                    worldName: pending.worldName || '',
+                    username: pending.username,
+                    waitingSeconds,
+                    startTime: pending.startTime,
+                    instanceId: process.env.FLY_ALLOC_ID || 'local'
+                });
+            }
+        }
+        
         safeResponse(res, 200, { 
-        activeSessions: sessions
+        activeSessions: sessions,
+        pendingSessions: pendingForApiKey
         });
     } catch (error) {
         log.error(`Error retrieving headless sessions: ${error}`);

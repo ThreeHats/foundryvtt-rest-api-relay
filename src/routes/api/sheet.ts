@@ -16,9 +16,9 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  * This endpoint retrieves the HTML for an actor sheet based on the provided UUID or selected actor. Only works on Foundry version 12.
  * 
  * @route GET /sheet
- * @param {string} uuid - [query,?] The UUID of the actor to get the sheet for
- * @param {boolean} selected - [query,?] Whether to get the sheet for the selected actor
- * @param {boolean} actor - [query,?] Whether this is an actor sheet (true) or item sheet (false)
+ * @param {string} uuid - [query,?] The UUID of the entity to get the sheet for
+ * @param {boolean} selected - [query,?] Whether to get the sheet for the selected entity
+ * @param {boolean} actor - [query,?] Whether to get the sheet for the selected token's actor if selected is true
  * @param {string} clientId - [query] The ID of the Foundry client to connect to
  * @param {string} format - [query,?] The format to return the sheet in (html, json)
  * @param {number} scale - [query,?] The initial scale of the sheet

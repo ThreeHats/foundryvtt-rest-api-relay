@@ -1,37 +1,188 @@
 ---
 tag: encounter
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 
 # encounter
 
-### GET /encounters
+## GET /encounters
 
 Get all active encounters Retrieves a list of all currently active encounters in the Foundry world.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | The ID of the Foundry client to connect to |
 
-#### Returns
+### Returns
 
 **object** - An array of active encounters with details
 
-#### Example Request
+### Code Examples
 
-```http
-GET /encounters
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/encounters';
+const params = {
+  clientId: 'your-client-id'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
 ```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3010/encounters?clientId=your-client-id' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/encounters'
+params = {
+    'clientId': 'your-client-id'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/encounters';
+  const params = {
+    clientId: 'your-client-id'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/encounters🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /encounters🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "requestId": "encounters_1765635995043",
+  "clientId": "your-client-id",
+  "type": "encounters-result",
+  "encounters": [
+    {
+      "id": "5qmc1bi3GXafUmBv",
+      "round": 1,
+      "turn": 0,
+      "current": true,
+      "combatants": [
+        {
+          "id": "eIcG8WVHBgRLytso",
+          "name": "test",
+          "tokenUuid": "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk",
+          "actorUuid": "Actor.xctPu6799LkAP6p3",
+          "img": "icons/svg/mystery-man.svg",
+          "initiative": 17,
+          "hidden": false,
+          "defeated": false
+        }
+      ]
+    }
+  ]
+}
+```
+
 
 ---
 
-### POST /start-encounter
+## POST /start-encounter
 
 Start a new encounter Initiates a new encounter in the Foundry world.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -43,171 +194,1015 @@ Start a new encounter Initiates a new encounter in the Foundry world.
 | rollAll | boolean |  | body | Whether to roll for all tokens |
 | name | string |  | body | The name of the encounter (unused) |
 
-#### Returns
+### Returns
 
 **object** - Details of the started encounter
 
-#### Example Request
+### Code Examples
 
-```http
-POST /start-encounter
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/start-encounter';
+const params = {
+  clientId: 'your-client-id'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "startWithSelected": true,
+      "rollAll": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/start-encounter?clientId=your-client-id' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"startWithSelected":true,"rollAll":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/start-encounter'
+params = {
+    'clientId': 'your-client-id'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+    "startWithSelected": True,
+    "rollAll": True
+}
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/start-encounter';
+  const params = {
+    clientId: 'your-client-id'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "startWithSelected": true,
+        "rollAll": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/start-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"startWithSelected":true,"rollAll":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /start-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 41❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
 {
-  "tokens": [
-    "example"
-  ],
-  "startWithSelected": true
+  "requestId": "start-encounter_1765635993221",
+  "clientId": "your-client-id",
+  "type": "start-encounter-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "encounter": {
+    "id": "5qmc1bi3GXafUmBv",
+    "round": 1,
+    "turn": 0,
+    "combatants": [
+      {
+        "id": "eIcG8WVHBgRLytso",
+        "name": "test",
+        "tokenUuid": "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk",
+        "actorUuid": "Actor.xctPu6799LkAP6p3",
+        "img": "icons/svg/mystery-man.svg",
+        "initiative": 17,
+        "hidden": false,
+        "defeated": false
+      }
+    ]
+  }
 }
 ```
 
+
 ---
 
-### POST /next-turn
+## POST /next-turn
 
 Advance to the next turn in the encounter Moves the encounter to the next turn.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 
-#### Returns
+### Returns
 
 **object** - Details of the next turn
 
-#### Example Request
+### Code Examples
 
-```http
-POST /next-turn
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/next-turn';
+const params = {
+  clientId: 'your-client-id',
+  encounterId: '5qmc1bi3GXafUmBv'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/next-turn?clientId=your-client-id&encounterId=5qmc1bi3GXafUmBv' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/next-turn'
+params = {
+    'clientId': 'your-client-id',
+    'encounterId': '5qmc1bi3GXafUmBv'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/next-turn';
+  const params = {
+    clientId: 'your-client-id',
+    encounterId: '5qmc1bi3GXafUmBv'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/next-turn🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤encounterId=5qmc1bi3GXafUmBv🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /next-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
 {
-  "encounter": "example-value"
+  "requestId": "next-turn_1765635995411",
+  "clientId": "your-client-id",
+  "type": "next-turn-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "action": "nextTurn",
+  "currentTurn": 0,
+  "currentRound": 2,
+  "actorTurn": "Actor.xctPu6799LkAP6p3",
+  "tokenTurn": "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk",
+  "encounter": {
+    "id": "5qmc1bi3GXafUmBv",
+    "round": 2,
+    "turn": 0
+  }
 }
 ```
 
+
 ---
 
-### POST /next-round
+## POST /next-round
 
 Advance to the next round in the encounter Moves the encounter to the next round.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 
-#### Returns
+### Returns
 
 **object** - Details of the next round
 
-#### Example Request
+### Code Examples
 
-```http
-POST /next-round
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/next-round';
+const params = {
+  clientId: 'your-client-id',
+  encounterId: '5qmc1bi3GXafUmBv'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/next-round?clientId=your-client-id&encounterId=5qmc1bi3GXafUmBv' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/next-round'
+params = {
+    'clientId': 'your-client-id',
+    'encounterId': '5qmc1bi3GXafUmBv'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/next-round';
+  const params = {
+    clientId: 'your-client-id',
+    encounterId: '5qmc1bi3GXafUmBv'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/next-round🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤encounterId=5qmc1bi3GXafUmBv🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /next-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
 {
-  "encounter": "example-value"
+  "requestId": "next-round_1765635996453",
+  "clientId": "your-client-id",
+  "type": "next-round-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "action": "nextRound",
+  "currentTurn": 0,
+  "currentRound": 3,
+  "actorTurn": "Actor.xctPu6799LkAP6p3",
+  "tokenTurn": "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk",
+  "encounter": {
+    "id": "5qmc1bi3GXafUmBv",
+    "round": 3,
+    "turn": 0
+  }
 }
 ```
 
+
 ---
 
-### POST /last-turn
+## POST /last-turn
 
 Advance to the last turn in the encounter Moves the encounter to the last turn.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 
-#### Returns
+### Returns
 
 **object** - Details of the last turn
 
-#### Example Request
+### Code Examples
 
-```http
-POST /last-turn
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/last-turn';
+const params = {
+  clientId: 'your-client-id',
+  encounterId: '5qmc1bi3GXafUmBv'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/last-turn?clientId=your-client-id&encounterId=5qmc1bi3GXafUmBv' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/last-turn'
+params = {
+    'clientId': 'your-client-id',
+    'encounterId': '5qmc1bi3GXafUmBv'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/last-turn';
+  const params = {
+    clientId: 'your-client-id',
+    encounterId: '5qmc1bi3GXafUmBv'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/last-turn🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤encounterId=5qmc1bi3GXafUmBv🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /last-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
 {
-  "encounter": "example-value"
+  "requestId": "last-turn_1765635997487",
+  "clientId": "your-client-id",
+  "type": "last-turn-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "action": "previousTurn",
+  "currentTurn": 0,
+  "currentRound": 2,
+  "actorTurn": "Actor.xctPu6799LkAP6p3",
+  "tokenTurn": "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk",
+  "encounter": {
+    "id": "5qmc1bi3GXafUmBv",
+    "round": 2,
+    "turn": 0
+  }
 }
 ```
 
+
 ---
 
-### POST /last-round
+## POST /last-round
 
 Advance to the last round in the encounter Moves the encounter to the last round.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 
-#### Returns
+### Returns
 
 **object** - Details of the last round
 
-#### Example Request
+### Code Examples
 
-```http
-POST /last-round
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/last-round';
+const params = {
+  clientId: 'your-client-id',
+  encounterId: '5qmc1bi3GXafUmBv'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/last-round?clientId=your-client-id&encounterId=5qmc1bi3GXafUmBv' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/last-round'
+params = {
+    'clientId': 'your-client-id',
+    'encounterId': '5qmc1bi3GXafUmBv'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/last-round';
+  const params = {
+    clientId: 'your-client-id',
+    encounterId: '5qmc1bi3GXafUmBv'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/last-round🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤encounterId=5qmc1bi3GXafUmBv🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /last-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
 {
-  "encounter": "example-value"
+  "requestId": "last-round_1765635998254",
+  "clientId": "your-client-id",
+  "type": "last-round-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "action": "previousRound",
+  "currentTurn": 0,
+  "currentRound": 1,
+  "actorTurn": "Actor.xctPu6799LkAP6p3",
+  "tokenTurn": "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk",
+  "encounter": {
+    "id": "5qmc1bi3GXafUmBv",
+    "round": 1,
+    "turn": 0
+  }
 }
 ```
 
+
 ---
 
-### POST /end-encounter
+## POST /end-encounter
 
 End an encounter Ends the current encounter in the Foundry world.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to end (optional, defaults to current encounter) |
 
-#### Returns
+### Returns
 
 **object** - Details of the ended encounter
 
-#### Example Request
+### Code Examples
 
-```http
-POST /end-encounter
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/end-encounter';
+const params = {
+  clientId: 'your-client-id',
+  encounterId: '5qmc1bi3GXafUmBv'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/end-encounter?clientId=your-client-id&encounterId=5qmc1bi3GXafUmBv' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/end-encounter'
+params = {
+    'clientId': 'your-client-id',
+    'encounterId': '5qmc1bi3GXafUmBv'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/end-encounter';
+  const params = {
+    clientId: 'your-client-id',
+    encounterId: '5qmc1bi3GXafUmBv'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/end-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤encounterId=5qmc1bi3GXafUmBv🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /end-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
 {
-  "encounter": "example-value"
+  "requestId": "end-encounter_1765636000042",
+  "clientId": "your-client-id",
+  "type": "end-encounter-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "message": "Encounter successfully ended"
 }
 ```
 
+
 ---
 
-### POST /add-to-encounter
+## POST /add-to-encounter
 
 Add tokens to an encounter Adds selected tokens or specified UUIDs to the current encounter.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -217,29 +1212,183 @@ Add tokens to an encounter Adds selected tokens or specified UUIDs to the curren
 | uuids | array |  | body | The UUIDs of the tokens to add (optional, defaults to empty array) |
 | rollInitiative | boolean |  | body | Whether to roll initiative for the added tokens (optional, defaults to false) |
 
-#### Returns
+### Returns
 
 **object** - Details of the updated encounter
 
-#### Example Request
+### Code Examples
 
-```http
-POST /add-to-encounter
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/add-to-encounter';
+const params = {
+  clientId: 'your-client-id',
+  encounterId: '5qmc1bi3GXafUmBv'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "selected": true,
+      "uuids": [],
+      "rollInitiative": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/add-to-encounter?clientId=your-client-id&encounterId=5qmc1bi3GXafUmBv' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"selected":true,"uuids":[],"rollInitiative":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/add-to-encounter'
+params = {
+    'clientId': 'your-client-id',
+    'encounterId': '5qmc1bi3GXafUmBv'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+    "selected": True,
+    "uuids": [],
+    "rollInitiative": True
+}
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/add-to-encounter';
+  const params = {
+    clientId: 'your-client-id',
+    encounterId: '5qmc1bi3GXafUmBv'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "selected": true,
+        "uuids": [],
+        "rollInitiative": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/add-to-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤encounterId=5qmc1bi3GXafUmBv🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"selected":true,"uuids":[],"rollInitiative":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /add-to-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
 {
-  "encounter": "example-value",
-  "selected": true
+  "requestId": "add-to-encounter_1765635999540",
+  "clientId": "your-client-id",
+  "type": "add-to-encounter-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "added": [
+    "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk"
+  ],
+  "failed": []
 }
 ```
 
+
 ---
 
-### POST /remove-from-encounter
+## POST /remove-from-encounter
 
 Remove tokens from an encounter Removes selected tokens or specified UUIDs from the current encounter.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
@@ -248,21 +1397,166 @@ Remove tokens from an encounter Removes selected tokens or specified UUIDs from 
 | selected | boolean |  | body | Whether to remove selected tokens (optional, defaults to false) |
 | uuids | array |  | body | The UUIDs of the tokens to remove (optional, defaults to empty array) |
 
-#### Returns
+### Returns
 
 **object** - Details of the updated encounter
 
-#### Example Request
+### Code Examples
 
-```http
-POST /remove-from-encounter
-Content-Type: application/json
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
 
-{
-  "encounter": "example-value",
-  "selected": true
-}
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/remove-from-encounter';
+const params = {
+  clientId: 'your-client-id',
+  encounterId: '5qmc1bi3GXafUmBv'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "selected": true
+    })
+});
+const data = await response.json();
+console.log(data);
 ```
 
----
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=your-client-id&encounterId=5qmc1bi3GXafUmBv' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"selected":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/remove-from-encounter'
+params = {
+    'clientId': 'your-client-id',
+    'encounterId': '5qmc1bi3GXafUmBv'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+    "selected": True
+}
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/remove-from-encounter';
+  const params = {
+    clientId: 'your-client-id',
+    encounterId: '5qmc1bi3GXafUmBv'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "selected": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/remove-from-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤encounterId=5qmc1bi3GXafUmBv🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"selected":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /remove-from-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 17❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "requestId": "remove-from-encounter_1765635999026",
+  "clientId": "your-client-id",
+  "type": "remove-from-encounter-result",
+  "encounterId": "5qmc1bi3GXafUmBv",
+  "removed": [
+    "Scene.NUEDEFAULTSCENE0.Token.O4sEnBrG5I3lFNGk"
+  ],
+  "failed": []
+}
+```
 

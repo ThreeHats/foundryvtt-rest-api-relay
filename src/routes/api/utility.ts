@@ -117,10 +117,10 @@ utilityRouter.post("/select", ...commonMiddleware, createApiRoute({
     { name: 'all', from: 'body', type: 'boolean' } // Whether to select all tokens on the canvas
   ],
   validateParams: (params) => {
-    if (!params.uuids?.length && !params.name && !params.data) {
+    if (!params.uuids?.length && !params.name && !params.data && !params.all) {
       return {
-        error: "Either uuids array, name, or data is required",
-        howToUse: "Provide uuids, name, or data parameters"
+        error: "Either uuids array, name, data, or all is required",
+        howToUse: "Provide uuids, name, data, or all parameters"
       };
     }
     return null;
