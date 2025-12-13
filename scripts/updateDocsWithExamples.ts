@@ -233,7 +233,8 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
       const after = endpointSection.substring(insertionPoint);
       const newEndpointSection = before + exampleSection + after;
       
-      content = content.replace(endpointSectionRegex, newEndpointSection);
+      // Use function replacement to prevent $ sequences from being interpreted
+      content = content.replace(endpointSectionRegex, () => newEndpointSection);
     } else {
       console.warn(`  Warning: Could not find endpoint ${example.method} ${matchEndpoint} in markdown`);
     }
