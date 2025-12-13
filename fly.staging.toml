@@ -1,0 +1,55 @@
+# fly.staging.toml - Staging environment configuration
+# Deploy with: fly deploy --config fly.staging.toml
+app = 'foundryvtt-rest-api-relay-staging'
+primary_region = 'ord'
+
+[build]
+
+[http]
+  # This is the port Fly.io will expose to the internet
+  port = 3010
+
+[http_service]
+  # This is the port your app listens on inside the container
+  internal_port = 3010
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  # Staging: Allow scaling to 0 when not in use to save costs
+  min_machines_running = 0
+  max_machines_running = 2
+  force_instance_key = true
+  
+  [[http_service.checks]]
+    grace_period = "45s"
+    interval = "30s"
+    method = "GET"
+    path = "/health"
+    timeout = "10s"
+
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 500
+    soft_limit = 250
+
+# Enable private networking for VM-to-VM communication
+[experimental]
+  enable_6pn = true
+
+# Staging: Smaller VM for cost savings
+[[vm]]
+  memory = '2gb'
+  cpu_kind = 'shared'
+  cpus = 2
+
+[[vm.mounts]]
+  source = "staging_data"
+  destination = "/data"
+  
+[env]
+  NODE_ENV = "staging"
+  ENABLE_REDIS = "true"
+  REDIS_CLIENT_EXPIRY = "14400"  # 4 hours in seconds
+  DB_TYPE = "postgres"
+  APP_NAME = "foundryvtt-rest-api-relay-staging"
+  DISABLE_REGISTRATION = "true"  # Prevent public signups on staging

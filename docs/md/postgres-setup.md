@@ -18,7 +18,7 @@ This setup provides persistent storage using PostgreSQL instead of the default S
 2. **Initialize the database:**
    ```bash
    # Wait for PostgreSQL to be ready (about 10-15 seconds), then run:
-   docker-compose -f docker-compose.postgres.yml exec relay pnpm run db:migrate
+   docker-compose -f docker-compose.postgres.yml exec relay pnpm run db:reset
    ```
 
 3. **Check the logs:**
@@ -36,7 +36,7 @@ docker-compose -f docker-compose.postgres.yml up -d db
 docker-compose -f docker-compose.postgres.yml ps
 
 # 3. Initialize the database schema and create admin user
-docker-compose -f docker-compose.postgres.yml exec relay pnpm run db:migrate
+docker-compose -f docker-compose.postgres.yml exec relay pnpm run db:reset
 
 # 4. Start the relay service
 docker-compose -f docker-compose.postgres.yml up -d relay
@@ -53,12 +53,14 @@ docker-compose -f docker-compose.postgres.yml logs -f relay
 - **Host:** `localhost` (from host machine) or `db` (from within Docker network)
 - **Port:** `5432`
 
-## Default Admin User
+## Admin User Setup
 
-After initialization, a default admin user is created:
-- **Email:** `admin@example.com`
-- **Password:** `admin123`
-- **API Key:** Generated automatically (check logs for the key)
+To create an admin user during database reset, set environment variables:
+```bash
+ADMIN_EMAIL=your@email.com ADMIN_PASSWORD=your-secure-password pnpm run db:reset
+```
+
+If not provided, no admin user is created. Users can register at the website (e.g., `https://your-relay-server.com`) unless `DISABLE_REGISTRATION=true`.
 
 ## Environment Variables
 
@@ -103,7 +105,7 @@ docker volume rm foundryvtt-rest-api-relay_postgres_data
 
 # Start fresh
 docker-compose -f docker-compose.postgres.yml up -d db
-docker-compose -f docker-compose.postgres.yml exec relay pnpm run db:migrate
+docker-compose -f docker-compose.postgres.yml exec relay pnpm run db:reset
 docker-compose -f docker-compose.postgres.yml up -d
 ```
 

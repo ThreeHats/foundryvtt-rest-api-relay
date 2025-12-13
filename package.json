@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "cross-env PORT=3010 dotenv -e .env tsx watch src/index.ts",
-    "db:migrate": "tsx src/models/init.ts",
+    "db:reset": "tsx src/models/init.ts",
     "local:sqlite": "cross-env DB_TYPE=sqlite PORT=3010 FREE_API_REQUESTS_LIMIT=999999999 DAILY_REQUEST_LIMIT=999999999 tsx watch src/index.ts",
     "local": "cross-env DB_TYPE=memory PORT=3010 FREE_API_REQUESTS_LIMIT=999999999 DAILY_REQUEST_LIMIT=999999999 tsx watch src/index.ts",
     "postinstall": "npx puppeteer install",
