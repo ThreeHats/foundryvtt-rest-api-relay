@@ -177,7 +177,7 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
   // Remove ALL existing code examples sections
   content = content.replace(/\n### Code Examples\n[\s\S]*?(?=\n## |$)/g, '');
 
-  // For each example, find the corresponding endpoint and insert the example after its ### Returns section
+  // For each example, find the corresponding endpoint and insert the example
   for (const example of examples) {
     // Use description for matching if it contains parameter placeholders (e.g., ":uuid"),
     // otherwise fall back to converting the endpoint to a pattern
@@ -192,19 +192,48 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
         .replace(/\/[a-zA-Z0-9]{16,}/g, '/:id');
     }
     
-    // Create regex to find the endpoint section - match from ## through ### Returns and its content
-    // Match the Returns line and everything up to (but not including) the --- separator, next endpoint, or end of file
     const escapedEndpoint = matchEndpoint.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const endpointRegex = new RegExp(
-      `(## ${example.method} ${escapedEndpoint}\\n[\\s\\S]*?### Returns\\n\\n\\*\\*[^\\n]*?)\\s*(?=\\n---|\\n## |$)`,
+    
+    // Match the entire endpoint section - from ## METHOD /endpoint to just before the next --- or ## or EOF
+    const endpointSectionRegex = new RegExp(
+      `(## ${example.method} ${escapedEndpoint}\\n[\\s\\S]*?)(?=\\n---|\\n## |$)`,
       'i'
     );
 
-    const match = content.match(endpointRegex);
+    const match = content.match(endpointSectionRegex);
     if (match) {
-      // Insert the example after the Returns section
+      const endpointSection = match[1];
+      
+      // Check if this section already has code examples
+      if (endpointSection.includes('### Code Examples')) {
+        // Skip - already has examples (shouldn't happen since we removed them all)
+        continue;
+      }
+      
+      // Find the best insertion point:
+      // 1. After ### Returns section if it exists
+      // 2. After ### Parameters table if no Returns
+      let insertionPoint = endpointSection.length;
+      
+      // Try to find ### Returns section
+      const returnsMatch = endpointSection.match(/### Returns\n\n\*\*[^\n]*?\n/);
+      if (returnsMatch) {
+        insertionPoint = returnsMatch.index! + returnsMatch[0].length;
+      } else {
+        // No Returns section, try to find end of Parameters table
+        const paramsMatch = endpointSection.match(/### Parameters[\s\S]*?\n\n/);
+        if (paramsMatch) {
+          insertionPoint = paramsMatch.index! + paramsMatch[0].length;
+        }
+      }
+      
+      // Insert the example at the insertion point
       const exampleSection = generateSingleExample(example);
-      content = content.replace(endpointRegex, `$1\n${exampleSection}`);
+      const before = endpointSection.substring(0, insertionPoint);
+      const after = endpointSection.substring(insertionPoint);
+      const newEndpointSection = before + exampleSection + after;
+      
+      content = content.replace(endpointSectionRegex, newEndpointSection);
     } else {
       console.warn(`  Warning: Could not find endpoint ${example.method} ${matchEndpoint} in markdown`);
     }

@@ -225,11 +225,16 @@ function generatePython(config: any): string {
     try {
       const parsed = JSON.parse(config.body.raw);
       // Convert JSON to Python syntax (true -> True, false -> False, null -> None)
-      const pythonJson = JSON.stringify(parsed, null, 4)
+      const pythonJson = JSON.stringify(parsed, null, 2)
         .replace(/\btrue\b/g, 'True')
         .replace(/\bfalse\b/g, 'False')
         .replace(/\bnull\b/g, 'None');
-      bodyStr = `,\n    json=${pythonJson}`;
+      // Indent the JSON body to align with the parameter context (8 spaces base + 2 for content)
+      const indentedJson = pythonJson.split('\n').map((line, i) => {
+        if (i === 0) return line; // First line stays inline with json=
+        return '    ' + line; // Indent subsequent lines to align with opening brace
+      }).join('\n');
+      bodyStr = `,\n    json=${indentedJson}`;
     } catch {
       bodyStr = `,\n    data='${config.body.raw}'`;
     }
