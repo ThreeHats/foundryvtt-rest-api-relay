@@ -85,9 +85,9 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-    "all": True,
-    "overwrite": True
-}
+      "all": True,
+      "overwrite": True
+    }
 )
 data = response.json()
 print(data)
@@ -173,7 +173,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "select_1765635990742",
+  "requestId": "select_1765658028607",
   "clientId": "your-client-id",
   "type": "select-result",
   "success": true,
@@ -330,7 +330,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "selected_1765635990772",
+  "requestId": "selected_1765658028860",
   "clientId": "your-client-id",
   "type": "selected-result",
   "success": true,
@@ -419,8 +419,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-    "script": "const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"
-}
+      "script": "const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"
+    }
 )
 data = response.json()
 print(data)
@@ -505,11 +505,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "execute-js_1765635991162",
+  "requestId": "execute-js_1765658029302",
   "clientId": "your-client-id",
   "type": "execute-js-result",
   "success": true,
   "result": "ws://localhost:3010"
 }
 ```
+
 

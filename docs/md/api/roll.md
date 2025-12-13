@@ -154,13 +154,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "rolls_1765635982518",
+  "requestId": "rolls_1765658019919",
   "clientId": "your-client-id",
   "type": "rolls-result",
   "data": [
     {
-      "id": "RnuRRnuolZDORCSf",
-      "messageId": "RnuRRnuolZDORCSf",
+      "id": "8G3jxGpAw8Pxp0fA",
+      "messageId": "8G3jxGpAw8Pxp0fA",
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"
@@ -171,7 +171,7 @@ import axios from 'axios';
         "token": null
       },
       "flavor": "Test Roll",
-      "rollTotal": 17,
+      "rollTotal": 15,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -180,17 +180,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 3,
+              "result": 7,
               "active": false
             },
             {
-              "result": 17,
+              "result": 15,
               "active": true
             }
           ]
         }
       ],
-      "timestamp": 1765635982506
+      "timestamp": 1765658019895
     }
   ]
 }
@@ -341,12 +341,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-roll_1765635982792",
+  "requestId": "last-roll_1765658020210",
   "clientId": "your-client-id",
   "type": "last-roll-result",
   "data": {
-    "id": "RnuRRnuolZDORCSf",
-    "messageId": "RnuRRnuolZDORCSf",
+    "id": "8G3jxGpAw8Pxp0fA",
+    "messageId": "8G3jxGpAw8Pxp0fA",
     "user": {
       "id": "r6bXhB7k9cXa3cif",
       "name": "tester"
@@ -357,7 +357,7 @@ import axios from 'axios';
       "token": null
     },
     "flavor": "Test Roll",
-    "rollTotal": 17,
+    "rollTotal": 15,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -366,17 +366,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 3,
+            "result": 7,
             "active": false
           },
           {
-            "result": 17,
+            "result": 15,
             "active": true
           }
         ]
       }
     ],
-    "timestamp": 1765635982506
+    "timestamp": 1765658019895
   }
 }
 ```
@@ -463,10 +463,10 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-    "formula": "2d20kh",
-    "flavor": "Test Roll",
-    "createChatMessage": True
-}
+      "formula": "2d20kh",
+      "flavor": "Test Roll",
+      "createChatMessage": True
+    }
 )
 data = response.json()
 print(data)
@@ -553,16 +553,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "roll_1765635981991",
+  "requestId": "roll_1765658019344",
   "clientId": "your-client-id",
   "type": "roll-result",
   "success": true,
   "data": {
-    "id": "manual_1765635982507_cei007er5vs",
+    "id": "manual_1765658019895_kue11zm4ddl",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 17,
+      "total": 15,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -570,19 +570,20 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 3,
+              "result": 7,
               "active": false
             },
             {
-              "result": 17,
+              "result": 15,
               "active": true
             }
           ]
         }
       ],
-      "timestamp": 1765635982507
+      "timestamp": 1765658019895
     }
   }
 }
 ```
+
 

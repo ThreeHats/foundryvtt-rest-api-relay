@@ -159,7 +159,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "search_1765635979813",
+  "requestId": "search_1765658017045",
   "clientId": "your-client-id",
   "type": "search-result",
   "query": "test-item",
@@ -167,12 +167,12 @@ import axios from 'axios';
   "results": [
     {
       "documentType": "Item",
-      "id": "ifzt7D41CkQeFgm4",
+      "id": "B63bm3XmBFKlwCfW",
       "name": "test-item",
       "subType": "base",
-      "uuid": "Item.ifzt7D41CkQeFgm4",
+      "uuid": "Item.B63bm3XmBFKlwCfW",
       "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
-      "journalLink": "@UUID[Item.ifzt7D41CkQeFgm4]{test-item}",
+      "journalLink": "@UUID[Item.B63bm3XmBFKlwCfW]{test-item}",
       "tagline": "Items Directory",
       "formattedMatch": "<strong>test-item</strong>",
       "resultType": "EntitySearchItem"
@@ -180,4 +180,5 @@ import axios from 'axios';
   ]
 }
 ```
+
 

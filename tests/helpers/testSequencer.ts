@@ -6,6 +6,7 @@
 
 import Sequencer from '@jest/test-sequencer';
 import type { Test } from '@jest/test-result';
+import path from 'path';
 
 export const TEST_ORDER = [
   // Phase 1: Session setup
@@ -41,8 +42,8 @@ class OrderedTestSequencer extends Sequencer {
   sort(tests: Array<Test>): Array<Test> {
     // Sort tests based on their position in our ordered list
     const sorted = [...tests].sort((a, b) => {
-      const aFilename = a.path.split('/').pop() || '';
-      const bFilename = b.path.split('/').pop() || '';
+      const aFilename = path.basename(a.path);
+      const bFilename = path.basename(b.path);
       
       const aOrder = TEST_ORDER.indexOf(aFilename);
       const bOrder = TEST_ORDER.indexOf(bFilename);

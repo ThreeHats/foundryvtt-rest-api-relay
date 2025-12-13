@@ -78,7 +78,10 @@ describe('Macro', () => {
         setVariable('clientId', getClientId());
         
         // Request configuration
-        const macroUuid = getEntityUuid(version, 'Macro', 'primary') || '';
+        const macroUuid = getEntityUuid(version, 'Macro', 'primary');
+        if (!macroUuid) {
+          throw new Error(`Macro UUID not found for version ${version}`);
+        }
         const requestConfig: ApiRequestConfig = {
           url: {
             raw: `{{baseUrl}}/macro/${macroUuid}/execute`,
@@ -99,16 +102,16 @@ describe('Macro', () => {
               type: 'text'
             }
           ],
-        body: {
-          mode: 'raw',
-          raw: JSON.stringify({
-              args: {
-                targetName: "Goblin",
-                damage: 100000,
-                effect: "poison"
-              }
-            }, null, 2)
-        }
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+                args: {
+                  targetName: "Goblin",
+                  damage: 100000,
+                  effect: "poison"
+                }
+              }, null, 2)
+          }
       };
 
         // Capture this example for documentation (also makes the request)

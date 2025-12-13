@@ -2,7 +2,7 @@
  * @file encounter-endpoints.test.ts
  * @generated Partially auto-generated from route docstrings
  * @description Combat Encounter Management Endpoint Tests
- * @endpoints POST /start-encounter, GET /encounters, POST /next-turn, POST /next-round, POST /last-turn, POST /last-round, POST /remove-from-encounter, POST /add-to-encounter, DELETE /end-encounter
+ * @endpoints POST /start-encounter, GET /encounters, POST /next-turn, POST /next-round, POST /last-turn, POST /last-round, POST /remove-from-encounter, POST /add-to-encounter, POST /end-encounter
  */
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
@@ -12,8 +12,7 @@ import { captureExample, saveExamples } from '../helpers/captureExample';
 import { forEachVersion } from '../helpers/multiVersion';
 import { setGlobalVariable, getGlobalVariable } from '../helpers/globalVariables';
 import * as path from 'path';
-import { get } from 'http';
-import e from 'cors';
+
 
 // Store captured examples for documentation
 const capturedExamples: any[] = [];
@@ -132,6 +131,7 @@ describe('Encounter', () => {
         // Assertions
         expect(captured.response.status).toBe(200);
         expect(captured.response.data).toHaveProperty('encounters');
+        expect(captured.response.data.encounters.length).toBeGreaterThan(0);
         expect(captured.response.data.encounters[0]).toHaveProperty('id');
         expect(captured.response.data.encounters[0]).toHaveProperty('round');
         expect(captured.response.data.encounters[0]).toHaveProperty('turn');
@@ -427,7 +427,7 @@ describe('Encounter', () => {
         expect(captured.response.data.removed).toBeInstanceOf(Array);
         expect(captured.response.data.removed.length).toBeGreaterThan(0);
         expect(captured.response.data.removed).toContain(getGlobalVariable(version, 'selectedTokenUuid'));
-        expect(captured.response.data).toHaveProperty('failed');
+        expect(captured.response.data).toHaveProperty('failed');;
         expect(captured.response.data.failed).toBeInstanceOf(Array);
         expect(captured.response.data.failed.length).toBe(0);
       });
@@ -489,7 +489,7 @@ describe('Encounter', () => {
         expect(captured.response.data.added).toBeInstanceOf(Array);
         expect(captured.response.data.added.length).toBeGreaterThan(0);
         expect(captured.response.data.added).toContain(getGlobalVariable(version, 'selectedTokenUuid'));
-        expect(captured.response.data).toHaveProperty('failed')
+        expect(captured.response.data).toHaveProperty('failed');
         expect(captured.response.data.failed).toBeInstanceOf(Array);
         expect(captured.response.data.failed.length).toBe(0);
       });

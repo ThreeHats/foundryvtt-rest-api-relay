@@ -45,7 +45,7 @@ describe('Sheet', () => {
               },
               {
                 key: 'uuid',
-                value: getEntityUuid(version, 'Actor', 'primary') || '',
+                value: getEntityUuid(version, 'Actor', 'primary') ?? (() => { throw new Error(`UUID not found for Actor 'primary' in version ${version}`); })(),
                 description: 'The UUID of the entity to get the sheet for'
               },
               {

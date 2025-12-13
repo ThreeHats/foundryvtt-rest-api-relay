@@ -200,7 +200,10 @@ describeOrSkip('Session', () => {
     describe(`/session-handshake (v${version})`, () => {
       test('POST /session-handshake', async () => {
         // Get version-specific Foundry connection details from env
-        const foundryUrl = process.env[`FOUNDRY_V${version}_URL`] || '';
+        const foundryUrl = process.env[`FOUNDRY_V${version}_URL`];
+        if (!foundryUrl) {
+          throw new Error(`FOUNDRY_V${version}_URL environment variable is required`);
+        }
         const worldName = process.env[`FOUNDRY_V${version}_WORLD`] || process.env.TEST_DEFAULT_WORLD || 'test-world';
         const username = process.env.FOUNDRY_USERNAME || 'testuser';
         

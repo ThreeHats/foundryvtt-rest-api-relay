@@ -234,10 +234,10 @@ console.log('Session started:', { sessionId, clientId });
   🔤/start-session🔤 ➡️ path
 
   💭 Request body
-  🔤{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"vS9rgCQ0plAzjXCvHDObn11XHyv+ScQdOiUjfUgiS9l91QgjDf3snZN1BJX8QZxvy6OJlUr8CLEg2mgzxfM2T3AJ4uWG0hzLzXB308Tx8pVYj1F0TCpIlHhrLZHlOQaHTKxmITMy6L+Mom0ZRXe/bAna+hkC/QeUi2U8LMupTGXa5ecA5PQBXCW3i3KBIJqee0GV2usSU6y2LZv6KpV+IKqEACUjiRrKXNqx/LV/jOOrFLUUKfatZP8IPlkXB6h71SsJvNG5/BzLzj0/MGLy+hrIYmI8bpMSLz7uJxXX2JAZ+gUenSmijBwRxu6kAvBMxL4vIteKFxfo/PpBRpDMEA=="}🔤 ➡️ body
+  🔤{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"Us5hNIQR/MfYGlDGVbBrd/eWp7mN0IR4K9A/dmDI01wpA3VTay7ACxEjY14fhtlymS327rJxsm5H2ZRjkQ8WCIWMVFUb9gaYZEjNBqQy0MtPCG0n+nRKkR4ZYlG50NJj8pjIG+9CyCpH9mFmA3gyfgBqNrwQXwKp64fyMwtesYfYy67jx2llh0Sb5OPY5NZjv+pTOm4y19Yy+ahtpNT8TADFE2UbxApbCXPU734vVYXX529R3JyUu396yGrsuIc6cbYZyj1mL55KNG++CR1jJF6FJvX8hU0QmTKWvNiGI/s7ZOP4avqV+bEJEHdd8UW7g0Wdqlp5ATw/41vsxAlXRw=="}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /start-session HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 452❌r❌n❌r❌n{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"vS9rgCQ0plAzjXCvHDObn11XHyv+ScQdOiUjfUgiS9l91QgjDf3snZN1BJX8QZxvy6OJlUr8CLEg2mgzxfM2T3AJ4uWG0hzLzXB308Tx8pVYj1F0TCpIlHhrLZHlOQaHTKxmITMy6L+Mom0ZRXe/bAna+hkC/QeUi2U8LMupTGXa5ecA5PQBXCW3i3KBIJqee0GV2usSU6y2LZv6KpV+IKqEACUjiRrKXNqx/LV/jOOrFLUUKfatZP8IPlkXB6h71SsJvNG5/BzLzj0/MGLy+hrIYmI8bpMSLz7uJxXX2JAZ+gUenSmijBwRxu6kAvBMxL4vIteKFxfo/PpBRpDMEA=="}🔤 ➡️ request
+  🔤POST /start-session HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 452❌r❌n❌r❌n{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"Us5hNIQR/MfYGlDGVbBrd/eWp7mN0IR4K9A/dmDI01wpA3VTay7ACxEjY14fhtlymS327rJxsm5H2ZRjkQ8WCIWMVFUb9gaYZEjNBqQy0MtPCG0n+nRKkR4ZYlG50NJj8pjIG+9CyCpH9mFmA3gyfgBqNrwQXwKp64fyMwtesYfYy67jx2llh0Sb5OPY5NZjv+pTOm4y19Yy+ahtpNT8TADFE2UbxApbCXPU734vVYXX529R3JyUu396yGrsuIc6cbYZyj1mL55KNG++CR1jJF6FJvX8hU0QmTKWvNiGI/s7ZOP4avqV+bEJEHdd8UW7g0Wdqlp5ATw/41vsxAlXRw=="}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -263,7 +263,7 @@ console.log('Session started:', { sessionId, clientId });
 {
   "success": true,
   "message": "Foundry session started successfully",
-  "sessionId": "46f06659-72d7-450f-82f5-537a4cd4bb8b",
+  "sessionId": "3852aabc-92a6-4700-b178-f0c7af518c86",
   "clientId": "your-client-id"
 }
 ```
@@ -295,7 +295,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: '46f06659-72d7-450f-82f5-537a4cd4bb8b'
+  sessionId: '3852aabc-92a6-4700-b178-f0c7af518c86'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -314,7 +314,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=46f06659-72d7-450f-82f5-537a4cd4bb8b' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=3852aabc-92a6-4700-b178-f0c7af518c86' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -327,7 +327,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': '46f06659-72d7-450f-82f5-537a4cd4bb8b'
+    'sessionId': '3852aabc-92a6-4700-b178-f0c7af518c86'
 }
 url = f'{base_url}{path}'
 
@@ -352,7 +352,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: '46f06659-72d7-450f-82f5-537a4cd4bb8b'
+    sessionId: '3852aabc-92a6-4700-b178-f0c7af518c86'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -386,7 +386,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=46f06659-72d7-450f-82f5-537a4cd4bb8b🔤 ➡️ sessionId
+  🔤sessionId=3852aabc-92a6-4700-b178-f0c7af518c86🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -550,9 +550,9 @@ import axios from 'axios';
 {
   "activeSessions": [
     {
-      "id": "46f06659-72d7-450f-82f5-537a4cd4bb8b",
+      "id": "3852aabc-92a6-4700-b178-f0c7af518c86",
       "clientId": "your-client-id",
-      "lastActivity": 1765635936184,
+      "lastActivity": 1765657974803,
       "idleMinutes": 0,
       "instanceId": "local",
       "worldId": "testing",
@@ -567,4 +567,5 @@ import axios from 'axios';
   "pendingSessions": []
 }
 ```
+
 

@@ -13,7 +13,7 @@ async function runAllTestsInOrder(): Promise<void> {
   console.log('🚀 Starting ordered test execution (single Jest process)...\n');
   
   // Get all test files in order
-  const testFiles = TEST_ORDER.map(test => `tests/integration/${test}`);
+  const testFiles = TEST_ORDER.map(test => path.join('tests', 'integration', test));
   
   console.log(`Running ${testFiles.length} test files in order:\n`);
   testFiles.forEach((file, i) => {
@@ -40,16 +40,16 @@ async function runAllTestsInOrder(): Promise<void> {
       console.log('\n' + '─'.repeat(60));
       if (code !== 0) {
         console.log(`\n❌ Tests failed with exit code ${code}\n`);
-        process.exit(code || 1);
+        reject(new Error(`Tests failed with exit code ${code}`));
       } else {
         console.log('\n✨ All tests completed successfully!\n');
-        process.exit(0);
+        resolve();
       }
     });
 
     jestProcess.on('error', (error) => {
       console.error('Error running Jest:', error);
-      process.exit(1);
+      reject(error);
     });
   });
 }

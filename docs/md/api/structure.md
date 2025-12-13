@@ -166,14 +166,14 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "structure_1765635977185",
+  "requestId": "structure_1765658014620",
   "clientId": "your-client-id",
   "type": "structure-result",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "SsYlZRbKfAr9WHOP",
-        "uuid": "Folder.SsYlZRbKfAr9WHOP",
+        "id": "OVB4BAhpFk19TPzm",
+        "uuid": "Folder.OVB4BAhpFk19TPzm",
         "type": "Scene"
       }
     },
@@ -918,12 +918,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-folder_1765635977461",
+  "requestId": "get-folder_1765658014873",
   "clientId": "your-client-id",
   "type": "get-folder-result",
   "data": {
-    "id": "SsYlZRbKfAr9WHOP",
-    "uuid": "Folder.SsYlZRbKfAr9WHOP",
+    "id": "OVB4BAhpFk19TPzm",
+    "uuid": "Folder.OVB4BAhpFk19TPzm",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -1088,12 +1088,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-folder_1765635976871",
+  "requestId": "create-folder_1765658014181",
   "clientId": "your-client-id",
   "type": "create-folder-result",
   "data": {
-    "id": "SsYlZRbKfAr9WHOP",
-    "uuid": "Folder.SsYlZRbKfAr9WHOP",
+    "id": "OVB4BAhpFk19TPzm",
+    "uuid": "Folder.OVB4BAhpFk19TPzm",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -1130,7 +1130,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
   clientId: 'your-client-id',
-  folderId: 'SsYlZRbKfAr9WHOP'
+  folderId: 'OVB4BAhpFk19TPzm'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1149,7 +1149,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=your-client-id&folderId=SsYlZRbKfAr9WHOP' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=your-client-id&folderId=OVB4BAhpFk19TPzm' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1163,7 +1163,7 @@ base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
     'clientId': 'your-client-id',
-    'folderId': 'SsYlZRbKfAr9WHOP'
+    'folderId': 'OVB4BAhpFk19TPzm'
 }
 url = f'{base_url}{path}'
 
@@ -1189,7 +1189,7 @@ import axios from 'axios';
   const path = '/delete-folder';
   const params = {
     clientId: 'your-client-id',
-    folderId: 'SsYlZRbKfAr9WHOP'
+    folderId: 'OVB4BAhpFk19TPzm'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1224,7 +1224,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤folderId=SsYlZRbKfAr9WHOP🔤 ➡️ folderId
+  🔤folderId=OVB4BAhpFk19TPzm🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1252,15 +1252,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-folder_1765635977769",
+  "requestId": "delete-folder_1765658015126",
   "clientId": "your-client-id",
   "type": "delete-folder-result",
   "data": {
     "deleted": true,
-    "folderId": "SsYlZRbKfAr9WHOP",
+    "folderId": "OVB4BAhpFk19TPzm",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }
 }
 ```
+
 

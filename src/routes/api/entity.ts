@@ -130,6 +130,8 @@ optionalParams: [
  * Remove an item from an entity
  *
  * This endpoint removes an item from a specified entity.
+ * @route POST /remove
+ * @returns {object} Result of the item removal operation
  */
 entityRouter.post("/remove", ...commonMiddleware, express.json(), createApiRoute({
 type: 'remove',

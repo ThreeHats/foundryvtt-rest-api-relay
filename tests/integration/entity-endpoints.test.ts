@@ -109,7 +109,7 @@ describe('Entity', () => {
         expect(captured.response.data).toBeTruthy();
         expect(captured.response.data.data).toBeTruthy();
         expect(captured.response.data.data.name).toBe('test-actor');
-        expect(captured.response.data.data.type).toBe('base')
+        expect(captured.response.data.data.type).toBe('base');
       });
     });
 
@@ -231,7 +231,7 @@ describe('Entity', () => {
         setVariable('clientId', getClientId());
         
         // Use receiver actor and primary item
-        const receiverUuid = getEntityUuid(version, 'Actor', 'secondary');
+        const receiverUuid = getEntityUuid(version, 'Actor', 'primary');
         const itemUuid = getEntityUuid(version, 'Item', 'primary');
         
         expect(receiverUuid).toBeTruthy();

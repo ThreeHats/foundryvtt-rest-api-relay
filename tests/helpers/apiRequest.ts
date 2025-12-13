@@ -44,16 +44,32 @@ export interface ApiResponse<T = any> {
  */
 export async function makeRequest(config: ApiRequestConfig): Promise<ApiResponse> {
   // Use the raw URL which should already have variables replaced
-  // If raw URL has query params, use it as-is; otherwise build from parts
   let fullUrl = config.url.raw;
   
-  // If raw URL doesn't have query params but config does, append them
-  if (!fullUrl.includes('?') && config.url.query && config.url.query.length > 0) {
-    const queryParams = config.url.query
-      ?.filter(q => !q.disabled)
-      .map(q => `${q.key}=${encodeURIComponent(q.value)}`)
-      .join('&');
-    fullUrl = `${fullUrl}?${queryParams}`;
+  // If config has query params, append them properly
+  if (config.url.query && config.url.query.length > 0) {
+    try {
+      const url = new URL(fullUrl);
+      const activeParams = config.url.query.filter(q => !q.disabled);
+      
+      // Only modify URL if there are active params
+      if (activeParams.length > 0) {
+        activeParams.forEach(q => {
+          url.searchParams.append(q.key, q.value);
+        });
+        fullUrl = url.toString();
+      }
+    } catch (error) {
+      // If URL parsing fails (e.g., relative URL), fall back to manual construction
+      const activeParams = config.url.query.filter(q => !q.disabled);
+      if (activeParams.length > 0) {
+        const separator = fullUrl.includes('?') ? '&' : '?';
+        const queryParams = activeParams
+          .map(q => `${encodeURIComponent(q.key)}=${encodeURIComponent(q.value)}`)
+          .join('&');
+        fullUrl = `${fullUrl}${separator}${queryParams}`;
+      }
+    }
   }
 
   // Build headers
@@ -98,6 +114,13 @@ export async function makeRequest(config: ApiRequestConfig): Promise<ApiResponse
 }
 
 /**
+ * Escape regex metacharacters in a string
+ */
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
  * Replace variables in a config object
  */
 export function replaceVariables(
@@ -108,7 +131,8 @@ export function replaceVariables(
   let replaced = configStr;
   
   for (const [key, value] of Object.entries(variables)) {
-    replaced = replaced.replace(new RegExp(`{{${key}}}`, 'g'), value);
+    const escapedKey = escapeRegex(key);
+    replaced = replaced.replace(new RegExp(`{{${escapedKey}}}`, 'g'), value);
   }
   
   return JSON.parse(replaced);

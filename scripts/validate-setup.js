@@ -78,12 +78,12 @@ async function validateSetup() {
       console.log(`Relay server responding (version: ${data.version})`);
     } else {
       console.error(`Relay server returned status ${response.status}`);
-      console.log('   → Make sure your relay server is running: npm run dev');
+      console.log('   → Make sure your relay server is running: pnpm run dev');
       process.exit(1);
     }
   } catch (error) {
     console.error('Cannot connect to relay server:', error.message);
-    console.log('   → Make sure your relay server is running: npm run dev');
+    console.log('   → Make sure your relay server is running: pnpm run dev');
     process.exit(1);
   }
 
