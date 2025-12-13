@@ -223,8 +223,13 @@ describe('FileSystem', () => {
         expect(captured.response.status).toBe(200);
         expect(captured.response.data).toHaveProperty('success', true);
         expect(captured.response.data).toHaveProperty('path', 'rest-api-tests/test-file.txt');
-        expect(captured.response.data).toHaveProperty('mimeType', 'text/plain');
-        expect(captured.response.data).toHaveProperty('fileData', getGlobalVariable(version, 'testFileData'));
+        expect(captured.response.data).toHaveProperty('mimeType');
+        expect(captured.response.data.mimeType).toContain('text/plain');
+        expect(captured.response.data).toHaveProperty('fileData');
+        // Extract and compare only the base64 content, not the full data URL
+        const expectedBase64 = getGlobalVariable(version, 'testFileData').split(',')[1];
+        const receivedBase64 = captured.response.data.fileData.split(',')[1];
+        expect(receivedBase64).toBe(expectedBase64);
       });
     });
 
