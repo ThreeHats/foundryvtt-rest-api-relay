@@ -31,7 +31,7 @@ import { browserSessions, apiKeyToSession, pendingSessions } from './api/session
 
 export { browserSessions, apiKeyToSession, pendingSessions };
 
-export const VERSION = '2.0.17';
+export const VERSION = '2.1.0';
 
 const INSTANCE_ID = process.env.INSTANCE_ID || 'default';
 
