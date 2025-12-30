@@ -2,7 +2,7 @@
 
 **A REST API bridge for Foundry Virtual Tabletop** — enabling external tools, automations, and integrations to interact with your Foundry VTT worlds.
 
-[![Discord](https://img.shields.io/discord/1234567890?label=Discord&logo=discord&logoColor=white)](https://discord.gg/7SdGxJmKkE)
+[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/7SdGxJmKkE)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
