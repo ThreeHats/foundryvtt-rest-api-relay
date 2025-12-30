@@ -135,7 +135,7 @@ jobs:
           name: Release ${{ steps.get_version.outputs.version }}
           draft: false
           prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
           artifacts: "./release/foundryvtt-rest-api-relay.zip"
           tag: ${{ github.ref_name }}
           body: ${{ env.RELEASE_NOTES }}
