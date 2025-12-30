@@ -29,6 +29,28 @@ jobs:
         uses: battila7/get-version-action@v2
         if: startsWith(github.ref, 'refs/tags/')
 
+      # Generate release notes BEFORE any branch switching or commits
+      # This ensures we capture all commits between tags, not just the version bump
+      - name: Generate Release Notes
+        id: generate_notes
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          # Get previous tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          
+          # If no previous tag, get all commits
+          if [ -z "$PREVIOUS_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" --reverse)
+          else
+            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" ${PREVIOUS_TAG}..HEAD --reverse)
+          fi
+          
+          # Format release notes
+          FORMATTED_NOTES="## Changes\n${COMMITS}"
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          echo -e "${FORMATTED_NOTES}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -58,28 +80,6 @@ jobs:
           git add package.json src/routes/api.ts
           git commit -m "bump version to $VERSION [skip ci]"
           git push origin main
-
-
-      # Generate release notes with commit links (only for tag pushes)
-      - name: Generate Release Notes
-        id: generate_notes
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          # Get previous tag
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
-          
-          # If no previous tag, get all commits
-          if [ -z "$PREVIOUS_TAG" ]; then
-            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" --reverse)
-          else
-            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" ${PREVIOUS_TAG}..HEAD --reverse)
-          fi
-          
-          # Format release notes
-          FORMATTED_NOTES="## Changes\n${COMMITS}"
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          echo -e "${FORMATTED_NOTES}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx

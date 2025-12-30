@@ -1,147 +1,228 @@
 # Foundry REST API
-Join the [discord](https://discord.gg/U634xNGRAC) server for updates, questions, and discussions
 
-This project consists of two main components:
+**A REST API bridge for Foundry Virtual Tabletop** — enabling external tools, automations, and integrations to interact with your Foundry VTT worlds.
 
-- [Relay Server](https://github.com/ThreeHats/foundryvtt-rest-api-relay): A WebSocket server that facilitates communication between Foundry VTT and external applications.
-- [Foundry Module](https://github.com/ThreeHats/foundryvtt-rest-api): A Foundry VTT module that connects to the relay server and provides access to Foundry data through a REST API.
+[![Discord](https://img.shields.io/discord/1234567890?label=Discord&logo=discord&logoColor=white)](https://discord.gg/7SdGxJmKkE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Foundry REST API Relay Server
-The server provides WebSocket connectivity and a REST API to access Foundry VTT data remotely.
+---
 
-### Features
-- [Documentation](https://github.com/ThreeHats/foundryvtt-rest-api/wiki)
-- WebSocket relay to connect Foundry clients with external applications
-- REST API endpoints for searching Foundry content and retrieving entity data
-- Client management for tracking Foundry connections
-- Data storage and search results
-- [Roadmap](https://github.com/users/ThreeHats/projects/7)
+## What Is This?
 
-### Installation
+Foundry VTT is a self-hosted virtual tabletop platform, but it lacks a native API for external integrations. This project fills that gap by providing a **WebSocket relay server** that exposes your Foundry world data through a clean REST API.
 
-#### Using Docker Compose (Recommended)
-The easiest way to run the relay server is using Docker Compose:
+**Use cases:**
+- Build custom dashboards or companion apps for your game
+- Automate game master tasks (e.g., trigger macros, roll dice remotely)
+- Integrate with MIDI controllers, stream decks, or voice assistants
+- Create Discord bots that interact with your world data
+- Run automated integration tests
+- Develop tools that read/write actors, items, scenes, and more
+
+## How It Works
+
+```
+┌─────────────────┐      WebSocket       ┌─────────────────┐      REST API      ┌─────────────────┐
+│   Foundry VTT   │ ◄──────────────────► │  Relay Server   │ ◄────────────────► │  Your App/Tool  │
+│   + Module      │                      │  (this repo)    │                    │                 │
+└─────────────────┘                      └─────────────────┘                    └─────────────────┘
+```
+
+1. **Foundry Module** connects to the relay server via WebSocket
+2. **Relay Server** exposes REST endpoints and routes requests to your Foundry world
+3. **Your application** calls the REST API to search, read, create, and modify entities
+
+## Project Components
+
+| Component | Description |
+|-----------|-------------|
+| [**Relay Server**](https://github.com/ThreeHats/foundryvtt-rest-api-relay) (this repo) | Node.js/Express server with WebSocket relay and REST API |
+| [**Foundry Module**](https://github.com/ThreeHats/foundryvtt-rest-api) | Foundry VTT module that connects your world to the relay |
+
+---
+
+## Quick Start
+
+You can either use the **public relay server** (no setup required) or **self-host** your own instance.
+
+### Option A: Use the Public Relay (Easiest)
+
+1. Go to **[https://foundryvtt-rest-api-relay.fly.dev](https://foundryvtt-rest-api-relay.fly.dev)**
+2. Create an account and copy your API key from the dashboard
+3. Install the [Foundry module](#3-install-the-foundry-module) and set the relay URL to `wss://foundryvtt-rest-api-relay.fly.dev`
+
+> The public relay has rate limits (100 requests/month free, 1000/day). For unlimited usage, self-host or [subscribe](https://foundryvtt-rest-api-relay.fly.dev) for $5/month.
+
+### Option B: Self-Host with Docker
 
 ```bash
-# Clone the repository
+# Download and run with Docker Compose
+curl -O https://raw.githubusercontent.com/ThreeHats/foundryvtt-rest-api-relay/main/docker-compose.yml
+docker-compose up -d
+```
+
+The server runs at `http://localhost:3010`.
+
+### 2. Get Your API Key
+
+1. Open your relay server (`http://localhost:3010` or the [public URL](https://foundryvtt-rest-api-relay.fly.dev)) in your browser
+2. **Create an account** using the Sign Up form
+3. After logging in, your API key is displayed on the dashboard — click **Copy** to copy it
+
+### 3. Install the Foundry Module
+
+Install via manifest URL in Foundry VTT:
+```
+https://github.com/ThreeHats/foundryvtt-rest-api/releases/latest/download/module.json
+```
+
+Enable the module in your world and configure the relay URL in the module settings:
+- **Public relay:** `wss://foundryvtt-rest-api-relay.fly.dev`
+- **Self-hosted:** `ws://localhost:3010` (or `wss://` if using HTTPS)
+
+### 4. Make Your First API Call
+
+```bash
+curl -X GET "http://localhost:3010/clients" \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+You'll see your connected Foundry worlds listed in the response.
+
+---
+
+## API Overview
+
+The REST API provides endpoints across these resource groups:
+
+| Endpoint Group | Description |
+|---------------|-------------|
+| `/clients` | List connected Foundry worlds |
+| `/get`, `/create`, `/update`, `/delete` | CRUD operations for entities (actors, items, scenes, etc.) |
+| `/search` | Search your Foundry database |
+| `/roll` | Perform dice rolls |
+| `/macro` | Execute macros remotely |
+| `/encounter` | Combat encounter management |
+| `/dnd5e` | D&D 5th Edition specific operations |
+| `/structure` | World structure information |
+| `/session` | Headless Foundry sessions via Puppeteer |
+| `and more` | Read the [api reference](https://foundryvtt-rest-api-relay.fly.dev/docs/api) for more details |
+
+**Authentication:** Include your API key in the `x-api-key` header for all requests.
+
+📖 **[Full API Documentation](https://foundryvtt-rest-api-relay.fly.dev/docs)**
+
+> *The Postman Collection is deprecated — the interactive API documentation now includes code examples in multiple languages.*
+
+---
+
+## Installation Options
+
+### Docker Compose (Recommended)
+
+```yaml
+services:
+  relay:
+    # For production, pin to a specific version (e.g., 2.1.0) instead of 'latest'
+    image: threehats/foundryvtt-rest-api-relay:latest
+    container_name: foundryvtt-rest-api-relay
+    ports:
+      - "3010:3010"
+    environment:
+      - NODE_ENV=production
+      - PORT=3010
+      - DB_TYPE=sqlite
+    volumes:
+      - ./data:/app/data
+    command: pnpm local:sqlite
+    restart: unless-stopped
+```
+
+```bash
+docker-compose up -d
+```
+
+> 💡 **Tip:** For production stability, pin to a [specific release tag](https://github.com/ThreeHats/foundryvtt-rest-api-relay/tags) (e.g., `threehats/foundryvtt-rest-api-relay:2.1.0`) instead of `latest`.
+
+### Manual Installation
+
+**Prerequisites:** Node.js v18+ (v20 recommended), pnpm
+
+```bash
 git clone https://github.com/ThreeHats/foundryvtt-rest-api-relay.git
 cd foundryvtt-rest-api-relay
 
-# Start the server
-docker-compose up -d
-
-# To stop the server
-docker-compose down
-```
-
-The server will be available at http://localhost:3010 and will automatically restart unless manually stopped.
-
-#### Manual Installation
-```bash
-### Install dependencies
 pnpm install
 
-### Build SQLite native module (required for local:sqlite mode)
-cd node_modules/.pnpm/sqlite3@5.1.7/node_modules/sqlite3 && npm run install && cd -
+# Build SQLite native module (path may vary with sqlite3 version)
+cd node_modules/.pnpm/sqlite3@*/node_modules/sqlite3 && npm run install && cd -
 
-### Install Chrome for Puppeteer (required for headless Foundry sessions)
-npx puppeteer browsers install chrome
-
-### Build for production
-pnpm build
-
-### Run with SQLite database (recommended)
+# Run with SQLite (recommended for local development)
 pnpm run local:sqlite
-
-### Run in development mode (requires postgres)
-pnpm dev
-
-### Start production server (requires postgres)
-pnpm start
 ```
 
-### Configuration
+> **Note:** On Windows, the SQLite build step may require additional configuration. See the [full installation guide](https://foundryvtt-rest-api-relay.fly.dev/docs/installation) for platform-specific instructions.
 
-The server can be configured using environment variables:
+---
 
-- `PORT`: The port the server listens on (default: `3010`).
-- `NODE_ENV`: Set to `production` for production deployments.
-- `WEBSOCKET_PING_INTERVAL_MS`: Interval in milliseconds for sending WebSocket protocol pings to keep connections alive (default: `20000`).
-- `CLIENT_CLEANUP_INTERVAL_MS`: Interval in milliseconds for checking and removing inactive clients (default: `15000`).
-- `REDIS_URL`: Connection URL for Redis (optional, used for multi-instance deployments and session storage).
+## Configuration
 
-When using Docker Compose, you can set these in the `environment` section of the `docker-compose.yml` file.
+Key environment variables (see [full configuration guide](https://foundryvtt-rest-api-relay.fly.dev/docs/configuration) for details):
 
-### Documentation
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `PORT` | `3010` | Server port |
+| `DB_TYPE` | `sqlite` | Database type (`sqlite`, `postgres`, `memory`) |
+| `DATABASE_URL` | — | PostgreSQL connection string (required for `postgres` DB_TYPE) |
+| `WEBSOCKET_PING_INTERVAL_MS` | `20000` | WebSocket ping interval for keep-alive |
+| `CLIENT_CLEANUP_INTERVAL_MS` | `15000` | Interval for removing inactive clients |
+| `REDIS_URL` | — | Redis URL for session storage in multi-instance deployments |
+| `FREE_API_REQUESTS_LIMIT` | `100` | Monthly API request limit per user |
+| `DAILY_REQUEST_LIMIT` | `1000` | Daily API request limit per user |
 
-This project uses TypeDoc and Docusaurus for comprehensive API documentation. The documentation is automatically generated from TypeScript source code and includes both manual documentation and auto-generated API references.
+> **Self-hosting tip:** Set `FREE_API_REQUESTS_LIMIT=999999999` and `DAILY_REQUEST_LIMIT=999999999` to effectively disable rate limits for local use.
 
-#### Development
+---
 
-To work with the documentation:
+## Tech Stack
+
+**Relay Server:**
+- **Runtime:** Node.js + TypeScript
+- **Framework:** Express.js
+- **Real-time:** WebSocket (ws)
+- **Database:** SQLite (default), PostgreSQL + Redis (production), or in-memory
+- **Headless Browser:** Puppeteer (for unattended Foundry sessions)
+- **Docs:** Docusaurus + TypeDoc (auto-generated API reference)
+- **Testing:** Jest + TypeDoc (partially auto-generated tests)
+
+**Foundry Module:**
+- TypeScript module for Foundry VTT
+- Integrates with QuickInsert for search capabilities
+
+---
+
+## Documentation and Testing Development
 
 ```bash
-# Install documentation dependencies
-pnpm docs:install
-
-# Generate API documentation from TypeScript source
-pnpm docs:generate
-
-# Start the documentation development server
-pnpm docs:dev
+pnpm docs:install    # Install doc dependencies
+pnpm docs:generate   # Generate API docs from TypeScript comments
+pnpm test:generate   # Generate bare bones Jest tests
+pnpm test            # Run full integration tests while capturing examples
+pnpm docs:examples   # Update API docs with test examples
+pnpm docs:dev        # Start docs server at localhost:3000
 ```
 
-The documentation will be available at [http://localhost:3000](http://localhost:3000) and includes:
+---
 
-- **Manual Documentation**: Getting started guides, installation instructions, and usage examples
-- **API Reference**: Auto-generated from TypeScript source code using TypeDoc
-- **Interactive Navigation**: Browse the codebase structure and find specific functions, classes, and types
+## Links
 
-#### Building for Production
+- 📖 [Documentation](https://foundryvtt-rest-api-relay.fly.dev/docs)
+- 🤝 [Contributing Guide](https://foundryvtt-rest-api-relay.fly.dev/docs/contributing)
+- 💬 [Discord Community](https://discord.gg/7SdGxJmKkE)
 
-```bash
-# Build static documentation files
-pnpm docs:build
+---
 
-# Serve the built documentation
-pnpm docs:serve
-```
+## License
 
-The documentation system automatically:
-- Generates markdown files from TypeScript comments and type definitions
-- Creates sidebar navigation based on code structure
-- Links to source code on GitHub
-- Updates when source code changes
-
-## Foundry REST API Module
-A Foundry VTT module that connects to the relay server and provides access to Foundry data.
-
-### Features
-- WebSocket connection to relay server
-- Integration with Foundry's QuickInsert for powerful search capabilities
-- Entity retrieval by UUID
-- Configurable WebSocket relay URL and token
-
-### Installation
-1. Install the module with the latest manifest link [https://github.com/ThreeHats/foundryvtt-rest-api/releases/latest/download/module.json]([https://github.com/ThreeHats/foundryvtt-rest-api/releases/latest/download/module.json](https://github.com/ThreeHats/foundryvtt-rest-api/releases/latest/download/module.json))
-2. Configure the WebSocket relay URL in module settings
-3. Set your relay token (defaults to your world ID)
-
-### Configuration
-After installing the module, go to the module settings to configure:
-
-- WebSocket Relay URL - URL for the WebSocket relay server (default: ws://localhost:3010)
-- WebSocket Relay Token - Token for grouping users together (default: your world ID)
-
-### Technical Details
-#### Server Architecture
-- Express.js - HTTP server framework
-- WebSocket - For real-time communication
-- Data Store - In-memory storage for entities and search results
-- Client Manager - Handles client connections and message routing
-
-#### Module Architecture
-- Built with TypeScript for Foundry VTT
-- Integrates with Foundry's QuickInsert for powerful search capabilities
-- Provides WebSocket relay functionality for external applications
+MIT © [ThreeHats](https://github.com/ThreeHats)
 

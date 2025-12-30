@@ -21,9 +21,11 @@ Using Docker and Docker Compose is the simplest way to get the relay server runn
 Instead of cloning the repository you also just might download the docker-compose.yml file and use that (which will be the latest working version).
 
 Or copy the following and create your own docker-compose.yml
-```bash
+```yaml
 services:
   relay:
+    # For production stability, pin to a specific version tag instead of 'latest'
+    # See available tags at: https://github.com/ThreeHats/foundryvtt-rest-api-relay/tags
     image: threehats/foundryvtt-rest-api-relay:latest
     container_name: foundryvtt-rest-api-relay
     ports:
@@ -40,14 +42,19 @@ services:
     command: pnpm local:sqlite
     restart: unless-stopped
 ```
+
+:::tip Version Pinning for Production
+For production deployments, replace `latest` with a specific version tag (e.g., `threehats/foundryvtt-rest-api-relay:2.1.0`) to avoid unexpected breaking changes from updates.
+:::
+
 By adding:   
-```bash
+```yaml
 # increase monthly request limit
-FREE_API_REQUEST_LIMIT=100000
+- FREE_API_REQUESTS_LIMIT=100000
 # increase daily request limit
-DAILY_REQUEST_LIMIT=3000   
+- DAILY_REQUEST_LIMIT=3000   
 ```
-in the enironment section you can increase the amount of API requests for your local installation.
+in the environment section you can increase the amount of API requests for your local installation.
 
 2.  **Start the server:**
     ```bash
@@ -55,12 +62,11 @@ in the enironment section you can increase the amount of API requests for your l
     ```
     This command will pull the latest Docker image and start the relay server in the background. The server will be available at `http://localhost:3010`.
 
-3.  **Database Initialization:**
-    The default Docker setup uses an SQLite database for persistence, which is stored in the `data` directory. When you first start the server, a default admin user is created.
-    - **Email:** `admin@example.com`
-    - **Password:** `admin123`
-    
-    You can log into the web interface to get your API key.
+3.  **Create Your Account:**
+    The default Docker setup uses an SQLite database for persistence, stored in the `data` directory.
+    - Open `http://localhost:3010` in your browser
+    - Click **Sign Up** and create an account
+    - Your API key will be displayed on the dashboard after logging in
 
 4.  **Stopping the server:**
     ```bash
@@ -81,12 +87,12 @@ For an in depth guide for a full setup using duckDNS see [Relay + App + DNS Exam
 If you prefer not to use Docker, you can run the server directly using Node.js.
 
 1.  **Prerequisites:**
-    - Node.js (v18 or later)
+    - Node.js v18 or later (v20 recommended)
     - pnpm package manager (`npm install -g pnpm`)
 
 2.  **Clone the repository:**
     ```bash
-    git clone https://github.com/JustAnotherIdea/foundryvtt-rest-api-relay.git
+    git clone https://github.com/ThreeHats/foundryvtt-rest-api-relay.git
     cd foundryvtt-rest-api-relay
     ```
 
@@ -96,11 +102,22 @@ If you prefer not to use Docker, you can run the server directly using Node.js.
     ```
 
 4.  **Build SQLite native module (required for local:sqlite mode):**
+    
+    **Linux/macOS:**
     ```bash
-    cd node_modules/.pnpm/sqlite3@5.1.7/node_modules/sqlite3 && npm run install && cd -
+    cd node_modules/.pnpm/sqlite3@*/node_modules/sqlite3 && npm run install && cd -
     ```
     
-    > **Note:** This step is necessary to compile the SQLite native bindings for your system. If you skip this step, you'll get a "Could not locate the bindings file" error when running with SQLite.
+    **Windows (PowerShell):**
+    ```powershell
+    # Find the sqlite3 directory (version may vary)
+    cd (Get-ChildItem -Path node_modules/.pnpm -Filter "sqlite3@*" -Directory).FullName
+    cd node_modules/sqlite3
+    npm run install
+    cd ../../../..
+    ```
+    
+    > **Note:** This step compiles the SQLite native bindings for your system. If you skip this step, you'll get a "Could not locate the bindings file" error when running with SQLite. Windows users may need [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installed.
 
 5.  **Install Chrome for Puppeteer (required for headless Foundry sessions):**
     ```bash

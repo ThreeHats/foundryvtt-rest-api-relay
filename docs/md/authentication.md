@@ -20,14 +20,23 @@ Authentication is handled via an API key. You must include your API key in the `
 2.  **Access the Web Interface:**
     Open your browser and navigate to the server's address (e.g., `http://localhost:3010`).
 
-3.  **Log In:**
-    -   If you are running the server for the first time with the default SQLite or PostgreSQL setup, a default admin user is created:
-        -   **Email:** `admin@example.com`
-        -   **Password:** `admin123`
-    -   Log in with these credentials.
+3.  **Create an Account:**
+    
+    **Option A: Register a new account**
+    - Click **Sign Up** and create a new account with your email and password
+    - Log in with your new credentials
+
+    :::warning Security Notice
+    If your server is accessible over a network, or in a production deployment:
+    - Use a strong, unique password
+    - Run behind HTTPS (e.g., with a reverse proxy like nginx or Caddy)
+    - Use `wss://` instead of `ws://` for WebSocket connections
+    :::
 
 4.  **Retrieve Your API Key:**
-    After logging in, your API key will be displayed on the dashboard. Copy this key to use in your API requests.
+    After logging in, you'll see the **Dashboard** with your account information:
+    - Your **API Key** is displayed with a **Copy** button — click it to copy the key to your clipboard
+    - You can click **Regenerate** to create a new API key (this invalidates the old one)
 
 ## Making Authenticated Requests
 
