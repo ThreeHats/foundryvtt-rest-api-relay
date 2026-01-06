@@ -10,10 +10,10 @@ This comprehensive guide covers everything you need to know about testing the Fo
 
 ## Overview
 
-The Foundry REST API uses a sophisticated testing framework that:
+The Foundry REST API uses a testing framework that:
 
 - Tests against **multiple Foundry VTT versions** simultaneously
-- Supports both **headless browser automation** and **existing session** modes
+- Supports both **headless browser automation** and **existing sessions**
 - **Captures real API responses** for documentation generation
 - Manages **entity lifecycle** with automatic cleanup
 - Uses a **custom test sequencer** to ensure proper execution order
