@@ -1,5 +1,5 @@
 {
-  "version": "2.0.15",
+  "version": "2.1.2",
   "baseUrl": "https://your-relay-server.com",
   "authentication": {
     "required": true,
@@ -8,821 +8,65 @@
   },
   "endpoints": [
     {
-      "method": "GET",
-      "path": "/file-system",
-      "description": "Get file system structure",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "path",
-          "type": "string",
-          "description": "The path to retrieve (relative to source)",
-          "location": "query"
-        },
-        {
-          "name": "source",
-          "type": "string",
-          "description": "The source directory to use (data, systems, modules, etc.)",
-          "location": "query"
-        },
-        {
-          "name": "recursive",
-          "type": "boolean",
-          "description": "Whether to recursively list all subdirectories",
-          "location": "query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/upload",
-      "description": "Upload a file to Foundry's file system (handles both base64 and binary data)",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        },
-        {
-          "name": "path",
-          "type": "string",
-          "description": "The directory path to upload to",
-          "location": "query/body"
-        },
-        {
-          "name": "filename",
-          "type": "string",
-          "description": "The filename to save as",
-          "location": "query/body"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "source",
-          "type": "string",
-          "description": "The source directory to use (data, systems, modules, etc.)",
-          "location": "query/body"
-        },
-        {
-          "name": "mimeType",
-          "type": "string",
-          "description": "The MIME type of the file",
-          "location": "query/body"
-        },
-        {
-          "name": "overwrite",
-          "type": "boolean",
-          "description": "Whether to overwrite an existing file",
-          "location": "query/body"
-        },
-        {
-          "name": "fileData",
-          "type": "string",
-          "description": "Base64 encoded file data (if sending as JSON) 250MB limit",
-          "location": "body"
-        }
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/download",
-      "description": "Download a file from Foundry's file system",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        },
-        {
-          "name": "path",
-          "type": "string",
-          "description": "The full path to the file to download",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "source",
-          "type": "string",
-          "description": "The source directory to use (data, systems, modules, etc.)",
-          "location": "query"
-        },
-        {
-          "name": "format",
-          "type": "string",
-          "description": "The format to return the file in (binary, base64)",
-          "location": "query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/session-handshake",
-      "description": "Create a handshake token for the client to use for secure authentication",
-      "requiredParameters": [
-        {
-          "name": "x-api-key",
-          "type": "string",
-          "description": "API key header",
-          "location": "header"
-        },
-        {
-          "name": "x-foundry-url",
-          "type": "string",
-          "description": "Foundry URL header",
-          "location": "header"
-        },
-        {
-          "name": "x-username",
-          "type": "string",
-          "description": "Username header",
-          "location": "header"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "x-world-name",
-          "type": "string",
-          "description": "World name header",
-          "location": "header"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/start-session",
-      "description": "Start a headless Foundry session using puppeteer",
-      "requiredParameters": [
-        {
-          "name": "handshakeToken",
-          "type": "string",
-          "description": "The token received from session-handshake",
-          "location": "body"
-        },
-        {
-          "name": "encryptedPassword",
-          "type": "string",
-          "description": "Password encrypted with the public key",
-          "location": "body"
-        },
-        {
-          "name": "x-api-key",
-          "type": "string",
-          "description": "API key header",
-          "location": "header"
-        }
-      ],
-      "optionalParameters": []
-    },
-    {
-      "method": "DELETE",
-      "path": "/end-session",
-      "description": "Stop a headless Foundry session",
-      "requiredParameters": [
-        {
-          "name": "sessionId",
-          "type": "string",
-          "description": "The ID of the session to end",
-          "location": "query"
-        },
-        {
-          "name": "x-api-key",
-          "type": "string",
-          "description": "API key header",
-          "location": "header"
-        }
-      ],
-      "optionalParameters": []
-    },
-    {
-      "method": "GET",
-      "path": "/session",
-      "description": "Get all active headless Foundry sessions",
-      "requiredParameters": [
-        {
-          "name": "x-api-key",
-          "type": "string",
-          "description": "API key header",
-          "location": "header"
-        }
-      ],
-      "optionalParameters": []
-    },
-    {
-      "method": "GET",
-      "path": "/sheet",
-      "description": "Get actor sheet HTML This endpoint retrieves the HTML for an actor sheet based on the provided UUID or selected actor. Only works on Foundry version 12.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "uuid",
-          "type": "string",
-          "description": "The UUID of the entity to get the sheet for",
-          "location": "query"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to get the sheet for the selected entity",
-          "location": "query"
-        },
-        {
-          "name": "actor",
-          "type": "boolean",
-          "description": "Whether to get the sheet for the selected token's actor if selected is true",
-          "location": "query"
-        },
-        {
-          "name": "format",
-          "type": "string",
-          "description": "The format to return the sheet in (html, json)",
-          "location": "query"
-        },
-        {
-          "name": "scale",
-          "type": "number",
-          "description": "The initial scale of the sheet",
-          "location": "query"
-        },
-        {
-          "name": "tab",
-          "type": "number",
-          "description": "The active tab index to open",
-          "location": "query"
-        },
-        {
-          "name": "darkMode",
-          "type": "boolean",
-          "description": "Whether to use dark mode for the sheet",
-          "location": "query"
-        }
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/dnd5e/get-actor-details",
-      "description": "Get detailed information for a specific D&D 5e actor. Retrieves comprehensive details about an actor including stats, inventory, spells, features, and other character information based on the requested details array.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor",
-          "location": "body, query"
-        },
-        {
-          "name": "details",
-          "type": "array",
-          "description": "Array of detail types to retrieve (e.g., [\"resources\", \"items\", \"spells\", \"features\"])",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": []
-    },
-    {
-      "method": "POST",
-      "path": "/dnd5e/modify-item-charges",
-      "description": "Modify the charges for a specific item owned by an actor. Increases or decreases the charges/uses of an item in an actor's inventory. Useful for consumable items like potions, scrolls, or charged magic items.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor who owns the item",
-          "location": "body, query"
-        },
-        {
-          "name": "amount",
-          "type": "number",
-          "description": "The amount to modify charges by (positive or negative)",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "itemUuid",
-          "type": "string",
-          "description": "The UUID of the specific item (optional if itemName provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "itemName",
-          "type": "string",
-          "description": "The name of the item if UUID not provided (optional if itemUuid provided)",
-          "location": "body, query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/dnd5e/use-ability",
-      "description": "Use a general ability for an actor. Triggers the use of any ability, feature, spell, or item for an actor. This is a generic endpoint that can handle various types of abilities.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor using the ability",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "abilityUuid",
-          "type": "string",
-          "description": "The UUID of the specific ability (optional if abilityName provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "abilityName",
-          "type": "string",
-          "description": "The name of the ability if UUID not provided (optional if abilityUuid provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetUuid",
-          "type": "string",
-          "description": "The UUID of the target for the ability (optional)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetName",
-          "type": "string",
-          "description": "The name of the target if UUID not provided (optional)",
-          "location": "body, query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/dnd5e/use-feature",
-      "description": "Use a class or racial feature for an actor. Activates class features (like Action Surge, Rage) or racial features (like Dragonborn Breath Weapon) for a character.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor using the feature",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "abilityUuid",
-          "type": "string",
-          "description": "The UUID of the specific feature (optional if abilityName provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "abilityName",
-          "type": "string",
-          "description": "The name of the feature if UUID not provided (optional if abilityUuid provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetUuid",
-          "type": "string",
-          "description": "The UUID of the target for the feature (optional)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetName",
-          "type": "string",
-          "description": "The name of the target if UUID not provided (optional)",
-          "location": "body, query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/dnd5e/use-spell",
-      "description": "Cast a spell for an actor. Casts a spell from the actor's spell list, consuming spell slots as appropriate. Handles cantrips, leveled spells, and spell-like abilities.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor casting the spell",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "abilityUuid",
-          "type": "string",
-          "description": "The UUID of the specific spell (optional if abilityName provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "abilityName",
-          "type": "string",
-          "description": "The name of the spell if UUID not provided (optional if abilityUuid provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetUuid",
-          "type": "string",
-          "description": "The UUID of the target for the spell (optional)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetName",
-          "type": "string",
-          "description": "The name of the target if UUID not provided (optional)",
-          "location": "body, query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/dnd5e/use-item",
-      "description": "Use an item for an actor. Activates an item from the actor's inventory, such as drinking a potion, using a magic item, or activating equipment with special properties.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor using the item",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "abilityUuid",
-          "type": "string",
-          "description": "The UUID of the specific item (optional if abilityName provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "abilityName",
-          "type": "string",
-          "description": "The name of the item if UUID not provided (optional if abilityUuid provided)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetUuid",
-          "type": "string",
-          "description": "The UUID of the target for the item (optional)",
-          "location": "body, query"
-        },
-        {
-          "name": "targetName",
-          "type": "string",
-          "description": "The name of the target if UUID not provided (optional)",
-          "location": "body, query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/dnd5e/modify-experience",
-      "description": "Modify the experience points for a specific actor. Adds or removes experience points from an actor.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "amount",
-          "type": "number",
-          "description": "The amount of experience to add (can be negative)",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor to modify",
-          "location": "body, query"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Modify the selected token's actor",
-          "location": "body, query"
-        }
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/encounters",
-      "description": "Get all active encounters Retrieves a list of all currently active encounters in the Foundry world.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": []
-    },
-    {
-      "method": "POST",
-      "path": "/start-encounter",
-      "description": "Start a new encounter Initiates a new encounter in the Foundry world.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "tokens",
-          "type": "array",
-          "description": "Array of token UUIDs to include in the encounter",
-          "location": "body"
-        },
-        {
-          "name": "startWithSelected",
-          "type": "boolean",
-          "description": "Whether to start with selected tokens",
-          "location": "body"
-        },
-        {
-          "name": "startWithPlayers",
-          "type": "boolean",
-          "description": "Whether to start with players",
-          "location": "body"
-        },
-        {
-          "name": "rollNPC",
-          "type": "boolean",
-          "description": "Whether to roll for NPCs",
-          "location": "body"
-        },
-        {
-          "name": "rollAll",
-          "type": "boolean",
-          "description": "Whether to roll for all tokens",
-          "location": "body"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "description": "The name of the encounter (unused)",
-          "location": "body"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/next-turn",
-      "description": "Advance to the next turn in the encounter Moves the encounter to the next turn.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "encounter",
-          "type": "string",
-          "description": "The ID of the encounter to advance (optional, defaults to current encounter)",
-          "location": "query, body"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/next-round",
-      "description": "Advance to the next round in the encounter Moves the encounter to the next round.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "encounter",
-          "type": "string",
-          "description": "The ID of the encounter to advance (optional, defaults to current encounter)",
-          "location": "query, body"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/last-turn",
-      "description": "Advance to the last turn in the encounter Moves the encounter to the last turn.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "encounter",
-          "type": "string",
-          "description": "The ID of the encounter to advance (optional, defaults to current encounter)",
-          "location": "query, body"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/last-round",
-      "description": "Advance to the last round in the encounter Moves the encounter to the last round.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "encounter",
-          "type": "string",
-          "description": "The ID of the encounter to advance (optional, defaults to current encounter)",
-          "location": "query, body"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/end-encounter",
-      "description": "End an encounter Ends the current encounter in the Foundry world.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "encounter",
-          "type": "string",
-          "description": "The ID of the encounter to end (optional, defaults to current encounter)",
-          "location": "query, body"
-        }
-      ]
-    },
-    {
       "method": "POST",
       "path": "/add-to-encounter",
-      "description": "Add tokens to an encounter Adds selected tokens or specified UUIDs to the current encounter.",
-      "requiredParameters": [
+      "description": "Add to encounter",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "The ID of the Foundry client to connect to",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "encounter",
-          "type": "string",
-          "description": "The ID of the encounter to add tokens to (optional, defaults to current encounter)",
-          "location": "query, body"
         },
         {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to add selected tokens (optional, defaults to false)",
-          "location": "body"
-        },
-        {
-          "name": "uuids",
-          "type": "array",
-          "description": "The UUIDs of the tokens to add (optional, defaults to empty array)",
-          "location": "body"
-        },
-        {
-          "name": "rollInitiative",
-          "type": "boolean",
-          "description": "Whether to roll initiative for the added tokens (optional, defaults to false)",
-          "location": "body"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/remove-from-encounter",
-      "description": "Remove tokens from an encounter Removes selected tokens or specified UUIDs from the current encounter.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "encounter",
-          "type": "string",
-          "description": "The ID of the encounter to remove tokens from (optional, defaults to current encounter)",
-          "location": "query, body"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to remove selected tokens (optional, defaults to false)",
-          "location": "body"
-        },
-        {
-          "name": "uuids",
-          "type": "array",
-          "description": "The UUIDs of the tokens to remove (optional, defaults to empty array)",
+          "name": "body",
+          "type": "object",
+          "description": "",
           "location": "body"
         }
       ]
     },
     {
       "method": "GET",
-      "path": "/get",
-      "description": "Get entity details This endpoint retrieves the details of a specific entity.",
+      "path": "/api/docs",
+      "description": "Returns the API documentation",
+      "requiredParameters": [],
+      "optionalParameters": [],
+      "authentication": false
+    },
+    {
+      "method": "GET",
+      "path": "/api/status",
+      "description": "Returns the API status",
+      "requiredParameters": [],
+      "optionalParameters": [],
+      "authentication": false
+    },
+    {
+      "method": "GET",
+      "path": "/clients",
+      "description": "Returns connected client Foundry Worlds",
+      "requiredParameters": [],
+      "optionalParameters": []
+    },
+    {
+      "method": "GET",
+      "path": "/contents/{path}",
+      "description": "Returns the contents of a folder or compendium",
       "requiredParameters": [
         {
-          "name": "clientId",
+          "name": "path",
           "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
+          "description": "Folder or compendium to return",
+          "location": "path"
         }
       ],
       "optionalParameters": [
         {
-          "name": "uuid",
+          "name": "clientId",
           "type": "string",
-          "description": "UUID of the entity to retrieve (optional if selected=true)",
-          "location": "query"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to get the selected entity",
-          "location": "query"
-        },
-        {
-          "name": "actor",
-          "type": "boolean",
-          "description": "Return the actor of specified entity",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         }
       ]
@@ -830,194 +74,19 @@
     {
       "method": "POST",
       "path": "/create",
-      "description": "Create a new entity This endpoint creates a new entity in the Foundry world.",
-      "requiredParameters": [
+      "description": "Creates a new entity in Foundry with the given JSON",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         },
         {
-          "name": "entityType",
-          "type": "string",
-          "description": "Document type of entity to create (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist, ext.)",
-          "location": "body"
-        },
-        {
-          "name": "data",
+          "name": "body",
           "type": "object",
-          "description": "Data for the new entity",
-          "location": "body"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "folder",
-          "type": "string",
-          "description": "Optional folder UUID to place the new entity in",
-          "location": "body"
-        }
-      ]
-    },
-    {
-      "method": "PUT",
-      "path": "/update",
-      "description": "Update an existing entity This endpoint updates an existing entity in the Foundry world.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
-        },
-        {
-          "name": "data",
-          "type": "object",
-          "description": "Data to update the entity with",
-          "location": "body"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "uuid",
-          "type": "string",
-          "description": "UUID of the entity to update (optional if selected=true)",
-          "location": "query"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to update the selected entity",
-          "location": "query"
-        },
-        {
-          "name": "actor",
-          "type": "boolean",
-          "description": "Update the actor of selected entity when selected=true",
-          "location": "query"
-        }
-      ]
-    },
-    {
-      "method": "DELETE",
-      "path": "/delete",
-      "description": "Delete an entity This endpoint deletes an entity from the Foundry world.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "uuid",
-          "type": "string",
-          "description": "UUID of the entity to delete (optional if selected=true)",
-          "location": "query"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to delete the selected entity",
-          "location": "query"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/give",
-      "description": "Give an item to an entity This endpoint gives an item to a specified entity. Optionally, removes the item from the giver.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "fromUuid",
-          "type": "string",
-          "description": "UUID of the entity giving the item",
-          "location": "body"
-        },
-        {
-          "name": "toUuid",
-          "type": "string",
-          "description": "UUID of the entity receiving the item",
-          "location": "body"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to give to the selected token's actor",
-          "location": "body"
-        },
-        {
-          "name": "itemUuid",
-          "type": "string",
-          "description": "UUID of the item to give (optional if itemName provided)",
-          "location": "body"
-        },
-        {
-          "name": "itemName",
-          "type": "string",
-          "description": "Name of the item to give (search with Quick Insert if UUID not provided)",
-          "location": "body"
-        },
-        {
-          "name": "quantity",
-          "type": "number",
-          "description": "Quantity of the item to give (negative values decrease quantity to 0)",
-          "location": "body"
-        }
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/remove",
-      "description": "Remove an item from an entity This endpoint removes an item from a specified entity.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "actorUuid",
-          "type": "string",
-          "description": "UUID of the actor to remove the item from (optional if selected=true)",
-          "location": "body"
-        },
-        {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to remove from the selected token's actor",
-          "location": "body"
-        },
-        {
-          "name": "itemUuid",
-          "type": "string",
-          "description": "UUID of the item to remove",
-          "location": "body"
-        },
-        {
-          "name": "itemName",
-          "type": "string",
-          "description": "Name of the item to remove (search with Quick Insert if UUID not provided)",
-          "location": "body"
-        },
-        {
-          "name": "quantity",
-          "type": "number",
-          "description": "Quantity of the item to remove",
+          "description": "",
           "location": "body"
         }
       ]
@@ -1025,166 +94,383 @@
     {
       "method": "POST",
       "path": "/decrease",
-      "description": "Decrease an attribute This endpoint decreases an attribute of a specified entity.",
-      "requiredParameters": [
+      "description": "Decrease an attribute",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
-        },
-        {
-          "name": "attribute",
-          "type": "string",
-          "description": "The attribute data path to decrease (e.g., \"system.attributes.hp.value\")",
-          "location": "body"
-        },
-        {
-          "name": "amount",
-          "type": "number",
-          "description": "The amount to decrease the attribute by",
-          "location": "body"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "uuid",
-          "type": "string",
-          "description": "UUID of the entity to decrease the attribute for (optional if selected=true)",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         },
         {
           "name": "selected",
           "type": "boolean",
-          "description": "Whether to decrease the attribute for the selected entity",
+          "description": "",
           "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/delete",
+      "description": "Deletes an entity from Foundry",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/dnd5e/get-actor-details",
+      "description": "get-actor-details",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "actorUuid",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "details",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dnd5e/modify-experience",
+      "description": "modify-experience",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "actorUuid",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "amount",
+          "type": "integer",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dnd5e/modify-item-charges",
+      "description": "modify-item-charges",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "actorUuid",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "amount",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "itemName",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dnd5e/use-ability",
+      "description": "use-item",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "abilityName",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "actorUuid",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "details",
+          "type": "string",
+          "description": "",
+          "location": "header"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/download",
+      "description": "/download",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/encounters",
+      "description": "Returns all encounters",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/end-encounter",
+      "description": "End an encounter",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/end-session",
+      "description": "Ends a headless Foundry session.",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "sessionId",
+          "type": "string",
+          "description": "The session to end",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/execute-js",
+      "description": "#### Executes Javascript in Foundry Accepts the script as a file upload, or as a raw string in the body with the key \"script\". If included as a raw string in the body excape quotes and backslashes, and remove comments. Returns the result of the code execution.",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/file-system",
+      "description": "/file-system",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/get",
+      "description": "Returns JSON data for entity",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "actor",
+          "type": "boolean",
+          "description": "Use selected entity's actor",
+          "location": "query"
+        },
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Use selected entity",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/give",
+      "description": "Give an item to an actor - Item uuid required - Selected actor or actor uuid - Optionally take from another actor - Optionally specify quantity",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
         }
       ]
     },
     {
       "method": "POST",
       "path": "/increase",
-      "description": "Increase an attribute This endpoint increases an attribute of a specified entity.",
-      "requiredParameters": [
+      "description": "Increase an attribute",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         },
-        {
-          "name": "attribute",
-          "type": "string",
-          "description": "The attribute data path to increase (e.g., \"system.attributes.hp.value\")",
-          "location": "body"
-        },
-        {
-          "name": "amount",
-          "type": "number",
-          "description": "The amount to increase the attribute by",
-          "location": "body"
-        }
-      ],
-      "optionalParameters": [
         {
           "name": "uuid",
           "type": "string",
-          "description": "UUID of the entity to increase the attribute for (optional if selected=true)",
+          "description": "",
           "location": "query"
         },
         {
-          "name": "selected",
-          "type": "boolean",
-          "description": "Whether to increase the attribute for the selected entity",
-          "location": "query"
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
         }
       ]
     },
     {
       "method": "POST",
       "path": "/kill",
-      "description": "Kill an entity Marks an entity as killed in the combat tracker, gives it the \"dead\" status, and sets its health to 0 in the Foundry world.",
-      "requiredParameters": [
+      "description": "Reduce to 0hp and mark dead and defeated",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "uuid",
-          "type": "string",
-          "description": "UUID of the entity to kill (optional if selected=true)",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         },
         {
           "name": "selected",
           "type": "boolean",
-          "description": "Whether to kill the selected entity",
+          "description": "",
           "location": "query"
         }
       ]
-    },
-    {
-      "method": "GET",
-      "path": "/macros",
-      "description": "Get all macros Retrieves a list of all macros available in the Foundry world.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "The ID of the Foundry client to connect to",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": []
     },
     {
       "method": "POST",
-      "path": "/macro/:uuid/execute",
-      "description": "Execute a macro by UUID Executes a specific macro in the Foundry world by its UUID.",
-      "requiredParameters": [
+      "path": "/last-round",
+      "description": "Move backward 1 round",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "The ID of the Foundry client to connect to",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
-        },
-        {
-          "name": "uuid",
-          "type": "string",
-          "description": "UUID of the macro to execute",
-          "location": "params"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "args",
-          "type": "object",
-          "description": "Optional arguments to pass to the macro execution",
-          "location": "body"
         }
       ]
     },
     {
-      "method": "GET",
-      "path": "/rolls",
-      "description": "Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry world.",
-      "requiredParameters": [
+      "method": "POST",
+      "path": "/last-turn",
+      "description": "Move backward 1 turn",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "limit",
-          "type": "number",
-          "description": "Optional limit on the number of rolls to return (default is 20)",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         }
       ]
@@ -1192,262 +478,225 @@
     {
       "method": "GET",
       "path": "/lastroll",
-      "description": "Get the last roll Retrieves the most recent roll made in the Foundry world.",
-      "requiredParameters": [
+      "description": "Returns the last roll made",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/macro/{uuid}/execute",
+      "description": "Executes a macro",
+      "requiredParameters": [
+        {
+          "name": "uuid",
+          "type": "string",
+          "description": "UUID of the macro to execute",
+          "location": "path"
+        }
       ],
-      "optionalParameters": []
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/macros",
+      "description": "Returns all available macros",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/next-round",
+      "description": "Move forward 1 round",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/next-turn",
+      "description": "Move forward 1 turn",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/remove-from-encounter",
+      "description": "Remove from encounter",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
+        }
+      ]
     },
     {
       "method": "POST",
       "path": "/roll",
-      "description": "Make a roll Executes a roll with the specified formula",
+      "description": "Makes a new roll in Foundry",
       "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
-        },
         {
           "name": "formula",
           "type": "string",
-          "description": "The roll formula to evaluate (e.g., \"1d20 + 5\")",
+          "description": "Dice formula to execute.",
           "location": "body"
         }
       ],
       "optionalParameters": [
         {
-          "name": "flavor",
+          "name": "clientId",
           "type": "string",
-          "description": "Optional flavor text for the roll",
-          "location": "body"
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
         },
         {
           "name": "createChatMessage",
           "type": "boolean",
-          "description": "Whether to create a chat message for the roll",
+          "description": "",
+          "location": "body"
+        },
+        {
+          "name": "flavor",
+          "type": "string",
+          "description": "",
+          "location": "body"
+        },
+        {
+          "name": "itemUuid",
+          "type": "string",
+          "description": "",
           "location": "body"
         },
         {
           "name": "speaker",
           "type": "string",
-          "description": "The speaker for the roll",
+          "description": "",
+          "location": "body"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "description": "",
           "location": "body"
         },
         {
           "name": "whisper",
           "type": "array",
-          "description": "Users to whisper the roll result to",
+          "description": "",
           "location": "body"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/rolls",
+      "description": "Returns up to the last 20 rolls",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "description": "(Optional) Max number of rolls to return. Max 20. Default 20.",
+          "location": "query"
         }
       ]
     },
     {
       "method": "GET",
       "path": "/search",
-      "description": "Search entities This endpoint allows searching for entities in the Foundry world based on a query string. Requires Quick Insert module to be installed and enabled.",
-      "requiredParameters": [
+      "description": "Searches Foundry VTT entities using QuickInsert Filters can be a single string for filtering by type (\"actor\", \"item\", ext.), or chained together (name:bob,documentType:actor) Available filters: - documentType: type of document (\"Actor\", \"Item\", ext) - folder: folder location of the entity (not always defined) - id: unique identifier of the entity - name: name of the entity - package: package identifier the entity belongs to (compendiums minus \"Compendium.\") - packageName: human-readable package name (readable name of compendium) - subType: sub-type of the entity (\"npc\", \"equipment\", ext) - uuid: universal unique identifier - icon: icon HTML for the entity - journalLink: journal link to entity - tagline: same as packageName - formattedMatch: HTML with **applied to matching search parts** - **resultType: constructor name of the QuickInsert result type (\"EntitySearchItem\". \"CompendiumSearchItem\", \"EmbeddedEntitySearchItem\", ext)**",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "filter",
+          "type": "string",
+          "description": "",
           "location": "query"
         },
         {
           "name": "query",
           "type": "string",
-          "description": "Search query string",
+          "description": "Search string",
           "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "filter",
-          "type": "string",
-          "description": "Filter to apply (simple: filter=\"Actor\", property-based: filter=\"key:value,key2:value2\")",
-          "location": "query"
-        }
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/structure",
-      "description": "Get the structure of the Foundry world Retrieves the folder and compendium structure for the specified Foundry world.",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "includeEntityData",
-          "type": "boolean",
-          "description": "Whether to include full entity data or just UUIDs and names",
-          "location": "query"
-        },
-        {
-          "name": "path",
-          "type": "string",
-          "description": "Path to read structure from (null = root)",
-          "location": "query"
-        },
-        {
-          "name": "recursive",
-          "type": "boolean",
-          "description": "Whether to read down the folder tree",
-          "location": "query"
-        },
-        {
-          "name": "recursiveDepth",
-          "type": "number",
-          "description": "Depth to recurse into folders (default 5)",
-          "location": "query"
-        },
-        {
-          "name": "types",
-          "type": "string",
-          "description": "Types to return (Scene/Actor/Item/JournalEntry/RollTable/Cards/Macro/Playlist), can be comma-separated or JSON array",
-          "location": "query"
-        }
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/contents/:path",
-      "description": "This route is deprecated - use /structure with the path query parameter instead",
-      "requiredParameters": [],
-      "optionalParameters": []
-    },
-    {
-      "method": "GET",
-      "path": "/get-folder",
-      "description": "Get a specific folder by name",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "description": "Name of the folder to retrieve",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": []
-    },
-    {
-      "method": "POST",
-      "path": "/create-folder",
-      "description": "Create a new folder",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "description": "Name of the new folder",
-          "location": "body, query"
-        },
-        {
-          "name": "folderType",
-          "type": "string",
-          "description": "Type of folder (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist)",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "parentFolderId",
-          "type": "string",
-          "description": "ID of the parent folder (optional for root level)",
-          "location": "body, query"
-        }
-      ]
-    },
-    {
-      "method": "DELETE",
-      "path": "/delete-folder",
-      "description": "Delete a folder",
-      "requiredParameters": [
-        {
-          "name": "clientId",
-          "type": "string",
-          "description": "Client ID for the Foundry world",
-          "location": "body, query"
-        },
-        {
-          "name": "folderId",
-          "type": "string",
-          "description": "ID of the folder to delete",
-          "location": "body, query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "deleteAll",
-          "type": "boolean",
-          "description": "Whether to delete all entities in the folder",
-          "location": "body, query"
         }
       ]
     },
     {
       "method": "POST",
       "path": "/select",
-      "description": "Select token(s) Selects one or more tokens in the Foundry VTT client.",
-      "requiredParameters": [
+      "description": "**Selects entities in Foundry**",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
-        }
-      ],
-      "optionalParameters": [
-        {
-          "name": "uuids",
-          "type": "array",
-          "description": "Array of UUIDs to select",
-          "location": "body"
         },
         {
-          "name": "name",
-          "type": "string",
-          "description": "Name of the token(s) to select",
-          "location": "body"
-        },
-        {
-          "name": "data",
+          "name": "body",
           "type": "object",
-          "description": "Data to match for selection (e.g., \"data.attributes.hp.value\": 20)",
-          "location": "body"
-        },
-        {
-          "name": "overwrite",
-          "type": "boolean",
-          "description": "Whether to overwrite existing selection",
-          "location": "body"
-        },
-        {
-          "name": "all",
-          "type": "boolean",
-          "description": "Whether to select all tokens on the canvas",
+          "description": "",
           "location": "body"
         }
       ]
@@ -1455,34 +704,196 @@
     {
       "method": "GET",
       "path": "/selected",
-      "description": "Get selected token(s) Retrieves the currently selected token(s) in the Foundry VTT client.",
-      "requiredParameters": [
+      "description": "**Returns the currently selected entities**",
+      "requiredParameters": [],
+      "optionalParameters": [
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
+          "description": "Auth token to connect to specific Foundry world",
           "location": "query"
         }
-      ],
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/session",
+      "description": "Gets the currently active headless Foundry session.",
+      "requiredParameters": [],
       "optionalParameters": []
     },
     {
       "method": "POST",
-      "path": "/execute-js",
-      "description": "Execute JavaScript Executes a JavaScript script in the Foundry VTT client.",
-      "requiredParameters": [
+      "path": "/session-handshake",
+      "description": "Creates a temporary, one-time-use, token that can be used to create a headless Foundry session.",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "x-foundry-url",
+          "type": "string",
+          "description": "The url to your foundry game",
+          "location": "header"
+        },
+        {
+          "name": "x-password",
+          "type": "string",
+          "description": "The password to log in with",
+          "location": "header"
+        },
+        {
+          "name": "x-username",
+          "type": "string",
+          "description": "The username to log in with (eg. \"Gamemaster\")",
+          "location": "header"
+        },
+        {
+          "name": "x-world-name",
+          "type": "string",
+          "description": "(Optional) The name of the world as it appears in foundry if the world is not already loaded.",
+          "location": "header"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sheet",
+      "description": "Returns raw HTML (or a string in a JSON response) for an entity If returning HTML there are options for scale, tab to open (if available), and darkMode. If returning JSON the HTML is untouched.",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "actor",
+          "type": "boolean",
+          "description": "(Optional) Return dark mode HTML. Default = false",
+          "location": "query"
+        },
         {
           "name": "clientId",
           "type": "string",
-          "description": "Client ID for the Foundry world",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "scale",
+          "type": "number",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "(Optional) Tab to open if available",
           "location": "query"
         }
-      ],
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/start-encounter",
+      "description": "Starts an encouter",
+      "requiredParameters": [],
       "optionalParameters": [
         {
-          "name": "script",
+          "name": "clientId",
           "type": "string",
-          "description": "JavaScript script to execute",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/start-session",
+      "description": "Starts a headless Foundry session. Must provide a handshake token and the encrypted password.",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/structure",
+      "description": "Returns the folders and compendiums in the world",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/update",
+      "description": "Updates and entity with the given JSON props",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "Auth token to connect to specific Foundry world",
+          "location": "query"
+        },
+        {
+          "name": "uuid",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "object",
+          "description": "",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/upload",
+      "description": "/upload",
+      "requiredParameters": [],
+      "optionalParameters": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "overwrite",
+          "type": "boolean",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "description": "",
+          "location": "query"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "description": "",
           "location": "body"
         }
       ]

@@ -48,8 +48,8 @@ curl -X GET http://localhost:3010/structure \
   -H "x-api-key: YOUR_API_KEY_HERE"
 ```
 
-**Example using Postman:**
-You can download the [Postman Collection](https://github.com/JustAnotherIdea/foundryvtt-rest-api-relay/blob/main/Foundry%20REST%20API%20Documentation.postman_collection.json) to easily test the API. In Postman, you can set the `x-api-key` header for the entire collection or for individual requests.
+**OpenAPI reference:**
+The canonical API reference now lives in the OpenAPI files under `documentation/openapi/*.yaml`, and the generated docs are available under `/api/`. Use those OpenAPI files and the generated docs as the main reference for endpoints, parameters, and responses.
 
 ## Unauthenticated Endpoints
 

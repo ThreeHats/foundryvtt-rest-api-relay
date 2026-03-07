@@ -18,7 +18,7 @@
     "docs:install": "cd docs && pnpm install",
     "test": "tsx scripts/runTestsInOrder.ts",
     "test:generate": "tsx scripts/generateTestFiles.ts",
-    "docs:generate": "node scripts/generateApiDocs.js",
+    "docs:generate": "python documentation/openapi/convert-openapi-to-md.py",
     "docs:examples": "tsx scripts/updateDocsWithExamples.ts",
     "docs:update": "pnpm run docs:generate && pnpm run docs:examples",
     "docs:full": "pnpm run docs:update && cd docs && pnpm build",

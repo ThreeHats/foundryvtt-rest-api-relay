@@ -1,0 +1,313 @@
+openapi: 3.0.0
+info:
+  title: Foundry REST API Documentation
+  description: >-
+    ### How to use Foundry REST API:
+
+
+    - Install the [Foundry VTT
+    Module](https://github.com/ThreeHats/foundryvtt-rest-api)
+
+    - Get an API key for the public relay server at
+    [https://foundryvtt-rest-api-relay.fly.dev/](https://foundryvtt-rest-api-relay.fly.dev/)
+
+    - Use the OpenAPI source files in `documentation/openapi/` or the generated
+    interactive docs as the main reference for testing endpoints.
+
+    - Read this documentation for information about how to use each endpoint
+
+
+    ---
+
+
+    Foundry REST API provides various API endpoints for fetching and interacting
+    with your foundry world data through a node.js server that act as a relay.
+
+
+    ## **Getting started guide**
+
+
+    To start using the Foundry REST API, you need to -
+
+
+    - Have your API key in the module settings.
+
+    - Each request must have the your API key in the "x-api-key" header.
+
+    - Endpoints other than /clients require a clientId parameter that matches a
+    connected world.
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  schemas:
+    RollRequest:
+      type: object
+      description: Request payload for roll execution.
+      required:
+        - formula
+      properties:
+        formula:
+          type: string
+          description: Dice formula to execute.
+        itemUuid:
+          type: string
+          nullable: true
+        flavor:
+          type: string
+        createChatMessage:
+          type: boolean
+          default: true
+        target:
+          type: string
+          nullable: true
+        speaker:
+          type: string
+          nullable: true
+        whisper:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+      example:
+        formula: 10d20kl
+        itemUuid: uuid
+        flavor: Attack Roll
+        createChatMessage: true
+        target: uuid
+        speaker: uuid
+        whisper:
+          - uuid
+    Actor:
+      type: object
+      description: Generic Actor payload aligned with Foundry document shape.
+      properties:
+        type:
+          type: string
+          description: Foundry document type (for example npc, character).
+        folder:
+          type: string
+          nullable: true
+        data:
+          type: object
+          additionalProperties: true
+        flags:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+      example:
+        type: npc
+        folder: fndce12345678900
+        data:
+          name: Big Ape
+          system:
+            attributes:
+              hp:
+                value: 19
+        flags:
+          obsidian:
+            uuid: actor-obsidian-id
+    Item:
+      type: object
+      description: Generic Item payload aligned with Foundry document shape.
+      properties:
+        type:
+          type: string
+          description: Foundry item type.
+        folder:
+          type: string
+          nullable: true
+        data:
+          type: object
+          additionalProperties: true
+        flags:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+      example:
+        type: weapon
+        data:
+          name: Longsword
+          system:
+            quantity: 1
+            damage:
+              parts:
+                - - 1d8 + @mod
+                  - slashing
+        flags:
+          obsidian:
+            uuid: item-obsidian-id
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: DnD5e
+paths:
+  /dnd5e/get-actor-details:
+    get:
+      tags:
+        - DnD5e
+      summary: get-actor-details
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{apiKey}}'
+        - name: actorUuid
+          in: header
+          schema:
+            type: string
+          example: Actor.XImWkGnebIA5xyix
+        - name: details
+          in: header
+          schema:
+            type: string
+          example: tems
+        - name: clientId
+          in: query
+          schema:
+            type: string
+          example: '{{clientId}}'
+        - name: actorUuid
+          in: query
+          schema:
+            type: string
+          example: Actor.XImWkGnebIA5xyix
+        - name: details
+          in: query
+          schema:
+            type: string
+          example: '["resources", "items", "spells", "features"]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /dnd5e/modify-experience:
+    post:
+      tags:
+        - DnD5e
+      summary: modify-experience
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{apiKey}}'
+        - name: clientId
+          in: query
+          schema:
+            type: string
+          example: '{{clientId}}'
+        - name: actorUuid
+          in: query
+          schema:
+            type: string
+          example: Actor.XImWkGnebIA5xyix
+        - name: amount
+          in: query
+          schema:
+            type: integer
+          example: '300'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /dnd5e/use-ability:
+    post:
+      tags:
+        - DnD5e
+      summary: use-item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{apiKey}}'
+        - name: actorUuid
+          in: header
+          schema:
+            type: string
+          example: Actor.XImWkGnebIA5xyix
+        - name: details
+          in: header
+          schema:
+            type: string
+          example: tems
+        - name: clientId
+          in: query
+          schema:
+            type: string
+          example: '{{clientId}}'
+        - name: actorUuid
+          in: query
+          schema:
+            type: string
+          example: Actor.XImWkGnebIA5xyix
+        - name: abilityName
+          in: query
+          schema:
+            type: string
+          example: rage
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /dnd5e/modify-item-charges:
+    post:
+      tags:
+        - DnD5e
+      summary: modify-item-charges
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{apiKey}}'
+        - name: clientId
+          in: query
+          schema:
+            type: string
+          example: '{{clientId}}'
+        - name: actorUuid
+          in: query
+          schema:
+            type: string
+          example: Actor.XImWkGnebIA5xyix
+        - name: itemName
+          in: query
+          schema:
+            type: string
+          example: rage
+        - name: amount
+          in: query
+          schema:
+            type: string
+          example: '-1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

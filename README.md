@@ -110,9 +110,9 @@ The REST API provides endpoints across these resource groups:
 
 **Authentication:** Include your API key in the `x-api-key` header for all requests.
 
-📖 **[Full API Documentation](https://foundryvtt-rest-api-relay.fly.dev/docs)**
+**[Full API Documentation](https://foundryvtt-rest-api-relay.fly.dev/docs)**
 
-> *The Postman Collection is deprecated — the interactive API documentation now includes code examples in multiple languages.*
+> *The canonical API reference now comes from the OpenAPI files in `documentation/openapi/*.yaml`, and the generated interactive docs live under `/docs/api`. The legacy Postman collection is kept only for compatibility.*
 
 ---
 
