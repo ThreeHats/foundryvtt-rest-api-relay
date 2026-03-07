@@ -15,3 +15,17 @@ services:
       - ./data:/app/data
     command: pnpm local:sqlite
     restart: unless-stopped
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    container_name: foundryvtt-rest-api-swagger-ui
+    ports:
+      - "8081:8080"
+    environment:
+      - URLS=[{"url":"${SWAGGER_UI_CORE_OPENAPI_URL}","name":"core"},{"url":"${SWAGGER_UI_DND5E_OPENAPI_URL}","name":"dnd5e"}]
+      - URLS_PRIMARY_NAME=core
+      - SWAGGER_UI_CORE_OPENAPI_URL=${SWAGGER_UI_CORE_OPENAPI_URL}
+      - SWAGGER_UI_DND5E_OPENAPI_URL=${SWAGGER_UI_DND5E_OPENAPI_URL}
+    volumes:
+      - ./documentation:/usr/share/nginx/html/documentation:ro
+    restart: unless-stopped

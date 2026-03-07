@@ -49,7 +49,11 @@ curl -X GET http://localhost:3010/structure \
 ```
 
 **OpenAPI reference:**
-The canonical API reference now lives in the OpenAPI files under `documentation/openapi/*.yaml`, and the generated docs are available under `/api/`. Use those OpenAPI files and the generated docs as the main reference for endpoints, parameters, and responses.
+The canonical API reference now lives in the OpenAPI files under `documentation/openapi/*.yaml`, and the generated docs are available under `/api/`.
+
+For manual testing on Windows, use the local Swagger UI workflow described in [Local Swagger UI Testing](./swagger-ui-testing). Swagger UI is the recommended option because it reads the same OpenAPI files used by the documentation pipeline.
+
+Postman remains available only as a legacy fallback and is no longer the recommended testing workflow.
 
 ## Unauthenticated Endpoints
 
