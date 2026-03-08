@@ -45,8 +45,8 @@ Example values are already included in `.env.test.example`:
 
 ```env
 SWAGGER_UI_RELAY_SERVER_URL=http://localhost:3010
-SWAGGER_UI_CORE_OPENAPI_URL=/generated-openapi-core.yaml
-SWAGGER_UI_DND5E_OPENAPI_URL=/generated-openapi-dnd5e.yaml
+SWAGGER_UI_CORE_OPENAPI_URL=/swagger/generated-openapi-core.yaml
+SWAGGER_UI_DND5E_OPENAPI_URL=/swagger/generated-openapi-dnd5e.yaml
 ```
 
 `SWAGGER_UI_RELAY_SERVER_URL` is used to rewrite the OpenAPI `servers.url` value before Swagger UI serves the specs, so `Try it out` requests go to your local relay by default.
@@ -59,8 +59,8 @@ Create a local `.env` file in the project root and include:
 
 ```env
 SWAGGER_UI_RELAY_SERVER_URL=http://localhost:3010
-SWAGGER_UI_CORE_OPENAPI_URL=/generated-openapi-core.yaml
-SWAGGER_UI_DND5E_OPENAPI_URL=/generated-openapi-dnd5e.yaml
+SWAGGER_UI_CORE_OPENAPI_URL=/swagger/generated-openapi-core.yaml
+SWAGGER_UI_DND5E_OPENAPI_URL=/swagger/generated-openapi-dnd5e.yaml
 ```
 
 ### Option B: Start Docker Compose with `.env.test.example`
@@ -82,7 +82,7 @@ docker compose --env-file .env.test.example up -d
 Open:
 
 ```text
-http://localhost:8081
+http://localhost:8081/swagger
 ```
 
 You will see two API definitions:
@@ -102,7 +102,7 @@ When trying protected endpoints:
 
 ## Option 2: Run Swagger UI Only
 
-If the relay is already running elsewhere and you only want the Swagger UI container:
+If the relay is already running elsewhere and you only want the external Swagger UI container:
 
 ```powershell
 docker compose --env-file .env.test.example up -d swagger-ui
