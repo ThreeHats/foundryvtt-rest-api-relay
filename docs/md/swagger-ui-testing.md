@@ -35,17 +35,21 @@ The repository `docker-compose.yml` already contains a `swagger-ui` service.
 
 ### Step 1: Configure the OpenAPI file URLs
 
-The Swagger UI container reads two environment variables:
+The Swagger UI container reads three environment variables:
 
 - `SWAGGER_UI_CORE_OPENAPI_URL`
 - `SWAGGER_UI_DND5E_OPENAPI_URL`
+- `SWAGGER_UI_RELAY_SERVER_URL`
 
 Example values are already included in `.env.test.example`:
 
 ```env
-SWAGGER_UI_CORE_OPENAPI_URL=/documentation/openapi/openapi-v3-foundry-rest-api-relay-core.yaml
-SWAGGER_UI_DND5E_OPENAPI_URL=/documentation/openapi/openapi-v3-foundry-rest-api-relay-dnd5e.yaml
+SWAGGER_UI_RELAY_SERVER_URL=http://localhost:3010
+SWAGGER_UI_CORE_OPENAPI_URL=/generated-openapi-core.yaml
+SWAGGER_UI_DND5E_OPENAPI_URL=/generated-openapi-dnd5e.yaml
 ```
+
+`SWAGGER_UI_RELAY_SERVER_URL` is used to rewrite the OpenAPI `servers.url` value before Swagger UI serves the specs, so `Try it out` requests go to your local relay by default.
 
 You can use them in either of these ways:
 
@@ -54,8 +58,9 @@ You can use them in either of these ways:
 Create a local `.env` file in the project root and include:
 
 ```env
-SWAGGER_UI_CORE_OPENAPI_URL=/documentation/openapi/openapi-v3-foundry-rest-api-relay-core.yaml
-SWAGGER_UI_DND5E_OPENAPI_URL=/documentation/openapi/openapi-v3-foundry-rest-api-relay-dnd5e.yaml
+SWAGGER_UI_RELAY_SERVER_URL=http://localhost:3010
+SWAGGER_UI_CORE_OPENAPI_URL=/generated-openapi-core.yaml
+SWAGGER_UI_DND5E_OPENAPI_URL=/generated-openapi-dnd5e.yaml
 ```
 
 ### Option B: Start Docker Compose with `.env.test.example`
@@ -109,7 +114,8 @@ This is useful when you want a local testing UI without changing your relay setu
 
 - Run commands from PowerShell in the repository root.
 - Docker Desktop must be running before you start the compose stack.
-- If the browser shows a missing spec error, verify that the two `SWAGGER_UI_*_OPENAPI_URL` variables match files mounted under `/usr/share/nginx/html/documentation`.
+- If `Try it out` calls the wrong server, update `SWAGGER_UI_RELAY_SERVER_URL`.
+- If the browser shows a missing spec error, verify that the two `SWAGGER_UI_*_OPENAPI_URL` variables match the generated files served by the container.
 
 ## Postman: Legacy Alternative
 

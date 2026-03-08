@@ -26,6 +26,15 @@ services:
       - URLS_PRIMARY_NAME=core
       - SWAGGER_UI_CORE_OPENAPI_URL=${SWAGGER_UI_CORE_OPENAPI_URL}
       - SWAGGER_UI_DND5E_OPENAPI_URL=${SWAGGER_UI_DND5E_OPENAPI_URL}
+      - SWAGGER_UI_RELAY_SERVER_URL=${SWAGGER_UI_RELAY_SERVER_URL}
     volumes:
-      - ./documentation:/usr/share/nginx/html/documentation:ro
+      - ./documentation/openapi:/openapi-source:ro
+    command: >-
+      /bin/sh -c "
+      cp /openapi-source/openapi-v3-foundry-rest-api-relay-core.yaml /usr/share/nginx/html/generated-openapi-core.yaml &&
+      cp /openapi-source/openapi-v3-foundry-rest-api-relay-dnd5e.yaml /usr/share/nginx/html/generated-openapi-dnd5e.yaml &&
+      sed -i 's|url: http://{{baseurl}}|url: ${SWAGGER_UI_RELAY_SERVER_URL}|' /usr/share/nginx/html/generated-openapi-core.yaml &&
+      sed -i 's|url: http://{{baseurl}}|url: ${SWAGGER_UI_RELAY_SERVER_URL}|' /usr/share/nginx/html/generated-openapi-dnd5e.yaml &&
+      exec /docker-entrypoint.sh
+      "
     restart: unless-stopped
