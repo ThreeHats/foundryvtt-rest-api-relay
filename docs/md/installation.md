@@ -76,6 +76,12 @@ in the environment section you can increase the amount of API requests for your 
 4.  **Updating the server:**
 -   **[Updating the docker image](./update-docker-image):** Commands to update your docker image.
 
+### Local Swagger UI for Testing
+
+The repository `docker-compose.yml` also includes a local `swagger-ui` service for manual API testing against the OpenAPI YAML files in `documentation/openapi`.
+
+For a Windows-focused setup guide, see [Local Swagger UI Testing](./swagger-ui-testing).
+
 ### Using PostgreSQL
 If you prefer to use PostgreSQL for your database, you can use the provided `docker-compose.postgres.yml` file. See the [PostgreSQL Setup Guide](/postgres-setup) for more details.
 

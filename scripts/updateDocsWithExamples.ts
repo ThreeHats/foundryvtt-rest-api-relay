@@ -244,6 +244,39 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
   console.log(`Updated ${mdPath} with ${examples.length} examples`);
 }
 
+function findMarkdownFile(docsDir: string, baseName: string): string | null {
+  const directPath = path.join(docsDir, `${baseName}.md`);
+  if (fs.existsSync(directPath)) {
+    return directPath;
+  }
+
+  const matches: string[] = [];
+  const queue: string[] = [docsDir];
+
+  while (queue.length > 0) {
+    const currentDir = queue.shift()!;
+    const entries = fs.readdirSync(currentDir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const entryPath = path.join(currentDir, entry.name);
+      if (entry.isDirectory()) {
+        queue.push(entryPath);
+        continue;
+      }
+      if (entry.isFile() && entry.name === `${baseName}.md`) {
+        matches.push(entryPath);
+      }
+    }
+  }
+
+  if (matches.length === 0) {
+    return null;
+  }
+
+  matches.sort((left, right) => left.length - right.length || left.localeCompare(right));
+  return matches[0];
+}
+
 /**
  * Main execution
  */
@@ -252,8 +285,8 @@ async function main() {
   const docsDir = path.join(__dirname, '../docs/md/api');
 
   if (!fs.existsSync(examplesDir)) {
-    console.error('Examples directory not found. Run tests first to capture examples.');
-    process.exit(1);
+    console.warn('Examples directory not found. Skipping code example merge.');
+    return;
   }
 
   // Read all captured example files
@@ -270,11 +303,11 @@ async function main() {
     // e.g., roll-endpoints-examples.json -> roll.md
     // e.g., roll-examples.json -> roll.md
     const baseName = file.replace('-endpoints-examples.json', '').replace('-examples.json', '');
-    const mdPath = path.join(docsDir, `${baseName}.md`);
+    const mdPath = findMarkdownFile(docsDir, baseName);
 
     console.log(`Processing ${file} (${examples.length} examples) -> ${baseName}.md`);
     
-    if (!fs.existsSync(mdPath)) {
+    if (!mdPath || !fs.existsSync(mdPath)) {
       console.warn(`  Warning: ${baseName}.md not found, skipping`);
       continue;
     }
