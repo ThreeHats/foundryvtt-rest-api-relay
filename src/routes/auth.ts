@@ -495,7 +495,7 @@ router.post('/reset-password', passwordResetRateLimiter, async (req: Request, re
 // Validate a reset token (lets frontend check before showing form)
 router.get('/validate-reset-token/:token', passwordResetRateLimiter, async (req: Request, res: Response) => {
   try {
-    const { token } = req.params;
+    const token = req.params.token as string;
 
     if (!token) {
       res.status(400).json({ valid: false });
