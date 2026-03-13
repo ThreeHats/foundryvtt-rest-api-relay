@@ -1,11 +1,13 @@
 import * as cron from 'node-cron';
 import { resetMonthlyRequests } from './monthlyReset';
 import { resetDailyRequests } from './dailyReset';
+import { PasswordResetToken } from '../models/passwordResetToken';
 import { log } from '../utils/logger';
 
 // Track scheduled jobs - use the correct type
 let monthlyResetJob: cron.ScheduledTask | null = null;
 let dailyResetJob: cron.ScheduledTask | null = null;
+let tokenCleanupJob: cron.ScheduledTask | null = null;
 
 /**
  * Set up all cron jobs for the application
@@ -82,6 +84,26 @@ export function setupCronJobs(): void {
     log.info('Daily reset cron job already scheduled');
   }
 
+  if (!tokenCleanupJob) {
+    // Clean up expired/used password reset tokens every 6 hours
+    tokenCleanupJob = cron.schedule('0 */6 * * *', async () => {
+      log.info('Running scheduled password reset token cleanup');
+      try {
+        const deleted = await PasswordResetToken.cleanupExpired();
+        log.info(`Password reset token cleanup completed, removed ${deleted} tokens`);
+      } catch (error) {
+        log.error(`Error in token cleanup cron job: ${error}`);
+      }
+    }, {
+      timezone: 'UTC'
+    });
+
+    tokenCleanupJob.start();
+    log.info('Token cleanup cron job scheduled');
+  } else {
+    log.info('Token cleanup cron job already scheduled');
+  }
+
   log.info('Cron jobs setup completed');
 }
 
@@ -100,14 +122,21 @@ export function stopCronJobs(): void {
     dailyResetJob = null;
     log.info('Daily reset cron job stopped');
   }
+
+  if (tokenCleanupJob) {
+    tokenCleanupJob.stop();
+    tokenCleanupJob = null;
+    log.info('Token cleanup cron job stopped');
+  }
 }
 
 /**
  * Get status of cron jobs
  */
-export function getCronJobStatus(): { 
+export function getCronJobStatus(): {
   monthlyReset: { scheduled: boolean; active: boolean };
   dailyReset: { scheduled: boolean; active: boolean };
+  tokenCleanup: { scheduled: boolean; active: boolean };
 } {
   return {
     monthlyReset: {
@@ -117,6 +146,10 @@ export function getCronJobStatus(): {
     dailyReset: {
       scheduled: dailyResetJob !== null,
       active: dailyResetJob !== null
+    },
+    tokenCleanup: {
+      scheduled: tokenCleanupJob !== null,
+      active: tokenCleanupJob !== null
     }
   };
 }

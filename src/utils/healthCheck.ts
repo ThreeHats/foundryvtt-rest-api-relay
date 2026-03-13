@@ -1,12 +1,12 @@
 import { log } from '../utils/logger';
-import { checkRedisHealth } from '../config/redis';
+import { checkRedisHealth, isLocalMode } from '../config/redis';
 import os from 'os';
 
 // System health check
 export interface HealthStatus {
   healthy: boolean;
   services: {
-    redis: { healthy: boolean; message?: string };
+    redis: { healthy: boolean; message?: string; skipped?: boolean };
     system: { 
       healthy: boolean;
       freeMem: number;
@@ -34,8 +34,8 @@ export function getSystemHealth(): HealthStatus {
   // System is healthy if memory usage is under 90%
   const systemHealthy = memUsedPercent < 90;
   
-  // Overall health status
-  const healthy = redisHealth.healthy && systemHealthy;
+  // Overall health status - skip Redis check in local mode
+  const healthy = (isLocalMode || redisHealth.healthy) && systemHealthy;
   
   return {
     healthy,
@@ -61,7 +61,9 @@ export function logSystemHealth() {
   log.info(`System health: ${health.healthy ? 'HEALTHY' : 'UNHEALTHY'}`);
   log.info(`  Memory: ${Math.round(health.services.system.memUsedPercent)}% used (${Math.round(health.services.system.freeMem/1024/1024)}MB free)`);
   log.info(`  CPU Load: ${health.services.system.cpuLoad.map(v => v.toFixed(2)).join(', ')}`);
-  log.info(`  Redis: ${health.services.redis.healthy ? 'CONNECTED' : 'DISCONNECTED'} ${health.services.redis.message || ''}`);
+  if (!isLocalMode) {
+    log.info(`  Redis: ${health.services.redis.healthy ? 'CONNECTED' : 'DISCONNECTED'} ${health.services.redis.message || ''}`);
+  }
 }
 
 export function startHealthMonitoring(intervalMs = 300000) { // Default: 5 minutes

@@ -33,15 +33,49 @@ document.addEventListener("DOMContentLoaded", function () {
   setupTabButtons(loggedOutMenu);
   setupTabButtons(loggedInMenu);
   
-  // Check if user is already logged in (from localStorage)
-  const userData = JSON.parse(localStorage.getItem("foundryApiUser"));
-  if (userData) {
-    // First show dashboard with cached data and switch to logged-in menu
-    showDashboard(userData);
-    switchToLoggedInMenu();
-    
-    // Then fetch fresh data
-    fetchUserData(userData.apiKey);
+  // Helper to show a specific tab programmatically
+  function showTab(tabId) {
+    const tabContents = document.querySelectorAll(".tab-content");
+    tabContents.forEach((content) => content.classList.remove("active"));
+    document.getElementById(tabId).classList.add("active");
+  }
+
+  // Check URL for reset token
+  const urlParams = new URLSearchParams(window.location.search);
+  const resetToken = urlParams.get("reset-token");
+
+  if (resetToken) {
+    // Validate the token before showing the reset form
+    fetch(`/auth/validate-reset-token/${encodeURIComponent(resetToken)}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.valid) {
+          showTab("reset-password");
+          document.getElementById("reset-password-form").dataset.token = resetToken;
+        } else {
+          showTab("login");
+          const msg = document.getElementById("login-message");
+          msg.textContent = "This password reset link is invalid or has expired. Please request a new one.";
+          msg.className = "message error";
+        }
+        // Clean the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      })
+      .catch(() => {
+        showTab("login");
+        window.history.replaceState({}, document.title, window.location.pathname);
+      });
+  } else {
+    // Check if user is already logged in (from localStorage)
+    const userData = JSON.parse(localStorage.getItem("foundryApiUser"));
+    if (userData) {
+      // First show dashboard with cached data and switch to logged-in menu
+      showDashboard(userData);
+      switchToLoggedInMenu();
+
+      // Then fetch fresh data
+      fetchUserData(userData.apiKey);
+    }
   }
   
   // Function to switch to logged-in menu
@@ -59,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to fetch fresh user data
   async function fetchUserData(apiKey) {
     try {
-      const response = await fetch("/user-data", {
+      const response = await fetch("/auth/user-data", {
         method: "GET",
         headers: {
           "x-api-key": apiKey,
@@ -101,7 +135,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to update dashboard data
   function updateDashboardData(userData) {
     document.getElementById("user-email").textContent = userData.email;
-    document.getElementById("user-api-key").textContent = userData.apiKey;
+    
+    // Store the full API key in a data attribute and display masked version
+    const apiKeyElement = document.getElementById("user-api-key");
+    apiKeyElement.dataset.fullKey = userData.apiKey;
+    apiKeyElement.dataset.masked = "true";
+    apiKeyElement.textContent = maskApiKey(userData.apiKey);
     
     // Update rate limits display
     if (userData.limits) {
@@ -148,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageEl = document.getElementById("signup-message");
 
     try {
-      const response = await fetch("/register", {
+      const response = await fetch("/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -186,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageEl = document.getElementById("login-message");
 
     try {
-      const response = await fetch("/login", {
+      const response = await fetch("/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -238,10 +277,35 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("login-message").textContent = "";
   });
 
+  // Helper function to mask API key
+  function maskApiKey(apiKey) {
+    if (!apiKey || apiKey.length < 12) return '••••••••••••';
+    // Show first 8 and last 4 characters
+    return apiKey.substring(0, 8) + '••••••••••••' + apiKey.substring(apiKey.length - 4);
+  }
+
+  // Toggle API key visibility
+  const toggleApiKeyBtn = document.getElementById("toggle-api-key");
+  toggleApiKeyBtn.addEventListener("click", () => {
+    const apiKeyElement = document.getElementById("user-api-key");
+    const isMasked = apiKeyElement.dataset.masked === "true";
+    
+    if (isMasked) {
+      apiKeyElement.textContent = apiKeyElement.dataset.fullKey;
+      apiKeyElement.dataset.masked = "false";
+      toggleApiKeyBtn.textContent = "Hide";
+    } else {
+      apiKeyElement.textContent = maskApiKey(apiKeyElement.dataset.fullKey);
+      apiKeyElement.dataset.masked = "true";
+      toggleApiKeyBtn.textContent = "Show";
+    }
+  });
+
   // Copy API key to clipboard
   const copyApiKeyBtn = document.getElementById("copy-api-key");
   copyApiKeyBtn.addEventListener("click", () => {
-    const apiKey = document.getElementById("user-api-key").textContent;
+    const apiKeyElement = document.getElementById("user-api-key");
+    const apiKey = apiKeyElement.dataset.fullKey || apiKeyElement.textContent;
     navigator.clipboard.writeText(apiKey).then(() => {
       const originalText = copyApiKeyBtn.textContent;
       copyApiKeyBtn.textContent = "Copied!";
@@ -275,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
       regenApiKeyBtn.disabled = true;
       regenApiKeyBtn.textContent = "Regenerating...";
 
-      const response = await fetch("/regenerate-key", {
+      const response = await fetch("/auth/regenerate-key", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -289,8 +353,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
 
       if (response.ok) {
-        // Update the displayed API key
-        document.getElementById("user-api-key").textContent = data.apiKey;
+        // Update the displayed API key (masked)
+        const apiKeyElement = document.getElementById("user-api-key");
+        apiKeyElement.dataset.fullKey = data.apiKey;
+        apiKeyElement.dataset.masked = "true";
+        apiKeyElement.textContent = maskApiKey(data.apiKey);
+        document.getElementById("toggle-api-key").textContent = "Show";
         
         // Update localStorage with new API key
         userData.apiKey = data.apiKey;
@@ -406,6 +474,224 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   
+  // Export Data button handler (GDPR/CCPA)
+  const exportDataBtn = document.getElementById("export-data-btn");
+  if (exportDataBtn) {
+    exportDataBtn.addEventListener("click", async () => {
+      const userData = JSON.parse(localStorage.getItem("foundryApiUser"));
+      if (!userData || !userData.apiKey) {
+        alert("Please log in first");
+        return;
+      }
+      
+      try {
+        const response = await fetch("/auth/export-data", {
+          method: "GET",
+          headers: {
+            "x-api-key": userData.apiKey
+          }
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          // Download as JSON file
+          const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "my-foundry-api-data.json";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } else {
+          alert("Failed to export data. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error exporting data:", error);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  }
+  
+  // Delete Account button handler (GDPR/CCPA)
+  const deleteAccountBtn = document.getElementById("delete-account-btn");
+  if (deleteAccountBtn) {
+    deleteAccountBtn.addEventListener("click", async () => {
+      const userData = JSON.parse(localStorage.getItem("foundryApiUser"));
+      if (!userData || !userData.apiKey) {
+        alert("Please log in first");
+        return;
+      }
+      
+      // First confirmation
+      const confirmed = confirm(
+        "Are you sure you want to delete your account?\n\n" +
+        "This action is PERMANENT and cannot be undone.\n" +
+        "All your data will be deleted."
+      );
+      
+      if (!confirmed) return;
+      
+      // Email verification
+      const confirmEmail = prompt("Please enter your email address to confirm account deletion:");
+      if (!confirmEmail) return;
+      
+      if (confirmEmail !== userData.email) {
+        alert("Email address does not match. Account deletion cancelled.");
+        return;
+      }
+      
+      // Password verification
+      const password = prompt("Please enter your password to confirm account deletion:");
+      if (!password) return;
+      
+      // Final confirmation
+      const finalConfirm = confirm(
+        "FINAL WARNING: Your account will be permanently deleted.\n\n" +
+        "Click OK to proceed with deletion."
+      );
+      
+      if (!finalConfirm) return;
+      
+      try {
+        const response = await fetch("/auth/account", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": userData.apiKey
+          },
+          body: JSON.stringify({ confirmEmail, password })
+        });
+        
+        if (response.ok) {
+          alert("Your account has been deleted. We're sorry to see you go.");
+          // Clear local storage and switch to logged-out menu
+          localStorage.removeItem("foundryApiUser");
+          switchToLoggedOutMenu();
+          
+          // Show login tab
+          const loginButton = document.querySelector('[data-tab="login"]');
+          const tabContents = document.querySelectorAll(".tab-content");
+          document.querySelectorAll(".tab-button").forEach((btn) => btn.classList.remove("active"));
+          tabContents.forEach((content) => content.classList.remove("active"));
+          loginButton.classList.add("active");
+          document.getElementById("login").classList.add("active");
+        } else {
+          const error = await response.json();
+          alert(error.error || "Failed to delete account. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error deleting account:", error);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  }
+  
+  // Client-side password validation
+  function validatePassword(password) {
+    if (password.length < 8) return "Password must be at least 8 characters long";
+    if (!/[A-Z]/.test(password)) return "Password must contain at least one uppercase letter";
+    if (!/[a-z]/.test(password)) return "Password must contain at least one lowercase letter";
+    if (!/[0-9]/.test(password)) return "Password must contain at least one number";
+    return null;
+  }
+
+  // Forgot password link
+  const forgotPasswordLink = document.getElementById("forgot-password-link");
+  if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      showTab("forgot-password");
+    });
+  }
+
+  // Back to login link
+  const backToLoginLink = document.getElementById("back-to-login-link");
+  if (backToLoginLink) {
+    backToLoginLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      showTab("login");
+    });
+  }
+
+  // Forgot password form
+  const forgotPasswordForm = document.getElementById("forgot-password-form");
+  if (forgotPasswordForm) {
+    forgotPasswordForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("forgot-email").value;
+      const messageEl = document.getElementById("forgot-password-message");
+
+      try {
+        const response = await fetch("/auth/forgot-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        messageEl.textContent = data.message || "If an account with that email exists, a password reset link has been sent.";
+        messageEl.className = "message success";
+      } catch (error) {
+        messageEl.textContent = "An error occurred. Please try again.";
+        messageEl.className = "message error";
+      }
+    });
+  }
+
+  // Reset password form
+  const resetPasswordForm = document.getElementById("reset-password-form");
+  if (resetPasswordForm) {
+    resetPasswordForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const password = document.getElementById("reset-new-password").value;
+      const confirmPassword = document.getElementById("reset-confirm-password").value;
+      const messageEl = document.getElementById("reset-password-message");
+      const token = resetPasswordForm.dataset.token;
+
+      if (password !== confirmPassword) {
+        messageEl.textContent = "Passwords do not match.";
+        messageEl.className = "message error";
+        return;
+      }
+
+      const validationError = validatePassword(password);
+      if (validationError) {
+        messageEl.textContent = validationError;
+        messageEl.className = "message error";
+        return;
+      }
+
+      try {
+        const response = await fetch("/auth/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          messageEl.textContent = "Password reset successfully! Redirecting to login...";
+          messageEl.className = "message success";
+          setTimeout(() => {
+            showTab("login");
+            const loginMsg = document.getElementById("login-message");
+            loginMsg.textContent = "Password reset successfully. Please sign in with your new password.";
+            loginMsg.className = "message success";
+          }, 2000);
+        } else {
+          messageEl.textContent = data.error || "Failed to reset password.";
+          messageEl.className = "message error";
+        }
+      } catch (error) {
+        messageEl.textContent = "An error occurred. Please try again.";
+        messageEl.className = "message error";
+      }
+    });
+  }
+
   // Show subscription UI based on status
   function updateSubscriptionUI(status) {
     const statusElement = document.getElementById("user-subscription-status");

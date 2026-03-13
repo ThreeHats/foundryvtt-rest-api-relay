@@ -12,11 +12,11 @@ interface CorsOptions {
 
 export const corsMiddleware = (options: CorsOptions = {}) => {
   const defaultOptions: CorsOptions = {
-    origin: "*",  // Allow all origins
+    origin: "*",  // Allow all origins (required for Foundry instances from anywhere)
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "x-api-key"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization", "x-api-key"],
     exposedHeaders: [],
-    credentials: true, // Important for cookies/auth to work
+    credentials: false, // Set to false since we use API key auth (x-api-key header), not cookies
     maxAge: 86400, // 24 hours
     preflightContinue: false,
   };
@@ -25,14 +25,21 @@ export const corsMiddleware = (options: CorsOptions = {}) => {
   const corsOptions = { ...defaultOptions, ...options };
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    // Handle CORS headers
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", corsOptions.methods!.join(", "));
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, x-api-key");
+    // Get the origin from request headers
+    const origin = req.headers.origin;
     
-    if (corsOptions.credentials) {
+    // Handle CORS headers
+    // If credentials are needed, echo back the origin (can't use * with credentials)
+    // Otherwise use * for maximum compatibility
+    if (corsOptions.credentials && origin) {
+      res.header("Access-Control-Allow-Origin", origin);
       res.header("Access-Control-Allow-Credentials", "true");
+    } else {
+      res.header("Access-Control-Allow-Origin", "*");
     }
+    
+    res.header("Access-Control-Allow-Methods", corsOptions.methods!.join(", "));
+    res.header("Access-Control-Allow-Headers", corsOptions.allowedHeaders!.join(", "));
 
     // Handle preflight requests
     if (req.method === "OPTIONS") {

@@ -65,7 +65,39 @@
           </div>
           <button type="submit" class="btn">Sign In</button>
         </form>
+        <p style="margin-top: 1rem;"><a href="#" id="forgot-password-link">Forgot your password?</a></p>
         <div id="login-message" class="message"></div>
+      </div>
+
+      <div class="tab-content" id="forgot-password">
+        <h2>Forgot Password</h2>
+        <p style="margin-bottom: 1rem;">Enter your email address and we'll send you a link to reset your password.</p>
+        <form id="forgot-password-form">
+          <div class="form-group">
+            <label for="forgot-email">Email</label>
+            <input type="email" id="forgot-email" required>
+          </div>
+          <button type="submit" class="btn">Send Reset Link</button>
+        </form>
+        <p style="margin-top: 1rem;"><a href="#" id="back-to-login-link">Back to Sign In</a></p>
+        <div id="forgot-password-message" class="message"></div>
+      </div>
+
+      <div class="tab-content" id="reset-password">
+        <h2>Reset Password</h2>
+        <form id="reset-password-form">
+          <div class="form-group">
+            <label for="reset-new-password">New Password</label>
+            <input type="password" id="reset-new-password" required minlength="8">
+            <small style="color: #666;">Min 8 characters, with uppercase, lowercase, and a number</small>
+          </div>
+          <div class="form-group">
+            <label for="reset-confirm-password">Confirm Password</label>
+            <input type="password" id="reset-confirm-password" required minlength="8">
+          </div>
+          <button type="submit" class="btn">Reset Password</button>
+        </form>
+        <div id="reset-password-message" class="message"></div>
       </div>
 
       <div class="tab-content" id="dashboard">
@@ -77,7 +109,8 @@
           <p><strong>Email:</strong> <span id="user-email"></span></p>
           <p class="api-key-container">
             <strong>API Key:</strong> 
-            <span id="user-api-key">Loading...</span> 
+            <span id="user-api-key" data-masked="true">Loading...</span> 
+            <button id="toggle-api-key" class="btn-small">Show</button>
             <button id="copy-api-key" class="btn-small">Copy</button>
             <button id="regen-api-key" class="btn-small">Regenerate</button>
           </p>
@@ -88,6 +121,18 @@
           <div class="subscription-actions">
             <button id="subscribe-btn" class="btn">$5/month Subscribe for Unlimited Access</button>
             <button id="manage-subscription-btn" class="btn" style="display: none;">Manage Subscription</button>
+          </div>
+          
+          <!-- Data & Privacy section -->
+          <div class="privacy-section" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #444;">
+            <h3>Data & Privacy</h3>
+            <p style="margin-bottom: 1rem; color: #888; font-size: 0.9rem;">
+              Export your data or delete your account in accordance with GDPR/CCPA.
+            </p>
+            <div class="privacy-actions">
+              <button id="export-data-btn" class="btn-small">Export My Data</button>
+              <button id="delete-account-btn" class="btn-small btn-danger" style="background: #dc3545; margin-left: 0.5rem;">Delete Account</button>
+            </div>
           </div>
         </div>
         <div class="api-docs">
@@ -104,6 +149,7 @@
       <div class="footer-content">
         <p>This is an open-source project that is not associated with Foundry Virtual Tabletop, or Foundry Gaming, LLC.</p>
         <p>Foundry Virtual Tabletop is copyright of Foundry Gaming, LLC.</p>
+        <p class="footer-privacy-link"><a href="/privacy">Privacy Policy</a></p>
       </div>
     </footer>
   </div>

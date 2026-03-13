@@ -49,7 +49,7 @@ export async function requestForwarderMiddleware(req: Request, res: Response, ne
         const instanceId = await redis.get(`apikey:${apiKey}:instance`);
         if (instanceId && instanceId !== INSTANCE_ID) {
           targetInstanceId = instanceId;
-          log.info(`Forwarding request for API key ${apiKey} to instance ${targetInstanceId}`);
+          log.info(`Forwarding request for API key ${apiKey.substring(0, 8)}... to instance ${targetInstanceId}`);
         }
       } catch (error) {
         log.error(`Error checking API key instance: ${error}`);

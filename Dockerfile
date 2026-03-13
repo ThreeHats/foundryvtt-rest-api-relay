@@ -55,9 +55,9 @@ RUN npm install -g pnpm && \
 # Add node-fetch explicitly since it's needed for the forwarder
 RUN pnpm add node-fetch @types/node-fetch
 
-# Force rebuild SQLite3 from source for the current platform
+# Rebuild native modules for the current platform
+RUN pnpm rebuild bcrypt
 RUN pnpm rebuild sqlite3
-RUN cd node_modules/.pnpm/sqlite3*/node_modules/sqlite3 && npm run install --build-from-source
 
 # Copy source code
 COPY src/ ./src/

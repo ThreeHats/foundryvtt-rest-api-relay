@@ -401,3 +401,11 @@ footer.site-footer {
         padding: 0.7rem 0.5rem;
     }
 }
+
+.footer-privacy-link {
+  margin-top: 0.5rem;
+}
+
+.footer-privacy-link a {
+  color: #888;
+}

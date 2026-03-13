@@ -1,5 +1,6 @@
 import { sequelize } from '../sequelize';
-import { User } from './user'; 
+import { User } from './user';
+import { PasswordResetToken } from './passwordResetToken';
 import crypto from 'crypto';
 import { log } from '../utils/logger';
 
@@ -12,28 +13,31 @@ async function initializeDatabase() {
     await sequelize.authenticate();
     log.info('Database connection has been established successfully.');
     
-    // Sync all models - this creates the tables
+    // Sync all models - this creates or alters tables to match models
     log.info('Syncing database models...');
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
     log.info('Database models synchronized.');
     
-    // Create a default admin user with a plain password - it will be hashed by the hook
-    log.info('Creating admin user...');
+    // Only create admin user if ADMIN_EMAIL and ADMIN_PASSWORD are provided
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
     
-    const user = await User.create({
-      email: 'admin@example.com',
-      password: 'admin123',
-      apiKey: crypto.randomBytes(16).toString('hex'),
-      requestsThisMonth: 0
-    });
-    
-    // Check if user was created successfully
-    if (!user) {
-      log.error('Failed to create admin user!');
-      return false;
+    if (adminEmail && adminPassword) {
+      log.info('Creating admin user from environment variables...');
+      
+      const user = await User.create({
+        email: adminEmail,
+        password: adminPassword, // Will be hashed by the beforeCreate hook
+        apiKey: crypto.randomBytes(32).toString('hex'),
+        requestsThisMonth: 0
+      });
+      
+      log.info('Admin user created successfully');
+    } else {
+      log.info('No ADMIN_EMAIL/ADMIN_PASSWORD provided - skipping admin user creation');
+      log.info('Users can register via /auth/register endpoint');
     }
     
-    log.info('Admin user created', { apiKey: user.getDataValue('apiKey') });
     log.info('Database initialization complete!');
     return true;
   } catch (error) {

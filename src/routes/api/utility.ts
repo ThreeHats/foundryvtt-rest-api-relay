@@ -180,6 +180,12 @@ utilityRouter.post("/execute-js", ...commonMiddleware, upload.single("scriptFile
       const filePath = req.file.path;
       script = await fs.readFile(filePath, "utf-8");
       await fs.unlink(filePath); // Clean up uploaded file
+      
+      // Validate script from file upload as well
+      if (!validateScript(script)) {
+        log.warn(`Uploaded script file for ${params.clientId} contains forbidden patterns`);
+        throw new Error("Script contains forbidden patterns");
+      }
     }
 
     return {

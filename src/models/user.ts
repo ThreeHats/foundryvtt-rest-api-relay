@@ -33,6 +33,10 @@ export class User extends Model {
         const users = Array.from((sequelize as any).users.values());
         return users.find(u => (u as User).email === options.where.email) || null;
       }
+      if (options.where && options.where.id) {
+        const users = Array.from((sequelize as any).users.values());
+        return users.find(u => (u as any).id === options.where.id) || null;
+      }
       return null;
     }
     return super.findOne(options);
@@ -50,7 +54,7 @@ export class User extends Model {
         id: memoryStore.users.size + 1,
         email: data.email,
         password: data.password,
-        apiKey: data.apiKey || crypto.randomBytes(16).toString('hex'),
+        apiKey: data.apiKey || crypto.randomBytes(32).toString('hex'),
         requestsThisMonth: data.requestsThisMonth || 0,
         requestsToday: data.requestsToday || 0,
         lastRequestDate: data.lastRequestDate || null,
@@ -111,7 +115,7 @@ if (!isMemoryStore) {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      defaultValue: () => crypto.randomBytes(16).toString('hex')
+      defaultValue: () => crypto.randomBytes(32).toString('hex')
     },
     requestsThisMonth: {
       type: DataTypes.INTEGER,
@@ -156,7 +160,7 @@ if (!isMemoryStore) {
       },
       beforeUpdate: async (user) => {
         if (user.changed('password')) {
-          log.debug('Updating password for user', { email: user.getDataValue('email') });
+          log.debug('Updating password for user', { id: user.getDataValue('id') });
           const salt = await bcrypt.genSalt(10);
           const hashedPassword = await bcrypt.hash(user.getDataValue('password'), salt);
           user.setDataValue('password', hashedPassword);

@@ -51,7 +51,7 @@ export function forEachVersion(
       // Otherwise get clientId from globalVariables (set by session tests)
       const clientId = getGlobalVariable(version, 'clientId');
       if (!clientId) {
-        console.warn(`⚠️ No clientId found for v${version} - session tests may not have run yet`);
+        console.warn(`⚠️ No clientId found for v${version} - the relay server may be unreachable or session tests may not have run yet`);
       }
       return clientId || '';
     };
@@ -143,7 +143,7 @@ export function forEachVersionWithSystem(
       
       const clientId = getGlobalVariable(version, 'clientId');
       if (!clientId) {
-        console.warn(`⚠️ No clientId found for v${version} - session tests may not have run yet`);
+        console.warn(`⚠️ No clientId found for v${version} - the relay server may be unreachable or session tests may not have run yet`);
       }
       return clientId || '';
     };

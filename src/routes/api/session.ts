@@ -483,9 +483,6 @@ try {
         await page.waitForSelector('li.package.world', { timeout: 10000 })
         .catch(() => {
             log.info('Could not find world list, checking page content');
-            return page.content().then((html: string) => {
-            log.info(`Page HTML preview: ${html.substring(0, 1000)}...`);
-            });
         });
         
         // Try to find and click on the world using multiple strategies
@@ -578,7 +575,6 @@ try {
         if (!loginFormFound) {
         // If we don't see login elements, check the HTML to see what page we're on
         const html = await page.content();
-        log.info(`Page HTML after world selection (preview): ${html.substring(0, 500)}...`);
         throw new Error('Login form not found after world selection');
         }
         

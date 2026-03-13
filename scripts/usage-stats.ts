@@ -53,10 +53,10 @@ async function main() {
     if (top10.length > 0) {
       log.info('\n=== Top 10 Users by Request Count ===');
       top10.forEach((user, index) => {
-        const email = user.getDataValue ? user.getDataValue('email') : user.email;
+        const id = user.getDataValue ? user.getDataValue('id') : user.id;
         const requests = user.getDataValue ? user.getDataValue('requestsThisMonth') : user.requestsThisMonth;
         const status = user.getDataValue ? user.getDataValue('subscriptionStatus') : user.subscriptionStatus;
-        log.info(`${index + 1}. ${email}: ${requests} requests (${status || 'free'})`);
+        log.info(`${index + 1}. User ${id}: ${requests} requests (${status || 'free'})`);
       });
     }
     

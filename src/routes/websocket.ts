@@ -3,11 +3,34 @@ import { WebSocketServer, WebSocket } from "ws";
 import { log } from "../utils/logger";
 import { ClientManager } from "../core/ClientManager";
 import { validateHeadlessSession } from "../workers/headlessSessions";
+import { User } from "../models/user";
 
 // Read ping interval from environment variable, default to 20 seconds
 const WEBSOCKET_PING_INTERVAL_MS = parseInt(process.env.WEBSOCKET_PING_INTERVAL_MS || '20000', 10);
 // Read client cleanup interval from environment variable, default to 15 seconds
 const CLIENT_CLEANUP_INTERVAL_MS = parseInt(process.env.CLIENT_CLEANUP_INTERVAL_MS || '15000', 10);
+// Check if using memory store (local dev mode)
+const isMemoryStore = process.env.DB_TYPE === 'memory';
+
+/**
+ * Validate API key against database
+ * @param apiKey The API key to validate
+ * @returns true if valid, false otherwise
+ */
+async function validateApiKey(apiKey: string): Promise<boolean> {
+  // Skip validation in memory store mode (local dev)
+  if (isMemoryStore) {
+    return true;
+  }
+  
+  try {
+    const user = await User.findOne({ where: { apiKey } });
+    return user !== null;
+  } catch (error) {
+    log.error(`Error validating API key: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    return false;
+  }
+}
 
 export const wsRoutes = (wss: WebSocketServer): void => {
   wss.on("connection", async (ws, req) => {
@@ -30,7 +53,15 @@ export const wsRoutes = (wss: WebSocketServer): void => {
         return;
       }
 
-      // Validate headless session before accepting the connection
+      // Validate API key for ALL clients before accepting connection
+      const isValidApiKey = await validateApiKey(token);
+      if (!isValidApiKey) {
+        log.warn(`Rejecting WebSocket connection: invalid API key for client ${id}`);
+        ws.close(1008, "Invalid API key");
+        return;
+      }
+
+      // Additional validation for headless sessions
       const isValid = await validateHeadlessSession(id, token);
       if (!isValid) {
         log.warn(`Rejecting invalid headless client: ${id}`);

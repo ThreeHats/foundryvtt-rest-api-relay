@@ -179,8 +179,29 @@ Key environment variables (see [full configuration guide](https://foundryvtt-res
 | `REDIS_URL` | — | Redis URL for session storage in multi-instance deployments |
 | `FREE_API_REQUESTS_LIMIT` | `100` | Monthly API request limit per user |
 | `DAILY_REQUEST_LIMIT` | `1000` | Daily API request limit per user |
+| `SMTP_HOST` | — | SMTP server hostname (enables email delivery) |
+| `SMTP_PORT` | `587` | SMTP server port |
+| `SMTP_USER` | — | SMTP auth username |
+| `SMTP_PASS` | — | SMTP auth password |
+| `SMTP_FROM` | `noreply@foundryvtt-relay.com` | From address for outgoing emails |
+| `SMTP_SECURE` | `false` | Use TLS for SMTP connection |
+| `FRONTEND_URL` | `http://localhost:3010` | Base URL for links in emails and Stripe redirects |
 
 > **Self-hosting tip:** Set `FREE_API_REQUESTS_LIMIT=999999999` and `DAILY_REQUEST_LIMIT=999999999` to effectively disable rate limits for local use.
+
+### Password Recovery
+
+Users can reset their password via the "Forgot your password?" link on the login page. The flow:
+
+1. User submits their email address
+2. If SMTP is configured, a reset link is sent via email. **Without SMTP configuration, the reset URL is logged to the server console** — useful for self-hosted instances.
+3. The reset link is valid for 1 hour and can only be used once.
+
+**Password requirements** (enforced on both registration and reset):
+- Minimum 8 characters
+- At least one uppercase letter
+- At least one lowercase letter
+- At least one number
 
 ---
 

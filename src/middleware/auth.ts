@@ -73,7 +73,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       }
       
       if (client.getApiKey() !== apiKey) {
-        log.warn(`Client ID ${clientId} does not match API key ${apiKey}`);
+        log.warn(`Client ID ${clientId} does not match API key ${apiKey.substring(0, 8)}...`);
         res.status(401).json({ error: 'Invalid API key for this client ID' });
         return;
       }
@@ -142,9 +142,12 @@ export const trackApiUsage = async (req: Request, res: Response, next: NextFunct
             tomorrow.setDate(tomorrow.getDate() + 1);
             tomorrow.setHours(0, 0, 0, 0); // Set to midnight
             
+            log.warn(`Daily rate limit hit for user ID ${user.getDataValue('id')} - ${currentDailyRequests}/${DAILY_REQUEST_LIMIT} requests`);
+            
             res.status(429).json({
               error: 'Daily API request limit reached',
               dailyLimit: DAILY_REQUEST_LIMIT,
+              currentRequests: currentDailyRequests,
               message: `You have reached the daily limit of ${DAILY_REQUEST_LIMIT} requests. Please try again tomorrow.`,
               resetsAt: tomorrow.toISOString()
             });
@@ -157,7 +160,7 @@ export const trackApiUsage = async (req: Request, res: Response, next: NextFunct
           user.setDataValue('lastRequestDate', new Date());
           
           // Log with proper data access
-          log.info(`Incrementing requests for user ${user.getDataValue('email')} - Monthly: ${user.getDataValue('requestsThisMonth')}, Daily: ${user.getDataValue('requestsToday')}`);
+          log.info(`Incrementing requests for user ID ${user.getDataValue('id')} - Monthly: ${user.getDataValue('requestsThisMonth')}, Daily: ${user.getDataValue('requestsToday')}`);
           
           // Save the updated user
           if ('save' in user && typeof user.save === 'function') {
@@ -194,6 +197,7 @@ export const trackApiUsage = async (req: Request, res: Response, next: NextFunct
             res.status(429).json({
               error: 'Daily API request limit reached',
               dailyLimit: DAILY_REQUEST_LIMIT,
+              currentRequests: user.requestsToday,
               message: `You have reached the daily limit of ${DAILY_REQUEST_LIMIT} requests. Please try again tomorrow.`,
               resetsAt: tomorrow.toISOString()
             });
@@ -227,7 +231,7 @@ export const trackApiUsage = async (req: Request, res: Response, next: NextFunct
         
         next();
       } else {
-        log.warn(`API key not found: ${apiKey}`);
+        log.warn(`API key not found: ${apiKey.substring(0, 8)}...`);
         res.status(401).json({ error: 'Invalid API key' });
         return;
       }

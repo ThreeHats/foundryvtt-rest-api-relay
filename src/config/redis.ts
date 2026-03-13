@@ -11,6 +11,9 @@ let lastRedisError: Error | null = null;
 const REDIS_URL = process.env.REDIS_URL || '';
 const REDIS_ENABLED = process.env.REDIS_ENABLED !== 'false';
 
+// Local mode detection (memory or sqlite DB types don't use Redis)
+export const isLocalMode = process.env.DB_TYPE === 'memory' || process.env.DB_TYPE === 'sqlite';
+
 // Initialize Redis client
 export async function initRedis(): Promise<boolean> {
   if (!REDIS_ENABLED || !REDIS_URL) {
@@ -117,9 +120,9 @@ export function getRedisClient(): RedisClientType | null {
 }
 
 // Check Redis health
-export function checkRedisHealth(): { healthy: boolean, error?: string } {
-  if (!REDIS_ENABLED) {
-    return { healthy: true, error: 'Redis is disabled by configuration' };
+export function checkRedisHealth(): { healthy: boolean, error?: string, skipped?: boolean } {
+  if (isLocalMode || !REDIS_ENABLED || !REDIS_URL) {
+    return { healthy: true, skipped: true };
   }
   
   if (!redisClient) {

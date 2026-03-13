@@ -23,7 +23,7 @@ import * as fs from "fs";
 import { sequelize } from "./sequelize";
 import stripeRouter from './routes/stripe';
 import webhookRouter from './routes/webhook';
-import { initRedis, closeRedis } from './config/redis';
+import { initRedis, closeRedis, isLocalMode } from './config/redis';
 import { scheduleHeadlessSessionsCheck } from './workers/headlessSessions';
 import { redisSessionMiddleware } from './middleware/redisSession';
 import { startHealthMonitoring, logSystemHealth, getSystemHealth } from './utils/healthCheck';
@@ -71,9 +71,9 @@ app.use('/upload', (req, res, next) => {
 });
 
 // Parse JSON bodies for all other routes with 250MB limit
-// Only apply to methods that can have a body (not GET, HEAD, DELETE)
+// Only apply to methods that can have a body (not GET, HEAD)
 app.use((req, res, next) => {
-  if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
+  if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
     express.json({ limit: '250mb' })(req, res, next);
   } else {
     next();
@@ -145,8 +145,17 @@ try {
 
     // Handle directory requests by serving their index.html
     app.get('/docs/*', (req, res, next) => {
-      const requestPath = req.path.replace('/docs', '');
-      const filePath = path.join(docsPath, requestPath);
+      // Decode and normalize the request path to prevent path traversal
+      const requestPath = decodeURIComponent(req.path.replace('/docs', ''));
+      // Remove leading slashes and parent directory references
+      const normalizedPath = path.normalize(requestPath).replace(/^(\.\.[\/\\])+/, '').replace(/^[\/\\]+/, '');
+      
+      // Resolve the full file path and verify it's within docsPath
+      const filePath = path.resolve(docsPath, normalizedPath);
+      if (!filePath.startsWith(docsPath)) {
+        return res.status(404).json({ error: 'Not found' });
+      }
+      
       const indexPath = path.join(filePath, 'index.html');
       const notFoundPath = path.join(docsPath, '404.html');
       
@@ -158,7 +167,10 @@ try {
             if (err2) {
               // Serve 404 page
               res.status(404).sendFile(notFoundPath, (err3) => {
-                if (err3) next();
+                if (err3) {
+                  // Final fallback: send minimal 404 response
+                  res.status(404).json({ error: 'Not found' });
+                }
               });
             }
           });
@@ -183,6 +195,11 @@ app.get("/", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
+// Serve the privacy policy page
+app.get("/privacy", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../public/privacy.html"));
+});
+
 // Create WebSocket server
 const wss = new WebSocketServer({ server: httpServer });
 
@@ -193,7 +210,7 @@ wsRoutes(wss);
 apiRoutes(app);
 
 // Setup Auth routes
-app.use("/", authRoutes);
+app.use("/auth", authRoutes);
 app.use('/api/subscriptions', stripeRouter);
 app.use('/api/webhooks', webhookRouter);
 
@@ -258,7 +275,7 @@ async function initializeServices() {
         await migrateDailyRequestTracking();
         log.info('Database migrations completed');
         
-        if (process.env.REDIS_URL && process.env.REDIS_URL.length > 0) {
+        if (!isLocalMode && process.env.REDIS_URL && process.env.REDIS_URL.length > 0) {
           // Then initialize Redis
           const redisInitialized = await initRedis();
           if (!redisInitialized) {

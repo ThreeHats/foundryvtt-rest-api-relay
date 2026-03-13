@@ -53,7 +53,7 @@ router.post('/create-checkout-session', authMiddleware, async (req: Request, res
 
     // Get or create Stripe customer
     let customerId = user.stripeCustomerId;
-    log.info(`User: `, user);
+    log.info(`Creating checkout session for user ID: ${user.id}`);
     
     if (!customerId) {
       const customer = await stripe.customers.create({
