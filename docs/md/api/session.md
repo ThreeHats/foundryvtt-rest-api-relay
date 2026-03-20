@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # session
 
 ## POST /session-handshake
@@ -24,6 +26,14 @@ Create a handshake token for the client to use for secure authentication
 
 **object** - Handshake token and encryption details
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/session-handshake"
+  parameters={[{"name":"x-api-key","type":"string","required":true,"source":"header"},{"name":"x-foundry-url","type":"string","required":true,"source":"header"},{"name":"x-username","type":"string","required":true,"source":"header"},{"name":"x-world-name","type":"string","required":false,"source":"header"}]}
+/>
+
 ---
 
 ## POST /start-session
@@ -41,6 +51,14 @@ Start a headless Foundry session using puppeteer
 ### Returns
 
 **object** - Session information including sessionId and clientId
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/start-session"
+  parameters={[{"name":"handshakeToken","type":"string","required":true,"source":"body"},{"name":"encryptedPassword","type":"string","required":true,"source":"body"},{"name":"x-api-key","type":"string","required":true,"source":"header"}]}
+/>
 
 ### Code Examples
 
@@ -235,7 +253,7 @@ Just don't 😂
 {
   "success": true,
   "message": "Foundry session started successfully",
-  "sessionId": "36d75625-e84b-4704-b115-92f27e9ee251",
+  "sessionId": "91523500-0db9-4a9a-9bb6-684d2f630ed3",
   "clientId": "your-client-id"
 }
 ```
@@ -258,6 +276,14 @@ Stop a headless Foundry session
 
 **object** - Status of the operation
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/end-session"
+  parameters={[{"name":"sessionId","type":"string","required":true,"source":"query"},{"name":"x-api-key","type":"string","required":true,"source":"header"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -267,7 +293,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: '36d75625-e84b-4704-b115-92f27e9ee251'
+  sessionId: '91523500-0db9-4a9a-9bb6-684d2f630ed3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -286,7 +312,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=36d75625-e84b-4704-b115-92f27e9ee251' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=91523500-0db9-4a9a-9bb6-684d2f630ed3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -299,7 +325,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': '36d75625-e84b-4704-b115-92f27e9ee251'
+    'sessionId': '91523500-0db9-4a9a-9bb6-684d2f630ed3'
 }
 url = f'{base_url}{path}'
 
@@ -324,7 +350,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: '36d75625-e84b-4704-b115-92f27e9ee251'
+    sessionId: '91523500-0db9-4a9a-9bb6-684d2f630ed3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -358,7 +384,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=36d75625-e84b-4704-b115-92f27e9ee251🔤 ➡️ sessionId
+  🔤sessionId=91523500-0db9-4a9a-9bb6-684d2f630ed3🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -407,6 +433,14 @@ Get all active headless Foundry sessions
 ### Returns
 
 **object** - List of active sessions for the current API key
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/session"
+  parameters={[{"name":"x-api-key","type":"string","required":true,"source":"header"}]}
+/>
 
 ### Code Examples
 
@@ -522,9 +556,9 @@ import axios from 'axios';
 {
   "activeSessions": [
     {
-      "id": "36d75625-e84b-4704-b115-92f27e9ee251",
+      "id": "91523500-0db9-4a9a-9bb6-684d2f630ed3",
       "clientId": "your-client-id",
-      "lastActivity": 1773999544326,
+      "lastActivity": 1774001705024,
       "idleMinutes": 0,
       "instanceId": "local",
       "worldId": "testing",

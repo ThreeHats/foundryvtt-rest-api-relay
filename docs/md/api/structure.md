@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # structure
 
 ## GET /structure
@@ -26,6 +28,14 @@ Get the structure of the Foundry world Retrieves the folder and compendium struc
 ### Returns
 
 **object** - The folder and compendium structure
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/structure"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"includeEntityData","type":"boolean","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"},{"name":"recursiveDepth","type":"number","required":false,"source":"query"},{"name":"types","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -167,14 +177,14 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "structure_1773999623981",
+  "requestId": "structure_1774001776288",
   "clientId": "your-client-id",
   "type": "structure-result",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "cytOvtbwpRX336gV",
-        "uuid": "Folder.cytOvtbwpRX336gV",
+        "id": "ZyayMq63ICSWmTft",
+        "uuid": "Folder.ZyayMq63ICSWmTft",
         "type": "Scene"
       }
     },
@@ -269,10 +279,10 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "O4sEnBrG5I3lFNGk",
-              "name": "test",
+              "_id": "ZROaJlBucaNukYyI",
+              "name": "actor",
               "displayName": 0,
-              "actorId": "xctPu6799LkAP6p3",
+              "actorId": "sj7XQgYVZv8SpEQG",
               "actorLink": true,
               "delta": null,
               "width": 1,
@@ -291,10 +301,10 @@ import axios from 'axios';
                 "alphaThreshold": 0.75
               },
               "shape": 4,
-              "x": 1596,
-              "y": 623,
+              "x": 1390,
+              "y": 418,
               "elevation": 0,
-              "sort": 0,
+              "sort": 3,
               "locked": false,
               "lockRotation": false,
               "rotation": 0,
@@ -368,224 +378,6 @@ import axios from 'axios';
                 "effects": 1,
                 "subject": {
                   "scale": 1,
-                  "texture": null
-                }
-              },
-              "turnMarker": {
-                "mode": 1,
-                "animation": null,
-                "src": null,
-                "disposition": false
-              },
-              "movementAction": "walk",
-              "_movementHistory": [],
-              "_regions": [],
-              "flags": {}
-            },
-            {
-              "_id": "D72uPb59A6kqlM1o",
-              "name": "Aboleth",
-              "displayName": 0,
-              "actorId": "2z0ZFTO8hYIWeEiL",
-              "actorLink": false,
-              "delta": {
-                "_id": "8d0K6twLsEcqq9Py",
-                "system": {},
-                "items": [],
-                "effects": [],
-                "flags": {}
-              },
-              "width": 2,
-              "height": 2,
-              "texture": {
-                "src": "systems/dnd5e/tokens/aberration/Aboleth.webp",
-                "anchorX": 0.5,
-                "anchorY": 0.5,
-                "offsetX": 0,
-                "offsetY": 0,
-                "fit": "contain",
-                "scaleX": 2,
-                "scaleY": 2,
-                "rotation": 0,
-                "tint": "#ffffff",
-                "alphaThreshold": 0.75
-              },
-              "shape": 4,
-              "x": 1664,
-              "y": 358,
-              "elevation": 0,
-              "sort": 1,
-              "locked": false,
-              "lockRotation": false,
-              "rotation": 0,
-              "alpha": 1,
-              "hidden": false,
-              "disposition": -1,
-              "displayBars": 0,
-              "bar1": {
-                "attribute": "attributes.hp"
-              },
-              "bar2": {
-                "attribute": null
-              },
-              "light": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 0,
-                "color": null,
-                "coloration": 1,
-                "dim": 0,
-                "attenuation": 0.5,
-                "luminosity": 0.5,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": null,
-                  "speed": 5,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "sight": {
-                "enabled": false,
-                "range": 0,
-                "angle": 360,
-                "visionMode": "basic",
-                "color": null,
-                "attenuation": 0.1,
-                "brightness": 0,
-                "saturation": 0,
-                "contrast": 0
-              },
-              "detectionModes": [],
-              "occludable": {
-                "radius": 0
-              },
-              "ring": {
-                "enabled": false,
-                "colors": {
-                  "ring": null,
-                  "background": null
-                },
-                "effects": 1,
-                "subject": {
-                  "scale": 2,
-                  "texture": null
-                }
-              },
-              "turnMarker": {
-                "mode": 1,
-                "animation": null,
-                "src": null,
-                "disposition": false
-              },
-              "movementAction": "walk",
-              "_movementHistory": [],
-              "_regions": [],
-              "flags": {}
-            },
-            {
-              "_id": "lP1YxLyDcmAGmj4I",
-              "name": "Aboleth",
-              "displayName": 0,
-              "actorId": "2z0ZFTO8hYIWeEiL",
-              "actorLink": false,
-              "delta": {
-                "_id": "j4y2pzRQibl3DXGF",
-                "system": {},
-                "items": [],
-                "effects": [],
-                "flags": {}
-              },
-              "width": 2,
-              "height": 2,
-              "texture": {
-                "src": "systems/dnd5e/tokens/aberration/Aboleth.webp",
-                "anchorX": 0.5,
-                "anchorY": 0.5,
-                "offsetX": 0,
-                "offsetY": 0,
-                "fit": "contain",
-                "scaleX": 2,
-                "scaleY": 2,
-                "rotation": 0,
-                "tint": "#ffffff",
-                "alphaThreshold": 0.75
-              },
-              "shape": 4,
-              "x": 2077,
-              "y": 557,
-              "elevation": 0,
-              "sort": 2,
-              "locked": false,
-              "lockRotation": false,
-              "rotation": 306.0850730428521,
-              "alpha": 1,
-              "hidden": false,
-              "disposition": -1,
-              "displayBars": 0,
-              "bar1": {
-                "attribute": "attributes.hp"
-              },
-              "bar2": {
-                "attribute": null
-              },
-              "light": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 0,
-                "color": null,
-                "coloration": 1,
-                "dim": 0,
-                "attenuation": 0.5,
-                "luminosity": 0.5,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": null,
-                  "speed": 5,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "sight": {
-                "enabled": false,
-                "range": 0,
-                "angle": 360,
-                "visionMode": "basic",
-                "color": null,
-                "attenuation": 0.1,
-                "brightness": 0,
-                "saturation": 0,
-                "contrast": 0
-              },
-              "detectionModes": [],
-              "occludable": {
-                "radius": 0
-              },
-              "ring": {
-                "enabled": false,
-                "colors": {
-                  "ring": null,
-                  "background": null
-                },
-                "effects": 1,
-                "subject": {
-                  "scale": 2,
                   "texture": null
                 }
               },
@@ -847,7 +639,7 @@ import axios from 'axios';
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "createdTime": 1763765287462,
-            "modifiedTime": 1773973282350,
+            "modifiedTime": 1774001745358,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -855,351 +647,7 @@ import axios from 'axios';
           }
         },
         {
-          "_id": "VnnIYuJJjlZzUeRT",
-          "name": "a",
-          "active": false,
-          "navigation": true,
-          "navOrder": 0,
-          "background": {
-            "src": null,
-            "anchorX": 0,
-            "anchorY": 0,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "fill",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0
-          },
-          "foreground": null,
-          "foregroundElevation": 20,
-          "thumb": null,
-          "width": 4000,
-          "height": 3000,
-          "padding": 0.25,
-          "initial": {
-            "x": null,
-            "y": null,
-            "scale": null
-          },
-          "backgroundColor": "#999999",
-          "grid": {
-            "type": 1,
-            "size": 100,
-            "style": "solidLines",
-            "thickness": 1,
-            "color": "#000000",
-            "alpha": 0.2,
-            "distance": 5,
-            "units": "ft"
-          },
-          "tokenVision": true,
-          "fog": {
-            "exploration": true,
-            "overlay": null,
-            "colors": {
-              "explored": null,
-              "unexplored": null
-            }
-          },
-          "environment": {
-            "darknessLevel": 0,
-            "darknessLock": false,
-            "globalLight": {
-              "enabled": false,
-              "alpha": 0.5,
-              "bright": false,
-              "color": null,
-              "coloration": 1,
-              "luminosity": 0,
-              "saturation": 0,
-              "contrast": 0,
-              "shadows": 0,
-              "darkness": {
-                "min": 0,
-                "max": 1
-              }
-            },
-            "cycle": true,
-            "base": {
-              "hue": 0,
-              "intensity": 0,
-              "luminosity": 0,
-              "saturation": 0,
-              "shadows": 0
-            },
-            "dark": {
-              "hue": 0.7138888888888889,
-              "intensity": 0,
-              "luminosity": -0.25,
-              "saturation": 0,
-              "shadows": 0
-            }
-          },
-          "drawings": [],
-          "tokens": [],
-          "lights": [],
-          "notes": [],
-          "sounds": [],
-          "regions": [],
-          "templates": [],
-          "tiles": [],
-          "walls": [],
-          "playlist": null,
-          "playlistSound": null,
-          "journal": null,
-          "journalEntryPage": null,
-          "weather": "",
-          "folder": null,
-          "sort": 0,
-          "ownership": {
-            "default": 0,
-            "5ypAoBvOiyjDKiaZ": 3
-          },
-          "flags": {},
-          "_stats": {
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "createdTime": 1765382040878,
-            "modifiedTime": 1765382040878,
-            "lastModifiedBy": "5ypAoBvOiyjDKiaZ",
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          }
-        },
-        {
-          "_id": "dgTzUeYHz3ofwqC0",
-          "name": "test-scene-updated",
-          "active": false,
-          "navigation": true,
-          "navOrder": 0,
-          "background": {
-            "src": null,
-            "anchorX": 0,
-            "anchorY": 0,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "fill",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0
-          },
-          "foreground": null,
-          "foregroundElevation": 20,
-          "thumb": null,
-          "width": 1000,
-          "height": 1000,
-          "padding": 0.25,
-          "initial": {
-            "x": null,
-            "y": null,
-            "scale": null
-          },
-          "backgroundColor": "#999999",
-          "grid": {
-            "type": 1,
-            "size": 100,
-            "style": "solidLines",
-            "thickness": 1,
-            "color": "#000000",
-            "alpha": 0.2,
-            "distance": 5,
-            "units": "ft"
-          },
-          "tokenVision": true,
-          "fog": {
-            "exploration": true,
-            "overlay": null,
-            "colors": {
-              "explored": null,
-              "unexplored": null
-            }
-          },
-          "environment": {
-            "darknessLevel": 0,
-            "darknessLock": false,
-            "globalLight": {
-              "enabled": false,
-              "alpha": 0.5,
-              "bright": false,
-              "color": null,
-              "coloration": 1,
-              "luminosity": 0,
-              "saturation": 0,
-              "contrast": 0,
-              "shadows": 0,
-              "darkness": {
-                "min": 0,
-                "max": 1
-              }
-            },
-            "cycle": true,
-            "base": {
-              "hue": 0,
-              "intensity": 0,
-              "luminosity": 0,
-              "saturation": 0,
-              "shadows": 0
-            },
-            "dark": {
-              "hue": 0.7138888888888889,
-              "intensity": 0,
-              "luminosity": -0.25,
-              "saturation": 0,
-              "shadows": 0
-            }
-          },
-          "drawings": [],
-          "tokens": [
-            {
-              "_id": "XVxua916sjJpOpho",
-              "name": "Unknown",
-              "displayName": 0,
-              "actorId": "c17ZnzQuaTgBEUO8",
-              "actorLink": false,
-              "delta": {
-                "_id": "xMGIe3RylbAJZaIX",
-                "system": {},
-                "items": [],
-                "effects": [],
-                "flags": {}
-              },
-              "width": 1,
-              "height": 1,
-              "texture": {
-                "src": "icons/svg/mystery-man.svg",
-                "anchorX": 0.5,
-                "anchorY": 0.5,
-                "offsetX": 0,
-                "offsetY": 0,
-                "fit": "contain",
-                "scaleX": 1,
-                "scaleY": 1,
-                "rotation": 0,
-                "tint": "#ffffff",
-                "alphaThreshold": 0.75
-              },
-              "shape": 4,
-              "x": 500,
-              "y": 500,
-              "elevation": 0,
-              "sort": 0,
-              "locked": false,
-              "lockRotation": false,
-              "rotation": 0,
-              "alpha": 1,
-              "hidden": false,
-              "disposition": -1,
-              "displayBars": 0,
-              "bar1": {
-                "attribute": "attributes.hp"
-              },
-              "bar2": {
-                "attribute": null
-              },
-              "light": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 0,
-                "color": null,
-                "coloration": 1,
-                "dim": 0,
-                "attenuation": 0.5,
-                "luminosity": 0.5,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": null,
-                  "speed": 5,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "sight": {
-                "enabled": false,
-                "range": 0,
-                "angle": 360,
-                "visionMode": "basic",
-                "color": null,
-                "attenuation": 0.1,
-                "brightness": 0,
-                "saturation": 0,
-                "contrast": 0
-              },
-              "detectionModes": [],
-              "occludable": {
-                "radius": 0
-              },
-              "ring": {
-                "enabled": false,
-                "colors": {
-                  "ring": null,
-                  "background": null
-                },
-                "effects": 1,
-                "subject": {
-                  "scale": 1,
-                  "texture": null
-                }
-              },
-              "turnMarker": {
-                "mode": 1,
-                "animation": null,
-                "src": null,
-                "disposition": false
-              },
-              "movementAction": "walk",
-              "_movementHistory": [],
-              "_regions": [],
-              "flags": {}
-            }
-          ],
-          "lights": [],
-          "notes": [],
-          "sounds": [],
-          "regions": [],
-          "templates": [],
-          "tiles": [],
-          "walls": [],
-          "playlist": null,
-          "playlistSound": null,
-          "journal": null,
-          "journalEntryPage": null,
-          "weather": "",
-          "folder": null,
-          "sort": 0,
-          "ownership": {
-            "default": 0,
-            "r6bXhB7k9cXa3cif": 3
-          },
-          "flags": {},
-          "_stats": {
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "createdTime": 1773973276903,
-            "modifiedTime": 1773999592018,
-            "lastModifiedBy": "r6bXhB7k9cXa3cif",
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          }
-        },
-        {
-          "_id": "2mlLTd0S2pYR5qbW",
+          "_id": "3Uqr7p8CXMoL0pVi",
           "name": "test-scene-updated",
           "active": true,
           "navigation": true,
@@ -1285,13 +733,13 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "7Nbvl6vN27DDqxxh",
+              "_id": "BmoRnUj9Ab3iNgkU",
               "name": "Updated Test Actor",
               "displayName": 0,
-              "actorId": "VKu2l9IdAzxaXrOo",
+              "actorId": "2Hl8s4nj9yJQueBG",
               "actorLink": false,
               "delta": {
-                "_id": "30e64hH7BTAXDpMt",
+                "_id": "SgR4RKe0eT6C9MA9",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -5128,8 +4576,8 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1773999590697,
-            "modifiedTime": 1773999592018,
+            "createdTime": 1774001744046,
+            "modifiedTime": 1774001745358,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -5153,6 +4601,14 @@ This route is deprecated - use /structure with the path query parameter instead
 
 **object** - Error message directing to use /structure endpoint
 
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/contents/:path"
+  parameters={[]}
+/>
+
 ---
 
 ## GET /get-folder
@@ -5170,6 +4626,14 @@ Get a specific folder by name
 ### Returns
 
 **object** - The folder information and its contents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/get-folder"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"name","type":"string","required":true,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -5303,12 +4767,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-folder_1773999624120",
+  "requestId": "get-folder_1774001776455",
   "clientId": "your-client-id",
   "type": "get-folder-result",
   "data": {
-    "id": "cytOvtbwpRX336gV",
-    "uuid": "Folder.cytOvtbwpRX336gV",
+    "id": "ZyayMq63ICSWmTft",
+    "uuid": "Folder.ZyayMq63ICSWmTft",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -5337,6 +4801,14 @@ Create a new folder
 ### Returns
 
 **object** - The created folder information
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/create-folder"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"name","type":"string","required":true,"source":"body"},{"name":"folderType","type":"string","required":true,"source":"body"},{"name":"parentFolderId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -5474,12 +4946,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-folder_1773999623769",
+  "requestId": "create-folder_1774001776047",
   "clientId": "your-client-id",
   "type": "create-folder-result",
   "data": {
-    "id": "cytOvtbwpRX336gV",
-    "uuid": "Folder.cytOvtbwpRX336gV",
+    "id": "ZyayMq63ICSWmTft",
+    "uuid": "Folder.ZyayMq63ICSWmTft",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -5507,6 +4979,14 @@ Delete a folder
 
 **object** - Confirmation of deletion
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/delete-folder"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"folderId","type":"string","required":true,"source":"body"},{"name":"deleteAll","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -5517,7 +4997,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
   clientId: 'your-client-id',
-  folderId: 'cytOvtbwpRX336gV'
+  folderId: 'ZyayMq63ICSWmTft'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5536,7 +5016,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=your-client-id&folderId=cytOvtbwpRX336gV' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=your-client-id&folderId=ZyayMq63ICSWmTft' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5550,7 +5030,7 @@ base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
     'clientId': 'your-client-id',
-    'folderId': 'cytOvtbwpRX336gV'
+    'folderId': 'ZyayMq63ICSWmTft'
 }
 url = f'{base_url}{path}'
 
@@ -5576,7 +5056,7 @@ import axios from 'axios';
   const path = '/delete-folder';
   const params = {
     clientId: 'your-client-id',
-    folderId: 'cytOvtbwpRX336gV'
+    folderId: 'ZyayMq63ICSWmTft'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5611,7 +5091,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤folderId=cytOvtbwpRX336gV🔤 ➡️ folderId
+  🔤folderId=ZyayMq63ICSWmTft🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5639,12 +5119,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-folder_1773999624258",
+  "requestId": "delete-folder_1774001776590",
   "clientId": "your-client-id",
   "type": "delete-folder-result",
   "data": {
     "deleted": true,
-    "folderId": "cytOvtbwpRX336gV",
+    "folderId": "ZyayMq63ICSWmTft",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }

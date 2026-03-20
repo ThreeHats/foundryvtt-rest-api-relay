@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # canvas
 
 ## GET /canvas/tokens
@@ -23,6 +25,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/tokens"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -152,23 +162,23 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999605480",
+  "requestId": "get-canvas-documents_1774001757341",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tokens",
   "data": [
     {
       "x": 400,
       "y": 400,
-      "actorId": "VKu2l9IdAzxaXrOo",
+      "actorId": "2Hl8s4nj9yJQueBG",
       "shape": 4,
-      "_id": "rs528ghAjlxRzcnx",
+      "_id": "SC8wxOcPgw7sS7xN",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "8kKPjksxwEiZfs0u",
+        "_id": "jduQMTX5m80g0Mnw",
         "system": {},
         "items": [],
         "effects": [],
@@ -290,6 +300,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/tiles"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -419,10 +437,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999606612",
+  "requestId": "get-canvas-documents_1774001758504",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tiles",
   "data": [
     {
@@ -443,7 +461,7 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "_id": "9SmAjqFEywSDmhWD",
+      "_id": "z1Jin3Aa3EyWbE0N",
       "elevation": 0,
       "sort": 0,
       "rotation": 0,
@@ -488,6 +506,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/drawings"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -617,10 +643,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999607722",
+  "requestId": "get-canvas-documents_1774001759609",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "drawings",
   "data": [
     {
@@ -633,7 +659,7 @@ import axios from 'axios';
         "radius": null,
         "points": []
       },
-      "_id": "4tiCRNMVEfFWq2Rb",
+      "_id": "nsGNA7Fz95iKFLZk",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -678,6 +704,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/lights"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -807,10 +841,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999608826",
+  "requestId": "get-canvas-documents_1774001760787",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "lights",
   "data": [
     {
@@ -841,7 +875,7 @@ import axios from 'axios';
           "max": 1
         }
       },
-      "_id": "ZCoINoBlQpwAyXXn",
+      "_id": "oLgYxtjXc83j4D3R",
       "elevation": 0,
       "rotation": 0,
       "walls": true,
@@ -872,6 +906,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/sounds"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -1001,10 +1043,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999610067",
+  "requestId": "get-canvas-documents_1774001762038",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "sounds",
   "data": [
     {
@@ -1012,7 +1054,7 @@ import axios from 'axios';
       "y": 200,
       "radius": 10,
       "path": null,
-      "_id": "WqUebQCqWTo81o5q",
+      "_id": "9Ply4LLaXpxJNmDZ",
       "elevation": 0,
       "repeat": false,
       "volume": 0.5,
@@ -1056,6 +1098,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/notes"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -1185,17 +1235,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999611196",
+  "requestId": "get-canvas-documents_1774001763159",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "notes",
   "data": [
     {
       "x": 250,
       "y": 250,
       "text": "Test Note",
-      "_id": "ZXg6wiHqT0ZzpbH4",
+      "_id": "qF5xlip8hlsAkJeb",
       "entryId": null,
       "pageId": null,
       "elevation": 0,
@@ -1244,6 +1294,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/templates"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -1373,10 +1431,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999612348",
+  "requestId": "get-canvas-documents_1774001764347",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "templates",
   "data": [
     {
@@ -1384,7 +1442,7 @@ import axios from 'axios';
       "y": 350,
       "t": "circle",
       "distance": 15,
-      "_id": "MxLeBYAVYAg9dsb0",
+      "_id": "P2Tlecpvz8mUPRB3",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -1420,6 +1478,14 @@ Get canvas embedded documents
 ### Returns
 
 **object** - Array of embedded documents
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/canvas/walls"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -1549,10 +1615,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1773999613482",
+  "requestId": "get-canvas-documents_1774001765492",
   "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "walls",
   "data": [
     {
@@ -1562,7 +1628,7 @@ import axios from 'axios';
         300,
         100
       ],
-      "_id": "i4zkbIGxTINmDt3R",
+      "_id": "HQl8rYMGlx5A3lAZ",
       "light": 20,
       "move": 20,
       "sight": 20,
@@ -1602,6 +1668,14 @@ Create canvas embedded document(s)
 
 **object** - Created document(s)
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/tokens"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1626,7 +1700,7 @@ const response = await fetch(url, {
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "VKu2l9IdAzxaXrOo"
+        "actorId": "2Hl8s4nj9yJQueBG"
       }
     })
 });
@@ -1641,7 +1715,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/canvas/tokens?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"data":{"x":400,"y":400,"actorId":"VKu2l9IdAzxaXrOo"}}'
+  -d '{"data":{"x":400,"y":400,"actorId":"2Hl8s4nj9yJQueBG"}}'
 ```
 
 </TabItem>
@@ -1668,7 +1742,7 @@ response = requests.post(
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "VKu2l9IdAzxaXrOo"
+        "actorId": "2Hl8s4nj9yJQueBG"
       }
     }
 )
@@ -1702,7 +1776,7 @@ import axios from 'axios';
         "data": {
           "x": 400,
           "y": 400,
-          "actorId": "VKu2l9IdAzxaXrOo"
+          "actorId": "2Hl8s4nj9yJQueBG"
         }
       }
   });
@@ -1732,7 +1806,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"data":{"x":400,"y":400,"actorId":"VKu2l9IdAzxaXrOo"}}🔤 ➡️ body
+  🔤{"data":{"x":400,"y":400,"actorId":"2Hl8s4nj9yJQueBG"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 55❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1759,23 +1833,23 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999605158",
+  "requestId": "create-canvas-document_1774001757048",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tokens",
   "data": [
     {
       "x": 400,
       "y": 400,
-      "actorId": "VKu2l9IdAzxaXrOo",
+      "actorId": "2Hl8s4nj9yJQueBG",
       "shape": 4,
-      "_id": "rs528ghAjlxRzcnx",
+      "_id": "SC8wxOcPgw7sS7xN",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "8kKPjksxwEiZfs0u",
+        "_id": "jduQMTX5m80g0Mnw",
         "system": {},
         "items": [],
         "effects": [],
@@ -1896,6 +1970,14 @@ Create canvas embedded document(s)
 ### Returns
 
 **object** - Created document(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/tiles"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -2066,10 +2148,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999606343",
+  "requestId": "create-canvas-document_1774001758227",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tiles",
   "data": [
     {
@@ -2090,7 +2172,7 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "_id": "9SmAjqFEywSDmhWD",
+      "_id": "z1Jin3Aa3EyWbE0N",
       "elevation": 0,
       "sort": 0,
       "rotation": 0,
@@ -2134,6 +2216,14 @@ Create canvas embedded document(s)
 ### Returns
 
 **object** - Created document(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/drawings"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -2304,10 +2394,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999607459",
+  "requestId": "create-canvas-document_1774001759333",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "drawings",
   "data": [
     {
@@ -2320,7 +2410,7 @@ import axios from 'axios';
         "radius": null,
         "points": []
       },
-      "_id": "4tiCRNMVEfFWq2Rb",
+      "_id": "nsGNA7Fz95iKFLZk",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -2364,6 +2454,14 @@ Create canvas embedded document(s)
 ### Returns
 
 **object** - Created document(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/lights"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -2531,10 +2629,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999608550",
+  "requestId": "create-canvas-document_1774001760499",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "lights",
   "data": [
     {
@@ -2565,7 +2663,7 @@ import axios from 'axios';
           "max": 1
         }
       },
-      "_id": "ZCoINoBlQpwAyXXn",
+      "_id": "oLgYxtjXc83j4D3R",
       "elevation": 0,
       "rotation": 0,
       "walls": true,
@@ -2595,6 +2693,14 @@ Create canvas embedded document(s)
 ### Returns
 
 **object** - Created document(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/sounds"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -2756,10 +2862,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999609781",
+  "requestId": "create-canvas-document_1774001761765",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "sounds",
   "data": [
     {
@@ -2767,7 +2873,7 @@ import axios from 'axios';
       "y": 200,
       "radius": 10,
       "path": null,
-      "_id": "WqUebQCqWTo81o5q",
+      "_id": "9Ply4LLaXpxJNmDZ",
       "elevation": 0,
       "repeat": false,
       "volume": 0.5,
@@ -2810,6 +2916,14 @@ Create canvas embedded document(s)
 ### Returns
 
 **object** - Created document(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/notes"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -2968,17 +3082,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999610913",
+  "requestId": "create-canvas-document_1774001762878",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "notes",
   "data": [
     {
       "x": 250,
       "y": 250,
       "text": "Test Note",
-      "_id": "ZXg6wiHqT0ZzpbH4",
+      "_id": "qF5xlip8hlsAkJeb",
       "entryId": null,
       "pageId": null,
       "elevation": 0,
@@ -3026,6 +3140,14 @@ Create canvas embedded document(s)
 ### Returns
 
 **object** - Created document(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/templates"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -3187,10 +3309,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999612062",
+  "requestId": "create-canvas-document_1774001764074",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "templates",
   "data": [
     {
@@ -3198,7 +3320,7 @@ import axios from 'axios';
       "y": 350,
       "t": "circle",
       "distance": 15,
-      "_id": "MxLeBYAVYAg9dsb0",
+      "_id": "P2Tlecpvz8mUPRB3",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -3233,6 +3355,14 @@ Create canvas embedded document(s)
 ### Returns
 
 **object** - Created document(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/canvas/walls"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -3400,10 +3530,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1773999613221",
+  "requestId": "create-canvas-document_1774001765208",
   "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "walls",
   "data": [
     {
@@ -3413,7 +3543,7 @@ import axios from 'axios';
         300,
         100
       ],
-      "_id": "i4zkbIGxTINmDt3R",
+      "_id": "HQl8rYMGlx5A3lAZ",
       "light": 20,
       "move": 20,
       "sight": 20,
@@ -3455,6 +3585,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/tokens"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -3476,7 +3614,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "rs528ghAjlxRzcnx",
+      "documentId": "SC8wxOcPgw7sS7xN",
       "data": {
         "x": 450,
         "y": 450
@@ -3494,7 +3632,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"rs528ghAjlxRzcnx","data":{"x":450,"y":450}}'
+  -d '{"documentId":"SC8wxOcPgw7sS7xN","data":{"x":450,"y":450}}'
 ```
 
 </TabItem>
@@ -3518,7 +3656,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "rs528ghAjlxRzcnx",
+      "documentId": "SC8wxOcPgw7sS7xN",
       "data": {
         "x": 450,
         "y": 450
@@ -3552,7 +3690,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "rs528ghAjlxRzcnx",
+        "documentId": "SC8wxOcPgw7sS7xN",
         "data": {
           "x": 450,
           "y": 450
@@ -3585,7 +3723,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"rs528ghAjlxRzcnx","data":{"x":450,"y":450}}🔤 ➡️ body
+  🔤{"documentId":"SC8wxOcPgw7sS7xN","data":{"x":450,"y":450}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -3612,23 +3750,23 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999605778",
+  "requestId": "update-canvas-document_1774001757686",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tokens",
   "data": [
     {
       "x": 450,
       "y": 450,
-      "actorId": "VKu2l9IdAzxaXrOo",
+      "actorId": "2Hl8s4nj9yJQueBG",
       "shape": 4,
-      "_id": "rs528ghAjlxRzcnx",
+      "_id": "SC8wxOcPgw7sS7xN",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "8kKPjksxwEiZfs0u",
+        "_id": "jduQMTX5m80g0Mnw",
         "system": {},
         "items": [],
         "effects": [],
@@ -3752,6 +3890,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/tiles"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -3773,7 +3919,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "9SmAjqFEywSDmhWD",
+      "documentId": "z1Jin3Aa3EyWbE0N",
       "data": {
         "width": 300,
         "height": 300
@@ -3791,7 +3937,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/tiles?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"9SmAjqFEywSDmhWD","data":{"width":300,"height":300}}'
+  -d '{"documentId":"z1Jin3Aa3EyWbE0N","data":{"width":300,"height":300}}'
 ```
 
 </TabItem>
@@ -3815,7 +3961,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "9SmAjqFEywSDmhWD",
+      "documentId": "z1Jin3Aa3EyWbE0N",
       "data": {
         "width": 300,
         "height": 300
@@ -3849,7 +3995,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "9SmAjqFEywSDmhWD",
+        "documentId": "z1Jin3Aa3EyWbE0N",
         "data": {
           "width": 300,
           "height": 300
@@ -3882,7 +4028,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"9SmAjqFEywSDmhWD","data":{"width":300,"height":300}}🔤 ➡️ body
+  🔤{"documentId":"z1Jin3Aa3EyWbE0N","data":{"width":300,"height":300}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/tiles🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -3909,10 +4055,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999606905",
+  "requestId": "update-canvas-document_1774001758788",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tiles",
   "data": [
     {
@@ -3933,7 +4079,7 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "_id": "9SmAjqFEywSDmhWD",
+      "_id": "z1Jin3Aa3EyWbE0N",
       "elevation": 0,
       "sort": 0,
       "rotation": 0,
@@ -3980,6 +4126,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/drawings"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4001,7 +4155,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "4tiCRNMVEfFWq2Rb",
+      "documentId": "nsGNA7Fz95iKFLZk",
       "data": {
         "x": 150,
         "y": 150
@@ -4019,7 +4173,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/drawings?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"4tiCRNMVEfFWq2Rb","data":{"x":150,"y":150}}'
+  -d '{"documentId":"nsGNA7Fz95iKFLZk","data":{"x":150,"y":150}}'
 ```
 
 </TabItem>
@@ -4043,7 +4197,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "4tiCRNMVEfFWq2Rb",
+      "documentId": "nsGNA7Fz95iKFLZk",
       "data": {
         "x": 150,
         "y": 150
@@ -4077,7 +4231,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "4tiCRNMVEfFWq2Rb",
+        "documentId": "nsGNA7Fz95iKFLZk",
         "data": {
           "x": 150,
           "y": 150
@@ -4110,7 +4264,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"4tiCRNMVEfFWq2Rb","data":{"x":150,"y":150}}🔤 ➡️ body
+  🔤{"documentId":"nsGNA7Fz95iKFLZk","data":{"x":150,"y":150}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/drawings🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4137,10 +4291,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999608026",
+  "requestId": "update-canvas-document_1774001759935",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "drawings",
   "data": [
     {
@@ -4153,7 +4307,7 @@ import axios from 'axios';
         "radius": null,
         "points": []
       },
-      "_id": "4tiCRNMVEfFWq2Rb",
+      "_id": "nsGNA7Fz95iKFLZk",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -4200,6 +4354,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/lights"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4221,7 +4383,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "ZCoINoBlQpwAyXXn",
+      "documentId": "oLgYxtjXc83j4D3R",
       "data": {
         "config": {
           "dim": 30,
@@ -4241,7 +4403,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/lights?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"ZCoINoBlQpwAyXXn","data":{"config":{"dim":30,"bright":15}}}'
+  -d '{"documentId":"oLgYxtjXc83j4D3R","data":{"config":{"dim":30,"bright":15}}}'
 ```
 
 </TabItem>
@@ -4265,7 +4427,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "ZCoINoBlQpwAyXXn",
+      "documentId": "oLgYxtjXc83j4D3R",
       "data": {
         "config": {
           "dim": 30,
@@ -4301,7 +4463,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "ZCoINoBlQpwAyXXn",
+        "documentId": "oLgYxtjXc83j4D3R",
         "data": {
           "config": {
             "dim": 30,
@@ -4336,7 +4498,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"ZCoINoBlQpwAyXXn","data":{"config":{"dim":30,"bright":15}}}🔤 ➡️ body
+  🔤{"documentId":"oLgYxtjXc83j4D3R","data":{"config":{"dim":30,"bright":15}}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/lights🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4363,10 +4525,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999609190",
+  "requestId": "update-canvas-document_1774001761108",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "lights",
   "data": [
     {
@@ -4397,7 +4559,7 @@ import axios from 'axios';
           "max": 1
         }
       },
-      "_id": "ZCoINoBlQpwAyXXn",
+      "_id": "oLgYxtjXc83j4D3R",
       "elevation": 0,
       "rotation": 0,
       "walls": true,
@@ -4430,6 +4592,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/sounds"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4451,7 +4621,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "WqUebQCqWTo81o5q",
+      "documentId": "9Ply4LLaXpxJNmDZ",
       "data": {
         "radius": 20
       }
@@ -4468,7 +4638,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/sounds?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"WqUebQCqWTo81o5q","data":{"radius":20}}'
+  -d '{"documentId":"9Ply4LLaXpxJNmDZ","data":{"radius":20}}'
 ```
 
 </TabItem>
@@ -4492,7 +4662,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "WqUebQCqWTo81o5q",
+      "documentId": "9Ply4LLaXpxJNmDZ",
       "data": {
         "radius": 20
       }
@@ -4525,7 +4695,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "WqUebQCqWTo81o5q",
+        "documentId": "9Ply4LLaXpxJNmDZ",
         "data": {
           "radius": 20
         }
@@ -4557,7 +4727,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"WqUebQCqWTo81o5q","data":{"radius":20}}🔤 ➡️ body
+  🔤{"documentId":"9Ply4LLaXpxJNmDZ","data":{"radius":20}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/sounds🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4584,10 +4754,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999610360",
+  "requestId": "update-canvas-document_1774001762324",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "sounds",
   "data": [
     {
@@ -4595,7 +4765,7 @@ import axios from 'axios';
       "y": 200,
       "radius": 20,
       "path": null,
-      "_id": "WqUebQCqWTo81o5q",
+      "_id": "9Ply4LLaXpxJNmDZ",
       "elevation": 0,
       "repeat": false,
       "volume": 0.5,
@@ -4641,6 +4811,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/notes"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4662,7 +4840,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "ZXg6wiHqT0ZzpbH4",
+      "documentId": "qF5xlip8hlsAkJeb",
       "data": {
         "text": "Updated Test Note"
       }
@@ -4679,7 +4857,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/notes?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"ZXg6wiHqT0ZzpbH4","data":{"text":"Updated Test Note"}}'
+  -d '{"documentId":"qF5xlip8hlsAkJeb","data":{"text":"Updated Test Note"}}'
 ```
 
 </TabItem>
@@ -4703,7 +4881,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "ZXg6wiHqT0ZzpbH4",
+      "documentId": "qF5xlip8hlsAkJeb",
       "data": {
         "text": "Updated Test Note"
       }
@@ -4736,7 +4914,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "ZXg6wiHqT0ZzpbH4",
+        "documentId": "qF5xlip8hlsAkJeb",
         "data": {
           "text": "Updated Test Note"
         }
@@ -4768,7 +4946,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"ZXg6wiHqT0ZzpbH4","data":{"text":"Updated Test Note"}}🔤 ➡️ body
+  🔤{"documentId":"qF5xlip8hlsAkJeb","data":{"text":"Updated Test Note"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/notes🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4795,17 +4973,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999611467",
+  "requestId": "update-canvas-document_1774001763446",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "notes",
   "data": [
     {
       "x": 250,
       "y": 250,
       "text": "Updated Test Note",
-      "_id": "ZXg6wiHqT0ZzpbH4",
+      "_id": "qF5xlip8hlsAkJeb",
       "entryId": null,
       "pageId": null,
       "elevation": 0,
@@ -4856,6 +5034,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/templates"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4877,7 +5063,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "MxLeBYAVYAg9dsb0",
+      "documentId": "P2Tlecpvz8mUPRB3",
       "data": {
         "distance": 20
       }
@@ -4894,7 +5080,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/templates?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"MxLeBYAVYAg9dsb0","data":{"distance":20}}'
+  -d '{"documentId":"P2Tlecpvz8mUPRB3","data":{"distance":20}}'
 ```
 
 </TabItem>
@@ -4918,7 +5104,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "MxLeBYAVYAg9dsb0",
+      "documentId": "P2Tlecpvz8mUPRB3",
       "data": {
         "distance": 20
       }
@@ -4951,7 +5137,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "MxLeBYAVYAg9dsb0",
+        "documentId": "P2Tlecpvz8mUPRB3",
         "data": {
           "distance": 20
         }
@@ -4983,7 +5169,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"MxLeBYAVYAg9dsb0","data":{"distance":20}}🔤 ➡️ body
+  🔤{"documentId":"P2Tlecpvz8mUPRB3","data":{"distance":20}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/templates🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 56❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -5010,10 +5196,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999612634",
+  "requestId": "update-canvas-document_1774001764638",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "templates",
   "data": [
     {
@@ -5021,7 +5207,7 @@ import axios from 'axios';
       "y": 350,
       "t": "circle",
       "distance": 20,
-      "_id": "MxLeBYAVYAg9dsb0",
+      "_id": "P2Tlecpvz8mUPRB3",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -5059,6 +5245,14 @@ Update a canvas embedded document
 
 **object** - Updated document
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/canvas/walls"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -5080,7 +5274,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "i4zkbIGxTINmDt3R",
+      "documentId": "HQl8rYMGlx5A3lAZ",
       "data": {
         "c": [
           100,
@@ -5102,7 +5296,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/walls?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"i4zkbIGxTINmDt3R","data":{"c":[100,100,400,100]}}'
+  -d '{"documentId":"HQl8rYMGlx5A3lAZ","data":{"c":[100,100,400,100]}}'
 ```
 
 </TabItem>
@@ -5126,7 +5320,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "i4zkbIGxTINmDt3R",
+      "documentId": "HQl8rYMGlx5A3lAZ",
       "data": {
         "c": [
           100,
@@ -5164,7 +5358,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "i4zkbIGxTINmDt3R",
+        "documentId": "HQl8rYMGlx5A3lAZ",
         "data": {
           "c": [
             100,
@@ -5201,7 +5395,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"i4zkbIGxTINmDt3R","data":{"c":[100,100,400,100]}}🔤 ➡️ body
+  🔤{"documentId":"HQl8rYMGlx5A3lAZ","data":{"c":[100,100,400,100]}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/walls🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 64❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -5228,10 +5422,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1773999613753",
+  "requestId": "update-canvas-document_1774001765795",
   "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "walls",
   "data": [
     {
@@ -5241,7 +5435,7 @@ import axios from 'axios';
         400,
         100
       ],
-      "_id": "i4zkbIGxTINmDt3R",
+      "_id": "HQl8rYMGlx5A3lAZ",
       "light": 20,
       "move": 20,
       "sight": 20,
@@ -5282,6 +5476,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/tokens"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -5292,7 +5494,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
   clientId: 'your-client-id',
-  documentId: 'rs528ghAjlxRzcnx'
+  documentId: 'SC8wxOcPgw7sS7xN'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5311,7 +5513,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=your-client-id&documentId=rs528ghAjlxRzcnx' \
+curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=your-client-id&documentId=SC8wxOcPgw7sS7xN' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5325,7 +5527,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
     'clientId': 'your-client-id',
-    'documentId': 'rs528ghAjlxRzcnx'
+    'documentId': 'SC8wxOcPgw7sS7xN'
 }
 url = f'{base_url}{path}'
 
@@ -5351,7 +5553,7 @@ import axios from 'axios';
   const path = '/canvas/tokens';
   const params = {
     clientId: 'your-client-id',
-    documentId: 'rs528ghAjlxRzcnx'
+    documentId: 'SC8wxOcPgw7sS7xN'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5386,7 +5588,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=rs528ghAjlxRzcnx🔤 ➡️ documentId
+  🔤documentId=SC8wxOcPgw7sS7xN🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5414,10 +5616,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999606061",
+  "requestId": "delete-canvas-document_1774001757973",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tokens",
   "success": true
 }
@@ -5443,6 +5645,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/tiles"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -5453,7 +5663,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tiles';
 const params = {
   clientId: 'your-client-id',
-  documentId: '9SmAjqFEywSDmhWD'
+  documentId: 'z1Jin3Aa3EyWbE0N'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5472,7 +5682,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/tiles?clientId=your-client-id&documentId=9SmAjqFEywSDmhWD' \
+curl -X DELETE 'http://localhost:3010/canvas/tiles?clientId=your-client-id&documentId=z1Jin3Aa3EyWbE0N' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5486,7 +5696,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/tiles'
 params = {
     'clientId': 'your-client-id',
-    'documentId': '9SmAjqFEywSDmhWD'
+    'documentId': 'z1Jin3Aa3EyWbE0N'
 }
 url = f'{base_url}{path}'
 
@@ -5512,7 +5722,7 @@ import axios from 'axios';
   const path = '/canvas/tiles';
   const params = {
     clientId: 'your-client-id',
-    documentId: '9SmAjqFEywSDmhWD'
+    documentId: 'z1Jin3Aa3EyWbE0N'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5547,7 +5757,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=9SmAjqFEywSDmhWD🔤 ➡️ documentId
+  🔤documentId=z1Jin3Aa3EyWbE0N🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5575,10 +5785,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999607168",
+  "requestId": "delete-canvas-document_1774001759054",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "tiles",
   "success": true
 }
@@ -5604,6 +5814,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/drawings"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -5614,7 +5832,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/drawings';
 const params = {
   clientId: 'your-client-id',
-  documentId: '4tiCRNMVEfFWq2Rb'
+  documentId: 'nsGNA7Fz95iKFLZk'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5633,7 +5851,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/drawings?clientId=your-client-id&documentId=4tiCRNMVEfFWq2Rb' \
+curl -X DELETE 'http://localhost:3010/canvas/drawings?clientId=your-client-id&documentId=nsGNA7Fz95iKFLZk' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5647,7 +5865,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/drawings'
 params = {
     'clientId': 'your-client-id',
-    'documentId': '4tiCRNMVEfFWq2Rb'
+    'documentId': 'nsGNA7Fz95iKFLZk'
 }
 url = f'{base_url}{path}'
 
@@ -5673,7 +5891,7 @@ import axios from 'axios';
   const path = '/canvas/drawings';
   const params = {
     clientId: 'your-client-id',
-    documentId: '4tiCRNMVEfFWq2Rb'
+    documentId: 'nsGNA7Fz95iKFLZk'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5708,7 +5926,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=4tiCRNMVEfFWq2Rb🔤 ➡️ documentId
+  🔤documentId=nsGNA7Fz95iKFLZk🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5736,10 +5954,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999608292",
+  "requestId": "delete-canvas-document_1774001760222",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "drawings",
   "success": true
 }
@@ -5765,6 +5983,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/lights"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -5775,7 +6001,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/lights';
 const params = {
   clientId: 'your-client-id',
-  documentId: 'ZCoINoBlQpwAyXXn'
+  documentId: 'oLgYxtjXc83j4D3R'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5794,7 +6020,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/lights?clientId=your-client-id&documentId=ZCoINoBlQpwAyXXn' \
+curl -X DELETE 'http://localhost:3010/canvas/lights?clientId=your-client-id&documentId=oLgYxtjXc83j4D3R' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5808,7 +6034,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/lights'
 params = {
     'clientId': 'your-client-id',
-    'documentId': 'ZCoINoBlQpwAyXXn'
+    'documentId': 'oLgYxtjXc83j4D3R'
 }
 url = f'{base_url}{path}'
 
@@ -5834,7 +6060,7 @@ import axios from 'axios';
   const path = '/canvas/lights';
   const params = {
     clientId: 'your-client-id',
-    documentId: 'ZCoINoBlQpwAyXXn'
+    documentId: 'oLgYxtjXc83j4D3R'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5869,7 +6095,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=ZCoINoBlQpwAyXXn🔤 ➡️ documentId
+  🔤documentId=oLgYxtjXc83j4D3R🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5897,10 +6123,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999609481",
+  "requestId": "delete-canvas-document_1774001761438",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "lights",
   "success": true
 }
@@ -5926,6 +6152,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/sounds"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -5936,7 +6170,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/sounds';
 const params = {
   clientId: 'your-client-id',
-  documentId: 'WqUebQCqWTo81o5q'
+  documentId: '9Ply4LLaXpxJNmDZ'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5955,7 +6189,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/sounds?clientId=your-client-id&documentId=WqUebQCqWTo81o5q' \
+curl -X DELETE 'http://localhost:3010/canvas/sounds?clientId=your-client-id&documentId=9Ply4LLaXpxJNmDZ' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5969,7 +6203,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/sounds'
 params = {
     'clientId': 'your-client-id',
-    'documentId': 'WqUebQCqWTo81o5q'
+    'documentId': '9Ply4LLaXpxJNmDZ'
 }
 url = f'{base_url}{path}'
 
@@ -5995,7 +6229,7 @@ import axios from 'axios';
   const path = '/canvas/sounds';
   const params = {
     clientId: 'your-client-id',
-    documentId: 'WqUebQCqWTo81o5q'
+    documentId: '9Ply4LLaXpxJNmDZ'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6030,7 +6264,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=WqUebQCqWTo81o5q🔤 ➡️ documentId
+  🔤documentId=9Ply4LLaXpxJNmDZ🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6058,10 +6292,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999610640",
+  "requestId": "delete-canvas-document_1774001762609",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "sounds",
   "success": true
 }
@@ -6087,6 +6321,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/notes"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -6097,7 +6339,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/notes';
 const params = {
   clientId: 'your-client-id',
-  documentId: 'ZXg6wiHqT0ZzpbH4'
+  documentId: 'qF5xlip8hlsAkJeb'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6116,7 +6358,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/notes?clientId=your-client-id&documentId=ZXg6wiHqT0ZzpbH4' \
+curl -X DELETE 'http://localhost:3010/canvas/notes?clientId=your-client-id&documentId=qF5xlip8hlsAkJeb' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6130,7 +6372,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/notes'
 params = {
     'clientId': 'your-client-id',
-    'documentId': 'ZXg6wiHqT0ZzpbH4'
+    'documentId': 'qF5xlip8hlsAkJeb'
 }
 url = f'{base_url}{path}'
 
@@ -6156,7 +6398,7 @@ import axios from 'axios';
   const path = '/canvas/notes';
   const params = {
     clientId: 'your-client-id',
-    documentId: 'ZXg6wiHqT0ZzpbH4'
+    documentId: 'qF5xlip8hlsAkJeb'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6191,7 +6433,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=ZXg6wiHqT0ZzpbH4🔤 ➡️ documentId
+  🔤documentId=qF5xlip8hlsAkJeb🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6219,10 +6461,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999611789",
+  "requestId": "delete-canvas-document_1774001763781",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "notes",
   "success": true
 }
@@ -6248,6 +6490,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/templates"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -6258,7 +6508,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/templates';
 const params = {
   clientId: 'your-client-id',
-  documentId: 'MxLeBYAVYAg9dsb0'
+  documentId: 'P2Tlecpvz8mUPRB3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6277,7 +6527,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/templates?clientId=your-client-id&documentId=MxLeBYAVYAg9dsb0' \
+curl -X DELETE 'http://localhost:3010/canvas/templates?clientId=your-client-id&documentId=P2Tlecpvz8mUPRB3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6291,7 +6541,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/templates'
 params = {
     'clientId': 'your-client-id',
-    'documentId': 'MxLeBYAVYAg9dsb0'
+    'documentId': 'P2Tlecpvz8mUPRB3'
 }
 url = f'{base_url}{path}'
 
@@ -6317,7 +6567,7 @@ import axios from 'axios';
   const path = '/canvas/templates';
   const params = {
     clientId: 'your-client-id',
-    documentId: 'MxLeBYAVYAg9dsb0'
+    documentId: 'P2Tlecpvz8mUPRB3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6352,7 +6602,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=MxLeBYAVYAg9dsb0🔤 ➡️ documentId
+  🔤documentId=P2Tlecpvz8mUPRB3🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6380,10 +6630,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999612911",
+  "requestId": "delete-canvas-document_1774001764935",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "templates",
   "success": true
 }
@@ -6409,6 +6659,14 @@ Delete a canvas embedded document
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/canvas/walls"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -6419,7 +6677,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/walls';
 const params = {
   clientId: 'your-client-id',
-  documentId: 'i4zkbIGxTINmDt3R'
+  documentId: 'HQl8rYMGlx5A3lAZ'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6438,7 +6696,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/walls?clientId=your-client-id&documentId=i4zkbIGxTINmDt3R' \
+curl -X DELETE 'http://localhost:3010/canvas/walls?clientId=your-client-id&documentId=HQl8rYMGlx5A3lAZ' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6452,7 +6710,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/walls'
 params = {
     'clientId': 'your-client-id',
-    'documentId': 'i4zkbIGxTINmDt3R'
+    'documentId': 'HQl8rYMGlx5A3lAZ'
 }
 url = f'{base_url}{path}'
 
@@ -6478,7 +6736,7 @@ import axios from 'axios';
   const path = '/canvas/walls';
   const params = {
     clientId: 'your-client-id',
-    documentId: 'i4zkbIGxTINmDt3R'
+    documentId: 'HQl8rYMGlx5A3lAZ'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6513,7 +6771,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=i4zkbIGxTINmDt3R🔤 ➡️ documentId
+  🔤documentId=HQl8rYMGlx5A3lAZ🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6541,10 +6799,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1773999614033",
+  "requestId": "delete-canvas-document_1774001766077",
   "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "2mlLTd0S2pYR5qbW",
+  "sceneId": "3Uqr7p8CXMoL0pVi",
   "documentType": "walls",
   "success": true
 }

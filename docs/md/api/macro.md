@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # macro
 
 ## GET /macros
@@ -21,6 +23,14 @@ Get all macros Retrieves a list of all macros available in the Foundry world.
 ### Returns
 
 **object** - An array of macros with details
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/macros"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -150,7 +160,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "macros_1773999634831",
+  "requestId": "macros_1774001786822",
   "clientId": "your-client-id",
   "type": "macros-result",
   "macros": [
@@ -188,8 +198,8 @@ import axios from 'axios';
       "canExecute": true
     },
     {
-      "uuid": "Macro.ZP1Pu3sJ94JbtlgE",
-      "id": "ZP1Pu3sJ94JbtlgE",
+      "uuid": "Macro.7vNQ0KIOOWnMMLST",
+      "id": "7vNQ0KIOOWnMMLST",
       "name": "test-macro",
       "type": "script",
       "author": "tester",
@@ -222,6 +232,14 @@ Execute a macro by UUID Executes a specific macro in the Foundry world by its UU
 
 **object** - Result of the macro execution
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/macro/:uuid/execute"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":true,"source":"params"},{"name":"args","type":"object","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -229,7 +247,7 @@ Execute a macro by UUID Executes a specific macro in the Foundry world by its UU
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/macro/Macro.ZP1Pu3sJ94JbtlgE/execute';
+const path = '/macro/Macro.7vNQ0KIOOWnMMLST/execute';
 const params = {
   clientId: 'your-client-id'
 };
@@ -258,7 +276,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/macro/Macro.ZP1Pu3sJ94JbtlgE/execute?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/macro/Macro.7vNQ0KIOOWnMMLST/execute?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}'
@@ -271,7 +289,7 @@ curl -X POST 'http://localhost:3010/macro/Macro.ZP1Pu3sJ94JbtlgE/execute?clientI
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/macro/Macro.ZP1Pu3sJ94JbtlgE/execute'
+path = '/macro/Macro.7vNQ0KIOOWnMMLST/execute'
 params = {
     'clientId': 'your-client-id'
 }
@@ -303,7 +321,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/macro/Macro.ZP1Pu3sJ94JbtlgE/execute';
+  const path = '/macro/Macro.7vNQ0KIOOWnMMLST/execute';
   const params = {
     clientId: 'your-client-id'
   };
@@ -344,7 +362,7 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/macro/Macro.ZP1Pu3sJ94JbtlgE/execute🔤 ➡️ path
+  🔤/macro/Macro.7vNQ0KIOOWnMMLST/execute🔤 ➡️ path
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
@@ -354,7 +372,7 @@ import axios from 'axios';
   🔤{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /macro/Macro.ZP1Pu3sJ94JbtlgE/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+  🔤POST /macro/Macro.7vNQ0KIOOWnMMLST/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -378,10 +396,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "macro-execute_1773999634963",
+  "requestId": "macro-execute_1774001786879",
   "clientId": "your-client-id",
   "type": "macro-execute-result",
-  "uuid": "Macro.ZP1Pu3sJ94JbtlgE",
+  "uuid": "Macro.7vNQ0KIOOWnMMLST",
   "success": true,
   "result": {
     "success": true,

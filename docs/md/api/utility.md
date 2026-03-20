@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # utility
 
 ## POST /select
@@ -26,6 +28,14 @@ Select token(s) Selects one or more tokens in the Foundry VTT client.
 ### Returns
 
 **object** - The selected token(s)
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/select"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"data","type":"object","required":false,"source":"body"},{"name":"overwrite","type":"boolean","required":false,"source":"body"},{"name":"all","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -174,14 +184,14 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "select_1773999635730",
+  "requestId": "select_1774001787683",
   "clientId": "your-client-id",
   "type": "select-result",
   "success": true,
   "count": 1,
   "message": "1 entities selected",
   "selected": [
-    "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh"
+    "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU"
   ]
 }
 ```
@@ -203,6 +213,14 @@ Get selected token(s) Retrieves the currently selected token(s) in the Foundry V
 ### Returns
 
 **object** - The selected token(s)
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/selected"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -332,14 +350,14 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "selected_1773999635854",
+  "requestId": "selected_1774001787768",
   "clientId": "your-client-id",
   "type": "selected-result",
   "success": true,
   "selected": [
     {
-      "tokenUuid": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh",
-      "actorUuid": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh.Actor.VKu2l9IdAzxaXrOo"
+      "tokenUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
+      "actorUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG"
     }
   ]
 }
@@ -362,6 +380,14 @@ Get players/users Retrieves a list of all users configured in the Foundry VTT wo
 ### Returns
 
 **object** - List of users with their IDs, names, roles, and active status
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/players"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -491,7 +517,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "players_1773999636026",
+  "requestId": "players_1774001787970",
   "clientId": "your-client-id",
   "type": "players-result",
   "users": [
@@ -544,6 +570,14 @@ Execute JavaScript Executes a JavaScript script in the Foundry VTT client.
 ### Returns
 
 **object** - The result of the executed script
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/execute-js"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"script","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -689,7 +723,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "execute-js_1773999636175",
+  "requestId": "execute-js_1774001788119",
   "clientId": "your-client-id",
   "type": "execute-js-result",
   "success": true,

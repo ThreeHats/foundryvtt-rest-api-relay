@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # search
 
 ## GET /search
@@ -23,6 +25,14 @@ Search entities This endpoint allows searching for entities in the Foundry world
 ### Returns
 
 **object** - Search results containing matching entities
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/search"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"query","type":"string","required":true,"source":"query"},{"name":"filter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -160,7 +170,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "search_1773999625953",
+  "requestId": "search_1774001778079",
   "clientId": "your-client-id",
   "type": "search-result",
   "query": "test-",
@@ -204,12 +214,12 @@ import axios from 'axios';
     },
     {
       "documentType": "Item",
-      "id": "AkJqpNIrBN9qSNCe",
+      "id": "5TH7Z5eX9h1RlM3B",
       "name": "test-studded leather armor +3",
       "subType": "equipment",
-      "uuid": "Item.AkJqpNIrBN9qSNCe",
+      "uuid": "Item.5TH7Z5eX9h1RlM3B",
       "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
-      "journalLink": "@UUID[Item.AkJqpNIrBN9qSNCe]{test-studded leather armor +3}",
+      "journalLink": "@UUID[Item.5TH7Z5eX9h1RlM3B]{test-studded leather armor +3}",
       "tagline": "Items Directory",
       "formattedMatch": "<strong>test-</strong>studded leather armor +3",
       "resultType": "EntitySearchItem"

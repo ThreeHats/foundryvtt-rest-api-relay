@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # scene
 
 ## GET /scene
@@ -26,6 +28,14 @@ Get scene(s) Retrieves one or more scenes by ID, name, active status, viewed sta
 ### Returns
 
 **object** - Scene data
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/scene"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"name","type":"string","required":false,"source":"query"},{"name":"active","type":"boolean","required":false,"source":"query"},{"name":"viewed","type":"boolean","required":false,"source":"query"},{"name":"all","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -159,7 +169,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-scene_1773999591147",
+  "requestId": "get-scene_1774001744487",
   "clientId": "your-client-id",
   "type": "get-scene-result",
   "data": [
@@ -208,7 +218,7 @@ import axios from 'axios';
       "drawings": [],
       "tokens": [
         {
-          "name": "test",
+          "name": "actor",
           "displayName": 0,
           "actorLink": true,
           "width": 1,
@@ -297,13 +307,13 @@ import axios from 'axios';
           },
           "movementAction": null,
           "flags": {},
-          "actorId": "xctPu6799LkAP6p3",
+          "actorId": "sj7XQgYVZv8SpEQG",
           "hidden": false,
-          "sort": 0,
+          "sort": 3,
           "shape": 4,
-          "_id": "O4sEnBrG5I3lFNGk",
+          "_id": "ZROaJlBucaNukYyI",
           "delta": {
-            "_id": "O4sEnBrG5I3lFNGk",
+            "_id": "ZROaJlBucaNukYyI",
             "system": {},
             "flags": {},
             "name": null,
@@ -313,234 +323,8 @@ import axios from 'axios';
             "effects": [],
             "ownership": null
           },
-          "x": 1596,
-          "y": 623,
-          "elevation": 0,
-          "locked": false,
-          "_movementHistory": [],
-          "_regions": []
-        },
-        {
-          "name": "Aboleth",
-          "displayName": 0,
-          "actorLink": false,
-          "width": 2,
-          "height": 2,
-          "texture": {
-            "src": "systems/dnd5e/tokens/aberration/Aboleth.webp",
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "contain",
-            "scaleX": 2,
-            "scaleY": 2,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0.75
-          },
-          "lockRotation": false,
-          "rotation": 0,
-          "alpha": 1,
-          "disposition": -1,
-          "displayBars": 0,
-          "bar1": {
-            "attribute": "attributes.hp"
-          },
-          "bar2": {
-            "attribute": null
-          },
-          "light": {
-            "negative": false,
-            "priority": 0,
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 0,
-            "color": null,
-            "coloration": 1,
-            "dim": 0,
-            "attenuation": 0.5,
-            "luminosity": 0.5,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": null,
-              "speed": 5,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            }
-          },
-          "sight": {
-            "enabled": false,
-            "range": 0,
-            "angle": 360,
-            "visionMode": "basic",
-            "color": null,
-            "attenuation": 0.1,
-            "brightness": 0,
-            "saturation": 0,
-            "contrast": 0
-          },
-          "detectionModes": [],
-          "occludable": {
-            "radius": 0
-          },
-          "ring": {
-            "enabled": false,
-            "colors": {
-              "ring": null,
-              "background": null
-            },
-            "effects": 1,
-            "subject": {
-              "scale": 2,
-              "texture": null
-            }
-          },
-          "flags": {},
-          "turnMarker": {
-            "mode": 1,
-            "animation": null,
-            "src": null,
-            "disposition": false
-          },
-          "movementAction": null,
-          "actorId": "2z0ZFTO8hYIWeEiL",
-          "hidden": false,
-          "sort": 1,
-          "shape": 4,
-          "_id": "D72uPb59A6kqlM1o",
-          "delta": {
-            "_id": "8d0K6twLsEcqq9Py",
-            "system": {},
-            "items": [],
-            "effects": [],
-            "flags": {},
-            "name": null,
-            "type": null,
-            "img": null,
-            "ownership": null
-          },
-          "x": 1664,
-          "y": 358,
-          "elevation": 0,
-          "locked": false,
-          "_movementHistory": [],
-          "_regions": []
-        },
-        {
-          "name": "Aboleth",
-          "displayName": 0,
-          "actorLink": false,
-          "width": 2,
-          "height": 2,
-          "texture": {
-            "src": "systems/dnd5e/tokens/aberration/Aboleth.webp",
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "contain",
-            "scaleX": 2,
-            "scaleY": 2,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0.75
-          },
-          "lockRotation": false,
-          "rotation": 306.0850730428521,
-          "alpha": 1,
-          "disposition": -1,
-          "displayBars": 0,
-          "bar1": {
-            "attribute": "attributes.hp"
-          },
-          "bar2": {
-            "attribute": null
-          },
-          "light": {
-            "negative": false,
-            "priority": 0,
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 0,
-            "color": null,
-            "coloration": 1,
-            "dim": 0,
-            "attenuation": 0.5,
-            "luminosity": 0.5,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": null,
-              "speed": 5,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            }
-          },
-          "sight": {
-            "enabled": false,
-            "range": 0,
-            "angle": 360,
-            "visionMode": "basic",
-            "color": null,
-            "attenuation": 0.1,
-            "brightness": 0,
-            "saturation": 0,
-            "contrast": 0
-          },
-          "detectionModes": [],
-          "occludable": {
-            "radius": 0
-          },
-          "ring": {
-            "enabled": false,
-            "colors": {
-              "ring": null,
-              "background": null
-            },
-            "effects": 1,
-            "subject": {
-              "scale": 2,
-              "texture": null
-            }
-          },
-          "flags": {},
-          "turnMarker": {
-            "mode": 1,
-            "animation": null,
-            "src": null,
-            "disposition": false
-          },
-          "movementAction": null,
-          "actorId": "2z0ZFTO8hYIWeEiL",
-          "hidden": false,
-          "sort": 2,
-          "shape": 4,
-          "_id": "lP1YxLyDcmAGmj4I",
-          "delta": {
-            "_id": "j4y2pzRQibl3DXGF",
-            "system": {},
-            "items": [],
-            "effects": [],
-            "flags": {},
-            "name": null,
-            "type": null,
-            "img": null,
-            "ownership": null
-          },
-          "x": 2077,
-          "y": 557,
+          "x": 1390,
+          "y": 418,
           "elevation": 0,
           "locked": false,
           "_movementHistory": [],
@@ -781,7 +565,7 @@ import axios from 'axios';
       "journalEntryPage": null,
       "weather": "",
       "flags": {},
-      "active": false,
+      "active": true,
       "fog": {
         "exploration": false,
         "reset": 1660769143211,
@@ -840,356 +624,8 @@ import axios from 'axios';
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
         "createdTime": 1763765287462,
-        "modifiedTime": 1773973282350,
-        "lastModifiedBy": "r6bXhB7k9cXa3cif"
-      }
-    },
-    {
-      "name": "a",
-      "folder": null,
-      "_id": "VnnIYuJJjlZzUeRT",
-      "active": false,
-      "navigation": true,
-      "navOrder": 0,
-      "background": {
-        "src": null,
-        "anchorX": 0,
-        "anchorY": 0,
-        "offsetX": 0,
-        "offsetY": 0,
-        "fit": "fill",
-        "scaleX": 1,
-        "scaleY": 1,
-        "rotation": 0,
-        "tint": "#ffffff",
-        "alphaThreshold": 0
-      },
-      "foreground": null,
-      "foregroundElevation": null,
-      "thumb": null,
-      "width": 4000,
-      "height": 3000,
-      "padding": 0.25,
-      "initial": {
-        "x": null,
-        "y": null,
-        "scale": null
-      },
-      "backgroundColor": "#999999",
-      "grid": {
-        "type": 1,
-        "size": 100,
-        "style": "solidLines",
-        "thickness": 1,
-        "color": "#000000",
-        "alpha": 0.2,
-        "distance": 5,
-        "units": "ft"
-      },
-      "tokenVision": true,
-      "fog": {
-        "exploration": true,
-        "overlay": null,
-        "colors": {
-          "explored": null,
-          "unexplored": null
-        }
-      },
-      "environment": {
-        "darknessLevel": 0,
-        "darknessLock": false,
-        "globalLight": {
-          "enabled": false,
-          "alpha": 0.5,
-          "bright": false,
-          "color": null,
-          "coloration": 1,
-          "luminosity": 0,
-          "saturation": 0,
-          "contrast": 0,
-          "shadows": 0,
-          "darkness": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        "cycle": true,
-        "base": {
-          "hue": 0,
-          "intensity": 0,
-          "luminosity": 0,
-          "saturation": 0,
-          "shadows": 0
-        },
-        "dark": {
-          "hue": 0.7138888888888889,
-          "intensity": 0,
-          "luminosity": -0.25,
-          "saturation": 0,
-          "shadows": 0
-        }
-      },
-      "drawings": [],
-      "tokens": [],
-      "lights": [],
-      "notes": [],
-      "sounds": [],
-      "regions": [],
-      "templates": [],
-      "tiles": [],
-      "walls": [],
-      "playlist": null,
-      "playlistSound": null,
-      "journal": null,
-      "journalEntryPage": null,
-      "weather": "",
-      "sort": 0,
-      "ownership": {
-        "default": 0,
-        "5ypAoBvOiyjDKiaZ": 3
-      },
-      "flags": {},
-      "_stats": {
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "13.348",
-        "systemId": "dnd5e",
-        "systemVersion": "5.0.4",
-        "createdTime": 1765382040878,
-        "modifiedTime": 1765382040878,
+        "modifiedTime": 1774000548930,
         "lastModifiedBy": "5ypAoBvOiyjDKiaZ"
-      }
-    },
-    {
-      "name": "test-scene-updated",
-      "width": 1000,
-      "height": 1000,
-      "grid": {
-        "size": 100,
-        "type": 1,
-        "style": "solidLines",
-        "thickness": 1,
-        "color": "#000000",
-        "alpha": 0.2,
-        "distance": 5,
-        "units": "ft"
-      },
-      "_id": "dgTzUeYHz3ofwqC0",
-      "active": true,
-      "navigation": true,
-      "navOrder": 0,
-      "background": {
-        "src": null,
-        "anchorX": 0,
-        "anchorY": 0,
-        "offsetX": 0,
-        "offsetY": 0,
-        "fit": "fill",
-        "scaleX": 1,
-        "scaleY": 1,
-        "rotation": 0,
-        "tint": "#ffffff",
-        "alphaThreshold": 0
-      },
-      "foreground": null,
-      "foregroundElevation": null,
-      "thumb": null,
-      "padding": 0.25,
-      "initial": {
-        "x": null,
-        "y": null,
-        "scale": null
-      },
-      "backgroundColor": "#999999",
-      "tokenVision": true,
-      "fog": {
-        "exploration": true,
-        "overlay": null,
-        "colors": {
-          "explored": null,
-          "unexplored": null
-        }
-      },
-      "environment": {
-        "darknessLevel": 0,
-        "darknessLock": false,
-        "globalLight": {
-          "enabled": false,
-          "alpha": 0.5,
-          "bright": false,
-          "color": null,
-          "coloration": 1,
-          "luminosity": 0,
-          "saturation": 0,
-          "contrast": 0,
-          "shadows": 0,
-          "darkness": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        "cycle": true,
-        "base": {
-          "hue": 0,
-          "intensity": 0,
-          "luminosity": 0,
-          "saturation": 0,
-          "shadows": 0
-        },
-        "dark": {
-          "hue": 0.7138888888888889,
-          "intensity": 0,
-          "luminosity": -0.25,
-          "saturation": 0,
-          "shadows": 0
-        }
-      },
-      "drawings": [],
-      "tokens": [
-        {
-          "actorId": "c17ZnzQuaTgBEUO8",
-          "x": 500,
-          "y": 500,
-          "shape": 4,
-          "_id": "XVxua916sjJpOpho",
-          "name": "",
-          "displayName": 0,
-          "actorLink": false,
-          "delta": {
-            "_id": "xMGIe3RylbAJZaIX",
-            "system": {},
-            "items": [],
-            "effects": [],
-            "flags": {},
-            "name": null,
-            "type": null,
-            "img": null,
-            "ownership": null
-          },
-          "width": 1,
-          "height": 1,
-          "texture": {
-            "src": "icons/svg/mystery-man.svg",
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "contain",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0.75
-          },
-          "elevation": 0,
-          "sort": 0,
-          "locked": false,
-          "lockRotation": false,
-          "rotation": 0,
-          "alpha": 1,
-          "hidden": false,
-          "disposition": -1,
-          "displayBars": 0,
-          "bar1": {
-            "attribute": "attributes.hp"
-          },
-          "bar2": {
-            "attribute": null
-          },
-          "light": {
-            "negative": false,
-            "priority": 0,
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 0,
-            "color": null,
-            "coloration": 1,
-            "dim": 0,
-            "attenuation": 0.5,
-            "luminosity": 0.5,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": null,
-              "speed": 5,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            }
-          },
-          "sight": {
-            "enabled": false,
-            "range": 0,
-            "angle": 360,
-            "visionMode": "basic",
-            "color": null,
-            "attenuation": 0.1,
-            "brightness": 0,
-            "saturation": 0,
-            "contrast": 0
-          },
-          "detectionModes": [],
-          "occludable": {
-            "radius": 0
-          },
-          "ring": {
-            "enabled": false,
-            "colors": {
-              "ring": null,
-              "background": null
-            },
-            "effects": 1,
-            "subject": {
-              "scale": 1,
-              "texture": null
-            }
-          },
-          "turnMarker": {
-            "mode": 1,
-            "animation": null,
-            "src": null,
-            "disposition": false
-          },
-          "movementAction": null,
-          "_movementHistory": [],
-          "_regions": [],
-          "flags": {}
-        }
-      ],
-      "lights": [],
-      "notes": [],
-      "sounds": [],
-      "regions": [],
-      "templates": [],
-      "tiles": [],
-      "walls": [],
-      "playlist": null,
-      "playlistSound": null,
-      "journal": null,
-      "journalEntryPage": null,
-      "weather": "",
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0,
-        "r6bXhB7k9cXa3cif": 3
-      },
-      "flags": {},
-      "_stats": {
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "13.348",
-        "systemId": "dnd5e",
-        "systemVersion": "5.0.4",
-        "createdTime": 1773973276903,
-        "modifiedTime": 1773994840389,
-        "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
     {
@@ -1206,7 +642,7 @@ import axios from 'axios';
         "distance": 5,
         "units": "ft"
       },
-      "_id": "2mlLTd0S2pYR5qbW",
+      "_id": "3Uqr7p8CXMoL0pVi",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -1304,8 +740,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1773999590697,
-        "modifiedTime": 1773999590697,
+        "createdTime": 1774001744046,
+        "modifiedTime": 1774001744046,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -1313,7 +749,7 @@ import axios from 'axios';
       "name": "test-scene-expendable",
       "width": 500,
       "height": 500,
-      "_id": "5PGaiPwuuX5VX6pm",
+      "_id": "BLvg4cDKvqwEhsIp",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -1421,8 +857,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1773999590988,
-        "modifiedTime": 1773999590988,
+        "createdTime": 1774001744329,
+        "modifiedTime": 1774001744329,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     }
@@ -1448,6 +884,14 @@ Create a new scene
 ### Returns
 
 **object** - Created scene data
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/scene"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -1614,7 +1058,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-scene_1773999590573",
+  "requestId": "create-scene_1774001743923",
   "clientId": "your-client-id",
   "type": "create-scene-result",
   "data": {
@@ -1631,7 +1075,7 @@ import axios from 'axios';
       "distance": 5,
       "units": "ft"
     },
-    "_id": "2mlLTd0S2pYR5qbW",
+    "_id": "3Uqr7p8CXMoL0pVi",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -1729,8 +1173,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1773999590697,
-      "modifiedTime": 1773999590697,
+      "createdTime": 1774001744046,
+      "modifiedTime": 1774001744046,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -1759,6 +1203,14 @@ Update an existing scene
 
 **object** - Updated scene data
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/scene"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"name","type":"string","required":false,"source":"query"},{"name":"active","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1780,7 +1232,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "2mlLTd0S2pYR5qbW",
+      "sceneId": "3Uqr7p8CXMoL0pVi",
       "data": {
         "name": "test-scene-updated"
       }
@@ -1797,7 +1249,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/scene?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"2mlLTd0S2pYR5qbW","data":{"name":"test-scene-updated"}}'
+  -d '{"sceneId":"3Uqr7p8CXMoL0pVi","data":{"name":"test-scene-updated"}}'
 ```
 
 </TabItem>
@@ -1820,7 +1272,7 @@ response = requests.put(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "2mlLTd0S2pYR5qbW",
+      "sceneId": "3Uqr7p8CXMoL0pVi",
       "data": {
         "name": "test-scene-updated"
       }
@@ -1853,7 +1305,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "2mlLTd0S2pYR5qbW",
+        "sceneId": "3Uqr7p8CXMoL0pVi",
         "data": {
           "name": "test-scene-updated"
         }
@@ -1885,7 +1337,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"2mlLTd0S2pYR5qbW","data":{"name":"test-scene-updated"}}🔤 ➡️ body
+  🔤{"sceneId":"3Uqr7p8CXMoL0pVi","data":{"name":"test-scene-updated"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1912,7 +1364,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-scene_1773999591599",
+  "requestId": "update-scene_1774001744931",
   "clientId": "your-client-id",
   "type": "update-scene-result",
   "data": {
@@ -1929,7 +1381,7 @@ import axios from 'axios';
       "distance": 5,
       "units": "ft"
     },
-    "_id": "2mlLTd0S2pYR5qbW",
+    "_id": "3Uqr7p8CXMoL0pVi",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -2027,8 +1479,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1773999590697,
-      "modifiedTime": 1773999591722,
+      "createdTime": 1774001744046,
+      "modifiedTime": 1774001745059,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -2055,6 +1507,14 @@ Delete a scene
 
 **object** - Deletion result
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/scene"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"name","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -2065,7 +1525,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/scene';
 const params = {
   clientId: 'your-client-id',
-  sceneId: '5PGaiPwuuX5VX6pm'
+  sceneId: 'BLvg4cDKvqwEhsIp'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -2084,7 +1544,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/scene?clientId=your-client-id&sceneId=5PGaiPwuuX5VX6pm' \
+curl -X DELETE 'http://localhost:3010/scene?clientId=your-client-id&sceneId=BLvg4cDKvqwEhsIp' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -2098,7 +1558,7 @@ base_url = 'http://localhost:3010'
 path = '/scene'
 params = {
     'clientId': 'your-client-id',
-    'sceneId': '5PGaiPwuuX5VX6pm'
+    'sceneId': 'BLvg4cDKvqwEhsIp'
 }
 url = f'{base_url}{path}'
 
@@ -2124,7 +1584,7 @@ import axios from 'axios';
   const path = '/scene';
   const params = {
     clientId: 'your-client-id',
-    sceneId: '5PGaiPwuuX5VX6pm'
+    sceneId: 'BLvg4cDKvqwEhsIp'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -2159,7 +1619,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤sceneId=5PGaiPwuuX5VX6pm🔤 ➡️ sceneId
+  🔤sceneId=BLvg4cDKvqwEhsIp🔤 ➡️ sceneId
   🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -2187,7 +1647,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-scene_1773999597314",
+  "requestId": "delete-scene_1774001750568",
   "clientId": "your-client-id",
   "type": "delete-scene-result",
   "success": true
@@ -2214,6 +1674,14 @@ Switch the active scene
 
 **object** - Result of the scene switch
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/switch-scene"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -2235,7 +1703,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "2mlLTd0S2pYR5qbW"
+      "sceneId": "3Uqr7p8CXMoL0pVi"
     })
 });
 const data = await response.json();
@@ -2249,7 +1717,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/switch-scene?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"2mlLTd0S2pYR5qbW"}'
+  -d '{"sceneId":"3Uqr7p8CXMoL0pVi"}'
 ```
 
 </TabItem>
@@ -2272,7 +1740,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "2mlLTd0S2pYR5qbW"
+      "sceneId": "3Uqr7p8CXMoL0pVi"
     }
 )
 data = response.json()
@@ -2302,7 +1770,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "2mlLTd0S2pYR5qbW"
+        "sceneId": "3Uqr7p8CXMoL0pVi"
       }
   });
   const data = response.data;
@@ -2331,7 +1799,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"2mlLTd0S2pYR5qbW"}🔤 ➡️ body
+  🔤{"sceneId":"3Uqr7p8CXMoL0pVi"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -2358,7 +1826,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "switch-scene_1773999591884",
+  "requestId": "switch-scene_1774001745216",
   "clientId": "your-client-id",
   "type": "switch-scene-result",
   "success": true,
@@ -2376,7 +1844,7 @@ import axios from 'axios';
       "distance": 5,
       "units": "ft"
     },
-    "_id": "2mlLTd0S2pYR5qbW",
+    "_id": "3Uqr7p8CXMoL0pVi",
     "active": true,
     "navigation": true,
     "navOrder": 0,
@@ -2474,8 +1942,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1773999590697,
-      "modifiedTime": 1773999592018,
+      "createdTime": 1774001744046,
+      "modifiedTime": 1774001745358,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }

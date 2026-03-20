@@ -28,6 +28,7 @@ import { structureRouter } from './api/structure';
 import { sceneRouter } from './api/scene';
 import { canvasRouter } from './api/canvas';
 import { chatRouter } from './api/chat';
+import { clientsRouter } from './api/clients';
 import { log } from '../utils/logger';
 // Import from session.ts instead of duplicating
 import { browserSessions, apiKeyToSession, pendingSessions } from './api/session';
@@ -35,8 +36,6 @@ import { browserSessions, apiKeyToSession, pendingSessions } from './api/session
 export { browserSessions, apiKeyToSession, pendingSessions };
 
 export const VERSION = '2.2.1';
-
-const INSTANCE_ID = process.env.INSTANCE_ID || 'default';
 
 const HEADLESS_SESSION_TIMEOUT = 10 * 60 * 1000; // 10 minutes in milliseconds
 const PENDING_SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes - matches the clientConnectionPromise timeout
@@ -136,90 +135,6 @@ export const apiRoutes = (app: express.Application): void => {
     });
   });
 
-  // Get all connected clients
-  router.get("/clients", authMiddleware, async (req: Request, res: Response) => {
-    try {
-      const apiKey = req.header('x-api-key') || '';
-      const redis = getRedisClient();
-      
-      // Array to store all client details
-      let allClients: any[] = [];
-      
-      if (redis) {
-        // Step 1: Get all client IDs from Redis for this API key
-        const clientIds = await redis.sMembers(`apikey:${apiKey}:clients`);
-        
-        if (clientIds.length > 0) {
-          // Step 2: For each client ID, get details from Redis
-          const clientDetailsPromises = clientIds.map(async (clientId) => {
-            try {
-              // Get the instance this client is connected to
-              const instanceId = await redis.get(`client:${clientId}:instance`);
-              
-              if (!instanceId) return null;
-              
-              // Get the last seen timestamp if stored
-              const lastSeen = await redis.get(`client:${clientId}:lastSeen`) || Date.now();
-              const connectedSince = await redis.get(`client:${clientId}:connectedSince`) || lastSeen;
-              
-              // Return client details including its instance
-              return {
-                id: clientId,
-                instanceId,
-                lastSeen: parseInt(lastSeen.toString()),
-                connectedSince: parseInt(connectedSince.toString()),
-                worldId: await redis.get(`client:${clientId}:worldId`) || '',
-                worldTitle: await redis.get(`client:${clientId}:worldTitle`) || '',
-                foundryVersion: await redis.get(`client:${clientId}:foundryVersion`) || '',
-                systemId: await redis.get(`client:${clientId}:systemId`) || '',
-                systemTitle: await redis.get(`client:${clientId}:systemTitle`) || '',
-                systemVersion: await redis.get(`client:${clientId}:systemVersion`) || '',
-                customName: await redis.get(`client:${clientId}:customName`) || ''
-              };
-            } catch (err) {
-              log.error(`Error getting details for client ${clientId}: ${err}`);
-              return null;
-            }
-          });
-          
-          // Resolve all promises and filter out nulls
-          const clientDetails = (await Promise.all(clientDetailsPromises)).filter(client => client !== null);
-          allClients = clientDetails;
-        }
-      } else {
-        // Fallback to local clients if Redis isn't available
-        const localClientIds = await ClientManager.getConnectedClients(apiKey);
-        
-        // Use Promise.all to wait for all getClient calls to complete
-        allClients = await Promise.all(localClientIds.map(async (id) => {
-          const client = await ClientManager.getClient(id);
-          return {
-            id,
-            instanceId: INSTANCE_ID,
-            lastSeen: client?.getLastSeen() || Date.now(),
-            connectedSince: client?.getLastSeen() || Date.now(),
-            worldId: client?.getWorldId() || '',
-            worldTitle: client?.getWorldTitle() || '',
-            foundryVersion: client?.getFoundryVersion() || '',
-            systemId: client?.getSystemId() || '',
-            systemTitle: client?.getSystemTitle() || '',
-            systemVersion: client?.getSystemVersion() || '',
-            customName: client?.getCustomName() || ''
-          };
-        }));
-      }
-      
-      // Send combined response
-      safeResponse(res, 200, {
-        total: allClients.length,
-        clients: allClients
-      });
-    } catch (error) {
-      log.error(`Error aggregating clients: ${error}`);
-      safeResponse(res, 500, { error: "Failed to retrieve clients" });
-    }
-  });
-  
   // Proxy asset requests to Foundry
   router.get('/proxy-asset/:path(*)', requestForwarderMiddleware, async (req: Request, res: Response) => {
     try {
@@ -389,6 +304,7 @@ export const apiRoutes = (app: express.Application): void => {
   app.use('/', sceneRouter);
   app.use('/', canvasRouter);
   app.use('/', chatRouter);
+  app.use('/', clientsRouter);
   app.use('/dnd5e', dnd5eRouter);
 };
 

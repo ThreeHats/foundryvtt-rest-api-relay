@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # encounter
 
 ## GET /encounters
@@ -21,6 +23,14 @@ Get all active encounters Retrieves a list of all currently active encounters in
 ### Returns
 
 **object** - An array of active encounters with details
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/encounters"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -150,23 +160,23 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "encounters_1773999638386",
+  "requestId": "encounters_1774001790245",
   "clientId": "your-client-id",
   "type": "encounters-result",
   "encounters": [
     {
-      "id": "ahXns6rBVp1JEgYN",
+      "id": "4Ji8LDdrk3WrPKaH",
       "round": 1,
       "turn": 0,
       "current": true,
       "combatants": [
         {
-          "id": "6tSTPCb784AtmkQG",
+          "id": "wuDqRmLpYEqnGgZK",
           "name": "Updated Test Actor",
-          "tokenUuid": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh",
-          "actorUuid": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh.Actor.VKu2l9IdAzxaXrOo",
+          "tokenUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
+          "actorUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
           "img": "icons/svg/mystery-man.svg",
-          "initiative": 21,
+          "initiative": 15,
           "hidden": false,
           "defeated": false
         }
@@ -199,6 +209,14 @@ Start a new encounter Initiates a new encounter in the Foundry world.
 ### Returns
 
 **object** - Details of the started encounter
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/start-encounter"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"tokens","type":"array","required":false,"source":"body"},{"name":"startWithSelected","type":"boolean","required":false,"source":"body"},{"name":"startWithPlayers","type":"boolean","required":false,"source":"body"},{"name":"rollNPC","type":"boolean","required":false,"source":"body"},{"name":"rollAll","type":"boolean","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -347,22 +365,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "start-encounter_1773999637390",
+  "requestId": "start-encounter_1774001789234",
   "clientId": "your-client-id",
   "type": "start-encounter-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "encounter": {
-    "id": "ahXns6rBVp1JEgYN",
+    "id": "4Ji8LDdrk3WrPKaH",
     "round": 1,
     "turn": 0,
     "combatants": [
       {
-        "id": "6tSTPCb784AtmkQG",
+        "id": "wuDqRmLpYEqnGgZK",
         "name": "Updated Test Actor",
-        "tokenUuid": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh",
-        "actorUuid": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh.Actor.VKu2l9IdAzxaXrOo",
+        "tokenUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
+        "actorUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
         "img": "icons/svg/mystery-man.svg",
-        "initiative": 21,
+        "initiative": 15,
         "hidden": false,
         "defeated": false
       }
@@ -390,6 +408,14 @@ Advance to the next turn in the encounter Moves the encounter to the next turn.
 
 **object** - Details of the next turn
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/next-turn"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -400,7 +426,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/next-turn';
 const params = {
   clientId: 'your-client-id',
-  encounterId: 'ahXns6rBVp1JEgYN'
+  encounterId: '4Ji8LDdrk3WrPKaH'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -419,7 +445,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/next-turn?clientId=your-client-id&encounterId=ahXns6rBVp1JEgYN' \
+curl -X POST 'http://localhost:3010/next-turn?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -433,7 +459,7 @@ base_url = 'http://localhost:3010'
 path = '/next-turn'
 params = {
     'clientId': 'your-client-id',
-    'encounterId': 'ahXns6rBVp1JEgYN'
+    'encounterId': '4Ji8LDdrk3WrPKaH'
 }
 url = f'{base_url}{path}'
 
@@ -459,7 +485,7 @@ import axios from 'axios';
   const path = '/next-turn';
   const params = {
     clientId: 'your-client-id',
-    encounterId: 'ahXns6rBVp1JEgYN'
+    encounterId: '4Ji8LDdrk3WrPKaH'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -494,7 +520,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=ahXns6rBVp1JEgYN🔤 ➡️ encounterId
+  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -522,17 +548,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "next-turn_1773999638536",
+  "requestId": "next-turn_1774001790423",
   "clientId": "your-client-id",
   "type": "next-turn-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "action": "nextTurn",
   "currentTurn": 0,
   "currentRound": 2,
-  "actorTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh.Actor.VKu2l9IdAzxaXrOo",
-  "tokenTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh",
+  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
+  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
   "encounter": {
-    "id": "ahXns6rBVp1JEgYN",
+    "id": "4Ji8LDdrk3WrPKaH",
     "round": 2,
     "turn": 0
   }
@@ -558,6 +584,14 @@ Advance to the next round in the encounter Moves the encounter to the next round
 
 **object** - Details of the next round
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/next-round"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -568,7 +602,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/next-round';
 const params = {
   clientId: 'your-client-id',
-  encounterId: 'ahXns6rBVp1JEgYN'
+  encounterId: '4Ji8LDdrk3WrPKaH'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -587,7 +621,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/next-round?clientId=your-client-id&encounterId=ahXns6rBVp1JEgYN' \
+curl -X POST 'http://localhost:3010/next-round?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -601,7 +635,7 @@ base_url = 'http://localhost:3010'
 path = '/next-round'
 params = {
     'clientId': 'your-client-id',
-    'encounterId': 'ahXns6rBVp1JEgYN'
+    'encounterId': '4Ji8LDdrk3WrPKaH'
 }
 url = f'{base_url}{path}'
 
@@ -627,7 +661,7 @@ import axios from 'axios';
   const path = '/next-round';
   const params = {
     clientId: 'your-client-id',
-    encounterId: 'ahXns6rBVp1JEgYN'
+    encounterId: '4Ji8LDdrk3WrPKaH'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -662,7 +696,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=ahXns6rBVp1JEgYN🔤 ➡️ encounterId
+  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -690,17 +724,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "next-round_1773999638978",
+  "requestId": "next-round_1774001790852",
   "clientId": "your-client-id",
   "type": "next-round-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "action": "nextRound",
   "currentTurn": 0,
   "currentRound": 3,
-  "actorTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh.Actor.VKu2l9IdAzxaXrOo",
-  "tokenTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh",
+  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
+  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
   "encounter": {
-    "id": "ahXns6rBVp1JEgYN",
+    "id": "4Ji8LDdrk3WrPKaH",
     "round": 3,
     "turn": 0
   }
@@ -726,6 +760,14 @@ Advance to the last turn in the encounter Moves the encounter to the last turn.
 
 **object** - Details of the last turn
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/last-turn"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -736,7 +778,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/last-turn';
 const params = {
   clientId: 'your-client-id',
-  encounterId: 'ahXns6rBVp1JEgYN'
+  encounterId: '4Ji8LDdrk3WrPKaH'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -755,7 +797,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/last-turn?clientId=your-client-id&encounterId=ahXns6rBVp1JEgYN' \
+curl -X POST 'http://localhost:3010/last-turn?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -769,7 +811,7 @@ base_url = 'http://localhost:3010'
 path = '/last-turn'
 params = {
     'clientId': 'your-client-id',
-    'encounterId': 'ahXns6rBVp1JEgYN'
+    'encounterId': '4Ji8LDdrk3WrPKaH'
 }
 url = f'{base_url}{path}'
 
@@ -795,7 +837,7 @@ import axios from 'axios';
   const path = '/last-turn';
   const params = {
     clientId: 'your-client-id',
-    encounterId: 'ahXns6rBVp1JEgYN'
+    encounterId: '4Ji8LDdrk3WrPKaH'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -830,7 +872,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=ahXns6rBVp1JEgYN🔤 ➡️ encounterId
+  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -858,17 +900,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-turn_1773999639412",
+  "requestId": "last-turn_1774001791289",
   "clientId": "your-client-id",
   "type": "last-turn-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "action": "previousTurn",
   "currentTurn": 0,
   "currentRound": 2,
-  "actorTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh.Actor.VKu2l9IdAzxaXrOo",
-  "tokenTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh",
+  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
+  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
   "encounter": {
-    "id": "ahXns6rBVp1JEgYN",
+    "id": "4Ji8LDdrk3WrPKaH",
     "round": 2,
     "turn": 0
   }
@@ -894,6 +936,14 @@ Advance to the last round in the encounter Moves the encounter to the last round
 
 **object** - Details of the last round
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/last-round"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -904,7 +954,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/last-round';
 const params = {
   clientId: 'your-client-id',
-  encounterId: 'ahXns6rBVp1JEgYN'
+  encounterId: '4Ji8LDdrk3WrPKaH'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -923,7 +973,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/last-round?clientId=your-client-id&encounterId=ahXns6rBVp1JEgYN' \
+curl -X POST 'http://localhost:3010/last-round?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -937,7 +987,7 @@ base_url = 'http://localhost:3010'
 path = '/last-round'
 params = {
     'clientId': 'your-client-id',
-    'encounterId': 'ahXns6rBVp1JEgYN'
+    'encounterId': '4Ji8LDdrk3WrPKaH'
 }
 url = f'{base_url}{path}'
 
@@ -963,7 +1013,7 @@ import axios from 'axios';
   const path = '/last-round';
   const params = {
     clientId: 'your-client-id',
-    encounterId: 'ahXns6rBVp1JEgYN'
+    encounterId: '4Ji8LDdrk3WrPKaH'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -998,7 +1048,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=ahXns6rBVp1JEgYN🔤 ➡️ encounterId
+  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1026,17 +1076,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-round_1773999639836",
+  "requestId": "last-round_1774001791740",
   "clientId": "your-client-id",
   "type": "last-round-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "action": "previousRound",
   "currentTurn": 0,
   "currentRound": 1,
-  "actorTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh.Actor.VKu2l9IdAzxaXrOo",
-  "tokenTurn": "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh",
+  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
+  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
   "encounter": {
-    "id": "ahXns6rBVp1JEgYN",
+    "id": "4Ji8LDdrk3WrPKaH",
     "round": 1,
     "turn": 0
   }
@@ -1062,6 +1112,14 @@ End an encounter Ends the current encounter in the Foundry world.
 
 **object** - Details of the ended encounter
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/end-encounter"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1072,7 +1130,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/end-encounter';
 const params = {
   clientId: 'your-client-id',
-  encounterId: 'ahXns6rBVp1JEgYN'
+  encounterId: '4Ji8LDdrk3WrPKaH'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1091,7 +1149,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/end-encounter?clientId=your-client-id&encounterId=ahXns6rBVp1JEgYN' \
+curl -X POST 'http://localhost:3010/end-encounter?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1105,7 +1163,7 @@ base_url = 'http://localhost:3010'
 path = '/end-encounter'
 params = {
     'clientId': 'your-client-id',
-    'encounterId': 'ahXns6rBVp1JEgYN'
+    'encounterId': '4Ji8LDdrk3WrPKaH'
 }
 url = f'{base_url}{path}'
 
@@ -1131,7 +1189,7 @@ import axios from 'axios';
   const path = '/end-encounter';
   const params = {
     clientId: 'your-client-id',
-    encounterId: 'ahXns6rBVp1JEgYN'
+    encounterId: '4Ji8LDdrk3WrPKaH'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1166,7 +1224,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=ahXns6rBVp1JEgYN🔤 ➡️ encounterId
+  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1194,10 +1252,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "end-encounter_1773999641167",
+  "requestId": "end-encounter_1774001792720",
   "clientId": "your-client-id",
   "type": "end-encounter-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "message": "Encounter successfully ended"
 }
 ```
@@ -1224,6 +1282,14 @@ Add tokens to an encounter Adds selected tokens or specified UUIDs to the curren
 
 **object** - Details of the updated encounter
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/add-to-encounter"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"rollInitiative","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1234,7 +1300,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/add-to-encounter';
 const params = {
   clientId: 'your-client-id',
-  encounterId: 'ahXns6rBVp1JEgYN'
+  encounterId: '4Ji8LDdrk3WrPKaH'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1259,7 +1325,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/add-to-encounter?clientId=your-client-id&encounterId=ahXns6rBVp1JEgYN' \
+curl -X POST 'http://localhost:3010/add-to-encounter?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"selected":true,"uuids":[],"rollInitiative":true}'
@@ -1275,7 +1341,7 @@ base_url = 'http://localhost:3010'
 path = '/add-to-encounter'
 params = {
     'clientId': 'your-client-id',
-    'encounterId': 'ahXns6rBVp1JEgYN'
+    'encounterId': '4Ji8LDdrk3WrPKaH'
 }
 url = f'{base_url}{path}'
 
@@ -1306,7 +1372,7 @@ import axios from 'axios';
   const path = '/add-to-encounter';
   const params = {
     clientId: 'your-client-id',
-    encounterId: 'ahXns6rBVp1JEgYN'
+    encounterId: '4Ji8LDdrk3WrPKaH'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1347,7 +1413,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=ahXns6rBVp1JEgYN🔤 ➡️ encounterId
+  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1378,12 +1444,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "add-to-encounter_1773999640538",
+  "requestId": "add-to-encounter_1774001792424",
   "clientId": "your-client-id",
   "type": "add-to-encounter-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "added": [
-    "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh"
+    "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU"
   ],
   "failed": []
 }
@@ -1410,6 +1476,14 @@ Remove tokens from an encounter Removes selected tokens or specified UUIDs from 
 
 **object** - Details of the updated encounter
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/remove-from-encounter"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1420,7 +1494,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/remove-from-encounter';
 const params = {
   clientId: 'your-client-id',
-  encounterId: 'ahXns6rBVp1JEgYN'
+  encounterId: '4Ji8LDdrk3WrPKaH'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1443,7 +1517,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=your-client-id&encounterId=ahXns6rBVp1JEgYN' \
+curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"selected":true}'
@@ -1459,7 +1533,7 @@ base_url = 'http://localhost:3010'
 path = '/remove-from-encounter'
 params = {
     'clientId': 'your-client-id',
-    'encounterId': 'ahXns6rBVp1JEgYN'
+    'encounterId': '4Ji8LDdrk3WrPKaH'
 }
 url = f'{base_url}{path}'
 
@@ -1488,7 +1562,7 @@ import axios from 'axios';
   const path = '/remove-from-encounter';
   const params = {
     clientId: 'your-client-id',
-    encounterId: 'ahXns6rBVp1JEgYN'
+    encounterId: '4Ji8LDdrk3WrPKaH'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1527,7 +1601,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=ahXns6rBVp1JEgYN🔤 ➡️ encounterId
+  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1558,12 +1632,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "remove-from-encounter_1773999640253",
+  "requestId": "remove-from-encounter_1774001792146",
   "clientId": "your-client-id",
   "type": "remove-from-encounter-result",
-  "encounterId": "ahXns6rBVp1JEgYN",
+  "encounterId": "4Ji8LDdrk3WrPKaH",
   "removed": [
-    "Scene.2mlLTd0S2pYR5qbW.Token.7Nbvl6vN27DDqxxh"
+    "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU"
   ],
   "failed": []
 }

@@ -29,56 +29,11 @@ interface CapturedExample {
   };
 }
 
-/**
- * Sanitize sensitive values in examples for documentation
- * Replaces real API keys and client IDs with placeholders
- * This is the single point of sanitization - captureExample stores raw values
- */
+// Use shared sanitization logic
+const { sanitizeExampleForDocs: _sanitize } = require('./shared/sanitize');
+
 function sanitizeExampleForDocs(example: CapturedExample): CapturedExample {
-  // Deep clone to avoid mutating original
-  const sanitized = JSON.parse(JSON.stringify(example));
-  
-  // Helper to sanitize a string
-  const sanitizeString = (str: string): string => {
-    return str
-      // Replace 32-char hex API keys
-      .replace(/[a-f0-9]{32}/gi, 'your-api-key-here')
-      // Replace client IDs
-      .replace(/foundry-[a-zA-Z0-9]{16}/g, 'your-client-id');
-  };
-  
-  // Sanitize request URL
-  if (sanitized.request?.url) {
-    sanitized.request.url = sanitizeString(sanitized.request.url);
-  }
-  
-  // Sanitize request headers (especially x-api-key)
-  if (sanitized.request?.headers) {
-    for (const key of Object.keys(sanitized.request.headers)) {
-      if (key.toLowerCase() === 'x-api-key') {
-        sanitized.request.headers[key] = 'your-api-key-here';
-      } else {
-        sanitized.request.headers[key] = sanitizeString(sanitized.request.headers[key]);
-      }
-    }
-  }
-  
-  // Sanitize response data - replace client IDs and API keys
-  if (sanitized.response?.data) {
-    const dataStr = JSON.stringify(sanitized.response.data);
-    sanitized.response.data = JSON.parse(sanitizeString(dataStr));
-  }
-  
-  // Sanitize code examples - replace API keys and client IDs
-  if (sanitized.codeExamples) {
-    for (const lang of Object.keys(sanitized.codeExamples) as Array<keyof typeof sanitized.codeExamples>) {
-      if (sanitized.codeExamples[lang]) {
-        sanitized.codeExamples[lang] = sanitizeString(sanitized.codeExamples[lang]);
-      }
-    }
-  }
-  
-  return sanitized;
+  return _sanitize(example);
 }
 
 /**
@@ -174,8 +129,8 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
     }
   }
 
-  // Remove ALL existing code examples sections
-  content = content.replace(/\n### Code Examples\n[\s\S]*?(?=\n## |$)/g, '');
+  // Remove ALL existing code examples sections (stop before next ## heading or --- separator)
+  content = content.replace(/\n### Code Examples\n[\s\S]*?(?=\n## |\n---|$)/g, '');
 
   // For each example, find the corresponding endpoint and insert the example
   for (const example of examples) {
@@ -246,19 +201,26 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
       }
       
       // Find the best insertion point:
-      // 1. After ### Returns section if it exists
-      // 2. After ### Parameters table if no Returns
+      // 1. After ### Try It Out section (after the <ApiTester .../> component)
+      // 2. After ### Returns section if no Try It Out
+      // 3. After ### Parameters table if no Returns
       let insertionPoint = endpointSection.length;
-      
-      // Try to find ### Returns section
-      const returnsMatch = endpointSection.match(/### Returns\n\n\*\*[^\n]*?\n/);
-      if (returnsMatch) {
-        insertionPoint = returnsMatch.index! + returnsMatch[0].length;
+
+      // Look for the end of the Try It Out section (after the closing />)
+      const tryItOutMatch = endpointSection.match(/### Try It Out\n[\s\S]*?\/>\n/);
+      if (tryItOutMatch) {
+        insertionPoint = tryItOutMatch.index! + tryItOutMatch[0].length;
       } else {
-        // No Returns section, try to find end of Parameters table
-        const paramsMatch = endpointSection.match(/### Parameters[\s\S]*?\n\n/);
-        if (paramsMatch) {
-          insertionPoint = paramsMatch.index! + paramsMatch[0].length;
+        // Try to find ### Returns section
+        const returnsMatch = endpointSection.match(/### Returns\n\n\*\*[^\n]*?\n/);
+        if (returnsMatch) {
+          insertionPoint = returnsMatch.index! + returnsMatch[0].length;
+        } else {
+          // No Returns section, try to find end of Parameters table
+          const paramsMatch = endpointSection.match(/### Parameters[\s\S]*?\n\n/);
+          if (paramsMatch) {
+            insertionPoint = paramsMatch.index! + paramsMatch[0].length;
+          }
         }
       }
       

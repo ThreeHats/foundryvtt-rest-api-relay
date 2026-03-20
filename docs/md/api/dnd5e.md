@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # dnd5e
 
 ## GET /dnd5e/get-actor-details
@@ -24,6 +26,14 @@ Get detailed information for a specific D&D 5e actor. Retrieves comprehensive de
 
 **object** - Actor details object containing requested information
 
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/dnd5e/get-actor-details"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"details","type":"array","required":true,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -34,7 +44,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/get-actor-details';
 const params = {
   clientId: 'your-client-id',
-  actorUuid: 'Actor.VKu2l9IdAzxaXrOo',
+  actorUuid: 'Actor.2Hl8s4nj9yJQueBG',
   details: '["resources","items","features","spells"]'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -54,7 +64,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=your-client-id&actorUuid=Actor.VKu2l9IdAzxaXrOo&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
+curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=your-client-id&actorUuid=Actor.2Hl8s4nj9yJQueBG&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -68,7 +78,7 @@ base_url = 'http://localhost:3010'
 path = '/dnd5e/get-actor-details'
 params = {
     'clientId': 'your-client-id',
-    'actorUuid': 'Actor.VKu2l9IdAzxaXrOo',
+    'actorUuid': 'Actor.2Hl8s4nj9yJQueBG',
     'details': '["resources","items","features","spells"]'
 }
 url = f'{base_url}{path}'
@@ -95,7 +105,7 @@ import axios from 'axios';
   const path = '/dnd5e/get-actor-details';
   const params = {
     clientId: 'your-client-id',
-    actorUuid: 'Actor.VKu2l9IdAzxaXrOo',
+    actorUuid: 'Actor.2Hl8s4nj9yJQueBG',
     details: '["resources","items","features","spells"]'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -131,7 +141,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤actorUuid=Actor.VKu2l9IdAzxaXrOo🔤 ➡️ actorUuid
+  🔤actorUuid=Actor.2Hl8s4nj9yJQueBG🔤 ➡️ actorUuid
   🔤details=["resources","items","features","spells"]🔤 ➡️ details
   🔤?🧲clientId🧲&🧲actorUuid🧲&🧲details🧲🔤 ➡️ queryString
 
@@ -160,11 +170,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-actor-details_1773999676181",
+  "requestId": "get-actor-details_1774001827995",
   "clientId": "your-client-id",
   "type": "get-actor-details-result",
   "data": {
-    "uuid": "Actor.VKu2l9IdAzxaXrOo",
+    "uuid": "Actor.2Hl8s4nj9yJQueBG",
     "resources": {
       "primary": {
         "value": null,
@@ -373,11 +383,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1773999674489,
-          "modifiedTime": 1773999674489,
+          "createdTime": 1774001826033,
+          "modifiedTime": 1774001826033,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "vjFKm5K4EIzqgQXU"
+        "_id": "kgovB3XnAdOZvOLQ"
       }
     ],
     "items": [
@@ -2671,11 +2681,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1773999675965,
-          "modifiedTime": 1773999675965,
+          "createdTime": 1774001827619,
+          "modifiedTime": 1774001827619,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "URKx2sRVZ9YAyXuv"
+        "_id": "9qBxJRVDAQ3YL9sf"
       }
     ],
     "features": [
@@ -3970,6 +3980,14 @@ Modify the charges for a specific item owned by an actor. Increases or decreases
 
 **object** - Result of the charge modification operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/modify-item-charges"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -3991,7 +4009,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "itemName": "Waterskin",
       "amount": -1
     })
@@ -4007,7 +4025,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/modify-item-charges?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","itemName":"Waterskin","amount":-1}'
+  -d '{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","itemName":"Waterskin","amount":-1}'
 ```
 
 </TabItem>
@@ -4031,7 +4049,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "itemName": "Waterskin",
       "amount": -1
     }
@@ -4063,7 +4081,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+        "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
         "itemName": "Waterskin",
         "amount": -1
       }
@@ -4094,7 +4112,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","itemName":"Waterskin","amount":-1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","itemName":"Waterskin","amount":-1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-item-charges🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4121,11 +4139,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "modify-item-charges_1773999677342",
+  "requestId": "modify-item-charges_1774001829381",
   "clientId": "your-client-id",
   "type": "modify-item-charges-result",
   "data": {
-    "itemUuid": "Actor.VKu2l9IdAzxaXrOo.Item.5skKSSB4ShHbKoc8",
+    "itemUuid": "Actor.2Hl8s4nj9yJQueBG.Item.5skKSSB4ShHbKoc8",
     "oldCharges": 4,
     "newCharges": 3
   }
@@ -4155,6 +4173,14 @@ Use a general ability for an actor. Triggers the use of any ability, feature, sp
 
 **object** - Result of the ability use operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-ability"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4176,7 +4202,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "Hammer"
     })
 });
@@ -4191,7 +4217,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -4215,7 +4241,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "Hammer"
     }
 )
@@ -4246,7 +4272,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+        "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
         "abilityName": "Hammer"
       }
   });
@@ -4276,7 +4302,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-ability🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4303,13 +4329,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "use-ability_1773999679339",
+  "requestId": "use-ability_1774001831637",
   "clientId": "your-client-id",
   "type": "use-ability-result",
   "data": {
-    "uuid": "Actor.VKu2l9IdAzxaXrOo",
+    "uuid": "Actor.2Hl8s4nj9yJQueBG",
     "ability": "Hammer",
-    "result": "DtvA1njIxZtLYeZN"
+    "result": "X1uux31b3IPkETaj"
   }
 }
 ```
@@ -4337,6 +4363,14 @@ Use a class or racial feature for an actor. Activates class features (like Actio
 
 **object** - Result of the feature use operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-feature"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4358,7 +4392,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "Priest"
     })
 });
@@ -4373,7 +4407,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"Priest"}'
+  -d '{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"Priest"}'
 ```
 
 </TabItem>
@@ -4397,7 +4431,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "Priest"
     }
 )
@@ -4428,7 +4462,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+        "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
         "abilityName": "Priest"
       }
   });
@@ -4458,7 +4492,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"Priest"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"Priest"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-feature🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4485,13 +4519,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "use-feature_1773999678768",
+  "requestId": "use-feature_1774001831060",
   "clientId": "your-client-id",
   "type": "use-feature-result",
   "data": {
-    "uuid": "Actor.VKu2l9IdAzxaXrOo",
+    "uuid": "Actor.2Hl8s4nj9yJQueBG",
     "ability": "Priest",
-    "result": "y7PTe3bV7FuIAfTd"
+    "result": "QEQio9p19YVuHh0V"
   }
 }
 ```
@@ -4519,6 +4553,14 @@ Cast a spell for an actor. Casts a spell from the actor's spell list, consuming 
 
 **object** - Result of the spell casting operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-spell"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4540,7 +4582,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "test-polymorph"
     })
 });
@@ -4555,7 +4597,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"test-polymorph"}'
+  -d '{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"test-polymorph"}'
 ```
 
 </TabItem>
@@ -4579,7 +4621,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "test-polymorph"
     }
 )
@@ -4610,7 +4652,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+        "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
         "abilityName": "test-polymorph"
       }
   });
@@ -4640,7 +4682,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"test-polymorph"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"test-polymorph"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-spell🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4667,11 +4709,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "use-spell_1773999679047",
+  "requestId": "use-spell_1774001831374",
   "clientId": "your-client-id",
   "type": "use-spell-result",
   "data": {
-    "uuid": "Actor.VKu2l9IdAzxaXrOo",
+    "uuid": "Actor.2Hl8s4nj9yJQueBG",
     "ability": "test-polymorph",
     "result": null
   }
@@ -4701,6 +4743,14 @@ Use an item for an actor. Activates an item from the actor's inventory, such as 
 
 **object** - Result of the item use operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-item"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4722,7 +4772,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "Hammer"
     })
 });
@@ -4737,7 +4787,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -4761,7 +4811,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "abilityName": "Hammer"
     }
 )
@@ -4792,7 +4842,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+        "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
         "abilityName": "Hammer"
       }
   });
@@ -4822,7 +4872,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4849,13 +4899,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "use-item_1773999678225",
+  "requestId": "use-item_1774001830480",
   "clientId": "your-client-id",
   "type": "use-item-result",
   "data": {
-    "uuid": "Actor.VKu2l9IdAzxaXrOo",
+    "uuid": "Actor.2Hl8s4nj9yJQueBG",
     "ability": "Hammer",
-    "result": "oHpBypRys0oASH7h"
+    "result": "s94FbH4o47LJKueH"
   }
 }
 ```
@@ -4881,6 +4931,14 @@ Modify the experience points for a specific actor. Adds or removes experience po
 
 **object** - Result of the experience modification operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/modify-experience"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -4902,7 +4960,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "amount": 100
     })
 });
@@ -4917,7 +4975,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/modify-experience?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","amount":100}'
+  -d '{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","amount":100}'
 ```
 
 </TabItem>
@@ -4941,7 +4999,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
       "amount": 100
     }
 )
@@ -4972,7 +5030,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+        "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
         "amount": 100
       }
   });
@@ -5002,7 +5060,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.VKu2l9IdAzxaXrOo","amount":100}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","amount":100}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-experience🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 51❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -5029,11 +5087,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "modify-experience_1773999676464",
+  "requestId": "modify-experience_1774001828294",
   "clientId": "your-client-id",
   "type": "modify-experience-result",
   "data": {
-    "actorUuid": "Actor.VKu2l9IdAzxaXrOo",
+    "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
     "oldXp": 0,
     "newXp": 100
   }

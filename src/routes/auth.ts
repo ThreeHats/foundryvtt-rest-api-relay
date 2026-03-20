@@ -38,7 +38,18 @@ function validatePassword(password: string): { valid: boolean; error?: string } 
   return { valid: true };
 }
 
-// Register a new user
+/**
+ * Register a new user account
+ *
+ * Creates a new user with the provided email and password. Returns the user's API key.
+ *
+ * @route POST /auth/register
+ * @group Auth
+ * @param {string} email - [body] The user's email address
+ * @param {string} password - [body] The user's password (min 8 chars, must include upper, lower, number)
+ * @returns {object} Created user object with id, email, apiKey, and subscriptionStatus
+ * @security none
+ */
 router.post('/register', authRateLimiter, async (req: Request, res: Response) => {
   // Block registration if disabled
   if (REGISTRATION_DISABLED) {
@@ -98,7 +109,18 @@ router.post('/register', authRateLimiter, async (req: Request, res: Response) =>
   }
 });
 
-// Login route - update the password comparison logic
+/**
+ * Log in with email and password
+ *
+ * Authenticates a user and returns their account details including API key.
+ *
+ * @route POST /auth/login
+ * @group Auth
+ * @param {string} email - [body] The user's email address
+ * @param {string} password - [body] The user's password
+ * @returns {object} User object with id, email, apiKey, and requestsThisMonth
+ * @security none
+ */
 router.post('/login', authRateLimiter, async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -148,7 +170,18 @@ router.post('/login', authRateLimiter, async (req: Request, res: Response) => {
   }
 });
 
-// Regenerate API key (for authenticated users)
+/**
+ * Regenerate API key
+ *
+ * Generates a new API key for the authenticated user. Requires email and password confirmation.
+ *
+ * @route POST /auth/regenerate-key
+ * @group Auth
+ * @param {string} email - [body] The user's email address
+ * @param {string} password - [body] The user's password
+ * @returns {object} Object containing the new apiKey
+ * @security none
+ */
 router.post('/regenerate-key', authRateLimiter, async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -186,7 +219,15 @@ router.post('/regenerate-key', authRateLimiter, async (req: Request, res: Respon
   }
 });
 
-// Get user data (for authenticated users)
+/**
+ * Get user data
+ *
+ * Retrieves the authenticated user's account details and usage information.
+ *
+ * @route GET /auth/user-data
+ * @group Auth
+ * @returns {object} User data including id, email, usage stats, and subscription info
+ */
 router.get('/user-data', async (req: Request, res: Response) => {
   try {
     // Get API key from header
@@ -226,7 +267,15 @@ router.get('/user-data', async (req: Request, res: Response) => {
   }
 });
 
-// Export user data (GDPR data portability)
+/**
+ * Export user data
+ *
+ * Exports all stored user data for GDPR data portability compliance.
+ *
+ * @route GET /auth/export-data
+ * @group Auth
+ * @returns {object} Complete user data export including account, subscription, and usage data
+ */
 router.get('/export-data', accountManagementRateLimiter, async (req: Request, res: Response) => {
   try {
     const apiKey = req.header('x-api-key');
@@ -278,7 +327,18 @@ router.get('/export-data', accountManagementRateLimiter, async (req: Request, re
   }
 });
 
-// Delete user account (GDPR right to be forgotten)
+/**
+ * Delete user account
+ *
+ * Permanently deletes the user's account and cancels any active subscriptions.
+ * Requires email confirmation and password verification.
+ *
+ * @route DELETE /auth/account
+ * @group Auth
+ * @param {string} confirmEmail - [body] The user's email address (must match account email)
+ * @param {string} password - [body] The user's password for verification
+ * @returns {object} Deletion confirmation with subscription cancellation status
+ */
 router.delete('/account', accountManagementRateLimiter, async (req: Request, res: Response) => {
   try {
     const apiKey = req.header('x-api-key');
@@ -370,7 +430,17 @@ router.delete('/account', accountManagementRateLimiter, async (req: Request, res
   }
 });
 
-// Request a password reset
+/**
+ * Request a password reset
+ *
+ * Sends a password reset email if the account exists. Always returns success to prevent email enumeration.
+ *
+ * @route POST /auth/forgot-password
+ * @group Auth
+ * @param {string} email - [body] The email address associated with the account
+ * @returns {object} Generic success message
+ * @security none
+ */
 router.post('/forgot-password', passwordResetRateLimiter, async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
@@ -419,7 +489,18 @@ router.post('/forgot-password', passwordResetRateLimiter, async (req: Request, r
   }
 });
 
-// Reset password with token
+/**
+ * Reset password with token
+ *
+ * Resets the user's password using a valid reset token from the forgot-password flow.
+ *
+ * @route POST /auth/reset-password
+ * @group Auth
+ * @param {string} token - [body] The password reset token from the email
+ * @param {string} password - [body] The new password (min 8 chars, must include upper, lower, number)
+ * @returns {object} Success message
+ * @security none
+ */
 router.post('/reset-password', passwordResetRateLimiter, async (req: Request, res: Response) => {
   try {
     const { token, password } = req.body;
@@ -492,7 +573,17 @@ router.post('/reset-password', passwordResetRateLimiter, async (req: Request, re
   }
 });
 
-// Validate a reset token (lets frontend check before showing form)
+/**
+ * Validate a password reset token
+ *
+ * Checks whether a password reset token is still valid and unused.
+ *
+ * @route GET /auth/validate-reset-token/:token
+ * @group Auth
+ * @param {string} token - [params] The password reset token to validate
+ * @returns {object} Object with a boolean `valid` field
+ * @security none
+ */
 router.get('/validate-reset-token/:token', passwordResetRateLimiter, async (req: Request, res: Response) => {
   try {
     const token = req.params.token as string;

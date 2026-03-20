@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # chat
 
 ## GET /chat
@@ -25,6 +27,14 @@ Get chat messages Retrieves chat messages from the Foundry world with optional p
 ### Returns
 
 **object** - Paginated list of chat messages
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/chat"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"limit","type":"number","required":false,"source":"query"},{"name":"offset","type":"number","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"},{"name":"chatType","type":"number","required":false,"source":"query"},{"name":"speaker","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -158,15 +168,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "chat-messages_1773999649670",
+  "requestId": "chat-messages_1774001801093",
   "clientId": "your-client-id",
   "type": "chat-messages-result",
   "success": true,
   "data": {
     "messages": [
       {
-        "id": "BkP6XfSVZKOCfCea",
-        "uuid": "ChatMessage.BkP6XfSVZKOCfCea",
+        "id": "ijgcCVYv9I3pvclA",
+        "uuid": "ChatMessage.ijgcCVYv9I3pvclA",
         "content": "This is a whispered test message",
         "speaker": {
           "scene": null,
@@ -174,7 +184,7 @@ import axios from 'axios';
           "token": null,
           "alias": "API Test Bot"
         },
-        "timestamp": 1773999649519,
+        "timestamp": 1774001800944,
         "whisper": [],
         "type": "base",
         "author": {
@@ -187,15 +197,15 @@ import axios from 'axios';
         "flags": {}
       },
       {
-        "id": "0j6QDgH0dXqw9T2R",
-        "uuid": "ChatMessage.0j6QDgH0dXqw9T2R",
+        "id": "rpk27HmefyzKElOp",
+        "uuid": "ChatMessage.rpk27HmefyzKElOp",
         "content": "Hello from the REST API test suite!",
         "speaker": {
           "scene": null,
           "actor": null,
           "token": null
         },
-        "timestamp": 1773999649230,
+        "timestamp": 1774001800641,
         "whisper": [],
         "type": "base",
         "author": {
@@ -208,16 +218,16 @@ import axios from 'axios';
         "flags": {}
       },
       {
-        "id": "JMXJV5wfNC4t1Xvt",
-        "uuid": "ChatMessage.JMXJV5wfNC4t1Xvt",
-        "content": "8",
+        "id": "lADR5P3rrMIa14wP",
+        "uuid": "ChatMessage.lADR5P3rrMIa14wP",
+        "content": "18",
         "speaker": {
-          "scene": "2mlLTd0S2pYR5qbW",
-          "actor": "VKu2l9IdAzxaXrOo",
-          "token": "7Nbvl6vN27DDqxxh",
+          "scene": "3Uqr7p8CXMoL0pVi",
+          "actor": "2Hl8s4nj9yJQueBG",
+          "token": "BmoRnUj9Ab3iNgkU",
           "alias": "Updated Test Actor"
         },
-        "timestamp": 1773999641136,
+        "timestamp": 1774001792684,
         "whisper": [],
         "type": "base",
         "author": {
@@ -229,7 +239,308 @@ import axios from 'axios';
         "rolls": [
           {
             "formula": "1d20 + 3 + 0",
-            "total": 8,
+            "total": 18,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 15,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {
+          "core": {
+            "initiativeRoll": true
+          }
+        }
+      },
+      {
+        "id": "ALbpLtunawqmJWiP",
+        "uuid": "ChatMessage.ALbpLtunawqmJWiP",
+        "content": "15",
+        "speaker": {
+          "scene": "3Uqr7p8CXMoL0pVi",
+          "actor": "2Hl8s4nj9yJQueBG",
+          "token": "BmoRnUj9Ab3iNgkU",
+          "alias": "Updated Test Actor"
+        },
+        "timestamp": 1774001789796,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "r6bXhB7k9cXa3cif",
+          "name": "tester"
+        },
+        "flavor": "Updated Test Actor rolls for Initiative!",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20 + 3 + 0",
+            "total": 15,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 12,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {
+          "core": {
+            "initiativeRoll": true
+          }
+        }
+      },
+      {
+        "id": "yoAWL03qLjRlFuGB",
+        "uuid": "ChatMessage.yoAWL03qLjRlFuGB",
+        "content": "4",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null
+        },
+        "timestamp": 1774001780924,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "r6bXhB7k9cXa3cif",
+          "name": "tester"
+        },
+        "flavor": "SSE Test Roll",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20",
+            "total": 4,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 4,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {}
+      },
+      {
+        "id": "rT0e1CpGpcTOjSMo",
+        "uuid": "ChatMessage.rT0e1CpGpcTOjSMo",
+        "content": "7",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null
+        },
+        "timestamp": 1774001780183,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "r6bXhB7k9cXa3cif",
+          "name": "tester"
+        },
+        "flavor": "Test Roll",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "2d20kh",
+            "total": 7,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 2,
+                    "active": false
+                  },
+                  {
+                    "result": 7,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {}
+      },
+      {
+        "id": "r2fUzScbwmi4m4Bm",
+        "uuid": "ChatMessage.r2fUzScbwmi4m4Bm",
+        "content": "19",
+        "speaker": {
+          "scene": "NUEDEFAULTSCENE0",
+          "actor": "sj7XQgYVZv8SpEQG",
+          "token": "ZROaJlBucaNukYyI",
+          "alias": "actor"
+        },
+        "timestamp": 1774000673247,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "r6bXhB7k9cXa3cif",
+          "name": "tester"
+        },
+        "flavor": "actor rolls for Initiative!",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20 + 0",
+            "total": 19,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 19,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {
+          "core": {
+            "initiativeRoll": true
+          }
+        }
+      },
+      {
+        "id": "Z9hwYG9U8KG5Y1gn",
+        "uuid": "ChatMessage.Z9hwYG9U8KG5Y1gn",
+        "content": "18",
+        "speaker": {
+          "scene": "NUEDEFAULTSCENE0",
+          "actor": "sj7XQgYVZv8SpEQG",
+          "token": "ZROaJlBucaNukYyI",
+          "alias": "actor"
+        },
+        "timestamp": 1774000670242,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "r6bXhB7k9cXa3cif",
+          "name": "tester"
+        },
+        "flavor": "actor rolls for Initiative!",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20 + 0",
+            "total": 18,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 18,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {
+          "core": {
+            "initiativeRoll": true
+          }
+        }
+      },
+      {
+        "id": "mWf46CfFUX3WTAys",
+        "uuid": "ChatMessage.mWf46CfFUX3WTAys",
+        "content": "12",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null
+        },
+        "timestamp": 1774000665644,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "r6bXhB7k9cXa3cif",
+          "name": "tester"
+        },
+        "flavor": "Test Roll",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "2d20kh",
+            "total": 12,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 6,
+                    "active": false
+                  },
+                  {
+                    "result": 12,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {}
+      },
+      {
+        "id": "Rq2ROl3fxXQstwjZ",
+        "uuid": "ChatMessage.Rq2ROl3fxXQstwjZ",
+        "content": "5",
+        "speaker": {
+          "scene": "dgTzUeYHz3ofwqC0",
+          "actor": null,
+          "token": "XVxua916sjJpOpho",
+          "alias": "Unknown"
+        },
+        "timestamp": 1774000298926,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "r6bXhB7k9cXa3cif",
+          "name": "tester"
+        },
+        "flavor": "Unknown rolls for Initiative!",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20",
+            "total": 5,
             "isCritical": false,
             "isFumble": false,
             "dice": [
@@ -250,234 +561,9 @@ import axios from 'axios';
             "initiativeRoll": true
           }
         }
-      },
-      {
-        "id": "1jJg5fqsEkOjK7pw",
-        "uuid": "ChatMessage.1jJg5fqsEkOjK7pw",
-        "content": "21",
-        "speaker": {
-          "scene": "2mlLTd0S2pYR5qbW",
-          "actor": "VKu2l9IdAzxaXrOo",
-          "token": "7Nbvl6vN27DDqxxh",
-          "alias": "Updated Test Actor"
-        },
-        "timestamp": 1773999637924,
-        "whisper": [],
-        "type": "base",
-        "author": {
-          "id": "r6bXhB7k9cXa3cif",
-          "name": "tester"
-        },
-        "flavor": "Updated Test Actor rolls for Initiative!",
-        "isRoll": true,
-        "rolls": [
-          {
-            "formula": "1d20 + 3 + 0",
-            "total": 21,
-            "isCritical": false,
-            "isFumble": false,
-            "dice": [
-              {
-                "faces": 20,
-                "results": [
-                  {
-                    "result": 18,
-                    "active": true
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "flags": {
-          "core": {
-            "initiativeRoll": true
-          }
-        }
-      },
-      {
-        "id": "Qv6ZsL1a3FfLstt1",
-        "uuid": "ChatMessage.Qv6ZsL1a3FfLstt1",
-        "content": "14",
-        "speaker": {
-          "scene": null,
-          "actor": null,
-          "token": null
-        },
-        "timestamp": 1773999628851,
-        "whisper": [],
-        "type": "base",
-        "author": {
-          "id": "r6bXhB7k9cXa3cif",
-          "name": "tester"
-        },
-        "flavor": "SSE Test Roll",
-        "isRoll": true,
-        "rolls": [
-          {
-            "formula": "1d20",
-            "total": 14,
-            "isCritical": false,
-            "isFumble": false,
-            "dice": [
-              {
-                "faces": 20,
-                "results": [
-                  {
-                    "result": 14,
-                    "active": true
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "flags": {}
-      },
-      {
-        "id": "8P9X9UsfSBV8MbJD",
-        "uuid": "ChatMessage.8P9X9UsfSBV8MbJD",
-        "content": "18",
-        "speaker": {
-          "scene": null,
-          "actor": null,
-          "token": null
-        },
-        "timestamp": 1773999628133,
-        "whisper": [],
-        "type": "base",
-        "author": {
-          "id": "r6bXhB7k9cXa3cif",
-          "name": "tester"
-        },
-        "flavor": "Test Roll",
-        "isRoll": true,
-        "rolls": [
-          {
-            "formula": "2d20kh",
-            "total": 18,
-            "isCritical": false,
-            "isFumble": false,
-            "dice": [
-              {
-                "faces": 20,
-                "results": [
-                  {
-                    "result": 18,
-                    "active": true
-                  },
-                  {
-                    "result": 6,
-                    "active": false
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "flags": {}
-      },
-      {
-        "id": "r91TWkv9xtfMGGxk",
-        "uuid": "ChatMessage.r91TWkv9xtfMGGxk",
-        "content": "<div class=\"dnd5e2 chat-card item-card\" data-actor-id=\"QAMFk1YvlvzOZUnu\" data-item-id=\"YJ1P3PnFKHOdQpaP\">\n\n    <section class=\"card-header description collapsible\">\n\n        <header class=\"summary\">\n            <img class=\"gold-icon\" src=\"icons/tools/hand/hammer-cobbler-steel.webp\" alt=\"Hammer\" />\n            <div class=\"name-stacked border\">\n                <span class=\"title\">Hammer</span>\n                <span class=\"subtitle\">\n                    Loot\n                </span>\n            </div>\n            <i class=\"fas fa-chevron-down fa-fw\"></i>\n        </header>\n\n        <section class=\"details collapsible-content card-content\">\n            <div class=\"wrapper\">\n                <p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>\n            </div>\n        </section>\n    </section>\n\n\n</div>",
-        "speaker": {
-          "scene": "ewAmRlAJnjqlVqtu",
-          "actor": "QAMFk1YvlvzOZUnu",
-          "token": "wsHdcc788Sa4z7mQ",
-          "alias": "Updated Test Actor"
-        },
-        "timestamp": 1773994830231,
-        "whisper": [],
-        "type": "base",
-        "author": {
-          "id": "r6bXhB7k9cXa3cif",
-          "name": "tester"
-        },
-        "flavor": "",
-        "isRoll": false,
-        "rolls": [],
-        "flags": {
-          "core": {
-            "canPopout": true
-          },
-          "dnd5e": {
-            "item": {
-              "id": "YJ1P3PnFKHOdQpaP",
-              "uuid": "Actor.QAMFk1YvlvzOZUnu.Item.YJ1P3PnFKHOdQpaP",
-              "type": "loot"
-            }
-          }
-        }
-      },
-      {
-        "id": "M0AIwnJfqOUJi4V7",
-        "uuid": "ChatMessage.M0AIwnJfqOUJi4V7",
-        "content": "<div class=\"dnd5e2 chat-card item-card\" data-actor-id=\"QAMFk1YvlvzOZUnu\" data-item-id=\"q4tr1vTU8RxtU1UZ\">\n\n    <section class=\"card-header description collapsible\">\n\n        <header class=\"summary\">\n            <img class=\"gold-icon\" src=\"icons/sundries/documents/document-torn-diagram-tan.webp\" alt=\"Priest\" />\n            <div class=\"name-stacked border\">\n                <span class=\"title\">Priest</span>\n                <span class=\"subtitle\">\n                    Background\n                </span>\n            </div>\n            <i class=\"fas fa-chevron-down fa-fw\"></i>\n        </header>\n\n        <section class=\"details collapsible-content card-content\">\n            <div class=\"wrapper\">\n                <ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>\n            </div>\n        </section>\n    </section>\n\n\n</div>",
-        "speaker": {
-          "scene": "ewAmRlAJnjqlVqtu",
-          "actor": "QAMFk1YvlvzOZUnu",
-          "token": "wsHdcc788Sa4z7mQ",
-          "alias": "Updated Test Actor"
-        },
-        "timestamp": 1773994829669,
-        "whisper": [],
-        "type": "base",
-        "author": {
-          "id": "r6bXhB7k9cXa3cif",
-          "name": "tester"
-        },
-        "flavor": "",
-        "isRoll": false,
-        "rolls": [],
-        "flags": {
-          "core": {
-            "canPopout": true
-          },
-          "dnd5e": {
-            "item": {
-              "id": "q4tr1vTU8RxtU1UZ",
-              "uuid": "Actor.QAMFk1YvlvzOZUnu.Item.q4tr1vTU8RxtU1UZ",
-              "type": "background"
-            }
-          }
-        }
-      },
-      {
-        "id": "7nzBr1qt91LoKtAJ",
-        "uuid": "ChatMessage.7nzBr1qt91LoKtAJ",
-        "content": "<div class=\"dnd5e2 chat-card item-card\" data-actor-id=\"QAMFk1YvlvzOZUnu\" data-item-id=\"YJ1P3PnFKHOdQpaP\">\n\n    <section class=\"card-header description collapsible\">\n\n        <header class=\"summary\">\n            <img class=\"gold-icon\" src=\"icons/tools/hand/hammer-cobbler-steel.webp\" alt=\"Hammer\" />\n            <div class=\"name-stacked border\">\n                <span class=\"title\">Hammer</span>\n                <span class=\"subtitle\">\n                    Loot\n                </span>\n            </div>\n            <i class=\"fas fa-chevron-down fa-fw\"></i>\n        </header>\n\n        <section class=\"details collapsible-content card-content\">\n            <div class=\"wrapper\">\n                <p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>\n            </div>\n        </section>\n    </section>\n\n\n</div>",
-        "speaker": {
-          "scene": "ewAmRlAJnjqlVqtu",
-          "actor": "QAMFk1YvlvzOZUnu",
-          "token": "wsHdcc788Sa4z7mQ",
-          "alias": "Updated Test Actor"
-        },
-        "timestamp": 1773994829254,
-        "whisper": [],
-        "type": "base",
-        "author": {
-          "id": "r6bXhB7k9cXa3cif",
-          "name": "tester"
-        },
-        "flavor": "",
-        "isRoll": false,
-        "rolls": [],
-        "flags": {
-          "core": {
-            "canPopout": true
-          },
-          "dnd5e": {
-            "item": {
-              "id": "YJ1P3PnFKHOdQpaP",
-              "uuid": "Actor.QAMFk1YvlvzOZUnu.Item.YJ1P3PnFKHOdQpaP",
-              "type": "loot"
-            }
-          }
-        }
       }
     ],
-    "total": 9,
+    "total": 15,
     "offset": 0,
     "limit": 10
   }
@@ -507,6 +593,14 @@ Send a chat message Creates a new chat message in the Foundry world.
 ### Returns
 
 **object** - The created chat message
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/chat"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"content","type":"string","required":true,"source":"body"},{"name":"whisper","type":"array","required":false,"source":"body"},{"name":"speaker","type":"string","required":false,"source":"body"},{"name":"alias","type":"string","required":false,"source":"body"},{"name":"chatType","type":"number","required":false,"source":"body"},{"name":"flavor","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -655,20 +749,20 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "chat-send_1773999649228",
+  "requestId": "chat-send_1774001800589",
   "clientId": "your-client-id",
   "type": "chat-send-result",
   "success": true,
   "data": {
-    "id": "0j6QDgH0dXqw9T2R",
-    "uuid": "ChatMessage.0j6QDgH0dXqw9T2R",
+    "id": "rpk27HmefyzKElOp",
+    "uuid": "ChatMessage.rpk27HmefyzKElOp",
     "content": "Hello from the REST API test suite!",
     "speaker": {
       "scene": null,
       "actor": null,
       "token": null
     },
-    "timestamp": 1773999649230,
+    "timestamp": 1774001800641,
     "whisper": [],
     "type": "base",
     "author": {
@@ -702,6 +796,14 @@ Delete a specific chat message Deletes a chat message by its ID. Only the messag
 
 **object** - Success confirmation
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/chat/:messageId"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"messageId","type":"string","required":true,"source":"params"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -709,7 +811,7 @@ Delete a specific chat message Deletes a chat message by its ID. Only the messag
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/chat/0j6QDgH0dXqw9T2R';
+const path = '/chat/rpk27HmefyzKElOp';
 const params = {
   clientId: 'your-client-id'
 };
@@ -730,7 +832,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/chat/0j6QDgH0dXqw9T2R?clientId=your-client-id' \
+curl -X DELETE 'http://localhost:3010/chat/rpk27HmefyzKElOp?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -741,7 +843,7 @@ curl -X DELETE 'http://localhost:3010/chat/0j6QDgH0dXqw9T2R?clientId=your-client
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/chat/0j6QDgH0dXqw9T2R'
+path = '/chat/rpk27HmefyzKElOp'
 params = {
     'clientId': 'your-client-id'
 }
@@ -766,7 +868,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/chat/0j6QDgH0dXqw9T2R';
+  const path = '/chat/rpk27HmefyzKElOp';
   const params = {
     clientId: 'your-client-id'
   };
@@ -799,14 +901,14 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/chat/0j6QDgH0dXqw9T2R🔤 ➡️ path
+  🔤/chat/rpk27HmefyzKElOp🔤 ➡️ path
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
-  🔤DELETE /chat/0j6QDgH0dXqw9T2R🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+  🔤DELETE /chat/rpk27HmefyzKElOp🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -830,12 +932,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "chat-delete_1773999649972",
+  "requestId": "chat-delete_1774001801765",
   "clientId": "your-client-id",
   "type": "chat-delete-result",
   "success": true,
   "data": {
-    "messageId": "0j6QDgH0dXqw9T2R"
+    "messageId": "rpk27HmefyzKElOp"
   }
 }
 ```
@@ -857,6 +959,14 @@ Clear all chat messages Flushes all chat message history. Only GMs can perform t
 ### Returns
 
 **object** - Success confirmation
+
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/chat"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -986,7 +1096,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "chat-flush_1773999650826",
+  "requestId": "chat-flush_1774001802659",
   "clientId": "your-client-id",
   "type": "chat-flush-result",
   "success": true,
@@ -1016,6 +1126,14 @@ Subscribe to real-time chat events via Server-Sent Events (SSE) Opens a persiste
 ### Returns
 
 **stream** - SSE event stream
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/chat/subscribe"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"speaker","type":"string","required":false,"source":"query"},{"name":"type","type":"number","required":false,"source":"query"},{"name":"whisperOnly","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 

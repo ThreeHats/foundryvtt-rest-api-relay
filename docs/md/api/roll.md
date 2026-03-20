@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # roll
 
 ## GET /rolls
@@ -22,6 +24,14 @@ Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry w
 ### Returns
 
 **object** - An array of recent rolls with details
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/rolls"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"limit","type":"number","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -155,13 +165,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "rolls_1773999628436",
+  "requestId": "rolls_1774001780476",
   "clientId": "your-client-id",
   "type": "rolls-result",
   "data": [
     {
-      "id": "8P9X9UsfSBV8MbJD",
-      "messageId": "8P9X9UsfSBV8MbJD",
+      "id": "rT0e1CpGpcTOjSMo",
+      "messageId": "rT0e1CpGpcTOjSMo",
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"
@@ -172,7 +182,7 @@ import axios from 'axios';
         "token": null
       },
       "flavor": "Test Roll",
-      "rollTotal": 18,
+      "rollTotal": 7,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -181,17 +191,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 18,
-              "active": true
+              "result": 2,
+              "active": false
             },
             {
-              "result": 6,
-              "active": false
+              "result": 7,
+              "active": true
             }
           ]
         }
       ],
-      "timestamp": 1773999628414
+      "timestamp": 1774001780460
     }
   ]
 }
@@ -214,6 +224,14 @@ Get the last roll Retrieves the most recent roll made in the Foundry world.
 ### Returns
 
 **object** - The most recent roll with details
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/lastroll"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -343,12 +361,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-roll_1773999628588",
+  "requestId": "last-roll_1774001780673",
   "clientId": "your-client-id",
   "type": "last-roll-result",
   "data": {
-    "id": "8P9X9UsfSBV8MbJD",
-    "messageId": "8P9X9UsfSBV8MbJD",
+    "id": "rT0e1CpGpcTOjSMo",
+    "messageId": "rT0e1CpGpcTOjSMo",
     "user": {
       "id": "r6bXhB7k9cXa3cif",
       "name": "tester"
@@ -359,7 +377,7 @@ import axios from 'axios';
       "token": null
     },
     "flavor": "Test Roll",
-    "rollTotal": 18,
+    "rollTotal": 7,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -368,17 +386,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 18,
-            "active": true
+            "result": 2,
+            "active": false
           },
           {
-            "result": 6,
-            "active": false
+            "result": 7,
+            "active": true
           }
         ]
       }
     ],
-    "timestamp": 1773999628414
+    "timestamp": 1774001780460
   }
 }
 ```
@@ -405,6 +423,14 @@ Make a roll Executes a roll with the specified formula
 ### Returns
 
 **object** - Result of the roll operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/roll"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"formula","type":"string","required":true,"source":"body"},{"name":"flavor","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"speaker","type":"string","required":false,"source":"body"},{"name":"whisper","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -556,16 +582,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "roll_1773999628018",
+  "requestId": "roll_1774001780029",
   "clientId": "your-client-id",
   "type": "roll-result",
   "success": true,
   "data": {
-    "id": "manual_1773999628415_69vbyr5ouw",
+    "id": "manual_1774001780460_pbymaridwyj",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 18,
+      "total": 7,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -573,17 +599,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 18,
-              "active": true
+              "result": 2,
+              "active": false
             },
             {
-              "result": 6,
-              "active": false
+              "result": 7,
+              "active": true
             }
           ]
         }
       ],
-      "timestamp": 1773999628416
+      "timestamp": 1774001780460
     }
   }
 }
@@ -606,6 +632,14 @@ Subscribe to real-time roll events via Server-Sent Events (SSE) Opens a persiste
 ### Returns
 
 **stream** - SSE event stream
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/rolls/subscribe"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 

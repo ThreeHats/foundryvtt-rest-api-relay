@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # fileSystem
 
 ## GET /file-system
@@ -24,6 +26,14 @@ Get file system structure
 ### Returns
 
 **object** - File system structure with files and directories
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/file-system"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -161,7 +171,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "file_system_1773999645749_qj1ex8w",
+  "requestId": "file_system_1774001797230_dh2qgqk",
   "clientId": "your-client-id",
   "type": "file-system-result",
   "success": true,
@@ -251,6 +261,14 @@ Upload a file to Foundry's file system (handles both base64 and binary data)
 ### Returns
 
 **object** - Result of the file upload operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/upload"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":true,"source":"query/body"},{"name":"filename","type":"string","required":true,"source":"query/body"},{"name":"source","type":"string","required":false,"source":"query/body"},{"name":"mimeType","type":"string","required":false,"source":"query/body"},{"name":"overwrite","type":"boolean","required":false,"source":"query/body"},{"name":"fileData","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -418,7 +436,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "upload_file_1773999644879_4k1fnw6",
+  "requestId": "upload_file_1774001796444_9p2jdwk",
   "clientId": "your-client-id",
   "type": "upload-file-result",
   "success": true,
@@ -446,6 +464,14 @@ Download a file from Foundry's file system
 ### Returns
 
 **binary|object** - File contents in the requested format
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/download"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":true,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"format","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -588,7 +614,7 @@ import axios from 'axios';
 ```json
 {
   "clientId": "your-client-id",
-  "requestId": "download_file_1773999646016_6fvja0b",
+  "requestId": "download_file_1774001797510_q5xf63i",
   "success": true,
   "path": "rest-api-tests/test-file.txt",
   "filename": "test-file.txt",
