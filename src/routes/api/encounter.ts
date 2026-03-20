@@ -18,6 +18,9 @@ encounterRouter.get("/encounters", ...commonMiddleware, createApiRoute({
   type: 'encounters',
   requiredParams: [
     { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
+  ],
+  optionalParams: [
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -40,7 +43,8 @@ encounterRouter.post("/start-encounter", ...commonMiddleware, express.json(), cr
     { name: 'startWithPlayers', from: 'body', type: 'boolean' }, // Whether to start with players
     { name: 'rollNPC', from: 'body', type: 'boolean' }, // Whether to roll for NPCs
     { name: 'rollAll', from: 'body', type: 'boolean' }, // Whether to roll for all tokens
-    { name: 'name', from: 'body', type: 'string' } // The name of the encounter (unused)
+    { name: 'name', from: 'body', type: 'string' }, // The name of the encounter (unused)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -58,7 +62,8 @@ encounterRouter.post("/next-turn", ...commonMiddleware, express.json(), createAp
     { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
   ],
   optionalParams: [
-    { name: 'encounter', from: ['query', 'body'], type: 'string' } // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -76,7 +81,8 @@ encounterRouter.post("/next-round", ...commonMiddleware, express.json(), createA
     { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
   ],
   optionalParams: [
-    { name: 'encounter', from: ['query', 'body'], type: 'string' } // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -94,7 +100,8 @@ encounterRouter.post("/last-turn", ...commonMiddleware, express.json(), createAp
     { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
   ],
   optionalParams: [
-    { name: 'encounter', from: ['query', 'body'], type: 'string' } // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -112,7 +119,8 @@ encounterRouter.post("/last-round", ...commonMiddleware, express.json(), createA
     { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
   ],
   optionalParams: [
-    { name: 'encounter', from: ['query', 'body'], type: 'string' } // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -130,7 +138,8 @@ encounterRouter.post("/end-encounter", ...commonMiddleware, express.json(), crea
     { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
   ],
   optionalParams: [
-    { name: 'encounter', from: ['query', 'body'], type: 'string' } // The ID of the encounter to end (optional, defaults to current encounter)
+    { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to end (optional, defaults to current encounter)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -151,7 +160,8 @@ encounterRouter.post("/add-to-encounter", ...commonMiddleware, express.json(), c
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to add tokens to (optional, defaults to current encounter)
     { name: 'selected', from: 'body', type: 'boolean' }, // Whether to add selected tokens (optional, defaults to false)
     { name: 'uuids', from: 'body', type: 'array' }, // The UUIDs of the tokens to add (optional, defaults to empty array)
-    { name: 'rollInitiative', from: 'body', type: 'boolean' } // Whether to roll initiative for the added tokens (optional, defaults to false)
+    { name: 'rollInitiative', from: 'body', type: 'boolean' }, // Whether to roll initiative for the added tokens (optional, defaults to false)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -171,6 +181,7 @@ encounterRouter.post("/remove-from-encounter", ...commonMiddleware, express.json
   optionalParams: [
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to remove tokens from (optional, defaults to current encounter)
     { name: 'selected', from: 'body', type: 'boolean' }, // Whether to remove selected tokens (optional, defaults to false)
-    { name: 'uuids', from: 'body', type: 'array' } // The UUIDs of the tokens to remove (optional, defaults to empty array)
+    { name: 'uuids', from: 'body', type: 'array' }, // The UUIDs of the tokens to remove (optional, defaults to empty array)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));

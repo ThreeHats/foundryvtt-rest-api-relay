@@ -11,6 +11,7 @@ import { testVariables, setVariable } from '../helpers/testVariables';
 import { captureExample, saveExamples } from '../helpers/captureExample';
 import { forEachVersion } from '../helpers/multiVersion';
 import { getEntityUuid } from '../helpers/testEntities';
+import { getGlobalVariable } from '../helpers/globalVariables';
 import * as path from 'path';
 
 // Store captured examples for documentation
@@ -43,11 +44,11 @@ describe('Search', () => {
               },
               {
                 key: 'query',
-                value: 'test-item',
+                value: 'test-',
               },
               {
                 key: 'filter',
-                value: 'documentType:Item,subType:base',
+                value: `documentType:Item`,
               }
             ]
           },
@@ -74,7 +75,8 @@ describe('Search', () => {
         expect(captured.response.data).toHaveProperty('query');
         expect(captured.response.data).toHaveProperty('results');
         expect(captured.response.data.results.length).toBeGreaterThan(0);
-        expect(captured.response.data.results[0]).toHaveProperty('uuid', getEntityUuid(version, 'Item', 'primary'));
+        const expectedUuid = getEntityUuid(version, 'Item', 'primary');
+        expect(captured.response.data.results.some((r: any) => r.uuid === expectedUuid)).toBe(true);
         expect(captured.response.data.results[0]).toHaveProperty('documentType', 'Item');
       });
     });

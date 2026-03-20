@@ -18,6 +18,7 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  * @param {string} path - [query,?] The path to retrieve (relative to source)
  * @param {string} source - [query,?] The source directory to use (data, systems, modules, etc.)
  * @param {boolean} recursive - [query,?] Whether to recursively list all subdirectories
+ * @param {string} userId - [query,?] Foundry user ID or username to scope permissions (omit for GM-level access)
  * @returns {object} File system structure with files and directories
  */
 fileSystemRouter.get("/file-system", ...commonMiddleware, async (req: Request, res: Response) => {
@@ -25,7 +26,8 @@ fileSystemRouter.get("/file-system", ...commonMiddleware, async (req: Request, r
     const path = req.query.path as string || "";
     const source = req.query.source as string || "data";
     const recursive = req.query.recursive === "true";
-    
+    const userId = req.query.userId as string | undefined;
+
     if (!clientId) {
       safeResponse(res, 400, { 
         error: "Client ID is required",
@@ -57,7 +59,8 @@ fileSystemRouter.get("/file-system", ...commonMiddleware, async (req: Request, r
         path,
         source,
         recursive,
-        requestId
+        requestId,
+        ...(userId && { userId })
       });
 
       if (!sent) {
@@ -90,6 +93,7 @@ fileSystemRouter.get("/file-system", ...commonMiddleware, async (req: Request, r
  * @param {string} mimeType - [query/body,?] The MIME type of the file
  * @param {boolean} overwrite - [query/body,?] Whether to overwrite an existing file
  * @param {string} fileData - [body,?] Base64 encoded file data (if sending as JSON) 250MB limit
+ * @param {string} userId - [query,?] Foundry user ID or username to scope permissions (omit for GM-level access)
  * @returns {object} Result of the file upload operation
  */
 fileSystemRouter.post("/upload", ...commonMiddleware, async (req: express.Request, res: express.Response) => {
@@ -133,6 +137,7 @@ fileSystemRouter.post("/upload", ...commonMiddleware, async (req: express.Reques
     const mimeType = req.query.mimeType as string || req.body?.mimeType || "application/octet-stream";
     const overwrite = req.query.overwrite === "true" || req.body?.overwrite === "true" || req.body?.overwrite === true;
     const fileData = req.body?.fileData as string | undefined;
+    const userId = req.query.userId as string || req.body?.userId as string | undefined;
 
     if (!clientId) {
       safeResponse(res, 400, {
@@ -231,7 +236,8 @@ fileSystemRouter.post("/upload", ...commonMiddleware, async (req: express.Reques
         filename,
         source: source || "data",
         overwrite: overwrite || false,
-        requestId
+        requestId,
+        ...(userId && { userId })
       };
 
       if (processedFileData) {
@@ -298,6 +304,7 @@ fileSystemRouter.post("/upload", ...commonMiddleware, async (req: express.Reques
  * @param {string} path - [query] The full path to the file to download
  * @param {string} source - [query,?] The source directory to use (data, systems, modules, etc.)
  * @param {string} format - [query,?] The format to return the file in (binary, base64)
+ * @param {string} userId - [query,?] Foundry user ID or username to scope permissions (omit for GM-level access)
  * @returns {binary|object} File contents in the requested format
  */
 fileSystemRouter.get("/download", ...commonMiddleware, async (req: Request, res: Response) => {
@@ -305,7 +312,8 @@ fileSystemRouter.get("/download", ...commonMiddleware, async (req: Request, res:
     const path = req.query.path as string;
     const source = req.query.source as string || "data";
     const format = req.query.format as string || "binary"; // Default to binary format for downloads
-    
+    const userId = req.query.userId as string | undefined;
+
     if (!clientId) {
       safeResponse(res, 400, { 
         error: "Client ID is required",
@@ -346,7 +354,8 @@ fileSystemRouter.get("/download", ...commonMiddleware, async (req: Request, res:
         type: "download-file",
         path,
         source,
-        requestId
+        requestId,
+        ...(userId && { userId })
       });
 
       if (!sent) {

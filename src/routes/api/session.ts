@@ -6,6 +6,8 @@ import { ClientManager } from '../../core/ClientManager';
 import { safeResponse } from '../shared';
 import { log } from '../../utils/logger';
 import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 import * as puppeteer from 'puppeteer';
 import { getRedisClient } from '../../config/redis';
 import { registerHeadlessSession } from "../../workers/headlessSessions";
@@ -208,7 +210,7 @@ try {
  */
 sessionRouter.post("/start-session", requestForwarderMiddleware, authMiddleware, async (req: Request, res: Response) => {
 try {
-    const { handshakeToken, encryptedPassword } = req.body;
+    const { handshakeToken, encryptedPassword, captureBrowserConsole, foundryVersion } = req.body;
     const apiKey = req.header('x-api-key') as string;
     
     const redis = getRedisClient();
@@ -436,13 +438,94 @@ try {
 
     const page = await browser.newPage();
 
-    // Enable logging
-    page.on('pageerror', (error: unknown) => {
-      const message = error instanceof Error ? error.message : String(error);
-      log.error(`Browser page error: ${message}`);
-    });
-    page.on('requestfailed', (request: puppeteer.HTTPRequest) => log.error(`Request failed: ${request.url()}`));
-    
+    const browserConsoleLevel = captureBrowserConsole || process.env.CAPTURE_BROWSER_CONSOLE;
+    if (browserConsoleLevel) {
+      const levelOrder = ['error', 'warn', 'debug'] as const;
+      const threshold = levelOrder.indexOf(browserConsoleLevel as typeof levelOrder[number]);
+
+      if (threshold === -1) {
+        log.warn(`Invalid CAPTURE_BROWSER_CONSOLE value: "${browserConsoleLevel}". Use "error", "warn", or "debug".`);
+      } else {
+        const logsDir = path.join(process.cwd(), 'data', 'browser-logs');
+        fs.mkdirSync(logsDir, { recursive: true });
+
+        // Remove previous log files for the same world/username
+        const logPrefix = `${worldName || 'unknown'}_${username}`;
+        try {
+          for (const file of fs.readdirSync(logsDir)) {
+            if (file.startsWith(logPrefix) && file.endsWith('.log')) {
+              fs.unlinkSync(path.join(logsDir, file));
+            }
+          }
+        } catch { /* ignore cleanup errors */ }
+
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const logFileName = `${logPrefix}_${foundryVersion ? `fvtt-${foundryVersion}_` : ''}${timestamp}.log`;
+        const logStream = fs.createWriteStream(path.join(logsDir, logFileName), { flags: 'a' });
+        log.info(`Browser console logs will be written to data/browser-logs/${logFileName}`);
+
+        page.on('pageerror', (error: unknown) => {
+          const message = error instanceof Error ? error.message : String(error);
+          const ts = new Date().toISOString();
+          logStream.write(`[${ts}] [PAGEERROR] ${message}\n`);
+        });
+        page.on('requestfailed', (request: puppeteer.HTTPRequest) => {
+          const ts = new Date().toISOString();
+          logStream.write(`[${ts}] [REQUESTFAILED] ${request.url()}\n`);
+        });
+
+        page.on('console', (msg: puppeteer.ConsoleMessage) => {
+          const type = msg.type();
+          const msgLevel = type === 'error' ? 0 : type === 'warn' ? 1 : 2;
+          if (msgLevel > threshold) return;
+
+          const fallbackText = msg.text();
+          const ts = new Date().toISOString();
+
+          const writeLog = (text: string) => {
+            logStream.write(`[${ts}] [${type.toUpperCase()}] ${text}\n`);
+          };
+
+          const args = msg.args();
+          if (args.length === 0) {
+            writeLog(fallbackText);
+            return;
+          }
+
+          // Serialize each arg in the browser context to capture non-enumerable
+          // properties, getters, and class instances that JSON.stringify misses
+          Promise.all(
+            args.map(arg =>
+              arg.evaluate((obj: unknown) => {
+                if (obj === null || obj === undefined) return String(obj);
+                if (typeof obj === 'string') return obj;
+                if (obj instanceof Error) return `${obj.name}: ${obj.message}\n${obj.stack}`;
+                try {
+                  // Use a Set to handle circular references
+                  const seen = new WeakSet();
+                  return JSON.stringify(obj, (_key, value) => {
+                    if (typeof value === 'object' && value !== null) {
+                      if (seen.has(value)) return '[Circular]';
+                      seen.add(value);
+                    }
+                    return value;
+                  }, 2);
+                } catch {
+                  return String(obj);
+                }
+              }).catch(() => arg.toString())
+            )
+          ).then(resolved => {
+            writeLog(resolved.join(' '));
+          }).catch(() => {
+            writeLog(fallbackText);
+          });
+        });
+
+        page.once('close', () => logStream.end());
+      }
+    }
+
     // Navigate to Foundry
     log.debug(`Navigating to Foundry URL: ${foundryUrl}`);
     await page.goto(foundryUrl, { waitUntil: 'networkidle0', timeout: 180000 });

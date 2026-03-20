@@ -11,30 +11,35 @@ import path from 'path';
 export const TEST_ORDER = [
   // Phase 1: Session setup
   'session-endpoints.test.ts',   // Must run first to create sessions
-  
+
   // Phase 2: Entity creation (creates test data for other tests)
   'entity-endpoints.test.ts',    // Creates actors, items, etc.
-  
+
   // Phase 3: Auth validation
   'auth-requirements.test.ts',
-  
-  // Phase 4: Core functionality tests
+
+  // Phase 4: Scene + Canvas (test scene must be active for canvas and subsequent tests)
+  'scene-endpoints.test.ts',     // Creates test scene, activates it
+  'canvas-endpoints.test.ts',    // Token/wall/light CRUD + creates persistent token
+
+  // Phase 5: Core functionality tests (runs on the test scene + token)
   'structure-endpoints.test.ts',
   'search-endpoints.test.ts',
   'roll-endpoints.test.ts',
   'sheet-endpoints.test.ts',
   'macro-endpoints.test.ts',
-  'utility-endpoints.test.ts', // Selects tokens for encounters
+  'utility-endpoints.test.ts',   // Selects token for encounters
   'encounter-endpoints.test.ts',
   'fileSystem-endpoints.test.ts',
-  
-  // TODO: implement system tests (and maybe some other systems ;)
-  // Phase 5: System-specific tests (implement after adding /modules or something bc of dependencies)
-  // also needs actual dnd5e items and actors to properly test. Need to think about how to properly implement this
-//   'dnd5e-endpoints.test.ts',     // Only runs if client has dnd5e
+  'chat-endpoints.test.ts',
+  'permission-filtering.test.ts', // Tests userId permission scoping
 
-  // Phase 6: Cleanup
+  // Phase 6: System-specific tests (only run on matching systems)
+  'dnd5e-endpoints.test.ts',     // Only runs if client has dnd5e
+
+  // Phase 7: Cleanup (order matters: entities first, then restore scene, then end sessions)
   'cleanup-entities.test.ts',    // Deletes all created entities
+  'scene-cleanup.test.ts',       // Restores original scene, deletes test scene
   'end-sessions.test.ts',        // Must run last to cleanup sessions
 ];
 

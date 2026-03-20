@@ -9,7 +9,7 @@ import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { ApiRequestConfig } from '../helpers/apiRequest';
 import { testVariables, setVariable } from '../helpers/testVariables';
 import { captureExample, saveExamples } from '../helpers/captureExample';
-import { forEachVersion } from '../helpers/multiVersion';
+import { forEachVersion, getSystemId } from '../helpers/multiVersion';
 import { setGlobalVariable, getGlobalVariable } from '../helpers/globalVariables';
 import * as path from 'path';
 
@@ -30,7 +30,11 @@ describe('Encounter', () => {
       test('POST /start-encounter', async () => {
         // Set clientId for this version
         setVariable('clientId', getClientId());
-        
+
+        // Only roll initiative if the actor was created from compendium data
+        // (bare type:'base' actors lack system attributes and crash on rollAll)
+        const hasCompendiumActor = !!getGlobalVariable(version, 'actor_compendium_type');
+
         // Request configuration
         const requestConfig: ApiRequestConfig = {
           url: {
@@ -56,7 +60,7 @@ describe('Encounter', () => {
           mode: 'raw',
           raw: JSON.stringify({
               startWithSelected: true,
-              rollAll: true,
+              ...(hasCompendiumActor ? { rollAll: true } : {}),
             }, null, 2)
         }
       };
@@ -86,6 +90,14 @@ describe('Encounter', () => {
         expect(captured.response.data.encounter.combatants[0]).toHaveProperty('initiative');
         expect(captured.response.data.encounter.combatants[0]).toHaveProperty('hidden');
         expect(captured.response.data.encounter.combatants[0]).toHaveProperty('defeated');
+
+        // If system supports initiative (e.g., dnd5e), verify it's a number
+        const systemId = getSystemId(version);
+        if (systemId && getGlobalVariable(version, 'actor_compendium_type')) {
+          const initiative = captured.response.data.encounter.combatants[0].initiative;
+          expect(typeof initiative).toBe('number');
+          console.log(`  ✓ Initiative rolled: ${initiative} (system: ${systemId})`);
+        }
 
         // Set global variable for future tests
         setGlobalVariable(version, 'encounterId', captured.response.data.encounter.id);
@@ -437,7 +449,10 @@ describe('Encounter', () => {
       test('POST /add-to-encounter', async () => {
         // Set clientId for this version
         setVariable('clientId', getClientId());
-        
+
+        // Only roll initiative if the actor has proper system data
+        const hasCompendiumActor = !!getGlobalVariable(version, 'actor_compendium_type');
+
         // Request configuration
         const encounter = getGlobalVariable(version, 'encounterId');
         const requestConfig: ApiRequestConfig = {
@@ -469,7 +484,7 @@ describe('Encounter', () => {
           raw: JSON.stringify({
               selected: true,
               uuids: [],
-              rollInitiative: true
+              rollInitiative: hasCompendiumActor
             }, null, 2)
         }
       };

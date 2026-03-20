@@ -19,6 +19,7 @@ Get file system structure
 | path | string |  | query | The path to retrieve (relative to source) |
 | source | string |  | query | The source directory to use (data, systems, modules, etc.) |
 | recursive | boolean |  | query | Whether to recursively list all subdirectories |
+| userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -160,7 +161,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "file_system_1765658044761_zivntcs",
+  "requestId": "file_system_1773999645749_qj1ex8w",
   "clientId": "your-client-id",
   "type": "file-system-result",
   "success": true,
@@ -245,6 +246,7 @@ Upload a file to Foundry's file system (handles both base64 and binary data)
 | mimeType | string |  | query/body | The MIME type of the file |
 | overwrite | boolean |  | query/body | Whether to overwrite an existing file |
 | fileData | string |  | body | Base64 encoded file data (if sending as JSON) 250MB limit |
+| userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -416,7 +418,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "upload_file_1765658043289_n78pu76",
+  "requestId": "upload_file_1773999644879_4k1fnw6",
   "clientId": "your-client-id",
   "type": "upload-file-result",
   "success": true,
@@ -439,6 +441,7 @@ Download a file from Foundry's file system
 | path | string | ✓ | query | The full path to the file to download |
 | source | string |  | query | The source directory to use (data, systems, modules, etc.) |
 | format | string |  | query | The format to return the file in (binary, base64) |
+| userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -585,7 +588,7 @@ import axios from 'axios';
 ```json
 {
   "clientId": "your-client-id",
-  "requestId": "download_file_1765658045286_8kzwy71",
+  "requestId": "download_file_1773999646016_6fvja0b",
   "success": true,
   "path": "rest-api-tests/test-file.txt",
   "filename": "test-file.txt",

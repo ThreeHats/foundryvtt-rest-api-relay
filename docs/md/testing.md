@@ -16,6 +16,9 @@ The Foundry REST API uses a testing framework that:
 - Supports both **headless browser automation** and **existing sessions**
 - **Captures real API responses** for documentation generation
 - Manages **entity lifecycle** with automatic cleanup
+- Sources test data from **system compendiums** for properly initialized entities
+- Runs **system-specific tests** (e.g., D&D 5e) only on matching Foundry instances
+- Tests **permission filtering** with the `userId` parameter
 - Uses a **custom test sequencer** to ensure proper execution order
 
 ## Prerequisites
@@ -105,6 +108,21 @@ FOUNDRY_V12_WORLD=test-world-v12
 FOUNDRY_V13_WORLD=test-world-v13
 ```
 
+#### Permission Filtering Tests (Optional)
+
+To test `userId` permission filtering with a real non-GM player:
+
+```bash
+# Create a non-GM player in your Foundry world, then provide their ID or username
+TEST_PLAYER_USER_ID_V12=Player1
+TEST_PLAYER_USER_ID_V13=Player1
+```
+
+Without this, only invalid-userId error handling tests run. With it, additional tests verify:
+- Search result filtering (player sees fewer results than GM)
+- Write permission denial (player can't update/delete GM-owned entities)
+- Chat whisper visibility (player can't see GM-only whispers)
+
 ## Running Tests
 
 ### Full Test Suite
@@ -119,24 +137,42 @@ This runs all integration tests in the correct order using a custom test sequenc
 
 1. **Session Setup** (`session-endpoints.test.ts`)
    - Creates or validates Foundry sessions
-   - Stores client IDs and session data for other tests
+   - Stores client IDs, session data, and system IDs for other tests
 
 2. **Entity Creation** (`entity-endpoints.test.ts`)
+   - Fetches entity data from system compendiums (e.g., `dnd5e.heroes` for actors)
+   - Falls back to minimal `type: 'base'` entities if compendium lookup fails
    - Creates test actors, items, journals, macros
    - Registers entities for automatic cleanup
 
 3. **Auth Validation** (`auth-requirements.test.ts`)
-   - Verifies API key authentication is enforced
+   - Dynamically scans all route files for endpoints
+   - Verifies API key and clientId requirements on every endpoint
 
-4. **Core Functionality Tests**
-   - Structure, search, roll, sheet, macro, utility endpoints
-   - Encounter management
-   - File system operations
+4. **Scene + Canvas** (`scene-endpoints.test.ts`, `canvas-endpoints.test.ts`)
+   - Creates and activates a test scene
+   - Tests full CRUD on all 8 canvas document types (tokens, tiles, drawings, lights, sounds, notes, templates, walls)
+   - Creates a persistent token for utility/encounter tests
 
-5. **Cleanup** (`cleanup-entities.test.ts`)
+5. **Core Functionality Tests**
+   - Structure, search, roll (including SSE streaming), sheet, macro, utility endpoints
+   - Encounter management (uses persistent token on the test scene; rolls initiative when compendium actors are available)
+   - File system operations (upload, download, browse)
+   - Chat (including SSE streaming, whisper, flush)
+
+6. **Permission Filtering** (`permission-filtering.test.ts`)
+   - Dynamically scans route files for all endpoints accepting `userId`
+   - Tests invalid userId rejection on every endpoint
+   - Tests player permission scoping (if `TEST_PLAYER_USER_ID` is configured)
+
+7. **System-Specific Tests** (`dnd5e-endpoints.test.ts`)
+   - Only runs on Foundry instances with the matching system
+   - Sets up system-specific test data (gives actor spells and consumables from compendiums)
+   - Tests get-actor-details, modify-experience, modify-item-charges, use-item, use-feature, use-spell, use-ability
+
+8. **Cleanup** (`cleanup-entities.test.ts`, `scene-cleanup.test.ts`, `end-sessions.test.ts`)
    - Deletes all created test entities
-
-6. **Session End** (`end-sessions.test.ts`)
+   - Restores the original active scene and deletes the test scene
    - Closes headless sessions (if applicable)
 
 ### Running Specific Tests
@@ -171,10 +207,10 @@ pnpm validate-setup
 ```
 
 This checks:
-- ✅ `.env.test` file exists and has required variables
-- ✅ Relay server connectivity (at `TEST_BASE_URL`)
-- ✅ Foundry instance availability (for each `FOUNDRY_VX_URL`)
-- ✅ API key authentication
+- `.env.test` file exists and has required variables
+- Relay server connectivity (at `TEST_BASE_URL`)
+- Foundry instance availability (for each `FOUNDRY_VX_URL`)
+- API key authentication
 
 ## Test Architecture
 
@@ -182,31 +218,38 @@ This checks:
 
 ```
 tests/
-├── integration/                    # API integration tests
-│   ├── session-endpoints.test.ts   # Session management (runs first)
-│   ├── entity-endpoints.test.ts    # Entity CRUD (creates test data)
-│   ├── auth-requirements.test.ts   # Auth validation
-│   ├── structure-endpoints.test.ts # World structure
-│   ├── search-endpoints.test.ts    # Search functionality
-│   ├── roll-endpoints.test.ts      # Dice rolling
-│   ├── sheet-endpoints.test.ts     # Actor sheets
-│   ├── macro-endpoints.test.ts     # Macro execution
-│   ├── utility-endpoints.test.ts   # Utility functions
-│   ├── encounter-endpoints.test.ts # Combat/encounters
-│   ├── fileSystem-endpoints.test.ts# File operations
-│   ├── dnd5e-endpoints.test.ts     # D&D 5e specific tests (incomplete)
-│   ├── cleanup-entities.test.ts    # Deletes test entities
-│   └── end-sessions.test.ts        # Session cleanup (runs last)
-├── helpers/                        # Test utilities
-│   ├── apiRequest.ts               # HTTP request helper
-│   ├── captureExample.ts           # Documentation capture
-│   ├── globalVariables.ts          # Cross-file state
-│   ├── multiVersion.ts             # Multi-version test runner
-│   ├── testEntities.ts             # Entity lifecycle management
-│   ├── testSequencer.ts            # Test execution order
-│   └── testVariables.ts            # Environment variables
-├── setup.ts                        # Jest setup (loads .env.test)
-└── globalTeardown.ts               # Cleanup after all tests
+├── integration/                        # API integration tests
+│   ├── session-endpoints.test.ts       # Session management (runs first)
+│   ├── entity-endpoints.test.ts        # Entity CRUD (creates test data)
+│   ├── auth-requirements.test.ts       # Auth validation (scans all routes)
+│   ├── scene-endpoints.test.ts         # Scene CRUD + activate test scene
+│   ├── canvas-endpoints.test.ts        # All canvas document types (data-driven)
+│   ├── structure-endpoints.test.ts     # World structure
+│   ├── search-endpoints.test.ts        # Search functionality
+│   ├── roll-endpoints.test.ts          # Dice rolling + SSE streaming
+│   ├── sheet-endpoints.test.ts         # Actor sheets
+│   ├── macro-endpoints.test.ts         # Macro execution
+│   ├── utility-endpoints.test.ts       # Utility functions
+│   ├── encounter-endpoints.test.ts     # Combat/encounters
+│   ├── fileSystem-endpoints.test.ts    # File operations
+│   ├── chat-endpoints.test.ts          # Chat messages + SSE streaming
+│   ├── permission-filtering.test.ts    # userId permission scoping (scans all routes)
+│   ├── dnd5e-endpoints.test.ts         # D&D 5e system tests
+│   ├── cleanup-entities.test.ts        # Deletes test entities
+│   ├── scene-cleanup.test.ts           # Restores original scene
+│   └── end-sessions.test.ts            # Session cleanup (runs last)
+├── helpers/                            # Test utilities
+│   ├── apiRequest.ts                   # HTTP request helper
+│   ├── captureExample.ts               # Documentation capture
+│   ├── compendiumData.ts               # Compendium entity fetching
+│   ├── globalVariables.ts              # Cross-file state
+│   ├── multiVersion.ts                 # Multi-version test runner
+│   ├── systemSetup.ts                  # Per-system test data setup
+│   ├── testEntities.ts                 # Entity lifecycle management
+│   ├── testSequencer.ts                # Test execution order
+│   └── testVariables.ts                # Environment variables
+├── setup.ts                            # Jest setup (loads .env.test)
+└── globalTeardown.ts                   # Cleanup after all tests
 ```
 
 ### Test Execution Order
@@ -214,10 +257,13 @@ tests/
 Tests run in a specific order defined in `tests/helpers/testSequencer.ts`. The order follows these phases:
 
 1. **Session Setup** - Creates/validates Foundry sessions
-2. **Entity Creation** - Creates test actors, items, journals, etc.
+2. **Entity Creation** - Creates test actors, items, journals, etc. (compendium-sourced when possible)
 3. **Auth Validation** - Verifies authentication requirements
-4. **Core Functionality** - Tests all API endpoints
-5. **Cleanup** - Deletes test entities and closes sessions
+4. **Scene + Canvas** - Creates a test scene, activates it, tests canvas CRUD for all document types
+5. **Core Functionality** - Tests all remaining API endpoints (structure, search, roll, sheet, macro, utility, encounter, fileSystem, chat)
+6. **Permission Filtering** - Tests userId validation and player permission scoping
+7. **System-Specific** - D&D 5e tests (only on dnd5e systems)
+8. **Cleanup** - Deletes test entities, restores original scene, closes sessions
 
 :::caution Important
 New test files **must** be added to `TEST_ORDER` in `testSequencer.ts` at an appropriate position. Tests not in this array won't run as part of the suite. See the actual file for the current test order.
@@ -254,9 +300,77 @@ forEachVersionWithSystem('dnd5e', (version, getClientId) => {
 });
 ```
 
-:::note System-Specific Tests
-System-specific tests (like `dnd5e-endpoints.test.ts`) have been scaffolded but are **not fully implemented or verified**. They require actual system-specific test data (D&D 5e actors, items, etc.) to run properly. These are currently commented out of the test sequencer.
-:::
+### Compendium Data (`compendiumData.ts`)
+
+Fetch properly initialized entity data from the active system's compendiums:
+
+```typescript
+import { fetchCompendiumEntityData } from '../helpers/compendiumData';
+
+// Fetch any actor from the system's compendiums
+const actorData = await fetchCompendiumEntityData(version, 'Actor');
+
+// Fetch from a specific pack
+const heroData = await fetchCompendiumEntityData(version, 'Actor', {
+  packFilter: 'heroes',
+});
+
+// Fetch a specific entry by name
+const spellData = await fetchCompendiumEntityData(version, 'Item', {
+  packFilter: 'spells',
+  entryFilter: 'fireball',
+});
+```
+
+Compendium data is:
+- **Cached** per version+entityType+options (one `/structure` call per combination per run)
+- **Cleaned** for creation (`_id`, `_stats`, `folder`, `ownership`, `flags` removed)
+- **Prefixed** with `test-` in the name for identification
+- **System-agnostic** — works with any system (dnd5e, pf2e, etc.) by filtering packs by `systemId`
+
+### System Setup (`systemSetup.ts`)
+
+Set up system-specific test data on actors (spells, consumables, etc.):
+
+```typescript
+import { setupSystemTestData } from '../helpers/systemSetup';
+
+const result = await setupSystemTestData(version, actorUuid);
+// result: { spellName: 'Acid Splash' | null, consumableName: 'Potion of Healing' | null }
+```
+
+To add support for a new system, add a `SystemTestConfig` entry to the `SYSTEM_CONFIGS` map in `systemSetup.ts`:
+
+```typescript
+const pf2eConfig: SystemTestConfig = {
+  id: 'pf2e',
+  compendiumPacks: { actors: 'heroes', spells: 'spells-srd', consumables: 'equipment-srd' },
+  giveSpell: async (version, actorUuid) => { /* pf2e-specific logic */ },
+  giveConsumable: async (version, actorUuid) => { /* pf2e-specific logic */ },
+};
+SYSTEM_CONFIGS['pf2e'] = pf2eConfig;
+```
+
+### Entity Management (`testEntities.ts`)
+
+Create test entities with automatic cleanup. Actors and Items are automatically sourced from system compendiums when available, falling back to minimal `type: 'base'` entities:
+
+```typescript
+import { createTestEntities, getEntityUuid } from '../helpers/testEntities';
+
+// Create multiple entities (actors/items auto-sourced from compendiums)
+await createTestEntities(version, [
+  { key: 'primary', entityType: 'Actor', captureForDocs: true },
+  { key: 'secondary', entityType: 'Actor' },
+  { key: 'expendable', entityType: 'Actor' },  // For delete tests
+], { capturedExamples });
+
+// Later, retrieve the UUID
+const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+```
+
+Entity types supported:
+- `Actor`, `Item`, `JournalEntry`, `Scene`, `Macro`, `RollTable`, `Playlist`
 
 ### API Request Helper (`apiRequest.ts`)
 
@@ -285,31 +399,6 @@ const requestConfig: ApiRequestConfig = {
 const resolvedConfig = replaceVariables(requestConfig, testVariables);
 const response = await makeRequest(resolvedConfig);
 ```
-
-### Entity Management (`testEntities.ts`)
-
-Create test entities with automatic cleanup:
-
-```typescript
-import { createTestEntities, getEntityUuid } from '../helpers/testEntities';
-
-// Create multiple entities
-await createTestEntities(version, [
-  { key: 'primary', entityType: 'Actor', captureForDocs: true },
-  { key: 'secondary', entityType: 'Actor' },
-  { key: 'expendable', entityType: 'Actor' },  // For delete tests
-], { capturedExamples });
-
-// Later, retrieve the UUID
-const actorUuid = getEntityUuid(version, 'Actor', 'primary');
-```
-
-:::note Default Entity Data
-The `getDefaultEntityData()` function in `testEntities.ts` determines the default data used when creating test entities. If you need entities with specific properties, pass a `data` object in the entity spec to override the defaults.
-:::
-
-Entity types supported:
-- `Actor`, `Item`, `JournalEntry`, `Scene`, `Macro`, `RollTable`, `Playlist`
 
 ### Global Variables (`globalVariables.ts`)
 
@@ -386,7 +475,7 @@ describe('My Endpoint', () => {
     describe(`/my-endpoint (v${version})`, () => {
       test('GET /my-endpoint', async () => {
         setVariable('clientId', getClientId());
-        
+
         const requestConfig: ApiRequestConfig = {
           // ... request configuration
         };
@@ -411,11 +500,20 @@ describe('My Endpoint', () => {
 Add your test file to `tests/helpers/testSequencer.ts` in the `TEST_ORDER` array at an appropriate position:
 
 - Add **after** any tests that create data your tests depend on
-- Add **before** cleanup tests (`cleanup-entities.test.ts`, `end-sessions.test.ts`)
+- If your tests need canvas documents (tokens, lights, walls), add them **after** `scene-endpoints.test.ts` and **before** `scene-cleanup.test.ts`
+- System-specific tests go in **Phase 7** (after permission filtering, before cleanup)
+- Add **before** cleanup tests (`cleanup-entities.test.ts`, `scene-cleanup.test.ts`, `end-sessions.test.ts`)
 
 :::caution Important
 Tests not in `TEST_ORDER` won't run as part of `pnpm test`.
 :::
+
+### Adding a System-Specific Test
+
+1. Create `tests/integration/mystem-endpoints.test.ts` using `forEachVersionWithSystem('mystem', ...)`
+2. Add a system config to `tests/helpers/systemSetup.ts` in the `SYSTEM_CONFIGS` map
+3. Add the test file to `TEST_ORDER` in Phase 7
+4. The test will auto-skip on Foundry instances that don't have your system
 
 ## Documentation Generation
 
@@ -438,6 +536,8 @@ pnpm docs:update
 # Full documentation update and build (does all of the above + builds the site)
 pnpm docs:full
 ```
+
+The doc generator automatically expands parameterized routes (like `/canvas/:documentType`) into concrete endpoints (e.g., `/canvas/tokens`, `/canvas/walls`, etc.) using the `ROUTE_PARAM_EXPANSIONS` table in `generateApiDocs.js`.
 
 :::caution Documentation Changes
 Running tests captures real API responses, which updates `docs/examples/*.json` files. This regenerates code examples with current response data, potentially modifying documentation for endpoints you didn't touch.
@@ -483,10 +583,20 @@ pnpm docs:build
 - Check username/password credentials
 - Ensure no popup dialogs are blocking
 
-**"Request timed out"**
+**"Request timed out" (408)**
 - Increase timeout in test: `}, 30000);`
 - Check network connectivity between relay and Foundry
 - Verify the REST API module is active in Foundry
+- For system-specific tests: ensure the Foundry module is rebuilt and the page is refreshed
+
+**"User not found" on permission tests**
+- The `TEST_PLAYER_USER_ID` must match a real Foundry user ID or username
+- Check the `/players` endpoint to see available users
+
+**Compendium data not loading**
+- Session tests must run first (they store `systemId`)
+- Check that the Foundry world has system compendium packs
+- Look for `⚠ No compendiumPacks` warnings in test output
 
 **Cookie isolation issues (multi-version testing)**
 - Use different browser profiles for each Foundry version
@@ -523,6 +633,8 @@ The `tests/.global-vars.json` file stores state during test execution but is aut
 4. **Test all versions**: Use `forEachVersion()` to ensure compatibility
 5. **Extended timeouts**: Use longer timeouts for complex operations: `}, 30000);`
 6. **Descriptive assertions**: Test specific response properties, not just status codes
+7. **Data-driven tests**: Use tables/loops for endpoints with multiple variants (see canvas tests)
+8. **Graceful degradation**: System-specific tests should skip gracefully when data isn't available
 
 ## Generating Test Files
 

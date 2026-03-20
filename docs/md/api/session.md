@@ -221,35 +221,7 @@ console.log('Session started:', { sessionId, clientId });
 <TabItem value="emojicode" label="Emojicode">
 
 ```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/start-session🔤 ➡️ path
-
-  💭 Request body
-  🔤{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"Us5hNIQR/MfYGlDGVbBrd/eWp7mN0IR4K9A/dmDI01wpA3VTay7ACxEjY14fhtlymS327rJxsm5H2ZRjkQ8WCIWMVFUb9gaYZEjNBqQy0MtPCG0n+nRKkR4ZYlG50NJj8pjIG+9CyCpH9mFmA3gyfgBqNrwQXwKp64fyMwtesYfYy67jx2llh0Sb5OPY5NZjv+pTOm4y19Yy+ahtpNT8TADFE2UbxApbCXPU734vVYXX529R3JyUu396yGrsuIc6cbYZyj1mL55KNG++CR1jJF6FJvX8hU0QmTKWvNiGI/s7ZOP4avqV+bEJEHdd8UW7g0Wdqlp5ATw/41vsxAlXRw=="}🔤 ➡️ body
-
-  💭 Build HTTP request
-  🔤POST /start-session HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 452❌r❌n❌r❌n{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"Us5hNIQR/MfYGlDGVbBrd/eWp7mN0IR4K9A/dmDI01wpA3VTay7ACxEjY14fhtlymS327rJxsm5H2ZRjkQ8WCIWMVFUb9gaYZEjNBqQy0MtPCG0n+nRKkR4ZYlG50NJj8pjIG+9CyCpH9mFmA3gyfgBqNrwQXwKp64fyMwtesYfYy67jx2llh0Sb5OPY5NZjv+pTOm4y19Yy+ahtpNT8TADFE2UbxApbCXPU734vVYXX529R3JyUu396yGrsuIc6cbYZyj1mL55KNG++CR1jJF6FJvX8hU0QmTKWvNiGI/s7ZOP4avqV+bEJEHdd8UW7g0Wdqlp5ATw/41vsxAlXRw=="}🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
+Just don't 😂
 ```
 
 </TabItem>
@@ -263,7 +235,7 @@ console.log('Session started:', { sessionId, clientId });
 {
   "success": true,
   "message": "Foundry session started successfully",
-  "sessionId": "3852aabc-92a6-4700-b178-f0c7af518c86",
+  "sessionId": "36d75625-e84b-4704-b115-92f27e9ee251",
   "clientId": "your-client-id"
 }
 ```
@@ -295,7 +267,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: '3852aabc-92a6-4700-b178-f0c7af518c86'
+  sessionId: '36d75625-e84b-4704-b115-92f27e9ee251'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -314,7 +286,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=3852aabc-92a6-4700-b178-f0c7af518c86' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=36d75625-e84b-4704-b115-92f27e9ee251' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -327,7 +299,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': '3852aabc-92a6-4700-b178-f0c7af518c86'
+    'sessionId': '36d75625-e84b-4704-b115-92f27e9ee251'
 }
 url = f'{base_url}{path}'
 
@@ -352,7 +324,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: '3852aabc-92a6-4700-b178-f0c7af518c86'
+    sessionId: '36d75625-e84b-4704-b115-92f27e9ee251'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -386,7 +358,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=3852aabc-92a6-4700-b178-f0c7af518c86🔤 ➡️ sessionId
+  🔤sessionId=36d75625-e84b-4704-b115-92f27e9ee251🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -550,9 +522,9 @@ import axios from 'axios';
 {
   "activeSessions": [
     {
-      "id": "3852aabc-92a6-4700-b178-f0c7af518c86",
+      "id": "36d75625-e84b-4704-b115-92f27e9ee251",
       "clientId": "your-client-id",
-      "lastActivity": 1765657974803,
+      "lastActivity": 1773999544326,
       "idleMinutes": 0,
       "instanceId": "local",
       "worldId": "testing",

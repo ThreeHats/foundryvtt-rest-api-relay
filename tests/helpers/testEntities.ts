@@ -10,6 +10,7 @@ import { testVariables, setVariable } from './testVariables';
 import { setGlobalVariable, getGlobalVariable } from './globalVariables';
 import { captureExample } from './captureExample';
 import { getClientId } from './multiVersion';
+import { fetchCompendiumEntityData } from './compendiumData';
 
 // Key used to store the cleanup list in global variables
 const CLEANUP_KEY = '_createdEntities';
@@ -58,47 +59,36 @@ export interface CreateEntitiesOptions {
 }
 
 /**
- * Default data for different entity types
+ * Minimal fallback data for entity types (no system data)
  */
-function getDefaultEntityData(entityType: string): Record<string, any> {
+function getMinimalEntityData(entityType: string): Record<string, any> {
   switch (entityType) {
     case 'Actor':
-      return {
-        name: `test-${entityType.toLowerCase()}`,
-        type: 'base'
-      };
+      return { name: `test-${entityType.toLowerCase()}`, type: 'base' };
     case 'Item':
-      return {
-        name: `test-${entityType.toLowerCase()}`,
-        type: 'base'
-      };
-    case 'JournalEntry':
-      return {
-        name: `test-${entityType.toLowerCase()}`
-      };
-    case 'Scene':
-      return {
-        name: `test-${entityType.toLowerCase()}`
-      };
+      return { name: `test-${entityType.toLowerCase()}`, type: 'base' };
     case 'Macro':
-      return {
-        name: `test-${entityType.toLowerCase()}`,
-        type: 'script',
-        command: GOOD_EXAMPLE_MACRO
-      };
-    case 'RollTable':
-      return {
-        name: `test-${entityType.toLowerCase()}`
-      };
-    case 'Playlist':
-      return {
-        name: `test-${entityType.toLowerCase()}`
-      };
+      return { name: `test-${entityType.toLowerCase()}`, type: 'script', command: GOOD_EXAMPLE_MACRO };
     default:
-      return {
-        name: `test-${entityType.toLowerCase()}`
-      };
+      return { name: `test-${entityType.toLowerCase()}` };
   }
+}
+
+/**
+ * Get entity data, trying compendium first then falling back to minimal defaults.
+ * Stores the resolved entity type as a global variable for downstream assertions.
+ */
+async function getEntityData(version: string, entityType: string): Promise<Record<string, any>> {
+  // Only try compendium for Actor and Item (types that have system-specific data)
+  if (entityType === 'Actor' || entityType === 'Item') {
+    const compendiumData = await fetchCompendiumEntityData(version, entityType);
+    if (compendiumData) {
+      // Store the type so tests can assert dynamically
+      setGlobalVariable(version, `${entityType.toLowerCase()}_compendium_type`, compendiumData.type);
+      return compendiumData;
+    }
+  }
+  return getMinimalEntityData(entityType);
 }
 
 /**
@@ -173,8 +163,9 @@ export async function createTestEntities(
   setVariable('clientId', clientId);
   
   for (const spec of specs) {
+    const defaultData = await getEntityData(version, spec.entityType);
     const entityData = {
-      ...getDefaultEntityData(spec.entityType),
+      ...defaultData,
       ...spec.data
     };
     

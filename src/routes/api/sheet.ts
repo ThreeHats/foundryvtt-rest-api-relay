@@ -24,6 +24,7 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  * @param {number} scale - [query,?] The initial scale of the sheet
  * @param {number} tab - [query,?] The active tab index to open
  * @param {boolean} darkMode - [query,?] Whether to use dark mode for the sheet
+ * @param {string} userId - [query,?] Foundry user ID or username to scope permissions (omit for GM-level access)
  * @returns {object} The sheet HTML or data depending on format requested
  */
 sheetRouter.get("/sheet", ...commonMiddleware, async (req: express.Request, res: express.Response) => {
@@ -35,6 +36,7 @@ sheetRouter.get("/sheet", ...commonMiddleware, async (req: express.Request, res:
     const initialScale = parseFloat(req.query.scale as string) || null;
     const activeTab = req.query.tab ? (isNaN(Number(req.query.tab)) ? null : Number(req.query.tab)) : null;
     const darkMode = req.query.darkMode === 'true';
+    const userId = req.query.userId as string | undefined;
     
     if (!clientId) {
       safeResponse(res, 400, { 
@@ -83,7 +85,8 @@ sheetRouter.get("/sheet", ...commonMiddleware, async (req: express.Request, res:
         requestId,
         initialScale,
         activeTab,
-        darkMode
+        darkMode,
+        ...(userId && { userId })
       });
 
       if (!sent) {

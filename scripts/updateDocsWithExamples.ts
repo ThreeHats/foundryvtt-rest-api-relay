@@ -182,7 +182,15 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
     // Use description for matching if it contains parameter placeholders (e.g., ":uuid"),
     // otherwise fall back to converting the endpoint to a pattern
     let matchEndpoint = example.description;
-    
+
+    // If description starts with /, extract just the path portion (strip " - description" suffix)
+    if (matchEndpoint.startsWith('/')) {
+      const dashIndex = matchEndpoint.indexOf(' - ');
+      if (dashIndex !== -1) {
+        matchEndpoint = matchEndpoint.substring(0, dashIndex);
+      }
+    }
+
     // If description doesn't look like a path pattern, convert the endpoint
     if (!matchEndpoint.startsWith('/')) {
       matchEndpoint = example.endpoint
@@ -191,16 +199,43 @@ function updateMarkdownWithExamples(mdPath: string, examples: CapturedExample[])
         // Convert other ID-like segments (16+ char alphanumeric) to ":id"
         .replace(/\/[a-zA-Z0-9]{16,}/g, '/:id');
     }
-    
+
     const escapedEndpoint = matchEndpoint.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    
+
     // Match the entire endpoint section - from ## METHOD /endpoint to just before the next --- or ## or EOF
-    const endpointSectionRegex = new RegExp(
+    let endpointSectionRegex = new RegExp(
       `(## ${example.method} ${escapedEndpoint}\\n[\\s\\S]*?)(?=\\n---|\\n## |$)`,
       'i'
     );
 
-    const match = content.match(endpointSectionRegex);
+    let match = content.match(endpointSectionRegex);
+
+    // If no direct match, try matching against parameterized routes in the markdown
+    // e.g., /canvas/tokens should match ## GET /canvas/:documentType
+    if (!match) {
+      const exampleSegments = matchEndpoint.split('/');
+      // Find all endpoint headings for this method in the markdown
+      const headingRegex = new RegExp(`## ${example.method} (/[^\\n]+)`, 'gi');
+      let headingMatch;
+      while ((headingMatch = headingRegex.exec(content)) !== null) {
+        const mdPath = headingMatch[1];
+        const mdSegments = mdPath.split('/');
+        // Check if segment counts match and each segment either matches exactly or is a :param
+        if (mdSegments.length === exampleSegments.length) {
+          const matches = mdSegments.every((seg, i) => seg === exampleSegments[i] || seg.startsWith(':'));
+          if (matches) {
+            const escapedMdPath = mdPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            endpointSectionRegex = new RegExp(
+              `(## ${example.method} ${escapedMdPath}\\n[\\s\\S]*?)(?=\\n---|\\n## |$)`,
+              'i'
+            );
+            match = content.match(endpointSectionRegex);
+            if (match) break;
+          }
+        }
+      }
+    }
+
     if (match) {
       const endpointSection = match[1];
       

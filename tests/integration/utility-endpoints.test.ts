@@ -131,6 +131,54 @@ describe('Utility', () => {
       });
     });
 
+    describe(`/players (v${version})`, () => {
+      test('GET /players', async () => {
+        setVariable('clientId', getClientId());
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/players',
+            host: ['{{baseUrl}}'],
+            path: ['players'],
+            query: [
+              {
+                key: 'clientId',
+                value: '{{clientId}}',
+              }
+            ]
+          },
+          method: 'GET',
+          header: [
+            {
+              key: 'x-api-key',
+              value: '{{apiKey}}',
+              type: 'text'
+            }
+          ]
+        };
+
+        const captured = await captureExample(
+          requestConfig,
+          testVariables,
+          '/players'
+        );
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('users');
+        expect(captured.response.data.users).toBeInstanceOf(Array);
+        expect(captured.response.data.users.length).toBeGreaterThan(0);
+
+        // Verify user structure
+        const user = captured.response.data.users[0];
+        expect(user).toHaveProperty('id');
+        expect(user).toHaveProperty('name');
+        expect(user).toHaveProperty('role');
+        expect(user).toHaveProperty('isGM');
+        expect(user).toHaveProperty('active');
+      });
+    });
+
     describe(`/execute-js (v${version})`, () => {
       test('POST /execute-js', async () => {
         // Set clientId for this version

@@ -8,7 +8,7 @@ import { PassThrough } from 'stream';
 import { JSDOM } from 'jsdom';
 import { authMiddleware, trackApiUsage } from '../middleware/auth';
 import { requestForwarderMiddleware } from '../middleware/requestForwarder';
-import { pendingRequests, PENDING_REQUEST_TYPES, safeResponse } from './shared';
+import { pendingRequests, PENDING_REQUEST_TYPES, safeResponse, sanitizeResponse, getSSEConnections, removeSSEConnection, getRollSSEConnections, removeRollSSEConnection } from './shared';
 import { dnd5eRouter } from './api/dnd5e';
 import { healthCheck } from '../routes/health';
 import { getRedisClient } from '../config/redis';
@@ -25,6 +25,9 @@ import { encounterRouter } from './api/encounter';
 import { sheetRouter } from './api/sheet';
 import { macroRouter } from './api/macro';
 import { structureRouter } from './api/structure';
+import { sceneRouter } from './api/scene';
+import { canvasRouter } from './api/canvas';
+import { chatRouter } from './api/chat';
 import { log } from '../utils/logger';
 // Import from session.ts instead of duplicating
 import { browserSessions, apiKeyToSession, pendingSessions } from './api/session';
@@ -383,6 +386,9 @@ export const apiRoutes = (app: express.Application): void => {
   app.use('/', sheetRouter);
   app.use('/', macroRouter);
   app.use('/', structureRouter);
+  app.use('/', sceneRouter);
+  app.use('/', canvasRouter);
+  app.use('/', chatRouter);
   app.use('/dnd5e', dnd5eRouter);
 };
 
@@ -618,6 +624,66 @@ function setupMessageHandlers() {
           fileData: data.fileData,
           size: Buffer.from(data.fileData.split(',')[1], 'base64').length
         });
+      }
+    }
+  });
+
+  // Handler for chat events (push from module, fan out to SSE connections)
+  ClientManager.onMessageType("chat-event", (client: Client, data: any) => {
+    const clientId = client.getId();
+    const connections = getSSEConnections(clientId);
+    if (!connections || connections.size === 0) return;
+
+    const eventType = data.data?.eventType; // 'create', 'update', 'delete'
+    const eventData = sanitizeResponse(data.data?.data);
+
+    for (const conn of connections) {
+      // Apply filters
+      if (conn.filters.type !== undefined && eventData?.type !== undefined && eventData.type !== conn.filters.type) continue;
+      if (conn.filters.speaker && eventData?.speaker?.alias !== conn.filters.speaker) continue;
+      if (conn.filters.whisperOnly && (!eventData?.whisper || eventData.whisper.length === 0)) continue;
+      // userId visibility: if filtering by userId, skip whispered messages not visible to that user
+      // userId can be either a Foundry user ID or username (case-insensitive name match)
+      if (conn.filters.userId && eventData?.whisper?.length > 0) {
+        const filterUserId = conn.filters.userId;
+        const matchesUser = eventData.author?.id === filterUserId
+          || eventData.author?.name?.toLowerCase() === filterUserId.toLowerCase();
+        const isRecipient = eventData.whisper.includes(filterUserId);
+        if (!isRecipient && !matchesUser) continue;
+      }
+
+      try {
+        conn.res.write(`event: chat-${eventType}\ndata: ${JSON.stringify(eventData)}\n\n`);
+      } catch (err) {
+        log.warn(`Failed to write SSE event to connection: ${err}`);
+        removeSSEConnection(clientId, conn);
+      }
+    }
+  });
+
+  // Handler for roll events (push from module, fan out to roll SSE connections)
+  ClientManager.onMessageType("roll-data", (client: Client, data: any) => {
+    const clientId = client.getId();
+    const connections = getRollSSEConnections(clientId);
+    if (!connections || connections.size === 0) return;
+
+    const rollData = sanitizeResponse(data.data);
+
+    for (const conn of connections) {
+      // userId filter: if set, only forward rolls by that user
+      // userId can be either a Foundry user ID or username (case-insensitive name match)
+      if (conn.filters.userId) {
+        const filterUserId = conn.filters.userId;
+        const matchesUser = rollData?.user?.id === filterUserId
+          || rollData?.user?.name?.toLowerCase() === filterUserId.toLowerCase();
+        if (!matchesUser) continue;
+      }
+
+      try {
+        conn.res.write(`event: roll\ndata: ${JSON.stringify(rollData)}\n\n`);
+      } catch (err) {
+        log.warn(`Failed to write roll SSE event to connection: ${err}`);
+        removeRollSSEConnection(clientId, conn);
       }
     }
   });

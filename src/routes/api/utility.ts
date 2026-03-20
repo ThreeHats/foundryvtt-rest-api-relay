@@ -114,7 +114,8 @@ utilityRouter.post("/select", ...commonMiddleware, createApiRoute({
     { name: 'name', from: 'body', type: 'string' }, // Name of the token(s) to select
     { name: 'data', from: 'body', type: 'object' }, // Data to match for selection (e.g., "data.attributes.hp.value": 20)
     { name: 'overwrite', from: 'body', type: 'boolean' }, // Whether to overwrite existing selection
-    { name: 'all', from: 'body', type: 'boolean' } // Whether to select all tokens on the canvas
+    { name: 'all', from: 'body', type: 'boolean' }, // Whether to select all tokens on the canvas
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ],
   validateParams: (params) => {
     if (!params.uuids?.length && !params.name && !params.data && !params.all) {
@@ -139,6 +140,28 @@ utilityRouter.get("/selected", ...commonMiddleware, createApiRoute({
   type: 'selected',
   requiredParams: [
     { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
+  ],
+  optionalParams: [
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
+  ]
+}));
+
+/**
+ * Get players/users
+ *
+ * Retrieves a list of all users configured in the Foundry VTT world.
+ * Useful for discovering valid userId values for permission-scoped API calls.
+ *
+ * @route GET /players
+ * @returns {object} List of users with their IDs, names, roles, and active status
+ */
+utilityRouter.get("/players", ...commonMiddleware, createApiRoute({
+  type: 'players',
+  requiredParams: [
+    { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
+  ],
+  optionalParams: [
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -156,7 +179,8 @@ utilityRouter.post("/execute-js", ...commonMiddleware, upload.single("scriptFile
     { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
   ],
   optionalParams: [
-    { name: 'script', from: 'body', type: 'string' } // JavaScript script to execute
+    { name: 'script', from: 'body', type: 'string' }, // JavaScript script to execute
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ],
   validateParams: (params, req) => {
     if (!params.script && !req.file) {
@@ -189,6 +213,7 @@ utilityRouter.post("/execute-js", ...commonMiddleware, upload.single("scriptFile
     }
 
     return {
+      ...params,
       script
     };
   }

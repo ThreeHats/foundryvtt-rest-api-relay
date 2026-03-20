@@ -26,7 +26,8 @@ entityRouter.get("/get", ...commonMiddleware, createApiRoute({
     optionalParams: [
         { name: 'uuid', from: 'query', type: 'string' }, // UUID of the entity to retrieve (optional if selected=true)
         { name: 'selected', from: 'query', type: 'boolean' }, // Whether to get the selected entity
-        { name: 'actor', from: 'query', type: 'boolean' } // Return the actor of specified entity
+        { name: 'actor', from: 'query', type: 'boolean' }, // Return the actor of specified entity
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -46,7 +47,8 @@ entityRouter.post("/create", ...commonMiddleware, express.json(), createApiRoute
         { name: 'data', from: 'body', type: 'object' } // Data for the new entity
     ],
     optionalParams: [
-        { name: 'folder', from: 'body', type: 'string' } // Optional folder UUID to place the new entity in
+        { name: 'folder', from: 'body', type: 'string' }, // Optional folder UUID to place the new entity in
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ],
     validateParams: (params) => {
         if (params.entityType === "Macro") {
@@ -79,7 +81,8 @@ entityRouter.put("/update", ...commonMiddleware, express.json(), createApiRoute(
     optionalParams: [
         { name: 'uuid', from: 'query', type: 'string' }, // UUID of the entity to update (optional if selected=true)
         { name: 'selected', from: 'query', type: 'boolean' }, // Whether to update the selected entity
-        { name: 'actor', from: 'query', type: 'boolean' } // Update the actor of selected entity when selected=true
+        { name: 'actor', from: 'query', type: 'boolean' }, // Update the actor of selected entity when selected=true
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -98,7 +101,8 @@ entityRouter.delete("/delete", ...commonMiddleware, createApiRoute({
     ],
     optionalParams: [
         { name: 'uuid', from: 'query', type: 'string' }, // UUID of the entity to delete (optional if selected=true)
-        { name: 'selected', from: 'query', type: 'boolean' } // Whether to delete the selected entity
+        { name: 'selected', from: 'query', type: 'boolean' }, // Whether to delete the selected entity
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -122,7 +126,8 @@ optionalParams: [
     { name: 'selected', from: 'body', type: 'boolean' }, // Whether to give to the selected token's actor
     { name: 'itemUuid', from: 'body', type: 'string' }, // UUID of the item to give (optional if itemName provided)
     { name: 'itemName', from: 'body', type: 'string' }, // Name of the item to give (search with Quick Insert if UUID not provided)
-    { name: 'quantity', from: 'body', type: 'number' } // Quantity of the item to give (negative values decrease quantity to 0)
+    { name: 'quantity', from: 'body', type: 'number' }, // Quantity of the item to give (negative values decrease quantity to 0)
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
 ]
 }));
 
@@ -143,7 +148,8 @@ optionalParams: [
     { name: 'selected', from: 'body', type: 'boolean' }, // Whether to remove from the selected token's actor
     { name: 'itemUuid', from: 'body', type: 'string' }, // UUID of the item to remove
     { name: 'itemName', from: 'body', type: 'string' }, // Name of the item to remove (search with Quick Insert if UUID not provided)
-    { name: 'quantity', from: 'body', type: 'number' } // Quantity of the item to remove
+    { name: 'quantity', from: 'body', type: 'number' }, // Quantity of the item to remove
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
 ]
 }));
 
@@ -164,7 +170,8 @@ entityRouter.post("/decrease", ...commonMiddleware, express.json(), createApiRou
   ],
   optionalParams: [
     { name: 'uuid', from: 'query', type: 'string' }, // UUID of the entity to decrease the attribute for (optional if selected=true)
-    { name: 'selected', from: 'query', type: 'boolean' } // Whether to decrease the attribute for the selected entity
+    { name: 'selected', from: 'query', type: 'boolean' }, // Whether to decrease the attribute for the selected entity
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -185,7 +192,8 @@ entityRouter.post("/increase", ...commonMiddleware, express.json(), createApiRou
   ],
   optionalParams: [
     { name: 'uuid', from: 'query', type: 'string' }, // UUID of the entity to increase the attribute for (optional if selected=true)
-    { name: 'selected', from: 'query', type: 'boolean' } // Whether to increase the attribute for the selected entity
+    { name: 'selected', from: 'query', type: 'boolean' }, // Whether to increase the attribute for the selected entity
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
 
@@ -206,6 +214,7 @@ entityRouter.post("/kill", ...commonMiddleware, express.json(), createApiRoute({
   ],
   optionalParams: [
     { name: 'uuid', from: 'query', type: 'string' }, // UUID of the entity to kill (optional if selected=true)
-    { name: 'selected', from: 'query', type: 'boolean' } // Whether to kill the selected entity
+    { name: 'selected', from: 'query', type: 'boolean' }, // Whether to kill the selected entity
+    { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));

@@ -184,7 +184,8 @@ curl -X POST 'http://localhost:3010/session-handshake' \\
   -H "x-api-key: your-api-key" \\
   -H "x-foundry-url: http://localhost:30000" \\
   -H "x-world-name: my-world" \\
-  -H "x-username: Gamemaster"`
+  -H "x-username: Gamemaster"`,
+    emojicode: `Just don't 😂`
   };
 }
 
@@ -280,7 +281,9 @@ describeOrSkip('Session', () => {
             mode: 'raw',
             raw: JSON.stringify({
               handshakeToken: hs.token,
-              encryptedPassword: encryptedPassword
+              encryptedPassword: encryptedPassword,
+              ...(process.env.CAPTURE_BROWSER_CONSOLE && { captureBrowserConsole: process.env.CAPTURE_BROWSER_CONSOLE }),
+              foundryVersion: version
             }, null, 2)
         }
       };

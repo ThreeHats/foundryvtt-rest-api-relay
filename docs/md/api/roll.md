@@ -17,6 +17,7 @@ Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry w
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | Client ID for the Foundry world |
 | limit | number |  | query | Optional limit on the number of rolls to return (default is 20) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -154,13 +155,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "rolls_1765658019919",
+  "requestId": "rolls_1773999628436",
   "clientId": "your-client-id",
   "type": "rolls-result",
   "data": [
     {
-      "id": "8G3jxGpAw8Pxp0fA",
-      "messageId": "8G3jxGpAw8Pxp0fA",
+      "id": "8P9X9UsfSBV8MbJD",
+      "messageId": "8P9X9UsfSBV8MbJD",
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"
@@ -171,7 +172,7 @@ import axios from 'axios';
         "token": null
       },
       "flavor": "Test Roll",
-      "rollTotal": 15,
+      "rollTotal": 18,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -180,17 +181,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 7,
-              "active": false
+              "result": 18,
+              "active": true
             },
             {
-              "result": 15,
-              "active": true
+              "result": 6,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1765658019895
+      "timestamp": 1773999628414
     }
   ]
 }
@@ -208,6 +209,7 @@ Get the last roll Retrieves the most recent roll made in the Foundry world.
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
 | clientId | string | ✓ | query | Client ID for the Foundry world |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -341,12 +343,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-roll_1765658020210",
+  "requestId": "last-roll_1773999628588",
   "clientId": "your-client-id",
   "type": "last-roll-result",
   "data": {
-    "id": "8G3jxGpAw8Pxp0fA",
-    "messageId": "8G3jxGpAw8Pxp0fA",
+    "id": "8P9X9UsfSBV8MbJD",
+    "messageId": "8P9X9UsfSBV8MbJD",
     "user": {
       "id": "r6bXhB7k9cXa3cif",
       "name": "tester"
@@ -357,7 +359,7 @@ import axios from 'axios';
       "token": null
     },
     "flavor": "Test Roll",
-    "rollTotal": 15,
+    "rollTotal": 18,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -366,17 +368,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 7,
-            "active": false
+            "result": 18,
+            "active": true
           },
           {
-            "result": 15,
-            "active": true
+            "result": 6,
+            "active": false
           }
         ]
       }
     ],
-    "timestamp": 1765658019895
+    "timestamp": 1773999628414
   }
 }
 ```
@@ -398,6 +400,7 @@ Make a roll Executes a roll with the specified formula
 | createChatMessage | boolean |  | body | Whether to create a chat message for the roll |
 | speaker | string |  | body | The speaker for the roll |
 | whisper | array |  | body | Users to whisper the roll result to |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -553,16 +556,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "roll_1765658019344",
+  "requestId": "roll_1773999628018",
   "clientId": "your-client-id",
   "type": "roll-result",
   "success": true,
   "data": {
-    "id": "manual_1765658019895_kue11zm4ddl",
+    "id": "manual_1773999628415_69vbyr5ouw",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 15,
+      "total": 18,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -570,18 +573,214 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 7,
-              "active": false
+              "result": 18,
+              "active": true
             },
             {
-              "result": 15,
-              "active": true
+              "result": 6,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1765658019895
+      "timestamp": 1773999628416
     }
+  }
+}
+```
+
+
+---
+
+## GET /rolls/subscribe
+
+Subscribe to real-time roll events via Server-Sent Events (SSE) Opens a persistent SSE connection that streams roll events as dice rolls occur in the Foundry world. Each event includes the full roll details including formula, total, individual dice results, and critical/fumble status.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|--------------|
+| clientId | string | ✓ | query | Client ID for the Foundry world |
+| userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**stream** - SSE event stream
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const { EventSource } = require('eventsource'); // npm install eventsource
+
+const baseUrl = 'http://localhost:3010';
+const apiKey = 'your-api-key-here';
+const url = `${baseUrl}/rolls/subscribe?clientId=your-client-id`;
+
+// eventsource v4 uses a custom fetch function to inject headers
+const eventSource = new EventSource(url, {
+  fetch: (input, init) => fetch(input, {
+    ...init,
+    headers: { ...init?.headers, 'x-api-key': apiKey }
+  })
+});
+
+eventSource.addEventListener('connected', (event) => {
+  const data = JSON.parse(event.data);
+  console.log('Connected:', data.clientId);
+});
+
+eventSource.addEventListener('roll', (event) => {
+  const roll = JSON.parse(event.data);
+  const dice = roll.dice?.map(d =>
+    `${d.results.map(r => `${r.result}${r.active ? '' : '(dropped)'}`).join(', ')} (d${d.faces})`
+  ).join(' + ') || '';
+  console.log(`[${roll.user?.name}] ${roll.formula} = ${roll.rollTotal}${roll.isCritical ? ' CRITICAL!' : ''}${roll.isFumble ? ' FUMBLE!' : ''}`);
+  if (roll.flavor) console.log(`  Flavor: ${roll.flavor}`);
+  if (dice) console.log(`  Dice: ${dice}`);
+});
+
+eventSource.onerror = (error) => {
+  console.error('SSE error:', error);
+};
+
+// To disconnect later:
+// eventSource.close();
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+# Connect to the roll SSE stream (streams events until interrupted with Ctrl+C)
+curl -N 'http://localhost:3010/rolls/subscribe?clientId=your-client-id' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Accept: text/event-stream"
+
+# Example output:
+# event: connected
+# data: {"clientId":"your-client-id"}
+#
+# event: roll
+# data: {"id":"abc123","user":{"id":"xyz","name":"GM"},"formula":"1d20+5","rollTotal":18,"isCritical":false,"isFumble":false,"dice":[{"faces":20,"results":[{"result":13,"active":true}]}],"flavor":"Attack Roll","timestamp":1234567890}
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import sseclient  # pip install sseclient-py
+import requests
+import json
+
+base_url = 'http://localhost:3010'
+url = f'{base_url}/rolls/subscribe'
+params = {'clientId': 'your-client-id'}
+headers = {
+    'x-api-key': 'your-api-key-here',
+    'Accept': 'text/event-stream'
+}
+
+# Connect to the SSE stream
+response = requests.get(url, params=params, headers=headers, stream=True)
+client = sseclient.SSEClient(response)
+
+for event in client.events():
+    data = json.loads(event.data)
+
+    if event.event == 'connected':
+        print(f'Connected: {data["clientId"]}')
+    elif event.event == 'roll':
+        user = (data.get('user') or {}).get('name', '?')
+        crit = ' CRITICAL!' if data.get('isCritical') else ''
+        fumble = ' FUMBLE!' if data.get('isFumble') else ''
+        print(f'[{user}] {data["formula"]} = {data["rollTotal"]}{crit}{fumble}')
+        if data.get('flavor'):
+            print(f'  Flavor: {data["flavor"]}')
+        for d in data.get('dice', []):
+            results = ', '.join(
+                f'{r["result"]}{"" if r.get("active", True) else "(dropped)"}'
+                for r in d.get('results', [])
+            )
+            print(f'  Dice: {results} (d{d["faces"]})')
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+// npm install eventsource
+import { EventSource } from 'eventsource';
+
+const baseUrl = 'http://localhost:3010';
+const apiKey = 'your-api-key-here';
+const url = `${baseUrl}/rolls/subscribe?clientId=your-client-id`;
+
+// eventsource v4 uses a custom fetch function to inject headers
+const eventSource = new EventSource(url, {
+  fetch: (input, init) => fetch(input, {
+    ...init,
+    headers: { ...init?.headers, 'x-api-key': apiKey }
+  })
+});
+
+interface RollEvent {
+  id: string;
+  messageId: string;
+  user: { id: string; name: string };
+  speaker: any;
+  flavor: string;
+  rollTotal: number;
+  formula: string;
+  isCritical: boolean;
+  isFumble: boolean;
+  dice: { faces: number; results: { result: number; active: boolean }[] }[];
+  timestamp: number;
+}
+
+eventSource.addEventListener('connected', (event: MessageEvent) => {
+  const data = JSON.parse(event.data);
+  console.log('Connected:', data.clientId);
+});
+
+eventSource.addEventListener('roll', (event: MessageEvent) => {
+  const roll: RollEvent = JSON.parse(event.data);
+  const dice = roll.dice?.map(d =>
+    `${d.results.map(r => `${r.result}${r.active ? '' : '(dropped)'}`).join(', ')} (d${d.faces})`
+  ).join(' + ') || '';
+  console.log(`[${roll.user?.name}] ${roll.formula} = ${roll.rollTotal}${roll.isCritical ? ' CRITICAL!' : ''}${roll.isFumble ? ' FUMBLE!' : ''}`);
+  if (roll.flavor) console.log(`  Flavor: ${roll.flavor}`);
+  if (dice) console.log(`  Dice: ${dice}`);
+});
+
+eventSource.onerror = (error) => {
+  console.error('SSE error:', error);
+};
+
+// To disconnect: eventSource.close();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+Just don't 😂
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "event": "connected",
+  "data": {
+    "clientId": "your-client-id"
   }
 }
 ```

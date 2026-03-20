@@ -26,6 +26,9 @@ dnd5eRouter.get("/get-actor-details", ...commonMiddleware, createApiRoute({
         { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'actorUuid', from: ['body', 'query'], type: 'string' }, // UUID of the actor
         { name: 'details', from: ['body', 'query'], type: 'array' } // Array of detail types to retrieve (e.g., ["resources", "items", "spells", "features"])
+    ],
+    optionalParams: [
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -47,7 +50,8 @@ dnd5eRouter.post("/modify-item-charges", ...commonMiddleware, createApiRoute({
     ],
     optionalParams: [
         { name: 'itemUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the specific item (optional if itemName provided)
-        { name: 'itemName', from: ['body', 'query'], type: 'string' } // The name of the item if UUID not provided (optional if itemUuid provided)
+        { name: 'itemName', from: ['body', 'query'], type: 'string' }, // The name of the item if UUID not provided (optional if itemUuid provided)
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -70,7 +74,8 @@ dnd5eRouter.post("/use-ability", ...commonMiddleware, createApiRoute({
         { name: 'abilityUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the specific ability (optional if abilityName provided)
         { name: 'abilityName', from: ['body', 'query'], type: 'string' }, // The name of the ability if UUID not provided (optional if abilityUuid provided)
         { name: 'targetUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the target for the ability (optional)
-        { name: 'targetName', from: ['body', 'query'], type: 'string' } // The name of the target if UUID not provided (optional)
+        { name: 'targetName', from: ['body', 'query'], type: 'string' }, // The name of the target if UUID not provided (optional)
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -93,7 +98,8 @@ dnd5eRouter.post("/use-feature", ...commonMiddleware, createApiRoute({
         { name: 'abilityUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the specific feature (optional if abilityName provided)
         { name: 'abilityName', from: ['body', 'query'], type: 'string' }, // The name of the feature if UUID not provided (optional if abilityUuid provided)
         { name: 'targetUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the target for the feature (optional)
-        { name: 'targetName', from: ['body', 'query'], type: 'string' } // The name of the target if UUID not provided (optional)
+        { name: 'targetName', from: ['body', 'query'], type: 'string' }, // The name of the target if UUID not provided (optional)
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -116,7 +122,8 @@ dnd5eRouter.post("/use-spell", ...commonMiddleware, createApiRoute({
         { name: 'abilityUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the specific spell (optional if abilityName provided)
         { name: 'abilityName', from: ['body', 'query'], type: 'string' }, // The name of the spell if UUID not provided (optional if abilityUuid provided)
         { name: 'targetUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the target for the spell (optional)
-        { name: 'targetName', from: ['body', 'query'], type: 'string' } // The name of the target if UUID not provided (optional)
+        { name: 'targetName', from: ['body', 'query'], type: 'string' }, // The name of the target if UUID not provided (optional)
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -139,7 +146,8 @@ dnd5eRouter.post("/use-item", ...commonMiddleware, createApiRoute({
         { name: 'abilityUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the specific item (optional if abilityName provided)
         { name: 'abilityName', from: ['body', 'query'], type: 'string' }, // The name of the item if UUID not provided (optional if abilityUuid provided)
         { name: 'targetUuid', from: ['body', 'query'], type: 'string' }, // The UUID of the target for the item (optional)
-        { name: 'targetName', from: ['body', 'query'], type: 'string' } // The name of the target if UUID not provided (optional)
+        { name: 'targetName', from: ['body', 'query'], type: 'string' }, // The name of the target if UUID not provided (optional)
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -159,6 +167,7 @@ dnd5eRouter.post("/modify-experience", ...commonMiddleware, createApiRoute({
     ],
     optionalParams: [
         { name: 'actorUuid', from: ['body', 'query'], type: 'string' }, // UUID of the actor to modify
-        { name: 'selected', from: ['body', 'query'], type: 'boolean' } // Modify the selected token's actor
+        { name: 'selected', from: ['body', 'query'], type: 'boolean' }, // Modify the selected token's actor
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));

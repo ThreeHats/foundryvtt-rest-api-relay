@@ -67,7 +67,7 @@ async function handleSubscriptionUpdated(subscription: any): Promise<boolean> {
   try {
     const customerId = subscription.customer;
     log.info(`Processing subscription update for customer: ${customerId}, status: ${subscription.status}`);
-    
+
     const user = await User.findOne({ where: { stripeCustomerId: customerId } });
 
     if (!user) {
@@ -75,22 +75,46 @@ async function handleSubscriptionUpdated(subscription: any): Promise<boolean> {
       return false; // User not found - return failure so Stripe retries
     }
 
-    log.info(`Found user ID ${user.id} for customer ${customerId}, updating subscription status to: ${subscription.status}`);
+    // Map Stripe statuses: 'trialing' should grant full access
+    const stripeStatus = subscription.status;
+    const effectiveStatus = stripeStatus === 'trialing' ? 'active' : stripeStatus;
+
+    // Status priority: 'active' should never be overwritten by lesser statuses.
+    // Stripe fires 'created' (incomplete) and 'updated' (active) nearly simultaneously,
+    // causing a race where 'incomplete' can overwrite 'active'. Use an atomic conditional
+    // update so 'incomplete' never downgrades an 'active' subscription.
+    const STATUS_PRIORITY: Record<string, number> = {
+      'incomplete': 0,
+      'incomplete_expired': 0,
+      'past_due': 1,
+      'canceled': 2,
+      'active': 3,
+    };
+
+    const newPriority = STATUS_PRIORITY[effectiveStatus] ?? 1;
+    const currentStatus = user.getDataValue('subscriptionStatus') || 'free';
+    const currentPriority = STATUS_PRIORITY[currentStatus] ?? -1;
+
+    if (newPriority < currentPriority) {
+      log.info(`Skipping downgrade for user ${user.id}: ${currentStatus} → ${effectiveStatus} (stripe: ${stripeStatus})`);
+      // Still update subscription ID and period end
+      await user.update({
+        subscriptionId: subscription.id,
+        subscriptionEndsAt: new Date(subscription.current_period_end * 1000)
+      });
+      return true;
+    }
+
+    log.info(`Found user ID ${user.id} for customer ${customerId}, updating subscription status to: ${effectiveStatus} (stripe: ${stripeStatus})`);
 
     await user.update({
-      subscriptionStatus: subscription.status,
+      subscriptionStatus: effectiveStatus,
       subscriptionId: subscription.id,
       subscriptionEndsAt: new Date(subscription.current_period_end * 1000)
     });
 
-    // Verify the update succeeded
     await user.reload();
-    if (user.subscriptionStatus !== subscription.status) {
-      log.error(`Database update verification failed for user ${user.id}`);
-      return false;
-    }
-
-    log.info(`Successfully updated subscription for user ${user.id} to status: ${subscription.status}`);
+    log.info(`Successfully updated subscription for user ${user.id} to status: ${user.subscriptionStatus}`);
     return true;
   } catch (error) {
     log.error(`Error updating subscription`, {

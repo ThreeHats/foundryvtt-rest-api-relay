@@ -18,6 +18,9 @@ macroRouter.get("/macros", ...commonMiddleware, createApiRoute({
     type: 'macros',
     requiredParams: [
         { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
+    ],
+    optionalParams: [
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
 
@@ -36,6 +39,7 @@ macroRouter.post("/macro/:uuid/execute", ...commonMiddleware, createApiRoute({
         { name: 'uuid', from: 'params', type: 'string' } // UUID of the macro to execute
     ],
     optionalParams: [
-        { name: 'args', from: 'body', type: 'object' } // Optional arguments to pass to the macro execution
+        { name: 'args', from: 'body', type: 'object' }, // Optional arguments to pass to the macro execution
+        { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));

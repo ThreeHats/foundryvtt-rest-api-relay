@@ -577,58 +577,89 @@ function parseParamArray(paramArrayContent) {
   return params;
 }
 
+/**
+ * Known parameterized route expansions.
+ * When a route path contains a parameter (e.g., :documentType), and the parameter
+ * has a known set of valid values, expand the single route into multiple doc headings.
+ * This keeps the route code DRY while giving each concrete endpoint its own doc section.
+ */
+const ROUTE_PARAM_EXPANSIONS = {
+  ':documentType': ['tokens', 'tiles', 'drawings', 'lights', 'sounds', 'notes', 'templates', 'walls'],
+};
+
+/**
+ * Generate a single route section (heading, description, params, returns).
+ * Used for both regular and expanded routes.
+ */
+function generateRouteSection(method, routePath, route) {
+    let section = `## ${method} ${routePath}\n\n`;
+    if (route.description) {
+        section += `${route.description}\n\n`;
+    }
+
+    // Parameters table — omit the expanded param since it's now part of the path
+    const expandedParamName = Object.keys(ROUTE_PARAM_EXPANSIONS)
+        .find(p => route.route.includes(p))
+        ?.replace(':', '');
+
+    const hasRequiredParams = route.requiredParams && route.requiredParams.length > 0;
+    const hasOptionalParams = route.optionalParams && route.optionalParams.length > 0;
+
+    if (hasRequiredParams || hasOptionalParams) {
+        const filteredRequired = (route.requiredParams || []).filter(p => p.name !== expandedParamName);
+        const filteredOptional = (route.optionalParams || []).filter(p => p.name !== expandedParamName);
+
+        if (filteredRequired.length > 0 || filteredOptional.length > 0) {
+            section += `### Parameters\n\n`;
+            section += `| Name | Type | Required | Source | Description |\n`;
+            section += `|------|------|----------|--------|--------------|\n`;
+
+            filteredRequired.forEach(param => {
+                const source = param.from ? param.from.join(', ') : 'body, query';
+                section += `| ${param.name} | ${param.type} | ✓ | ${source} | ${param.description || ''} |\n`;
+            });
+            filteredOptional.forEach(param => {
+                const source = param.from ? param.from.join(', ') : 'body, query';
+                section += `| ${param.name} | ${param.type} |  | ${source} | ${param.description || ''} |\n`;
+            });
+
+            section += '\n';
+        }
+    }
+
+    if (route.returns) {
+        section += `### Returns\n\n`;
+        section += `**${route.returns.type}** - ${route.returns.description}\n\n`;
+    }
+
+    return section;
+}
+
 function generateMarkdown(routes, moduleName) {
     let markdown = `---\n`;
     markdown += `tag: ${moduleName}\n`;
     markdown += `---\n\n`;
     markdown += `# ${moduleName}\n\n`;
 
-    routes.forEach((route, index) => {
-        markdown += `## ${route.method} ${route.path}\n\n`;
-        if (route.description) {
-            markdown += `${route.description}\n\n`;
-        }
-        
-        // Parameters table
-        const hasRequiredParams = route.requiredParams && route.requiredParams.length > 0;
-        const hasOptionalParams = route.optionalParams && route.optionalParams.length > 0;
-        
-        if (hasRequiredParams || hasOptionalParams) {
-            markdown += `### Parameters\n\n`;
-            markdown += `| Name | Type | Required | Source | Description |\n`;
-            markdown += `|------|------|----------|--------|--------------|\n`;
-            
-            // Required parameters first
-            if (hasRequiredParams) {
-                route.requiredParams.forEach(param => {
-                    const source = param.from ? param.from.join(', ') : 'body, query';
-                    markdown += `| ${param.name} | ${param.type} | ✓ | ${source} | ${param.description || ''} |\n`;
-                });
-            }
-            
-            // Then optional parameters
-            if (hasOptionalParams) {
-                route.optionalParams.forEach(param => {
-                    const source = param.from ? param.from.join(', ') : 'body, query';
-                    markdown += `| ${param.name} | ${param.type} |  | ${source} | ${param.description || ''} |\n`;
-                });
-            }
-            
-            markdown += '\n';
-        }
-        
-        // Returns
-        if (route.returns) {
-            markdown += `### Returns\n\n`;
-            markdown += `**${route.returns.type}** - ${route.returns.description}\n\n`;
-        }
-        
-        // Add separator between routes, but not after the last one
-        if (index < routes.length - 1) {
-            markdown += '---\n\n';
+    const sections = [];
+
+    routes.forEach(route => {
+        // Check if this route has an expandable parameter
+        const paramKey = Object.keys(ROUTE_PARAM_EXPANSIONS).find(p => route.route.includes(p));
+
+        if (paramKey) {
+            // Expand into one section per concrete value
+            const values = ROUTE_PARAM_EXPANSIONS[paramKey];
+            values.forEach(value => {
+                const concretePath = route.route.replace(paramKey, value);
+                sections.push(generateRouteSection(route.method, concretePath, route));
+            });
+        } else {
+            sections.push(generateRouteSection(route.method, route.route, route));
         }
     });
 
+    markdown += sections.join('---\n\n');
     return markdown;
 }
 
@@ -713,13 +744,24 @@ function main() {
         headerName: "x-api-key",
         description: "API key must be included in the x-api-key header for all endpoints except /api/status and /api/docs"
       },
-      endpoints: allRoutes.map(route => ({
-          method: route.method.toUpperCase(),
-          path: route.route, // Use the full path from @route JSDoc tag which includes any path prefixes (e.g., /dnd5e)
-          description: route.description,
-          requiredParameters: route.requiredParams.map(p => ({ name: p.name, type: p.type, description: p.description, location: p.from.join(', ') })),
-          optionalParameters: route.optionalParams.map(p => ({ name: p.name, type: p.type, description: p.description, location: p.from.join(', ') })),
-      }))
+      endpoints: allRoutes.flatMap(route => {
+          const paramKey = Object.keys(ROUTE_PARAM_EXPANSIONS).find(p => route.route.includes(p));
+          const expandedParamName = paramKey?.replace(':', '');
+          const paths = paramKey
+              ? ROUTE_PARAM_EXPANSIONS[paramKey].map(v => route.route.replace(paramKey, v))
+              : [route.route];
+          return paths.map(routePath => ({
+              method: route.method.toUpperCase(),
+              path: routePath,
+              description: route.description,
+              requiredParameters: route.requiredParams
+                  .filter(p => p.name !== expandedParamName)
+                  .map(p => ({ name: p.name, type: p.type, description: p.description, location: p.from.join(', ') })),
+              optionalParameters: route.optionalParams
+                  .filter(p => p.name !== expandedParamName)
+                  .map(p => ({ name: p.name, type: p.type, description: p.description, location: p.from.join(', ') })),
+          }));
+      })
     };
 
     const outputPath = path.join(jsonOutputDir, `api-docs.json`);
