@@ -8,10 +8,17 @@ sidebar_label: API Reference
 
 This is the API reference for the FoundryVTT REST API Relay server.
 
+## Interactive API Testing
+
+Each endpoint page includes a **"Try it out"** widget that lets you send real requests directly from the documentation. Configure your server URL and API key once, and they'll be saved across pages.
+
+An <a href="/openapi.json">OpenAPI 3.0 spec</a> is available at `/openapi.json` for use with external tools like Swagger UI, Postman, or Insomnia.
+
 ## Available Endpoints
 
 The API is divided into several resource groups:
 
+- [Clients](/api/clients/) - List connected Foundry VTT clients
 - [DnD5e](/api/dnd5e/) - D&D 5th Edition specific endpoints
 - [Encounter](/api/encounter/) - Combat encounter management
 - [Entity](/api/entity/) - General entity manipulation (actors, items, etc.)

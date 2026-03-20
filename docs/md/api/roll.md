@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # roll
 
 ## GET /rolls
@@ -21,6 +23,14 @@ Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry w
 ### Returns
 
 **object** - An array of recent rolls with details
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/rolls"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"limit","type":"number","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -154,13 +164,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "rolls_1765658019919",
+  "requestId": "rolls_1773794701096",
   "clientId": "your-client-id",
   "type": "rolls-result",
   "data": [
     {
-      "id": "8G3jxGpAw8Pxp0fA",
-      "messageId": "8G3jxGpAw8Pxp0fA",
+      "id": "uYAv6SXmeB57GXzz",
+      "messageId": "uYAv6SXmeB57GXzz",
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"
@@ -171,7 +181,7 @@ import axios from 'axios';
         "token": null
       },
       "flavor": "Test Roll",
-      "rollTotal": 15,
+      "rollTotal": 17,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -180,17 +190,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 7,
-              "active": false
+              "result": 17,
+              "active": true
             },
             {
-              "result": 15,
-              "active": true
+              "result": 3,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1765658019895
+      "timestamp": 1773794701059
     }
   ]
 }
@@ -212,6 +222,14 @@ Get the last roll Retrieves the most recent roll made in the Foundry world.
 ### Returns
 
 **object** - The most recent roll with details
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/lastroll"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -341,12 +359,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-roll_1765658020210",
+  "requestId": "last-roll_1773794701353",
   "clientId": "your-client-id",
   "type": "last-roll-result",
   "data": {
-    "id": "8G3jxGpAw8Pxp0fA",
-    "messageId": "8G3jxGpAw8Pxp0fA",
+    "id": "uYAv6SXmeB57GXzz",
+    "messageId": "uYAv6SXmeB57GXzz",
     "user": {
       "id": "r6bXhB7k9cXa3cif",
       "name": "tester"
@@ -357,7 +375,7 @@ import axios from 'axios';
       "token": null
     },
     "flavor": "Test Roll",
-    "rollTotal": 15,
+    "rollTotal": 17,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -366,17 +384,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 7,
-            "active": false
+            "result": 17,
+            "active": true
           },
           {
-            "result": 15,
-            "active": true
+            "result": 3,
+            "active": false
           }
         ]
       }
     ],
-    "timestamp": 1765658019895
+    "timestamp": 1773794701059
   }
 }
 ```
@@ -402,6 +420,14 @@ Make a roll Executes a roll with the specified formula
 ### Returns
 
 **object** - Result of the roll operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/roll"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"formula","type":"string","required":true,"source":"body"},{"name":"flavor","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"speaker","type":"string","required":false,"source":"body"},{"name":"whisper","type":"array","required":false,"source":"body"}]}
+/>
 
 ### Code Examples
 
@@ -553,16 +579,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "roll_1765658019344",
+  "requestId": "roll_1773794700428",
   "clientId": "your-client-id",
   "type": "roll-result",
   "success": true,
   "data": {
-    "id": "manual_1765658019895_kue11zm4ddl",
+    "id": "manual_1773794701060_bft9sx2f5zh",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 15,
+      "total": 17,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -570,17 +596,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 7,
-              "active": false
+              "result": 17,
+              "active": true
             },
             {
-              "result": 15,
-              "active": true
+              "result": 3,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1765658019895
+      "timestamp": 1773794701061
     }
   }
 }

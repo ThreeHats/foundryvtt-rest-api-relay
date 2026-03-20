@@ -21,7 +21,7 @@ function extractApiInfo(filePath) {
          line.includes('.put(') || line.includes('.delete('))) {
       
       // Extract method and path - more flexible pattern to match various formats
-      const methodMatch = line.match(/(\w+[Rr]outer)\.(get|post|put|delete)\(\s*["']([^"']+)["']/);
+      const methodMatch = line.match(/(\w*[Rr]outer)\.(get|post|put|delete)\(\s*["']([^"']+)["']/);
       if (methodMatch) {
         const [, routerName, method, path] = methodMatch;        // Look backwards for JSDoc comment
         let j = i - 1;
@@ -581,6 +581,7 @@ function generateMarkdown(routes, moduleName) {
     let markdown = `---\n`;
     markdown += `tag: ${moduleName}\n`;
     markdown += `---\n\n`;
+    markdown += `import ApiTester from '@site/src/components/ApiTester';\n\n`;
     markdown += `# ${moduleName}\n\n`;
 
     routes.forEach((route, index) => {
@@ -622,7 +623,30 @@ function generateMarkdown(routes, moduleName) {
             markdown += `### Returns\n\n`;
             markdown += `**${route.returns.type}** - ${route.returns.description}\n\n`;
         }
-        
+
+        // ApiTester component (before code examples)
+        markdown += `### Try It Out\n\n`;
+        const allParameters = [
+            ...(route.requiredParams || []).map(p => ({
+                name: p.name,
+                type: p.type,
+                required: true,
+                source: Array.isArray(p.from) ? p.from[0] : (p.from || 'query')
+            })),
+            ...(route.optionalParams || []).map(p => ({
+                name: p.name,
+                type: p.type,
+                required: false,
+                source: Array.isArray(p.from) ? p.from[0] : (p.from || 'query')
+            }))
+        ];
+        const parametersJson = JSON.stringify(allParameters);
+        markdown += `<ApiTester\n`;
+        markdown += `  method="${route.method}"\n`;
+        markdown += `  path="${route.path}"\n`;
+        markdown += `  parameters={${parametersJson}}\n`;
+        markdown += `/>\n\n`;
+
         // Add separator between routes, but not after the last one
         if (index < routes.length - 1) {
             markdown += '---\n\n';
@@ -642,6 +666,249 @@ function getExampleValue(type) {
     case 'object': return { key: 'value' };
     default: return 'value';
   }
+}
+
+/**
+ * Generate an OpenAPI 3.0.3 spec from the extracted route data.
+ */
+function generateOpenApiSpec(allRoutes, packageJson) {
+  const spec = {
+    openapi: '3.0.3',
+    info: {
+      title: 'FoundryVTT REST API',
+      description: 'REST API relay server for accessing Foundry VTT data remotely. Provides WebSocket connectivity and HTTP endpoints to interact with Foundry VTT worlds.',
+      version: packageJson.version || '1.0.0',
+      license: {
+        name: 'MIT'
+      }
+    },
+    servers: [
+      {
+        url: 'http://localhost:3010',
+        description: 'Replaced dynamically at /openapi.json'
+      }
+    ],
+    security: [{ apiKey: [] }],
+    tags: [],
+    paths: {},
+    components: {
+      securitySchemes: {
+        apiKey: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'x-api-key',
+          description: 'API key for authentication. Obtain one by registering at /auth/register.'
+        }
+      }
+    }
+  };
+
+  // Derive tags from routes
+  const tagSet = new Set();
+  for (const route of allRoutes) {
+    if (route.group) {
+      tagSet.add(route.group);
+    }
+  }
+  spec.tags = Array.from(tagSet).sort().map(name => ({ name }));
+
+  // Type mapping helper
+  function mapType(type) {
+    switch (type) {
+      case 'string': return { type: 'string' };
+      case 'number': return { type: 'number' };
+      case 'boolean': return { type: 'boolean' };
+      case 'array': return { type: 'array', items: { type: 'string' } };
+      case 'object': return { type: 'object' };
+      default: return { type: 'string' };
+    }
+  }
+
+  // Public endpoints that don't require auth
+  const publicPaths = ['/api/status', '/api/docs', '/api/health'];
+
+  for (const route of allRoutes) {
+    // Use the full route path (from @route tag), converting Express :param to OpenAPI {param}
+    let routePath = route.route || route.path;
+    routePath = routePath.replace(/:(\w+)/g, '{$1}');
+
+    // Ensure path starts with /
+    if (!routePath.startsWith('/')) {
+      routePath = '/' + routePath;
+    }
+
+    const method = route.method.toLowerCase();
+
+    if (!spec.paths[routePath]) {
+      spec.paths[routePath] = {};
+    }
+
+    const operation = {
+      summary: route.description || '',
+      operationId: `${method}_${routePath.replace(/[^a-zA-Z0-9]/g, '_').replace(/_+/g, '_')}`,
+      responses: {
+        '200': {
+          description: route.returns ? route.returns.description : 'Successful response',
+          content: {
+            'application/json': {
+              schema: { type: 'object' }
+            }
+          }
+        },
+        '400': {
+          description: 'Bad request - missing or invalid parameters',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  error: { type: 'string' }
+                }
+              }
+            }
+          }
+        },
+        '401': {
+          description: 'Unauthorized - invalid or missing API key',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  error: { type: 'string' }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    // Add tag
+    if (route.group) {
+      operation.tags = [route.group];
+    }
+
+    // Handle security
+    if (route.security === 'none' || publicPaths.includes(routePath)) {
+      operation.security = [];
+    }
+
+    // Collect params by location
+    const allParams = [
+      ...(route.requiredParams || []).map(p => ({ ...p, required: true })),
+      ...(route.optionalParams || []).map(p => ({ ...p, required: false }))
+    ];
+
+    const queryParams = [];
+    const pathParams = [];
+    const bodyProps = {};
+    const requiredBodyProps = [];
+    let hasBodyParams = false;
+
+    for (const param of allParams) {
+      const locations = Array.isArray(param.from) ? param.from : [param.from];
+
+      // Check if this is a path parameter (appears in the route path as {param})
+      if (routePath.includes(`{${param.name}}`)) {
+        pathParams.push({
+          name: param.name,
+          in: 'path',
+          required: true,
+          description: param.description || '',
+          schema: mapType(param.type)
+        });
+        continue;
+      }
+
+      if (locations.includes('params')) {
+        pathParams.push({
+          name: param.name,
+          in: 'path',
+          required: true,
+          description: param.description || '',
+          schema: mapType(param.type)
+        });
+      }
+
+      if (locations.includes('query')) {
+        queryParams.push({
+          name: param.name,
+          in: 'query',
+          required: param.required && !locations.includes('body'),
+          description: param.description || '',
+          schema: mapType(param.type)
+        });
+      }
+
+      if (locations.includes('body')) {
+        hasBodyParams = true;
+        bodyProps[param.name] = {
+          ...mapType(param.type),
+          description: param.description || ''
+        };
+        if (param.required && !locations.includes('query')) {
+          requiredBodyProps.push(param.name);
+        }
+      }
+
+      // If param has both body and query sources, add to both
+      if (locations.includes('body') && locations.includes('query')) {
+        // Already handled above - appears in both
+      }
+
+      // Default: if only 'query' or unspecified, already handled
+    }
+
+    // Add parameters
+    const parameters = [...pathParams, ...queryParams];
+    if (parameters.length > 0) {
+      operation.parameters = parameters;
+    }
+
+    // Add request body for POST/PUT/DELETE with body params
+    if (hasBodyParams && ['post', 'put', 'delete'].includes(method)) {
+      // Special case: upload endpoint uses multipart
+      if (routePath === '/upload') {
+        operation.requestBody = {
+          required: true,
+          content: {
+            'multipart/form-data': {
+              schema: {
+                type: 'object',
+                properties: bodyProps,
+                ...(requiredBodyProps.length > 0 ? { required: requiredBodyProps } : {})
+              }
+            },
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: bodyProps,
+                ...(requiredBodyProps.length > 0 ? { required: requiredBodyProps } : {})
+              }
+            }
+          }
+        };
+      } else {
+        operation.requestBody = {
+          required: requiredBodyProps.length > 0,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: bodyProps,
+                ...(requiredBodyProps.length > 0 ? { required: requiredBodyProps } : {})
+              }
+            }
+          }
+        };
+      }
+    }
+
+    spec.paths[routePath][method] = operation;
+  }
+
+  return spec;
 }
 
 // Main execution
@@ -673,13 +940,19 @@ function main() {
   sortedFiles.forEach(file => {
     const filePath = path.join(apiDir, file);
     const moduleName = path.basename(file, '.ts');
-    
+
     console.log(`Processing ${file}...`);
-    
+
     try {
       const routes = extractApiInfo(filePath);
-      
+
       if (routes.length > 0) {
+        // Auto-assign group tag from module name if not set
+        for (const route of routes) {
+          if (!route.group) {
+            route.group = moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+          }
+        }
         // Collect routes for the JSON file
         allRoutes.push(...routes);
 
@@ -700,6 +973,21 @@ function main() {
     }
   });
   
+  // Also parse auth routes
+  const authFilePath = path.join(__dirname, '../src/routes/auth.ts');
+  try {
+    console.log('Processing auth.ts...');
+    const authRoutes = extractApiInfo(authFilePath);
+    if (authRoutes.length > 0) {
+      allRoutes.push(...authRoutes);
+      console.log(`Extracted ${authRoutes.length} auth routes`);
+    } else {
+      console.log('No routes found in auth.ts');
+    }
+  } catch (error) {
+    console.error('Error processing auth.ts:', error.message);
+  }
+
   console.log('Markdown documentation generation complete!');
 
   // Generate the single api-docs.json file
@@ -707,7 +995,7 @@ function main() {
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     const apiDocs = {
       version: packageJson.version || "1.0.0",
-      baseUrl: `https://your-relay-server.com`, // This will be replaced by the server dynamically
+      baseUrl: `https://foundryvtt-rest-api-relay.fly.dev`, // This will be replaced by the server dynamically
       authentication: {
         required: true,
         headerName: "x-api-key",
@@ -727,6 +1015,65 @@ function main() {
     console.log(`Generated JSON documentation for ${allRoutes.length} routes in api-docs.json`);
   } catch (error) {
     console.error(`Error generating api-docs.json:`, error.message);
+  }
+
+  // Generate OpenAPI 3.0 spec
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const openApiSpec = generateOpenApiSpec(allRoutes, packageJson);
+
+    // Inject response examples from captured test data
+    const examplesDir = path.join(__dirname, '../docs/examples');
+    if (fs.existsSync(examplesDir)) {
+      const { sanitizeExampleForDocs } = require('./shared/sanitize');
+      const exampleFiles = fs.readdirSync(examplesDir).filter(f => f.endsWith('-examples.json'));
+      let injectedCount = 0;
+
+      for (const file of exampleFiles) {
+        try {
+          const examples = JSON.parse(fs.readFileSync(path.join(examplesDir, file), 'utf8'));
+
+          for (const example of examples) {
+            // Normalize endpoint path: convert Express :param to OpenAPI {param}
+            let examplePath = (example.description || example.endpoint || '').replace(/:(\w+)/g, '{$1}');
+            if (!examplePath.startsWith('/')) examplePath = '/' + examplePath;
+
+            const method = (example.method || 'GET').toLowerCase();
+            const pathEntry = openApiSpec.paths[examplePath];
+
+            if (pathEntry && pathEntry[method]) {
+              const operation = pathEntry[method];
+              const statusCode = String(example.response?.status || 200);
+
+              // Only inject if we don't already have an example for this status
+              if (operation.responses[statusCode]?.content?.['application/json']) {
+                const content = operation.responses[statusCode].content['application/json'];
+                if (!content.example) {
+                  const sanitized = sanitizeExampleForDocs(example);
+                  content.example = sanitized.response.data;
+                  injectedCount++;
+                }
+              }
+            }
+          }
+        } catch (err) {
+          console.warn(`  Warning: Could not process examples from ${file}: ${err.message}`);
+        }
+      }
+
+      if (injectedCount > 0) {
+        console.log(`Injected ${injectedCount} response examples into OpenAPI spec`);
+      }
+    } else {
+      console.log('No examples directory found, skipping example injection');
+    }
+
+    const openApiOutputPath = path.join(jsonOutputDir, 'openapi.json');
+    fs.writeFileSync(openApiOutputPath, JSON.stringify(openApiSpec, null, 2));
+    console.log(`Generated OpenAPI 3.0 spec with ${Object.keys(openApiSpec.paths).length} paths in openapi.json`);
+
+  } catch (error) {
+    console.error('Error generating openapi.json:', error.message);
   }
 
   console.log('API documentation generation complete!');

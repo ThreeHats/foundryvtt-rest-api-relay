@@ -1,6 +1,6 @@
 {
-  "version": "2.0.15",
-  "baseUrl": "https://your-relay-server.com",
+  "version": "2.2.1",
+  "baseUrl": "https://foundryvtt-rest-api-relay.fly.dev",
   "authentication": {
     "required": true,
     "headerName": "x-api-key",
@@ -273,6 +273,13 @@
           "location": "query"
         }
       ]
+    },
+    {
+      "method": "GET",
+      "path": "/clients",
+      "description": "Get all connected clients for the authenticated API key Returns a list of all currently connected Foundry VTT clients associated with the provided API key, including their connection details and world information.",
+      "requiredParameters": [],
+      "optionalParameters": []
     },
     {
       "method": "GET",
@@ -1486,6 +1493,148 @@
           "location": "body"
         }
       ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/register",
+      "description": "Register a new user account Creates a new user with the provided email and password. Returns the user's API key.",
+      "requiredParameters": [
+        {
+          "name": "email",
+          "type": "string",
+          "description": "The user's email address",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "description": "The user's password (min 8 chars, must include upper, lower, number)",
+          "location": "body"
+        }
+      ],
+      "optionalParameters": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "description": "Log in with email and password Authenticates a user and returns their account details including API key.",
+      "requiredParameters": [
+        {
+          "name": "email",
+          "type": "string",
+          "description": "The user's email address",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "description": "The user's password",
+          "location": "body"
+        }
+      ],
+      "optionalParameters": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/regenerate-key",
+      "description": "Regenerate API key Generates a new API key for the authenticated user. Requires email and password confirmation.",
+      "requiredParameters": [
+        {
+          "name": "email",
+          "type": "string",
+          "description": "The user's email address",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "description": "The user's password",
+          "location": "body"
+        }
+      ],
+      "optionalParameters": []
+    },
+    {
+      "method": "GET",
+      "path": "/auth/user-data",
+      "description": "Get user data Retrieves the authenticated user's account details and usage information.",
+      "requiredParameters": [],
+      "optionalParameters": []
+    },
+    {
+      "method": "GET",
+      "path": "/auth/export-data",
+      "description": "Export user data (GDPR) Exports all stored user data for GDPR data portability compliance.",
+      "requiredParameters": [],
+      "optionalParameters": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/auth/account",
+      "description": "Delete user account (GDPR) Permanently deletes the user's account and cancels any active subscriptions. Requires email confirmation and password verification.",
+      "requiredParameters": [
+        {
+          "name": "confirmEmail",
+          "type": "string",
+          "description": "The user's email address (must match account email)",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "description": "The user's password for verification",
+          "location": "body"
+        }
+      ],
+      "optionalParameters": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/forgot-password",
+      "description": "Request a password reset Sends a password reset email if the account exists. Always returns success to prevent email enumeration.",
+      "requiredParameters": [
+        {
+          "name": "email",
+          "type": "string",
+          "description": "The email address associated with the account",
+          "location": "body"
+        }
+      ],
+      "optionalParameters": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/reset-password",
+      "description": "Reset password with token Resets the user's password using a valid reset token from the forgot-password flow.",
+      "requiredParameters": [
+        {
+          "name": "token",
+          "type": "string",
+          "description": "The password reset token from the email",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "description": "The new password (min 8 chars, must include upper, lower, number)",
+          "location": "body"
+        }
+      ],
+      "optionalParameters": []
+    },
+    {
+      "method": "GET",
+      "path": "/auth/validate-reset-token/:token",
+      "description": "Validate a password reset token Checks whether a password reset token is still valid and unused.",
+      "requiredParameters": [
+        {
+          "name": "token",
+          "type": "string",
+          "description": "The password reset token to validate",
+          "location": "params"
+        }
+      ],
+      "optionalParameters": []
     }
   ]
 }

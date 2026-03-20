@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # session
 
 ## POST /session-handshake
@@ -24,6 +26,14 @@ Create a handshake token for the client to use for secure authentication
 
 **object** - Handshake token and encryption details
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/session-handshake"
+  parameters={[{"name":"x-api-key","type":"string","required":true,"source":"header"},{"name":"x-foundry-url","type":"string","required":true,"source":"header"},{"name":"x-username","type":"string","required":true,"source":"header"},{"name":"x-world-name","type":"string","required":false,"source":"header"}]}
+/>
+
 ---
 
 ## POST /start-session
@@ -41,6 +51,14 @@ Start a headless Foundry session using puppeteer
 ### Returns
 
 **object** - Session information including sessionId and clientId
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/start-session"
+  parameters={[{"name":"handshakeToken","type":"string","required":true,"source":"body"},{"name":"encryptedPassword","type":"string","required":true,"source":"body"},{"name":"x-api-key","type":"string","required":true,"source":"header"}]}
+/>
 
 ### Code Examples
 
@@ -234,10 +252,10 @@ console.log('Session started:', { sessionId, clientId });
   🔤/start-session🔤 ➡️ path
 
   💭 Request body
-  🔤{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"Us5hNIQR/MfYGlDGVbBrd/eWp7mN0IR4K9A/dmDI01wpA3VTay7ACxEjY14fhtlymS327rJxsm5H2ZRjkQ8WCIWMVFUb9gaYZEjNBqQy0MtPCG0n+nRKkR4ZYlG50NJj8pjIG+9CyCpH9mFmA3gyfgBqNrwQXwKp64fyMwtesYfYy67jx2llh0Sb5OPY5NZjv+pTOm4y19Yy+ahtpNT8TADFE2UbxApbCXPU734vVYXX529R3JyUu396yGrsuIc6cbYZyj1mL55KNG++CR1jJF6FJvX8hU0QmTKWvNiGI/s7ZOP4avqV+bEJEHdd8UW7g0Wdqlp5ATw/41vsxAlXRw=="}🔤 ➡️ body
+  🔤{"handshakeToken":"your-api-key-here","encryptedPassword":"DpMmLgWlOd2o8f7J9wA+CRTWubP17AwT6ojefcdBp4KTaojFoPqWH6R6WyMt9i7gQyCbBcJKdMt/5Ukm2HByR/hYs7Spjjhqk0vgCYHW11NCvRTkMspoLg9LDeWLA//GNB085n72TF9e1qCijJ+vH/qBP5jCszCXDYTap99nxWgeubcRYNVO5vk2kgTdQLUmxOVrbCHOfFJYPQ0O5XcfnbvaYFoVyvnH7eVFr9yL4RTJSdq5M3zxnoD2rHTU0UodL78ysC4J5Wc3lqkh876AEpMevA0juyTnWBRO/IO+vHheIAJqFwhZRydETq6njw5yj0ZlOey8rqdh9+7lBfMdvQ=="}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /start-session HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 452❌r❌n❌r❌n{"handshakeToken":"your-api-key-hereyour-api-key-here","encryptedPassword":"Us5hNIQR/MfYGlDGVbBrd/eWp7mN0IR4K9A/dmDI01wpA3VTay7ACxEjY14fhtlymS327rJxsm5H2ZRjkQ8WCIWMVFUb9gaYZEjNBqQy0MtPCG0n+nRKkR4ZYlG50NJj8pjIG+9CyCpH9mFmA3gyfgBqNrwQXwKp64fyMwtesYfYy67jx2llh0Sb5OPY5NZjv+pTOm4y19Yy+ahtpNT8TADFE2UbxApbCXPU734vVYXX529R3JyUu396yGrsuIc6cbYZyj1mL55KNG++CR1jJF6FJvX8hU0QmTKWvNiGI/s7ZOP4avqV+bEJEHdd8UW7g0Wdqlp5ATw/41vsxAlXRw=="}🔤 ➡️ request
+  🔤POST /start-session HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 452❌r❌n❌r❌n{"handshakeToken":"your-api-key-here","encryptedPassword":"DpMmLgWlOd2o8f7J9wA+CRTWubP17AwT6ojefcdBp4KTaojFoPqWH6R6WyMt9i7gQyCbBcJKdMt/5Ukm2HByR/hYs7Spjjhqk0vgCYHW11NCvRTkMspoLg9LDeWLA//GNB085n72TF9e1qCijJ+vH/qBP5jCszCXDYTap99nxWgeubcRYNVO5vk2kgTdQLUmxOVrbCHOfFJYPQ0O5XcfnbvaYFoVyvnH7eVFr9yL4RTJSdq5M3zxnoD2rHTU0UodL78ysC4J5Wc3lqkh876AEpMevA0juyTnWBRO/IO+vHheIAJqFwhZRydETq6njw5yj0ZlOey8rqdh9+7lBfMdvQ=="}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -263,7 +281,7 @@ console.log('Session started:', { sessionId, clientId });
 {
   "success": true,
   "message": "Foundry session started successfully",
-  "sessionId": "3852aabc-92a6-4700-b178-f0c7af518c86",
+  "sessionId": "448e60df-fd47-44a7-90b3-cc6cdab5ca30",
   "clientId": "your-client-id"
 }
 ```
@@ -286,6 +304,14 @@ Stop a headless Foundry session
 
 **object** - Status of the operation
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/end-session"
+  parameters={[{"name":"sessionId","type":"string","required":true,"source":"query"},{"name":"x-api-key","type":"string","required":true,"source":"header"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -295,7 +321,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: '3852aabc-92a6-4700-b178-f0c7af518c86'
+  sessionId: '448e60df-fd47-44a7-90b3-cc6cdab5ca30'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -314,7 +340,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=3852aabc-92a6-4700-b178-f0c7af518c86' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=448e60df-fd47-44a7-90b3-cc6cdab5ca30' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -327,7 +353,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': '3852aabc-92a6-4700-b178-f0c7af518c86'
+    'sessionId': '448e60df-fd47-44a7-90b3-cc6cdab5ca30'
 }
 url = f'{base_url}{path}'
 
@@ -352,7 +378,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: '3852aabc-92a6-4700-b178-f0c7af518c86'
+    sessionId: '448e60df-fd47-44a7-90b3-cc6cdab5ca30'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -386,7 +412,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=3852aabc-92a6-4700-b178-f0c7af518c86🔤 ➡️ sessionId
+  🔤sessionId=448e60df-fd47-44a7-90b3-cc6cdab5ca30🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -435,6 +461,14 @@ Get all active headless Foundry sessions
 ### Returns
 
 **object** - List of active sessions for the current API key
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/session"
+  parameters={[{"name":"x-api-key","type":"string","required":true,"source":"header"}]}
+/>
 
 ### Code Examples
 
@@ -550,9 +584,9 @@ import axios from 'axios';
 {
   "activeSessions": [
     {
-      "id": "3852aabc-92a6-4700-b178-f0c7af518c86",
+      "id": "448e60df-fd47-44a7-90b3-cc6cdab5ca30",
       "clientId": "your-client-id",
-      "lastActivity": 1765657974803,
+      "lastActivity": 1773794660822,
       "idleMinutes": 0,
       "instanceId": "local",
       "worldId": "testing",

@@ -116,6 +116,25 @@ app.use("/static", express.static(path.join(__dirname, "../public")));
 app.use("/static/css", express.static(path.join(__dirname, "../public/css")));
 app.use("/static/js", express.static(path.join(__dirname, "../public/js")));
 
+// Serve OpenAPI spec with dynamic server URL
+const openApiSpecPath = path.resolve(__dirname, '../public/openapi.json');
+app.get('/openapi.json', (req: Request, res: Response) => {
+  try {
+    if (!fs.existsSync(openApiSpecPath)) {
+      log.warn(`OpenAPI spec file not found at: ${openApiSpecPath}`);
+      res.status(404).json({ error: 'OpenAPI spec not available' });
+      return;
+    }
+    const spec = JSON.parse(fs.readFileSync(openApiSpecPath, 'utf8'));
+    spec.servers = [{ url: `${req.protocol}://${req.get('host')}`, description: 'This server' }];
+    res.json(spec);
+  } catch (error) {
+    log.error('Error serving OpenAPI spec:', { error: error instanceof Error ? error.message : String(error) });
+    res.status(500).json({ error: 'Failed to load OpenAPI spec' });
+  }
+});
+
+
 // Redirect trailing slashes in docs routes to clean URLs
 app.use('/docs', (req, res, next) => {
   if (req.path !== '/' && req.path.endsWith('/')) {

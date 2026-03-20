@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # fileSystem
 
 ## GET /file-system
@@ -23,6 +25,14 @@ Get file system structure
 ### Returns
 
 **object** - File system structure with files and directories
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/file-system"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -160,7 +170,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "file_system_1765658044761_zivntcs",
+  "requestId": "file_system_1773794725653_wdzktsz",
   "clientId": "your-client-id",
   "type": "file-system-result",
   "success": true,
@@ -249,6 +259,14 @@ Upload a file to Foundry's file system (handles both base64 and binary data)
 ### Returns
 
 **object** - Result of the file upload operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/upload"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":true,"source":"query/body"},{"name":"filename","type":"string","required":true,"source":"query/body"},{"name":"source","type":"string","required":false,"source":"query/body"},{"name":"mimeType","type":"string","required":false,"source":"query/body"},{"name":"overwrite","type":"boolean","required":false,"source":"query/body"},{"name":"fileData","type":"string","required":false,"source":"body"}]}
+/>
 
 ### Code Examples
 
@@ -416,7 +434,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "upload_file_1765658043289_n78pu76",
+  "requestId": "upload_file_1773794724301_61eytio",
   "clientId": "your-client-id",
   "type": "upload-file-result",
   "success": true,
@@ -443,6 +461,14 @@ Download a file from Foundry's file system
 ### Returns
 
 **binary|object** - File contents in the requested format
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/download"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":true,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"format","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -585,7 +611,7 @@ import axios from 'axios';
 ```json
 {
   "clientId": "your-client-id",
-  "requestId": "download_file_1765658045286_8kzwy71",
+  "requestId": "download_file_1773794726169_v5gnvy8",
   "success": true,
   "path": "rest-api-tests/test-file.txt",
   "filename": "test-file.txt",

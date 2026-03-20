@@ -12,6 +12,9 @@ export const TEST_ORDER = [
   // Phase 1: Session setup
   'session-endpoints.test.ts',   // Must run first to create sessions
   
+  // Phase 1b: Client listing (requires active session)
+  'client-endpoints.test.ts',    // Lists connected clients
+
   // Phase 2: Entity creation (creates test data for other tests)
   'entity-endpoints.test.ts',    // Creates actors, items, etc.
   

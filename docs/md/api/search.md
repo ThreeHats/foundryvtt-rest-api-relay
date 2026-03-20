@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # search
 
 ## GET /search
@@ -22,6 +24,14 @@ Search entities This endpoint allows searching for entities in the Foundry world
 ### Returns
 
 **object** - Search results containing matching entities
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/search"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"query","type":"string","required":true,"source":"query"},{"name":"filter","type":"string","required":false,"source":"query"}]}
+/>
 
 ### Code Examples
 
@@ -159,7 +169,7 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "search_1765658017045",
+  "requestId": "search_1773794698558",
   "clientId": "your-client-id",
   "type": "search-result",
   "query": "test-item",
@@ -167,12 +177,36 @@ import axios from 'axios';
   "results": [
     {
       "documentType": "Item",
-      "id": "B63bm3XmBFKlwCfW",
+      "id": "wIAD6PBEmIKEaEMX",
       "name": "test-item",
       "subType": "base",
-      "uuid": "Item.B63bm3XmBFKlwCfW",
+      "uuid": "Item.wIAD6PBEmIKEaEMX",
       "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
-      "journalLink": "@UUID[Item.B63bm3XmBFKlwCfW]{test-item}",
+      "journalLink": "@UUID[Item.wIAD6PBEmIKEaEMX]{test-item}",
+      "tagline": "Items Directory",
+      "formattedMatch": "<strong>test-item</strong>",
+      "resultType": "EntitySearchItem"
+    },
+    {
+      "documentType": "Item",
+      "id": "pInJr9D8kDdYWGAG",
+      "name": "test-item",
+      "subType": "base",
+      "uuid": "Item.pInJr9D8kDdYWGAG",
+      "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
+      "journalLink": "@UUID[Item.pInJr9D8kDdYWGAG]{test-item}",
+      "tagline": "Items Directory",
+      "formattedMatch": "<strong>test-item</strong>",
+      "resultType": "EntitySearchItem"
+    },
+    {
+      "documentType": "Item",
+      "id": "DXPuoPhaGMd6apse",
+      "name": "test-item",
+      "subType": "base",
+      "uuid": "Item.DXPuoPhaGMd6apse",
+      "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
+      "journalLink": "@UUID[Item.DXPuoPhaGMd6apse]{test-item}",
       "tagline": "Items Directory",
       "formattedMatch": "<strong>test-item</strong>",
       "resultType": "EntitySearchItem"

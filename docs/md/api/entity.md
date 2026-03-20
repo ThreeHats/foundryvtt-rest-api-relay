@@ -5,6 +5,8 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # entity
 
 ## GET /get
@@ -24,6 +26,14 @@ Get entity details This endpoint retrieves the details of a specific entity.
 
 **object** - Entity details object containing requested information
 
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/get"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"actor","type":"boolean","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -34,7 +44,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/get';
 const params = {
   clientId: 'your-client-id',
-  uuid: 'Actor.oYWDzZXfObDo6JYH'
+  uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -53,7 +63,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/get?clientId=your-client-id&uuid=Actor.oYWDzZXfObDo6JYH' \
+curl -X GET 'http://localhost:3010/get?clientId=your-client-id&uuid=Actor.E3Ve2pzkDJYYj9eZ' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -67,7 +77,7 @@ base_url = 'http://localhost:3010'
 path = '/get'
 params = {
     'clientId': 'your-client-id',
-    'uuid': 'Actor.oYWDzZXfObDo6JYH'
+    'uuid': 'Actor.E3Ve2pzkDJYYj9eZ'
 }
 url = f'{base_url}{path}'
 
@@ -93,7 +103,7 @@ import axios from 'axios';
   const path = '/get';
   const params = {
     clientId: 'your-client-id',
-    uuid: 'Actor.oYWDzZXfObDo6JYH'
+    uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -128,7 +138,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.oYWDzZXfObDo6JYH🔤 ➡️ uuid
+  🔤uuid=Actor.E3Ve2pzkDJYYj9eZ🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -156,15 +166,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "entity_1765658003058",
+  "requestId": "entity_1773794684057",
   "clientId": "your-client-id",
   "type": "entity-result",
-  "uuid": "Actor.oYWDzZXfObDo6JYH",
+  "uuid": "Actor.E3Ve2pzkDJYYj9eZ",
   "data": {
     "name": "test-actor",
     "type": "base",
     "folder": null,
-    "_id": "oYWDzZXfObDo6JYH",
+    "_id": "E3Ve2pzkDJYYj9eZ",
     "img": "icons/svg/mystery-man.svg",
     "system": {},
     "prototypeToken": {
@@ -276,8 +286,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1765658000221,
-      "modifiedTime": 1765658000221,
+      "createdTime": 1773794681164,
+      "modifiedTime": 1773794681164,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -303,6 +313,14 @@ Create a new entity This endpoint creates a new entity in the Foundry world.
 ### Returns
 
 **object** - Result of the entity creation operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/create"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"entityType","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"folder","type":"string","required":false,"source":"body"}]}
+/>
 
 ### Code Examples
 
@@ -461,15 +479,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create_1765658000053",
+  "requestId": "create_1773794680897",
   "clientId": "your-client-id",
   "type": "create-result",
-  "uuid": "Actor.oYWDzZXfObDo6JYH",
+  "uuid": "Actor.E3Ve2pzkDJYYj9eZ",
   "entity": {
     "name": "test-actor",
     "type": "base",
     "folder": null,
-    "_id": "oYWDzZXfObDo6JYH",
+    "_id": "E3Ve2pzkDJYYj9eZ",
     "img": "icons/svg/mystery-man.svg",
     "system": {},
     "prototypeToken": {
@@ -581,8 +599,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1765658000221,
-      "modifiedTime": 1765658000221,
+      "createdTime": 1773794681164,
+      "modifiedTime": 1773794681164,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -610,6 +628,14 @@ Update an existing entity This endpoint updates an existing entity in the Foundr
 
 **object** - Result of the entity update operation
 
+### Try It Out
+
+<ApiTester
+  method="PUT"
+  path="/update"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"actor","type":"boolean","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -620,7 +646,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/update';
 const params = {
   clientId: 'your-client-id',
-  uuid: 'Actor.oYWDzZXfObDo6JYH'
+  uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -645,7 +671,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/update?clientId=your-client-id&uuid=Actor.oYWDzZXfObDo6JYH' \
+curl -X PUT 'http://localhost:3010/update?clientId=your-client-id&uuid=Actor.E3Ve2pzkDJYYj9eZ' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"name":"Updated Test Actor"}}'
@@ -661,7 +687,7 @@ base_url = 'http://localhost:3010'
 path = '/update'
 params = {
     'clientId': 'your-client-id',
-    'uuid': 'Actor.oYWDzZXfObDo6JYH'
+    'uuid': 'Actor.E3Ve2pzkDJYYj9eZ'
 }
 url = f'{base_url}{path}'
 
@@ -692,7 +718,7 @@ import axios from 'axios';
   const path = '/update';
   const params = {
     clientId: 'your-client-id',
-    uuid: 'Actor.oYWDzZXfObDo6JYH'
+    uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -733,7 +759,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.oYWDzZXfObDo6JYH🔤 ➡️ uuid
+  🔤uuid=Actor.E3Ve2pzkDJYYj9eZ🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -764,16 +790,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update_1765658003300",
+  "requestId": "update_1773794684324",
   "clientId": "your-client-id",
   "type": "update-result",
-  "uuid": "Actor.oYWDzZXfObDo6JYH",
+  "uuid": "Actor.E3Ve2pzkDJYYj9eZ",
   "entity": [
     {
       "name": "Updated Test Actor",
       "type": "base",
       "folder": null,
-      "_id": "oYWDzZXfObDo6JYH",
+      "_id": "E3Ve2pzkDJYYj9eZ",
       "img": "icons/svg/mystery-man.svg",
       "system": {},
       "prototypeToken": {
@@ -885,8 +911,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1765658000221,
-        "modifiedTime": 1765658003542,
+        "createdTime": 1773794681164,
+        "modifiedTime": 1773794684551,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     }
@@ -913,6 +939,14 @@ Delete an entity This endpoint deletes an entity from the Foundry world.
 
 **object** - Result of the entity deletion operation
 
+### Try It Out
+
+<ApiTester
+  method="DELETE"
+  path="/delete"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -923,7 +957,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/delete';
 const params = {
   clientId: 'your-client-id',
-  uuid: 'Actor.Nwq3b7NG6gcMBUIP'
+  uuid: 'Actor.qItWfYTYwt88LqyU'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -942,7 +976,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete?clientId=your-client-id&uuid=Actor.Nwq3b7NG6gcMBUIP' \
+curl -X DELETE 'http://localhost:3010/delete?clientId=your-client-id&uuid=Actor.qItWfYTYwt88LqyU' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -956,7 +990,7 @@ base_url = 'http://localhost:3010'
 path = '/delete'
 params = {
     'clientId': 'your-client-id',
-    'uuid': 'Actor.Nwq3b7NG6gcMBUIP'
+    'uuid': 'Actor.qItWfYTYwt88LqyU'
 }
 url = f'{base_url}{path}'
 
@@ -982,7 +1016,7 @@ import axios from 'axios';
   const path = '/delete';
   const params = {
     clientId: 'your-client-id',
-    uuid: 'Actor.Nwq3b7NG6gcMBUIP'
+    uuid: 'Actor.qItWfYTYwt88LqyU'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1017,7 +1051,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.Nwq3b7NG6gcMBUIP🔤 ➡️ uuid
+  🔤uuid=Actor.qItWfYTYwt88LqyU🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1045,10 +1079,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete_1765658003806",
+  "requestId": "delete_1773794684830",
   "clientId": "your-client-id",
   "type": "delete-result",
-  "uuid": "Actor.Nwq3b7NG6gcMBUIP",
+  "uuid": "Actor.qItWfYTYwt88LqyU",
   "success": true
 }
 ```
@@ -1076,6 +1110,14 @@ Give an item to an entity This endpoint gives an item to a specified entity. Opt
 
 **object** - Result of the item giving operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/give"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"fromUuid","type":"string","required":false,"source":"body"},{"name":"toUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1097,8 +1139,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "toUuid": "Actor.oYWDzZXfObDo6JYH",
-      "itemUuid": "Item.B63bm3XmBFKlwCfW",
+      "toUuid": "Actor.E3Ve2pzkDJYYj9eZ",
+      "itemUuid": "Item.wIAD6PBEmIKEaEMX",
       "quantity": 1
     })
 });
@@ -1113,7 +1155,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/give?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"toUuid":"Actor.oYWDzZXfObDo6JYH","itemUuid":"Item.B63bm3XmBFKlwCfW","quantity":1}'
+  -d '{"toUuid":"Actor.E3Ve2pzkDJYYj9eZ","itemUuid":"Item.wIAD6PBEmIKEaEMX","quantity":1}'
 ```
 
 </TabItem>
@@ -1136,8 +1178,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "toUuid": "Actor.oYWDzZXfObDo6JYH",
-      "itemUuid": "Item.B63bm3XmBFKlwCfW",
+      "toUuid": "Actor.E3Ve2pzkDJYYj9eZ",
+      "itemUuid": "Item.wIAD6PBEmIKEaEMX",
       "quantity": 1
     }
 )
@@ -1168,8 +1210,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "toUuid": "Actor.oYWDzZXfObDo6JYH",
-        "itemUuid": "Item.B63bm3XmBFKlwCfW",
+        "toUuid": "Actor.E3Ve2pzkDJYYj9eZ",
+        "itemUuid": "Item.wIAD6PBEmIKEaEMX",
         "quantity": 1
       }
   });
@@ -1199,7 +1241,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"toUuid":"Actor.oYWDzZXfObDo6JYH","itemUuid":"Item.B63bm3XmBFKlwCfW","quantity":1}🔤 ➡️ body
+  🔤{"toUuid":"Actor.E3Ve2pzkDJYYj9eZ","itemUuid":"Item.wIAD6PBEmIKEaEMX","quantity":1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /give🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 83❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1226,13 +1268,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "give_1765658004567",
+  "requestId": "give_1773794685347",
   "clientId": "your-client-id",
   "type": "give-result",
-  "toUuid": "Actor.oYWDzZXfObDo6JYH",
+  "toUuid": "Actor.E3Ve2pzkDJYYj9eZ",
   "quantity": 1,
-  "itemUuid": "Item.B63bm3XmBFKlwCfW",
-  "newItemId": "KDKnxtftCGOw3fck",
+  "itemUuid": "Item.wIAD6PBEmIKEaEMX",
+  "newItemId": "XEoN8awYLpLzloh8",
   "success": true
 }
 ```
@@ -1259,6 +1301,14 @@ Remove an item from an entity This endpoint removes an item from a specified ent
 
 **object** - Result of the item removal operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/remove"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1280,8 +1330,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.oYWDzZXfObDo6JYH",
-      "itemUuid": "Actor.oYWDzZXfObDo6JYH.Item.KDKnxtftCGOw3fck",
+      "actorUuid": "Actor.E3Ve2pzkDJYYj9eZ",
+      "itemUuid": "Actor.E3Ve2pzkDJYYj9eZ.Item.XEoN8awYLpLzloh8",
       "quantity": 1
     })
 });
@@ -1296,7 +1346,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/remove?clientId=your-client-id' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.oYWDzZXfObDo6JYH","itemUuid":"Actor.oYWDzZXfObDo6JYH.Item.KDKnxtftCGOw3fck","quantity":1}'
+  -d '{"actorUuid":"Actor.E3Ve2pzkDJYYj9eZ","itemUuid":"Actor.E3Ve2pzkDJYYj9eZ.Item.XEoN8awYLpLzloh8","quantity":1}'
 ```
 
 </TabItem>
@@ -1319,8 +1369,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.oYWDzZXfObDo6JYH",
-      "itemUuid": "Actor.oYWDzZXfObDo6JYH.Item.KDKnxtftCGOw3fck",
+      "actorUuid": "Actor.E3Ve2pzkDJYYj9eZ",
+      "itemUuid": "Actor.E3Ve2pzkDJYYj9eZ.Item.XEoN8awYLpLzloh8",
       "quantity": 1
     }
 )
@@ -1351,8 +1401,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.oYWDzZXfObDo6JYH",
-        "itemUuid": "Actor.oYWDzZXfObDo6JYH.Item.KDKnxtftCGOw3fck",
+        "actorUuid": "Actor.E3Ve2pzkDJYYj9eZ",
+        "itemUuid": "Actor.E3Ve2pzkDJYYj9eZ.Item.XEoN8awYLpLzloh8",
         "quantity": 1
       }
   });
@@ -1382,7 +1432,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.oYWDzZXfObDo6JYH","itemUuid":"Actor.oYWDzZXfObDo6JYH.Item.KDKnxtftCGOw3fck","quantity":1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.E3Ve2pzkDJYYj9eZ","itemUuid":"Actor.E3Ve2pzkDJYYj9eZ.Item.XEoN8awYLpLzloh8","quantity":1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /remove🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 109❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1409,11 +1459,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "remove_1765658005102",
+  "requestId": "remove_1773794685876",
   "clientId": "your-client-id",
   "type": "remove-result",
-  "actorUuid": "Actor.oYWDzZXfObDo6JYH",
-  "itemUuid": "Actor.oYWDzZXfObDo6JYH.Item.KDKnxtftCGOw3fck",
+  "actorUuid": "Actor.E3Ve2pzkDJYYj9eZ",
+  "itemUuid": "Actor.E3Ve2pzkDJYYj9eZ.Item.XEoN8awYLpLzloh8",
   "quantity": 0,
   "success": true
 }
@@ -1440,6 +1490,14 @@ Decrease an attribute This endpoint decreases an attribute of a specified entity
 
 **object** - Result of the attribute decrease operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/decrease"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"attribute","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1450,7 +1508,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/decrease';
 const params = {
   clientId: 'your-client-id',
-  uuid: 'Actor.oYWDzZXfObDo6JYH'
+  uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1474,7 +1532,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/decrease?clientId=your-client-id&uuid=Actor.oYWDzZXfObDo6JYH' \
+curl -X POST 'http://localhost:3010/decrease?clientId=your-client-id&uuid=Actor.E3Ve2pzkDJYYj9eZ' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"attribute":"prototypeToken.height","amount":5}'
@@ -1490,7 +1548,7 @@ base_url = 'http://localhost:3010'
 path = '/decrease'
 params = {
     'clientId': 'your-client-id',
-    'uuid': 'Actor.oYWDzZXfObDo6JYH'
+    'uuid': 'Actor.E3Ve2pzkDJYYj9eZ'
 }
 url = f'{base_url}{path}'
 
@@ -1520,7 +1578,7 @@ import axios from 'axios';
   const path = '/decrease';
   const params = {
     clientId: 'your-client-id',
-    uuid: 'Actor.oYWDzZXfObDo6JYH'
+    uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1560,7 +1618,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.oYWDzZXfObDo6JYH🔤 ➡️ uuid
+  🔤uuid=Actor.E3Ve2pzkDJYYj9eZ🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1591,12 +1649,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "decrease_1765658006160",
+  "requestId": "decrease_1773794686901",
   "clientId": "your-client-id",
   "type": "decrease-result",
   "results": [
     {
-      "uuid": "Actor.oYWDzZXfObDo6JYH",
+      "uuid": "Actor.E3Ve2pzkDJYYj9eZ",
       "attribute": "prototypeToken.height",
       "oldValue": 6,
       "newValue": 1
@@ -1627,6 +1685,14 @@ Increase an attribute This endpoint increases an attribute of a specified entity
 
 **object** - Result of the attribute increase operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/increase"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"attribute","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1637,7 +1703,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/increase';
 const params = {
   clientId: 'your-client-id',
-  uuid: 'Actor.oYWDzZXfObDo6JYH'
+  uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1661,7 +1727,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/increase?clientId=your-client-id&uuid=Actor.oYWDzZXfObDo6JYH' \
+curl -X POST 'http://localhost:3010/increase?clientId=your-client-id&uuid=Actor.E3Ve2pzkDJYYj9eZ' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"attribute":"prototypeToken.height","amount":5}'
@@ -1677,7 +1743,7 @@ base_url = 'http://localhost:3010'
 path = '/increase'
 params = {
     'clientId': 'your-client-id',
-    'uuid': 'Actor.oYWDzZXfObDo6JYH'
+    'uuid': 'Actor.E3Ve2pzkDJYYj9eZ'
 }
 url = f'{base_url}{path}'
 
@@ -1707,7 +1773,7 @@ import axios from 'axios';
   const path = '/increase';
   const params = {
     clientId: 'your-client-id',
-    uuid: 'Actor.oYWDzZXfObDo6JYH'
+    uuid: 'Actor.E3Ve2pzkDJYYj9eZ'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1747,7 +1813,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.oYWDzZXfObDo6JYH🔤 ➡️ uuid
+  🔤uuid=Actor.E3Ve2pzkDJYYj9eZ🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1778,12 +1844,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "increase_1765658005618",
+  "requestId": "increase_1773794686408",
   "clientId": "your-client-id",
   "type": "increase-result",
   "results": [
     {
-      "uuid": "Actor.oYWDzZXfObDo6JYH",
+      "uuid": "Actor.E3Ve2pzkDJYYj9eZ",
       "attribute": "prototypeToken.height",
       "oldValue": 1,
       "newValue": 6
@@ -1812,6 +1878,14 @@ Kill an entity Marks an entity as killed in the combat tracker, gives it the "de
 
 **object** - Result of the entity kill operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/kill"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"}]}
+/>
+
 ### Code Examples
 
 <Tabs groupId="programming-language">
@@ -1822,7 +1896,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/kill';
 const params = {
   clientId: 'your-client-id',
-  uuid: 'Actor.LbWFqzqfSKQ6t7fo'
+  uuid: 'Actor.KqBznQo2iKKd84sK'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1841,7 +1915,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/kill?clientId=your-client-id&uuid=Actor.LbWFqzqfSKQ6t7fo' \
+curl -X POST 'http://localhost:3010/kill?clientId=your-client-id&uuid=Actor.KqBznQo2iKKd84sK' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1855,7 +1929,7 @@ base_url = 'http://localhost:3010'
 path = '/kill'
 params = {
     'clientId': 'your-client-id',
-    'uuid': 'Actor.LbWFqzqfSKQ6t7fo'
+    'uuid': 'Actor.KqBznQo2iKKd84sK'
 }
 url = f'{base_url}{path}'
 
@@ -1881,7 +1955,7 @@ import axios from 'axios';
   const path = '/kill';
   const params = {
     clientId: 'your-client-id',
-    uuid: 'Actor.LbWFqzqfSKQ6t7fo'
+    uuid: 'Actor.KqBznQo2iKKd84sK'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1916,7 +1990,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.LbWFqzqfSKQ6t7fo🔤 ➡️ uuid
+  🔤uuid=Actor.KqBznQo2iKKd84sK🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1944,12 +2018,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "kill_1765658006658",
+  "requestId": "kill_1773794687406",
   "clientId": "your-client-id",
   "type": "kill-result",
   "results": [
     {
-      "uuid": "Actor.LbWFqzqfSKQ6t7fo",
+      "uuid": "Actor.KqBznQo2iKKd84sK",
       "success": true,
       "message": "Actor marked as defeated, HP set to 0, and dead effect applied to 0 tokens"
     }

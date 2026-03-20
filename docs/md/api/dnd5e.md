@@ -2,6 +2,8 @@
 tag: dnd5e
 ---
 
+import ApiTester from '@site/src/components/ApiTester';
+
 # dnd5e
 
 ## GET /get-actor-details
@@ -19,6 +21,14 @@ Get detailed information for a specific D&D 5e actor. Retrieves comprehensive de
 ### Returns
 
 **object** - Actor details object containing requested information
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/get-actor-details"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"details","type":"array","required":true,"source":"body"}]}
+/>
 
 ---
 
@@ -39,6 +49,14 @@ Modify the charges for a specific item owned by an actor. Increases or decreases
 ### Returns
 
 **object** - Result of the charge modification operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/modify-item-charges"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"}]}
+/>
 
 ---
 
@@ -61,6 +79,14 @@ Use a general ability for an actor. Triggers the use of any ability, feature, sp
 
 **object** - Result of the ability use operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/use-ability"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"}]}
+/>
+
 ---
 
 ## POST /use-feature
@@ -81,6 +107,14 @@ Use a class or racial feature for an actor. Activates class features (like Actio
 ### Returns
 
 **object** - Result of the feature use operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/use-feature"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"}]}
+/>
 
 ---
 
@@ -103,6 +137,14 @@ Cast a spell for an actor. Casts a spell from the actor's spell list, consuming 
 
 **object** - Result of the spell casting operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/use-spell"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"}]}
+/>
+
 ---
 
 ## POST /use-item
@@ -124,6 +166,14 @@ Use an item for an actor. Activates an item from the actor's inventory, such as 
 
 **object** - Result of the item use operation
 
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/use-item"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"}]}
+/>
+
 ---
 
 ## POST /modify-experience
@@ -142,4 +192,12 @@ Modify the experience points for a specific actor. Adds or removes experience po
 ### Returns
 
 **object** - Result of the experience modification operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/modify-experience"
+  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"}]}
+/>
 
