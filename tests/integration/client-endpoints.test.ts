@@ -17,7 +17,7 @@ const capturedExamples: any[] = [];
 describe('Clients', () => {
   afterAll(() => {
     // Save captured examples for documentation
-    const outputPath = path.join(__dirname, '../../docs/examples/client-examples.json');
+    const outputPath = path.join(__dirname, '../../docs/examples/clients-examples.json');
     saveExamples(capturedExamples, outputPath);
     console.log(`\nSaved ${capturedExamples.length} examples to ${outputPath}`);
   });
