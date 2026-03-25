@@ -281,6 +281,79 @@ async function main() {
     updateMarkdownWithExamples(mdPath, sanitizedExamples);
   }
 
+  // Process WS example files and inject into websocket.md
+  const wsExampleFiles = fs.readdirSync(examplesDir)
+    .filter(file => file.startsWith('ws-') && file.endsWith('-examples.json'));
+
+  if (wsExampleFiles.length > 0) {
+    const wsDocsPath = path.join(docsDir, 'websocket.md');
+    if (fs.existsSync(wsDocsPath)) {
+      let wsContent = fs.readFileSync(wsDocsPath, 'utf8');
+
+      for (const file of wsExampleFiles) {
+        const wsExamples = JSON.parse(fs.readFileSync(path.join(examplesDir, file), 'utf8'));
+        console.log(`Processing WS examples: ${file} (${wsExamples.length} examples)`);
+
+        // Build a code examples section to append
+        let examplesSection = '\n## Code Examples\n\n';
+
+        // Ensure Tabs imports exist
+        if (!wsContent.includes('import Tabs') && wsExamples.length > 0) {
+          const lines = wsContent.split('\n');
+          let frontmatterEnd = -1;
+          if (lines[0] === '---') {
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i] === '---') { frontmatterEnd = i; break; }
+            }
+          }
+          if (frontmatterEnd !== -1) {
+            lines.splice(frontmatterEnd + 1, 0,
+              "import Tabs from '@theme/Tabs';",
+              "import TabItem from '@theme/TabItem';",
+              ''
+            );
+            wsContent = lines.join('\n');
+          }
+        }
+
+        for (const example of wsExamples) {
+          examplesSection += `### ${example.messageType}\n\n`;
+          examplesSection += `${example.description}\n\n`;
+
+          examplesSection += '<Tabs groupId="programming-language">\n';
+
+          examplesSection += '<TabItem value="javascript" label="JavaScript">\n\n';
+          examplesSection += '```javascript\n' + example.codeExamples.javascript + '\n```\n\n';
+          examplesSection += '</TabItem>\n';
+
+          examplesSection += '<TabItem value="python" label="Python">\n\n';
+          examplesSection += '```python\n' + example.codeExamples.python + '\n```\n\n';
+          examplesSection += '</TabItem>\n';
+
+          examplesSection += '<TabItem value="typescript" label="TypeScript">\n\n';
+          examplesSection += '```typescript\n' + example.codeExamples.typescript + '\n```\n\n';
+          examplesSection += '</TabItem>\n';
+          examplesSection += '</Tabs>\n\n';
+
+          // Response example
+          if (example.response) {
+            examplesSection += '#### Response\n\n';
+            examplesSection += '```json\n' + JSON.stringify(example.response, null, 2) + '\n```\n\n';
+          }
+        }
+
+        // Remove existing Code Examples section and append new one
+        wsContent = wsContent.replace(/\n## Code Examples\n[\s\S]*$/, '');
+        wsContent += examplesSection;
+      }
+
+      fs.writeFileSync(wsDocsPath, wsContent);
+      console.log(`Updated websocket.md with WS examples`);
+    } else {
+      console.warn('websocket.md not found, skipping WS examples injection');
+    }
+  }
+
   console.log('\nDocumentation update complete!');
   console.log('\nNext steps:');
   console.log('1. Review the updated markdown files in docs/md/api/');

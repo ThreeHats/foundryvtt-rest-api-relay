@@ -17,7 +17,7 @@ Select token(s) Selects one or more tokens in the Foundry VTT client.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | uuids | array |  | body | Array of UUIDs to select |
 | name | string |  | body | Name of the token(s) to select |
 | data | object |  | body | Data to match for selection (e.g., "data.attributes.hp.value": 20) |
@@ -34,7 +34,7 @@ Select token(s) Selects one or more tokens in the Foundry VTT client.
 <ApiTester
   method="POST"
   path="/select"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"data","type":"object","required":false,"source":"body"},{"name":"overwrite","type":"boolean","required":false,"source":"body"},{"name":"all","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"data","type":"object","required":false,"source":"body"},{"name":"overwrite","type":"boolean","required":false,"source":"body"},{"name":"all","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -46,7 +46,7 @@ Select token(s) Selects one or more tokens in the Foundry VTT client.
 const baseUrl = 'http://localhost:3010';
 const path = '/select';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -70,7 +70,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/select?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/select?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"all":true,"overwrite":true}'
@@ -85,7 +85,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/select'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -114,7 +114,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/select';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -153,7 +153,7 @@ import axios from 'axios';
   🔤/select🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -184,14 +184,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "select_1774001787683",
-  "clientId": "your-client-id",
   "type": "select-result",
+  "requestId": "select_1774367600369",
   "success": true,
   "count": 1,
   "message": "1 entities selected",
   "selected": [
-    "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU"
+    "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS"
   ]
 }
 ```
@@ -207,7 +206,7 @@ Get selected token(s) Retrieves the currently selected token(s) in the Foundry V
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -219,7 +218,7 @@ Get selected token(s) Retrieves the currently selected token(s) in the Foundry V
 <ApiTester
   method="GET"
   path="/selected"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -231,7 +230,7 @@ Get selected token(s) Retrieves the currently selected token(s) in the Foundry V
 const baseUrl = 'http://localhost:3010';
 const path = '/selected';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -250,7 +249,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/selected?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/selected?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -263,7 +262,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/selected'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -288,7 +287,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/selected';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -322,7 +321,7 @@ import axios from 'axios';
   🔤/selected🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -350,14 +349,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "selected_1774001787768",
-  "clientId": "your-client-id",
   "type": "selected-result",
+  "requestId": "selected_1774367600374",
   "success": true,
   "selected": [
     {
-      "tokenUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
-      "actorUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG"
+      "tokenUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
+      "actorUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl"
     }
   ]
 }
@@ -374,7 +372,7 @@ Get players/users Retrieves a list of all users configured in the Foundry VTT wo
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -386,7 +384,7 @@ Get players/users Retrieves a list of all users configured in the Foundry VTT wo
 <ApiTester
   method="GET"
   path="/players"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -398,7 +396,7 @@ Get players/users Retrieves a list of all users configured in the Foundry VTT wo
 const baseUrl = 'http://localhost:3010';
 const path = '/players';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -417,7 +415,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/players?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/players?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -430,7 +428,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/players'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -455,7 +453,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/players';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -489,7 +487,7 @@ import axios from 'axios';
   🔤/players🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -517,9 +515,8 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "players_1774001787970",
-  "clientId": "your-client-id",
   "type": "players-result",
+  "requestId": "players_1774367600379",
   "users": [
     {
       "id": "5ypAoBvOiyjDKiaZ",
@@ -563,7 +560,7 @@ Execute JavaScript Executes a JavaScript script in the Foundry VTT client.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | script | string |  | body | JavaScript script to execute |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -576,7 +573,7 @@ Execute JavaScript Executes a JavaScript script in the Foundry VTT client.
 <ApiTester
   method="POST"
   path="/execute-js"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"script","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"script","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -588,7 +585,7 @@ Execute JavaScript Executes a JavaScript script in the Foundry VTT client.
 const baseUrl = 'http://localhost:3010';
 const path = '/execute-js';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -611,7 +608,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/execute-js?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/execute-js?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"script":"const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"}'
@@ -626,7 +623,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/execute-js'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -654,7 +651,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/execute-js';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -692,7 +689,7 @@ import axios from 'axios';
   🔤/execute-js🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -723,12 +720,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "execute-js_1774001788119",
-  "clientId": "your-client-id",
   "type": "execute-js-result",
+  "requestId": "execute-js_1774367600387",
   "success": true,
-  "result": "ws://localhost:3010"
+  "result": "ws://localhost:3010/"
 }
 ```
-
 

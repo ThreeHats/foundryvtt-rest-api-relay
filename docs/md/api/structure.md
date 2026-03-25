@@ -17,7 +17,7 @@ Get the structure of the Foundry world Retrieves the folder and compendium struc
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | includeEntityData | boolean |  | query | Whether to include full entity data or just UUIDs and names |
 | path | string |  | query | Path to read structure from (null = root) |
 | recursive | boolean |  | query | Whether to read down the folder tree |
@@ -34,7 +34,7 @@ Get the structure of the Foundry world Retrieves the folder and compendium struc
 <ApiTester
   method="GET"
   path="/structure"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"includeEntityData","type":"boolean","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"},{"name":"recursiveDepth","type":"number","required":false,"source":"query"},{"name":"types","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"includeEntityData","type":"boolean","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"},{"name":"recursiveDepth","type":"number","required":false,"source":"query"},{"name":"types","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -46,7 +46,7 @@ Get the structure of the Foundry world Retrieves the folder and compendium struc
 const baseUrl = 'http://localhost:3010';
 const path = '/structure';
 const params = {
-  clientId: 'your-client-id',
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
   includeEntityData: 'true',
   recursive: 'true',
   types: 'Scene'
@@ -68,7 +68,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/structure?clientId=your-client-id&includeEntityData=true&recursive=true&types=Scene' \
+curl -X GET 'http://localhost:3010/structure?clientId=foundry-testing-r6bXhB7k9cXa3cif&includeEntityData=true&recursive=true&types=Scene' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -81,7 +81,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/structure'
 params = {
-    'clientId': 'your-client-id',
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
     'includeEntityData': 'true',
     'recursive': 'true',
     'types': 'Scene'
@@ -109,7 +109,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/structure';
   const params = {
-    clientId: 'your-client-id',
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
     includeEntityData: 'true',
     recursive: 'true',
     types: 'Scene'
@@ -146,7 +146,7 @@ import axios from 'axios';
   🔤/structure🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤includeEntityData=true🔤 ➡️ includeEntityData
   🔤recursive=true🔤 ➡️ recursive
   🔤types=Scene🔤 ➡️ types
@@ -177,14 +177,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "structure_1774001776288",
-  "clientId": "your-client-id",
   "type": "structure-result",
+  "requestId": "structure_1774367596685",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "ZyayMq63ICSWmTft",
-        "uuid": "Folder.ZyayMq63ICSWmTft",
+        "id": "X6SfIWqtrd0NZsNk",
+        "uuid": "Folder.X6SfIWqtrd0NZsNk",
         "type": "Scene"
       }
     },
@@ -276,7 +275,40 @@ import axios from 'axios';
               "shadows": 0
             }
           },
-          "drawings": [],
+          "drawings": [
+            {
+              "_id": "YXXBrFbROdLYoYvm",
+              "author": "r6bXhB7k9cXa3cif",
+              "shape": {
+                "type": "r",
+                "width": 100,
+                "height": 100,
+                "radius": null,
+                "points": []
+              },
+              "x": 100,
+              "y": 100,
+              "elevation": 0,
+              "sort": 0,
+              "rotation": 0,
+              "bezierFactor": 0,
+              "fillType": 0,
+              "fillColor": "#cc2829",
+              "fillAlpha": 0.5,
+              "strokeWidth": 8,
+              "strokeColor": "#cc2829",
+              "strokeAlpha": 1,
+              "texture": null,
+              "fontFamily": "Signika",
+              "fontSize": 48,
+              "textColor": "#ffffff",
+              "textAlpha": 1,
+              "hidden": false,
+              "locked": false,
+              "interface": false,
+              "flags": {}
+            }
+          ],
           "tokens": [
             {
               "_id": "ZROaJlBucaNukYyI",
@@ -639,7 +671,7 @@ import axios from 'axios';
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "createdTime": 1763765287462,
-            "modifiedTime": 1774001745358,
+            "modifiedTime": 1774161338704,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -647,7 +679,241 @@ import axios from 'axios';
           }
         },
         {
-          "_id": "3Uqr7p8CXMoL0pVi",
+          "_id": "zA0IVJWezqEadUaA",
+          "name": "test-scene-expendable",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 500,
+          "height": 500,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1774161335815,
+            "modifiedTime": 1774161335815,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "lQBzUavCuBjGxRW8",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1774161335040,
+            "modifiedTime": 1774367584402,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "u2dOm1Uzbx9CT9jn",
           "name": "test-scene-updated",
           "active": true,
           "navigation": true,
@@ -733,13 +999,13 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "BmoRnUj9Ab3iNgkU",
+              "_id": "N1VQ21SQYx1RYjGS",
               "name": "Updated Test Actor",
               "displayName": 0,
-              "actorId": "2Hl8s4nj9yJQueBG",
+              "actorId": "ioZexonJDGVuU8zl",
               "actorLink": false,
               "delta": {
-                "_id": "SgR4RKe0eT6C9MA9",
+                "_id": "fJtkarMd3HlcVJf8",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -804,24 +1070,23 @@ import axios from 'axios';
                       "advancement": [
                         {
                           "_id": "nInhIgkbzzJTdm8F",
-                          "type": "ItemGrant",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ"
                               }
                             ],
                             "optional": false,
@@ -835,72 +1100,73 @@ import axios from 'axios';
                               }
                             }
                           },
+                          "level": 0,
+                          "title": "",
+                          "type": "ItemGrant",
                           "value": {
                             "added": {
+                              "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
                               "FtOM4QiOW5MwgcS3": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-                              "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
                               "cWrETHzCRs1Ueqd3": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-                              "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
+                              "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
                             }
-                          },
-                          "level": 0,
-                          "title": ""
+                          }
                         },
                         {
                           "_id": "Z9hvZFkWUNvowbQX",
-                          "type": "AbilityScoreImprovement",
                           "configuration": {
-                            "points": 0,
-                            "fixed": {
-                              "str": 0,
-                              "dex": 2,
-                              "con": 0,
-                              "int": 0,
-                              "wis": 0,
-                              "cha": 1
-                            },
                             "cap": 2,
-                            "locked": []
-                          },
-                          "value": {
-                            "type": "asi",
-                            "assignments": {
+                            "fixed": {
+                              "cha": 1,
+                              "con": 0,
                               "dex": 2,
-                              "cha": 1
-                            }
+                              "int": 0,
+                              "str": 0,
+                              "wis": 0
+                            },
+                            "locked": [],
+                            "points": 0
                           },
                           "level": 0,
-                          "title": ""
+                          "title": "",
+                          "type": "AbilityScoreImprovement",
+                          "value": {
+                            "assignments": {
+                              "cha": 1,
+                              "dex": 2
+                            },
+                            "type": "asi"
+                          }
                         },
                         {
                           "_id": "hv2bcANK5jEJZaAb",
-                          "type": "Size",
                           "configuration": {
                             "sizes": [
                               "sm"
                             ]
                           },
-                          "value": {
-                            "size": "sm"
-                          },
+                          "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.",
                           "level": 1,
                           "title": "",
-                          "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."
+                          "type": "Size",
+                          "value": {
+                            "size": "sm"
+                          }
                         },
                         {
                           "_id": "nGwMjsfNU6CXHk3A",
-                          "type": "Trait",
                           "configuration": {
-                            "mode": "default",
                             "allowReplacements": false,
+                            "choices": [],
                             "grants": [
                               "languages:standard:common",
                               "languages:standard:halfling"
                             ],
-                            "choices": []
+                            "mode": "default"
                           },
                           "level": 0,
                           "title": "",
+                          "type": "Trait",
                           "value": {
                             "chosen": [
                               "languages:standard:common",
@@ -996,12 +1262,12 @@ import axios from 'axios';
                     },
                     "flags": {
                       "dnd5e": {
-                        "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
                         "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
                         "riders": {
                           "activity": [],
                           "effect": []
-                        }
+                        },
+                        "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4"
                       }
                     },
                     "_stats": {
@@ -1061,12 +1327,12 @@ import axios from 'axios';
                     },
                     "flags": {
                       "dnd5e": {
-                        "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
                         "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
                         "riders": {
                           "activity": [],
                           "effect": []
-                        }
+                        },
+                        "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
                       }
                     },
                     "_stats": {
@@ -1126,12 +1392,12 @@ import axios from 'axios';
                     },
                     "flags": {
                       "dnd5e": {
-                        "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
                         "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
                         "riders": {
                           "activity": [],
                           "effect": []
-                        }
+                        },
+                        "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t"
                       }
                     },
                     "_stats": {
@@ -1191,12 +1457,12 @@ import axios from 'axios';
                     },
                     "flags": {
                       "dnd5e": {
-                        "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
                         "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
                         "riders": {
                           "activity": [],
                           "effect": []
-                        }
+                        },
+                        "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
                       }
                     },
                     "_stats": {
@@ -1302,29 +1568,29 @@ import axios from 'axios';
                       },
                       "advancement": [
                         {
-                          "type": "HitPoints",
+                          "_id": "ocxNtDFJ7YDaYaK7",
                           "configuration": {},
+                          "icon": "systems/dnd5e/icons/svg/hit-points.svg",
+                          "title": "Hit Points",
+                          "type": "HitPoints",
                           "value": {
                             "1": "max"
-                          },
-                          "title": "Hit Points",
-                          "icon": "systems/dnd5e/icons/svg/hit-points.svg",
-                          "_id": "ocxNtDFJ7YDaYaK7"
+                          }
                         },
                         {
                           "_id": "mmAxx3U7FvXNAcKc",
-                          "type": "Trait",
                           "configuration": {
-                            "mode": "default",
                             "allowReplacements": false,
+                            "choices": [],
                             "grants": [
                               "weapon:sim",
                               "weapon:mar:shortsword"
                             ],
-                            "choices": []
+                            "mode": "default"
                           },
                           "level": 1,
                           "title": "",
+                          "type": "Trait",
                           "value": {
                             "chosen": [
                               "weapon:sim",
@@ -1334,11 +1600,9 @@ import axios from 'axios';
                         },
                         {
                           "_id": "QPXy59CQGY9HB0c3",
-                          "type": "Trait",
+                          "classRestriction": "primary",
                           "configuration": {
-                            "mode": "default",
                             "allowReplacements": false,
-                            "grants": [],
                             "choices": [
                               {
                                 "count": 1,
@@ -1347,11 +1611,13 @@ import axios from 'axios';
                                   "tool:music:*"
                                 ]
                               }
-                            ]
+                            ],
+                            "grants": [],
+                            "mode": "default"
                           },
                           "level": 1,
                           "title": "",
-                          "classRestriction": "primary",
+                          "type": "Trait",
                           "value": {
                             "chosen": [
                               "tool:art:brewer"
@@ -1360,19 +1626,19 @@ import axios from 'axios';
                         },
                         {
                           "_id": "4M8MQ1E64zbcRg6B",
-                          "type": "Trait",
+                          "classRestriction": "primary",
                           "configuration": {
-                            "mode": "default",
                             "allowReplacements": false,
+                            "choices": [],
                             "grants": [
                               "saves:str",
                               "saves:dex"
                             ],
-                            "choices": []
+                            "mode": "default"
                           },
                           "level": 1,
                           "title": "",
-                          "classRestriction": "primary",
+                          "type": "Trait",
                           "value": {
                             "chosen": [
                               "saves:str",
@@ -1382,11 +1648,9 @@ import axios from 'axios';
                         },
                         {
                           "_id": "7HRRCPk80Ng2Evdx",
-                          "type": "Trait",
+                          "classRestriction": "primary",
                           "configuration": {
-                            "mode": "default",
                             "allowReplacements": false,
-                            "grants": [],
                             "choices": [
                               {
                                 "count": 2,
@@ -1399,11 +1663,13 @@ import axios from 'axios';
                                   "skills:ste"
                                 ]
                               }
-                            ]
+                            ],
+                            "grants": [],
+                            "mode": "default"
                           },
                           "level": 1,
                           "title": "",
-                          "classRestriction": "primary",
+                          "type": "Trait",
                           "value": {
                             "chosen": [
                               "skills:acr",
@@ -1413,39 +1679,39 @@ import axios from 'axios';
                         },
                         {
                           "_id": "BQWHr3mt5flvkfIj",
-                          "type": "Trait",
                           "configuration": {
-                            "mode": "default",
                             "allowReplacements": false,
+                            "choices": [],
                             "grants": [
                               "di:poison",
                               "ci:diseased",
                               "ci:poisoned"
                             ],
-                            "choices": []
+                            "mode": "default"
                           },
+                          "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison.",
                           "level": 10,
                           "title": "Purity of Body",
+                          "type": "Trait",
                           "value": {
                             "chosen": []
-                          },
-                          "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison."
+                          }
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "n0q8XyiGA3vLPgpK",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO"
                               }
                             ],
                             "optional": false,
@@ -1457,42 +1723,42 @@ import axios from 'axios';
                                 "per": "",
                                 "requireSlot": false
                               }
-                            }
-                          },
-                          "value": {
-                            "added": {
-                              "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-                              "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-                              "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO"
                             }
                           },
                           "level": 1,
                           "title": "Features",
-                          "_id": "n0q8XyiGA3vLPgpK"
+                          "type": "ItemGrant",
+                          "value": {
+                            "added": {
+                              "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
+                              "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO",
+                              "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
+                            }
+                          }
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "7TyDqpGGi3r3nsp0",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW"
                               }
                             ],
                             "optional": false,
@@ -1506,22 +1772,22 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 2,
                           "title": "Features",
-                          "_id": "7TyDqpGGi3r3nsp0"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "2sLHTw6k15DSW8WB",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe"
                               }
                             ],
                             "optional": false,
@@ -1535,18 +1801,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 3,
                           "title": "Features",
-                          "_id": "2sLHTw6k15DSW8WB"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "Zc1jOZK1b9mIKekq",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK"
                               }
                             ],
                             "optional": false,
@@ -1560,22 +1826,22 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 4,
                           "title": "Features",
-                          "_id": "Zc1jOZK1b9mIKekq"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "j9LeWmxlsENKaMLo",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC"
                               }
                             ],
                             "optional": false,
@@ -1589,18 +1855,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 5,
                           "title": "Features",
-                          "_id": "j9LeWmxlsENKaMLo"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "psobDjMqtA2216Db",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D"
                               }
                             ],
                             "optional": false,
@@ -1614,22 +1880,22 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 6,
                           "title": "Features",
-                          "_id": "psobDjMqtA2216Db"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "K38aFaEMxMqRB0BC",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC"
                               },
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc"
                               }
                             ],
                             "optional": false,
@@ -1643,18 +1909,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 7,
                           "title": "Features",
-                          "_id": "K38aFaEMxMqRB0BC"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "eLqmJotmwzlGNrxG",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp"
                               }
                             ],
                             "optional": false,
@@ -1668,18 +1934,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 10,
                           "title": "Features",
-                          "_id": "eLqmJotmwzlGNrxG"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "N0geIQiuofqYgswj",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4"
                               }
                             ],
                             "optional": false,
@@ -1693,18 +1959,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 13,
                           "title": "Features",
-                          "_id": "N0geIQiuofqYgswj"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "N1hjizyI82UPp8UI",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN"
                               }
                             ],
                             "optional": false,
@@ -1718,18 +1984,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 14,
                           "title": "Features",
-                          "_id": "N1hjizyI82UPp8UI"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "TcLZS9WzC7bPETSd",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI"
                               }
                             ],
                             "optional": false,
@@ -1743,18 +2009,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 15,
                           "title": "Features",
-                          "_id": "TcLZS9WzC7bPETSd"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "tRb3a0tA5IpehPs8",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH"
                               }
                             ],
                             "optional": false,
@@ -1768,18 +2034,18 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 18,
                           "title": "Features",
-                          "_id": "tRb3a0tA5IpehPs8"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ItemGrant",
+                          "_id": "sEQz9c9XhWYjS9x5",
                           "configuration": {
                             "items": [
                               {
-                                "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4",
-                                "optional": false
+                                "optional": false,
+                                "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4"
                               }
                             ],
                             "optional": false,
@@ -1793,54 +2059,53 @@ import axios from 'axios';
                               }
                             }
                           },
-                          "value": {},
                           "level": 20,
                           "title": "Features",
-                          "_id": "sEQz9c9XhWYjS9x5"
+                          "type": "ItemGrant",
+                          "value": {}
                         },
                         {
-                          "type": "ScaleValue",
+                          "_id": "MXFbf0nxMiyLdPbX",
                           "configuration": {
-                            "identifier": "die",
-                            "type": "dice",
                             "distance": {
                               "units": ""
                             },
+                            "identifier": "die",
                             "scale": {
                               "1": {
-                                "number": null,
                                 "faces": 4,
-                                "modifiers": []
+                                "modifiers": [],
+                                "number": null
                               },
                               "5": {
-                                "number": null,
                                 "faces": 6,
-                                "modifiers": []
+                                "modifiers": [],
+                                "number": null
                               },
                               "11": {
-                                "number": null,
                                 "faces": 8,
-                                "modifiers": []
+                                "modifiers": [],
+                                "number": null
                               },
                               "17": {
-                                "number": null,
                                 "faces": 10,
-                                "modifiers": []
+                                "modifiers": [],
+                                "number": null
                               }
-                            }
+                            },
+                            "type": "dice"
                           },
-                          "value": {},
                           "title": "Martial Arts Die",
-                          "_id": "MXFbf0nxMiyLdPbX"
+                          "type": "ScaleValue",
+                          "value": {}
                         },
                         {
-                          "type": "ScaleValue",
+                          "_id": "1OzfWDWCquoHMeX5",
                           "configuration": {
-                            "identifier": "unarmored-movement",
-                            "type": "distance",
                             "distance": {
                               "units": "ft"
                             },
+                            "identifier": "unarmored-movement",
                             "scale": {
                               "2": {
                                 "value": 10
@@ -1857,132 +2122,133 @@ import axios from 'axios';
                               "18": {
                                 "value": 30
                               }
-                            }
+                            },
+                            "type": "distance"
                           },
-                          "value": {},
                           "title": "Unarmored Movement",
-                          "_id": "1OzfWDWCquoHMeX5"
+                          "type": "ScaleValue",
+                          "value": {}
                         },
                         {
-                          "type": "AbilityScoreImprovement",
+                          "_id": "ofNSUhSHKhhDuPSR",
                           "configuration": {
-                            "points": 2,
-                            "fixed": {
-                              "str": 0,
-                              "dex": 0,
-                              "con": 0,
-                              "int": 0,
-                              "wis": 0,
-                              "cha": 0
-                            },
                             "cap": 2,
-                            "locked": []
-                          },
-                          "value": {
-                            "type": "asi"
+                            "fixed": {
+                              "cha": 0,
+                              "con": 0,
+                              "dex": 0,
+                              "int": 0,
+                              "str": 0,
+                              "wis": 0
+                            },
+                            "locked": [],
+                            "points": 2
                           },
                           "level": 4,
                           "title": "Ability Score Improvement",
-                          "_id": "ofNSUhSHKhhDuPSR"
-                        },
-                        {
                           "type": "AbilityScoreImprovement",
-                          "configuration": {
-                            "points": 2,
-                            "fixed": {
-                              "str": 0,
-                              "dex": 0,
-                              "con": 0,
-                              "int": 0,
-                              "wis": 0,
-                              "cha": 0
-                            },
-                            "cap": 2,
-                            "locked": []
-                          },
                           "value": {
                             "type": "asi"
+                          }
+                        },
+                        {
+                          "_id": "s3t9o57hP6iUHirr",
+                          "configuration": {
+                            "cap": 2,
+                            "fixed": {
+                              "cha": 0,
+                              "con": 0,
+                              "dex": 0,
+                              "int": 0,
+                              "str": 0,
+                              "wis": 0
+                            },
+                            "locked": [],
+                            "points": 2
                           },
                           "level": 8,
                           "title": "Ability Score Improvement",
-                          "_id": "s3t9o57hP6iUHirr"
-                        },
-                        {
                           "type": "AbilityScoreImprovement",
-                          "configuration": {
-                            "points": 2,
-                            "fixed": {
-                              "str": 0,
-                              "dex": 0,
-                              "con": 0,
-                              "int": 0,
-                              "wis": 0,
-                              "cha": 0
-                            },
-                            "cap": 2,
-                            "locked": []
-                          },
                           "value": {
                             "type": "asi"
+                          }
+                        },
+                        {
+                          "_id": "O24MWOKc1ImsKaml",
+                          "configuration": {
+                            "cap": 2,
+                            "fixed": {
+                              "cha": 0,
+                              "con": 0,
+                              "dex": 0,
+                              "int": 0,
+                              "str": 0,
+                              "wis": 0
+                            },
+                            "locked": [],
+                            "points": 2
                           },
                           "level": 12,
                           "title": "Ability Score Improvement",
-                          "_id": "O24MWOKc1ImsKaml"
-                        },
-                        {
                           "type": "AbilityScoreImprovement",
-                          "configuration": {
-                            "points": 2,
-                            "fixed": {
-                              "str": 0,
-                              "dex": 0,
-                              "con": 0,
-                              "int": 0,
-                              "wis": 0,
-                              "cha": 0
-                            },
-                            "cap": 2,
-                            "locked": []
-                          },
                           "value": {
                             "type": "asi"
+                          }
+                        },
+                        {
+                          "_id": "xdqWoLtgO3uyl3nJ",
+                          "configuration": {
+                            "cap": 2,
+                            "fixed": {
+                              "cha": 0,
+                              "con": 0,
+                              "dex": 0,
+                              "int": 0,
+                              "str": 0,
+                              "wis": 0
+                            },
+                            "locked": [],
+                            "points": 2
                           },
                           "level": 16,
                           "title": "Ability Score Improvement",
-                          "_id": "xdqWoLtgO3uyl3nJ"
+                          "type": "AbilityScoreImprovement",
+                          "value": {
+                            "type": "asi"
+                          }
                         },
                         {
                           "_id": "puDaUsYrlks0z5gm",
-                          "type": "AbilityScoreImprovement",
                           "configuration": {
-                            "points": 2,
-                            "fixed": {
-                              "str": 0,
-                              "dex": 0,
-                              "con": 0,
-                              "int": 0,
-                              "wis": 0,
-                              "cha": 0
-                            },
                             "cap": 2,
-                            "locked": []
-                          },
-                          "value": {
-                            "type": "asi"
+                            "fixed": {
+                              "cha": 0,
+                              "con": 0,
+                              "dex": 0,
+                              "int": 0,
+                              "str": 0,
+                              "wis": 0
+                            },
+                            "locked": [],
+                            "points": 2
                           },
                           "level": 19,
-                          "title": ""
+                          "title": "",
+                          "type": "AbilityScoreImprovement",
+                          "value": {
+                            "type": "asi"
+                          }
                         },
                         {
                           "_id": "0awj2yq115ev9u9o",
-                          "type": "Subclass",
                           "configuration": {},
+                          "level": 3,
+                          "title": "Monastic Tradition",
+                          "type": "Subclass",
                           "value": {
                             "document": null,
                             "uuid": null
-                          },
-                          "level": 3,
-                          "title": "Monastic Tradition"
+                          }
                         }
                       ],
                       "spellcasting": {
@@ -2099,8 +2365,8 @@ import axios from 'axios';
                     },
                     "flags": {
                       "dnd5e": {
-                        "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-                        "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
+                        "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+                        "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI"
                       }
                     },
                     "_stats": {
@@ -2160,8 +2426,8 @@ import axios from 'axios';
                     },
                     "flags": {
                       "dnd5e": {
-                        "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-                        "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
+                        "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+                        "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
                       }
                     },
                     "_stats": {
@@ -2297,65 +2563,45 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "utility",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
                           },
                           "consumption": {
-                            "targets": [
-                              {
-                                "type": "itemUses",
-                                "target": "",
-                                "value": "1",
-                                "scaling": {
-                                  "mode": "",
-                                  "formula": ""
-                                }
-                              }
-                            ],
                             "scaling": {
                               "allowed": false,
                               "max": ""
                             },
-                            "spellSlot": true
+                            "spellSlot": true,
+                            "targets": [
+                              {
+                                "scaling": {
+                                  "formula": "",
+                                  "mode": ""
+                                },
+                                "target": "",
+                                "type": "itemUses",
+                                "value": "1"
+                              }
+                            ]
                           },
                           "description": {
                             "chatFlavor": ""
                           },
                           "duration": {
                             "concentration": false,
-                            "value": "",
-                            "units": "inst",
+                            "override": false,
                             "special": "",
-                            "override": false
+                            "units": "inst",
+                            "value": ""
                           },
                           "effects": [],
                           "range": {
-                            "units": "touch",
+                            "override": false,
                             "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "units": "touch"
                           },
                           "roll": {
                             "formula": "",
@@ -2363,11 +2609,31 @@ import axios from 'axios';
                             "prompt": false,
                             "visible": false
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
                           },
-                          "sort": 0
+                          "type": "utility",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -2454,65 +2720,11 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "attack",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
-                          },
-                          "consumption": {
-                            "targets": [
-                              {
-                                "type": "itemUses",
-                                "target": "",
-                                "value": "1",
-                                "scaling": {
-                                  "mode": "",
-                                  "formula": ""
-                                }
-                              }
-                            ],
-                            "scaling": {
-                              "allowed": false,
-                              "max": ""
-                            },
-                            "spellSlot": true
-                          },
-                          "description": {
-                            "chatFlavor": ""
-                          },
-                          "duration": {
-                            "concentration": false,
-                            "value": "1",
-                            "units": "hour",
-                            "special": "",
-                            "override": false
-                          },
-                          "effects": [],
-                          "range": {
-                            "units": "self",
-                            "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "radius",
-                              "size": "40",
-                              "width": "",
-                              "height": "",
-                              "units": "ft"
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
                           },
                           "attack": {
                             "ability": "str",
@@ -2522,9 +2734,27 @@ import axios from 'axios';
                             },
                             "flat": false,
                             "type": {
-                              "value": "melee",
-                              "classification": "weapon"
+                              "classification": "weapon",
+                              "value": "melee"
                             }
+                          },
+                          "consumption": {
+                            "scaling": {
+                              "allowed": false,
+                              "max": ""
+                            },
+                            "spellSlot": true,
+                            "targets": [
+                              {
+                                "scaling": {
+                                  "formula": "",
+                                  "mode": ""
+                                },
+                                "target": "",
+                                "type": "itemUses",
+                                "value": "1"
+                              }
+                            ]
                           },
                           "damage": {
                             "critical": {
@@ -2533,29 +2763,65 @@ import axios from 'axios';
                             "includeBase": true,
                             "parts": [
                               {
-                                "number": null,
-                                "denomination": null,
                                 "bonus": "",
-                                "types": [
-                                  "fire"
-                                ],
                                 "custom": {
                                   "enabled": true,
                                   "formula": "1"
                                 },
+                                "denomination": null,
+                                "number": null,
                                 "scaling": {
+                                  "formula": "",
                                   "mode": "whole",
-                                  "number": null,
-                                  "formula": ""
-                                }
+                                  "number": null
+                                },
+                                "types": [
+                                  "fire"
+                                ]
                               }
                             ]
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "description": {
+                            "chatFlavor": ""
                           },
-                          "sort": 0
+                          "duration": {
+                            "concentration": false,
+                            "override": false,
+                            "special": "",
+                            "units": "hour",
+                            "value": "1"
+                          },
+                          "effects": [],
+                          "range": {
+                            "override": false,
+                            "special": "",
+                            "units": "self"
+                          },
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "40",
+                              "type": "radius",
+                              "units": "ft",
+                              "width": ""
+                            }
+                          },
+                          "type": "attack",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -2705,56 +2971,11 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "attack",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
-                          },
-                          "consumption": {
-                            "targets": [],
-                            "scaling": {
-                              "allowed": false,
-                              "max": ""
-                            },
-                            "spellSlot": true
-                          },
-                          "description": {
-                            "chatFlavor": ""
-                          },
-                          "duration": {
-                            "concentration": false,
-                            "value": "",
-                            "units": "inst",
-                            "special": "",
-                            "override": false
-                          },
-                          "effects": [],
-                          "range": {
-                            "value": "20",
-                            "units": "ft",
-                            "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
                           },
                           "attack": {
                             "ability": "",
@@ -2764,9 +2985,17 @@ import axios from 'axios';
                             },
                             "flat": false,
                             "type": {
-                              "value": "ranged",
-                              "classification": "weapon"
+                              "classification": "weapon",
+                              "value": "ranged"
                             }
+                          },
+                          "consumption": {
+                            "scaling": {
+                              "allowed": false,
+                              "max": ""
+                            },
+                            "spellSlot": true,
+                            "targets": []
                           },
                           "damage": {
                             "critical": {
@@ -2775,11 +3004,48 @@ import axios from 'axios';
                             "includeBase": true,
                             "parts": []
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "description": {
+                            "chatFlavor": ""
                           },
-                          "sort": 0
+                          "duration": {
+                            "concentration": false,
+                            "override": false,
+                            "special": "",
+                            "units": "inst",
+                            "value": ""
+                          },
+                          "effects": [],
+                          "range": {
+                            "override": false,
+                            "special": "",
+                            "units": "ft",
+                            "value": "20"
+                          },
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
+                          },
+                          "type": "attack",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -2908,55 +3174,35 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "utility",
                           "activation": {
-                            "type": "",
-                            "value": null,
                             "condition": "",
-                            "override": false
+                            "override": false,
+                            "type": "",
+                            "value": null
                           },
                           "consumption": {
-                            "targets": [],
                             "scaling": {
                               "allowed": false,
                               "max": ""
                             },
-                            "spellSlot": true
+                            "spellSlot": true,
+                            "targets": []
                           },
                           "description": {
                             "chatFlavor": ""
                           },
                           "duration": {
                             "concentration": false,
-                            "value": "",
-                            "units": "inst",
+                            "override": false,
                             "special": "",
-                            "override": false
+                            "units": "inst",
+                            "value": ""
                           },
                           "effects": [],
                           "range": {
-                            "units": "self",
+                            "override": false,
                             "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "units": "self"
                           },
                           "roll": {
                             "formula": "",
@@ -2964,11 +3210,31 @@ import axios from 'axios';
                             "prompt": false,
                             "visible": false
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
                           },
-                          "sort": 0
+                          "type": "utility",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -3058,65 +3324,45 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "utility",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
                           },
                           "consumption": {
-                            "targets": [
-                              {
-                                "type": "itemUses",
-                                "target": "",
-                                "value": "1",
-                                "scaling": {
-                                  "mode": "",
-                                  "formula": ""
-                                }
-                              }
-                            ],
                             "scaling": {
                               "allowed": false,
                               "max": ""
                             },
-                            "spellSlot": true
+                            "spellSlot": true,
+                            "targets": [
+                              {
+                                "scaling": {
+                                  "formula": "",
+                                  "mode": ""
+                                },
+                                "target": "",
+                                "type": "itemUses",
+                                "value": "1"
+                              }
+                            ]
                           },
                           "description": {
                             "chatFlavor": ""
                           },
                           "duration": {
                             "concentration": false,
-                            "value": "",
-                            "units": "inst",
+                            "override": false,
                             "special": "",
-                            "override": false
+                            "units": "inst",
+                            "value": ""
                           },
                           "effects": [],
                           "range": {
-                            "units": "touch",
+                            "override": false,
                             "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "1",
-                              "type": "creature",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "units": "touch"
                           },
                           "roll": {
                             "formula": "",
@@ -3124,11 +3370,31 @@ import axios from 'axios';
                             "prompt": false,
                             "visible": false
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "1",
+                              "special": "",
+                              "type": "creature"
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
                           },
-                          "sort": 0
+                          "type": "utility",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -3344,56 +3610,11 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "attack",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
-                          },
-                          "consumption": {
-                            "targets": [],
-                            "scaling": {
-                              "allowed": false,
-                              "max": ""
-                            },
-                            "spellSlot": true
-                          },
-                          "description": {
-                            "chatFlavor": ""
-                          },
-                          "duration": {
-                            "concentration": false,
-                            "value": "",
-                            "units": "inst",
-                            "special": "",
-                            "override": false
-                          },
-                          "effects": [],
-                          "range": {
-                            "value": "5",
-                            "units": "ft",
-                            "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
                           },
                           "attack": {
                             "ability": "",
@@ -3403,9 +3624,17 @@ import axios from 'axios';
                             },
                             "flat": false,
                             "type": {
-                              "value": "melee",
-                              "classification": "unarmed"
+                              "classification": "unarmed",
+                              "value": "melee"
                             }
+                          },
+                          "consumption": {
+                            "scaling": {
+                              "allowed": false,
+                              "max": ""
+                            },
+                            "spellSlot": true,
+                            "targets": []
                           },
                           "damage": {
                             "critical": {
@@ -3414,13 +3643,50 @@ import axios from 'axios';
                             "includeBase": true,
                             "parts": []
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": [],
-                            "max": ""
+                          "description": {
+                            "chatFlavor": ""
+                          },
+                          "duration": {
+                            "concentration": false,
+                            "override": false,
+                            "special": "",
+                            "units": "inst",
+                            "value": ""
+                          },
+                          "effects": [],
+                          "name": "",
+                          "range": {
+                            "override": false,
+                            "special": "",
+                            "units": "ft",
+                            "value": "5"
                           },
                           "sort": 0,
-                          "name": ""
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
+                          },
+                          "type": "attack",
+                          "uses": {
+                            "max": "",
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -3635,66 +3901,46 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "utility",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
                           },
                           "consumption": {
-                            "targets": [
-                              {
-                                "type": "itemUses",
-                                "target": "",
-                                "value": "1",
-                                "scaling": {
-                                  "mode": "",
-                                  "formula": ""
-                                }
-                              }
-                            ],
                             "scaling": {
                               "allowed": false,
                               "max": ""
                             },
-                            "spellSlot": true
+                            "spellSlot": true,
+                            "targets": [
+                              {
+                                "scaling": {
+                                  "formula": "",
+                                  "mode": ""
+                                },
+                                "target": "",
+                                "type": "itemUses",
+                                "value": "1"
+                              }
+                            ]
                           },
                           "description": {
                             "chatFlavor": ""
                           },
                           "duration": {
                             "concentration": false,
-                            "value": "",
-                            "units": "inst",
+                            "override": false,
                             "special": "",
-                            "override": false
+                            "units": "inst",
+                            "value": ""
                           },
                           "effects": [],
                           "range": {
-                            "value": "5",
-                            "units": "ft",
+                            "override": false,
                             "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "units": "ft",
+                            "value": "5"
                           },
                           "roll": {
                             "formula": "",
@@ -3702,11 +3948,31 @@ import axios from 'axios';
                             "prompt": false,
                             "visible": false
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
                           },
-                          "sort": 0
+                          "type": "utility",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -3793,78 +4059,78 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "check",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
+                          },
+                          "check": {
+                            "ability": "str",
+                            "associated": [],
+                            "dc": {
+                              "calculation": "",
+                              "formula": "17"
+                            }
                           },
                           "consumption": {
-                            "targets": [
-                              {
-                                "type": "itemUses",
-                                "target": "",
-                                "scaling": {},
-                                "value": "1"
-                              }
-                            ],
                             "scaling": {
                               "allowed": false,
                               "max": ""
                             },
-                            "spellSlot": true
+                            "spellSlot": true,
+                            "targets": [
+                              {
+                                "scaling": {},
+                                "target": "",
+                                "type": "itemUses",
+                                "value": "1"
+                              }
+                            ]
                           },
                           "description": {
                             "chatFlavor": ""
                           },
                           "duration": {
                             "concentration": false,
-                            "value": "",
-                            "units": "inst",
+                            "override": false,
                             "special": "",
-                            "override": false
+                            "units": "inst",
+                            "value": ""
                           },
                           "effects": [],
+                          "name": "Burst",
                           "range": {
-                            "units": "self",
+                            "override": false,
                             "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
-                          },
-                          "check": {
-                            "ability": "str",
-                            "dc": {
-                              "calculation": "",
-                              "formula": "17"
-                            },
-                            "associated": []
-                          },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": [],
-                            "max": ""
+                            "units": "self"
                           },
                           "sort": 0,
-                          "name": "Burst"
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
+                          },
+                          "type": "check",
+                          "uses": {
+                            "max": "",
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -4052,55 +4318,35 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "utility",
                           "activation": {
-                            "type": "",
-                            "value": null,
                             "condition": "",
-                            "override": false
+                            "override": false,
+                            "type": "",
+                            "value": null
                           },
                           "consumption": {
-                            "targets": [],
                             "scaling": {
                               "allowed": false,
                               "max": ""
                             },
-                            "spellSlot": true
+                            "spellSlot": true,
+                            "targets": []
                           },
                           "description": {
                             "chatFlavor": ""
                           },
                           "duration": {
                             "concentration": false,
-                            "value": "",
-                            "units": "inst",
+                            "override": false,
                             "special": "",
-                            "override": false
+                            "units": "inst",
+                            "value": ""
                           },
                           "effects": [],
                           "range": {
-                            "units": "self",
+                            "override": false,
                             "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "units": "self"
                           },
                           "roll": {
                             "formula": "",
@@ -4108,11 +4354,31 @@ import axios from 'axios';
                             "prompt": false,
                             "visible": false
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
                           },
-                          "sort": 0
+                          "type": "utility",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -4259,56 +4525,11 @@ import axios from 'axios';
                       "activities": [
                         {
                           "_id": "dnd5eactivity000",
-                          "type": "attack",
                           "activation": {
-                            "type": "action",
-                            "value": 1,
                             "condition": "",
-                            "override": false
-                          },
-                          "consumption": {
-                            "targets": [],
-                            "scaling": {
-                              "allowed": false,
-                              "max": ""
-                            },
-                            "spellSlot": true
-                          },
-                          "description": {
-                            "chatFlavor": ""
-                          },
-                          "duration": {
-                            "concentration": false,
-                            "value": "",
-                            "units": "inst",
-                            "special": "",
-                            "override": false
-                          },
-                          "effects": [],
-                          "range": {
-                            "value": "5",
-                            "units": "ft",
-                            "special": "",
-                            "override": false
-                          },
-                          "target": {
-                            "template": {
-                              "count": "",
-                              "contiguous": false,
-                              "type": "",
-                              "size": "",
-                              "width": "",
-                              "height": "",
-                              "units": ""
-                            },
-                            "affects": {
-                              "count": "",
-                              "type": "",
-                              "choice": false,
-                              "special": ""
-                            },
-                            "prompt": true,
-                            "override": false
+                            "override": false,
+                            "type": "action",
+                            "value": 1
                           },
                           "attack": {
                             "ability": "",
@@ -4318,9 +4539,17 @@ import axios from 'axios';
                             },
                             "flat": false,
                             "type": {
-                              "value": "melee",
-                              "classification": "weapon"
+                              "classification": "weapon",
+                              "value": "melee"
                             }
+                          },
+                          "consumption": {
+                            "scaling": {
+                              "allowed": false,
+                              "max": ""
+                            },
+                            "spellSlot": true,
+                            "targets": []
                           },
                           "damage": {
                             "critical": {
@@ -4329,11 +4558,48 @@ import axios from 'axios';
                             "includeBase": true,
                             "parts": []
                           },
-                          "uses": {
-                            "spent": 0,
-                            "recovery": []
+                          "description": {
+                            "chatFlavor": ""
                           },
-                          "sort": 0
+                          "duration": {
+                            "concentration": false,
+                            "override": false,
+                            "special": "",
+                            "units": "inst",
+                            "value": ""
+                          },
+                          "effects": [],
+                          "range": {
+                            "override": false,
+                            "special": "",
+                            "units": "ft",
+                            "value": "5"
+                          },
+                          "sort": 0,
+                          "target": {
+                            "affects": {
+                              "choice": false,
+                              "count": "",
+                              "special": "",
+                              "type": ""
+                            },
+                            "override": false,
+                            "prompt": true,
+                            "template": {
+                              "contiguous": false,
+                              "count": "",
+                              "height": "",
+                              "size": "",
+                              "type": "",
+                              "units": "",
+                              "width": ""
+                            }
+                          },
+                          "type": "attack",
+                          "uses": {
+                            "recovery": [],
+                            "spent": 0
+                          }
                         }
                       ],
                       "uses": {
@@ -4576,8 +4842,8 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1774001744046,
-            "modifiedTime": 1774001745358,
+            "createdTime": 1774367584350,
+            "modifiedTime": 1774367584402,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -4619,8 +4885,8 @@ Get a specific folder by name
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | name | string | ✓ | body, query | Name of the folder to retrieve |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -4632,7 +4898,7 @@ Get a specific folder by name
 <ApiTester
   method="GET"
   path="/get-folder"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"name","type":"string","required":true,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4644,7 +4910,7 @@ Get a specific folder by name
 const baseUrl = 'http://localhost:3010';
 const path = '/get-folder';
 const params = {
-  clientId: 'your-client-id',
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
   name: 'test-folder'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -4664,7 +4930,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/get-folder?clientId=your-client-id&name=test-folder' \
+curl -X GET 'http://localhost:3010/get-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&name=test-folder' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -4677,7 +4943,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/get-folder'
 params = {
-    'clientId': 'your-client-id',
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
     'name': 'test-folder'
 }
 url = f'{base_url}{path}'
@@ -4703,7 +4969,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/get-folder';
   const params = {
-    clientId: 'your-client-id',
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
     name: 'test-folder'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -4738,7 +5004,7 @@ import axios from 'axios';
   🔤/get-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤name=test-folder🔤 ➡️ name
   🔤?🧲clientId🧲&🧲name🧲🔤 ➡️ queryString
 
@@ -4767,12 +5033,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-folder_1774001776455",
-  "clientId": "your-client-id",
   "type": "get-folder-result",
+  "requestId": "get-folder_1774367596696",
   "data": {
-    "id": "ZyayMq63ICSWmTft",
-    "uuid": "Folder.ZyayMq63ICSWmTft",
+    "id": "X6SfIWqtrd0NZsNk",
+    "uuid": "Folder.X6SfIWqtrd0NZsNk",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -4792,9 +5057,9 @@ Create a new folder
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | name | string | ✓ | body, query | Name of the new folder |
 | folderType | string | ✓ | body, query | Type of folder (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist) |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | parentFolderId | string |  | body, query | ID of the parent folder (optional for root level) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -4807,7 +5072,7 @@ Create a new folder
 <ApiTester
   method="POST"
   path="/create-folder"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"name","type":"string","required":true,"source":"body"},{"name":"folderType","type":"string","required":true,"source":"body"},{"name":"parentFolderId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"folderType","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"parentFolderId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4819,7 +5084,7 @@ Create a new folder
 const baseUrl = 'http://localhost:3010';
 const path = '/create-folder';
 const params = {
-  clientId: 'your-client-id',
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
   name: 'test-folder',
   folderType: 'Scene'
 };
@@ -4840,7 +5105,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/create-folder?clientId=your-client-id&name=test-folder&folderType=Scene' \
+curl -X POST 'http://localhost:3010/create-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&name=test-folder&folderType=Scene' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -4853,7 +5118,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/create-folder'
 params = {
-    'clientId': 'your-client-id',
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
     'name': 'test-folder',
     'folderType': 'Scene'
 }
@@ -4880,7 +5145,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/create-folder';
   const params = {
-    clientId: 'your-client-id',
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
     name: 'test-folder',
     folderType: 'Scene'
   };
@@ -4916,7 +5181,7 @@ import axios from 'axios';
   🔤/create-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤name=test-folder🔤 ➡️ name
   🔤folderType=Scene🔤 ➡️ folderType
   🔤?🧲clientId🧲&🧲name🧲&🧲folderType🧲🔤 ➡️ queryString
@@ -4946,12 +5211,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-folder_1774001776047",
-  "clientId": "your-client-id",
   "type": "create-folder-result",
+  "requestId": "create-folder_1774367596678",
   "data": {
-    "id": "ZyayMq63ICSWmTft",
-    "uuid": "Folder.ZyayMq63ICSWmTft",
+    "id": "X6SfIWqtrd0NZsNk",
+    "uuid": "Folder.X6SfIWqtrd0NZsNk",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -4970,8 +5234,8 @@ Delete a folder
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | folderId | string | ✓ | body, query | ID of the folder to delete |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | deleteAll | boolean |  | body, query | Whether to delete all entities in the folder |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -4984,7 +5248,7 @@ Delete a folder
 <ApiTester
   method="DELETE"
   path="/delete-folder"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"folderId","type":"string","required":true,"source":"body"},{"name":"deleteAll","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"folderId","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"deleteAll","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4996,8 +5260,8 @@ Delete a folder
 const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
-  clientId: 'your-client-id',
-  folderId: 'ZyayMq63ICSWmTft'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  folderId: 'X6SfIWqtrd0NZsNk'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5016,7 +5280,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=your-client-id&folderId=ZyayMq63ICSWmTft' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&folderId=X6SfIWqtrd0NZsNk' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5029,8 +5293,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
-    'clientId': 'your-client-id',
-    'folderId': 'ZyayMq63ICSWmTft'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'folderId': 'X6SfIWqtrd0NZsNk'
 }
 url = f'{base_url}{path}'
 
@@ -5055,8 +5319,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/delete-folder';
   const params = {
-    clientId: 'your-client-id',
-    folderId: 'ZyayMq63ICSWmTft'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    folderId: 'X6SfIWqtrd0NZsNk'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5090,8 +5354,8 @@ import axios from 'axios';
   🔤/delete-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤folderId=ZyayMq63ICSWmTft🔤 ➡️ folderId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤folderId=X6SfIWqtrd0NZsNk🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5119,16 +5383,14 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-folder_1774001776590",
-  "clientId": "your-client-id",
   "type": "delete-folder-result",
+  "requestId": "delete-folder_1774367596698",
   "data": {
     "deleted": true,
-    "folderId": "ZyayMq63ICSWmTft",
+    "folderId": "X6SfIWqtrd0NZsNk",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }
 }
 ```
-
 

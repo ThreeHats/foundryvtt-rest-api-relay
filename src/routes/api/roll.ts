@@ -21,10 +21,8 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  */
 rollRouter.get("/rolls", ...commonMiddleware, createApiRoute({
     type: 'rolls',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'limit', from: 'query', type: 'number' }, // Optional limit on the number of rolls to return (default is 20)
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
@@ -40,10 +38,8 @@ rollRouter.get("/rolls", ...commonMiddleware, createApiRoute({
  */
 rollRouter.get("/lastroll", ...commonMiddleware, createApiRoute({
     type: 'last-roll',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
@@ -59,10 +55,10 @@ rollRouter.get("/lastroll", ...commonMiddleware, createApiRoute({
 rollRouter.post("/roll", ...commonMiddleware, createApiRoute({
     type: 'roll',
     requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'formula', from: 'body', type: 'string' } // The roll formula to evaluate (e.g., "1d20 + 5")
     ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'flavor', from: 'body', type: 'string' }, // Optional flavor text for the roll
         { name: 'createChatMessage', from: 'body', type: 'boolean' }, // Whether to create a chat message for the roll
         { name: 'speaker', from: 'body', type: 'string' }, // The speaker for the roll

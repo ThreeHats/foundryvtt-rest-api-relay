@@ -17,7 +17,7 @@ Get entity details This endpoint retrieves the details of a specific entity.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | uuid | string |  | query | UUID of the entity to retrieve (optional if selected=true) |
 | selected | boolean |  | query | Whether to get the selected entity |
 | actor | boolean |  | query | Return the actor of specified entity |
@@ -32,7 +32,7 @@ Get entity details This endpoint retrieves the details of a specific entity.
 <ApiTester
   method="GET"
   path="/get"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"actor","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"actor","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -44,8 +44,8 @@ Get entity details This endpoint retrieves the details of a specific entity.
 const baseUrl = 'http://localhost:3010';
 const path = '/get';
 const params = {
-  clientId: 'your-client-id',
-  uuid: 'Actor.2Hl8s4nj9yJQueBG'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  uuid: 'Actor.ioZexonJDGVuU8zl'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -64,7 +64,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/get?clientId=your-client-id&uuid=Actor.2Hl8s4nj9yJQueBG' \
+curl -X GET 'http://localhost:3010/get?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -77,8 +77,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/get'
 params = {
-    'clientId': 'your-client-id',
-    'uuid': 'Actor.2Hl8s4nj9yJQueBG'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'uuid': 'Actor.ioZexonJDGVuU8zl'
 }
 url = f'{base_url}{path}'
 
@@ -103,8 +103,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/get';
   const params = {
-    clientId: 'your-client-id',
-    uuid: 'Actor.2Hl8s4nj9yJQueBG'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    uuid: 'Actor.ioZexonJDGVuU8zl'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -138,8 +138,8 @@ import axios from 'axios';
   🔤/get🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.2Hl8s4nj9yJQueBG🔤 ➡️ uuid
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -167,820 +167,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "entity_1774001737483",
-  "clientId": "your-client-id",
   "type": "entity-result",
-  "uuid": "Actor.2Hl8s4nj9yJQueBG",
+  "requestId": "entity_1774367580848",
+  "uuid": "Actor.ioZexonJDGVuU8zl",
   "data": {
-    "name": "test-perrin (halfling monk)",
-    "type": "character",
+    "effects": [],
     "img": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-    "system": {
-      "abilities": {
-        "str": {
-          "value": 8,
-          "proficient": 1,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "dex": {
-          "value": 16,
-          "proficient": 1,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "con": {
-          "value": 13,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "int": {
-          "value": 12,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "wis": {
-          "value": 15,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "cha": {
-          "value": 11,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        }
-      },
-      "attributes": {
-        "ac": {
-          "flat": null,
-          "calc": "unarmoredMonk",
-          "formula": ""
-        },
-        "hp": {
-          "value": 9,
-          "max": 9,
-          "temp": null,
-          "tempmax": null,
-          "bonuses": {
-            "level": "",
-            "overall": ""
-          }
-        },
-        "init": {
-          "ability": "",
-          "bonus": "0",
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "movement": {
-          "burrow": 0,
-          "climb": 0,
-          "fly": 0,
-          "swim": 0,
-          "walk": 25,
-          "units": "ft",
-          "hover": false
-        },
-        "attunement": {
-          "max": 3
-        },
-        "senses": {
-          "darkvision": 0,
-          "blindsight": 0,
-          "tremorsense": 0,
-          "truesight": 0,
-          "units": "ft",
-          "special": ""
-        },
-        "spellcasting": "int",
-        "death": {
-          "success": 0,
-          "failure": 0,
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          },
-          "bonuses": {
-            "save": ""
-          }
-        },
-        "exhaustion": 0,
-        "inspiration": false,
-        "concentration": {
-          "ability": "",
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          },
-          "bonuses": {
-            "save": ""
-          },
-          "limit": 1
-        },
-        "loyalty": {}
-      },
-      "details": {
-        "biography": {
-          "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>",
-          "public": ""
-        },
-        "alignment": "True Neutral",
-        "race": "O3ZjSw0GtAOPScHI",
-        "background": "q4tr1vTU8RxtU1UZ",
-        "originalClass": "8Grf7ga6JcZF0X6x",
-        "xp": {
-          "value": 0
-        },
-        "appearance": "",
-        "trait": "",
-        "ideal": "",
-        "bond": "",
-        "flaw": "",
-        "eyes": "",
-        "height": "",
-        "faith": "",
-        "hair": "",
-        "weight": "",
-        "gender": "",
-        "skin": "",
-        "age": ""
-      },
-      "traits": {
-        "size": "sm",
-        "di": {
-          "value": [],
-          "bypasses": [],
-          "custom": ""
-        },
-        "dr": {
-          "value": [],
-          "bypasses": [],
-          "custom": ""
-        },
-        "dv": {
-          "value": [],
-          "bypasses": [],
-          "custom": ""
-        },
-        "ci": {
-          "value": [],
-          "custom": "Advantage against being frightenned"
-        },
-        "languages": {
-          "value": [
-            "celestial",
-            "draconic",
-            "common",
-            "halfling"
-          ],
-          "custom": "",
-          "communication": {}
-        },
-        "weaponProf": {
-          "value": [
-            "sim",
-            "shortsword"
-          ],
-          "custom": "",
-          "mastery": {
-            "value": [],
-            "bonus": []
-          }
-        },
-        "armorProf": {
-          "value": [],
-          "custom": ""
-        },
-        "dm": {
-          "amount": {},
-          "bypasses": []
-        }
-      },
-      "currency": {
-        "pp": 0,
-        "gp": 15,
-        "ep": 0,
-        "sp": 0,
-        "cp": 0
-      },
-      "skills": {
-        "acr": {
-          "value": 1,
-          "ability": "dex",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ani": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "arc": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ath": {
-          "value": 1,
-          "ability": "str",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "dec": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "his": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ins": {
-          "value": 1,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "itm": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "inv": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "med": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "nat": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "prc": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "prf": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "per": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "rel": {
-          "value": 1,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "slt": {
-          "value": 0,
-          "ability": "dex",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ste": {
-          "value": 0,
-          "ability": "dex",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "sur": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "tools": {
-        "art": {
-          "value": 1,
-          "ability": "int",
-          "bonuses": {
-            "check": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "brewer": {
-          "value": 1,
-          "ability": "int",
-          "bonuses": {
-            "check": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "spells": {
-        "spell1": {
-          "value": 0,
-          "override": null
-        },
-        "spell2": {
-          "value": 0,
-          "override": null
-        },
-        "spell3": {
-          "value": 0,
-          "override": null
-        },
-        "spell4": {
-          "value": 0,
-          "override": null
-        },
-        "spell5": {
-          "value": 0,
-          "override": null
-        },
-        "spell6": {
-          "value": 0,
-          "override": null
-        },
-        "spell7": {
-          "value": 0,
-          "override": null
-        },
-        "spell8": {
-          "value": 0,
-          "override": null
-        },
-        "spell9": {
-          "value": 0,
-          "override": null
-        },
-        "pact": {
-          "value": 0,
-          "override": null
-        },
-        "spell0": {
-          "value": 0,
-          "override": null
-        }
-      },
-      "bonuses": {
-        "mwak": {
-          "attack": "",
-          "damage": ""
-        },
-        "rwak": {
-          "attack": "",
-          "damage": ""
-        },
-        "msak": {
-          "attack": "",
-          "damage": ""
-        },
-        "rsak": {
-          "attack": "",
-          "damage": ""
-        },
-        "abilities": {
-          "check": "",
-          "save": "",
-          "skill": ""
-        },
-        "spell": {
-          "dc": ""
-        }
-      },
-      "resources": {
-        "primary": {
-          "value": null,
-          "max": null,
-          "sr": true,
-          "lr": true,
-          "label": "Ki"
-        },
-        "secondary": {
-          "value": null,
-          "max": null,
-          "sr": false,
-          "lr": false,
-          "label": ""
-        },
-        "tertiary": {
-          "value": null,
-          "max": null,
-          "sr": false,
-          "lr": false,
-          "label": ""
-        }
-      },
-      "favorites": [
-        {
-          "type": "item",
-          "id": ".Item.FtOM4QiOW5MwgcS3",
-          "sort": 500000
-        },
-        {
-          "type": "item",
-          "id": ".Item.WeKJI3gPUAU52WAX",
-          "sort": 600000
-        },
-        {
-          "type": "item",
-          "id": ".Item.g7U3OAXVcoI4lwzf",
-          "sort": 550000
-        },
-        {
-          "type": "item",
-          "id": ".Item.GYyovoNdU66nxOlX",
-          "sort": 700000
-        }
-      ],
-      "bastion": {
-        "name": "",
-        "description": ""
-      }
-    },
-    "prototypeToken": {
-      "flags": {},
-      "name": "Perrin",
-      "displayName": 30,
-      "width": 1,
-      "height": 1,
-      "lockRotation": false,
-      "rotation": 0,
-      "actorLink": true,
-      "disposition": 1,
-      "displayBars": 40,
-      "bar1": {
-        "attribute": "attributes.hp"
-      },
-      "bar2": {
-        "attribute": "attributes.ac.value"
-      },
-      "randomImg": false,
-      "alpha": 1,
-      "light": {
-        "alpha": 1,
-        "angle": 360,
-        "bright": 0,
-        "coloration": 1,
-        "dim": 0,
-        "luminosity": 0.5,
-        "saturation": 0,
-        "contrast": 0,
-        "shadows": 0,
-        "animation": {
-          "speed": 5,
-          "intensity": 5,
-          "type": null,
-          "reverse": false
-        },
-        "darkness": {
-          "min": 0,
-          "max": 1
-        },
-        "color": null,
-        "attenuation": 0.5,
-        "negative": false,
-        "priority": 0
-      },
-      "texture": {
-        "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-        "tint": "#ffffff",
-        "scaleX": 0.8,
-        "scaleY": 0.8,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "contain",
-        "alphaThreshold": 0.75
-      },
-      "sight": {
-        "angle": 360,
-        "enabled": true,
-        "range": 5,
-        "brightness": 0,
-        "visionMode": "basic",
-        "color": null,
-        "attenuation": 0.1,
-        "saturation": 0,
-        "contrast": 0
-      },
-      "detectionModes": [],
-      "appendNumber": false,
-      "prependAdjective": false,
-      "occludable": {
-        "radius": 0
-      },
-      "ring": {
-        "enabled": false,
-        "colors": {
-          "ring": null,
-          "background": null
-        },
-        "effects": 1,
-        "subject": {
-          "scale": 1,
-          "texture": null
-        }
-      },
-      "turnMarker": {
-        "mode": 1,
-        "animation": null,
-        "src": null,
-        "disposition": false
-      },
-      "movementAction": null
-    },
     "items": [
       {
-        "name": "Priest",
-        "type": "background",
-        "system": {
-          "description": {
-            "value": "<ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "advancement": [],
-          "startingEquipment": [],
-          "identifier": "priest"
-        },
-        "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
-        "effects": [],
-        "folder": null,
-        "sort": 0,
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "_id": "q4tr1vTU8RxtU1UZ",
         "_stats": {
           "compendiumSource": null,
           "duplicateSource": null,
@@ -990,48 +185,75 @@ import axios from 'axios';
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "q4tr1vTU8RxtU1UZ"
+        "effects": [],
+        "flags": {},
+        "folder": null,
+        "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
+        "name": "Priest",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "advancement": [],
+          "description": {
+            "chat": "",
+            "value": "<ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>"
+          },
+          "identifier": "priest",
+          "source": {
+            "book": "",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "startingEquipment": []
+        },
+        "type": "background"
       },
       {
         "_id": "O3ZjSw0GtAOPScHI",
-        "name": "Lightfoot Halfling",
-        "type": "race",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "uQNrdSpcXeoB5EnX",
         "img": "icons/equipment/feet/shoes-leather-simple-brown.webp",
+        "name": "Lightfoot Halfling",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>Your halfling character has a number of traits in common with all other halflings.</p><p><em><strong>Ability Score Increase.</strong></em> Your Dexterity score increases by 2.</p><p><em><strong>Age.</strong></em> A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.</p><p><em><strong>Alignment.</strong></em> Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.</p><p><em><strong>Size.</strong></em> Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.</p><p><em><strong>Speed.</strong></em> Your base walking speed is 25 feet.</p><p><em><strong>Lucky.</strong></em> When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><p><em><strong>Brave.</strong></em> You have advantage on saving throws against being frightened.</p><p><em><strong>Halfling Nimbleness.</strong></em> You can move through the space of any creature that is of a size larger than yours.</p><p><em><strong>Languages.</strong></em> You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.</p><h5>Lightfoot</h5><p>As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others.</p><p>Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.</p><p><em><strong>Ability Score Increase.</strong></em> Your Charisma score increases by 1.</p><p><em><strong>Naturally Stealthy.</strong></em> You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "identifier": "lightfoot-halfling",
           "advancement": [
             {
               "_id": "nInhIgkbzzJTdm8F",
-              "type": "ItemGrant",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ"
                   }
                 ],
                 "optional": false,
@@ -1045,72 +267,73 @@ import axios from 'axios';
                   }
                 }
               },
+              "level": 0,
+              "title": "",
+              "type": "ItemGrant",
               "value": {
                 "added": {
+                  "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
                   "FtOM4QiOW5MwgcS3": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-                  "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
                   "cWrETHzCRs1Ueqd3": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-                  "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
+                  "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
                 }
-              },
-              "level": 0,
-              "title": ""
+              }
             },
             {
               "_id": "Z9hvZFkWUNvowbQX",
-              "type": "AbilityScoreImprovement",
               "configuration": {
-                "points": 0,
-                "fixed": {
-                  "str": 0,
-                  "dex": 2,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 1
-                },
                 "cap": 2,
-                "locked": []
-              },
-              "value": {
-                "type": "asi",
-                "assignments": {
+                "fixed": {
+                  "cha": 1,
+                  "con": 0,
                   "dex": 2,
-                  "cha": 1
-                }
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 0
               },
               "level": 0,
-              "title": ""
+              "title": "",
+              "type": "AbilityScoreImprovement",
+              "value": {
+                "assignments": {
+                  "cha": 1,
+                  "dex": 2
+                },
+                "type": "asi"
+              }
             },
             {
               "_id": "hv2bcANK5jEJZaAb",
-              "type": "Size",
               "configuration": {
                 "sizes": [
                   "sm"
                 ]
               },
-              "value": {
-                "size": "sm"
-              },
+              "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.",
               "level": 1,
               "title": "",
-              "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."
+              "type": "Size",
+              "value": {
+                "size": "sm"
+              }
             },
             {
               "_id": "nGwMjsfNU6CXHk3A",
-              "type": "Trait",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "languages:standard:common",
                   "languages:standard:halfling"
                 ],
-                "choices": []
+                "mode": "default"
               },
               "level": 0,
               "title": "",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "languages:standard:common",
@@ -1119,351 +342,350 @@ import axios from 'axios';
               }
             }
           ],
+          "description": {
+            "chat": "",
+            "value": "<p>Your halfling character has a number of traits in common with all other halflings.</p><p><em><strong>Ability Score Increase.</strong></em> Your Dexterity score increases by 2.</p><p><em><strong>Age.</strong></em> A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.</p><p><em><strong>Alignment.</strong></em> Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.</p><p><em><strong>Size.</strong></em> Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.</p><p><em><strong>Speed.</strong></em> Your base walking speed is 25 feet.</p><p><em><strong>Lucky.</strong></em> When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><p><em><strong>Brave.</strong></em> You have advantage on saving throws against being frightened.</p><p><em><strong>Halfling Nimbleness.</strong></em> You can move through the space of any creature that is of a size larger than yours.</p><p><em><strong>Languages.</strong></em> You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.</p><h5>Lightfoot</h5><p>As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others.</p><p>Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.</p><p><em><strong>Ability Score Increase.</strong></em> Your Charisma score increases by 1.</p><p><em><strong>Naturally Stealthy.</strong></em> You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>"
+          },
+          "identifier": "lightfoot-halfling",
           "movement": {
-            "walk": 25,
             "burrow": null,
             "climb": null,
             "fly": null,
+            "hover": false,
             "swim": null,
             "units": "ft",
-            "hover": false
-          },
-          "type": {
-            "subtype": "halfling",
-            "value": "humanoid",
-            "custom": ""
+            "walk": 25
           },
           "senses": {
-            "darkvision": null,
             "blindsight": null,
+            "darkvision": null,
+            "special": "",
             "tremorsense": null,
             "truesight": null,
-            "units": "ft",
-            "special": ""
+            "units": "ft"
+          },
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "custom": "",
+            "subtype": "halfling",
+            "value": "humanoid"
           }
         },
-        "effects": [],
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "race"
+      },
+      {
+        "_id": "FtOM4QiOW5MwgcS3",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "sort": 0,
-        "folder": "uQNrdSpcXeoB5EnX"
-      },
-      {
-        "_id": "FtOM4QiOW5MwgcS3",
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/sundries/gaming/dice-runed-brown.webp",
         "name": "Lucky",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><section class=\"secret foundry-note\" id=\"secret-S04TPyvUh05Dz0Ng\"><p><strong>Foundry Note</strong></p><p>This property can be enabled on your character sheet in the Special Traits configuration on the Attributes tab.</p></section>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><section class=\"secret foundry-note\" id=\"secret-S04TPyvUh05Dz0Ng\"><p><strong>Foundry Note</strong></p><p>This property can be enabled on your character sheet in the Special Traits configuration on the Attributes tab.</p></section>"
+          },
           "enchant": {},
+          "identifier": "lucky",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "lucky",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/sundries/gaming/dice-runed-brown.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "nmmihiqphHjoE8dl",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "nmmihiqphHjoE8dl",
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/skills/melee/unarmed-punch-fist.webp",
         "name": "Brave",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>You have advantage on saving throws against being frightened.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>You have advantage on saving throws against being frightened.</p>"
+          },
           "enchant": {},
+          "identifier": "brave",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "brave",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/skills/melee/unarmed-punch-fist.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "cWrETHzCRs1Ueqd3",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "cWrETHzCRs1Ueqd3",
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/skills/movement/feet-winged-boots-brown.webp",
         "name": "Halfling Nimbleness",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>You can move through the space of any creature that is of a size larger than yours.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>You can move through the space of any creature that is of a size larger than yours.</p>"
+          },
           "enchant": {},
+          "identifier": "halfling-nimbleness",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "halfling-nimbleness",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/skills/movement/feet-winged-boots-brown.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "AArhiOrSkaQUnCZS",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "AArhiOrSkaQUnCZS",
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
         "name": "Naturally Stealthy",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Lightfoot Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>"
+          },
           "enchant": {},
+          "identifier": "naturally-stealthy",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "naturally-stealthy",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Lightfoot Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "8Grf7ga6JcZF0X6x",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "8Grf7ga6JcZF0X6x",
-        "name": "Monk",
-        "type": "class",
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "HQ1Oy7HkbnxnE63o",
         "img": "icons/skills/melee/hand-grip-staff-blue.webp",
+        "name": "Monk",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>As a monk, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d8 per monk level<br /><strong>Hit Points at 1st Level:</strong> 8 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d8 (or 5) + your Constitution modifier per monk level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> None<br /><strong>Weapons:</strong> Simple weapons, shortswords<br /><strong>Tools:</strong> Choose one type of artisan's tools or one musical instrument<br /><strong>Saving Throws:</strong> Strength, Dexterity<br /><strong>Skills:</strong> Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth</p><h1>Monk Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Martial Arts</td><td>Ki Points</td><td>Unarmored Movement</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI]{Unarmored Defense}, @UUID[Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw]{Martial Arts}</td></tr><tr><td>2nd</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.10b6z2W1txNkrGP7]{Ki}, @UUID[Compendium.dnd5e.classfeatures.Item.zCeqyQ8uIPNdYJSW]{Unarmored Movement}</td></tr><tr><td>3rd</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.rtpQdX77dYWbDIOH]{Monastic Tradition}, @UUID[Compendium.dnd5e.classfeatures.Item.mzweVbnsJPQiVkAe]{Deflect Missiles}</td></tr><tr><td>4th</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, @UUID[Compendium.dnd5e.classfeatures.Item.KQz9bqxVkXjDl8gK]{Slow Fall}</td></tr><tr><td>5th</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}, @UUID[Compendium.dnd5e.classfeatures.Item.pvRc6GAu1ok6zihC]{Stunning Strike}</td></tr><tr><td>6th</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft.</td><td><p>@UUID[Compendium.dnd5e.classfeatures.Item.7flZKruSSu6dHg6D]{Ki-Empowered Strikes},</p><p>Monastic Tradition feature</p></td></tr><tr><td>7th</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.a4P4DNMmH8CqSNkC]{Evasion}, @UUID[Compendium.dnd5e.classfeatures.Item.ZmC31XKS4YNENnoc]{Stillness of Mind}</td></tr><tr><td>8th</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft.</td><td>Unarmored Movement improvement</td></tr><tr><td>10th</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.bqWA7t9pDELbNRkp]{Purity of Body}</td></tr><tr><td>11th</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>12th</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XjuGBeB8Y0C3A5D4]{Tongue of the Sun and Moon}</td></tr><tr><td>14th</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.7D2EkLdISwShEDlN]{Diamond Soul}</td></tr><tr><td>15th</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.gDH8PMrKvLHaNmEI]{Timeless Body}</td></tr><tr><td>16th</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>18th</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.3jwFt3hSqDswBlOH]{Empty Body}</td></tr><tr><td>19th</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.mQNPg89YIs7g5tG4]{Perfect Self}</td></tr></tbody></table><h1>Monastic Traditions</h1><p>Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.IvlpKMXX3PmW1NY2]{Way of the Open Hand}</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "identifier": "monk",
-          "levels": 1,
           "advancement": [
             {
-              "type": "HitPoints",
+              "_id": "ocxNtDFJ7YDaYaK7",
               "configuration": {},
+              "icon": "systems/dnd5e/icons/svg/hit-points.svg",
+              "title": "Hit Points",
+              "type": "HitPoints",
               "value": {
                 "1": "max"
-              },
-              "title": "Hit Points",
-              "icon": "systems/dnd5e/icons/svg/hit-points.svg",
-              "_id": "ocxNtDFJ7YDaYaK7"
+              }
             },
             {
               "_id": "mmAxx3U7FvXNAcKc",
-              "type": "Trait",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "weapon:sim",
                   "weapon:mar:shortsword"
                 ],
-                "choices": []
+                "mode": "default"
               },
               "level": 1,
               "title": "",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "weapon:sim",
@@ -1473,11 +695,9 @@ import axios from 'axios';
             },
             {
               "_id": "QPXy59CQGY9HB0c3",
-              "type": "Trait",
+              "classRestriction": "primary",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
-                "grants": [],
                 "choices": [
                   {
                     "count": 1,
@@ -1486,11 +706,13 @@ import axios from 'axios';
                       "tool:music:*"
                     ]
                   }
-                ]
+                ],
+                "grants": [],
+                "mode": "default"
               },
               "level": 1,
               "title": "",
-              "classRestriction": "primary",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "tool:art:brewer"
@@ -1499,19 +721,19 @@ import axios from 'axios';
             },
             {
               "_id": "4M8MQ1E64zbcRg6B",
-              "type": "Trait",
+              "classRestriction": "primary",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "saves:str",
                   "saves:dex"
                 ],
-                "choices": []
+                "mode": "default"
               },
               "level": 1,
               "title": "",
-              "classRestriction": "primary",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "saves:str",
@@ -1521,11 +743,9 @@ import axios from 'axios';
             },
             {
               "_id": "7HRRCPk80Ng2Evdx",
-              "type": "Trait",
+              "classRestriction": "primary",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
-                "grants": [],
                 "choices": [
                   {
                     "count": 2,
@@ -1538,11 +758,13 @@ import axios from 'axios';
                       "skills:ste"
                     ]
                   }
-                ]
+                ],
+                "grants": [],
+                "mode": "default"
               },
               "level": 1,
               "title": "",
-              "classRestriction": "primary",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "skills:acr",
@@ -1552,39 +774,39 @@ import axios from 'axios';
             },
             {
               "_id": "BQWHr3mt5flvkfIj",
-              "type": "Trait",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "di:poison",
                   "ci:diseased",
                   "ci:poisoned"
                 ],
-                "choices": []
+                "mode": "default"
               },
+              "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison.",
               "level": 10,
               "title": "Purity of Body",
+              "type": "Trait",
               "value": {
                 "chosen": []
-              },
-              "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison."
+              }
             },
             {
-              "type": "ItemGrant",
+              "_id": "n0q8XyiGA3vLPgpK",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO"
                   }
                 ],
                 "optional": false,
@@ -1596,42 +818,42 @@ import axios from 'axios';
                     "per": "",
                     "requireSlot": false
                   }
-                }
-              },
-              "value": {
-                "added": {
-                  "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-                  "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-                  "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO"
                 }
               },
               "level": 1,
               "title": "Features",
-              "_id": "n0q8XyiGA3vLPgpK"
+              "type": "ItemGrant",
+              "value": {
+                "added": {
+                  "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
+                  "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO",
+                  "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
+                }
+              }
             },
             {
-              "type": "ItemGrant",
+              "_id": "7TyDqpGGi3r3nsp0",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW"
                   }
                 ],
                 "optional": false,
@@ -1645,22 +867,22 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 2,
               "title": "Features",
-              "_id": "7TyDqpGGi3r3nsp0"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "2sLHTw6k15DSW8WB",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe"
                   }
                 ],
                 "optional": false,
@@ -1674,18 +896,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 3,
               "title": "Features",
-              "_id": "2sLHTw6k15DSW8WB"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "Zc1jOZK1b9mIKekq",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK"
                   }
                 ],
                 "optional": false,
@@ -1699,22 +921,22 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 4,
               "title": "Features",
-              "_id": "Zc1jOZK1b9mIKekq"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "j9LeWmxlsENKaMLo",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC"
                   }
                 ],
                 "optional": false,
@@ -1728,18 +950,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 5,
               "title": "Features",
-              "_id": "j9LeWmxlsENKaMLo"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "psobDjMqtA2216Db",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D"
                   }
                 ],
                 "optional": false,
@@ -1753,22 +975,22 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 6,
               "title": "Features",
-              "_id": "psobDjMqtA2216Db"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "K38aFaEMxMqRB0BC",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc"
                   }
                 ],
                 "optional": false,
@@ -1782,18 +1004,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 7,
               "title": "Features",
-              "_id": "K38aFaEMxMqRB0BC"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "eLqmJotmwzlGNrxG",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp"
                   }
                 ],
                 "optional": false,
@@ -1807,18 +1029,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 10,
               "title": "Features",
-              "_id": "eLqmJotmwzlGNrxG"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "N0geIQiuofqYgswj",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4"
                   }
                 ],
                 "optional": false,
@@ -1832,18 +1054,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 13,
               "title": "Features",
-              "_id": "N0geIQiuofqYgswj"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "N1hjizyI82UPp8UI",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN"
                   }
                 ],
                 "optional": false,
@@ -1857,18 +1079,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 14,
               "title": "Features",
-              "_id": "N1hjizyI82UPp8UI"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "TcLZS9WzC7bPETSd",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI"
                   }
                 ],
                 "optional": false,
@@ -1882,18 +1104,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 15,
               "title": "Features",
-              "_id": "TcLZS9WzC7bPETSd"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "tRb3a0tA5IpehPs8",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH"
                   }
                 ],
                 "optional": false,
@@ -1907,18 +1129,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 18,
               "title": "Features",
-              "_id": "tRb3a0tA5IpehPs8"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "sEQz9c9XhWYjS9x5",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4"
                   }
                 ],
                 "optional": false,
@@ -1932,54 +1154,53 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 20,
               "title": "Features",
-              "_id": "sEQz9c9XhWYjS9x5"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ScaleValue",
+              "_id": "MXFbf0nxMiyLdPbX",
               "configuration": {
-                "identifier": "die",
-                "type": "dice",
                 "distance": {
                   "units": ""
                 },
+                "identifier": "die",
                 "scale": {
                   "1": {
-                    "number": null,
                     "faces": 4,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   },
                   "5": {
-                    "number": null,
                     "faces": 6,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   },
                   "11": {
-                    "number": null,
                     "faces": 8,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   },
                   "17": {
-                    "number": null,
                     "faces": 10,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   }
-                }
+                },
+                "type": "dice"
               },
-              "value": {},
               "title": "Martial Arts Die",
-              "_id": "MXFbf0nxMiyLdPbX"
+              "type": "ScaleValue",
+              "value": {}
             },
             {
-              "type": "ScaleValue",
+              "_id": "1OzfWDWCquoHMeX5",
               "configuration": {
-                "identifier": "unarmored-movement",
-                "type": "distance",
                 "distance": {
                   "units": "ft"
                 },
+                "identifier": "unarmored-movement",
                 "scale": {
                   "2": {
                     "value": 10
@@ -1996,306 +1217,244 @@ import axios from 'axios';
                   "18": {
                     "value": 30
                   }
-                }
+                },
+                "type": "distance"
               },
-              "value": {},
               "title": "Unarmored Movement",
-              "_id": "1OzfWDWCquoHMeX5"
+              "type": "ScaleValue",
+              "value": {}
             },
             {
-              "type": "AbilityScoreImprovement",
+              "_id": "ofNSUhSHKhhDuPSR",
               "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
                 "cap": 2,
-                "locked": []
-              },
-              "value": {
-                "type": "asi"
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 4,
               "title": "Ability Score Improvement",
-              "_id": "ofNSUhSHKhhDuPSR"
-            },
-            {
               "type": "AbilityScoreImprovement",
-              "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
-                "cap": 2,
-                "locked": []
-              },
               "value": {
                 "type": "asi"
+              }
+            },
+            {
+              "_id": "s3t9o57hP6iUHirr",
+              "configuration": {
+                "cap": 2,
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 8,
               "title": "Ability Score Improvement",
-              "_id": "s3t9o57hP6iUHirr"
-            },
-            {
               "type": "AbilityScoreImprovement",
-              "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
-                "cap": 2,
-                "locked": []
-              },
               "value": {
                 "type": "asi"
+              }
+            },
+            {
+              "_id": "O24MWOKc1ImsKaml",
+              "configuration": {
+                "cap": 2,
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 12,
               "title": "Ability Score Improvement",
-              "_id": "O24MWOKc1ImsKaml"
-            },
-            {
               "type": "AbilityScoreImprovement",
-              "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
-                "cap": 2,
-                "locked": []
-              },
               "value": {
                 "type": "asi"
+              }
+            },
+            {
+              "_id": "xdqWoLtgO3uyl3nJ",
+              "configuration": {
+                "cap": 2,
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 16,
               "title": "Ability Score Improvement",
-              "_id": "xdqWoLtgO3uyl3nJ"
+              "type": "AbilityScoreImprovement",
+              "value": {
+                "type": "asi"
+              }
             },
             {
               "_id": "puDaUsYrlks0z5gm",
-              "type": "AbilityScoreImprovement",
               "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
                 "cap": 2,
-                "locked": []
-              },
-              "value": {
-                "type": "asi"
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 19,
-              "title": ""
+              "title": "",
+              "type": "AbilityScoreImprovement",
+              "value": {
+                "type": "asi"
+              }
             },
             {
               "_id": "0awj2yq115ev9u9o",
-              "type": "Subclass",
               "configuration": {},
+              "level": 3,
+              "title": "Monastic Tradition",
+              "type": "Subclass",
               "value": {
                 "document": null,
                 "uuid": null
-              },
-              "level": 3,
-              "title": "Monastic Tradition"
+              }
             }
           ],
+          "description": {
+            "chat": "",
+            "value": "<p>As a monk, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d8 per monk level<br /><strong>Hit Points at 1st Level:</strong> 8 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d8 (or 5) + your Constitution modifier per monk level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> None<br /><strong>Weapons:</strong> Simple weapons, shortswords<br /><strong>Tools:</strong> Choose one type of artisan's tools or one musical instrument<br /><strong>Saving Throws:</strong> Strength, Dexterity<br /><strong>Skills:</strong> Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth</p><h1>Monk Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Martial Arts</td><td>Ki Points</td><td>Unarmored Movement</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI]{Unarmored Defense}, @UUID[Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw]{Martial Arts}</td></tr><tr><td>2nd</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.10b6z2W1txNkrGP7]{Ki}, @UUID[Compendium.dnd5e.classfeatures.Item.zCeqyQ8uIPNdYJSW]{Unarmored Movement}</td></tr><tr><td>3rd</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.rtpQdX77dYWbDIOH]{Monastic Tradition}, @UUID[Compendium.dnd5e.classfeatures.Item.mzweVbnsJPQiVkAe]{Deflect Missiles}</td></tr><tr><td>4th</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, @UUID[Compendium.dnd5e.classfeatures.Item.KQz9bqxVkXjDl8gK]{Slow Fall}</td></tr><tr><td>5th</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}, @UUID[Compendium.dnd5e.classfeatures.Item.pvRc6GAu1ok6zihC]{Stunning Strike}</td></tr><tr><td>6th</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft.</td><td><p>@UUID[Compendium.dnd5e.classfeatures.Item.7flZKruSSu6dHg6D]{Ki-Empowered Strikes},</p><p>Monastic Tradition feature</p></td></tr><tr><td>7th</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.a4P4DNMmH8CqSNkC]{Evasion}, @UUID[Compendium.dnd5e.classfeatures.Item.ZmC31XKS4YNENnoc]{Stillness of Mind}</td></tr><tr><td>8th</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft.</td><td>Unarmored Movement improvement</td></tr><tr><td>10th</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.bqWA7t9pDELbNRkp]{Purity of Body}</td></tr><tr><td>11th</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>12th</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XjuGBeB8Y0C3A5D4]{Tongue of the Sun and Moon}</td></tr><tr><td>14th</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.7D2EkLdISwShEDlN]{Diamond Soul}</td></tr><tr><td>15th</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.gDH8PMrKvLHaNmEI]{Timeless Body}</td></tr><tr><td>16th</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>18th</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.3jwFt3hSqDswBlOH]{Empty Body}</td></tr><tr><td>19th</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.mQNPg89YIs7g5tG4]{Perfect Self}</td></tr></tbody></table><h1>Monastic Traditions</h1><p>Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.IvlpKMXX3PmW1NY2]{Way of the Open Hand}</p>"
+          },
+          "hd": {
+            "additional": "",
+            "denomination": "d8",
+            "spent": 0
+          },
+          "identifier": "monk",
+          "levels": 1,
+          "primaryAbility": {
+            "all": true,
+            "value": []
+          },
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "spellcasting": {
-            "progression": "none",
             "ability": "",
             "preparation": {
               "formula": ""
-            }
+            },
+            "progression": "none"
           },
           "startingEquipment": [
             {
-              "type": "OR",
               "_id": "5yj0P4r9teJDnDtd",
               "group": "",
+              "requiresProficiency": false,
               "sort": 100000,
-              "requiresProficiency": false
+              "type": "OR"
             },
             {
-              "type": "linked",
-              "count": null,
-              "key": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
               "_id": "R5tuRtaPonfjQCVU",
-              "group": "5yj0P4r9teJDnDtd",
-              "sort": 200000,
-              "requiresProficiency": false
-            },
-            {
-              "type": "weapon",
               "count": null,
-              "key": "simpleM",
-              "_id": "Mlf6kel8ws6xgDER",
               "group": "5yj0P4r9teJDnDtd",
-              "sort": 300000,
-              "requiresProficiency": false
+              "key": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
+              "requiresProficiency": false,
+              "sort": 200000,
+              "type": "linked"
             },
             {
-              "type": "OR",
+              "_id": "Mlf6kel8ws6xgDER",
+              "count": null,
+              "group": "5yj0P4r9teJDnDtd",
+              "key": "simpleM",
+              "requiresProficiency": false,
+              "sort": 300000,
+              "type": "weapon"
+            },
+            {
               "_id": "3TbVLmLPtjVaSh5O",
               "group": "",
+              "requiresProficiency": false,
               "sort": 400000,
-              "requiresProficiency": false
+              "type": "OR"
             },
             {
-              "type": "linked",
-              "count": null,
-              "key": "Compendium.dnd5e.items.Item.XY8b594Dn7plACLL",
               "_id": "AvDYtl0uvQsDuhnb",
-              "group": "3TbVLmLPtjVaSh5O",
-              "sort": 500000,
-              "requiresProficiency": false
-            },
-            {
-              "type": "linked",
               "count": null,
-              "key": "Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP",
-              "_id": "4QKQURCmIurbTAzp",
               "group": "3TbVLmLPtjVaSh5O",
-              "sort": 600000,
-              "requiresProficiency": false
+              "key": "Compendium.dnd5e.items.Item.XY8b594Dn7plACLL",
+              "requiresProficiency": false,
+              "sort": 500000,
+              "type": "linked"
             },
             {
-              "type": "linked",
-              "count": 10,
-              "key": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+              "_id": "4QKQURCmIurbTAzp",
+              "count": null,
+              "group": "3TbVLmLPtjVaSh5O",
+              "key": "Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP",
+              "requiresProficiency": false,
+              "sort": 600000,
+              "type": "linked"
+            },
+            {
               "_id": "AOYuulsULvsHbSLO",
+              "count": 10,
               "group": "",
+              "key": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+              "requiresProficiency": false,
               "sort": 700000,
-              "requiresProficiency": false
+              "type": "linked"
             }
           ],
-          "wealth": "5d4",
-          "primaryAbility": {
-            "value": [],
-            "all": true
-          },
-          "hd": {
-            "denomination": "d8",
-            "spent": 0,
-            "additional": ""
-          }
+          "wealth": "5d4"
         },
-        "effects": [],
-        "folder": "HQ1Oy7HkbnxnE63o",
-        "sort": 0,
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "class"
+      },
+      {
+        "_id": "CwgoTDXWCD7PknIN",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "CwgoTDXWCD7PknIN",
-        "name": "Unarmored Defense",
-        "ownership": {
-          "default": 0
         },
-        "type": "feat",
-        "system": {
-          "description": {
-            "value": "<p>Beginning at 1st Level, while you are wearing no armor and not wielding a Shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "class",
-            "subtype": ""
-          },
-          "requirements": "Monk 1",
-          "properties": [],
-          "activities": {},
-          "enchant": {},
-          "prerequisites": {
-            "level": null,
-            "repeatable": false
-          },
-          "identifier": "unarmored-defense",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
-          }
-        },
-        "img": "icons/magic/control/silhouette-hold-change-blue.webp",
         "effects": [
           {
             "_id": "R5ro4AuNjcdWD56O",
-            "changes": [
-              {
-                "key": "system.attributes.ac.calc",
-                "mode": 5,
-                "value": "unarmoredMonk",
-                "priority": null
-              }
-            ],
-            "disabled": false,
-            "duration": {
-              "startTime": 0,
-              "seconds": null,
-              "combat": null,
-              "rounds": null,
-              "turns": null,
-              "startRound": null,
-              "startTurn": null
-            },
-            "origin": "Item.cOdcNWy4hII029DT",
-            "transfer": true,
-            "flags": {},
-            "tint": "#ffffff",
-            "name": "Unarmored Defense",
-            "description": "",
-            "statuses": [],
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
@@ -2305,321 +1464,324 @@ import axios from 'axios';
               "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
+            "changes": [
+              {
+                "key": "system.attributes.ac.calc",
+                "mode": 5,
+                "priority": null,
+                "value": "unarmoredMonk"
+              }
+            ],
+            "description": "",
+            "disabled": false,
+            "duration": {
+              "combat": null,
+              "rounds": null,
+              "seconds": null,
+              "startRound": null,
+              "startTime": 0,
+              "startTurn": null,
+              "turns": null
+            },
+            "flags": {},
             "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-            "type": "base",
+            "name": "Unarmored Defense",
+            "origin": "Item.cOdcNWy4hII029DT",
+            "sort": 0,
+            "statuses": [],
             "system": {},
-            "sort": 0
+            "tint": "#ffffff",
+            "transfer": true,
+            "type": "base"
           }
         ],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+            "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI"
+          }
+        },
         "folder": "TMmNG8ujFDBEWXRe",
-        "sort": 0,
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "pchnXqd5C79fVlxy",
-        "name": "Martial Arts",
+        "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+        "name": "Unarmored Defense",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property. You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>\n<ul>\n<li>\n<p>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</p>\n</li>\n<li>\n<p>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</p>\n</li>\n<li>\n<p>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</p>\n</li>\n</ul>\n<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "class",
-            "subtype": ""
-          },
-          "requirements": "Monk 1",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>Beginning at 1st Level, while you are wearing no armor and not wielding a Shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>"
+          },
           "enchant": {},
+          "identifier": "unarmored-defense",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "martial-arts",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
+          "properties": [],
+          "requirements": "Monk 1",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "class"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/skills/melee/unarmed-punch-fist.webp",
-        "effects": [],
-        "folder": "TMmNG8ujFDBEWXRe",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "pchnXqd5C79fVlxy",
         "_stats": {
-          "duplicateSource": null,
           "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
+          "duplicateSource": null,
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "name": "Hammer",
-        "type": "loot",
-        "img": "icons/tools/hand/hammer-cobbler-steel.webp",
-        "system": {
-          "description": {
-            "value": "<p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 3,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "gp"
-          },
-          "rarity": "",
-          "identified": true,
-          "type": {
-            "value": "",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "identifier": "hammer"
         },
         "effects": [],
-        "folder": "dlru9Hy74nSMv6fr",
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+            "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
+          }
+        },
+        "folder": "TMmNG8ujFDBEWXRe",
+        "img": "icons/skills/melee/unarmed-punch-fist.webp",
+        "name": "Martial Arts",
         "ownership": {
           "default": 0
         },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "YJ1P3PnFKHOdQpaP",
-        "sort": 0
-      },
-      {
-        "name": "Tinderbox",
-        "type": "loot",
-        "img": "icons/sundries/lights/torch-black.webp",
+        "sort": 0,
         "system": {
+          "activities": {},
+          "advancement": [],
+          "crewed": false,
           "description": {
-            "value": "<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch - or anything else with abundant, exposed fuel - takes an action. Lighting any other fire takes 1 minute.</p>\n<p> </p>",
-            "chat": ""
+            "chat": "",
+            "value": "<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property. You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>\n<ul>\n<li>\n<p>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</p>\n</li>\n<li>\n<p>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</p>\n</li>\n<li>\n<p>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</p>\n</li>\n</ul>\n<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon.</p>"
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 1,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
-          "rarity": "",
-          "identified": true,
-          "container": "8KWz5DJbWUpNWniP",
-          "type": {
-            "value": "",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
+          "enchant": {},
+          "identifier": "martial-arts",
+          "prerequisites": {
+            "level": null,
+            "repeatable": false
           },
           "properties": [],
-          "identifier": "tinderbox"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "DDnxRCeYUhXstWU8",
-        "sort": 0
-      },
-      {
-        "name": "Waterskin",
-        "type": "consumable",
-        "img": "icons/sundries/survival/wetskin-leather-purple.webp",
-        "system": {
-          "description": {
-            "value": "<p>A leather hide sewn into an enclosed skin which can contain up to 4 pints of liquid. It weighs 5 pounds when full; a pint of water is approximately 1 pound.</p>",
-            "chat": ""
-          },
+          "requirements": "Monk 1",
           "source": {
-            "custom": "",
             "book": "SRD 5.1",
-            "page": "",
+            "custom": "",
             "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
           },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
+          "type": {
+            "subtype": "",
+            "value": "class"
           },
-          "price": {
-            "value": 2,
-            "denomination": "sp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
           "uses": {
-            "max": "4",
+            "max": "",
             "recovery": [],
-            "autoDestroy": false,
             "spent": 0
+          }
+        },
+        "type": "feat"
+      },
+      {
+        "_id": "YJ1P3PnFKHOdQpaP",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "dlru9Hy74nSMv6fr",
+        "img": "icons/tools/hand/hammer-cobbler-steel.webp",
+        "name": "Hammer",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": null,
+          "description": {
+            "chat": "",
+            "value": "<p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>"
           },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
-              "custom": {
-                "enabled": false
-              },
-              "scaling": {
-                "number": 1
-              }
-            },
-            "replace": false
+          "identified": true,
+          "identifier": "hammer",
+          "price": {
+            "denomination": "gp",
+            "value": 1
           },
-          "container": "6OYR11aJX2dEVtOj",
           "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "food",
-            "subtype": ""
+            "subtype": "",
+            "value": ""
           },
           "unidentified": {
             "description": ""
           },
-          "magicalBonus": null,
+          "weight": {
+            "units": "lb",
+            "value": 3
+          }
+        },
+        "type": "loot"
+      },
+      {
+        "_id": "DDnxRCeYUhXstWU8",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/sundries/lights/torch-black.webp",
+        "name": "Tinderbox",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": "8KWz5DJbWUpNWniP",
+          "description": {
+            "chat": "",
+            "value": "<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch - or anything else with abundant, exposed fuel - takes an action. Lighting any other fire takes 1 minute.</p>\n<p> </p>"
+          },
+          "identified": true,
+          "identifier": "tinderbox",
+          "price": {
+            "denomination": "sp",
+            "value": 5
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 1
+          }
+        },
+        "type": "loot"
+      },
+      {
+        "_id": "5skKSSB4ShHbKoc8",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/sundries/survival/wetskin-leather-purple.webp",
+        "name": "Waterskin",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "utility",
               "activation": {
-                "type": "action",
-                "value": 1,
                 "condition": "",
-                "override": false
+                "override": false,
+                "type": "action",
+                "value": 1
               },
               "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
                 "scaling": {
                   "allowed": false,
                   "max": ""
                 },
-                "spellSlot": true
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
               },
               "description": {
                 "chatFlavor": ""
               },
               "duration": {
                 "concentration": false,
-                "value": "",
-                "units": "inst",
+                "override": false,
                 "special": "",
-                "override": false
+                "units": "inst",
+                "value": ""
               },
               "effects": [],
               "range": {
-                "units": "touch",
+                "override": false,
                 "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "units": "touch"
               },
               "roll": {
                 "formula": "",
@@ -2627,162 +1789,122 @@ import axios from 'axios';
                 "prompt": false,
                 "visible": false
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
               },
-              "sort": 0
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
           "attuned": false,
-          "identifier": "waterskin"
+          "attunement": "",
+          "container": "6OYR11aJX2dEVtOj",
+          "damage": {
+            "base": {
+              "custom": {
+                "enabled": false
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "number": 1
+              },
+              "types": []
+            },
+            "replace": false
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A leather hide sewn into an enclosed skin which can contain up to 4 pints of liquid. It weighs 5 pounds when full; a pint of water is approximately 1 pound.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "waterskin",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "sp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "food"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "autoDestroy": false,
+            "max": "4",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
         },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
+        "type": "consumable"
+      },
+      {
+        "_id": "dDuMscUuMI2bTdkj",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/sundries/lights/torch-black.webp",
+        "name": "Torch",
         "ownership": {
           "default": 0
         },
-        "_id": "5skKSSB4ShHbKoc8",
-        "sort": 0
-      },
-      {
-        "name": "Torch",
-        "type": "consumable",
-        "img": "icons/sundries/lights/torch-black.webp",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 1,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "cp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": false,
-            "spent": 0
-          },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [
-                "fire"
-              ],
-              "custom": {
-                "enabled": true,
-                "formula": "1"
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            },
-            "replace": false
-          },
-          "container": "8KWz5DJbWUpNWniP",
-          "properties": [],
-          "type": {
-            "value": "trinket",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "magicalBonus": null,
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "attack",
               "activation": {
-                "type": "action",
-                "value": 1,
                 "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "1",
-                "units": "hour",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "self",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "radius",
-                  "size": "40",
-                  "width": "",
-                  "height": "",
-                  "units": "ft"
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "override": false,
+                "type": "action",
+                "value": 1
               },
               "attack": {
                 "ability": "str",
@@ -2792,9 +1914,27 @@ import axios from 'axios';
                 },
                 "flat": false,
                 "type": {
-                  "value": "melee",
-                  "classification": "weapon"
+                  "classification": "weapon",
+                  "value": "melee"
                 }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
               },
               "damage": {
                 "critical": {
@@ -2803,427 +1943,446 @@ import axios from 'axios';
                 "includeBase": true,
                 "parts": [
                   {
-                    "number": null,
-                    "denomination": null,
                     "bonus": "",
-                    "types": [
-                      "fire"
-                    ],
                     "custom": {
                       "enabled": true,
                       "formula": "1"
                     },
+                    "denomination": null,
+                    "number": null,
                     "scaling": {
+                      "formula": "",
                       "mode": "whole",
-                      "number": null,
-                      "formula": ""
-                    }
+                      "number": null
+                    },
+                    "types": [
+                      "fire"
+                    ]
                   }
                 ]
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "description": {
+                "chatFlavor": ""
               },
-              "sort": 0
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "hour",
+                "value": "1"
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "self"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "40",
+                  "type": "radius",
+                  "units": "ft",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
           "attuned": false,
-          "identifier": "torch"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "dDuMscUuMI2bTdkj",
-        "sort": 0
-      },
-      {
-        "name": "Stick of Incense",
-        "type": "loot",
-        "img": "icons/consumables/grains/breadsticks-crackers-wrapped-ration-brown.webp",
-        "system": {
+          "attunement": "",
+          "container": "8KWz5DJbWUpNWniP",
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": true,
+                "formula": "1"
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "fire"
+              ]
+            },
+            "replace": false
+          },
           "description": {
-            "value": "<p>When blocks of incense cannot be used or a cheaper alternative is required, people often use these to perfume the air, whether for pleasurable or religious purposes.</p>",
-            "chat": ""
+            "chat": "",
+            "value": "<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>"
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 5,
-          "weight": {
-            "value": 0,
-            "units": "lb"
-          },
-          "price": {
-            "value": 2,
-            "denomination": "sp"
-          },
-          "rarity": "",
+          "equipped": false,
           "identified": true,
+          "identifier": "torch",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "cp",
+            "value": 1
+          },
+          "properties": [],
+          "quantity": 10,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "",
-            "subtype": ""
+            "subtype": "",
+            "value": "trinket"
           },
           "unidentified": {
             "description": ""
           },
-          "container": null,
-          "properties": [],
-          "identifier": "stick-of-incense"
+          "uses": {
+            "autoDestroy": false,
+            "max": "1",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 1
+          }
         },
-        "effects": [],
-        "folder": "dlru9Hy74nSMv6fr",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "consumable"
+      },
+      {
+        "_id": "nC6VcR5JAIbR4err",
         "_stats": {
-          "duplicateSource": null,
           "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
+          "duplicateSource": null,
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "nC6VcR5JAIbR4err",
-        "sort": 0
+        "effects": [],
+        "flags": {},
+        "folder": "dlru9Hy74nSMv6fr",
+        "img": "icons/consumables/grains/breadsticks-crackers-wrapped-ration-brown.webp",
+        "name": "Stick of Incense",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": null,
+          "description": {
+            "chat": "",
+            "value": "<p>When blocks of incense cannot be used or a cheaper alternative is required, people often use these to perfume the air, whether for pleasurable or religious purposes.</p>"
+          },
+          "identified": true,
+          "identifier": "stick-of-incense",
+          "price": {
+            "denomination": "sp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 5,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 0
+          }
+        },
+        "type": "loot"
       },
       {
-        "name": "Dart",
-        "type": "weapon",
+        "_id": "WeKJI3gPUAU52WAX",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "MLMTCAvKsuFE3vYA",
         "img": "icons/weapons/thrown/dart-feathered.webp",
+        "name": "Dart",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>A small thrown implement crafted with a short wooden shaft and crossed feathres with a sharp wooden or metal tip. Darts can be thrown with sufficient force to puncture the skin.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 0.25,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "cp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "range": {
-            "value": 20,
-            "long": 60,
-            "units": "ft",
-            "reach": null
-          },
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "damage": {
-            "versatile": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [],
-              "custom": {
-                "enabled": false,
-                "formula": ""
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
               },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            },
-            "base": {
-              "number": 1,
-              "denomination": 4,
-              "bonus": "",
-              "types": [
-                "piercing"
-              ],
-              "custom": {
-                "enabled": false,
-                "formula": ""
+              "attack": {
+                "ability": "",
+                "bonus": "",
+                "critical": {
+                  "threshold": null
+                },
+                "flat": false,
+                "type": {
+                  "classification": "weapon",
+                  "value": "ranged"
+                }
               },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
+              },
+              "damage": {
+                "critical": {
+                  "bonus": ""
+                },
+                "includeBase": true,
+                "parts": []
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "20"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "recovery": [],
+                "spent": 0
               }
             }
           },
+          "ammunition": {},
           "armor": {
             "value": 10
           },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": 4,
+              "number": 1,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "piercing"
+              ]
+            },
+            "versatile": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": []
+            }
           },
+          "description": {
+            "chat": "",
+            "value": "<p>A small thrown implement crafted with a short wooden shaft and crossed feathres with a sharp wooden or metal tip. Darts can be thrown with sufficient force to puncture the skin.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "dart",
+          "magicalBonus": null,
+          "mastery": "",
+          "price": {
+            "denomination": "cp",
+            "value": 5
+          },
+          "proficient": null,
           "properties": [
             "fin",
             "thr"
           ],
-          "proficient": null,
+          "quantity": 10,
+          "range": {
+            "long": 60,
+            "reach": null,
+            "units": "ft",
+            "value": 20
+          },
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "simpleR",
-            "baseItem": "dart"
+            "baseItem": "dart",
+            "value": "simpleR"
           },
           "unidentified": {
             "description": ""
           },
-          "container": null,
-          "crewed": false,
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "attack",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "20",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "attack": {
-                "ability": "",
-                "bonus": "",
-                "critical": {
-                  "threshold": null
-                },
-                "flat": false,
-                "type": {
-                  "value": "ranged",
-                  "classification": "weapon"
-                }
-              },
-              "damage": {
-                "critical": {
-                  "bonus": ""
-                },
-                "includeBase": true,
-                "parts": []
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           },
-          "attuned": false,
-          "ammunition": {},
-          "mastery": "",
-          "identifier": "dart"
+          "weight": {
+            "units": "lb",
+            "value": 0.25
+          }
         },
-        "effects": [],
-        "folder": "MLMTCAvKsuFE3vYA",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "weapon"
+      },
+      {
+        "_id": "1F73YcUHbZMgePAD",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "WeKJI3gPUAU52WAX",
-        "sort": 0
-      },
-      {
-        "name": "Common Clothes",
-        "type": "equipment",
+        "effects": [],
+        "flags": {},
+        "folder": "aJgMxnZED9XdoN2W",
         "img": "icons/equipment/chest/shirt-collared-brown.webp",
+        "name": "Common Clothes",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>Clothes worn by most commoners.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 3,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "armor": {
-            "value": null,
-            "dex": null,
-            "magicalBonus": null
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "speed": {
-            "value": null,
-            "conditions": ""
-          },
-          "strength": null,
-          "proficient": null,
-          "type": {
-            "value": "clothing",
-            "baseItem": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "properties": [],
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "utility",
               "activation": {
-                "type": "",
-                "value": null,
                 "condition": "",
-                "override": false
+                "override": false,
+                "type": "",
+                "value": null
               },
               "consumption": {
-                "targets": [],
                 "scaling": {
                   "allowed": false,
                   "max": ""
                 },
-                "spellSlot": true
+                "spellSlot": true,
+                "targets": []
               },
               "description": {
                 "chatFlavor": ""
               },
               "duration": {
                 "concentration": false,
-                "value": "",
-                "units": "inst",
+                "override": false,
                 "special": "",
-                "override": false
+                "units": "inst",
+                "value": ""
               },
               "effects": [],
               "range": {
-                "units": "self",
+                "override": false,
                 "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "units": "self"
               },
               "roll": {
                 "formula": "",
@@ -3231,511 +2390,394 @@ import axios from 'axios';
                 "prompt": false,
                 "visible": false
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
               },
-              "sort": 0
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
+          "armor": {
+            "dex": null,
+            "magicalBonus": null,
+            "value": null
+          },
           "attuned": false,
-          "identifier": "common-clothes"
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>Clothes worn by most commoners.</p>"
+          },
+          "equipped": false,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "common-clothes",
+          "price": {
+            "denomination": "sp",
+            "value": 5
+          },
+          "proficient": null,
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "speed": {
+            "conditions": "",
+            "value": null
+          },
+          "strength": null,
+          "type": {
+            "baseItem": "",
+            "value": "clothing"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 3
+          }
         },
-        "effects": [],
-        "folder": "aJgMxnZED9XdoN2W",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "equipment"
+      },
+      {
+        "_id": "LQhGSEatJ3VK7oqW",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "1F73YcUHbZMgePAD",
-        "sort": 0
-      },
-      {
-        "name": "Rations",
-        "type": "consumable",
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
         "img": "icons/consumables/grains/bread-loaf-boule-rustic-brown.webp",
+        "name": "Rations",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>",
-            "chat": ""
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "touch"
+              },
+              "roll": {
+                "formula": "",
+                "name": "",
+                "prompt": false,
+                "visible": false
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "1",
+                  "special": "",
+                  "type": "creature"
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 2,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
+          "attuned": false,
           "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": true,
-            "spent": 0
-          },
+          "container": "XY8b594Dn7plACLL",
           "damage": {
             "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
               "custom": {
                 "enabled": false
               },
+              "denomination": null,
+              "number": null,
               "scaling": {
                 "number": 1
-              }
+              },
+              "types": []
             },
             "replace": false
           },
-          "container": "XY8b594Dn7plACLL",
-          "properties": [],
-          "type": {
-            "value": "food",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "utility",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "touch",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "1",
-                  "type": "creature",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "roll": {
-                "formula": "",
-                "name": "",
-                "prompt": false,
-                "visible": false
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
-          },
-          "attuned": false,
-          "identifier": "rations"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "LQhGSEatJ3VK7oqW",
-        "sort": 0
-      },
-      {
-        "name": "Pouch",
-        "type": "container",
-        "img": "icons/containers/bags/pouch-rounded-leather-gold-tan.webp",
-        "system": {
           "description": {
-            "value": "<p>A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch. A pouch can hold up to ⅕ cubic foot or 6 pounds of gear.</p>",
-            "chat": ""
+            "chat": "",
+            "value": "<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>"
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 1,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
-          "attunement": "",
           "equipped": false,
-          "rarity": "",
           "identified": true,
-          "capacity": {
-            "weight": {
-              "value": 6,
-              "units": "lb"
-            },
-            "volume": {
-              "units": "cubicFoot"
-            }
-          },
-          "currency": {
-            "cp": 0,
-            "sp": 0,
-            "ep": 0,
-            "gp": 0,
-            "pp": 0
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "attuned": false,
-          "identifier": "pouch"
-        },
-        "effects": [],
-        "folder": "PgtyWdfkDTDbc0ov",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "1kqMwSwjfErSFNvl",
-        "sort": 0
-      },
-      {
-        "name": "Crowbar",
-        "type": "loot",
-        "img": "icons/tools/hand/pickaxe-steel-white.webp",
-        "system": {
-          "description": {
-            "value": "<p>Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
-          },
+          "identifier": "rations",
+          "magicalBonus": null,
           "price": {
-            "value": 2,
-            "denomination": "gp"
+            "denomination": "sp",
+            "value": 5
           },
+          "properties": [],
+          "quantity": 10,
           "rarity": "",
-          "identified": true,
-          "container": "XY8b594Dn7plACLL",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "",
-            "subtype": ""
+            "subtype": "",
+            "value": "food"
           },
           "unidentified": {
             "description": ""
-          },
-          "properties": [],
-          "identifier": "crowbar"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "zF5L4xHnJBC7b2iM",
-        "sort": 0
-      },
-      {
-        "name": "Unarmed Strike",
-        "type": "weapon",
-        "img": "icons/skills/melee/unarmed-punch-fist.webp",
-        "system": {
-          "description": {
-            "value": "<p>A  punch, kick, head-butt, or similar forceful blow (none of which count as weapons). On a hit, an unarmed strike deals bludgeoning damage equal to 1 + your Strength modifier. You are proficient with your unarmed strikes.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 0,
-            "units": "lb"
-          },
-          "price": {
-            "value": 0,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "range": {
-            "value": null,
-            "long": null,
-            "units": "ft",
-            "reach": null
           },
           "uses": {
-            "max": "",
+            "autoDestroy": true,
+            "max": "1",
             "recovery": [],
             "spent": 0
           },
-          "damage": {
-            "versatile": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [],
-              "custom": {
-                "enabled": false,
-                "formula": ""
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
+          "weight": {
+            "units": "lb",
+            "value": 2
+          }
+        },
+        "type": "consumable"
+      },
+      {
+        "_id": "1kqMwSwjfErSFNvl",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "PgtyWdfkDTDbc0ov",
+        "img": "icons/containers/bags/pouch-rounded-leather-gold-tan.webp",
+        "name": "Pouch",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "attuned": false,
+          "attunement": "",
+          "capacity": {
+            "volume": {
+              "units": "cubicFoot"
             },
-            "base": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [
-                "bludgeoning"
-              ],
-              "custom": {
-                "enabled": true,
-                "formula": "@scale.monk.die"
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
+            "weight": {
+              "units": "lb",
+              "value": 6
             }
           },
-          "armor": {
-            "value": 10
+          "container": null,
+          "currency": {
+            "cp": 0,
+            "ep": 0,
+            "gp": 0,
+            "pp": 0,
+            "sp": 0
           },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
+          "description": {
+            "chat": "",
+            "value": "<p>A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch. A pouch can hold up to ⅕ cubic foot or 6 pounds of gear.</p>"
           },
-          "properties": [
-            "fin"
-          ],
-          "proficient": null,
-          "type": {
-            "value": "simpleM",
-            "baseItem": ""
+          "equipped": false,
+          "identified": true,
+          "identifier": "pouch",
+          "price": {
+            "denomination": "sp",
+            "value": 5
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
           },
           "unidentified": {
             "description": ""
           },
-          "container": null,
-          "crewed": false,
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "attack",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "5",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "attack": {
-                "ability": "",
-                "bonus": "",
-                "critical": {
-                  "threshold": null
-                },
-                "flat": false,
-                "type": {
-                  "value": "melee",
-                  "classification": "unarmed"
-                }
-              },
-              "damage": {
-                "critical": {
-                  "bonus": ""
-                },
-                "includeBase": true,
-                "parts": []
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": [],
-                "max": ""
-              },
-              "sort": 0,
-              "name": ""
-            }
-          },
-          "attuned": false,
-          "ammunition": {},
-          "identifier": "unarmed-strike",
-          "mastery": ""
+          "weight": {
+            "units": "lb",
+            "value": 1
+          }
+        },
+        "type": "container"
+      },
+      {
+        "_id": "zF5L4xHnJBC7b2iM",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
         },
         "effects": [],
-        "folder": "MLMTCAvKsuFE3vYA",
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/tools/hand/pickaxe-steel-white.webp",
+        "name": "Crowbar",
         "ownership": {
           "default": 0
         },
+        "sort": 0,
+        "system": {
+          "container": "XY8b594Dn7plACLL",
+          "description": {
+            "chat": "",
+            "value": "<p>Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.</p>"
+          },
+          "identified": true,
+          "identifier": "crowbar",
+          "price": {
+            "denomination": "gp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
+        },
+        "type": "loot"
+      },
+      {
+        "_id": "g7U3OAXVcoI4lwzf",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
         "flags": {
           "dnd5e": {
             "last": {
@@ -3752,867 +2794,22 @@ import axios from 'axios';
             }
           }
         },
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "g7U3OAXVcoI4lwzf",
-        "sort": 0
-      },
-      {
-        "name": "Backpack",
-        "type": "container",
-        "img": "icons/containers/bags/pack-leather-white-tan.webp",
-        "system": {
-          "description": {
-            "value": "<p>A backpack can hold one cubic foot or 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
-          },
-          "price": {
-            "value": 2,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "capacity": {
-            "weight": {
-              "value": 30,
-              "units": "lb"
-            },
-            "volume": {
-              "units": "cubicFoot"
-            }
-          },
-          "currency": {
-            "cp": 0,
-            "sp": 0,
-            "ep": 0,
-            "gp": 0,
-            "pp": 0
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "attuned": false,
-          "identifier": "backpack"
-        },
-        "effects": [],
-        "folder": "PgtyWdfkDTDbc0ov",
+        "folder": "MLMTCAvKsuFE3vYA",
+        "img": "icons/skills/melee/unarmed-punch-fist.webp",
+        "name": "Unarmed Strike",
         "ownership": {
           "default": 0
         },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "WcROGD590imVj9qp",
-        "sort": 0
-      },
-      {
-        "name": "Piton",
-        "type": "consumable",
-        "img": "icons/tools/fasteners/nail-steel.webp",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>A metal spike that is drive into a seam in a climbing surface with a climbing hammer. It can also be used like iron spikes to block doors in a pinch.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 0.25,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "cp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": false,
-            "spent": 0
-          },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
-              "custom": {
-                "enabled": false
-              },
-              "scaling": {
-                "number": 1
-              }
-            },
-            "replace": false
-          },
-          "container": "xsB7Y2WI476kvOt4",
-          "properties": [],
-          "type": {
-            "value": "trinket",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "magicalBonus": null,
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "utility",
               "activation": {
+                "condition": "",
+                "override": false,
                 "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "5",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "roll": {
-                "formula": "",
-                "name": "",
-                "prompt": false,
-                "visible": false
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
-          },
-          "attuned": false,
-          "identifier": "piton"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "8UQanAvHUIHZXp0O",
-        "sort": 0
-      },
-      {
-        "name": "Hempen Rope (50 ft.)",
-        "type": "consumable",
-        "img": "icons/sundries/survival/rope-wrapped-brown.webp",
-        "system": {
-          "description": {
-            "value": "<p>Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 10,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": false,
-            "spent": 0
-          },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
-              "custom": {
-                "enabled": false
-              },
-              "scaling": {
-                "number": 1
-              }
-            },
-            "replace": false
-          },
-          "type": {
-            "value": "trinket",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "check",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "scaling": {},
-                    "value": "1"
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "self",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "check": {
-                "ability": "str",
-                "dc": {
-                  "calculation": "",
-                  "formula": "17"
-                },
-                "associated": []
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": [],
-                "max": ""
-              },
-              "sort": 0,
-              "name": "Burst"
-            }
-          },
-          "attuned": false,
-          "identifier": "hempen-rope-50-ft"
-        },
-        "effects": [],
-        "folder": "UnUwTG4YIgd0kaUJ",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {
-          "dnd5e": {
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
-          }
-        },
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "irCoxLHje0eA6Qmu",
-        "sort": 0
-      },
-      {
-        "name": "Reliquary",
-        "type": "equipment",
-        "img": "icons/containers/chest/chest-reinforced-steel-red.webp",
-        "system": {
-          "description": {
-            "value": "<p>A tiny box or other container holding a fragment of a precious relic, saint, or other historical figure that dedicated their life to walk the path of a true believer. A deity imbues the bearer of this artifact with the ability to call forth their power and in doing so spread the faith once more.</p>\n<p><strong>Spellcasting Focus</strong>. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 2,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "armor": {
-            "value": null,
-            "dex": null,
-            "magicalBonus": null
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "speed": {
-            "value": null,
-            "conditions": ""
-          },
-          "strength": null,
-          "proficient": null,
-          "type": {
-            "value": "trinket",
-            "baseItem": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "properties": [
-            "foc"
-          ],
-          "activities": {},
-          "attuned": false,
-          "identifier": "reliquary"
-        },
-        "effects": [],
-        "folder": "xedn1r43VWuEBcli",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {
-          "dnd5e": {
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
-          }
-        },
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "GfKuJYLFfw00oW9R",
-        "sort": 0
-      },
-      {
-        "name": "Vestments",
-        "type": "equipment",
-        "img": "icons/equipment/back/mantle-collared-black.webp",
-        "system": {
-          "description": {
-            "value": "<p>Simple or ostentacious wear, often used by priests and other religious figures for use in rituals and ceremonies.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 4,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "armor": {
-            "value": null,
-            "dex": null,
-            "magicalBonus": null
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "speed": {
-            "value": null,
-            "conditions": ""
-          },
-          "strength": null,
-          "proficient": null,
-          "type": {
-            "value": "clothing",
-            "baseItem": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "properties": [],
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "utility",
-              "activation": {
-                "type": "",
-                "value": null,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "self",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "roll": {
-                "formula": "",
-                "name": "",
-                "prompt": false,
-                "visible": false
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
-          },
-          "attuned": false,
-          "identifier": "vestments"
-        },
-        "effects": [],
-        "folder": "aJgMxnZED9XdoN2W",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "NsNcJBUG5ajbk7sG",
-        "sort": 0
-      },
-      {
-        "name": "Prayer Book",
-        "type": "loot",
-        "img": "icons/sundries/books/book-purple-cross.webp",
-        "system": {
-          "description": {
-            "value": "<p>A book containing prayers and incantations dedicated to a specific power for the faithful to follow.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
-          },
-          "price": {
-            "value": 25,
-            "denomination": "gp"
-          },
-          "rarity": "",
-          "identified": true,
-          "type": {
-            "value": "",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "identifier": "prayer-book"
-        },
-        "effects": [],
-        "folder": "dlru9Hy74nSMv6fr",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "XbF0CTipyqbMKHsB",
-        "sort": 0
-      },
-      {
-        "name": "Shortsword",
-        "type": "weapon",
-        "img": "icons/weapons/swords/sword-guard-worn-purple.webp",
-        "system": {
-          "description": {
-            "value": "<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 2,
-            "units": "lb"
-          },
-          "price": {
-            "value": 10,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "range": {
-            "value": null,
-            "long": null,
-            "units": "ft",
-            "reach": null
-          },
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "damage": {
-            "versatile": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [],
-              "custom": {
-                "enabled": false,
-                "formula": ""
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            },
-            "base": {
-              "number": 1,
-              "denomination": 6,
-              "bonus": "",
-              "types": [
-                "piercing"
-              ],
-              "custom": {
-                "enabled": false,
-                "formula": ""
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            }
-          },
-          "armor": {
-            "value": 10
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "properties": [
-            "fin",
-            "lgt"
-          ],
-          "proficient": null,
-          "type": {
-            "value": "martialM",
-            "baseItem": "shortsword"
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "attack",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "5",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "value": 1
               },
               "attack": {
                 "ability": "",
@@ -4622,9 +2819,17 @@ import axios from 'axios';
                 },
                 "flat": false,
                 "type": {
-                  "value": "melee",
-                  "classification": "weapon"
+                  "classification": "unarmed",
+                  "value": "melee"
                 }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
               },
               "damage": {
                 "critical": {
@@ -4633,39 +2838,1833 @@ import axios from 'axios';
                 "includeBase": true,
                 "parts": []
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "description": {
+                "chatFlavor": ""
               },
-              "sort": 0
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "name": "",
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "5"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "max": "",
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
-          "attuned": false,
           "ammunition": {},
-          "identifier": "shortsword"
+          "armor": {
+            "value": 10
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": true,
+                "formula": "@scale.monk.die"
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "bludgeoning"
+              ]
+            },
+            "versatile": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": []
+            }
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A  punch, kick, head-butt, or similar forceful blow (none of which count as weapons). On a hit, an unarmed strike deals bludgeoning damage equal to 1 + your Strength modifier. You are proficient with your unarmed strikes.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "unarmed-strike",
+          "magicalBonus": null,
+          "mastery": "",
+          "price": {
+            "denomination": "gp",
+            "value": 0
+          },
+          "proficient": null,
+          "properties": [
+            "fin"
+          ],
+          "quantity": 1,
+          "range": {
+            "long": null,
+            "reach": null,
+            "units": "ft",
+            "value": null
+          },
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "baseItem": "",
+            "value": "simpleM"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 0
+          }
         },
-        "effects": [],
-        "folder": "MLMTCAvKsuFE3vYA",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "weapon"
+      },
+      {
+        "_id": "WcROGD590imVj9qp",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
+        "effects": [],
+        "flags": {},
+        "folder": "PgtyWdfkDTDbc0ov",
+        "img": "icons/containers/bags/pack-leather-white-tan.webp",
+        "name": "Backpack",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "attuned": false,
+          "attunement": "",
+          "capacity": {
+            "volume": {
+              "units": "cubicFoot"
+            },
+            "weight": {
+              "units": "lb",
+              "value": 30
+            }
+          },
+          "container": null,
+          "currency": {
+            "cp": 0,
+            "ep": 0,
+            "gp": 0,
+            "pp": 0,
+            "sp": 0
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A backpack can hold one cubic foot or 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "backpack",
+          "price": {
+            "denomination": "gp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
+        },
+        "type": "container"
+      },
+      {
+        "_id": "8UQanAvHUIHZXp0O",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/tools/fasteners/nail-steel.webp",
+        "name": "Piton",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "5"
+              },
+              "roll": {
+                "formula": "",
+                "name": "",
+                "prompt": false,
+                "visible": false
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": "xsB7Y2WI476kvOt4",
+          "damage": {
+            "base": {
+              "custom": {
+                "enabled": false
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "number": 1
+              },
+              "types": []
+            },
+            "replace": false
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A metal spike that is drive into a seam in a climbing surface with a climbing hammer. It can also be used like iron spikes to block doors in a pinch.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "piton",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "cp",
+            "value": 5
+          },
+          "properties": [],
+          "quantity": 10,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "trinket"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "autoDestroy": false,
+            "max": "1",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 0.25
+          }
+        },
+        "type": "consumable"
+      },
+      {
+        "_id": "irCoxLHje0eA6Qmu",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "riders": {
+              "activity": [],
+              "effect": []
+            }
+          }
+        },
+        "folder": "UnUwTG4YIgd0kaUJ",
+        "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+        "name": "Hempen Rope (50 ft.)",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "check": {
+                "ability": "str",
+                "associated": [],
+                "dc": {
+                  "calculation": "",
+                  "formula": "17"
+                }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {},
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "name": "Burst",
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "self"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "check",
+              "uses": {
+                "max": "",
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "damage": {
+            "base": {
+              "custom": {
+                "enabled": false
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "number": 1
+              },
+              "types": []
+            },
+            "replace": false
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "hempen-rope-50-ft",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "gp",
+            "value": 1
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "trinket"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "autoDestroy": false,
+            "max": "1",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 10
+          }
+        },
+        "type": "consumable"
+      },
+      {
+        "_id": "GfKuJYLFfw00oW9R",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "riders": {
+              "activity": [],
+              "effect": []
+            }
+          }
+        },
+        "folder": "xedn1r43VWuEBcli",
+        "img": "icons/containers/chest/chest-reinforced-steel-red.webp",
+        "name": "Reliquary",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {},
+          "armor": {
+            "dex": null,
+            "magicalBonus": null,
+            "value": null
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>A tiny box or other container holding a fragment of a precious relic, saint, or other historical figure that dedicated their life to walk the path of a true believer. A deity imbues the bearer of this artifact with the ability to call forth their power and in doing so spread the faith once more.</p>\n<p><strong>Spellcasting Focus</strong>. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.</p>"
+          },
+          "equipped": false,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "reliquary",
+          "price": {
+            "denomination": "gp",
+            "value": 5
+          },
+          "proficient": null,
+          "properties": [
+            "foc"
+          ],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "speed": {
+            "conditions": "",
+            "value": null
+          },
+          "strength": null,
+          "type": {
+            "baseItem": "",
+            "value": "trinket"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 2
+          }
+        },
+        "type": "equipment"
+      },
+      {
+        "_id": "NsNcJBUG5ajbk7sG",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "aJgMxnZED9XdoN2W",
+        "img": "icons/equipment/back/mantle-collared-black.webp",
+        "name": "Vestments",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "",
+                "value": null
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "self"
+              },
+              "roll": {
+                "formula": "",
+                "name": "",
+                "prompt": false,
+                "visible": false
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "armor": {
+            "dex": null,
+            "magicalBonus": null,
+            "value": null
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>Simple or ostentacious wear, often used by priests and other religious figures for use in rituals and ceremonies.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "vestments",
+          "price": {
+            "denomination": "gp",
+            "value": 1
+          },
+          "proficient": null,
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "speed": {
+            "conditions": "",
+            "value": null
+          },
+          "strength": null,
+          "type": {
+            "baseItem": "",
+            "value": "clothing"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 4
+          }
+        },
+        "type": "equipment"
+      },
+      {
+        "_id": "XbF0CTipyqbMKHsB",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "dlru9Hy74nSMv6fr",
+        "img": "icons/sundries/books/book-purple-cross.webp",
+        "name": "Prayer Book",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": null,
+          "description": {
+            "chat": "",
+            "value": "<p>A book containing prayers and incantations dedicated to a specific power for the faithful to follow.</p>"
+          },
+          "identified": true,
+          "identifier": "prayer-book",
+          "price": {
+            "denomination": "gp",
+            "value": 25
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
+        },
+        "type": "loot"
+      },
+      {
         "_id": "GYyovoNdU66nxOlX",
-        "sort": 0
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "MLMTCAvKsuFE3vYA",
+        "img": "icons/weapons/swords/sword-guard-worn-purple.webp",
+        "name": "Shortsword",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "attack": {
+                "ability": "",
+                "bonus": "",
+                "critical": {
+                  "threshold": null
+                },
+                "flat": false,
+                "type": {
+                  "classification": "weapon",
+                  "value": "melee"
+                }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
+              },
+              "damage": {
+                "critical": {
+                  "bonus": ""
+                },
+                "includeBase": true,
+                "parts": []
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "5"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "ammunition": {},
+          "armor": {
+            "value": 10
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": 6,
+              "number": 1,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "piercing"
+              ]
+            },
+            "versatile": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": []
+            }
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "shortsword",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "gp",
+            "value": 10
+          },
+          "proficient": null,
+          "properties": [
+            "fin",
+            "lgt"
+          ],
+          "quantity": 1,
+          "range": {
+            "long": null,
+            "reach": null,
+            "units": "ft",
+            "value": null
+          },
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "baseItem": "shortsword",
+            "value": "martialM"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 2
+          }
+        },
+        "type": "weapon"
       }
     ],
-    "effects": [],
+    "name": "test-perrin (halfling monk)",
+    "prototypeToken": {
+      "actorLink": true,
+      "alpha": 1,
+      "appendNumber": false,
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": "attributes.ac.value"
+      },
+      "detectionModes": [],
+      "displayBars": 40,
+      "displayName": 30,
+      "disposition": 1,
+      "flags": {},
+      "height": 1,
+      "light": {
+        "alpha": 1,
+        "angle": 360,
+        "animation": {
+          "intensity": 5,
+          "reverse": false,
+          "speed": 5,
+          "type": null
+        },
+        "attenuation": 0.5,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "contrast": 0,
+        "darkness": {
+          "max": 1,
+          "min": 0
+        },
+        "dim": 0,
+        "luminosity": 0.5,
+        "negative": false,
+        "priority": 0,
+        "saturation": 0,
+        "shadows": 0
+      },
+      "lockRotation": false,
+      "movementAction": null,
+      "name": "Perrin",
+      "occludable": {
+        "radius": 0
+      },
+      "prependAdjective": false,
+      "randomImg": false,
+      "ring": {
+        "colors": {
+          "background": null,
+          "ring": null
+        },
+        "effects": 1,
+        "enabled": false,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "rotation": 0,
+      "sight": {
+        "angle": 360,
+        "attenuation": 0.1,
+        "brightness": 0,
+        "color": null,
+        "contrast": 0,
+        "enabled": true,
+        "range": 5,
+        "saturation": 0,
+        "visionMode": "basic"
+      },
+      "texture": {
+        "alphaThreshold": 0.75,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0,
+        "scaleX": 0.8,
+        "scaleY": 0.8,
+        "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+        "tint": "#ffffff"
+      },
+      "turnMarker": {
+        "animation": null,
+        "disposition": false,
+        "mode": 1,
+        "src": null
+      },
+      "width": 1
+    },
+    "system": {
+      "abilities": {
+        "cha": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 11
+        },
+        "con": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 13
+        },
+        "dex": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 1,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 16
+        },
+        "int": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 12
+        },
+        "str": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 1,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 8
+        },
+        "wis": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 15
+        }
+      },
+      "attributes": {
+        "ac": {
+          "calc": "unarmoredMonk",
+          "flat": null,
+          "formula": ""
+        },
+        "attunement": {
+          "max": 3
+        },
+        "concentration": {
+          "ability": "",
+          "bonuses": {
+            "save": ""
+          },
+          "limit": 1,
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          }
+        },
+        "death": {
+          "bonuses": {
+            "save": ""
+          },
+          "failure": 0,
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "success": 0
+        },
+        "exhaustion": 0,
+        "hp": {
+          "bonuses": {
+            "level": "",
+            "overall": ""
+          },
+          "max": 9,
+          "temp": null,
+          "tempmax": null,
+          "value": 9
+        },
+        "init": {
+          "ability": "",
+          "bonus": "0",
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          }
+        },
+        "inspiration": false,
+        "loyalty": {},
+        "movement": {
+          "burrow": 0,
+          "climb": 0,
+          "fly": 0,
+          "hover": false,
+          "swim": 0,
+          "units": "ft",
+          "walk": 25
+        },
+        "senses": {
+          "blindsight": 0,
+          "darkvision": 0,
+          "special": "",
+          "tremorsense": 0,
+          "truesight": 0,
+          "units": "ft"
+        },
+        "spellcasting": "int"
+      },
+      "bastion": {
+        "description": "",
+        "name": ""
+      },
+      "bonuses": {
+        "abilities": {
+          "check": "",
+          "save": "",
+          "skill": ""
+        },
+        "msak": {
+          "attack": "",
+          "damage": ""
+        },
+        "mwak": {
+          "attack": "",
+          "damage": ""
+        },
+        "rsak": {
+          "attack": "",
+          "damage": ""
+        },
+        "rwak": {
+          "attack": "",
+          "damage": ""
+        },
+        "spell": {
+          "dc": ""
+        }
+      },
+      "currency": {
+        "cp": 0,
+        "ep": 0,
+        "gp": 15,
+        "pp": 0,
+        "sp": 0
+      },
+      "details": {
+        "age": "",
+        "alignment": "True Neutral",
+        "appearance": "",
+        "background": "q4tr1vTU8RxtU1UZ",
+        "biography": {
+          "public": "",
+          "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>"
+        },
+        "bond": "",
+        "eyes": "",
+        "faith": "",
+        "flaw": "",
+        "gender": "",
+        "hair": "",
+        "height": "",
+        "ideal": "",
+        "originalClass": "8Grf7ga6JcZF0X6x",
+        "race": "O3ZjSw0GtAOPScHI",
+        "skin": "",
+        "trait": "",
+        "weight": "",
+        "xp": {
+          "value": 0
+        }
+      },
+      "favorites": [
+        {
+          "id": ".Item.FtOM4QiOW5MwgcS3",
+          "sort": 500000,
+          "type": "item"
+        },
+        {
+          "id": ".Item.WeKJI3gPUAU52WAX",
+          "sort": 600000,
+          "type": "item"
+        },
+        {
+          "id": ".Item.g7U3OAXVcoI4lwzf",
+          "sort": 550000,
+          "type": "item"
+        },
+        {
+          "id": ".Item.GYyovoNdU66nxOlX",
+          "sort": 700000,
+          "type": "item"
+        }
+      ],
+      "resources": {
+        "primary": {
+          "label": "Ki",
+          "lr": true,
+          "max": null,
+          "sr": true,
+          "value": null
+        },
+        "secondary": {
+          "label": "",
+          "lr": false,
+          "max": null,
+          "sr": false,
+          "value": null
+        },
+        "tertiary": {
+          "label": "",
+          "lr": false,
+          "max": null,
+          "sr": false,
+          "value": null
+        }
+      },
+      "skills": {
+        "acr": {
+          "ability": "dex",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "ani": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "arc": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "ath": {
+          "ability": "str",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "dec": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "his": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "ins": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "inv": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "itm": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "med": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "nat": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "per": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "prc": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "prf": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "rel": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "slt": {
+          "ability": "dex",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "ste": {
+          "ability": "dex",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "sur": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        }
+      },
+      "spells": {
+        "pact": {
+          "override": null,
+          "value": 0
+        },
+        "spell0": {
+          "override": null,
+          "value": 0
+        },
+        "spell1": {
+          "override": null,
+          "value": 0
+        },
+        "spell2": {
+          "override": null,
+          "value": 0
+        },
+        "spell3": {
+          "override": null,
+          "value": 0
+        },
+        "spell4": {
+          "override": null,
+          "value": 0
+        },
+        "spell5": {
+          "override": null,
+          "value": 0
+        },
+        "spell6": {
+          "override": null,
+          "value": 0
+        },
+        "spell7": {
+          "override": null,
+          "value": 0
+        },
+        "spell8": {
+          "override": null,
+          "value": 0
+        },
+        "spell9": {
+          "override": null,
+          "value": 0
+        }
+      },
+      "tools": {
+        "art": {
+          "ability": "int",
+          "bonuses": {
+            "check": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "brewer": {
+          "ability": "int",
+          "bonuses": {
+            "check": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        }
+      },
+      "traits": {
+        "armorProf": {
+          "custom": "",
+          "value": []
+        },
+        "ci": {
+          "custom": "Advantage against being frightenned",
+          "value": []
+        },
+        "di": {
+          "bypasses": [],
+          "custom": "",
+          "value": []
+        },
+        "dm": {
+          "amount": {},
+          "bypasses": []
+        },
+        "dr": {
+          "bypasses": [],
+          "custom": "",
+          "value": []
+        },
+        "dv": {
+          "bypasses": [],
+          "custom": "",
+          "value": []
+        },
+        "languages": {
+          "communication": {},
+          "custom": "",
+          "value": [
+            "celestial",
+            "draconic",
+            "common",
+            "halfling"
+          ]
+        },
+        "size": "sm",
+        "weaponProf": {
+          "custom": "",
+          "mastery": {
+            "bonus": [],
+            "value": []
+          },
+          "value": [
+            "sim",
+            "shortsword"
+          ]
+        }
+      }
+    },
+    "type": "character",
     "folder": null,
-    "_id": "2Hl8s4nj9yJQueBG",
+    "_id": "ioZexonJDGVuU8zl",
     "sort": 0,
     "ownership": {
       "default": 0,
@@ -4679,8 +4678,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1774001731205,
-      "modifiedTime": 1774001731205,
+      "createdTime": 1774367580132,
+      "modifiedTime": 1774367580132,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -4698,9 +4697,9 @@ Create a new entity This endpoint creates a new entity in the Foundry world.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | entityType | string | ✓ | body | Document type of entity to create (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist, ext.) |
 | data | object | ✓ | body | Data for the new entity |
+| clientId | string |  | query | Client ID for the Foundry world |
 | folder | string |  | body | Optional folder UUID to place the new entity in |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -4713,7 +4712,7 @@ Create a new entity This endpoint creates a new entity in the Foundry world.
 <ApiTester
   method="POST"
   path="/create"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"entityType","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"folder","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"entityType","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"folder","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4725,7 +4724,7 @@ Create a new entity This endpoint creates a new entity in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/create';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -9298,7 +9297,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/create?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/create?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"entityType":"Actor","data":{"name":"test-perrin (halfling monk)","type":"character","img":"systems/dnd5e/tokens/heroes/MonkStaff.webp","system":{"abilities":{"str":{"value":8,"proficient":1,"max":20,"bonuses":{"check":"","save":""},"check":{"roll":{"min":null,"max":null,"mode":0}},"save":{"roll":{"min":null,"max":null,"mode":0}}},"dex":{"value":16,"proficient":1,"max":20,"bonuses":{"check":"","save":""},"check":{"roll":{"min":null,"max":null,"mode":0}},"save":{"roll":{"min":null,"max":null,"mode":0}}},"con":{"value":13,"proficient":0,"max":20,"bonuses":{"check":"","save":""},"check":{"roll":{"min":null,"max":null,"mode":0}},"save":{"roll":{"min":null,"max":null,"mode":0}}},"int":{"value":12,"proficient":0,"max":20,"bonuses":{"check":"","save":""},"check":{"roll":{"min":null,"max":null,"mode":0}},"save":{"roll":{"min":null,"max":null,"mode":0}}},"wis":{"value":15,"proficient":0,"max":20,"bonuses":{"check":"","save":""},"check":{"roll":{"min":null,"max":null,"mode":0}},"save":{"roll":{"min":null,"max":null,"mode":0}}},"cha":{"value":11,"proficient":0,"max":20,"bonuses":{"check":"","save":""},"check":{"roll":{"min":null,"max":null,"mode":0}},"save":{"roll":{"min":null,"max":null,"mode":0}}}},"attributes":{"ac":{"flat":null,"calc":"unarmoredMonk","formula":""},"hp":{"value":9,"max":9,"temp":null,"tempmax":null,"bonuses":{"level":"","overall":""}},"init":{"ability":"","bonus":"0","roll":{"min":null,"max":null,"mode":0}},"movement":{"burrow":0,"climb":0,"fly":0,"swim":0,"walk":25,"units":"ft","hover":false},"attunement":{"max":3},"senses":{"darkvision":0,"blindsight":0,"tremorsense":0,"truesight":0,"units":"ft","special":""},"spellcasting":"int","death":{"success":0,"failure":0,"roll":{"min":null,"max":null,"mode":0},"bonuses":{"save":""}},"exhaustion":0,"inspiration":false,"concentration":{"ability":"","roll":{"min":null,"max":null,"mode":0},"bonuses":{"save":""},"limit":1},"loyalty":{}},"details":{"biography":{"value":"<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>","public":""},"alignment":"True Neutral","race":"O3ZjSw0GtAOPScHI","background":"q4tr1vTU8RxtU1UZ","originalClass":"8Grf7ga6JcZF0X6x","xp":{"value":0},"appearance":"","trait":"","ideal":"","bond":"","flaw":"","eyes":"","height":"","faith":"","hair":"","weight":"","gender":"","skin":"","age":""},"traits":{"size":"sm","di":{"value":[],"bypasses":[],"custom":""},"dr":{"value":[],"bypasses":[],"custom":""},"dv":{"value":[],"bypasses":[],"custom":""},"ci":{"value":[],"custom":"Advantage against being frightenned"},"languages":{"value":["celestial","draconic","common","halfling"],"custom":"","communication":{}},"weaponProf":{"value":["sim","shortsword"],"custom":"","mastery":{"value":[],"bonus":[]}},"armorProf":{"value":[],"custom":""},"dm":{"amount":{},"bypasses":[]}},"currency":{"pp":0,"gp":15,"ep":0,"sp":0,"cp":0},"skills":{"acr":{"value":1,"ability":"dex","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"ani":{"value":0,"ability":"wis","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"arc":{"value":0,"ability":"int","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"ath":{"value":1,"ability":"str","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"dec":{"value":0,"ability":"cha","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"his":{"value":0,"ability":"int","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"ins":{"value":1,"ability":"wis","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"itm":{"value":0,"ability":"cha","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"inv":{"value":0,"ability":"int","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"med":{"value":0,"ability":"wis","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"nat":{"value":0,"ability":"int","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"prc":{"value":0,"ability":"wis","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"prf":{"value":0,"ability":"cha","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"per":{"value":0,"ability":"cha","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"rel":{"value":1,"ability":"int","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"slt":{"value":0,"ability":"dex","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"ste":{"value":0,"ability":"dex","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}},"sur":{"value":0,"ability":"wis","bonuses":{"check":"","passive":""},"roll":{"min":null,"max":null,"mode":0}}},"tools":{"art":{"value":1,"ability":"int","bonuses":{"check":""},"roll":{"min":null,"max":null,"mode":0}},"brewer":{"value":1,"ability":"int","bonuses":{"check":""},"roll":{"min":null,"max":null,"mode":0}}},"spells":{"spell1":{"value":0,"override":null},"spell2":{"value":0,"override":null},"spell3":{"value":0,"override":null},"spell4":{"value":0,"override":null},"spell5":{"value":0,"override":null},"spell6":{"value":0,"override":null},"spell7":{"value":0,"override":null},"spell8":{"value":0,"override":null},"spell9":{"value":0,"override":null},"pact":{"value":0,"override":null},"spell0":{"value":0,"override":null}},"bonuses":{"mwak":{"attack":"","damage":""},"rwak":{"attack":"","damage":""},"msak":{"attack":"","damage":""},"rsak":{"attack":"","damage":""},"abilities":{"check":"","save":"","skill":""},"spell":{"dc":""}},"resources":{"primary":{"value":null,"max":null,"sr":true,"lr":true,"label":"Ki"},"secondary":{"value":null,"max":null,"sr":false,"lr":false,"label":""},"tertiary":{"value":null,"max":null,"sr":false,"lr":false,"label":""}},"favorites":[{"type":"item","id":".Item.FtOM4QiOW5MwgcS3","sort":500000},{"type":"item","id":".Item.WeKJI3gPUAU52WAX","sort":600000},{"type":"item","id":".Item.g7U3OAXVcoI4lwzf","sort":550000},{"type":"item","id":".Item.GYyovoNdU66nxOlX","sort":700000}],"bastion":{"name":"","description":""}},"prototypeToken":{"flags":{},"name":"Perrin","displayName":30,"width":1,"height":1,"lockRotation":false,"rotation":0,"actorLink":true,"disposition":1,"displayBars":40,"bar1":{"attribute":"attributes.hp"},"bar2":{"attribute":"attributes.ac.value"},"randomImg":false,"alpha":1,"light":{"alpha":1,"angle":360,"bright":0,"coloration":1,"dim":0,"luminosity":0.5,"saturation":0,"contrast":0,"shadows":0,"animation":{"speed":5,"intensity":5,"type":null,"reverse":false},"darkness":{"min":0,"max":1},"color":null,"attenuation":0.5,"negative":false,"priority":0},"texture":{"src":"systems/dnd5e/tokens/heroes/MonkStaff.webp","tint":"#ffffff","scaleX":0.8,"scaleY":0.8,"offsetX":0,"offsetY":0,"rotation":0,"anchorX":0.5,"anchorY":0.5,"fit":"contain","alphaThreshold":0.75},"sight":{"angle":360,"enabled":true,"range":5,"brightness":0,"visionMode":"basic","color":null,"attenuation":0.1,"saturation":0,"contrast":0},"detectionModes":[],"appendNumber":false,"prependAdjective":false,"occludable":{"radius":0},"ring":{"enabled":false,"colors":{"ring":null,"background":null},"effects":1,"subject":{"scale":1,"texture":null}},"turnMarker":{"mode":1,"animation":null,"src":null,"disposition":false},"movementAction":null},"items":[{"name":"Priest","type":"background","system":{"description":{"value":"<ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>","chat":""},"source":{"custom":"","book":"","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"advancement":[],"startingEquipment":[],"identifier":"priest"},"img":"icons/sundries/documents/document-torn-diagram-tan.webp","effects":[],"folder":null,"sort":0,"ownership":{"default":0},"flags":{},"_stats":{"compendiumSource":null,"duplicateSource":null,"coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.0.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"q4tr1vTU8RxtU1UZ"},{"_id":"O3ZjSw0GtAOPScHI","name":"Lightfoot Halfling","type":"race","img":"icons/equipment/feet/shoes-leather-simple-brown.webp","system":{"description":{"value":"<p>Your halfling character has a number of traits in common with all other halflings.</p><p><em><strong>Ability Score Increase.</strong></em> Your Dexterity score increases by 2.</p><p><em><strong>Age.</strong></em> A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.</p><p><em><strong>Alignment.</strong></em> Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.</p><p><em><strong>Size.</strong></em> Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.</p><p><em><strong>Speed.</strong></em> Your base walking speed is 25 feet.</p><p><em><strong>Lucky.</strong></em> When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><p><em><strong>Brave.</strong></em> You have advantage on saving throws against being frightened.</p><p><em><strong>Halfling Nimbleness.</strong></em> You can move through the space of any creature that is of a size larger than yours.</p><p><em><strong>Languages.</strong></em> You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.</p><h5>Lightfoot</h5><p>As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others.</p><p>Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.</p><p><em><strong>Ability Score Increase.</strong></em> Your Charisma score increases by 1.</p><p><em><strong>Naturally Stealthy.</strong></em> You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"identifier":"lightfoot-halfling","advancement":[{"_id":"nInhIgkbzzJTdm8F","type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.races.LOMdcNAGWh5xpfm4","optional":false},{"uuid":"Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC","optional":false},{"uuid":"Compendium.dnd5e.races.PqxZgcJzp1VVgP8t","optional":false},{"uuid":"Compendium.dnd5e.races.GWPjKFeIthBBeCFJ","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{"added":{"FtOM4QiOW5MwgcS3":"Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4","nmmihiqphHjoE8dl":"Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC","cWrETHzCRs1Ueqd3":"Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t","AArhiOrSkaQUnCZS":"Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"}},"level":0,"title":""},{"_id":"Z9hvZFkWUNvowbQX","type":"AbilityScoreImprovement","configuration":{"points":0,"fixed":{"str":0,"dex":2,"con":0,"int":0,"wis":0,"cha":1},"cap":2,"locked":[]},"value":{"type":"asi","assignments":{"dex":2,"cha":1}},"level":0,"title":""},{"_id":"hv2bcANK5jEJZaAb","type":"Size","configuration":{"sizes":["sm"]},"value":{"size":"sm"},"level":1,"title":"","hint":"Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."},{"_id":"nGwMjsfNU6CXHk3A","type":"Trait","configuration":{"mode":"default","allowReplacements":false,"grants":["languages:standard:common","languages:standard:halfling"],"choices":[]},"level":0,"title":"","value":{"chosen":["languages:standard:common","languages:standard:halfling"]}}],"movement":{"walk":25,"burrow":null,"climb":null,"fly":null,"swim":null,"units":"ft","hover":false},"type":{"subtype":"halfling","value":"humanoid","custom":""},"senses":{"darkvision":null,"blindsight":null,"tremorsense":null,"truesight":null,"units":"ft","special":""}},"effects":[],"ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093997274,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null},"sort":0,"folder":"uQNrdSpcXeoB5EnX"},{"_id":"FtOM4QiOW5MwgcS3","name":"Lucky","ownership":{"default":0},"type":"feat","system":{"description":{"value":"<p>When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><section class=\"secret foundry-note\" id=\"secret-S04TPyvUh05Dz0Ng\"><p><strong>Foundry Note</strong></p><p>This property can be enabled on your character sheet in the Special Traits configuration on the Attributes tab.</p></section>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"uses":{"max":"","spent":0,"recovery":[]},"type":{"value":"race","subtype":""},"requirements":"Halfling","properties":[],"activities":{},"enchant":{},"prerequisites":{"level":null,"repeatable":false},"identifier":"lucky","advancement":[],"crewed":false},"flags":{"dnd5e":{"sourceId":"Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4","advancementOrigin":"O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F","riders":{"activity":[],"effect":[]}}},"img":"icons/sundries/gaming/dice-runed-brown.webp","effects":[],"folder":"kbtbKofcv13crhke","sort":0,"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093813616,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null}},{"_id":"nmmihiqphHjoE8dl","name":"Brave","ownership":{"default":0},"type":"feat","system":{"description":{"value":"<p>You have advantage on saving throws against being frightened.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"uses":{"max":"","spent":0,"recovery":[]},"type":{"value":"race","subtype":""},"requirements":"Halfling","properties":[],"activities":{},"enchant":{},"prerequisites":{"level":null,"repeatable":false},"identifier":"brave","advancement":[],"crewed":false},"flags":{"dnd5e":{"sourceId":"Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC","advancementOrigin":"O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F","riders":{"activity":[],"effect":[]}}},"img":"icons/skills/melee/unarmed-punch-fist.webp","effects":[],"folder":"kbtbKofcv13crhke","sort":0,"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093813671,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null}},{"_id":"cWrETHzCRs1Ueqd3","name":"Halfling Nimbleness","ownership":{"default":0},"type":"feat","system":{"description":{"value":"<p>You can move through the space of any creature that is of a size larger than yours.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"uses":{"max":"","spent":0,"recovery":[]},"type":{"value":"race","subtype":""},"requirements":"Halfling","properties":[],"activities":{},"enchant":{},"prerequisites":{"level":null,"repeatable":false},"identifier":"halfling-nimbleness","advancement":[],"crewed":false},"flags":{"dnd5e":{"sourceId":"Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t","advancementOrigin":"O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F","riders":{"activity":[],"effect":[]}}},"img":"icons/skills/movement/feet-winged-boots-brown.webp","effects":[],"folder":"kbtbKofcv13crhke","sort":0,"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093813706,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null}},{"_id":"AArhiOrSkaQUnCZS","name":"Naturally Stealthy","ownership":{"default":0},"type":"feat","system":{"description":{"value":"<p>You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"uses":{"max":"","spent":0,"recovery":[]},"type":{"value":"race","subtype":""},"requirements":"Lightfoot Halfling","properties":[],"activities":{},"enchant":{},"prerequisites":{"level":null,"repeatable":false},"identifier":"naturally-stealthy","advancement":[],"crewed":false},"flags":{"dnd5e":{"sourceId":"Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ","advancementOrigin":"O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F","riders":{"activity":[],"effect":[]}}},"img":"icons/magic/perception/silhouette-stealth-shadow.webp","effects":[],"folder":"kbtbKofcv13crhke","sort":0,"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093813743,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null}},{"_id":"8Grf7ga6JcZF0X6x","name":"Monk","type":"class","img":"icons/skills/melee/hand-grip-staff-blue.webp","system":{"description":{"value":"<p>As a monk, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d8 per monk level<br /><strong>Hit Points at 1st Level:</strong> 8 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d8 (or 5) + your Constitution modifier per monk level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> None<br /><strong>Weapons:</strong> Simple weapons, shortswords<br /><strong>Tools:</strong> Choose one type of artisan's tools or one musical instrument<br /><strong>Saving Throws:</strong> Strength, Dexterity<br /><strong>Skills:</strong> Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth</p><h1>Monk Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Martial Arts</td><td>Ki Points</td><td>Unarmored Movement</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI]{Unarmored Defense}, @UUID[Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw]{Martial Arts}</td></tr><tr><td>2nd</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.10b6z2W1txNkrGP7]{Ki}, @UUID[Compendium.dnd5e.classfeatures.Item.zCeqyQ8uIPNdYJSW]{Unarmored Movement}</td></tr><tr><td>3rd</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.rtpQdX77dYWbDIOH]{Monastic Tradition}, @UUID[Compendium.dnd5e.classfeatures.Item.mzweVbnsJPQiVkAe]{Deflect Missiles}</td></tr><tr><td>4th</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, @UUID[Compendium.dnd5e.classfeatures.Item.KQz9bqxVkXjDl8gK]{Slow Fall}</td></tr><tr><td>5th</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}, @UUID[Compendium.dnd5e.classfeatures.Item.pvRc6GAu1ok6zihC]{Stunning Strike}</td></tr><tr><td>6th</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft.</td><td><p>@UUID[Compendium.dnd5e.classfeatures.Item.7flZKruSSu6dHg6D]{Ki-Empowered Strikes},</p><p>Monastic Tradition feature</p></td></tr><tr><td>7th</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.a4P4DNMmH8CqSNkC]{Evasion}, @UUID[Compendium.dnd5e.classfeatures.Item.ZmC31XKS4YNENnoc]{Stillness of Mind}</td></tr><tr><td>8th</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft.</td><td>Unarmored Movement improvement</td></tr><tr><td>10th</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.bqWA7t9pDELbNRkp]{Purity of Body}</td></tr><tr><td>11th</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>12th</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XjuGBeB8Y0C3A5D4]{Tongue of the Sun and Moon}</td></tr><tr><td>14th</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.7D2EkLdISwShEDlN]{Diamond Soul}</td></tr><tr><td>15th</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.gDH8PMrKvLHaNmEI]{Timeless Body}</td></tr><tr><td>16th</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>18th</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.3jwFt3hSqDswBlOH]{Empty Body}</td></tr><tr><td>19th</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.mQNPg89YIs7g5tG4]{Perfect Self}</td></tr></tbody></table><h1>Monastic Traditions</h1><p>Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.IvlpKMXX3PmW1NY2]{Way of the Open Hand}</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"identifier":"monk","levels":1,"advancement":[{"type":"HitPoints","configuration":{},"value":{"1":"max"},"title":"Hit Points","icon":"systems/dnd5e/icons/svg/hit-points.svg","_id":"ocxNtDFJ7YDaYaK7"},{"_id":"mmAxx3U7FvXNAcKc","type":"Trait","configuration":{"mode":"default","allowReplacements":false,"grants":["weapon:sim","weapon:mar:shortsword"],"choices":[]},"level":1,"title":"","value":{"chosen":["weapon:sim","weapon:mar:shortsword"]}},{"_id":"QPXy59CQGY9HB0c3","type":"Trait","configuration":{"mode":"default","allowReplacements":false,"grants":[],"choices":[{"count":1,"pool":["tool:art:*","tool:music:*"]}]},"level":1,"title":"","classRestriction":"primary","value":{"chosen":["tool:art:brewer"]}},{"_id":"4M8MQ1E64zbcRg6B","type":"Trait","configuration":{"mode":"default","allowReplacements":false,"grants":["saves:str","saves:dex"],"choices":[]},"level":1,"title":"","classRestriction":"primary","value":{"chosen":["saves:str","saves:dex"]}},{"_id":"7HRRCPk80Ng2Evdx","type":"Trait","configuration":{"mode":"default","allowReplacements":false,"grants":[],"choices":[{"count":2,"pool":["skills:acr","skills:ath","skills:his","skills:ins","skills:rel","skills:ste"]}]},"level":1,"title":"","classRestriction":"primary","value":{"chosen":["skills:acr","skills:ath"]}},{"_id":"BQWHr3mt5flvkfIj","type":"Trait","configuration":{"mode":"default","allowReplacements":false,"grants":["di:poison","ci:diseased","ci:poisoned"],"choices":[]},"level":10,"title":"Purity of Body","value":{"chosen":[]},"hint":"Your mastery of the ki flowing through you makes you immune to disease and poison."},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{"added":{"CwgoTDXWCD7PknIN":"Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI","pchnXqd5C79fVlxy":"Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw","RiURabP4FDYMeuWx":"Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO"}},"level":1,"title":"Features","_id":"n0q8XyiGA3vLPgpK"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":2,"title":"Features","_id":"7TyDqpGGi3r3nsp0"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":3,"title":"Features","_id":"2sLHTw6k15DSW8WB"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":4,"title":"Features","_id":"Zc1jOZK1b9mIKekq"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":5,"title":"Features","_id":"j9LeWmxlsENKaMLo"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":6,"title":"Features","_id":"psobDjMqtA2216Db"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC","optional":false},{"uuid":"Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":7,"title":"Features","_id":"K38aFaEMxMqRB0BC"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":10,"title":"Features","_id":"eLqmJotmwzlGNrxG"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":13,"title":"Features","_id":"N0geIQiuofqYgswj"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":14,"title":"Features","_id":"N1hjizyI82UPp8UI"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":15,"title":"Features","_id":"TcLZS9WzC7bPETSd"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":18,"title":"Features","_id":"tRb3a0tA5IpehPs8"},{"type":"ItemGrant","configuration":{"items":[{"uuid":"Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4","optional":false}],"optional":false,"spell":{"ability":[],"preparation":"","uses":{"max":"","per":"","requireSlot":false}}},"value":{},"level":20,"title":"Features","_id":"sEQz9c9XhWYjS9x5"},{"type":"ScaleValue","configuration":{"identifier":"die","type":"dice","distance":{"units":""},"scale":{"1":{"number":null,"faces":4,"modifiers":[]},"5":{"number":null,"faces":6,"modifiers":[]},"11":{"number":null,"faces":8,"modifiers":[]},"17":{"number":null,"faces":10,"modifiers":[]}}},"value":{},"title":"Martial Arts Die","_id":"MXFbf0nxMiyLdPbX"},{"type":"ScaleValue","configuration":{"identifier":"unarmored-movement","type":"distance","distance":{"units":"ft"},"scale":{"2":{"value":10},"6":{"value":15},"10":{"value":20},"14":{"value":25},"18":{"value":30}}},"value":{},"title":"Unarmored Movement","_id":"1OzfWDWCquoHMeX5"},{"type":"AbilityScoreImprovement","configuration":{"points":2,"fixed":{"str":0,"dex":0,"con":0,"int":0,"wis":0,"cha":0},"cap":2,"locked":[]},"value":{"type":"asi"},"level":4,"title":"Ability Score Improvement","_id":"ofNSUhSHKhhDuPSR"},{"type":"AbilityScoreImprovement","configuration":{"points":2,"fixed":{"str":0,"dex":0,"con":0,"int":0,"wis":0,"cha":0},"cap":2,"locked":[]},"value":{"type":"asi"},"level":8,"title":"Ability Score Improvement","_id":"s3t9o57hP6iUHirr"},{"type":"AbilityScoreImprovement","configuration":{"points":2,"fixed":{"str":0,"dex":0,"con":0,"int":0,"wis":0,"cha":0},"cap":2,"locked":[]},"value":{"type":"asi"},"level":12,"title":"Ability Score Improvement","_id":"O24MWOKc1ImsKaml"},{"type":"AbilityScoreImprovement","configuration":{"points":2,"fixed":{"str":0,"dex":0,"con":0,"int":0,"wis":0,"cha":0},"cap":2,"locked":[]},"value":{"type":"asi"},"level":16,"title":"Ability Score Improvement","_id":"xdqWoLtgO3uyl3nJ"},{"_id":"puDaUsYrlks0z5gm","type":"AbilityScoreImprovement","configuration":{"points":2,"fixed":{"str":0,"dex":0,"con":0,"int":0,"wis":0,"cha":0},"cap":2,"locked":[]},"value":{"type":"asi"},"level":19,"title":""},{"_id":"0awj2yq115ev9u9o","type":"Subclass","configuration":{},"value":{"document":null,"uuid":null},"level":3,"title":"Monastic Tradition"}],"spellcasting":{"progression":"none","ability":"","preparation":{"formula":""}},"startingEquipment":[{"type":"OR","_id":"5yj0P4r9teJDnDtd","group":"","sort":100000,"requiresProficiency":false},{"type":"linked","count":null,"key":"Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH","_id":"R5tuRtaPonfjQCVU","group":"5yj0P4r9teJDnDtd","sort":200000,"requiresProficiency":false},{"type":"weapon","count":null,"key":"simpleM","_id":"Mlf6kel8ws6xgDER","group":"5yj0P4r9teJDnDtd","sort":300000,"requiresProficiency":false},{"type":"OR","_id":"3TbVLmLPtjVaSh5O","group":"","sort":400000,"requiresProficiency":false},{"type":"linked","count":null,"key":"Compendium.dnd5e.items.Item.XY8b594Dn7plACLL","_id":"AvDYtl0uvQsDuhnb","group":"3TbVLmLPtjVaSh5O","sort":500000,"requiresProficiency":false},{"type":"linked","count":null,"key":"Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP","_id":"4QKQURCmIurbTAzp","group":"3TbVLmLPtjVaSh5O","sort":600000,"requiresProficiency":false},{"type":"linked","count":10,"key":"Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ","_id":"AOYuulsULvsHbSLO","group":"","sort":700000,"requiresProficiency":false}],"wealth":"5d4","primaryAbility":{"value":[],"all":true},"hd":{"denomination":"d8","spent":0,"additional":""}},"effects":[],"folder":"HQ1Oy7HkbnxnE63o","sort":0,"ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093997309,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null}},{"_id":"CwgoTDXWCD7PknIN","name":"Unarmored Defense","ownership":{"default":0},"type":"feat","system":{"description":{"value":"<p>Beginning at 1st Level, while you are wearing no armor and not wielding a Shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"uses":{"max":"","spent":0,"recovery":[]},"type":{"value":"class","subtype":""},"requirements":"Monk 1","properties":[],"activities":{},"enchant":{},"prerequisites":{"level":null,"repeatable":false},"identifier":"unarmored-defense","advancement":[],"crewed":false},"flags":{"dnd5e":{"sourceId":"Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI","advancementOrigin":"8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"}},"img":"icons/magic/control/silhouette-hold-change-blue.webp","effects":[{"_id":"R5ro4AuNjcdWD56O","changes":[{"key":"system.attributes.ac.calc","mode":5,"value":"unarmoredMonk","priority":null}],"disabled":false,"duration":{"startTime":0,"seconds":null,"combat":null,"rounds":null,"turns":null,"startRound":null,"startTurn":null},"origin":"Item.cOdcNWy4hII029DT","transfer":true,"flags":{},"tint":"#ffffff","name":"Unarmored Defense","description":"","statuses":[],"_stats":{"compendiumSource":null,"duplicateSource":null,"coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"img":"icons/magic/control/silhouette-hold-change-blue.webp","type":"base","system":{},"sort":0}],"folder":"TMmNG8ujFDBEWXRe","sort":0,"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093813778,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null}},{"_id":"pchnXqd5C79fVlxy","name":"Martial Arts","ownership":{"default":0},"type":"feat","system":{"description":{"value":"<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property. You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>\n<ul>\n<li>\n<p>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</p>\n</li>\n<li>\n<p>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</p>\n</li>\n<li>\n<p>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</p>\n</li>\n</ul>\n<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"uses":{"max":"","spent":0,"recovery":[]},"type":{"value":"class","subtype":""},"requirements":"Monk 1","properties":[],"activities":{},"enchant":{},"prerequisites":{"level":null,"repeatable":false},"identifier":"martial-arts","advancement":[],"crewed":false},"flags":{"dnd5e":{"sourceId":"Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw","advancementOrigin":"8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"}},"img":"icons/skills/melee/unarmed-punch-fist.webp","effects":[],"folder":"TMmNG8ujFDBEWXRe","sort":0,"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":1738093813816,"lastModifiedBy":"dnd5ebuilder0000","exportSource":null}},{"name":"Hammer","type":"loot","img":"icons/tools/hand/hammer-cobbler-steel.webp","system":{"description":{"value":"<p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":3,"units":"lb"},"price":{"value":1,"denomination":"gp"},"rarity":"","identified":true,"type":{"value":"","subtype":""},"unidentified":{"description":""},"container":null,"properties":[],"identifier":"hammer"},"effects":[],"folder":"dlru9Hy74nSMv6fr","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"YJ1P3PnFKHOdQpaP","sort":0},{"name":"Tinderbox","type":"loot","img":"icons/sundries/lights/torch-black.webp","system":{"description":{"value":"<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch - or anything else with abundant, exposed fuel - takes an action. Lighting any other fire takes 1 minute.</p>\n<p> </p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":1,"units":"lb"},"price":{"value":5,"denomination":"sp"},"rarity":"","identified":true,"container":"8KWz5DJbWUpNWniP","type":{"value":"","subtype":""},"unidentified":{"description":""},"properties":[],"identifier":"tinderbox"},"effects":[],"folder":"Dx3K2y0J1wJUPP9m","flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"ownership":{"default":0},"_id":"DDnxRCeYUhXstWU8","sort":0},{"name":"Waterskin","type":"consumable","img":"icons/sundries/survival/wetskin-leather-purple.webp","system":{"description":{"value":"<p>A leather hide sewn into an enclosed skin which can contain up to 4 pints of liquid. It weighs 5 pounds when full; a pint of water is approximately 1 pound.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":5,"units":"lb"},"price":{"value":2,"denomination":"sp"},"attunement":"","equipped":false,"rarity":"","identified":true,"uses":{"max":"4","recovery":[],"autoDestroy":false,"spent":0},"damage":{"base":{"number":null,"denomination":null,"types":[],"custom":{"enabled":false},"scaling":{"number":1}},"replace":false},"container":"6OYR11aJX2dEVtOj","properties":[],"type":{"value":"food","subtype":""},"unidentified":{"description":""},"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"utility","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[{"type":"itemUses","target":"","value":"1","scaling":{"mode":"","formula":""}}],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"units":"touch","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"roll":{"formula":"","name":"","prompt":false,"visible":false},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"identifier":"waterskin"},"effects":[],"folder":"Dx3K2y0J1wJUPP9m","flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"ownership":{"default":0},"_id":"5skKSSB4ShHbKoc8","sort":0},{"name":"Torch","type":"consumable","img":"icons/sundries/lights/torch-black.webp","system":{"description":{"value":"<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":10,"weight":{"value":1,"units":"lb"},"price":{"value":1,"denomination":"cp"},"attunement":"","equipped":false,"rarity":"","identified":true,"uses":{"max":"1","recovery":[],"autoDestroy":false,"spent":0},"damage":{"base":{"number":null,"denomination":null,"bonus":"","types":["fire"],"custom":{"enabled":true,"formula":"1"},"scaling":{"mode":"","number":null,"formula":""}},"replace":false},"container":"8KWz5DJbWUpNWniP","properties":[],"type":{"value":"trinket","subtype":""},"unidentified":{"description":""},"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"attack","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[{"type":"itemUses","target":"","value":"1","scaling":{"mode":"","formula":""}}],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"1","units":"hour","special":"","override":false},"effects":[],"range":{"units":"self","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"radius","size":"40","width":"","height":"","units":"ft"},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"attack":{"ability":"str","bonus":"","critical":{"threshold":null},"flat":false,"type":{"value":"melee","classification":"weapon"}},"damage":{"critical":{"bonus":""},"includeBase":true,"parts":[{"number":null,"denomination":null,"bonus":"","types":["fire"],"custom":{"enabled":true,"formula":"1"},"scaling":{"mode":"whole","number":null,"formula":""}}]},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"identifier":"torch"},"effects":[],"folder":"Dx3K2y0J1wJUPP9m","flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"ownership":{"default":0},"_id":"dDuMscUuMI2bTdkj","sort":0},{"name":"Stick of Incense","type":"loot","img":"icons/consumables/grains/breadsticks-crackers-wrapped-ration-brown.webp","system":{"description":{"value":"<p>When blocks of incense cannot be used or a cheaper alternative is required, people often use these to perfume the air, whether for pleasurable or religious purposes.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":5,"weight":{"value":0,"units":"lb"},"price":{"value":2,"denomination":"sp"},"rarity":"","identified":true,"type":{"value":"","subtype":""},"unidentified":{"description":""},"container":null,"properties":[],"identifier":"stick-of-incense"},"effects":[],"folder":"dlru9Hy74nSMv6fr","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"nC6VcR5JAIbR4err","sort":0},{"name":"Dart","type":"weapon","img":"icons/weapons/thrown/dart-feathered.webp","system":{"description":{"value":"<p>A small thrown implement crafted with a short wooden shaft and crossed feathres with a sharp wooden or metal tip. Darts can be thrown with sufficient force to puncture the skin.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":10,"weight":{"value":0.25,"units":"lb"},"price":{"value":5,"denomination":"cp"},"attunement":"","equipped":true,"rarity":"","identified":true,"cover":null,"range":{"value":20,"long":60,"units":"ft","reach":null},"uses":{"max":"","recovery":[],"spent":0},"damage":{"versatile":{"number":null,"denomination":null,"bonus":"","types":[],"custom":{"enabled":false,"formula":""},"scaling":{"mode":"","number":null,"formula":""}},"base":{"number":1,"denomination":4,"bonus":"","types":["piercing"],"custom":{"enabled":false,"formula":""},"scaling":{"mode":"","number":null,"formula":""}}},"armor":{"value":10},"hp":{"value":0,"max":0,"dt":null,"conditions":""},"properties":["fin","thr"],"proficient":null,"type":{"value":"simpleR","baseItem":"dart"},"unidentified":{"description":""},"container":null,"crewed":false,"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"attack","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"value":"20","units":"ft","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"attack":{"ability":"","bonus":"","critical":{"threshold":null},"flat":false,"type":{"value":"ranged","classification":"weapon"}},"damage":{"critical":{"bonus":""},"includeBase":true,"parts":[]},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"ammunition":{},"mastery":"","identifier":"dart"},"effects":[],"folder":"MLMTCAvKsuFE3vYA","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"WeKJI3gPUAU52WAX","sort":0},{"name":"Common Clothes","type":"equipment","img":"icons/equipment/chest/shirt-collared-brown.webp","system":{"description":{"value":"<p>Clothes worn by most commoners.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":3,"units":"lb"},"price":{"value":5,"denomination":"sp"},"attunement":"","equipped":false,"rarity":"","identified":true,"cover":null,"uses":{"max":"","recovery":[],"spent":0},"armor":{"value":null,"dex":null,"magicalBonus":null},"hp":{"value":0,"max":0,"dt":null,"conditions":""},"speed":{"value":null,"conditions":""},"strength":null,"proficient":null,"type":{"value":"clothing","baseItem":""},"unidentified":{"description":""},"container":null,"crewed":false,"properties":[],"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"utility","activation":{"type":"","value":null,"condition":"","override":false},"consumption":{"targets":[],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"units":"self","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"roll":{"formula":"","name":"","prompt":false,"visible":false},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"identifier":"common-clothes"},"effects":[],"folder":"aJgMxnZED9XdoN2W","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"1F73YcUHbZMgePAD","sort":0},{"name":"Rations","type":"consumable","img":"icons/consumables/grains/bread-loaf-boule-rustic-brown.webp","system":{"description":{"value":"<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":10,"weight":{"value":2,"units":"lb"},"price":{"value":5,"denomination":"sp"},"attunement":"","equipped":false,"rarity":"","identified":true,"uses":{"max":"1","recovery":[],"autoDestroy":true,"spent":0},"damage":{"base":{"number":null,"denomination":null,"types":[],"custom":{"enabled":false},"scaling":{"number":1}},"replace":false},"container":"XY8b594Dn7plACLL","properties":[],"type":{"value":"food","subtype":""},"unidentified":{"description":""},"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"utility","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[{"type":"itemUses","target":"","value":"1","scaling":{"mode":"","formula":""}}],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"units":"touch","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"1","type":"creature","choice":false,"special":""},"prompt":true,"override":false},"roll":{"formula":"","name":"","prompt":false,"visible":false},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"identifier":"rations"},"effects":[],"folder":"Dx3K2y0J1wJUPP9m","flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"ownership":{"default":0},"_id":"LQhGSEatJ3VK7oqW","sort":0},{"name":"Pouch","type":"container","img":"icons/containers/bags/pouch-rounded-leather-gold-tan.webp","system":{"description":{"value":"<p>A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch. A pouch can hold up to ⅕ cubic foot or 6 pounds of gear.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":1,"units":"lb"},"price":{"value":5,"denomination":"sp"},"attunement":"","equipped":false,"rarity":"","identified":true,"capacity":{"weight":{"value":6,"units":"lb"},"volume":{"units":"cubicFoot"}},"currency":{"cp":0,"sp":0,"ep":0,"gp":0,"pp":0},"unidentified":{"description":""},"container":null,"properties":[],"attuned":false,"identifier":"pouch"},"effects":[],"folder":"PgtyWdfkDTDbc0ov","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"1kqMwSwjfErSFNvl","sort":0},{"name":"Crowbar","type":"loot","img":"icons/tools/hand/pickaxe-steel-white.webp","system":{"description":{"value":"<p>Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":5,"units":"lb"},"price":{"value":2,"denomination":"gp"},"rarity":"","identified":true,"container":"XY8b594Dn7plACLL","type":{"value":"","subtype":""},"unidentified":{"description":""},"properties":[],"identifier":"crowbar"},"effects":[],"folder":"Dx3K2y0J1wJUPP9m","flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"ownership":{"default":0},"_id":"zF5L4xHnJBC7b2iM","sort":0},{"name":"Unarmed Strike","type":"weapon","img":"icons/skills/melee/unarmed-punch-fist.webp","system":{"description":{"value":"<p>A  punch, kick, head-butt, or similar forceful blow (none of which count as weapons). On a hit, an unarmed strike deals bludgeoning damage equal to 1 + your Strength modifier. You are proficient with your unarmed strikes.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":0,"units":"lb"},"price":{"value":0,"denomination":"gp"},"attunement":"","equipped":true,"rarity":"","identified":true,"cover":null,"range":{"value":null,"long":null,"units":"ft","reach":null},"uses":{"max":"","recovery":[],"spent":0},"damage":{"versatile":{"number":null,"denomination":null,"bonus":"","types":[],"custom":{"enabled":false,"formula":""},"scaling":{"mode":"","number":null,"formula":""}},"base":{"number":null,"denomination":null,"bonus":"","types":["bludgeoning"],"custom":{"enabled":true,"formula":"@scale.monk.die"},"scaling":{"mode":"","number":null,"formula":""}}},"armor":{"value":10},"hp":{"value":0,"max":0,"dt":null,"conditions":""},"properties":["fin"],"proficient":null,"type":{"value":"simpleM","baseItem":""},"unidentified":{"description":""},"container":null,"crewed":false,"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"attack","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"value":"5","units":"ft","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"attack":{"ability":"","bonus":"","critical":{"threshold":null},"flat":false,"type":{"value":"melee","classification":"unarmed"}},"damage":{"critical":{"bonus":""},"includeBase":true,"parts":[]},"uses":{"spent":0,"recovery":[],"max":""},"sort":0,"name":""}},"attuned":false,"ammunition":{},"identifier":"unarmed-strike","mastery":""},"effects":[],"folder":"MLMTCAvKsuFE3vYA","ownership":{"default":0},"flags":{"dnd5e":{"last":{"dnd5eactivity000":{"attackMode":"oneHanded","damageType":{"0":"bludgeoning"}}},"riders":{"activity":[],"effect":[]}}},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"g7U3OAXVcoI4lwzf","sort":0},{"name":"Backpack","type":"container","img":"icons/containers/bags/pack-leather-white-tan.webp","system":{"description":{"value":"<p>A backpack can hold one cubic foot or 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":5,"units":"lb"},"price":{"value":2,"denomination":"gp"},"attunement":"","equipped":false,"rarity":"","identified":true,"capacity":{"weight":{"value":30,"units":"lb"},"volume":{"units":"cubicFoot"}},"currency":{"cp":0,"sp":0,"ep":0,"gp":0,"pp":0},"unidentified":{"description":""},"container":null,"properties":[],"attuned":false,"identifier":"backpack"},"effects":[],"folder":"PgtyWdfkDTDbc0ov","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.H8YCd689ezlD26aT","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"WcROGD590imVj9qp","sort":0},{"name":"Piton","type":"consumable","img":"icons/tools/fasteners/nail-steel.webp","system":{"description":{"value":"<p>A metal spike that is drive into a seam in a climbing surface with a climbing hammer. It can also be used like iron spikes to block doors in a pinch.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":10,"weight":{"value":0.25,"units":"lb"},"price":{"value":5,"denomination":"cp"},"attunement":"","equipped":false,"rarity":"","identified":true,"uses":{"max":"1","recovery":[],"autoDestroy":false,"spent":0},"damage":{"base":{"number":null,"denomination":null,"types":[],"custom":{"enabled":false},"scaling":{"number":1}},"replace":false},"container":"xsB7Y2WI476kvOt4","properties":[],"type":{"value":"trinket","subtype":""},"unidentified":{"description":""},"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"utility","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[{"type":"itemUses","target":"","value":"1","scaling":{"mode":"","formula":""}}],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"value":"5","units":"ft","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"roll":{"formula":"","name":"","prompt":false,"visible":false},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"identifier":"piton"},"effects":[],"folder":"Dx3K2y0J1wJUPP9m","flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"ownership":{"default":0},"_id":"8UQanAvHUIHZXp0O","sort":0},{"name":"Hempen Rope (50 ft.)","type":"consumable","img":"icons/sundries/survival/rope-wrapped-brown.webp","system":{"description":{"value":"<p>Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":10,"units":"lb"},"price":{"value":1,"denomination":"gp"},"attunement":"","equipped":false,"rarity":"","identified":true,"uses":{"max":"1","recovery":[],"autoDestroy":false,"spent":0},"damage":{"base":{"number":null,"denomination":null,"types":[],"custom":{"enabled":false},"scaling":{"number":1}},"replace":false},"type":{"value":"trinket","subtype":""},"unidentified":{"description":""},"container":null,"properties":[],"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"check","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[{"type":"itemUses","target":"","scaling":{},"value":"1"}],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"units":"self","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"check":{"ability":"str","dc":{"calculation":"","formula":"17"},"associated":[]},"uses":{"spent":0,"recovery":[],"max":""},"sort":0,"name":"Burst"}},"attuned":false,"identifier":"hempen-rope-50-ft"},"effects":[],"folder":"UnUwTG4YIgd0kaUJ","ownership":{"default":0},"flags":{"dnd5e":{"riders":{"activity":[],"effect":[]}}},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"irCoxLHje0eA6Qmu","sort":0},{"name":"Reliquary","type":"equipment","img":"icons/containers/chest/chest-reinforced-steel-red.webp","system":{"description":{"value":"<p>A tiny box or other container holding a fragment of a precious relic, saint, or other historical figure that dedicated their life to walk the path of a true believer. A deity imbues the bearer of this artifact with the ability to call forth their power and in doing so spread the faith once more.</p>\n<p><strong>Spellcasting Focus</strong>. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":2,"units":"lb"},"price":{"value":5,"denomination":"gp"},"attunement":"","equipped":false,"rarity":"","identified":true,"cover":null,"uses":{"max":"","recovery":[],"spent":0},"armor":{"value":null,"dex":null,"magicalBonus":null},"hp":{"value":0,"max":0,"dt":null,"conditions":""},"speed":{"value":null,"conditions":""},"strength":null,"proficient":null,"type":{"value":"trinket","baseItem":""},"unidentified":{"description":""},"container":null,"crewed":false,"properties":["foc"],"activities":{},"attuned":false,"identifier":"reliquary"},"effects":[],"folder":"xedn1r43VWuEBcli","ownership":{"default":0},"flags":{"dnd5e":{"riders":{"activity":[],"effect":[]}}},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"GfKuJYLFfw00oW9R","sort":0},{"name":"Vestments","type":"equipment","img":"icons/equipment/back/mantle-collared-black.webp","system":{"description":{"value":"<p>Simple or ostentacious wear, often used by priests and other religious figures for use in rituals and ceremonies.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":4,"units":"lb"},"price":{"value":1,"denomination":"gp"},"attunement":"","equipped":true,"rarity":"","identified":true,"cover":null,"uses":{"max":"","recovery":[],"spent":0},"armor":{"value":null,"dex":null,"magicalBonus":null},"hp":{"value":0,"max":0,"dt":null,"conditions":""},"speed":{"value":null,"conditions":""},"strength":null,"proficient":null,"type":{"value":"clothing","baseItem":""},"unidentified":{"description":""},"container":null,"crewed":false,"properties":[],"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"utility","activation":{"type":"","value":null,"condition":"","override":false},"consumption":{"targets":[],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"units":"self","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"roll":{"formula":"","name":"","prompt":false,"visible":false},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"identifier":"vestments"},"effects":[],"folder":"aJgMxnZED9XdoN2W","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"NsNcJBUG5ajbk7sG","sort":0},{"name":"Prayer Book","type":"loot","img":"icons/sundries/books/book-purple-cross.webp","system":{"description":{"value":"<p>A book containing prayers and incantations dedicated to a specific power for the faithful to follow.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":5,"units":"lb"},"price":{"value":25,"denomination":"gp"},"rarity":"","identified":true,"type":{"value":"","subtype":""},"unidentified":{"description":""},"container":null,"properties":[],"identifier":"prayer-book"},"effects":[],"folder":"dlru9Hy74nSMv6fr","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"XbF0CTipyqbMKHsB","sort":0},{"name":"Shortsword","type":"weapon","img":"icons/weapons/swords/sword-guard-worn-purple.webp","system":{"description":{"value":"<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>","chat":""},"source":{"custom":"","book":"SRD 5.1","page":"","license":"CC-BY-4.0","rules":"2014","revision":1},"quantity":1,"weight":{"value":2,"units":"lb"},"price":{"value":10,"denomination":"gp"},"attunement":"","equipped":true,"rarity":"","identified":true,"cover":null,"range":{"value":null,"long":null,"units":"ft","reach":null},"uses":{"max":"","recovery":[],"spent":0},"damage":{"versatile":{"number":null,"denomination":null,"bonus":"","types":[],"custom":{"enabled":false,"formula":""},"scaling":{"mode":"","number":null,"formula":""}},"base":{"number":1,"denomination":6,"bonus":"","types":["piercing"],"custom":{"enabled":false,"formula":""},"scaling":{"mode":"","number":null,"formula":""}}},"armor":{"value":10},"hp":{"value":0,"max":0,"dt":null,"conditions":""},"properties":["fin","lgt"],"proficient":null,"type":{"value":"martialM","baseItem":"shortsword"},"unidentified":{"description":""},"container":null,"crewed":false,"magicalBonus":null,"activities":{"dnd5eactivity000":{"_id":"dnd5eactivity000","type":"attack","activation":{"type":"action","value":1,"condition":"","override":false},"consumption":{"targets":[],"scaling":{"allowed":false,"max":""},"spellSlot":true},"description":{"chatFlavor":""},"duration":{"concentration":false,"value":"","units":"inst","special":"","override":false},"effects":[],"range":{"value":"5","units":"ft","special":"","override":false},"target":{"template":{"count":"","contiguous":false,"type":"","size":"","width":"","height":"","units":""},"affects":{"count":"","type":"","choice":false,"special":""},"prompt":true,"override":false},"attack":{"ability":"","bonus":"","critical":{"threshold":null},"flat":false,"type":{"value":"melee","classification":"weapon"}},"damage":{"critical":{"bonus":""},"includeBase":true,"parts":[]},"uses":{"spent":0,"recovery":[]},"sort":0}},"attuned":false,"ammunition":{},"identifier":"shortsword"},"effects":[],"folder":"MLMTCAvKsuFE3vYA","ownership":{"default":0},"flags":{},"_stats":{"duplicateSource":null,"compendiumSource":"Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH","coreVersion":"13.344","systemId":"dnd5e","systemVersion":"4.1.0","createdTime":null,"modifiedTime":null,"lastModifiedBy":null,"exportSource":null},"_id":"GYyovoNdU66nxOlX","sort":0}],"effects":[]}}'
@@ -9313,7 +9312,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/create'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -13892,7 +13891,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/create';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -18480,7 +18479,7 @@ import axios from 'axios';
   🔤/create🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -18511,820 +18510,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create_1774001730907",
-  "clientId": "your-client-id",
   "type": "create-result",
-  "uuid": "Actor.2Hl8s4nj9yJQueBG",
+  "requestId": "create_1774367580060",
+  "uuid": "Actor.ioZexonJDGVuU8zl",
   "entity": {
-    "name": "test-perrin (halfling monk)",
-    "type": "character",
+    "effects": [],
     "img": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-    "system": {
-      "abilities": {
-        "str": {
-          "value": 8,
-          "proficient": 1,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "dex": {
-          "value": 16,
-          "proficient": 1,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "con": {
-          "value": 13,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "int": {
-          "value": 12,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "wis": {
-          "value": 15,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "cha": {
-          "value": 11,
-          "proficient": 0,
-          "max": 20,
-          "bonuses": {
-            "check": "",
-            "save": ""
-          },
-          "check": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "save": {
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        }
-      },
-      "attributes": {
-        "ac": {
-          "flat": null,
-          "calc": "unarmoredMonk",
-          "formula": ""
-        },
-        "hp": {
-          "value": 9,
-          "max": 9,
-          "temp": null,
-          "tempmax": null,
-          "bonuses": {
-            "level": "",
-            "overall": ""
-          }
-        },
-        "init": {
-          "ability": "",
-          "bonus": "0",
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "movement": {
-          "burrow": 0,
-          "climb": 0,
-          "fly": 0,
-          "swim": 0,
-          "walk": 25,
-          "units": "ft",
-          "hover": false
-        },
-        "attunement": {
-          "max": 3
-        },
-        "senses": {
-          "darkvision": 0,
-          "blindsight": 0,
-          "tremorsense": 0,
-          "truesight": 0,
-          "units": "ft",
-          "special": ""
-        },
-        "spellcasting": "int",
-        "death": {
-          "success": 0,
-          "failure": 0,
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          },
-          "bonuses": {
-            "save": ""
-          }
-        },
-        "exhaustion": 0,
-        "inspiration": false,
-        "concentration": {
-          "ability": "",
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          },
-          "bonuses": {
-            "save": ""
-          },
-          "limit": 1
-        },
-        "loyalty": {}
-      },
-      "details": {
-        "biography": {
-          "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>",
-          "public": ""
-        },
-        "alignment": "True Neutral",
-        "race": "O3ZjSw0GtAOPScHI",
-        "background": "q4tr1vTU8RxtU1UZ",
-        "originalClass": "8Grf7ga6JcZF0X6x",
-        "xp": {
-          "value": 0
-        },
-        "appearance": "",
-        "trait": "",
-        "ideal": "",
-        "bond": "",
-        "flaw": "",
-        "eyes": "",
-        "height": "",
-        "faith": "",
-        "hair": "",
-        "weight": "",
-        "gender": "",
-        "skin": "",
-        "age": ""
-      },
-      "traits": {
-        "size": "sm",
-        "di": {
-          "value": [],
-          "bypasses": [],
-          "custom": ""
-        },
-        "dr": {
-          "value": [],
-          "bypasses": [],
-          "custom": ""
-        },
-        "dv": {
-          "value": [],
-          "bypasses": [],
-          "custom": ""
-        },
-        "ci": {
-          "value": [],
-          "custom": "Advantage against being frightenned"
-        },
-        "languages": {
-          "value": [
-            "celestial",
-            "draconic",
-            "common",
-            "halfling"
-          ],
-          "custom": "",
-          "communication": {}
-        },
-        "weaponProf": {
-          "value": [
-            "sim",
-            "shortsword"
-          ],
-          "custom": "",
-          "mastery": {
-            "value": [],
-            "bonus": []
-          }
-        },
-        "armorProf": {
-          "value": [],
-          "custom": ""
-        },
-        "dm": {
-          "amount": {},
-          "bypasses": []
-        }
-      },
-      "currency": {
-        "pp": 0,
-        "gp": 15,
-        "ep": 0,
-        "sp": 0,
-        "cp": 0
-      },
-      "skills": {
-        "acr": {
-          "value": 1,
-          "ability": "dex",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ani": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "arc": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ath": {
-          "value": 1,
-          "ability": "str",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "dec": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "his": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ins": {
-          "value": 1,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "itm": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "inv": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "med": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "nat": {
-          "value": 0,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "prc": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "prf": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "per": {
-          "value": 0,
-          "ability": "cha",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "rel": {
-          "value": 1,
-          "ability": "int",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "slt": {
-          "value": 0,
-          "ability": "dex",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "ste": {
-          "value": 0,
-          "ability": "dex",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "sur": {
-          "value": 0,
-          "ability": "wis",
-          "bonuses": {
-            "check": "",
-            "passive": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "tools": {
-        "art": {
-          "value": 1,
-          "ability": "int",
-          "bonuses": {
-            "check": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        },
-        "brewer": {
-          "value": 1,
-          "ability": "int",
-          "bonuses": {
-            "check": ""
-          },
-          "roll": {
-            "min": null,
-            "max": null,
-            "mode": 0
-          }
-        }
-      },
-      "spells": {
-        "spell1": {
-          "value": 0,
-          "override": null
-        },
-        "spell2": {
-          "value": 0,
-          "override": null
-        },
-        "spell3": {
-          "value": 0,
-          "override": null
-        },
-        "spell4": {
-          "value": 0,
-          "override": null
-        },
-        "spell5": {
-          "value": 0,
-          "override": null
-        },
-        "spell6": {
-          "value": 0,
-          "override": null
-        },
-        "spell7": {
-          "value": 0,
-          "override": null
-        },
-        "spell8": {
-          "value": 0,
-          "override": null
-        },
-        "spell9": {
-          "value": 0,
-          "override": null
-        },
-        "pact": {
-          "value": 0,
-          "override": null
-        },
-        "spell0": {
-          "value": 0,
-          "override": null
-        }
-      },
-      "bonuses": {
-        "mwak": {
-          "attack": "",
-          "damage": ""
-        },
-        "rwak": {
-          "attack": "",
-          "damage": ""
-        },
-        "msak": {
-          "attack": "",
-          "damage": ""
-        },
-        "rsak": {
-          "attack": "",
-          "damage": ""
-        },
-        "abilities": {
-          "check": "",
-          "save": "",
-          "skill": ""
-        },
-        "spell": {
-          "dc": ""
-        }
-      },
-      "resources": {
-        "primary": {
-          "value": null,
-          "max": null,
-          "sr": true,
-          "lr": true,
-          "label": "Ki"
-        },
-        "secondary": {
-          "value": null,
-          "max": null,
-          "sr": false,
-          "lr": false,
-          "label": ""
-        },
-        "tertiary": {
-          "value": null,
-          "max": null,
-          "sr": false,
-          "lr": false,
-          "label": ""
-        }
-      },
-      "favorites": [
-        {
-          "type": "item",
-          "id": ".Item.FtOM4QiOW5MwgcS3",
-          "sort": 500000
-        },
-        {
-          "type": "item",
-          "id": ".Item.WeKJI3gPUAU52WAX",
-          "sort": 600000
-        },
-        {
-          "type": "item",
-          "id": ".Item.g7U3OAXVcoI4lwzf",
-          "sort": 550000
-        },
-        {
-          "type": "item",
-          "id": ".Item.GYyovoNdU66nxOlX",
-          "sort": 700000
-        }
-      ],
-      "bastion": {
-        "name": "",
-        "description": ""
-      }
-    },
-    "prototypeToken": {
-      "flags": {},
-      "name": "Perrin",
-      "displayName": 30,
-      "width": 1,
-      "height": 1,
-      "lockRotation": false,
-      "rotation": 0,
-      "actorLink": true,
-      "disposition": 1,
-      "displayBars": 40,
-      "bar1": {
-        "attribute": "attributes.hp"
-      },
-      "bar2": {
-        "attribute": "attributes.ac.value"
-      },
-      "randomImg": false,
-      "alpha": 1,
-      "light": {
-        "alpha": 1,
-        "angle": 360,
-        "bright": 0,
-        "coloration": 1,
-        "dim": 0,
-        "luminosity": 0.5,
-        "saturation": 0,
-        "contrast": 0,
-        "shadows": 0,
-        "animation": {
-          "speed": 5,
-          "intensity": 5,
-          "type": null,
-          "reverse": false
-        },
-        "darkness": {
-          "min": 0,
-          "max": 1
-        },
-        "color": null,
-        "attenuation": 0.5,
-        "negative": false,
-        "priority": 0
-      },
-      "texture": {
-        "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-        "tint": "#ffffff",
-        "scaleX": 0.8,
-        "scaleY": 0.8,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "fit": "contain",
-        "alphaThreshold": 0.75
-      },
-      "sight": {
-        "angle": 360,
-        "enabled": true,
-        "range": 5,
-        "brightness": 0,
-        "visionMode": "basic",
-        "color": null,
-        "attenuation": 0.1,
-        "saturation": 0,
-        "contrast": 0
-      },
-      "detectionModes": [],
-      "appendNumber": false,
-      "prependAdjective": false,
-      "occludable": {
-        "radius": 0
-      },
-      "ring": {
-        "enabled": false,
-        "colors": {
-          "ring": null,
-          "background": null
-        },
-        "effects": 1,
-        "subject": {
-          "scale": 1,
-          "texture": null
-        }
-      },
-      "turnMarker": {
-        "mode": 1,
-        "animation": null,
-        "src": null,
-        "disposition": false
-      },
-      "movementAction": null
-    },
     "items": [
       {
-        "name": "Priest",
-        "type": "background",
-        "system": {
-          "description": {
-            "value": "<ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "advancement": [],
-          "startingEquipment": [],
-          "identifier": "priest"
-        },
-        "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
-        "effects": [],
-        "folder": null,
-        "sort": 0,
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "_id": "q4tr1vTU8RxtU1UZ",
         "_stats": {
           "compendiumSource": null,
           "duplicateSource": null,
@@ -19334,48 +18528,75 @@ import axios from 'axios';
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "q4tr1vTU8RxtU1UZ"
+        "effects": [],
+        "flags": {},
+        "folder": null,
+        "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
+        "name": "Priest",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "advancement": [],
+          "description": {
+            "chat": "",
+            "value": "<ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>"
+          },
+          "identifier": "priest",
+          "source": {
+            "book": "",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "startingEquipment": []
+        },
+        "type": "background"
       },
       {
         "_id": "O3ZjSw0GtAOPScHI",
-        "name": "Lightfoot Halfling",
-        "type": "race",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "uQNrdSpcXeoB5EnX",
         "img": "icons/equipment/feet/shoes-leather-simple-brown.webp",
+        "name": "Lightfoot Halfling",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>Your halfling character has a number of traits in common with all other halflings.</p><p><em><strong>Ability Score Increase.</strong></em> Your Dexterity score increases by 2.</p><p><em><strong>Age.</strong></em> A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.</p><p><em><strong>Alignment.</strong></em> Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.</p><p><em><strong>Size.</strong></em> Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.</p><p><em><strong>Speed.</strong></em> Your base walking speed is 25 feet.</p><p><em><strong>Lucky.</strong></em> When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><p><em><strong>Brave.</strong></em> You have advantage on saving throws against being frightened.</p><p><em><strong>Halfling Nimbleness.</strong></em> You can move through the space of any creature that is of a size larger than yours.</p><p><em><strong>Languages.</strong></em> You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.</p><h5>Lightfoot</h5><p>As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others.</p><p>Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.</p><p><em><strong>Ability Score Increase.</strong></em> Your Charisma score increases by 1.</p><p><em><strong>Naturally Stealthy.</strong></em> You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "identifier": "lightfoot-halfling",
           "advancement": [
             {
               "_id": "nInhIgkbzzJTdm8F",
-              "type": "ItemGrant",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ"
                   }
                 ],
                 "optional": false,
@@ -19389,72 +18610,73 @@ import axios from 'axios';
                   }
                 }
               },
+              "level": 0,
+              "title": "",
+              "type": "ItemGrant",
               "value": {
                 "added": {
+                  "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
                   "FtOM4QiOW5MwgcS3": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-                  "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
                   "cWrETHzCRs1Ueqd3": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-                  "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
+                  "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
                 }
-              },
-              "level": 0,
-              "title": ""
+              }
             },
             {
               "_id": "Z9hvZFkWUNvowbQX",
-              "type": "AbilityScoreImprovement",
               "configuration": {
-                "points": 0,
-                "fixed": {
-                  "str": 0,
-                  "dex": 2,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 1
-                },
                 "cap": 2,
-                "locked": []
-              },
-              "value": {
-                "type": "asi",
-                "assignments": {
+                "fixed": {
+                  "cha": 1,
+                  "con": 0,
                   "dex": 2,
-                  "cha": 1
-                }
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 0
               },
               "level": 0,
-              "title": ""
+              "title": "",
+              "type": "AbilityScoreImprovement",
+              "value": {
+                "assignments": {
+                  "cha": 1,
+                  "dex": 2
+                },
+                "type": "asi"
+              }
             },
             {
               "_id": "hv2bcANK5jEJZaAb",
-              "type": "Size",
               "configuration": {
                 "sizes": [
                   "sm"
                 ]
               },
-              "value": {
-                "size": "sm"
-              },
+              "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.",
               "level": 1,
               "title": "",
-              "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."
+              "type": "Size",
+              "value": {
+                "size": "sm"
+              }
             },
             {
               "_id": "nGwMjsfNU6CXHk3A",
-              "type": "Trait",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "languages:standard:common",
                   "languages:standard:halfling"
                 ],
-                "choices": []
+                "mode": "default"
               },
               "level": 0,
               "title": "",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "languages:standard:common",
@@ -19463,351 +18685,350 @@ import axios from 'axios';
               }
             }
           ],
+          "description": {
+            "chat": "",
+            "value": "<p>Your halfling character has a number of traits in common with all other halflings.</p><p><em><strong>Ability Score Increase.</strong></em> Your Dexterity score increases by 2.</p><p><em><strong>Age.</strong></em> A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.</p><p><em><strong>Alignment.</strong></em> Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.</p><p><em><strong>Size.</strong></em> Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.</p><p><em><strong>Speed.</strong></em> Your base walking speed is 25 feet.</p><p><em><strong>Lucky.</strong></em> When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><p><em><strong>Brave.</strong></em> You have advantage on saving throws against being frightened.</p><p><em><strong>Halfling Nimbleness.</strong></em> You can move through the space of any creature that is of a size larger than yours.</p><p><em><strong>Languages.</strong></em> You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.</p><h5>Lightfoot</h5><p>As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others.</p><p>Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.</p><p><em><strong>Ability Score Increase.</strong></em> Your Charisma score increases by 1.</p><p><em><strong>Naturally Stealthy.</strong></em> You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>"
+          },
+          "identifier": "lightfoot-halfling",
           "movement": {
-            "walk": 25,
             "burrow": null,
             "climb": null,
             "fly": null,
+            "hover": false,
             "swim": null,
             "units": "ft",
-            "hover": false
-          },
-          "type": {
-            "subtype": "halfling",
-            "value": "humanoid",
-            "custom": ""
+            "walk": 25
           },
           "senses": {
-            "darkvision": null,
             "blindsight": null,
+            "darkvision": null,
+            "special": "",
             "tremorsense": null,
             "truesight": null,
-            "units": "ft",
-            "special": ""
+            "units": "ft"
+          },
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "custom": "",
+            "subtype": "halfling",
+            "value": "humanoid"
           }
         },
-        "effects": [],
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "race"
+      },
+      {
+        "_id": "FtOM4QiOW5MwgcS3",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "sort": 0,
-        "folder": "uQNrdSpcXeoB5EnX"
-      },
-      {
-        "_id": "FtOM4QiOW5MwgcS3",
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/sundries/gaming/dice-runed-brown.webp",
         "name": "Lucky",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><section class=\"secret foundry-note\" id=\"secret-S04TPyvUh05Dz0Ng\"><p><strong>Foundry Note</strong></p><p>This property can be enabled on your character sheet in the Special Traits configuration on the Attributes tab.</p></section>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><section class=\"secret foundry-note\" id=\"secret-S04TPyvUh05Dz0Ng\"><p><strong>Foundry Note</strong></p><p>This property can be enabled on your character sheet in the Special Traits configuration on the Attributes tab.</p></section>"
+          },
           "enchant": {},
+          "identifier": "lucky",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "lucky",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/sundries/gaming/dice-runed-brown.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "nmmihiqphHjoE8dl",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "nmmihiqphHjoE8dl",
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/skills/melee/unarmed-punch-fist.webp",
         "name": "Brave",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>You have advantage on saving throws against being frightened.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>You have advantage on saving throws against being frightened.</p>"
+          },
           "enchant": {},
+          "identifier": "brave",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "brave",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/skills/melee/unarmed-punch-fist.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "cWrETHzCRs1Ueqd3",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "cWrETHzCRs1Ueqd3",
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/skills/movement/feet-winged-boots-brown.webp",
         "name": "Halfling Nimbleness",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>You can move through the space of any creature that is of a size larger than yours.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>You can move through the space of any creature that is of a size larger than yours.</p>"
+          },
           "enchant": {},
+          "identifier": "halfling-nimbleness",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "halfling-nimbleness",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/skills/movement/feet-winged-boots-brown.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "AArhiOrSkaQUnCZS",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "AArhiOrSkaQUnCZS",
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+            "riders": {
+              "activity": [],
+              "effect": []
+            },
+            "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
+          }
+        },
+        "folder": "kbtbKofcv13crhke",
+        "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
         "name": "Naturally Stealthy",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "race",
-            "subtype": ""
-          },
-          "requirements": "Lightfoot Halfling",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>"
+          },
           "enchant": {},
+          "identifier": "naturally-stealthy",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "naturally-stealthy",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
-            "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
+          "properties": [],
+          "requirements": "Lightfoot Halfling",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "race"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
-        "effects": [],
-        "folder": "kbtbKofcv13crhke",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "8Grf7ga6JcZF0X6x",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "8Grf7ga6JcZF0X6x",
-        "name": "Monk",
-        "type": "class",
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "HQ1Oy7HkbnxnE63o",
         "img": "icons/skills/melee/hand-grip-staff-blue.webp",
+        "name": "Monk",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>As a monk, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d8 per monk level<br /><strong>Hit Points at 1st Level:</strong> 8 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d8 (or 5) + your Constitution modifier per monk level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> None<br /><strong>Weapons:</strong> Simple weapons, shortswords<br /><strong>Tools:</strong> Choose one type of artisan's tools or one musical instrument<br /><strong>Saving Throws:</strong> Strength, Dexterity<br /><strong>Skills:</strong> Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth</p><h1>Monk Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Martial Arts</td><td>Ki Points</td><td>Unarmored Movement</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI]{Unarmored Defense}, @UUID[Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw]{Martial Arts}</td></tr><tr><td>2nd</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.10b6z2W1txNkrGP7]{Ki}, @UUID[Compendium.dnd5e.classfeatures.Item.zCeqyQ8uIPNdYJSW]{Unarmored Movement}</td></tr><tr><td>3rd</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.rtpQdX77dYWbDIOH]{Monastic Tradition}, @UUID[Compendium.dnd5e.classfeatures.Item.mzweVbnsJPQiVkAe]{Deflect Missiles}</td></tr><tr><td>4th</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, @UUID[Compendium.dnd5e.classfeatures.Item.KQz9bqxVkXjDl8gK]{Slow Fall}</td></tr><tr><td>5th</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}, @UUID[Compendium.dnd5e.classfeatures.Item.pvRc6GAu1ok6zihC]{Stunning Strike}</td></tr><tr><td>6th</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft.</td><td><p>@UUID[Compendium.dnd5e.classfeatures.Item.7flZKruSSu6dHg6D]{Ki-Empowered Strikes},</p><p>Monastic Tradition feature</p></td></tr><tr><td>7th</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.a4P4DNMmH8CqSNkC]{Evasion}, @UUID[Compendium.dnd5e.classfeatures.Item.ZmC31XKS4YNENnoc]{Stillness of Mind}</td></tr><tr><td>8th</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft.</td><td>Unarmored Movement improvement</td></tr><tr><td>10th</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.bqWA7t9pDELbNRkp]{Purity of Body}</td></tr><tr><td>11th</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>12th</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XjuGBeB8Y0C3A5D4]{Tongue of the Sun and Moon}</td></tr><tr><td>14th</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.7D2EkLdISwShEDlN]{Diamond Soul}</td></tr><tr><td>15th</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.gDH8PMrKvLHaNmEI]{Timeless Body}</td></tr><tr><td>16th</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>18th</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.3jwFt3hSqDswBlOH]{Empty Body}</td></tr><tr><td>19th</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.mQNPg89YIs7g5tG4]{Perfect Self}</td></tr></tbody></table><h1>Monastic Traditions</h1><p>Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.IvlpKMXX3PmW1NY2]{Way of the Open Hand}</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "identifier": "monk",
-          "levels": 1,
           "advancement": [
             {
-              "type": "HitPoints",
+              "_id": "ocxNtDFJ7YDaYaK7",
               "configuration": {},
+              "icon": "systems/dnd5e/icons/svg/hit-points.svg",
+              "title": "Hit Points",
+              "type": "HitPoints",
               "value": {
                 "1": "max"
-              },
-              "title": "Hit Points",
-              "icon": "systems/dnd5e/icons/svg/hit-points.svg",
-              "_id": "ocxNtDFJ7YDaYaK7"
+              }
             },
             {
               "_id": "mmAxx3U7FvXNAcKc",
-              "type": "Trait",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "weapon:sim",
                   "weapon:mar:shortsword"
                 ],
-                "choices": []
+                "mode": "default"
               },
               "level": 1,
               "title": "",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "weapon:sim",
@@ -19817,11 +19038,9 @@ import axios from 'axios';
             },
             {
               "_id": "QPXy59CQGY9HB0c3",
-              "type": "Trait",
+              "classRestriction": "primary",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
-                "grants": [],
                 "choices": [
                   {
                     "count": 1,
@@ -19830,11 +19049,13 @@ import axios from 'axios';
                       "tool:music:*"
                     ]
                   }
-                ]
+                ],
+                "grants": [],
+                "mode": "default"
               },
               "level": 1,
               "title": "",
-              "classRestriction": "primary",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "tool:art:brewer"
@@ -19843,19 +19064,19 @@ import axios from 'axios';
             },
             {
               "_id": "4M8MQ1E64zbcRg6B",
-              "type": "Trait",
+              "classRestriction": "primary",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "saves:str",
                   "saves:dex"
                 ],
-                "choices": []
+                "mode": "default"
               },
               "level": 1,
               "title": "",
-              "classRestriction": "primary",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "saves:str",
@@ -19865,11 +19086,9 @@ import axios from 'axios';
             },
             {
               "_id": "7HRRCPk80Ng2Evdx",
-              "type": "Trait",
+              "classRestriction": "primary",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
-                "grants": [],
                 "choices": [
                   {
                     "count": 2,
@@ -19882,11 +19101,13 @@ import axios from 'axios';
                       "skills:ste"
                     ]
                   }
-                ]
+                ],
+                "grants": [],
+                "mode": "default"
               },
               "level": 1,
               "title": "",
-              "classRestriction": "primary",
+              "type": "Trait",
               "value": {
                 "chosen": [
                   "skills:acr",
@@ -19896,39 +19117,39 @@ import axios from 'axios';
             },
             {
               "_id": "BQWHr3mt5flvkfIj",
-              "type": "Trait",
               "configuration": {
-                "mode": "default",
                 "allowReplacements": false,
+                "choices": [],
                 "grants": [
                   "di:poison",
                   "ci:diseased",
                   "ci:poisoned"
                 ],
-                "choices": []
+                "mode": "default"
               },
+              "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison.",
               "level": 10,
               "title": "Purity of Body",
+              "type": "Trait",
               "value": {
                 "chosen": []
-              },
-              "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison."
+              }
             },
             {
-              "type": "ItemGrant",
+              "_id": "n0q8XyiGA3vLPgpK",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO"
                   }
                 ],
                 "optional": false,
@@ -19940,42 +19161,42 @@ import axios from 'axios';
                     "per": "",
                     "requireSlot": false
                   }
-                }
-              },
-              "value": {
-                "added": {
-                  "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-                  "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-                  "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO"
                 }
               },
               "level": 1,
               "title": "Features",
-              "_id": "n0q8XyiGA3vLPgpK"
+              "type": "ItemGrant",
+              "value": {
+                "added": {
+                  "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
+                  "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO",
+                  "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
+                }
+              }
             },
             {
-              "type": "ItemGrant",
+              "_id": "7TyDqpGGi3r3nsp0",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW"
                   }
                 ],
                 "optional": false,
@@ -19989,22 +19210,22 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 2,
               "title": "Features",
-              "_id": "7TyDqpGGi3r3nsp0"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "2sLHTw6k15DSW8WB",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe"
                   }
                 ],
                 "optional": false,
@@ -20018,18 +19239,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 3,
               "title": "Features",
-              "_id": "2sLHTw6k15DSW8WB"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "Zc1jOZK1b9mIKekq",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK"
                   }
                 ],
                 "optional": false,
@@ -20043,22 +19264,22 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 4,
               "title": "Features",
-              "_id": "Zc1jOZK1b9mIKekq"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "j9LeWmxlsENKaMLo",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC"
                   }
                 ],
                 "optional": false,
@@ -20072,18 +19293,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 5,
               "title": "Features",
-              "_id": "j9LeWmxlsENKaMLo"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "psobDjMqtA2216Db",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D"
                   }
                 ],
                 "optional": false,
@@ -20097,22 +19318,22 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 6,
               "title": "Features",
-              "_id": "psobDjMqtA2216Db"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "K38aFaEMxMqRB0BC",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC"
                   },
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc"
                   }
                 ],
                 "optional": false,
@@ -20126,18 +19347,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 7,
               "title": "Features",
-              "_id": "K38aFaEMxMqRB0BC"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "eLqmJotmwzlGNrxG",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp"
                   }
                 ],
                 "optional": false,
@@ -20151,18 +19372,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 10,
               "title": "Features",
-              "_id": "eLqmJotmwzlGNrxG"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "N0geIQiuofqYgswj",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4"
                   }
                 ],
                 "optional": false,
@@ -20176,18 +19397,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 13,
               "title": "Features",
-              "_id": "N0geIQiuofqYgswj"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "N1hjizyI82UPp8UI",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN"
                   }
                 ],
                 "optional": false,
@@ -20201,18 +19422,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 14,
               "title": "Features",
-              "_id": "N1hjizyI82UPp8UI"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "TcLZS9WzC7bPETSd",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI"
                   }
                 ],
                 "optional": false,
@@ -20226,18 +19447,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 15,
               "title": "Features",
-              "_id": "TcLZS9WzC7bPETSd"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "tRb3a0tA5IpehPs8",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH"
                   }
                 ],
                 "optional": false,
@@ -20251,18 +19472,18 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 18,
               "title": "Features",
-              "_id": "tRb3a0tA5IpehPs8"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ItemGrant",
+              "_id": "sEQz9c9XhWYjS9x5",
               "configuration": {
                 "items": [
                   {
-                    "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4",
-                    "optional": false
+                    "optional": false,
+                    "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4"
                   }
                 ],
                 "optional": false,
@@ -20276,54 +19497,53 @@ import axios from 'axios';
                   }
                 }
               },
-              "value": {},
               "level": 20,
               "title": "Features",
-              "_id": "sEQz9c9XhWYjS9x5"
+              "type": "ItemGrant",
+              "value": {}
             },
             {
-              "type": "ScaleValue",
+              "_id": "MXFbf0nxMiyLdPbX",
               "configuration": {
-                "identifier": "die",
-                "type": "dice",
                 "distance": {
                   "units": ""
                 },
+                "identifier": "die",
                 "scale": {
                   "1": {
-                    "number": null,
                     "faces": 4,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   },
                   "5": {
-                    "number": null,
                     "faces": 6,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   },
                   "11": {
-                    "number": null,
                     "faces": 8,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   },
                   "17": {
-                    "number": null,
                     "faces": 10,
-                    "modifiers": []
+                    "modifiers": [],
+                    "number": null
                   }
-                }
+                },
+                "type": "dice"
               },
-              "value": {},
               "title": "Martial Arts Die",
-              "_id": "MXFbf0nxMiyLdPbX"
+              "type": "ScaleValue",
+              "value": {}
             },
             {
-              "type": "ScaleValue",
+              "_id": "1OzfWDWCquoHMeX5",
               "configuration": {
-                "identifier": "unarmored-movement",
-                "type": "distance",
                 "distance": {
                   "units": "ft"
                 },
+                "identifier": "unarmored-movement",
                 "scale": {
                   "2": {
                     "value": 10
@@ -20340,306 +19560,244 @@ import axios from 'axios';
                   "18": {
                     "value": 30
                   }
-                }
+                },
+                "type": "distance"
               },
-              "value": {},
               "title": "Unarmored Movement",
-              "_id": "1OzfWDWCquoHMeX5"
+              "type": "ScaleValue",
+              "value": {}
             },
             {
-              "type": "AbilityScoreImprovement",
+              "_id": "ofNSUhSHKhhDuPSR",
               "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
                 "cap": 2,
-                "locked": []
-              },
-              "value": {
-                "type": "asi"
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 4,
               "title": "Ability Score Improvement",
-              "_id": "ofNSUhSHKhhDuPSR"
-            },
-            {
               "type": "AbilityScoreImprovement",
-              "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
-                "cap": 2,
-                "locked": []
-              },
               "value": {
                 "type": "asi"
+              }
+            },
+            {
+              "_id": "s3t9o57hP6iUHirr",
+              "configuration": {
+                "cap": 2,
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 8,
               "title": "Ability Score Improvement",
-              "_id": "s3t9o57hP6iUHirr"
-            },
-            {
               "type": "AbilityScoreImprovement",
-              "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
-                "cap": 2,
-                "locked": []
-              },
               "value": {
                 "type": "asi"
+              }
+            },
+            {
+              "_id": "O24MWOKc1ImsKaml",
+              "configuration": {
+                "cap": 2,
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 12,
               "title": "Ability Score Improvement",
-              "_id": "O24MWOKc1ImsKaml"
-            },
-            {
               "type": "AbilityScoreImprovement",
-              "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
-                "cap": 2,
-                "locked": []
-              },
               "value": {
                 "type": "asi"
+              }
+            },
+            {
+              "_id": "xdqWoLtgO3uyl3nJ",
+              "configuration": {
+                "cap": 2,
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 16,
               "title": "Ability Score Improvement",
-              "_id": "xdqWoLtgO3uyl3nJ"
+              "type": "AbilityScoreImprovement",
+              "value": {
+                "type": "asi"
+              }
             },
             {
               "_id": "puDaUsYrlks0z5gm",
-              "type": "AbilityScoreImprovement",
               "configuration": {
-                "points": 2,
-                "fixed": {
-                  "str": 0,
-                  "dex": 0,
-                  "con": 0,
-                  "int": 0,
-                  "wis": 0,
-                  "cha": 0
-                },
                 "cap": 2,
-                "locked": []
-              },
-              "value": {
-                "type": "asi"
+                "fixed": {
+                  "cha": 0,
+                  "con": 0,
+                  "dex": 0,
+                  "int": 0,
+                  "str": 0,
+                  "wis": 0
+                },
+                "locked": [],
+                "points": 2
               },
               "level": 19,
-              "title": ""
+              "title": "",
+              "type": "AbilityScoreImprovement",
+              "value": {
+                "type": "asi"
+              }
             },
             {
               "_id": "0awj2yq115ev9u9o",
-              "type": "Subclass",
               "configuration": {},
+              "level": 3,
+              "title": "Monastic Tradition",
+              "type": "Subclass",
               "value": {
                 "document": null,
                 "uuid": null
-              },
-              "level": 3,
-              "title": "Monastic Tradition"
+              }
             }
           ],
+          "description": {
+            "chat": "",
+            "value": "<p>As a monk, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d8 per monk level<br /><strong>Hit Points at 1st Level:</strong> 8 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d8 (or 5) + your Constitution modifier per monk level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> None<br /><strong>Weapons:</strong> Simple weapons, shortswords<br /><strong>Tools:</strong> Choose one type of artisan's tools or one musical instrument<br /><strong>Saving Throws:</strong> Strength, Dexterity<br /><strong>Skills:</strong> Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth</p><h1>Monk Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Martial Arts</td><td>Ki Points</td><td>Unarmored Movement</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI]{Unarmored Defense}, @UUID[Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw]{Martial Arts}</td></tr><tr><td>2nd</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.10b6z2W1txNkrGP7]{Ki}, @UUID[Compendium.dnd5e.classfeatures.Item.zCeqyQ8uIPNdYJSW]{Unarmored Movement}</td></tr><tr><td>3rd</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.rtpQdX77dYWbDIOH]{Monastic Tradition}, @UUID[Compendium.dnd5e.classfeatures.Item.mzweVbnsJPQiVkAe]{Deflect Missiles}</td></tr><tr><td>4th</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, @UUID[Compendium.dnd5e.classfeatures.Item.KQz9bqxVkXjDl8gK]{Slow Fall}</td></tr><tr><td>5th</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}, @UUID[Compendium.dnd5e.classfeatures.Item.pvRc6GAu1ok6zihC]{Stunning Strike}</td></tr><tr><td>6th</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft.</td><td><p>@UUID[Compendium.dnd5e.classfeatures.Item.7flZKruSSu6dHg6D]{Ki-Empowered Strikes},</p><p>Monastic Tradition feature</p></td></tr><tr><td>7th</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.a4P4DNMmH8CqSNkC]{Evasion}, @UUID[Compendium.dnd5e.classfeatures.Item.ZmC31XKS4YNENnoc]{Stillness of Mind}</td></tr><tr><td>8th</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft.</td><td>Unarmored Movement improvement</td></tr><tr><td>10th</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.bqWA7t9pDELbNRkp]{Purity of Body}</td></tr><tr><td>11th</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>12th</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XjuGBeB8Y0C3A5D4]{Tongue of the Sun and Moon}</td></tr><tr><td>14th</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.7D2EkLdISwShEDlN]{Diamond Soul}</td></tr><tr><td>15th</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.gDH8PMrKvLHaNmEI]{Timeless Body}</td></tr><tr><td>16th</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>18th</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.3jwFt3hSqDswBlOH]{Empty Body}</td></tr><tr><td>19th</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.mQNPg89YIs7g5tG4]{Perfect Self}</td></tr></tbody></table><h1>Monastic Traditions</h1><p>Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.IvlpKMXX3PmW1NY2]{Way of the Open Hand}</p>"
+          },
+          "hd": {
+            "additional": "",
+            "denomination": "d8",
+            "spent": 0
+          },
+          "identifier": "monk",
+          "levels": 1,
+          "primaryAbility": {
+            "all": true,
+            "value": []
+          },
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "spellcasting": {
-            "progression": "none",
             "ability": "",
             "preparation": {
               "formula": ""
-            }
+            },
+            "progression": "none"
           },
           "startingEquipment": [
             {
-              "type": "OR",
               "_id": "5yj0P4r9teJDnDtd",
               "group": "",
+              "requiresProficiency": false,
               "sort": 100000,
-              "requiresProficiency": false
+              "type": "OR"
             },
             {
-              "type": "linked",
-              "count": null,
-              "key": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
               "_id": "R5tuRtaPonfjQCVU",
-              "group": "5yj0P4r9teJDnDtd",
-              "sort": 200000,
-              "requiresProficiency": false
-            },
-            {
-              "type": "weapon",
               "count": null,
-              "key": "simpleM",
-              "_id": "Mlf6kel8ws6xgDER",
               "group": "5yj0P4r9teJDnDtd",
-              "sort": 300000,
-              "requiresProficiency": false
+              "key": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
+              "requiresProficiency": false,
+              "sort": 200000,
+              "type": "linked"
             },
             {
-              "type": "OR",
+              "_id": "Mlf6kel8ws6xgDER",
+              "count": null,
+              "group": "5yj0P4r9teJDnDtd",
+              "key": "simpleM",
+              "requiresProficiency": false,
+              "sort": 300000,
+              "type": "weapon"
+            },
+            {
               "_id": "3TbVLmLPtjVaSh5O",
               "group": "",
+              "requiresProficiency": false,
               "sort": 400000,
-              "requiresProficiency": false
+              "type": "OR"
             },
             {
-              "type": "linked",
-              "count": null,
-              "key": "Compendium.dnd5e.items.Item.XY8b594Dn7plACLL",
               "_id": "AvDYtl0uvQsDuhnb",
-              "group": "3TbVLmLPtjVaSh5O",
-              "sort": 500000,
-              "requiresProficiency": false
-            },
-            {
-              "type": "linked",
               "count": null,
-              "key": "Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP",
-              "_id": "4QKQURCmIurbTAzp",
               "group": "3TbVLmLPtjVaSh5O",
-              "sort": 600000,
-              "requiresProficiency": false
+              "key": "Compendium.dnd5e.items.Item.XY8b594Dn7plACLL",
+              "requiresProficiency": false,
+              "sort": 500000,
+              "type": "linked"
             },
             {
-              "type": "linked",
-              "count": 10,
-              "key": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+              "_id": "4QKQURCmIurbTAzp",
+              "count": null,
+              "group": "3TbVLmLPtjVaSh5O",
+              "key": "Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP",
+              "requiresProficiency": false,
+              "sort": 600000,
+              "type": "linked"
+            },
+            {
               "_id": "AOYuulsULvsHbSLO",
+              "count": 10,
               "group": "",
+              "key": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+              "requiresProficiency": false,
               "sort": 700000,
-              "requiresProficiency": false
+              "type": "linked"
             }
           ],
-          "wealth": "5d4",
-          "primaryAbility": {
-            "value": [],
-            "all": true
-          },
-          "hd": {
-            "denomination": "d8",
-            "spent": 0,
-            "additional": ""
-          }
+          "wealth": "5d4"
         },
-        "effects": [],
-        "folder": "HQ1Oy7HkbnxnE63o",
-        "sort": 0,
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "class"
+      },
+      {
+        "_id": "CwgoTDXWCD7PknIN",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "CwgoTDXWCD7PknIN",
-        "name": "Unarmored Defense",
-        "ownership": {
-          "default": 0
         },
-        "type": "feat",
-        "system": {
-          "description": {
-            "value": "<p>Beginning at 1st Level, while you are wearing no armor and not wielding a Shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "class",
-            "subtype": ""
-          },
-          "requirements": "Monk 1",
-          "properties": [],
-          "activities": {},
-          "enchant": {},
-          "prerequisites": {
-            "level": null,
-            "repeatable": false
-          },
-          "identifier": "unarmored-defense",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
-          }
-        },
-        "img": "icons/magic/control/silhouette-hold-change-blue.webp",
         "effects": [
           {
             "_id": "R5ro4AuNjcdWD56O",
-            "changes": [
-              {
-                "key": "system.attributes.ac.calc",
-                "mode": 5,
-                "value": "unarmoredMonk",
-                "priority": null
-              }
-            ],
-            "disabled": false,
-            "duration": {
-              "startTime": 0,
-              "seconds": null,
-              "combat": null,
-              "rounds": null,
-              "turns": null,
-              "startRound": null,
-              "startTurn": null
-            },
-            "origin": "Item.cOdcNWy4hII029DT",
-            "transfer": true,
-            "flags": {},
-            "tint": "#ffffff",
-            "name": "Unarmored Defense",
-            "description": "",
-            "statuses": [],
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
@@ -20649,321 +19807,324 @@ import axios from 'axios';
               "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
+            "changes": [
+              {
+                "key": "system.attributes.ac.calc",
+                "mode": 5,
+                "priority": null,
+                "value": "unarmoredMonk"
+              }
+            ],
+            "description": "",
+            "disabled": false,
+            "duration": {
+              "combat": null,
+              "rounds": null,
+              "seconds": null,
+              "startRound": null,
+              "startTime": 0,
+              "startTurn": null,
+              "turns": null
+            },
+            "flags": {},
             "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-            "type": "base",
+            "name": "Unarmored Defense",
+            "origin": "Item.cOdcNWy4hII029DT",
+            "sort": 0,
+            "statuses": [],
             "system": {},
-            "sort": 0
+            "tint": "#ffffff",
+            "transfer": true,
+            "type": "base"
           }
         ],
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+            "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI"
+          }
+        },
         "folder": "TMmNG8ujFDBEWXRe",
-        "sort": 0,
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        }
-      },
-      {
-        "_id": "pchnXqd5C79fVlxy",
-        "name": "Martial Arts",
+        "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+        "name": "Unarmored Defense",
         "ownership": {
           "default": 0
         },
-        "type": "feat",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property. You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>\n<ul>\n<li>\n<p>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</p>\n</li>\n<li>\n<p>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</p>\n</li>\n<li>\n<p>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</p>\n</li>\n</ul>\n<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "uses": {
-            "max": "",
-            "spent": 0,
-            "recovery": []
-          },
-          "type": {
-            "value": "class",
-            "subtype": ""
-          },
-          "requirements": "Monk 1",
-          "properties": [],
           "activities": {},
+          "advancement": [],
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>Beginning at 1st Level, while you are wearing no armor and not wielding a Shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>"
+          },
           "enchant": {},
+          "identifier": "unarmored-defense",
           "prerequisites": {
             "level": null,
             "repeatable": false
           },
-          "identifier": "martial-arts",
-          "advancement": [],
-          "crewed": false
-        },
-        "flags": {
-          "dnd5e": {
-            "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
+          "properties": [],
+          "requirements": "Monk 1",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "class"
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           }
         },
-        "img": "icons/skills/melee/unarmed-punch-fist.webp",
-        "effects": [],
-        "folder": "TMmNG8ujFDBEWXRe",
-        "sort": 0,
+        "type": "feat"
+      },
+      {
+        "_id": "pchnXqd5C79fVlxy",
         "_stats": {
-          "duplicateSource": null,
           "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
+          "duplicateSource": null,
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
-        }
-      },
-      {
-        "name": "Hammer",
-        "type": "loot",
-        "img": "icons/tools/hand/hammer-cobbler-steel.webp",
-        "system": {
-          "description": {
-            "value": "<p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 3,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "gp"
-          },
-          "rarity": "",
-          "identified": true,
-          "type": {
-            "value": "",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "identifier": "hammer"
         },
         "effects": [],
-        "folder": "dlru9Hy74nSMv6fr",
+        "flags": {
+          "dnd5e": {
+            "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+            "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
+          }
+        },
+        "folder": "TMmNG8ujFDBEWXRe",
+        "img": "icons/skills/melee/unarmed-punch-fist.webp",
+        "name": "Martial Arts",
         "ownership": {
           "default": 0
         },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "YJ1P3PnFKHOdQpaP",
-        "sort": 0
-      },
-      {
-        "name": "Tinderbox",
-        "type": "loot",
-        "img": "icons/sundries/lights/torch-black.webp",
+        "sort": 0,
         "system": {
+          "activities": {},
+          "advancement": [],
+          "crewed": false,
           "description": {
-            "value": "<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch - or anything else with abundant, exposed fuel - takes an action. Lighting any other fire takes 1 minute.</p>\n<p> </p>",
-            "chat": ""
+            "chat": "",
+            "value": "<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property. You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>\n<ul>\n<li>\n<p>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</p>\n</li>\n<li>\n<p>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</p>\n</li>\n<li>\n<p>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</p>\n</li>\n</ul>\n<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon.</p>"
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 1,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
-          "rarity": "",
-          "identified": true,
-          "container": "8KWz5DJbWUpNWniP",
-          "type": {
-            "value": "",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
+          "enchant": {},
+          "identifier": "martial-arts",
+          "prerequisites": {
+            "level": null,
+            "repeatable": false
           },
           "properties": [],
-          "identifier": "tinderbox"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "DDnxRCeYUhXstWU8",
-        "sort": 0
-      },
-      {
-        "name": "Waterskin",
-        "type": "consumable",
-        "img": "icons/sundries/survival/wetskin-leather-purple.webp",
-        "system": {
-          "description": {
-            "value": "<p>A leather hide sewn into an enclosed skin which can contain up to 4 pints of liquid. It weighs 5 pounds when full; a pint of water is approximately 1 pound.</p>",
-            "chat": ""
-          },
+          "requirements": "Monk 1",
           "source": {
-            "custom": "",
             "book": "SRD 5.1",
-            "page": "",
+            "custom": "",
             "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
           },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
+          "type": {
+            "subtype": "",
+            "value": "class"
           },
-          "price": {
-            "value": 2,
-            "denomination": "sp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
           "uses": {
-            "max": "4",
+            "max": "",
             "recovery": [],
-            "autoDestroy": false,
             "spent": 0
+          }
+        },
+        "type": "feat"
+      },
+      {
+        "_id": "YJ1P3PnFKHOdQpaP",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "dlru9Hy74nSMv6fr",
+        "img": "icons/tools/hand/hammer-cobbler-steel.webp",
+        "name": "Hammer",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": null,
+          "description": {
+            "chat": "",
+            "value": "<p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>"
           },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
-              "custom": {
-                "enabled": false
-              },
-              "scaling": {
-                "number": 1
-              }
-            },
-            "replace": false
+          "identified": true,
+          "identifier": "hammer",
+          "price": {
+            "denomination": "gp",
+            "value": 1
           },
-          "container": "6OYR11aJX2dEVtOj",
           "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "food",
-            "subtype": ""
+            "subtype": "",
+            "value": ""
           },
           "unidentified": {
             "description": ""
           },
-          "magicalBonus": null,
+          "weight": {
+            "units": "lb",
+            "value": 3
+          }
+        },
+        "type": "loot"
+      },
+      {
+        "_id": "DDnxRCeYUhXstWU8",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/sundries/lights/torch-black.webp",
+        "name": "Tinderbox",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": "8KWz5DJbWUpNWniP",
+          "description": {
+            "chat": "",
+            "value": "<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch - or anything else with abundant, exposed fuel - takes an action. Lighting any other fire takes 1 minute.</p>\n<p> </p>"
+          },
+          "identified": true,
+          "identifier": "tinderbox",
+          "price": {
+            "denomination": "sp",
+            "value": 5
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 1
+          }
+        },
+        "type": "loot"
+      },
+      {
+        "_id": "5skKSSB4ShHbKoc8",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/sundries/survival/wetskin-leather-purple.webp",
+        "name": "Waterskin",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "utility",
               "activation": {
-                "type": "action",
-                "value": 1,
                 "condition": "",
-                "override": false
+                "override": false,
+                "type": "action",
+                "value": 1
               },
               "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
                 "scaling": {
                   "allowed": false,
                   "max": ""
                 },
-                "spellSlot": true
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
               },
               "description": {
                 "chatFlavor": ""
               },
               "duration": {
                 "concentration": false,
-                "value": "",
-                "units": "inst",
+                "override": false,
                 "special": "",
-                "override": false
+                "units": "inst",
+                "value": ""
               },
               "effects": [],
               "range": {
-                "units": "touch",
+                "override": false,
                 "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "units": "touch"
               },
               "roll": {
                 "formula": "",
@@ -20971,162 +20132,122 @@ import axios from 'axios';
                 "prompt": false,
                 "visible": false
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
               },
-              "sort": 0
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
           "attuned": false,
-          "identifier": "waterskin"
+          "attunement": "",
+          "container": "6OYR11aJX2dEVtOj",
+          "damage": {
+            "base": {
+              "custom": {
+                "enabled": false
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "number": 1
+              },
+              "types": []
+            },
+            "replace": false
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A leather hide sewn into an enclosed skin which can contain up to 4 pints of liquid. It weighs 5 pounds when full; a pint of water is approximately 1 pound.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "waterskin",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "sp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "food"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "autoDestroy": false,
+            "max": "4",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
         },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
+        "type": "consumable"
+      },
+      {
+        "_id": "dDuMscUuMI2bTdkj",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/sundries/lights/torch-black.webp",
+        "name": "Torch",
         "ownership": {
           "default": 0
         },
-        "_id": "5skKSSB4ShHbKoc8",
-        "sort": 0
-      },
-      {
-        "name": "Torch",
-        "type": "consumable",
-        "img": "icons/sundries/lights/torch-black.webp",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 1,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "cp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": false,
-            "spent": 0
-          },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [
-                "fire"
-              ],
-              "custom": {
-                "enabled": true,
-                "formula": "1"
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            },
-            "replace": false
-          },
-          "container": "8KWz5DJbWUpNWniP",
-          "properties": [],
-          "type": {
-            "value": "trinket",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "magicalBonus": null,
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "attack",
               "activation": {
-                "type": "action",
-                "value": 1,
                 "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "1",
-                "units": "hour",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "self",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "radius",
-                  "size": "40",
-                  "width": "",
-                  "height": "",
-                  "units": "ft"
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "override": false,
+                "type": "action",
+                "value": 1
               },
               "attack": {
                 "ability": "str",
@@ -21136,9 +20257,27 @@ import axios from 'axios';
                 },
                 "flat": false,
                 "type": {
-                  "value": "melee",
-                  "classification": "weapon"
+                  "classification": "weapon",
+                  "value": "melee"
                 }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
               },
               "damage": {
                 "critical": {
@@ -21147,427 +20286,446 @@ import axios from 'axios';
                 "includeBase": true,
                 "parts": [
                   {
-                    "number": null,
-                    "denomination": null,
                     "bonus": "",
-                    "types": [
-                      "fire"
-                    ],
                     "custom": {
                       "enabled": true,
                       "formula": "1"
                     },
+                    "denomination": null,
+                    "number": null,
                     "scaling": {
+                      "formula": "",
                       "mode": "whole",
-                      "number": null,
-                      "formula": ""
-                    }
+                      "number": null
+                    },
+                    "types": [
+                      "fire"
+                    ]
                   }
                 ]
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "description": {
+                "chatFlavor": ""
               },
-              "sort": 0
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "hour",
+                "value": "1"
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "self"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "40",
+                  "type": "radius",
+                  "units": "ft",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
           "attuned": false,
-          "identifier": "torch"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "dDuMscUuMI2bTdkj",
-        "sort": 0
-      },
-      {
-        "name": "Stick of Incense",
-        "type": "loot",
-        "img": "icons/consumables/grains/breadsticks-crackers-wrapped-ration-brown.webp",
-        "system": {
+          "attunement": "",
+          "container": "8KWz5DJbWUpNWniP",
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": true,
+                "formula": "1"
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "fire"
+              ]
+            },
+            "replace": false
+          },
           "description": {
-            "value": "<p>When blocks of incense cannot be used or a cheaper alternative is required, people often use these to perfume the air, whether for pleasurable or religious purposes.</p>",
-            "chat": ""
+            "chat": "",
+            "value": "<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>"
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 5,
-          "weight": {
-            "value": 0,
-            "units": "lb"
-          },
-          "price": {
-            "value": 2,
-            "denomination": "sp"
-          },
-          "rarity": "",
+          "equipped": false,
           "identified": true,
+          "identifier": "torch",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "cp",
+            "value": 1
+          },
+          "properties": [],
+          "quantity": 10,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "",
-            "subtype": ""
+            "subtype": "",
+            "value": "trinket"
           },
           "unidentified": {
             "description": ""
           },
-          "container": null,
-          "properties": [],
-          "identifier": "stick-of-incense"
+          "uses": {
+            "autoDestroy": false,
+            "max": "1",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 1
+          }
         },
-        "effects": [],
-        "folder": "dlru9Hy74nSMv6fr",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "consumable"
+      },
+      {
+        "_id": "nC6VcR5JAIbR4err",
         "_stats": {
-          "duplicateSource": null,
           "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
+          "duplicateSource": null,
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "nC6VcR5JAIbR4err",
-        "sort": 0
+        "effects": [],
+        "flags": {},
+        "folder": "dlru9Hy74nSMv6fr",
+        "img": "icons/consumables/grains/breadsticks-crackers-wrapped-ration-brown.webp",
+        "name": "Stick of Incense",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": null,
+          "description": {
+            "chat": "",
+            "value": "<p>When blocks of incense cannot be used or a cheaper alternative is required, people often use these to perfume the air, whether for pleasurable or religious purposes.</p>"
+          },
+          "identified": true,
+          "identifier": "stick-of-incense",
+          "price": {
+            "denomination": "sp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 5,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 0
+          }
+        },
+        "type": "loot"
       },
       {
-        "name": "Dart",
-        "type": "weapon",
+        "_id": "WeKJI3gPUAU52WAX",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "MLMTCAvKsuFE3vYA",
         "img": "icons/weapons/thrown/dart-feathered.webp",
+        "name": "Dart",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>A small thrown implement crafted with a short wooden shaft and crossed feathres with a sharp wooden or metal tip. Darts can be thrown with sufficient force to puncture the skin.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 0.25,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "cp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "range": {
-            "value": 20,
-            "long": 60,
-            "units": "ft",
-            "reach": null
-          },
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "damage": {
-            "versatile": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [],
-              "custom": {
-                "enabled": false,
-                "formula": ""
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
               },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            },
-            "base": {
-              "number": 1,
-              "denomination": 4,
-              "bonus": "",
-              "types": [
-                "piercing"
-              ],
-              "custom": {
-                "enabled": false,
-                "formula": ""
+              "attack": {
+                "ability": "",
+                "bonus": "",
+                "critical": {
+                  "threshold": null
+                },
+                "flat": false,
+                "type": {
+                  "classification": "weapon",
+                  "value": "ranged"
+                }
               },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
+              },
+              "damage": {
+                "critical": {
+                  "bonus": ""
+                },
+                "includeBase": true,
+                "parts": []
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "20"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "recovery": [],
+                "spent": 0
               }
             }
           },
+          "ammunition": {},
           "armor": {
             "value": 10
           },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": 4,
+              "number": 1,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "piercing"
+              ]
+            },
+            "versatile": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": []
+            }
           },
+          "description": {
+            "chat": "",
+            "value": "<p>A small thrown implement crafted with a short wooden shaft and crossed feathres with a sharp wooden or metal tip. Darts can be thrown with sufficient force to puncture the skin.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "dart",
+          "magicalBonus": null,
+          "mastery": "",
+          "price": {
+            "denomination": "cp",
+            "value": 5
+          },
+          "proficient": null,
           "properties": [
             "fin",
             "thr"
           ],
-          "proficient": null,
+          "quantity": 10,
+          "range": {
+            "long": 60,
+            "reach": null,
+            "units": "ft",
+            "value": 20
+          },
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "simpleR",
-            "baseItem": "dart"
+            "baseItem": "dart",
+            "value": "simpleR"
           },
           "unidentified": {
             "description": ""
           },
-          "container": null,
-          "crewed": false,
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "attack",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "20",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "attack": {
-                "ability": "",
-                "bonus": "",
-                "critical": {
-                  "threshold": null
-                },
-                "flat": false,
-                "type": {
-                  "value": "ranged",
-                  "classification": "weapon"
-                }
-              },
-              "damage": {
-                "critical": {
-                  "bonus": ""
-                },
-                "includeBase": true,
-                "parts": []
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
           },
-          "attuned": false,
-          "ammunition": {},
-          "mastery": "",
-          "identifier": "dart"
+          "weight": {
+            "units": "lb",
+            "value": 0.25
+          }
         },
-        "effects": [],
-        "folder": "MLMTCAvKsuFE3vYA",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "weapon"
+      },
+      {
+        "_id": "1F73YcUHbZMgePAD",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "WeKJI3gPUAU52WAX",
-        "sort": 0
-      },
-      {
-        "name": "Common Clothes",
-        "type": "equipment",
+        "effects": [],
+        "flags": {},
+        "folder": "aJgMxnZED9XdoN2W",
         "img": "icons/equipment/chest/shirt-collared-brown.webp",
+        "name": "Common Clothes",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>Clothes worn by most commoners.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 3,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "armor": {
-            "value": null,
-            "dex": null,
-            "magicalBonus": null
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "speed": {
-            "value": null,
-            "conditions": ""
-          },
-          "strength": null,
-          "proficient": null,
-          "type": {
-            "value": "clothing",
-            "baseItem": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "properties": [],
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "utility",
               "activation": {
-                "type": "",
-                "value": null,
                 "condition": "",
-                "override": false
+                "override": false,
+                "type": "",
+                "value": null
               },
               "consumption": {
-                "targets": [],
                 "scaling": {
                   "allowed": false,
                   "max": ""
                 },
-                "spellSlot": true
+                "spellSlot": true,
+                "targets": []
               },
               "description": {
                 "chatFlavor": ""
               },
               "duration": {
                 "concentration": false,
-                "value": "",
-                "units": "inst",
+                "override": false,
                 "special": "",
-                "override": false
+                "units": "inst",
+                "value": ""
               },
               "effects": [],
               "range": {
-                "units": "self",
+                "override": false,
                 "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "units": "self"
               },
               "roll": {
                 "formula": "",
@@ -21575,511 +20733,394 @@ import axios from 'axios';
                 "prompt": false,
                 "visible": false
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
               },
-              "sort": 0
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
+          "armor": {
+            "dex": null,
+            "magicalBonus": null,
+            "value": null
+          },
           "attuned": false,
-          "identifier": "common-clothes"
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>Clothes worn by most commoners.</p>"
+          },
+          "equipped": false,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "common-clothes",
+          "price": {
+            "denomination": "sp",
+            "value": 5
+          },
+          "proficient": null,
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "speed": {
+            "conditions": "",
+            "value": null
+          },
+          "strength": null,
+          "type": {
+            "baseItem": "",
+            "value": "clothing"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 3
+          }
         },
-        "effects": [],
-        "folder": "aJgMxnZED9XdoN2W",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "equipment"
+      },
+      {
+        "_id": "LQhGSEatJ3VK7oqW",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
-        "_id": "1F73YcUHbZMgePAD",
-        "sort": 0
-      },
-      {
-        "name": "Rations",
-        "type": "consumable",
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
         "img": "icons/consumables/grains/bread-loaf-boule-rustic-brown.webp",
+        "name": "Rations",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>",
-            "chat": ""
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "touch"
+              },
+              "roll": {
+                "formula": "",
+                "name": "",
+                "prompt": false,
+                "visible": false
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "1",
+                  "special": "",
+                  "type": "creature"
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 2,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
+          "attuned": false,
           "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": true,
-            "spent": 0
-          },
+          "container": "XY8b594Dn7plACLL",
           "damage": {
             "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
               "custom": {
                 "enabled": false
               },
+              "denomination": null,
+              "number": null,
               "scaling": {
                 "number": 1
-              }
+              },
+              "types": []
             },
             "replace": false
           },
-          "container": "XY8b594Dn7plACLL",
-          "properties": [],
-          "type": {
-            "value": "food",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "utility",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "touch",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "1",
-                  "type": "creature",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "roll": {
-                "formula": "",
-                "name": "",
-                "prompt": false,
-                "visible": false
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
-          },
-          "attuned": false,
-          "identifier": "rations"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "LQhGSEatJ3VK7oqW",
-        "sort": 0
-      },
-      {
-        "name": "Pouch",
-        "type": "container",
-        "img": "icons/containers/bags/pouch-rounded-leather-gold-tan.webp",
-        "system": {
           "description": {
-            "value": "<p>A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch. A pouch can hold up to ⅕ cubic foot or 6 pounds of gear.</p>",
-            "chat": ""
+            "chat": "",
+            "value": "<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>"
           },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 1,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "sp"
-          },
-          "attunement": "",
           "equipped": false,
-          "rarity": "",
           "identified": true,
-          "capacity": {
-            "weight": {
-              "value": 6,
-              "units": "lb"
-            },
-            "volume": {
-              "units": "cubicFoot"
-            }
-          },
-          "currency": {
-            "cp": 0,
-            "sp": 0,
-            "ep": 0,
-            "gp": 0,
-            "pp": 0
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "attuned": false,
-          "identifier": "pouch"
-        },
-        "effects": [],
-        "folder": "PgtyWdfkDTDbc0ov",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "1kqMwSwjfErSFNvl",
-        "sort": 0
-      },
-      {
-        "name": "Crowbar",
-        "type": "loot",
-        "img": "icons/tools/hand/pickaxe-steel-white.webp",
-        "system": {
-          "description": {
-            "value": "<p>Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
-          },
+          "identifier": "rations",
+          "magicalBonus": null,
           "price": {
-            "value": 2,
-            "denomination": "gp"
+            "denomination": "sp",
+            "value": 5
           },
+          "properties": [],
+          "quantity": 10,
           "rarity": "",
-          "identified": true,
-          "container": "XY8b594Dn7plACLL",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
           "type": {
-            "value": "",
-            "subtype": ""
+            "subtype": "",
+            "value": "food"
           },
           "unidentified": {
             "description": ""
-          },
-          "properties": [],
-          "identifier": "crowbar"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "zF5L4xHnJBC7b2iM",
-        "sort": 0
-      },
-      {
-        "name": "Unarmed Strike",
-        "type": "weapon",
-        "img": "icons/skills/melee/unarmed-punch-fist.webp",
-        "system": {
-          "description": {
-            "value": "<p>A  punch, kick, head-butt, or similar forceful blow (none of which count as weapons). On a hit, an unarmed strike deals bludgeoning damage equal to 1 + your Strength modifier. You are proficient with your unarmed strikes.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 0,
-            "units": "lb"
-          },
-          "price": {
-            "value": 0,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "range": {
-            "value": null,
-            "long": null,
-            "units": "ft",
-            "reach": null
           },
           "uses": {
-            "max": "",
+            "autoDestroy": true,
+            "max": "1",
             "recovery": [],
             "spent": 0
           },
-          "damage": {
-            "versatile": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [],
-              "custom": {
-                "enabled": false,
-                "formula": ""
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
+          "weight": {
+            "units": "lb",
+            "value": 2
+          }
+        },
+        "type": "consumable"
+      },
+      {
+        "_id": "1kqMwSwjfErSFNvl",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "PgtyWdfkDTDbc0ov",
+        "img": "icons/containers/bags/pouch-rounded-leather-gold-tan.webp",
+        "name": "Pouch",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "attuned": false,
+          "attunement": "",
+          "capacity": {
+            "volume": {
+              "units": "cubicFoot"
             },
-            "base": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [
-                "bludgeoning"
-              ],
-              "custom": {
-                "enabled": true,
-                "formula": "@scale.monk.die"
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
+            "weight": {
+              "units": "lb",
+              "value": 6
             }
           },
-          "armor": {
-            "value": 10
+          "container": null,
+          "currency": {
+            "cp": 0,
+            "ep": 0,
+            "gp": 0,
+            "pp": 0,
+            "sp": 0
           },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
+          "description": {
+            "chat": "",
+            "value": "<p>A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch. A pouch can hold up to ⅕ cubic foot or 6 pounds of gear.</p>"
           },
-          "properties": [
-            "fin"
-          ],
-          "proficient": null,
-          "type": {
-            "value": "simpleM",
-            "baseItem": ""
+          "equipped": false,
+          "identified": true,
+          "identifier": "pouch",
+          "price": {
+            "denomination": "sp",
+            "value": 5
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
           },
           "unidentified": {
             "description": ""
           },
-          "container": null,
-          "crewed": false,
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "attack",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "5",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "attack": {
-                "ability": "",
-                "bonus": "",
-                "critical": {
-                  "threshold": null
-                },
-                "flat": false,
-                "type": {
-                  "value": "melee",
-                  "classification": "unarmed"
-                }
-              },
-              "damage": {
-                "critical": {
-                  "bonus": ""
-                },
-                "includeBase": true,
-                "parts": []
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": [],
-                "max": ""
-              },
-              "sort": 0,
-              "name": ""
-            }
-          },
-          "attuned": false,
-          "ammunition": {},
-          "identifier": "unarmed-strike",
-          "mastery": ""
+          "weight": {
+            "units": "lb",
+            "value": 1
+          }
+        },
+        "type": "container"
+      },
+      {
+        "_id": "zF5L4xHnJBC7b2iM",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
         },
         "effects": [],
-        "folder": "MLMTCAvKsuFE3vYA",
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/tools/hand/pickaxe-steel-white.webp",
+        "name": "Crowbar",
         "ownership": {
           "default": 0
         },
+        "sort": 0,
+        "system": {
+          "container": "XY8b594Dn7plACLL",
+          "description": {
+            "chat": "",
+            "value": "<p>Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.</p>"
+          },
+          "identified": true,
+          "identifier": "crowbar",
+          "price": {
+            "denomination": "gp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
+        },
+        "type": "loot"
+      },
+      {
+        "_id": "g7U3OAXVcoI4lwzf",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
         "flags": {
           "dnd5e": {
             "last": {
@@ -22096,867 +21137,22 @@ import axios from 'axios';
             }
           }
         },
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "g7U3OAXVcoI4lwzf",
-        "sort": 0
-      },
-      {
-        "name": "Backpack",
-        "type": "container",
-        "img": "icons/containers/bags/pack-leather-white-tan.webp",
-        "system": {
-          "description": {
-            "value": "<p>A backpack can hold one cubic foot or 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
-          },
-          "price": {
-            "value": 2,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "capacity": {
-            "weight": {
-              "value": 30,
-              "units": "lb"
-            },
-            "volume": {
-              "units": "cubicFoot"
-            }
-          },
-          "currency": {
-            "cp": 0,
-            "sp": 0,
-            "ep": 0,
-            "gp": 0,
-            "pp": 0
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "attuned": false,
-          "identifier": "backpack"
-        },
-        "effects": [],
-        "folder": "PgtyWdfkDTDbc0ov",
+        "folder": "MLMTCAvKsuFE3vYA",
+        "img": "icons/skills/melee/unarmed-punch-fist.webp",
+        "name": "Unarmed Strike",
         "ownership": {
           "default": 0
         },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "WcROGD590imVj9qp",
-        "sort": 0
-      },
-      {
-        "name": "Piton",
-        "type": "consumable",
-        "img": "icons/tools/fasteners/nail-steel.webp",
+        "sort": 0,
         "system": {
-          "description": {
-            "value": "<p>A metal spike that is drive into a seam in a climbing surface with a climbing hammer. It can also be used like iron spikes to block doors in a pinch.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 10,
-          "weight": {
-            "value": 0.25,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "cp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": false,
-            "spent": 0
-          },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
-              "custom": {
-                "enabled": false
-              },
-              "scaling": {
-                "number": 1
-              }
-            },
-            "replace": false
-          },
-          "container": "xsB7Y2WI476kvOt4",
-          "properties": [],
-          "type": {
-            "value": "trinket",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "magicalBonus": null,
           "activities": {
             "dnd5eactivity000": {
               "_id": "dnd5eactivity000",
-              "type": "utility",
               "activation": {
+                "condition": "",
+                "override": false,
                 "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "value": "1",
-                    "scaling": {
-                      "mode": "",
-                      "formula": ""
-                    }
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "5",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "roll": {
-                "formula": "",
-                "name": "",
-                "prompt": false,
-                "visible": false
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
-          },
-          "attuned": false,
-          "identifier": "piton"
-        },
-        "effects": [],
-        "folder": "Dx3K2y0J1wJUPP9m",
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "ownership": {
-          "default": 0
-        },
-        "_id": "8UQanAvHUIHZXp0O",
-        "sort": 0
-      },
-      {
-        "name": "Hempen Rope (50 ft.)",
-        "type": "consumable",
-        "img": "icons/sundries/survival/rope-wrapped-brown.webp",
-        "system": {
-          "description": {
-            "value": "<p>Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 10,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "uses": {
-            "max": "1",
-            "recovery": [],
-            "autoDestroy": false,
-            "spent": 0
-          },
-          "damage": {
-            "base": {
-              "number": null,
-              "denomination": null,
-              "types": [],
-              "custom": {
-                "enabled": false
-              },
-              "scaling": {
-                "number": 1
-              }
-            },
-            "replace": false
-          },
-          "type": {
-            "value": "trinket",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "check",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [
-                  {
-                    "type": "itemUses",
-                    "target": "",
-                    "scaling": {},
-                    "value": "1"
-                  }
-                ],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "self",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "check": {
-                "ability": "str",
-                "dc": {
-                  "calculation": "",
-                  "formula": "17"
-                },
-                "associated": []
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": [],
-                "max": ""
-              },
-              "sort": 0,
-              "name": "Burst"
-            }
-          },
-          "attuned": false,
-          "identifier": "hempen-rope-50-ft"
-        },
-        "effects": [],
-        "folder": "UnUwTG4YIgd0kaUJ",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {
-          "dnd5e": {
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
-          }
-        },
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "irCoxLHje0eA6Qmu",
-        "sort": 0
-      },
-      {
-        "name": "Reliquary",
-        "type": "equipment",
-        "img": "icons/containers/chest/chest-reinforced-steel-red.webp",
-        "system": {
-          "description": {
-            "value": "<p>A tiny box or other container holding a fragment of a precious relic, saint, or other historical figure that dedicated their life to walk the path of a true believer. A deity imbues the bearer of this artifact with the ability to call forth their power and in doing so spread the faith once more.</p>\n<p><strong>Spellcasting Focus</strong>. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 2,
-            "units": "lb"
-          },
-          "price": {
-            "value": 5,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": false,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "armor": {
-            "value": null,
-            "dex": null,
-            "magicalBonus": null
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "speed": {
-            "value": null,
-            "conditions": ""
-          },
-          "strength": null,
-          "proficient": null,
-          "type": {
-            "value": "trinket",
-            "baseItem": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "properties": [
-            "foc"
-          ],
-          "activities": {},
-          "attuned": false,
-          "identifier": "reliquary"
-        },
-        "effects": [],
-        "folder": "xedn1r43VWuEBcli",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {
-          "dnd5e": {
-            "riders": {
-              "activity": [],
-              "effect": []
-            }
-          }
-        },
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "GfKuJYLFfw00oW9R",
-        "sort": 0
-      },
-      {
-        "name": "Vestments",
-        "type": "equipment",
-        "img": "icons/equipment/back/mantle-collared-black.webp",
-        "system": {
-          "description": {
-            "value": "<p>Simple or ostentacious wear, often used by priests and other religious figures for use in rituals and ceremonies.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 4,
-            "units": "lb"
-          },
-          "price": {
-            "value": 1,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "armor": {
-            "value": null,
-            "dex": null,
-            "magicalBonus": null
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "speed": {
-            "value": null,
-            "conditions": ""
-          },
-          "strength": null,
-          "proficient": null,
-          "type": {
-            "value": "clothing",
-            "baseItem": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "properties": [],
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "utility",
-              "activation": {
-                "type": "",
-                "value": null,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "units": "self",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
-              },
-              "roll": {
-                "formula": "",
-                "name": "",
-                "prompt": false,
-                "visible": false
-              },
-              "uses": {
-                "spent": 0,
-                "recovery": []
-              },
-              "sort": 0
-            }
-          },
-          "attuned": false,
-          "identifier": "vestments"
-        },
-        "effects": [],
-        "folder": "aJgMxnZED9XdoN2W",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "NsNcJBUG5ajbk7sG",
-        "sort": 0
-      },
-      {
-        "name": "Prayer Book",
-        "type": "loot",
-        "img": "icons/sundries/books/book-purple-cross.webp",
-        "system": {
-          "description": {
-            "value": "<p>A book containing prayers and incantations dedicated to a specific power for the faithful to follow.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 5,
-            "units": "lb"
-          },
-          "price": {
-            "value": 25,
-            "denomination": "gp"
-          },
-          "rarity": "",
-          "identified": true,
-          "type": {
-            "value": "",
-            "subtype": ""
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "properties": [],
-          "identifier": "prayer-book"
-        },
-        "effects": [],
-        "folder": "dlru9Hy74nSMv6fr",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
-        "_stats": {
-          "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
-          "exportSource": null,
-          "coreVersion": "13.348",
-          "systemId": "dnd5e",
-          "systemVersion": "5.0.4",
-          "lastModifiedBy": null
-        },
-        "_id": "XbF0CTipyqbMKHsB",
-        "sort": 0
-      },
-      {
-        "name": "Shortsword",
-        "type": "weapon",
-        "img": "icons/weapons/swords/sword-guard-worn-purple.webp",
-        "system": {
-          "description": {
-            "value": "<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>",
-            "chat": ""
-          },
-          "source": {
-            "custom": "",
-            "book": "SRD 5.1",
-            "page": "",
-            "license": "CC-BY-4.0",
-            "rules": "2014",
-            "revision": 1
-          },
-          "quantity": 1,
-          "weight": {
-            "value": 2,
-            "units": "lb"
-          },
-          "price": {
-            "value": 10,
-            "denomination": "gp"
-          },
-          "attunement": "",
-          "equipped": true,
-          "rarity": "",
-          "identified": true,
-          "cover": null,
-          "range": {
-            "value": null,
-            "long": null,
-            "units": "ft",
-            "reach": null
-          },
-          "uses": {
-            "max": "",
-            "recovery": [],
-            "spent": 0
-          },
-          "damage": {
-            "versatile": {
-              "number": null,
-              "denomination": null,
-              "bonus": "",
-              "types": [],
-              "custom": {
-                "enabled": false,
-                "formula": ""
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            },
-            "base": {
-              "number": 1,
-              "denomination": 6,
-              "bonus": "",
-              "types": [
-                "piercing"
-              ],
-              "custom": {
-                "enabled": false,
-                "formula": ""
-              },
-              "scaling": {
-                "mode": "",
-                "number": null,
-                "formula": ""
-              }
-            }
-          },
-          "armor": {
-            "value": 10
-          },
-          "hp": {
-            "value": 0,
-            "max": 0,
-            "dt": null,
-            "conditions": ""
-          },
-          "properties": [
-            "fin",
-            "lgt"
-          ],
-          "proficient": null,
-          "type": {
-            "value": "martialM",
-            "baseItem": "shortsword"
-          },
-          "unidentified": {
-            "description": ""
-          },
-          "container": null,
-          "crewed": false,
-          "magicalBonus": null,
-          "activities": {
-            "dnd5eactivity000": {
-              "_id": "dnd5eactivity000",
-              "type": "attack",
-              "activation": {
-                "type": "action",
-                "value": 1,
-                "condition": "",
-                "override": false
-              },
-              "consumption": {
-                "targets": [],
-                "scaling": {
-                  "allowed": false,
-                  "max": ""
-                },
-                "spellSlot": true
-              },
-              "description": {
-                "chatFlavor": ""
-              },
-              "duration": {
-                "concentration": false,
-                "value": "",
-                "units": "inst",
-                "special": "",
-                "override": false
-              },
-              "effects": [],
-              "range": {
-                "value": "5",
-                "units": "ft",
-                "special": "",
-                "override": false
-              },
-              "target": {
-                "template": {
-                  "count": "",
-                  "contiguous": false,
-                  "type": "",
-                  "size": "",
-                  "width": "",
-                  "height": "",
-                  "units": ""
-                },
-                "affects": {
-                  "count": "",
-                  "type": "",
-                  "choice": false,
-                  "special": ""
-                },
-                "prompt": true,
-                "override": false
+                "value": 1
               },
               "attack": {
                 "ability": "",
@@ -22966,9 +21162,17 @@ import axios from 'axios';
                 },
                 "flat": false,
                 "type": {
-                  "value": "melee",
-                  "classification": "weapon"
+                  "classification": "unarmed",
+                  "value": "melee"
                 }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
               },
               "damage": {
                 "critical": {
@@ -22977,39 +21181,1833 @@ import axios from 'axios';
                 "includeBase": true,
                 "parts": []
               },
-              "uses": {
-                "spent": 0,
-                "recovery": []
+              "description": {
+                "chatFlavor": ""
               },
-              "sort": 0
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "name": "",
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "5"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "max": "",
+                "recovery": [],
+                "spent": 0
+              }
             }
           },
-          "attuned": false,
           "ammunition": {},
-          "identifier": "shortsword"
+          "armor": {
+            "value": 10
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": true,
+                "formula": "@scale.monk.die"
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "bludgeoning"
+              ]
+            },
+            "versatile": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": []
+            }
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A  punch, kick, head-butt, or similar forceful blow (none of which count as weapons). On a hit, an unarmed strike deals bludgeoning damage equal to 1 + your Strength modifier. You are proficient with your unarmed strikes.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "unarmed-strike",
+          "magicalBonus": null,
+          "mastery": "",
+          "price": {
+            "denomination": "gp",
+            "value": 0
+          },
+          "proficient": null,
+          "properties": [
+            "fin"
+          ],
+          "quantity": 1,
+          "range": {
+            "long": null,
+            "reach": null,
+            "units": "ft",
+            "value": null
+          },
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "baseItem": "",
+            "value": "simpleM"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 0
+          }
         },
-        "effects": [],
-        "folder": "MLMTCAvKsuFE3vYA",
-        "ownership": {
-          "default": 0
-        },
-        "flags": {},
+        "type": "weapon"
+      },
+      {
+        "_id": "WcROGD590imVj9qp",
         "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
           "duplicateSource": null,
-          "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
           "exportSource": null,
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
+        "effects": [],
+        "flags": {},
+        "folder": "PgtyWdfkDTDbc0ov",
+        "img": "icons/containers/bags/pack-leather-white-tan.webp",
+        "name": "Backpack",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "attuned": false,
+          "attunement": "",
+          "capacity": {
+            "volume": {
+              "units": "cubicFoot"
+            },
+            "weight": {
+              "units": "lb",
+              "value": 30
+            }
+          },
+          "container": null,
+          "currency": {
+            "cp": 0,
+            "ep": 0,
+            "gp": 0,
+            "pp": 0,
+            "sp": 0
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A backpack can hold one cubic foot or 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "backpack",
+          "price": {
+            "denomination": "gp",
+            "value": 2
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
+        },
+        "type": "container"
+      },
+      {
+        "_id": "8UQanAvHUIHZXp0O",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "Dx3K2y0J1wJUPP9m",
+        "img": "icons/tools/fasteners/nail-steel.webp",
+        "name": "Piton",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {
+                      "formula": "",
+                      "mode": ""
+                    },
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "5"
+              },
+              "roll": {
+                "formula": "",
+                "name": "",
+                "prompt": false,
+                "visible": false
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": "xsB7Y2WI476kvOt4",
+          "damage": {
+            "base": {
+              "custom": {
+                "enabled": false
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "number": 1
+              },
+              "types": []
+            },
+            "replace": false
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A metal spike that is drive into a seam in a climbing surface with a climbing hammer. It can also be used like iron spikes to block doors in a pinch.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "piton",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "cp",
+            "value": 5
+          },
+          "properties": [],
+          "quantity": 10,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "trinket"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "autoDestroy": false,
+            "max": "1",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 0.25
+          }
+        },
+        "type": "consumable"
+      },
+      {
+        "_id": "irCoxLHje0eA6Qmu",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "riders": {
+              "activity": [],
+              "effect": []
+            }
+          }
+        },
+        "folder": "UnUwTG4YIgd0kaUJ",
+        "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+        "name": "Hempen Rope (50 ft.)",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "check": {
+                "ability": "str",
+                "associated": [],
+                "dc": {
+                  "calculation": "",
+                  "formula": "17"
+                }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": [
+                  {
+                    "scaling": {},
+                    "target": "",
+                    "type": "itemUses",
+                    "value": "1"
+                  }
+                ]
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "name": "Burst",
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "self"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "check",
+              "uses": {
+                "max": "",
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "damage": {
+            "base": {
+              "custom": {
+                "enabled": false
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "number": 1
+              },
+              "types": []
+            },
+            "replace": false
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.</p>"
+          },
+          "equipped": false,
+          "identified": true,
+          "identifier": "hempen-rope-50-ft",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "gp",
+            "value": 1
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": "trinket"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "autoDestroy": false,
+            "max": "1",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 10
+          }
+        },
+        "type": "consumable"
+      },
+      {
+        "_id": "GfKuJYLFfw00oW9R",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {
+          "dnd5e": {
+            "riders": {
+              "activity": [],
+              "effect": []
+            }
+          }
+        },
+        "folder": "xedn1r43VWuEBcli",
+        "img": "icons/containers/chest/chest-reinforced-steel-red.webp",
+        "name": "Reliquary",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {},
+          "armor": {
+            "dex": null,
+            "magicalBonus": null,
+            "value": null
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>A tiny box or other container holding a fragment of a precious relic, saint, or other historical figure that dedicated their life to walk the path of a true believer. A deity imbues the bearer of this artifact with the ability to call forth their power and in doing so spread the faith once more.</p>\n<p><strong>Spellcasting Focus</strong>. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.</p>"
+          },
+          "equipped": false,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "reliquary",
+          "price": {
+            "denomination": "gp",
+            "value": 5
+          },
+          "proficient": null,
+          "properties": [
+            "foc"
+          ],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "speed": {
+            "conditions": "",
+            "value": null
+          },
+          "strength": null,
+          "type": {
+            "baseItem": "",
+            "value": "trinket"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 2
+          }
+        },
+        "type": "equipment"
+      },
+      {
+        "_id": "NsNcJBUG5ajbk7sG",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "aJgMxnZED9XdoN2W",
+        "img": "icons/equipment/back/mantle-collared-black.webp",
+        "name": "Vestments",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "",
+                "value": null
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "self"
+              },
+              "roll": {
+                "formula": "",
+                "name": "",
+                "prompt": false,
+                "visible": false
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "utility",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "armor": {
+            "dex": null,
+            "magicalBonus": null,
+            "value": null
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "description": {
+            "chat": "",
+            "value": "<p>Simple or ostentacious wear, often used by priests and other religious figures for use in rituals and ceremonies.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "vestments",
+          "price": {
+            "denomination": "gp",
+            "value": 1
+          },
+          "proficient": null,
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "speed": {
+            "conditions": "",
+            "value": null
+          },
+          "strength": null,
+          "type": {
+            "baseItem": "",
+            "value": "clothing"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 4
+          }
+        },
+        "type": "equipment"
+      },
+      {
+        "_id": "XbF0CTipyqbMKHsB",
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "dlru9Hy74nSMv6fr",
+        "img": "icons/sundries/books/book-purple-cross.webp",
+        "name": "Prayer Book",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "container": null,
+          "description": {
+            "chat": "",
+            "value": "<p>A book containing prayers and incantations dedicated to a specific power for the faithful to follow.</p>"
+          },
+          "identified": true,
+          "identifier": "prayer-book",
+          "price": {
+            "denomination": "gp",
+            "value": 25
+          },
+          "properties": [],
+          "quantity": 1,
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "subtype": "",
+            "value": ""
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "weight": {
+            "units": "lb",
+            "value": 5
+          }
+        },
+        "type": "loot"
+      },
+      {
         "_id": "GYyovoNdU66nxOlX",
-        "sort": 0
+        "_stats": {
+          "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
+          "duplicateSource": null,
+          "exportSource": null,
+          "coreVersion": "13.348",
+          "systemId": "dnd5e",
+          "systemVersion": "5.0.4",
+          "lastModifiedBy": null
+        },
+        "effects": [],
+        "flags": {},
+        "folder": "MLMTCAvKsuFE3vYA",
+        "img": "icons/weapons/swords/sword-guard-worn-purple.webp",
+        "name": "Shortsword",
+        "ownership": {
+          "default": 0
+        },
+        "sort": 0,
+        "system": {
+          "activities": {
+            "dnd5eactivity000": {
+              "_id": "dnd5eactivity000",
+              "activation": {
+                "condition": "",
+                "override": false,
+                "type": "action",
+                "value": 1
+              },
+              "attack": {
+                "ability": "",
+                "bonus": "",
+                "critical": {
+                  "threshold": null
+                },
+                "flat": false,
+                "type": {
+                  "classification": "weapon",
+                  "value": "melee"
+                }
+              },
+              "consumption": {
+                "scaling": {
+                  "allowed": false,
+                  "max": ""
+                },
+                "spellSlot": true,
+                "targets": []
+              },
+              "damage": {
+                "critical": {
+                  "bonus": ""
+                },
+                "includeBase": true,
+                "parts": []
+              },
+              "description": {
+                "chatFlavor": ""
+              },
+              "duration": {
+                "concentration": false,
+                "override": false,
+                "special": "",
+                "units": "inst",
+                "value": ""
+              },
+              "effects": [],
+              "range": {
+                "override": false,
+                "special": "",
+                "units": "ft",
+                "value": "5"
+              },
+              "sort": 0,
+              "target": {
+                "affects": {
+                  "choice": false,
+                  "count": "",
+                  "special": "",
+                  "type": ""
+                },
+                "override": false,
+                "prompt": true,
+                "template": {
+                  "contiguous": false,
+                  "count": "",
+                  "height": "",
+                  "size": "",
+                  "type": "",
+                  "units": "",
+                  "width": ""
+                }
+              },
+              "type": "attack",
+              "uses": {
+                "recovery": [],
+                "spent": 0
+              }
+            }
+          },
+          "ammunition": {},
+          "armor": {
+            "value": 10
+          },
+          "attuned": false,
+          "attunement": "",
+          "container": null,
+          "cover": null,
+          "crewed": false,
+          "damage": {
+            "base": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": 6,
+              "number": 1,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": [
+                "piercing"
+              ]
+            },
+            "versatile": {
+              "bonus": "",
+              "custom": {
+                "enabled": false,
+                "formula": ""
+              },
+              "denomination": null,
+              "number": null,
+              "scaling": {
+                "formula": "",
+                "mode": "",
+                "number": null
+              },
+              "types": []
+            }
+          },
+          "description": {
+            "chat": "",
+            "value": "<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>"
+          },
+          "equipped": true,
+          "hp": {
+            "conditions": "",
+            "dt": null,
+            "max": 0,
+            "value": 0
+          },
+          "identified": true,
+          "identifier": "shortsword",
+          "magicalBonus": null,
+          "price": {
+            "denomination": "gp",
+            "value": 10
+          },
+          "proficient": null,
+          "properties": [
+            "fin",
+            "lgt"
+          ],
+          "quantity": 1,
+          "range": {
+            "long": null,
+            "reach": null,
+            "units": "ft",
+            "value": null
+          },
+          "rarity": "",
+          "source": {
+            "book": "SRD 5.1",
+            "custom": "",
+            "license": "CC-BY-4.0",
+            "page": "",
+            "revision": 1,
+            "rules": "2014"
+          },
+          "type": {
+            "baseItem": "shortsword",
+            "value": "martialM"
+          },
+          "unidentified": {
+            "description": ""
+          },
+          "uses": {
+            "max": "",
+            "recovery": [],
+            "spent": 0
+          },
+          "weight": {
+            "units": "lb",
+            "value": 2
+          }
+        },
+        "type": "weapon"
       }
     ],
-    "effects": [],
+    "name": "test-perrin (halfling monk)",
+    "prototypeToken": {
+      "actorLink": true,
+      "alpha": 1,
+      "appendNumber": false,
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": "attributes.ac.value"
+      },
+      "detectionModes": [],
+      "displayBars": 40,
+      "displayName": 30,
+      "disposition": 1,
+      "flags": {},
+      "height": 1,
+      "light": {
+        "alpha": 1,
+        "angle": 360,
+        "animation": {
+          "intensity": 5,
+          "reverse": false,
+          "speed": 5,
+          "type": null
+        },
+        "attenuation": 0.5,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "contrast": 0,
+        "darkness": {
+          "max": 1,
+          "min": 0
+        },
+        "dim": 0,
+        "luminosity": 0.5,
+        "negative": false,
+        "priority": 0,
+        "saturation": 0,
+        "shadows": 0
+      },
+      "lockRotation": false,
+      "movementAction": null,
+      "name": "Perrin",
+      "occludable": {
+        "radius": 0
+      },
+      "prependAdjective": false,
+      "randomImg": false,
+      "ring": {
+        "colors": {
+          "background": null,
+          "ring": null
+        },
+        "effects": 1,
+        "enabled": false,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "rotation": 0,
+      "sight": {
+        "angle": 360,
+        "attenuation": 0.1,
+        "brightness": 0,
+        "color": null,
+        "contrast": 0,
+        "enabled": true,
+        "range": 5,
+        "saturation": 0,
+        "visionMode": "basic"
+      },
+      "texture": {
+        "alphaThreshold": 0.75,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "offsetX": 0,
+        "offsetY": 0,
+        "rotation": 0,
+        "scaleX": 0.8,
+        "scaleY": 0.8,
+        "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+        "tint": "#ffffff"
+      },
+      "turnMarker": {
+        "animation": null,
+        "disposition": false,
+        "mode": 1,
+        "src": null
+      },
+      "width": 1
+    },
+    "system": {
+      "abilities": {
+        "cha": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 11
+        },
+        "con": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 13
+        },
+        "dex": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 1,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 16
+        },
+        "int": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 12
+        },
+        "str": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 1,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 8
+        },
+        "wis": {
+          "bonuses": {
+            "check": "",
+            "save": ""
+          },
+          "check": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "max": 20,
+          "proficient": 0,
+          "save": {
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "value": 15
+        }
+      },
+      "attributes": {
+        "ac": {
+          "calc": "unarmoredMonk",
+          "flat": null,
+          "formula": ""
+        },
+        "attunement": {
+          "max": 3
+        },
+        "concentration": {
+          "ability": "",
+          "bonuses": {
+            "save": ""
+          },
+          "limit": 1,
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          }
+        },
+        "death": {
+          "bonuses": {
+            "save": ""
+          },
+          "failure": 0,
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "success": 0
+        },
+        "exhaustion": 0,
+        "hp": {
+          "bonuses": {
+            "level": "",
+            "overall": ""
+          },
+          "max": 9,
+          "temp": null,
+          "tempmax": null,
+          "value": 9
+        },
+        "init": {
+          "ability": "",
+          "bonus": "0",
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          }
+        },
+        "inspiration": false,
+        "loyalty": {},
+        "movement": {
+          "burrow": 0,
+          "climb": 0,
+          "fly": 0,
+          "hover": false,
+          "swim": 0,
+          "units": "ft",
+          "walk": 25
+        },
+        "senses": {
+          "blindsight": 0,
+          "darkvision": 0,
+          "special": "",
+          "tremorsense": 0,
+          "truesight": 0,
+          "units": "ft"
+        },
+        "spellcasting": "int"
+      },
+      "bastion": {
+        "description": "",
+        "name": ""
+      },
+      "bonuses": {
+        "abilities": {
+          "check": "",
+          "save": "",
+          "skill": ""
+        },
+        "msak": {
+          "attack": "",
+          "damage": ""
+        },
+        "mwak": {
+          "attack": "",
+          "damage": ""
+        },
+        "rsak": {
+          "attack": "",
+          "damage": ""
+        },
+        "rwak": {
+          "attack": "",
+          "damage": ""
+        },
+        "spell": {
+          "dc": ""
+        }
+      },
+      "currency": {
+        "cp": 0,
+        "ep": 0,
+        "gp": 15,
+        "pp": 0,
+        "sp": 0
+      },
+      "details": {
+        "age": "",
+        "alignment": "True Neutral",
+        "appearance": "",
+        "background": "q4tr1vTU8RxtU1UZ",
+        "biography": {
+          "public": "",
+          "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>"
+        },
+        "bond": "",
+        "eyes": "",
+        "faith": "",
+        "flaw": "",
+        "gender": "",
+        "hair": "",
+        "height": "",
+        "ideal": "",
+        "originalClass": "8Grf7ga6JcZF0X6x",
+        "race": "O3ZjSw0GtAOPScHI",
+        "skin": "",
+        "trait": "",
+        "weight": "",
+        "xp": {
+          "value": 0
+        }
+      },
+      "favorites": [
+        {
+          "id": ".Item.FtOM4QiOW5MwgcS3",
+          "sort": 500000,
+          "type": "item"
+        },
+        {
+          "id": ".Item.WeKJI3gPUAU52WAX",
+          "sort": 600000,
+          "type": "item"
+        },
+        {
+          "id": ".Item.g7U3OAXVcoI4lwzf",
+          "sort": 550000,
+          "type": "item"
+        },
+        {
+          "id": ".Item.GYyovoNdU66nxOlX",
+          "sort": 700000,
+          "type": "item"
+        }
+      ],
+      "resources": {
+        "primary": {
+          "label": "Ki",
+          "lr": true,
+          "max": null,
+          "sr": true,
+          "value": null
+        },
+        "secondary": {
+          "label": "",
+          "lr": false,
+          "max": null,
+          "sr": false,
+          "value": null
+        },
+        "tertiary": {
+          "label": "",
+          "lr": false,
+          "max": null,
+          "sr": false,
+          "value": null
+        }
+      },
+      "skills": {
+        "acr": {
+          "ability": "dex",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "ani": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "arc": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "ath": {
+          "ability": "str",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "dec": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "his": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "ins": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "inv": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "itm": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "med": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "nat": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "per": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "prc": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "prf": {
+          "ability": "cha",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "rel": {
+          "ability": "int",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "slt": {
+          "ability": "dex",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "ste": {
+          "ability": "dex",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        },
+        "sur": {
+          "ability": "wis",
+          "bonuses": {
+            "check": "",
+            "passive": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 0
+        }
+      },
+      "spells": {
+        "pact": {
+          "override": null,
+          "value": 0
+        },
+        "spell0": {
+          "override": null,
+          "value": 0
+        },
+        "spell1": {
+          "override": null,
+          "value": 0
+        },
+        "spell2": {
+          "override": null,
+          "value": 0
+        },
+        "spell3": {
+          "override": null,
+          "value": 0
+        },
+        "spell4": {
+          "override": null,
+          "value": 0
+        },
+        "spell5": {
+          "override": null,
+          "value": 0
+        },
+        "spell6": {
+          "override": null,
+          "value": 0
+        },
+        "spell7": {
+          "override": null,
+          "value": 0
+        },
+        "spell8": {
+          "override": null,
+          "value": 0
+        },
+        "spell9": {
+          "override": null,
+          "value": 0
+        }
+      },
+      "tools": {
+        "art": {
+          "ability": "int",
+          "bonuses": {
+            "check": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        },
+        "brewer": {
+          "ability": "int",
+          "bonuses": {
+            "check": ""
+          },
+          "roll": {
+            "max": null,
+            "min": null,
+            "mode": 0
+          },
+          "value": 1
+        }
+      },
+      "traits": {
+        "armorProf": {
+          "custom": "",
+          "value": []
+        },
+        "ci": {
+          "custom": "Advantage against being frightenned",
+          "value": []
+        },
+        "di": {
+          "bypasses": [],
+          "custom": "",
+          "value": []
+        },
+        "dm": {
+          "amount": {},
+          "bypasses": []
+        },
+        "dr": {
+          "bypasses": [],
+          "custom": "",
+          "value": []
+        },
+        "dv": {
+          "bypasses": [],
+          "custom": "",
+          "value": []
+        },
+        "languages": {
+          "communication": {},
+          "custom": "",
+          "value": [
+            "celestial",
+            "draconic",
+            "common",
+            "halfling"
+          ]
+        },
+        "size": "sm",
+        "weaponProf": {
+          "custom": "",
+          "mastery": {
+            "bonus": [],
+            "value": []
+          },
+          "value": [
+            "sim",
+            "shortsword"
+          ]
+        }
+      }
+    },
+    "type": "character",
     "folder": null,
-    "_id": "2Hl8s4nj9yJQueBG",
+    "_id": "ioZexonJDGVuU8zl",
     "sort": 0,
     "ownership": {
       "default": 0,
@@ -23023,8 +23021,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1774001731205,
-      "modifiedTime": 1774001731205,
+      "createdTime": 1774367580132,
+      "modifiedTime": 1774367580132,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -23042,8 +23040,8 @@ Update an existing entity This endpoint updates an existing entity in the Foundr
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | data | object | ✓ | body | Data to update the entity with |
+| clientId | string |  | query | Client ID for the Foundry world |
 | uuid | string |  | query | UUID of the entity to update (optional if selected=true) |
 | selected | boolean |  | query | Whether to update the selected entity |
 | actor | boolean |  | query | Update the actor of selected entity when selected=true |
@@ -23058,7 +23056,7 @@ Update an existing entity This endpoint updates an existing entity in the Foundr
 <ApiTester
   method="PUT"
   path="/update"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"actor","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"actor","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -23070,8 +23068,8 @@ Update an existing entity This endpoint updates an existing entity in the Foundr
 const baseUrl = 'http://localhost:3010';
 const path = '/update';
 const params = {
-  clientId: 'your-client-id',
-  uuid: 'Actor.2Hl8s4nj9yJQueBG'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  uuid: 'Actor.ioZexonJDGVuU8zl'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -23096,7 +23094,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/update?clientId=your-client-id&uuid=Actor.2Hl8s4nj9yJQueBG' \
+curl -X PUT 'http://localhost:3010/update?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"name":"Updated Test Actor"}}'
@@ -23111,8 +23109,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/update'
 params = {
-    'clientId': 'your-client-id',
-    'uuid': 'Actor.2Hl8s4nj9yJQueBG'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'uuid': 'Actor.ioZexonJDGVuU8zl'
 }
 url = f'{base_url}{path}'
 
@@ -23142,8 +23140,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/update';
   const params = {
-    clientId: 'your-client-id',
-    uuid: 'Actor.2Hl8s4nj9yJQueBG'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    uuid: 'Actor.ioZexonJDGVuU8zl'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -23183,8 +23181,8 @@ import axios from 'axios';
   🔤/update🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.2Hl8s4nj9yJQueBG🔤 ➡️ uuid
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -23215,821 +23213,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update_1774001737639",
-  "clientId": "your-client-id",
   "type": "update-result",
-  "uuid": "Actor.2Hl8s4nj9yJQueBG",
+  "requestId": "update_1774367580862",
+  "uuid": "Actor.ioZexonJDGVuU8zl",
   "entity": [
     {
-      "name": "Updated Test Actor",
-      "type": "character",
+      "effects": [],
       "img": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "system": {
-        "abilities": {
-          "str": {
-            "value": 8,
-            "proficient": 1,
-            "max": 20,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "dex": {
-            "value": 16,
-            "proficient": 1,
-            "max": 20,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "con": {
-            "value": 13,
-            "proficient": 0,
-            "max": 20,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "int": {
-            "value": 12,
-            "proficient": 0,
-            "max": 20,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "wis": {
-            "value": 15,
-            "proficient": 0,
-            "max": 20,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          },
-          "cha": {
-            "value": 11,
-            "proficient": 0,
-            "max": 20,
-            "bonuses": {
-              "check": "",
-              "save": ""
-            },
-            "check": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            },
-            "save": {
-              "roll": {
-                "min": null,
-                "max": null,
-                "mode": 0
-              }
-            }
-          }
-        },
-        "attributes": {
-          "ac": {
-            "flat": null,
-            "calc": "unarmoredMonk",
-            "formula": ""
-          },
-          "hp": {
-            "value": 9,
-            "max": 9,
-            "temp": null,
-            "tempmax": null,
-            "bonuses": {
-              "level": "",
-              "overall": ""
-            }
-          },
-          "init": {
-            "ability": "",
-            "bonus": "0",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "movement": {
-            "burrow": 0,
-            "climb": 0,
-            "fly": 0,
-            "swim": 0,
-            "walk": 25,
-            "units": "ft",
-            "hover": false
-          },
-          "attunement": {
-            "max": 3
-          },
-          "senses": {
-            "darkvision": 0,
-            "blindsight": 0,
-            "tremorsense": 0,
-            "truesight": 0,
-            "units": "ft",
-            "special": ""
-          },
-          "spellcasting": "int",
-          "death": {
-            "success": 0,
-            "failure": 0,
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "save": ""
-            }
-          },
-          "exhaustion": 0,
-          "inspiration": false,
-          "concentration": {
-            "ability": "",
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            },
-            "bonuses": {
-              "save": ""
-            },
-            "limit": 1
-          },
-          "loyalty": {}
-        },
-        "details": {
-          "biography": {
-            "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>",
-            "public": ""
-          },
-          "alignment": "True Neutral",
-          "race": "O3ZjSw0GtAOPScHI",
-          "background": "q4tr1vTU8RxtU1UZ",
-          "originalClass": "8Grf7ga6JcZF0X6x",
-          "xp": {
-            "value": 0
-          },
-          "appearance": "",
-          "trait": "",
-          "ideal": "",
-          "bond": "",
-          "flaw": "",
-          "eyes": "",
-          "height": "",
-          "faith": "",
-          "hair": "",
-          "weight": "",
-          "gender": "",
-          "skin": "",
-          "age": ""
-        },
-        "traits": {
-          "size": "sm",
-          "di": {
-            "value": [],
-            "bypasses": [],
-            "custom": ""
-          },
-          "dr": {
-            "value": [],
-            "bypasses": [],
-            "custom": ""
-          },
-          "dv": {
-            "value": [],
-            "bypasses": [],
-            "custom": ""
-          },
-          "ci": {
-            "value": [],
-            "custom": "Advantage against being frightenned"
-          },
-          "languages": {
-            "value": [
-              "celestial",
-              "draconic",
-              "common",
-              "halfling"
-            ],
-            "custom": "",
-            "communication": {}
-          },
-          "weaponProf": {
-            "value": [
-              "sim",
-              "shortsword"
-            ],
-            "custom": "",
-            "mastery": {
-              "value": [],
-              "bonus": []
-            }
-          },
-          "armorProf": {
-            "value": [],
-            "custom": ""
-          },
-          "dm": {
-            "amount": {},
-            "bypasses": []
-          }
-        },
-        "currency": {
-          "pp": 0,
-          "gp": 15,
-          "ep": 0,
-          "sp": 0,
-          "cp": 0
-        },
-        "skills": {
-          "acr": {
-            "value": 1,
-            "ability": "dex",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "ani": {
-            "value": 0,
-            "ability": "wis",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "arc": {
-            "value": 0,
-            "ability": "int",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "ath": {
-            "value": 1,
-            "ability": "str",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "dec": {
-            "value": 0,
-            "ability": "cha",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "his": {
-            "value": 0,
-            "ability": "int",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "ins": {
-            "value": 1,
-            "ability": "wis",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "itm": {
-            "value": 0,
-            "ability": "cha",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "inv": {
-            "value": 0,
-            "ability": "int",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "med": {
-            "value": 0,
-            "ability": "wis",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "nat": {
-            "value": 0,
-            "ability": "int",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "prc": {
-            "value": 0,
-            "ability": "wis",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "prf": {
-            "value": 0,
-            "ability": "cha",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "per": {
-            "value": 0,
-            "ability": "cha",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "rel": {
-            "value": 1,
-            "ability": "int",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "slt": {
-            "value": 0,
-            "ability": "dex",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "ste": {
-            "value": 0,
-            "ability": "dex",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "sur": {
-            "value": 0,
-            "ability": "wis",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "tools": {
-          "art": {
-            "value": 1,
-            "ability": "int",
-            "bonuses": {
-              "check": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          },
-          "brewer": {
-            "value": 1,
-            "ability": "int",
-            "bonuses": {
-              "check": ""
-            },
-            "roll": {
-              "min": null,
-              "max": null,
-              "mode": 0
-            }
-          }
-        },
-        "spells": {
-          "spell1": {
-            "value": 0,
-            "override": null
-          },
-          "spell2": {
-            "value": 0,
-            "override": null
-          },
-          "spell3": {
-            "value": 0,
-            "override": null
-          },
-          "spell4": {
-            "value": 0,
-            "override": null
-          },
-          "spell5": {
-            "value": 0,
-            "override": null
-          },
-          "spell6": {
-            "value": 0,
-            "override": null
-          },
-          "spell7": {
-            "value": 0,
-            "override": null
-          },
-          "spell8": {
-            "value": 0,
-            "override": null
-          },
-          "spell9": {
-            "value": 0,
-            "override": null
-          },
-          "pact": {
-            "value": 0,
-            "override": null
-          },
-          "spell0": {
-            "value": 0,
-            "override": null
-          }
-        },
-        "bonuses": {
-          "mwak": {
-            "attack": "",
-            "damage": ""
-          },
-          "rwak": {
-            "attack": "",
-            "damage": ""
-          },
-          "msak": {
-            "attack": "",
-            "damage": ""
-          },
-          "rsak": {
-            "attack": "",
-            "damage": ""
-          },
-          "abilities": {
-            "check": "",
-            "save": "",
-            "skill": ""
-          },
-          "spell": {
-            "dc": ""
-          }
-        },
-        "resources": {
-          "primary": {
-            "value": null,
-            "max": null,
-            "sr": true,
-            "lr": true,
-            "label": "Ki"
-          },
-          "secondary": {
-            "value": null,
-            "max": null,
-            "sr": false,
-            "lr": false,
-            "label": ""
-          },
-          "tertiary": {
-            "value": null,
-            "max": null,
-            "sr": false,
-            "lr": false,
-            "label": ""
-          }
-        },
-        "favorites": [
-          {
-            "type": "item",
-            "id": ".Item.FtOM4QiOW5MwgcS3",
-            "sort": 500000
-          },
-          {
-            "type": "item",
-            "id": ".Item.WeKJI3gPUAU52WAX",
-            "sort": 600000
-          },
-          {
-            "type": "item",
-            "id": ".Item.g7U3OAXVcoI4lwzf",
-            "sort": 550000
-          },
-          {
-            "type": "item",
-            "id": ".Item.GYyovoNdU66nxOlX",
-            "sort": 700000
-          }
-        ],
-        "bastion": {
-          "name": "",
-          "description": ""
-        }
-      },
-      "prototypeToken": {
-        "flags": {},
-        "name": "Perrin",
-        "displayName": 30,
-        "width": 1,
-        "height": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "actorLink": true,
-        "disposition": 1,
-        "displayBars": 40,
-        "bar1": {
-          "attribute": "attributes.hp"
-        },
-        "bar2": {
-          "attribute": "attributes.ac.value"
-        },
-        "randomImg": false,
-        "alpha": 1,
-        "light": {
-          "alpha": 1,
-          "angle": 360,
-          "bright": 0,
-          "coloration": 1,
-          "dim": 0,
-          "luminosity": 0.5,
-          "saturation": 0,
-          "contrast": 0,
-          "shadows": 0,
-          "animation": {
-            "speed": 5,
-            "intensity": 5,
-            "type": null,
-            "reverse": false
-          },
-          "darkness": {
-            "min": 0,
-            "max": 1
-          },
-          "color": null,
-          "attenuation": 0.5,
-          "negative": false,
-          "priority": 0
-        },
-        "texture": {
-          "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-          "tint": "#ffffff",
-          "scaleX": 0.8,
-          "scaleY": 0.8,
-          "offsetX": 0,
-          "offsetY": 0,
-          "rotation": 0,
-          "anchorX": 0.5,
-          "anchorY": 0.5,
-          "fit": "contain",
-          "alphaThreshold": 0.75
-        },
-        "sight": {
-          "angle": 360,
-          "enabled": true,
-          "range": 5,
-          "brightness": 0,
-          "visionMode": "basic",
-          "color": null,
-          "attenuation": 0.1,
-          "saturation": 0,
-          "contrast": 0
-        },
-        "detectionModes": [],
-        "appendNumber": false,
-        "prependAdjective": false,
-        "occludable": {
-          "radius": 0
-        },
-        "ring": {
-          "enabled": false,
-          "colors": {
-            "ring": null,
-            "background": null
-          },
-          "effects": 1,
-          "subject": {
-            "scale": 1,
-            "texture": null
-          }
-        },
-        "turnMarker": {
-          "mode": 1,
-          "animation": null,
-          "src": null,
-          "disposition": false
-        },
-        "movementAction": null
-      },
       "items": [
         {
-          "name": "Priest",
-          "type": "background",
-          "system": {
-            "description": {
-              "value": "<ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "advancement": [],
-            "startingEquipment": [],
-            "identifier": "priest"
-          },
-          "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
-          "effects": [],
-          "folder": null,
-          "sort": 0,
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
+          "_id": "q4tr1vTU8RxtU1UZ",
           "_stats": {
             "compendiumSource": null,
             "duplicateSource": null,
@@ -24039,48 +23232,75 @@ import axios from 'axios';
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
           },
-          "_id": "q4tr1vTU8RxtU1UZ"
+          "effects": [],
+          "flags": {},
+          "folder": null,
+          "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
+          "name": "Priest",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "advancement": [],
+            "description": {
+              "chat": "",
+              "value": "<ul><li><strong>Skill Proficiencies:</strong> Insight, Religion</li><li><strong>Languages:</strong> Two of your choice</li><li><strong>Equipment:</strong> A holy symbol, 5 sticks of incense, prayer book, vestments, a set of common clothes, and a pouch containing 15 gp.</li></ul>"
+            },
+            "identifier": "priest",
+            "source": {
+              "book": "",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "startingEquipment": []
+          },
+          "type": "background"
         },
         {
           "_id": "O3ZjSw0GtAOPScHI",
-          "name": "Lightfoot Halfling",
-          "type": "race",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "uQNrdSpcXeoB5EnX",
           "img": "icons/equipment/feet/shoes-leather-simple-brown.webp",
+          "name": "Lightfoot Halfling",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>Your halfling character has a number of traits in common with all other halflings.</p><p><em><strong>Ability Score Increase.</strong></em> Your Dexterity score increases by 2.</p><p><em><strong>Age.</strong></em> A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.</p><p><em><strong>Alignment.</strong></em> Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.</p><p><em><strong>Size.</strong></em> Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.</p><p><em><strong>Speed.</strong></em> Your base walking speed is 25 feet.</p><p><em><strong>Lucky.</strong></em> When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><p><em><strong>Brave.</strong></em> You have advantage on saving throws against being frightened.</p><p><em><strong>Halfling Nimbleness.</strong></em> You can move through the space of any creature that is of a size larger than yours.</p><p><em><strong>Languages.</strong></em> You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.</p><h5>Lightfoot</h5><p>As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others.</p><p>Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.</p><p><em><strong>Ability Score Increase.</strong></em> Your Charisma score increases by 1.</p><p><em><strong>Naturally Stealthy.</strong></em> You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "identifier": "lightfoot-halfling",
             "advancement": [
               {
                 "_id": "nInhIgkbzzJTdm8F",
-                "type": "ItemGrant",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.races.LOMdcNAGWh5xpfm4"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.races.7Yoo9hG0hfPSmBoC"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.races.PqxZgcJzp1VVgP8t"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.races.GWPjKFeIthBBeCFJ"
                     }
                   ],
                   "optional": false,
@@ -24094,72 +23314,73 @@ import axios from 'axios';
                     }
                   }
                 },
+                "level": 0,
+                "title": "",
+                "type": "ItemGrant",
                 "value": {
                   "added": {
+                    "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
                     "FtOM4QiOW5MwgcS3": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-                    "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
                     "cWrETHzCRs1Ueqd3": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-                    "AArhiOrSkaQUnCZS": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
+                    "nmmihiqphHjoE8dl": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
                   }
-                },
-                "level": 0,
-                "title": ""
+                }
               },
               {
                 "_id": "Z9hvZFkWUNvowbQX",
-                "type": "AbilityScoreImprovement",
                 "configuration": {
-                  "points": 0,
-                  "fixed": {
-                    "str": 0,
-                    "dex": 2,
-                    "con": 0,
-                    "int": 0,
-                    "wis": 0,
-                    "cha": 1
-                  },
                   "cap": 2,
-                  "locked": []
-                },
-                "value": {
-                  "type": "asi",
-                  "assignments": {
+                  "fixed": {
+                    "cha": 1,
+                    "con": 0,
                     "dex": 2,
-                    "cha": 1
-                  }
+                    "int": 0,
+                    "str": 0,
+                    "wis": 0
+                  },
+                  "locked": [],
+                  "points": 0
                 },
                 "level": 0,
-                "title": ""
+                "title": "",
+                "type": "AbilityScoreImprovement",
+                "value": {
+                  "assignments": {
+                    "cha": 1,
+                    "dex": 2
+                  },
+                  "type": "asi"
+                }
               },
               {
                 "_id": "hv2bcANK5jEJZaAb",
-                "type": "Size",
                 "configuration": {
                   "sizes": [
                     "sm"
                   ]
                 },
-                "value": {
-                  "size": "sm"
-                },
+                "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.",
                 "level": 1,
                 "title": "",
-                "hint": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."
+                "type": "Size",
+                "value": {
+                  "size": "sm"
+                }
               },
               {
                 "_id": "nGwMjsfNU6CXHk3A",
-                "type": "Trait",
                 "configuration": {
-                  "mode": "default",
                   "allowReplacements": false,
+                  "choices": [],
                   "grants": [
                     "languages:standard:common",
                     "languages:standard:halfling"
                   ],
-                  "choices": []
+                  "mode": "default"
                 },
                 "level": 0,
                 "title": "",
+                "type": "Trait",
                 "value": {
                   "chosen": [
                     "languages:standard:common",
@@ -24168,351 +23389,350 @@ import axios from 'axios';
                 }
               }
             ],
+            "description": {
+              "chat": "",
+              "value": "<p>Your halfling character has a number of traits in common with all other halflings.</p><p><em><strong>Ability Score Increase.</strong></em> Your Dexterity score increases by 2.</p><p><em><strong>Age.</strong></em> A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century.</p><p><em><strong>Alignment.</strong></em> Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.</p><p><em><strong>Size.</strong></em> Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.</p><p><em><strong>Speed.</strong></em> Your base walking speed is 25 feet.</p><p><em><strong>Lucky.</strong></em> When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><p><em><strong>Brave.</strong></em> You have advantage on saving throws against being frightened.</p><p><em><strong>Halfling Nimbleness.</strong></em> You can move through the space of any creature that is of a size larger than yours.</p><p><em><strong>Languages.</strong></em> You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling.</p><h5>Lightfoot</h5><p>As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others.</p><p>Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.</p><p><em><strong>Ability Score Increase.</strong></em> Your Charisma score increases by 1.</p><p><em><strong>Naturally Stealthy.</strong></em> You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>"
+            },
+            "identifier": "lightfoot-halfling",
             "movement": {
-              "walk": 25,
               "burrow": null,
               "climb": null,
               "fly": null,
+              "hover": false,
               "swim": null,
               "units": "ft",
-              "hover": false
-            },
-            "type": {
-              "subtype": "halfling",
-              "value": "humanoid",
-              "custom": ""
+              "walk": 25
             },
             "senses": {
-              "darkvision": null,
               "blindsight": null,
+              "darkvision": null,
+              "special": "",
               "tremorsense": null,
               "truesight": null,
-              "units": "ft",
-              "special": ""
+              "units": "ft"
+            },
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "custom": "",
+              "subtype": "halfling",
+              "value": "humanoid"
             }
           },
-          "effects": [],
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
+          "type": "race"
+        },
+        {
+          "_id": "FtOM4QiOW5MwgcS3",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
           },
-          "sort": 0,
-          "folder": "uQNrdSpcXeoB5EnX"
-        },
-        {
-          "_id": "FtOM4QiOW5MwgcS3",
+          "effects": [],
+          "flags": {
+            "dnd5e": {
+              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+              "riders": {
+                "activity": [],
+                "effect": []
+              },
+              "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4"
+            }
+          },
+          "folder": "kbtbKofcv13crhke",
+          "img": "icons/sundries/gaming/dice-runed-brown.webp",
           "name": "Lucky",
           "ownership": {
             "default": 0
           },
-          "type": "feat",
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><section class=\"secret foundry-note\" id=\"secret-S04TPyvUh05Dz0Ng\"><p><strong>Foundry Note</strong></p><p>This property can be enabled on your character sheet in the Special Traits configuration on the Attributes tab.</p></section>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "uses": {
-              "max": "",
-              "spent": 0,
-              "recovery": []
-            },
-            "type": {
-              "value": "race",
-              "subtype": ""
-            },
-            "requirements": "Halfling",
-            "properties": [],
             "activities": {},
+            "advancement": [],
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p><section class=\"secret foundry-note\" id=\"secret-S04TPyvUh05Dz0Ng\"><p><strong>Foundry Note</strong></p><p>This property can be enabled on your character sheet in the Special Traits configuration on the Attributes tab.</p></section>"
+            },
             "enchant": {},
+            "identifier": "lucky",
             "prerequisites": {
               "level": null,
               "repeatable": false
             },
-            "identifier": "lucky",
-            "advancement": [],
-            "crewed": false
-          },
-          "flags": {
-            "dnd5e": {
-              "sourceId": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-              "riders": {
-                "activity": [],
-                "effect": []
-              }
+            "properties": [],
+            "requirements": "Halfling",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "race"
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
             }
           },
-          "img": "icons/sundries/gaming/dice-runed-brown.webp",
-          "effects": [],
-          "folder": "kbtbKofcv13crhke",
-          "sort": 0,
+          "type": "feat"
+        },
+        {
+          "_id": "nmmihiqphHjoE8dl",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
-          }
-        },
-        {
-          "_id": "nmmihiqphHjoE8dl",
+          },
+          "effects": [],
+          "flags": {
+            "dnd5e": {
+              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+              "riders": {
+                "activity": [],
+                "effect": []
+              },
+              "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC"
+            }
+          },
+          "folder": "kbtbKofcv13crhke",
+          "img": "icons/skills/melee/unarmed-punch-fist.webp",
           "name": "Brave",
           "ownership": {
             "default": 0
           },
-          "type": "feat",
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>You have advantage on saving throws against being frightened.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "uses": {
-              "max": "",
-              "spent": 0,
-              "recovery": []
-            },
-            "type": {
-              "value": "race",
-              "subtype": ""
-            },
-            "requirements": "Halfling",
-            "properties": [],
             "activities": {},
+            "advancement": [],
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>You have advantage on saving throws against being frightened.</p>"
+            },
             "enchant": {},
+            "identifier": "brave",
             "prerequisites": {
               "level": null,
               "repeatable": false
             },
-            "identifier": "brave",
-            "advancement": [],
-            "crewed": false
-          },
-          "flags": {
-            "dnd5e": {
-              "sourceId": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
-              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-              "riders": {
-                "activity": [],
-                "effect": []
-              }
+            "properties": [],
+            "requirements": "Halfling",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "race"
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
             }
           },
-          "img": "icons/skills/melee/unarmed-punch-fist.webp",
-          "effects": [],
-          "folder": "kbtbKofcv13crhke",
-          "sort": 0,
+          "type": "feat"
+        },
+        {
+          "_id": "cWrETHzCRs1Ueqd3",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
-          }
-        },
-        {
-          "_id": "cWrETHzCRs1Ueqd3",
+          },
+          "effects": [],
+          "flags": {
+            "dnd5e": {
+              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+              "riders": {
+                "activity": [],
+                "effect": []
+              },
+              "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t"
+            }
+          },
+          "folder": "kbtbKofcv13crhke",
+          "img": "icons/skills/movement/feet-winged-boots-brown.webp",
           "name": "Halfling Nimbleness",
           "ownership": {
             "default": 0
           },
-          "type": "feat",
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>You can move through the space of any creature that is of a size larger than yours.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "uses": {
-              "max": "",
-              "spent": 0,
-              "recovery": []
-            },
-            "type": {
-              "value": "race",
-              "subtype": ""
-            },
-            "requirements": "Halfling",
-            "properties": [],
             "activities": {},
+            "advancement": [],
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>You can move through the space of any creature that is of a size larger than yours.</p>"
+            },
             "enchant": {},
+            "identifier": "halfling-nimbleness",
             "prerequisites": {
               "level": null,
               "repeatable": false
             },
-            "identifier": "halfling-nimbleness",
-            "advancement": [],
-            "crewed": false
-          },
-          "flags": {
-            "dnd5e": {
-              "sourceId": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-              "riders": {
-                "activity": [],
-                "effect": []
-              }
+            "properties": [],
+            "requirements": "Halfling",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "race"
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
             }
           },
-          "img": "icons/skills/movement/feet-winged-boots-brown.webp",
-          "effects": [],
-          "folder": "kbtbKofcv13crhke",
-          "sort": 0,
+          "type": "feat"
+        },
+        {
+          "_id": "AArhiOrSkaQUnCZS",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
-          }
-        },
-        {
-          "_id": "AArhiOrSkaQUnCZS",
+          },
+          "effects": [],
+          "flags": {
+            "dnd5e": {
+              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
+              "riders": {
+                "activity": [],
+                "effect": []
+              },
+              "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ"
+            }
+          },
+          "folder": "kbtbKofcv13crhke",
+          "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
           "name": "Naturally Stealthy",
           "ownership": {
             "default": 0
           },
-          "type": "feat",
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "uses": {
-              "max": "",
-              "spent": 0,
-              "recovery": []
-            },
-            "type": {
-              "value": "race",
-              "subtype": ""
-            },
-            "requirements": "Lightfoot Halfling",
-            "properties": [],
             "activities": {},
+            "advancement": [],
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>"
+            },
             "enchant": {},
+            "identifier": "naturally-stealthy",
             "prerequisites": {
               "level": null,
               "repeatable": false
             },
-            "identifier": "naturally-stealthy",
-            "advancement": [],
-            "crewed": false
-          },
-          "flags": {
-            "dnd5e": {
-              "sourceId": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
-              "advancementOrigin": "O3ZjSw0GtAOPScHI.nInhIgkbzzJTdm8F",
-              "riders": {
-                "activity": [],
-                "effect": []
-              }
+            "properties": [],
+            "requirements": "Lightfoot Halfling",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "race"
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
             }
           },
-          "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
-          "effects": [],
-          "folder": "kbtbKofcv13crhke",
-          "sort": 0,
+          "type": "feat"
+        },
+        {
+          "_id": "8Grf7ga6JcZF0X6x",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
-          }
-        },
-        {
-          "_id": "8Grf7ga6JcZF0X6x",
-          "name": "Monk",
-          "type": "class",
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "HQ1Oy7HkbnxnE63o",
           "img": "icons/skills/melee/hand-grip-staff-blue.webp",
+          "name": "Monk",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>As a monk, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d8 per monk level<br /><strong>Hit Points at 1st Level:</strong> 8 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d8 (or 5) + your Constitution modifier per monk level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> None<br /><strong>Weapons:</strong> Simple weapons, shortswords<br /><strong>Tools:</strong> Choose one type of artisan's tools or one musical instrument<br /><strong>Saving Throws:</strong> Strength, Dexterity<br /><strong>Skills:</strong> Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth</p><h1>Monk Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Martial Arts</td><td>Ki Points</td><td>Unarmored Movement</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI]{Unarmored Defense}, @UUID[Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw]{Martial Arts}</td></tr><tr><td>2nd</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.10b6z2W1txNkrGP7]{Ki}, @UUID[Compendium.dnd5e.classfeatures.Item.zCeqyQ8uIPNdYJSW]{Unarmored Movement}</td></tr><tr><td>3rd</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.rtpQdX77dYWbDIOH]{Monastic Tradition}, @UUID[Compendium.dnd5e.classfeatures.Item.mzweVbnsJPQiVkAe]{Deflect Missiles}</td></tr><tr><td>4th</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, @UUID[Compendium.dnd5e.classfeatures.Item.KQz9bqxVkXjDl8gK]{Slow Fall}</td></tr><tr><td>5th</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}, @UUID[Compendium.dnd5e.classfeatures.Item.pvRc6GAu1ok6zihC]{Stunning Strike}</td></tr><tr><td>6th</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft.</td><td><p>@UUID[Compendium.dnd5e.classfeatures.Item.7flZKruSSu6dHg6D]{Ki-Empowered Strikes},</p><p>Monastic Tradition feature</p></td></tr><tr><td>7th</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.a4P4DNMmH8CqSNkC]{Evasion}, @UUID[Compendium.dnd5e.classfeatures.Item.ZmC31XKS4YNENnoc]{Stillness of Mind}</td></tr><tr><td>8th</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft.</td><td>Unarmored Movement improvement</td></tr><tr><td>10th</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.bqWA7t9pDELbNRkp]{Purity of Body}</td></tr><tr><td>11th</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>12th</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XjuGBeB8Y0C3A5D4]{Tongue of the Sun and Moon}</td></tr><tr><td>14th</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.7D2EkLdISwShEDlN]{Diamond Soul}</td></tr><tr><td>15th</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.gDH8PMrKvLHaNmEI]{Timeless Body}</td></tr><tr><td>16th</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>18th</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.3jwFt3hSqDswBlOH]{Empty Body}</td></tr><tr><td>19th</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.mQNPg89YIs7g5tG4]{Perfect Self}</td></tr></tbody></table><h1>Monastic Traditions</h1><p>Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.IvlpKMXX3PmW1NY2]{Way of the Open Hand}</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "identifier": "monk",
-            "levels": 1,
             "advancement": [
               {
-                "type": "HitPoints",
+                "_id": "ocxNtDFJ7YDaYaK7",
                 "configuration": {},
+                "icon": "systems/dnd5e/icons/svg/hit-points.svg",
+                "title": "Hit Points",
+                "type": "HitPoints",
                 "value": {
                   "1": "max"
-                },
-                "title": "Hit Points",
-                "icon": "systems/dnd5e/icons/svg/hit-points.svg",
-                "_id": "ocxNtDFJ7YDaYaK7"
+                }
               },
               {
                 "_id": "mmAxx3U7FvXNAcKc",
-                "type": "Trait",
                 "configuration": {
-                  "mode": "default",
                   "allowReplacements": false,
+                  "choices": [],
                   "grants": [
                     "weapon:sim",
                     "weapon:mar:shortsword"
                   ],
-                  "choices": []
+                  "mode": "default"
                 },
                 "level": 1,
                 "title": "",
+                "type": "Trait",
                 "value": {
                   "chosen": [
                     "weapon:sim",
@@ -24522,11 +23742,9 @@ import axios from 'axios';
               },
               {
                 "_id": "QPXy59CQGY9HB0c3",
-                "type": "Trait",
+                "classRestriction": "primary",
                 "configuration": {
-                  "mode": "default",
                   "allowReplacements": false,
-                  "grants": [],
                   "choices": [
                     {
                       "count": 1,
@@ -24535,11 +23753,13 @@ import axios from 'axios';
                         "tool:music:*"
                       ]
                     }
-                  ]
+                  ],
+                  "grants": [],
+                  "mode": "default"
                 },
                 "level": 1,
                 "title": "",
-                "classRestriction": "primary",
+                "type": "Trait",
                 "value": {
                   "chosen": [
                     "tool:art:brewer"
@@ -24548,19 +23768,19 @@ import axios from 'axios';
               },
               {
                 "_id": "4M8MQ1E64zbcRg6B",
-                "type": "Trait",
+                "classRestriction": "primary",
                 "configuration": {
-                  "mode": "default",
                   "allowReplacements": false,
+                  "choices": [],
                   "grants": [
                     "saves:str",
                     "saves:dex"
                   ],
-                  "choices": []
+                  "mode": "default"
                 },
                 "level": 1,
                 "title": "",
-                "classRestriction": "primary",
+                "type": "Trait",
                 "value": {
                   "chosen": [
                     "saves:str",
@@ -24570,11 +23790,9 @@ import axios from 'axios';
               },
               {
                 "_id": "7HRRCPk80Ng2Evdx",
-                "type": "Trait",
+                "classRestriction": "primary",
                 "configuration": {
-                  "mode": "default",
                   "allowReplacements": false,
-                  "grants": [],
                   "choices": [
                     {
                       "count": 2,
@@ -24587,11 +23805,13 @@ import axios from 'axios';
                         "skills:ste"
                       ]
                     }
-                  ]
+                  ],
+                  "grants": [],
+                  "mode": "default"
                 },
                 "level": 1,
                 "title": "",
-                "classRestriction": "primary",
+                "type": "Trait",
                 "value": {
                   "chosen": [
                     "skills:acr",
@@ -24601,39 +23821,39 @@ import axios from 'axios';
               },
               {
                 "_id": "BQWHr3mt5flvkfIj",
-                "type": "Trait",
                 "configuration": {
-                  "mode": "default",
                   "allowReplacements": false,
+                  "choices": [],
                   "grants": [
                     "di:poison",
                     "ci:diseased",
                     "ci:poisoned"
                   ],
-                  "choices": []
+                  "mode": "default"
                 },
+                "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison.",
                 "level": 10,
                 "title": "Purity of Body",
+                "type": "Trait",
                 "value": {
                   "chosen": []
-                },
-                "hint": "Your mastery of the ki flowing through you makes you immune to disease and poison."
+                }
               },
               {
-                "type": "ItemGrant",
+                "_id": "n0q8XyiGA3vLPgpK",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.UAvV7N7T4zJhxdfI"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.l50hjTxO2r0iecKw"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.eGxoNmSMWKNzChCO"
                     }
                   ],
                   "optional": false,
@@ -24645,42 +23865,42 @@ import axios from 'axios';
                       "per": "",
                       "requireSlot": false
                     }
-                  }
-                },
-                "value": {
-                  "added": {
-                    "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-                    "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-                    "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO"
                   }
                 },
                 "level": 1,
                 "title": "Features",
-                "_id": "n0q8XyiGA3vLPgpK"
+                "type": "ItemGrant",
+                "value": {
+                  "added": {
+                    "CwgoTDXWCD7PknIN": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
+                    "RiURabP4FDYMeuWx": "Compendium.dnd5e.classfeatures.Item.eGxoNmSMWKNzChCO",
+                    "pchnXqd5C79fVlxy": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
+                  }
+                }
               },
               {
-                "type": "ItemGrant",
+                "_id": "7TyDqpGGi3r3nsp0",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.10b6z2W1txNkrGP7"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.5MwNlVZK7m6VolOH"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.TDglPcxIVEzvVSgK"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.yrSFIGTaQOH2PFRI"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.zCeqyQ8uIPNdYJSW"
                     }
                   ],
                   "optional": false,
@@ -24694,22 +23914,22 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 2,
                 "title": "Features",
-                "_id": "7TyDqpGGi3r3nsp0"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "2sLHTw6k15DSW8WB",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.rtpQdX77dYWbDIOH"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.mzweVbnsJPQiVkAe"
                     }
                   ],
                   "optional": false,
@@ -24723,18 +23943,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 3,
                 "title": "Features",
-                "_id": "2sLHTw6k15DSW8WB"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "Zc1jOZK1b9mIKekq",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.KQz9bqxVkXjDl8gK"
                     }
                   ],
                   "optional": false,
@@ -24748,22 +23968,22 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 4,
                 "title": "Features",
-                "_id": "Zc1jOZK1b9mIKekq"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "j9LeWmxlsENKaMLo",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.pvRc6GAu1ok6zihC"
                     }
                   ],
                   "optional": false,
@@ -24777,18 +23997,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 5,
                 "title": "Features",
-                "_id": "j9LeWmxlsENKaMLo"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "psobDjMqtA2216Db",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.7flZKruSSu6dHg6D"
                     }
                   ],
                   "optional": false,
@@ -24802,22 +24022,22 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 6,
                 "title": "Features",
-                "_id": "psobDjMqtA2216Db"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "K38aFaEMxMqRB0BC",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.a4P4DNMmH8CqSNkC"
                     },
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.ZmC31XKS4YNENnoc"
                     }
                   ],
                   "optional": false,
@@ -24831,18 +24051,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 7,
                 "title": "Features",
-                "_id": "K38aFaEMxMqRB0BC"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "eLqmJotmwzlGNrxG",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.bqWA7t9pDELbNRkp"
                     }
                   ],
                   "optional": false,
@@ -24856,18 +24076,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 10,
                 "title": "Features",
-                "_id": "eLqmJotmwzlGNrxG"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "N0geIQiuofqYgswj",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.XjuGBeB8Y0C3A5D4"
                     }
                   ],
                   "optional": false,
@@ -24881,18 +24101,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 13,
                 "title": "Features",
-                "_id": "N0geIQiuofqYgswj"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "N1hjizyI82UPp8UI",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.7D2EkLdISwShEDlN"
                     }
                   ],
                   "optional": false,
@@ -24906,18 +24126,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 14,
                 "title": "Features",
-                "_id": "N1hjizyI82UPp8UI"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "TcLZS9WzC7bPETSd",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.gDH8PMrKvLHaNmEI"
                     }
                   ],
                   "optional": false,
@@ -24931,18 +24151,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 15,
                 "title": "Features",
-                "_id": "TcLZS9WzC7bPETSd"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "tRb3a0tA5IpehPs8",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.3jwFt3hSqDswBlOH"
                     }
                   ],
                   "optional": false,
@@ -24956,18 +24176,18 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 18,
                 "title": "Features",
-                "_id": "tRb3a0tA5IpehPs8"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ItemGrant",
+                "_id": "sEQz9c9XhWYjS9x5",
                 "configuration": {
                   "items": [
                     {
-                      "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4",
-                      "optional": false
+                      "optional": false,
+                      "uuid": "Compendium.dnd5e.classfeatures.mQNPg89YIs7g5tG4"
                     }
                   ],
                   "optional": false,
@@ -24981,54 +24201,53 @@ import axios from 'axios';
                     }
                   }
                 },
-                "value": {},
                 "level": 20,
                 "title": "Features",
-                "_id": "sEQz9c9XhWYjS9x5"
+                "type": "ItemGrant",
+                "value": {}
               },
               {
-                "type": "ScaleValue",
+                "_id": "MXFbf0nxMiyLdPbX",
                 "configuration": {
-                  "identifier": "die",
-                  "type": "dice",
                   "distance": {
                     "units": ""
                   },
+                  "identifier": "die",
                   "scale": {
                     "1": {
-                      "number": null,
                       "faces": 4,
-                      "modifiers": []
+                      "modifiers": [],
+                      "number": null
                     },
                     "5": {
-                      "number": null,
                       "faces": 6,
-                      "modifiers": []
+                      "modifiers": [],
+                      "number": null
                     },
                     "11": {
-                      "number": null,
                       "faces": 8,
-                      "modifiers": []
+                      "modifiers": [],
+                      "number": null
                     },
                     "17": {
-                      "number": null,
                       "faces": 10,
-                      "modifiers": []
+                      "modifiers": [],
+                      "number": null
                     }
-                  }
+                  },
+                  "type": "dice"
                 },
-                "value": {},
                 "title": "Martial Arts Die",
-                "_id": "MXFbf0nxMiyLdPbX"
+                "type": "ScaleValue",
+                "value": {}
               },
               {
-                "type": "ScaleValue",
+                "_id": "1OzfWDWCquoHMeX5",
                 "configuration": {
-                  "identifier": "unarmored-movement",
-                  "type": "distance",
                   "distance": {
                     "units": "ft"
                   },
+                  "identifier": "unarmored-movement",
                   "scale": {
                     "2": {
                       "value": 10
@@ -25045,306 +24264,244 @@ import axios from 'axios';
                     "18": {
                       "value": 30
                     }
-                  }
+                  },
+                  "type": "distance"
                 },
-                "value": {},
                 "title": "Unarmored Movement",
-                "_id": "1OzfWDWCquoHMeX5"
+                "type": "ScaleValue",
+                "value": {}
               },
               {
-                "type": "AbilityScoreImprovement",
+                "_id": "ofNSUhSHKhhDuPSR",
                 "configuration": {
-                  "points": 2,
-                  "fixed": {
-                    "str": 0,
-                    "dex": 0,
-                    "con": 0,
-                    "int": 0,
-                    "wis": 0,
-                    "cha": 0
-                  },
                   "cap": 2,
-                  "locked": []
-                },
-                "value": {
-                  "type": "asi"
+                  "fixed": {
+                    "cha": 0,
+                    "con": 0,
+                    "dex": 0,
+                    "int": 0,
+                    "str": 0,
+                    "wis": 0
+                  },
+                  "locked": [],
+                  "points": 2
                 },
                 "level": 4,
                 "title": "Ability Score Improvement",
-                "_id": "ofNSUhSHKhhDuPSR"
-              },
-              {
                 "type": "AbilityScoreImprovement",
-                "configuration": {
-                  "points": 2,
-                  "fixed": {
-                    "str": 0,
-                    "dex": 0,
-                    "con": 0,
-                    "int": 0,
-                    "wis": 0,
-                    "cha": 0
-                  },
-                  "cap": 2,
-                  "locked": []
-                },
                 "value": {
                   "type": "asi"
+                }
+              },
+              {
+                "_id": "s3t9o57hP6iUHirr",
+                "configuration": {
+                  "cap": 2,
+                  "fixed": {
+                    "cha": 0,
+                    "con": 0,
+                    "dex": 0,
+                    "int": 0,
+                    "str": 0,
+                    "wis": 0
+                  },
+                  "locked": [],
+                  "points": 2
                 },
                 "level": 8,
                 "title": "Ability Score Improvement",
-                "_id": "s3t9o57hP6iUHirr"
-              },
-              {
                 "type": "AbilityScoreImprovement",
-                "configuration": {
-                  "points": 2,
-                  "fixed": {
-                    "str": 0,
-                    "dex": 0,
-                    "con": 0,
-                    "int": 0,
-                    "wis": 0,
-                    "cha": 0
-                  },
-                  "cap": 2,
-                  "locked": []
-                },
                 "value": {
                   "type": "asi"
+                }
+              },
+              {
+                "_id": "O24MWOKc1ImsKaml",
+                "configuration": {
+                  "cap": 2,
+                  "fixed": {
+                    "cha": 0,
+                    "con": 0,
+                    "dex": 0,
+                    "int": 0,
+                    "str": 0,
+                    "wis": 0
+                  },
+                  "locked": [],
+                  "points": 2
                 },
                 "level": 12,
                 "title": "Ability Score Improvement",
-                "_id": "O24MWOKc1ImsKaml"
-              },
-              {
                 "type": "AbilityScoreImprovement",
-                "configuration": {
-                  "points": 2,
-                  "fixed": {
-                    "str": 0,
-                    "dex": 0,
-                    "con": 0,
-                    "int": 0,
-                    "wis": 0,
-                    "cha": 0
-                  },
-                  "cap": 2,
-                  "locked": []
-                },
                 "value": {
                   "type": "asi"
+                }
+              },
+              {
+                "_id": "xdqWoLtgO3uyl3nJ",
+                "configuration": {
+                  "cap": 2,
+                  "fixed": {
+                    "cha": 0,
+                    "con": 0,
+                    "dex": 0,
+                    "int": 0,
+                    "str": 0,
+                    "wis": 0
+                  },
+                  "locked": [],
+                  "points": 2
                 },
                 "level": 16,
                 "title": "Ability Score Improvement",
-                "_id": "xdqWoLtgO3uyl3nJ"
+                "type": "AbilityScoreImprovement",
+                "value": {
+                  "type": "asi"
+                }
               },
               {
                 "_id": "puDaUsYrlks0z5gm",
-                "type": "AbilityScoreImprovement",
                 "configuration": {
-                  "points": 2,
-                  "fixed": {
-                    "str": 0,
-                    "dex": 0,
-                    "con": 0,
-                    "int": 0,
-                    "wis": 0,
-                    "cha": 0
-                  },
                   "cap": 2,
-                  "locked": []
-                },
-                "value": {
-                  "type": "asi"
+                  "fixed": {
+                    "cha": 0,
+                    "con": 0,
+                    "dex": 0,
+                    "int": 0,
+                    "str": 0,
+                    "wis": 0
+                  },
+                  "locked": [],
+                  "points": 2
                 },
                 "level": 19,
-                "title": ""
+                "title": "",
+                "type": "AbilityScoreImprovement",
+                "value": {
+                  "type": "asi"
+                }
               },
               {
                 "_id": "0awj2yq115ev9u9o",
-                "type": "Subclass",
                 "configuration": {},
+                "level": 3,
+                "title": "Monastic Tradition",
+                "type": "Subclass",
                 "value": {
                   "document": null,
                   "uuid": null
-                },
-                "level": 3,
-                "title": "Monastic Tradition"
+                }
               }
             ],
+            "description": {
+              "chat": "",
+              "value": "<p>As a monk, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d8 per monk level<br /><strong>Hit Points at 1st Level:</strong> 8 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d8 (or 5) + your Constitution modifier per monk level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> None<br /><strong>Weapons:</strong> Simple weapons, shortswords<br /><strong>Tools:</strong> Choose one type of artisan's tools or one musical instrument<br /><strong>Saving Throws:</strong> Strength, Dexterity<br /><strong>Skills:</strong> Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth</p><h1>Monk Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Martial Arts</td><td>Ki Points</td><td>Unarmored Movement</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI]{Unarmored Defense}, @UUID[Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw]{Martial Arts}</td></tr><tr><td>2nd</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.10b6z2W1txNkrGP7]{Ki}, @UUID[Compendium.dnd5e.classfeatures.Item.zCeqyQ8uIPNdYJSW]{Unarmored Movement}</td></tr><tr><td>3rd</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.rtpQdX77dYWbDIOH]{Monastic Tradition}, @UUID[Compendium.dnd5e.classfeatures.Item.mzweVbnsJPQiVkAe]{Deflect Missiles}</td></tr><tr><td>4th</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}, @UUID[Compendium.dnd5e.classfeatures.Item.KQz9bqxVkXjDl8gK]{Slow Fall}</td></tr><tr><td>5th</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}, @UUID[Compendium.dnd5e.classfeatures.Item.pvRc6GAu1ok6zihC]{Stunning Strike}</td></tr><tr><td>6th</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft.</td><td><p>@UUID[Compendium.dnd5e.classfeatures.Item.7flZKruSSu6dHg6D]{Ki-Empowered Strikes},</p><p>Monastic Tradition feature</p></td></tr><tr><td>7th</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.a4P4DNMmH8CqSNkC]{Evasion}, @UUID[Compendium.dnd5e.classfeatures.Item.ZmC31XKS4YNENnoc]{Stillness of Mind}</td></tr><tr><td>8th</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft.</td><td>Unarmored Movement improvement</td></tr><tr><td>10th</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.bqWA7t9pDELbNRkp]{Purity of Body}</td></tr><tr><td>11th</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>12th</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.XjuGBeB8Y0C3A5D4]{Tongue of the Sun and Moon}</td></tr><tr><td>14th</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.7D2EkLdISwShEDlN]{Diamond Soul}</td></tr><tr><td>15th</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.gDH8PMrKvLHaNmEI]{Timeless Body}</td></tr><tr><td>16th</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft.</td><td>Monastic Tradition feature</td></tr><tr><td>18th</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.3jwFt3hSqDswBlOH]{Empty Body}</td></tr><tr><td>19th</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft.</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.mQNPg89YIs7g5tG4]{Perfect Self}</td></tr></tbody></table><h1>Monastic Traditions</h1><p>Three traditions of monastic pursuit are common in the monasteries scattered across the multiverse. Most monasteries practice one tradition exclusively, but a few honor the three traditions and instruct each monk according to his or her aptitude and interest. All three traditions rely on the same basic techniques, diverging as the student grows more adept. Thus, a monk need choose a tradition only upon reaching 3rd level.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.IvlpKMXX3PmW1NY2]{Way of the Open Hand}</p>"
+            },
+            "hd": {
+              "additional": "",
+              "denomination": "d8",
+              "spent": 0
+            },
+            "identifier": "monk",
+            "levels": 1,
+            "primaryAbility": {
+              "all": true,
+              "value": []
+            },
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
             "spellcasting": {
-              "progression": "none",
               "ability": "",
               "preparation": {
                 "formula": ""
-              }
+              },
+              "progression": "none"
             },
             "startingEquipment": [
               {
-                "type": "OR",
                 "_id": "5yj0P4r9teJDnDtd",
                 "group": "",
+                "requiresProficiency": false,
                 "sort": 100000,
-                "requiresProficiency": false
+                "type": "OR"
               },
               {
-                "type": "linked",
-                "count": null,
-                "key": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
                 "_id": "R5tuRtaPonfjQCVU",
-                "group": "5yj0P4r9teJDnDtd",
-                "sort": 200000,
-                "requiresProficiency": false
-              },
-              {
-                "type": "weapon",
                 "count": null,
-                "key": "simpleM",
-                "_id": "Mlf6kel8ws6xgDER",
                 "group": "5yj0P4r9teJDnDtd",
-                "sort": 300000,
-                "requiresProficiency": false
+                "key": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
+                "requiresProficiency": false,
+                "sort": 200000,
+                "type": "linked"
               },
               {
-                "type": "OR",
+                "_id": "Mlf6kel8ws6xgDER",
+                "count": null,
+                "group": "5yj0P4r9teJDnDtd",
+                "key": "simpleM",
+                "requiresProficiency": false,
+                "sort": 300000,
+                "type": "weapon"
+              },
+              {
                 "_id": "3TbVLmLPtjVaSh5O",
                 "group": "",
+                "requiresProficiency": false,
                 "sort": 400000,
-                "requiresProficiency": false
+                "type": "OR"
               },
               {
-                "type": "linked",
-                "count": null,
-                "key": "Compendium.dnd5e.items.Item.XY8b594Dn7plACLL",
                 "_id": "AvDYtl0uvQsDuhnb",
-                "group": "3TbVLmLPtjVaSh5O",
-                "sort": 500000,
-                "requiresProficiency": false
-              },
-              {
-                "type": "linked",
                 "count": null,
-                "key": "Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP",
-                "_id": "4QKQURCmIurbTAzp",
                 "group": "3TbVLmLPtjVaSh5O",
-                "sort": 600000,
-                "requiresProficiency": false
+                "key": "Compendium.dnd5e.items.Item.XY8b594Dn7plACLL",
+                "requiresProficiency": false,
+                "sort": 500000,
+                "type": "linked"
               },
               {
-                "type": "linked",
-                "count": 10,
-                "key": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+                "_id": "4QKQURCmIurbTAzp",
+                "count": null,
+                "group": "3TbVLmLPtjVaSh5O",
+                "key": "Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP",
+                "requiresProficiency": false,
+                "sort": 600000,
+                "type": "linked"
+              },
+              {
                 "_id": "AOYuulsULvsHbSLO",
+                "count": 10,
                 "group": "",
+                "key": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+                "requiresProficiency": false,
                 "sort": 700000,
-                "requiresProficiency": false
+                "type": "linked"
               }
             ],
-            "wealth": "5d4",
-            "primaryAbility": {
-              "value": [],
-              "all": true
-            },
-            "hd": {
-              "denomination": "d8",
-              "spent": 0,
-              "additional": ""
-            }
+            "wealth": "5d4"
           },
-          "effects": [],
-          "folder": "HQ1Oy7HkbnxnE63o",
-          "sort": 0,
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
+          "type": "class"
+        },
+        {
+          "_id": "CwgoTDXWCD7PknIN",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
-          }
-        },
-        {
-          "_id": "CwgoTDXWCD7PknIN",
-          "name": "Unarmored Defense",
-          "ownership": {
-            "default": 0
           },
-          "type": "feat",
-          "system": {
-            "description": {
-              "value": "<p>Beginning at 1st Level, while you are wearing no armor and not wielding a Shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "uses": {
-              "max": "",
-              "spent": 0,
-              "recovery": []
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "requirements": "Monk 1",
-            "properties": [],
-            "activities": {},
-            "enchant": {},
-            "prerequisites": {
-              "level": null,
-              "repeatable": false
-            },
-            "identifier": "unarmored-defense",
-            "advancement": [],
-            "crewed": false
-          },
-          "flags": {
-            "dnd5e": {
-              "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-              "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
-            }
-          },
-          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
           "effects": [
             {
               "_id": "R5ro4AuNjcdWD56O",
-              "changes": [
-                {
-                  "key": "system.attributes.ac.calc",
-                  "mode": 5,
-                  "value": "unarmoredMonk",
-                  "priority": null
-                }
-              ],
-              "disabled": false,
-              "duration": {
-                "startTime": 0,
-                "seconds": null,
-                "combat": null,
-                "rounds": null,
-                "turns": null,
-                "startRound": null,
-                "startTurn": null
-              },
-              "origin": "Item.cOdcNWy4hII029DT",
-              "transfer": true,
-              "flags": {},
-              "tint": "#ffffff",
-              "name": "Unarmored Defense",
-              "description": "",
-              "statuses": [],
               "_stats": {
                 "compendiumSource": null,
                 "duplicateSource": null,
@@ -25354,321 +24511,324 @@ import axios from 'axios';
                 "systemVersion": "5.0.4",
                 "lastModifiedBy": null
               },
+              "changes": [
+                {
+                  "key": "system.attributes.ac.calc",
+                  "mode": 5,
+                  "priority": null,
+                  "value": "unarmoredMonk"
+                }
+              ],
+              "description": "",
+              "disabled": false,
+              "duration": {
+                "combat": null,
+                "rounds": null,
+                "seconds": null,
+                "startRound": null,
+                "startTime": 0,
+                "startTurn": null,
+                "turns": null
+              },
+              "flags": {},
               "img": "icons/magic/control/silhouette-hold-change-blue.webp",
-              "type": "base",
+              "name": "Unarmored Defense",
+              "origin": "Item.cOdcNWy4hII029DT",
+              "sort": 0,
+              "statuses": [],
               "system": {},
-              "sort": 0
+              "tint": "#ffffff",
+              "transfer": true,
+              "type": "base"
             }
           ],
+          "flags": {
+            "dnd5e": {
+              "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+              "sourceId": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI"
+            }
+          },
           "folder": "TMmNG8ujFDBEWXRe",
-          "sort": 0,
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          }
-        },
-        {
-          "_id": "pchnXqd5C79fVlxy",
-          "name": "Martial Arts",
+          "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+          "name": "Unarmored Defense",
           "ownership": {
             "default": 0
           },
-          "type": "feat",
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property. You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>\n<ul>\n<li>\n<p>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</p>\n</li>\n<li>\n<p>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</p>\n</li>\n<li>\n<p>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</p>\n</li>\n</ul>\n<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "uses": {
-              "max": "",
-              "spent": 0,
-              "recovery": []
-            },
-            "type": {
-              "value": "class",
-              "subtype": ""
-            },
-            "requirements": "Monk 1",
-            "properties": [],
             "activities": {},
+            "advancement": [],
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>Beginning at 1st Level, while you are wearing no armor and not wielding a Shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>"
+            },
             "enchant": {},
+            "identifier": "unarmored-defense",
             "prerequisites": {
               "level": null,
               "repeatable": false
             },
-            "identifier": "martial-arts",
-            "advancement": [],
-            "crewed": false
-          },
-          "flags": {
-            "dnd5e": {
-              "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-              "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK"
+            "properties": [],
+            "requirements": "Monk 1",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "class"
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
             }
           },
-          "img": "icons/skills/melee/unarmed-punch-fist.webp",
-          "effects": [],
-          "folder": "TMmNG8ujFDBEWXRe",
-          "sort": 0,
+          "type": "feat"
+        },
+        {
+          "_id": "pchnXqd5C79fVlxy",
           "_stats": {
-            "duplicateSource": null,
             "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
+            "duplicateSource": null,
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
-          }
-        },
-        {
-          "name": "Hammer",
-          "type": "loot",
-          "img": "icons/tools/hand/hammer-cobbler-steel.webp",
-          "system": {
-            "description": {
-              "value": "<p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 3,
-              "units": "lb"
-            },
-            "price": {
-              "value": 1,
-              "denomination": "gp"
-            },
-            "rarity": "",
-            "identified": true,
-            "type": {
-              "value": "",
-              "subtype": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "properties": [],
-            "identifier": "hammer"
           },
           "effects": [],
-          "folder": "dlru9Hy74nSMv6fr",
+          "flags": {
+            "dnd5e": {
+              "advancementOrigin": "8Grf7ga6JcZF0X6x.n0q8XyiGA3vLPgpK",
+              "sourceId": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw"
+            }
+          },
+          "folder": "TMmNG8ujFDBEWXRe",
+          "img": "icons/skills/melee/unarmed-punch-fist.webp",
+          "name": "Martial Arts",
           "ownership": {
             "default": 0
           },
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "YJ1P3PnFKHOdQpaP",
-          "sort": 0
-        },
-        {
-          "name": "Tinderbox",
-          "type": "loot",
-          "img": "icons/sundries/lights/torch-black.webp",
+          "sort": 0,
           "system": {
+            "activities": {},
+            "advancement": [],
+            "crewed": false,
             "description": {
-              "value": "<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch - or anything else with abundant, exposed fuel - takes an action. Lighting any other fire takes 1 minute.</p>\n<p> </p>",
-              "chat": ""
+              "chat": "",
+              "value": "<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property. You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>\n<ul>\n<li>\n<p>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</p>\n</li>\n<li>\n<p>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</p>\n</li>\n<li>\n<p>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</p>\n</li>\n</ul>\n<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon.</p>"
             },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 1,
-              "units": "lb"
-            },
-            "price": {
-              "value": 5,
-              "denomination": "sp"
-            },
-            "rarity": "",
-            "identified": true,
-            "container": "8KWz5DJbWUpNWniP",
-            "type": {
-              "value": "",
-              "subtype": ""
-            },
-            "unidentified": {
-              "description": ""
+            "enchant": {},
+            "identifier": "martial-arts",
+            "prerequisites": {
+              "level": null,
+              "repeatable": false
             },
             "properties": [],
-            "identifier": "tinderbox"
-          },
-          "effects": [],
-          "folder": "Dx3K2y0J1wJUPP9m",
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "ownership": {
-            "default": 0
-          },
-          "_id": "DDnxRCeYUhXstWU8",
-          "sort": 0
-        },
-        {
-          "name": "Waterskin",
-          "type": "consumable",
-          "img": "icons/sundries/survival/wetskin-leather-purple.webp",
-          "system": {
-            "description": {
-              "value": "<p>A leather hide sewn into an enclosed skin which can contain up to 4 pints of liquid. It weighs 5 pounds when full; a pint of water is approximately 1 pound.</p>",
-              "chat": ""
-            },
+            "requirements": "Monk 1",
             "source": {
-              "custom": "",
               "book": "SRD 5.1",
-              "page": "",
+              "custom": "",
               "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
             },
-            "quantity": 1,
-            "weight": {
-              "value": 5,
-              "units": "lb"
+            "type": {
+              "subtype": "",
+              "value": "class"
             },
-            "price": {
-              "value": 2,
-              "denomination": "sp"
-            },
-            "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
             "uses": {
-              "max": "4",
+              "max": "",
               "recovery": [],
-              "autoDestroy": false,
               "spent": 0
+            }
+          },
+          "type": "feat"
+        },
+        {
+          "_id": "YJ1P3PnFKHOdQpaP",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "dlru9Hy74nSMv6fr",
+          "img": "icons/tools/hand/hammer-cobbler-steel.webp",
+          "name": "Hammer",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "container": null,
+            "description": {
+              "chat": "",
+              "value": "<p>A tool with a heavy metal head mounted at the end of its handle, used for jobs such as breaking things and driving in nails. </p>"
             },
-            "damage": {
-              "base": {
-                "number": null,
-                "denomination": null,
-                "types": [],
-                "custom": {
-                  "enabled": false
-                },
-                "scaling": {
-                  "number": 1
-                }
-              },
-              "replace": false
+            "identified": true,
+            "identifier": "hammer",
+            "price": {
+              "denomination": "gp",
+              "value": 1
             },
-            "container": "6OYR11aJX2dEVtOj",
             "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
             "type": {
-              "value": "food",
-              "subtype": ""
+              "subtype": "",
+              "value": ""
             },
             "unidentified": {
               "description": ""
             },
-            "magicalBonus": null,
+            "weight": {
+              "units": "lb",
+              "value": 3
+            }
+          },
+          "type": "loot"
+        },
+        {
+          "_id": "DDnxRCeYUhXstWU8",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "Dx3K2y0J1wJUPP9m",
+          "img": "icons/sundries/lights/torch-black.webp",
+          "name": "Tinderbox",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "container": "8KWz5DJbWUpNWniP",
+            "description": {
+              "chat": "",
+              "value": "<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch - or anything else with abundant, exposed fuel - takes an action. Lighting any other fire takes 1 minute.</p>\n<p> </p>"
+            },
+            "identified": true,
+            "identifier": "tinderbox",
+            "price": {
+              "denomination": "sp",
+              "value": 5
+            },
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": ""
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "weight": {
+              "units": "lb",
+              "value": 1
+            }
+          },
+          "type": "loot"
+        },
+        {
+          "_id": "5skKSSB4ShHbKoc8",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "Dx3K2y0J1wJUPP9m",
+          "img": "icons/sundries/survival/wetskin-leather-purple.webp",
+          "name": "Waterskin",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
             "activities": {
               "dnd5eactivity000": {
                 "_id": "dnd5eactivity000",
-                "type": "utility",
                 "activation": {
-                  "type": "action",
-                  "value": 1,
                   "condition": "",
-                  "override": false
+                  "override": false,
+                  "type": "action",
+                  "value": 1
                 },
                 "consumption": {
-                  "targets": [
-                    {
-                      "type": "itemUses",
-                      "target": "",
-                      "value": "1",
-                      "scaling": {
-                        "mode": "",
-                        "formula": ""
-                      }
-                    }
-                  ],
                   "scaling": {
                     "allowed": false,
                     "max": ""
                   },
-                  "spellSlot": true
+                  "spellSlot": true,
+                  "targets": [
+                    {
+                      "scaling": {
+                        "formula": "",
+                        "mode": ""
+                      },
+                      "target": "",
+                      "type": "itemUses",
+                      "value": "1"
+                    }
+                  ]
                 },
                 "description": {
                   "chatFlavor": ""
                 },
                 "duration": {
                   "concentration": false,
-                  "value": "",
-                  "units": "inst",
+                  "override": false,
                   "special": "",
-                  "override": false
+                  "units": "inst",
+                  "value": ""
                 },
                 "effects": [],
                 "range": {
-                  "units": "touch",
+                  "override": false,
                   "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
+                  "units": "touch"
                 },
                 "roll": {
                   "formula": "",
@@ -25676,162 +24836,122 @@ import axios from 'axios';
                   "prompt": false,
                   "visible": false
                 },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
                 },
-                "sort": 0
+                "type": "utility",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
+                }
               }
             },
             "attuned": false,
-            "identifier": "waterskin"
+            "attunement": "",
+            "container": "6OYR11aJX2dEVtOj",
+            "damage": {
+              "base": {
+                "custom": {
+                  "enabled": false
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "number": 1
+                },
+                "types": []
+              },
+              "replace": false
+            },
+            "description": {
+              "chat": "",
+              "value": "<p>A leather hide sewn into an enclosed skin which can contain up to 4 pints of liquid. It weighs 5 pounds when full; a pint of water is approximately 1 pound.</p>"
+            },
+            "equipped": false,
+            "identified": true,
+            "identifier": "waterskin",
+            "magicalBonus": null,
+            "price": {
+              "denomination": "sp",
+              "value": 2
+            },
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "food"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "autoDestroy": false,
+              "max": "4",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 5
+            }
           },
-          "effects": [],
-          "folder": "Dx3K2y0J1wJUPP9m",
-          "flags": {},
+          "type": "consumable"
+        },
+        {
+          "_id": "dDuMscUuMI2bTdkj",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
           },
+          "effects": [],
+          "flags": {},
+          "folder": "Dx3K2y0J1wJUPP9m",
+          "img": "icons/sundries/lights/torch-black.webp",
+          "name": "Torch",
           "ownership": {
             "default": 0
           },
-          "_id": "5skKSSB4ShHbKoc8",
-          "sort": 0
-        },
-        {
-          "name": "Torch",
-          "type": "consumable",
-          "img": "icons/sundries/lights/torch-black.webp",
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 10,
-            "weight": {
-              "value": 1,
-              "units": "lb"
-            },
-            "price": {
-              "value": 1,
-              "denomination": "cp"
-            },
-            "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
-            "uses": {
-              "max": "1",
-              "recovery": [],
-              "autoDestroy": false,
-              "spent": 0
-            },
-            "damage": {
-              "base": {
-                "number": null,
-                "denomination": null,
-                "bonus": "",
-                "types": [
-                  "fire"
-                ],
-                "custom": {
-                  "enabled": true,
-                  "formula": "1"
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              },
-              "replace": false
-            },
-            "container": "8KWz5DJbWUpNWniP",
-            "properties": [],
-            "type": {
-              "value": "trinket",
-              "subtype": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "magicalBonus": null,
             "activities": {
               "dnd5eactivity000": {
                 "_id": "dnd5eactivity000",
-                "type": "attack",
                 "activation": {
-                  "type": "action",
-                  "value": 1,
                   "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [
-                    {
-                      "type": "itemUses",
-                      "target": "",
-                      "value": "1",
-                      "scaling": {
-                        "mode": "",
-                        "formula": ""
-                      }
-                    }
-                  ],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "1",
-                  "units": "hour",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "units": "self",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "radius",
-                    "size": "40",
-                    "width": "",
-                    "height": "",
-                    "units": "ft"
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
+                  "override": false,
+                  "type": "action",
+                  "value": 1
                 },
                 "attack": {
                   "ability": "str",
@@ -25841,9 +24961,27 @@ import axios from 'axios';
                   },
                   "flat": false,
                   "type": {
-                    "value": "melee",
-                    "classification": "weapon"
+                    "classification": "weapon",
+                    "value": "melee"
                   }
+                },
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": [
+                    {
+                      "scaling": {
+                        "formula": "",
+                        "mode": ""
+                      },
+                      "target": "",
+                      "type": "itemUses",
+                      "value": "1"
+                    }
+                  ]
                 },
                 "damage": {
                   "critical": {
@@ -25852,427 +24990,446 @@ import axios from 'axios';
                   "includeBase": true,
                   "parts": [
                     {
-                      "number": null,
-                      "denomination": null,
                       "bonus": "",
-                      "types": [
-                        "fire"
-                      ],
                       "custom": {
                         "enabled": true,
                         "formula": "1"
                       },
+                      "denomination": null,
+                      "number": null,
                       "scaling": {
+                        "formula": "",
                         "mode": "whole",
-                        "number": null,
-                        "formula": ""
-                      }
+                        "number": null
+                      },
+                      "types": [
+                        "fire"
+                      ]
                     }
                   ]
                 },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
+                "description": {
+                  "chatFlavor": ""
                 },
-                "sort": 0
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "hour",
+                  "value": "1"
+                },
+                "effects": [],
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "self"
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "40",
+                    "type": "radius",
+                    "units": "ft",
+                    "width": ""
+                  }
+                },
+                "type": "attack",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
+                }
               }
             },
             "attuned": false,
-            "identifier": "torch"
-          },
-          "effects": [],
-          "folder": "Dx3K2y0J1wJUPP9m",
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "ownership": {
-            "default": 0
-          },
-          "_id": "dDuMscUuMI2bTdkj",
-          "sort": 0
-        },
-        {
-          "name": "Stick of Incense",
-          "type": "loot",
-          "img": "icons/consumables/grains/breadsticks-crackers-wrapped-ration-brown.webp",
-          "system": {
+            "attunement": "",
+            "container": "8KWz5DJbWUpNWniP",
+            "damage": {
+              "base": {
+                "bonus": "",
+                "custom": {
+                  "enabled": true,
+                  "formula": "1"
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "formula": "",
+                  "mode": "",
+                  "number": null
+                },
+                "types": [
+                  "fire"
+                ]
+              },
+              "replace": false
+            },
             "description": {
-              "value": "<p>When blocks of incense cannot be used or a cheaper alternative is required, people often use these to perfume the air, whether for pleasurable or religious purposes.</p>",
-              "chat": ""
+              "chat": "",
+              "value": "<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>"
             },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 5,
-            "weight": {
-              "value": 0,
-              "units": "lb"
-            },
-            "price": {
-              "value": 2,
-              "denomination": "sp"
-            },
-            "rarity": "",
+            "equipped": false,
             "identified": true,
+            "identifier": "torch",
+            "magicalBonus": null,
+            "price": {
+              "denomination": "cp",
+              "value": 1
+            },
+            "properties": [],
+            "quantity": 10,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
             "type": {
-              "value": "",
-              "subtype": ""
+              "subtype": "",
+              "value": "trinket"
             },
             "unidentified": {
               "description": ""
             },
-            "container": null,
-            "properties": [],
-            "identifier": "stick-of-incense"
+            "uses": {
+              "autoDestroy": false,
+              "max": "1",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 1
+            }
           },
-          "effects": [],
-          "folder": "dlru9Hy74nSMv6fr",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
+          "type": "consumable"
+        },
+        {
+          "_id": "nC6VcR5JAIbR4err",
           "_stats": {
-            "duplicateSource": null,
             "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
+            "duplicateSource": null,
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
           },
-          "_id": "nC6VcR5JAIbR4err",
-          "sort": 0
+          "effects": [],
+          "flags": {},
+          "folder": "dlru9Hy74nSMv6fr",
+          "img": "icons/consumables/grains/breadsticks-crackers-wrapped-ration-brown.webp",
+          "name": "Stick of Incense",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "container": null,
+            "description": {
+              "chat": "",
+              "value": "<p>When blocks of incense cannot be used or a cheaper alternative is required, people often use these to perfume the air, whether for pleasurable or religious purposes.</p>"
+            },
+            "identified": true,
+            "identifier": "stick-of-incense",
+            "price": {
+              "denomination": "sp",
+              "value": 2
+            },
+            "properties": [],
+            "quantity": 5,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": ""
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "weight": {
+              "units": "lb",
+              "value": 0
+            }
+          },
+          "type": "loot"
         },
         {
-          "name": "Dart",
-          "type": "weapon",
+          "_id": "WeKJI3gPUAU52WAX",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "MLMTCAvKsuFE3vYA",
           "img": "icons/weapons/thrown/dart-feathered.webp",
+          "name": "Dart",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>A small thrown implement crafted with a short wooden shaft and crossed feathres with a sharp wooden or metal tip. Darts can be thrown with sufficient force to puncture the skin.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 10,
-            "weight": {
-              "value": 0.25,
-              "units": "lb"
-            },
-            "price": {
-              "value": 5,
-              "denomination": "cp"
-            },
-            "attunement": "",
-            "equipped": true,
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "range": {
-              "value": 20,
-              "long": 60,
-              "units": "ft",
-              "reach": null
-            },
-            "uses": {
-              "max": "",
-              "recovery": [],
-              "spent": 0
-            },
-            "damage": {
-              "versatile": {
-                "number": null,
-                "denomination": null,
-                "bonus": "",
-                "types": [],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "activation": {
+                  "condition": "",
+                  "override": false,
+                  "type": "action",
+                  "value": 1
                 },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              },
-              "base": {
-                "number": 1,
-                "denomination": 4,
-                "bonus": "",
-                "types": [
-                  "piercing"
-                ],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
+                "attack": {
+                  "ability": "",
+                  "bonus": "",
+                  "critical": {
+                    "threshold": null
+                  },
+                  "flat": false,
+                  "type": {
+                    "classification": "weapon",
+                    "value": "ranged"
+                  }
                 },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": []
+                },
+                "damage": {
+                  "critical": {
+                    "bonus": ""
+                  },
+                  "includeBase": true,
+                  "parts": []
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "inst",
+                  "value": ""
+                },
+                "effects": [],
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "ft",
+                  "value": "20"
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
+                },
+                "type": "attack",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
                 }
               }
             },
+            "ammunition": {},
             "armor": {
               "value": 10
             },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
+            "attuned": false,
+            "attunement": "",
+            "container": null,
+            "cover": null,
+            "crewed": false,
+            "damage": {
+              "base": {
+                "bonus": "",
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "denomination": 4,
+                "number": 1,
+                "scaling": {
+                  "formula": "",
+                  "mode": "",
+                  "number": null
+                },
+                "types": [
+                  "piercing"
+                ]
+              },
+              "versatile": {
+                "bonus": "",
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "formula": "",
+                  "mode": "",
+                  "number": null
+                },
+                "types": []
+              }
             },
+            "description": {
+              "chat": "",
+              "value": "<p>A small thrown implement crafted with a short wooden shaft and crossed feathres with a sharp wooden or metal tip. Darts can be thrown with sufficient force to puncture the skin.</p>"
+            },
+            "equipped": true,
+            "hp": {
+              "conditions": "",
+              "dt": null,
+              "max": 0,
+              "value": 0
+            },
+            "identified": true,
+            "identifier": "dart",
+            "magicalBonus": null,
+            "mastery": "",
+            "price": {
+              "denomination": "cp",
+              "value": 5
+            },
+            "proficient": null,
             "properties": [
               "fin",
               "thr"
             ],
-            "proficient": null,
+            "quantity": 10,
+            "range": {
+              "long": 60,
+              "reach": null,
+              "units": "ft",
+              "value": 20
+            },
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
             "type": {
-              "value": "simpleR",
-              "baseItem": "dart"
+              "baseItem": "dart",
+              "value": "simpleR"
             },
             "unidentified": {
               "description": ""
             },
-            "container": null,
-            "crewed": false,
-            "magicalBonus": null,
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "attack",
-                "activation": {
-                  "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "value": "20",
-                  "units": "ft",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "attack": {
-                  "ability": "",
-                  "bonus": "",
-                  "critical": {
-                    "threshold": null
-                  },
-                  "flat": false,
-                  "type": {
-                    "value": "ranged",
-                    "classification": "weapon"
-                  }
-                },
-                "damage": {
-                  "critical": {
-                    "bonus": ""
-                  },
-                  "includeBase": true,
-                  "parts": []
-                },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
-                },
-                "sort": 0
-              }
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
             },
-            "attuned": false,
-            "ammunition": {},
-            "mastery": "",
-            "identifier": "dart"
+            "weight": {
+              "units": "lb",
+              "value": 0.25
+            }
           },
-          "effects": [],
-          "folder": "MLMTCAvKsuFE3vYA",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
+          "type": "weapon"
+        },
+        {
+          "_id": "1F73YcUHbZMgePAD",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
           },
-          "_id": "WeKJI3gPUAU52WAX",
-          "sort": 0
-        },
-        {
-          "name": "Common Clothes",
-          "type": "equipment",
+          "effects": [],
+          "flags": {},
+          "folder": "aJgMxnZED9XdoN2W",
           "img": "icons/equipment/chest/shirt-collared-brown.webp",
+          "name": "Common Clothes",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>Clothes worn by most commoners.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 3,
-              "units": "lb"
-            },
-            "price": {
-              "value": 5,
-              "denomination": "sp"
-            },
-            "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "uses": {
-              "max": "",
-              "recovery": [],
-              "spent": 0
-            },
-            "armor": {
-              "value": null,
-              "dex": null,
-              "magicalBonus": null
-            },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
-            },
-            "speed": {
-              "value": null,
-              "conditions": ""
-            },
-            "strength": null,
-            "proficient": null,
-            "type": {
-              "value": "clothing",
-              "baseItem": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "crewed": false,
-            "properties": [],
             "activities": {
               "dnd5eactivity000": {
                 "_id": "dnd5eactivity000",
-                "type": "utility",
                 "activation": {
-                  "type": "",
-                  "value": null,
                   "condition": "",
-                  "override": false
+                  "override": false,
+                  "type": "",
+                  "value": null
                 },
                 "consumption": {
-                  "targets": [],
                   "scaling": {
                     "allowed": false,
                     "max": ""
                   },
-                  "spellSlot": true
+                  "spellSlot": true,
+                  "targets": []
                 },
                 "description": {
                   "chatFlavor": ""
                 },
                 "duration": {
                   "concentration": false,
-                  "value": "",
-                  "units": "inst",
+                  "override": false,
                   "special": "",
-                  "override": false
+                  "units": "inst",
+                  "value": ""
                 },
                 "effects": [],
                 "range": {
-                  "units": "self",
+                  "override": false,
                   "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
+                  "units": "self"
                 },
                 "roll": {
                   "formula": "",
@@ -26280,511 +25437,394 @@ import axios from 'axios';
                   "prompt": false,
                   "visible": false
                 },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
                 },
-                "sort": 0
+                "type": "utility",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
+                }
               }
             },
+            "armor": {
+              "dex": null,
+              "magicalBonus": null,
+              "value": null
+            },
             "attuned": false,
-            "identifier": "common-clothes"
+            "attunement": "",
+            "container": null,
+            "cover": null,
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>Clothes worn by most commoners.</p>"
+            },
+            "equipped": false,
+            "hp": {
+              "conditions": "",
+              "dt": null,
+              "max": 0,
+              "value": 0
+            },
+            "identified": true,
+            "identifier": "common-clothes",
+            "price": {
+              "denomination": "sp",
+              "value": 5
+            },
+            "proficient": null,
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "speed": {
+              "conditions": "",
+              "value": null
+            },
+            "strength": null,
+            "type": {
+              "baseItem": "",
+              "value": "clothing"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 3
+            }
           },
-          "effects": [],
-          "folder": "aJgMxnZED9XdoN2W",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
+          "type": "equipment"
+        },
+        {
+          "_id": "LQhGSEatJ3VK7oqW",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
           },
-          "_id": "1F73YcUHbZMgePAD",
-          "sort": 0
-        },
-        {
-          "name": "Rations",
-          "type": "consumable",
+          "effects": [],
+          "flags": {},
+          "folder": "Dx3K2y0J1wJUPP9m",
           "img": "icons/consumables/grains/bread-loaf-boule-rustic-brown.webp",
+          "name": "Rations",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>",
-              "chat": ""
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "activation": {
+                  "condition": "",
+                  "override": false,
+                  "type": "action",
+                  "value": 1
+                },
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": [
+                    {
+                      "scaling": {
+                        "formula": "",
+                        "mode": ""
+                      },
+                      "target": "",
+                      "type": "itemUses",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "inst",
+                  "value": ""
+                },
+                "effects": [],
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "touch"
+                },
+                "roll": {
+                  "formula": "",
+                  "name": "",
+                  "prompt": false,
+                  "visible": false
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "1",
+                    "special": "",
+                    "type": "creature"
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
+                },
+                "type": "utility",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
+                }
+              }
             },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 10,
-            "weight": {
-              "value": 2,
-              "units": "lb"
-            },
-            "price": {
-              "value": 5,
-              "denomination": "sp"
-            },
+            "attuned": false,
             "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
-            "uses": {
-              "max": "1",
-              "recovery": [],
-              "autoDestroy": true,
-              "spent": 0
-            },
+            "container": "XY8b594Dn7plACLL",
             "damage": {
               "base": {
-                "number": null,
-                "denomination": null,
-                "types": [],
                 "custom": {
                   "enabled": false
                 },
+                "denomination": null,
+                "number": null,
                 "scaling": {
                   "number": 1
-                }
+                },
+                "types": []
               },
               "replace": false
             },
-            "container": "XY8b594Dn7plACLL",
-            "properties": [],
-            "type": {
-              "value": "food",
-              "subtype": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "magicalBonus": null,
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "utility",
-                "activation": {
-                  "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [
-                    {
-                      "type": "itemUses",
-                      "target": "",
-                      "value": "1",
-                      "scaling": {
-                        "mode": "",
-                        "formula": ""
-                      }
-                    }
-                  ],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "units": "touch",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "1",
-                    "type": "creature",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "roll": {
-                  "formula": "",
-                  "name": "",
-                  "prompt": false,
-                  "visible": false
-                },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
-                },
-                "sort": 0
-              }
-            },
-            "attuned": false,
-            "identifier": "rations"
-          },
-          "effects": [],
-          "folder": "Dx3K2y0J1wJUPP9m",
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "ownership": {
-            "default": 0
-          },
-          "_id": "LQhGSEatJ3VK7oqW",
-          "sort": 0
-        },
-        {
-          "name": "Pouch",
-          "type": "container",
-          "img": "icons/containers/bags/pouch-rounded-leather-gold-tan.webp",
-          "system": {
             "description": {
-              "value": "<p>A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch. A pouch can hold up to ⅕ cubic foot or 6 pounds of gear.</p>",
-              "chat": ""
+              "chat": "",
+              "value": "<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>"
             },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 1,
-              "units": "lb"
-            },
-            "price": {
-              "value": 5,
-              "denomination": "sp"
-            },
-            "attunement": "",
             "equipped": false,
-            "rarity": "",
             "identified": true,
-            "capacity": {
-              "weight": {
-                "value": 6,
-                "units": "lb"
-              },
-              "volume": {
-                "units": "cubicFoot"
-              }
-            },
-            "currency": {
-              "cp": 0,
-              "sp": 0,
-              "ep": 0,
-              "gp": 0,
-              "pp": 0
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "properties": [],
-            "attuned": false,
-            "identifier": "pouch"
-          },
-          "effects": [],
-          "folder": "PgtyWdfkDTDbc0ov",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "1kqMwSwjfErSFNvl",
-          "sort": 0
-        },
-        {
-          "name": "Crowbar",
-          "type": "loot",
-          "img": "icons/tools/hand/pickaxe-steel-white.webp",
-          "system": {
-            "description": {
-              "value": "<p>Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 5,
-              "units": "lb"
-            },
+            "identifier": "rations",
+            "magicalBonus": null,
             "price": {
-              "value": 2,
-              "denomination": "gp"
+              "denomination": "sp",
+              "value": 5
             },
+            "properties": [],
+            "quantity": 10,
             "rarity": "",
-            "identified": true,
-            "container": "XY8b594Dn7plACLL",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
             "type": {
-              "value": "",
-              "subtype": ""
+              "subtype": "",
+              "value": "food"
             },
             "unidentified": {
               "description": ""
-            },
-            "properties": [],
-            "identifier": "crowbar"
-          },
-          "effects": [],
-          "folder": "Dx3K2y0J1wJUPP9m",
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "ownership": {
-            "default": 0
-          },
-          "_id": "zF5L4xHnJBC7b2iM",
-          "sort": 0
-        },
-        {
-          "name": "Unarmed Strike",
-          "type": "weapon",
-          "img": "icons/skills/melee/unarmed-punch-fist.webp",
-          "system": {
-            "description": {
-              "value": "<p>A  punch, kick, head-butt, or similar forceful blow (none of which count as weapons). On a hit, an unarmed strike deals bludgeoning damage equal to 1 + your Strength modifier. You are proficient with your unarmed strikes.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 0,
-              "units": "lb"
-            },
-            "price": {
-              "value": 0,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "equipped": true,
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "range": {
-              "value": null,
-              "long": null,
-              "units": "ft",
-              "reach": null
             },
             "uses": {
-              "max": "",
+              "autoDestroy": true,
+              "max": "1",
               "recovery": [],
               "spent": 0
             },
-            "damage": {
-              "versatile": {
-                "number": null,
-                "denomination": null,
-                "bonus": "",
-                "types": [],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
+            "weight": {
+              "units": "lb",
+              "value": 2
+            }
+          },
+          "type": "consumable"
+        },
+        {
+          "_id": "1kqMwSwjfErSFNvl",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "PgtyWdfkDTDbc0ov",
+          "img": "icons/containers/bags/pouch-rounded-leather-gold-tan.webp",
+          "name": "Pouch",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "attuned": false,
+            "attunement": "",
+            "capacity": {
+              "volume": {
+                "units": "cubicFoot"
               },
-              "base": {
-                "number": null,
-                "denomination": null,
-                "bonus": "",
-                "types": [
-                  "bludgeoning"
-                ],
-                "custom": {
-                  "enabled": true,
-                  "formula": "@scale.monk.die"
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
+              "weight": {
+                "units": "lb",
+                "value": 6
               }
             },
-            "armor": {
-              "value": 10
+            "container": null,
+            "currency": {
+              "cp": 0,
+              "ep": 0,
+              "gp": 0,
+              "pp": 0,
+              "sp": 0
             },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
+            "description": {
+              "chat": "",
+              "value": "<p>A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch. A pouch can hold up to ⅕ cubic foot or 6 pounds of gear.</p>"
             },
-            "properties": [
-              "fin"
-            ],
-            "proficient": null,
-            "type": {
-              "value": "simpleM",
-              "baseItem": ""
+            "equipped": false,
+            "identified": true,
+            "identifier": "pouch",
+            "price": {
+              "denomination": "sp",
+              "value": 5
+            },
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
             },
             "unidentified": {
               "description": ""
             },
-            "container": null,
-            "crewed": false,
-            "magicalBonus": null,
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "attack",
-                "activation": {
-                  "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "value": "5",
-                  "units": "ft",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "attack": {
-                  "ability": "",
-                  "bonus": "",
-                  "critical": {
-                    "threshold": null
-                  },
-                  "flat": false,
-                  "type": {
-                    "value": "melee",
-                    "classification": "unarmed"
-                  }
-                },
-                "damage": {
-                  "critical": {
-                    "bonus": ""
-                  },
-                  "includeBase": true,
-                  "parts": []
-                },
-                "uses": {
-                  "spent": 0,
-                  "recovery": [],
-                  "max": ""
-                },
-                "sort": 0,
-                "name": ""
-              }
-            },
-            "attuned": false,
-            "ammunition": {},
-            "identifier": "unarmed-strike",
-            "mastery": ""
+            "weight": {
+              "units": "lb",
+              "value": 1
+            }
+          },
+          "type": "container"
+        },
+        {
+          "_id": "zF5L4xHnJBC7b2iM",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
           },
           "effects": [],
-          "folder": "MLMTCAvKsuFE3vYA",
+          "flags": {},
+          "folder": "Dx3K2y0J1wJUPP9m",
+          "img": "icons/tools/hand/pickaxe-steel-white.webp",
+          "name": "Crowbar",
           "ownership": {
             "default": 0
           },
+          "sort": 0,
+          "system": {
+            "container": "XY8b594Dn7plACLL",
+            "description": {
+              "chat": "",
+              "value": "<p>Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.</p>"
+            },
+            "identified": true,
+            "identifier": "crowbar",
+            "price": {
+              "denomination": "gp",
+              "value": 2
+            },
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": ""
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "weight": {
+              "units": "lb",
+              "value": 5
+            }
+          },
+          "type": "loot"
+        },
+        {
+          "_id": "g7U3OAXVcoI4lwzf",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
           "flags": {
             "dnd5e": {
               "last": {
@@ -26801,867 +25841,22 @@ import axios from 'axios';
               }
             }
           },
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "g7U3OAXVcoI4lwzf",
-          "sort": 0
-        },
-        {
-          "name": "Backpack",
-          "type": "container",
-          "img": "icons/containers/bags/pack-leather-white-tan.webp",
-          "system": {
-            "description": {
-              "value": "<p>A backpack can hold one cubic foot or 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 5,
-              "units": "lb"
-            },
-            "price": {
-              "value": 2,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
-            "capacity": {
-              "weight": {
-                "value": 30,
-                "units": "lb"
-              },
-              "volume": {
-                "units": "cubicFoot"
-              }
-            },
-            "currency": {
-              "cp": 0,
-              "sp": 0,
-              "ep": 0,
-              "gp": 0,
-              "pp": 0
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "properties": [],
-            "attuned": false,
-            "identifier": "backpack"
-          },
-          "effects": [],
-          "folder": "PgtyWdfkDTDbc0ov",
+          "folder": "MLMTCAvKsuFE3vYA",
+          "img": "icons/skills/melee/unarmed-punch-fist.webp",
+          "name": "Unarmed Strike",
           "ownership": {
             "default": 0
           },
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "WcROGD590imVj9qp",
-          "sort": 0
-        },
-        {
-          "name": "Piton",
-          "type": "consumable",
-          "img": "icons/tools/fasteners/nail-steel.webp",
+          "sort": 0,
           "system": {
-            "description": {
-              "value": "<p>A metal spike that is drive into a seam in a climbing surface with a climbing hammer. It can also be used like iron spikes to block doors in a pinch.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 10,
-            "weight": {
-              "value": 0.25,
-              "units": "lb"
-            },
-            "price": {
-              "value": 5,
-              "denomination": "cp"
-            },
-            "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
-            "uses": {
-              "max": "1",
-              "recovery": [],
-              "autoDestroy": false,
-              "spent": 0
-            },
-            "damage": {
-              "base": {
-                "number": null,
-                "denomination": null,
-                "types": [],
-                "custom": {
-                  "enabled": false
-                },
-                "scaling": {
-                  "number": 1
-                }
-              },
-              "replace": false
-            },
-            "container": "xsB7Y2WI476kvOt4",
-            "properties": [],
-            "type": {
-              "value": "trinket",
-              "subtype": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "magicalBonus": null,
             "activities": {
               "dnd5eactivity000": {
                 "_id": "dnd5eactivity000",
-                "type": "utility",
                 "activation": {
+                  "condition": "",
+                  "override": false,
                   "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [
-                    {
-                      "type": "itemUses",
-                      "target": "",
-                      "value": "1",
-                      "scaling": {
-                        "mode": "",
-                        "formula": ""
-                      }
-                    }
-                  ],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "value": "5",
-                  "units": "ft",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "roll": {
-                  "formula": "",
-                  "name": "",
-                  "prompt": false,
-                  "visible": false
-                },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
-                },
-                "sort": 0
-              }
-            },
-            "attuned": false,
-            "identifier": "piton"
-          },
-          "effects": [],
-          "folder": "Dx3K2y0J1wJUPP9m",
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "ownership": {
-            "default": 0
-          },
-          "_id": "8UQanAvHUIHZXp0O",
-          "sort": 0
-        },
-        {
-          "name": "Hempen Rope (50 ft.)",
-          "type": "consumable",
-          "img": "icons/sundries/survival/rope-wrapped-brown.webp",
-          "system": {
-            "description": {
-              "value": "<p>Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 10,
-              "units": "lb"
-            },
-            "price": {
-              "value": 1,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
-            "uses": {
-              "max": "1",
-              "recovery": [],
-              "autoDestroy": false,
-              "spent": 0
-            },
-            "damage": {
-              "base": {
-                "number": null,
-                "denomination": null,
-                "types": [],
-                "custom": {
-                  "enabled": false
-                },
-                "scaling": {
-                  "number": 1
-                }
-              },
-              "replace": false
-            },
-            "type": {
-              "value": "trinket",
-              "subtype": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "properties": [],
-            "magicalBonus": null,
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "check",
-                "activation": {
-                  "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [
-                    {
-                      "type": "itemUses",
-                      "target": "",
-                      "scaling": {},
-                      "value": "1"
-                    }
-                  ],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "units": "self",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "check": {
-                  "ability": "str",
-                  "dc": {
-                    "calculation": "",
-                    "formula": "17"
-                  },
-                  "associated": []
-                },
-                "uses": {
-                  "spent": 0,
-                  "recovery": [],
-                  "max": ""
-                },
-                "sort": 0,
-                "name": "Burst"
-              }
-            },
-            "attuned": false,
-            "identifier": "hempen-rope-50-ft"
-          },
-          "effects": [],
-          "folder": "UnUwTG4YIgd0kaUJ",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {
-            "dnd5e": {
-              "riders": {
-                "activity": [],
-                "effect": []
-              }
-            }
-          },
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "irCoxLHje0eA6Qmu",
-          "sort": 0
-        },
-        {
-          "name": "Reliquary",
-          "type": "equipment",
-          "img": "icons/containers/chest/chest-reinforced-steel-red.webp",
-          "system": {
-            "description": {
-              "value": "<p>A tiny box or other container holding a fragment of a precious relic, saint, or other historical figure that dedicated their life to walk the path of a true believer. A deity imbues the bearer of this artifact with the ability to call forth their power and in doing so spread the faith once more.</p>\n<p><strong>Spellcasting Focus</strong>. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 2,
-              "units": "lb"
-            },
-            "price": {
-              "value": 5,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "equipped": false,
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "uses": {
-              "max": "",
-              "recovery": [],
-              "spent": 0
-            },
-            "armor": {
-              "value": null,
-              "dex": null,
-              "magicalBonus": null
-            },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
-            },
-            "speed": {
-              "value": null,
-              "conditions": ""
-            },
-            "strength": null,
-            "proficient": null,
-            "type": {
-              "value": "trinket",
-              "baseItem": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "crewed": false,
-            "properties": [
-              "foc"
-            ],
-            "activities": {},
-            "attuned": false,
-            "identifier": "reliquary"
-          },
-          "effects": [],
-          "folder": "xedn1r43VWuEBcli",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {
-            "dnd5e": {
-              "riders": {
-                "activity": [],
-                "effect": []
-              }
-            }
-          },
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "GfKuJYLFfw00oW9R",
-          "sort": 0
-        },
-        {
-          "name": "Vestments",
-          "type": "equipment",
-          "img": "icons/equipment/back/mantle-collared-black.webp",
-          "system": {
-            "description": {
-              "value": "<p>Simple or ostentacious wear, often used by priests and other religious figures for use in rituals and ceremonies.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 4,
-              "units": "lb"
-            },
-            "price": {
-              "value": 1,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "equipped": true,
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "uses": {
-              "max": "",
-              "recovery": [],
-              "spent": 0
-            },
-            "armor": {
-              "value": null,
-              "dex": null,
-              "magicalBonus": null
-            },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
-            },
-            "speed": {
-              "value": null,
-              "conditions": ""
-            },
-            "strength": null,
-            "proficient": null,
-            "type": {
-              "value": "clothing",
-              "baseItem": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "crewed": false,
-            "properties": [],
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "utility",
-                "activation": {
-                  "type": "",
-                  "value": null,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "units": "self",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
-                },
-                "roll": {
-                  "formula": "",
-                  "name": "",
-                  "prompt": false,
-                  "visible": false
-                },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
-                },
-                "sort": 0
-              }
-            },
-            "attuned": false,
-            "identifier": "vestments"
-          },
-          "effects": [],
-          "folder": "aJgMxnZED9XdoN2W",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "NsNcJBUG5ajbk7sG",
-          "sort": 0
-        },
-        {
-          "name": "Prayer Book",
-          "type": "loot",
-          "img": "icons/sundries/books/book-purple-cross.webp",
-          "system": {
-            "description": {
-              "value": "<p>A book containing prayers and incantations dedicated to a specific power for the faithful to follow.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 5,
-              "units": "lb"
-            },
-            "price": {
-              "value": 25,
-              "denomination": "gp"
-            },
-            "rarity": "",
-            "identified": true,
-            "type": {
-              "value": "",
-              "subtype": ""
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "properties": [],
-            "identifier": "prayer-book"
-          },
-          "effects": [],
-          "folder": "dlru9Hy74nSMv6fr",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
-          "_stats": {
-            "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
-            "exportSource": null,
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "lastModifiedBy": null
-          },
-          "_id": "XbF0CTipyqbMKHsB",
-          "sort": 0
-        },
-        {
-          "name": "Shortsword",
-          "type": "weapon",
-          "img": "icons/weapons/swords/sword-guard-worn-purple.webp",
-          "system": {
-            "description": {
-              "value": "<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>",
-              "chat": ""
-            },
-            "source": {
-              "custom": "",
-              "book": "SRD 5.1",
-              "page": "",
-              "license": "CC-BY-4.0",
-              "rules": "2014",
-              "revision": 1
-            },
-            "quantity": 1,
-            "weight": {
-              "value": 2,
-              "units": "lb"
-            },
-            "price": {
-              "value": 10,
-              "denomination": "gp"
-            },
-            "attunement": "",
-            "equipped": true,
-            "rarity": "",
-            "identified": true,
-            "cover": null,
-            "range": {
-              "value": null,
-              "long": null,
-              "units": "ft",
-              "reach": null
-            },
-            "uses": {
-              "max": "",
-              "recovery": [],
-              "spent": 0
-            },
-            "damage": {
-              "versatile": {
-                "number": null,
-                "denomination": null,
-                "bonus": "",
-                "types": [],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              },
-              "base": {
-                "number": 1,
-                "denomination": 6,
-                "bonus": "",
-                "types": [
-                  "piercing"
-                ],
-                "custom": {
-                  "enabled": false,
-                  "formula": ""
-                },
-                "scaling": {
-                  "mode": "",
-                  "number": null,
-                  "formula": ""
-                }
-              }
-            },
-            "armor": {
-              "value": 10
-            },
-            "hp": {
-              "value": 0,
-              "max": 0,
-              "dt": null,
-              "conditions": ""
-            },
-            "properties": [
-              "fin",
-              "lgt"
-            ],
-            "proficient": null,
-            "type": {
-              "value": "martialM",
-              "baseItem": "shortsword"
-            },
-            "unidentified": {
-              "description": ""
-            },
-            "container": null,
-            "crewed": false,
-            "magicalBonus": null,
-            "activities": {
-              "dnd5eactivity000": {
-                "_id": "dnd5eactivity000",
-                "type": "attack",
-                "activation": {
-                  "type": "action",
-                  "value": 1,
-                  "condition": "",
-                  "override": false
-                },
-                "consumption": {
-                  "targets": [],
-                  "scaling": {
-                    "allowed": false,
-                    "max": ""
-                  },
-                  "spellSlot": true
-                },
-                "description": {
-                  "chatFlavor": ""
-                },
-                "duration": {
-                  "concentration": false,
-                  "value": "",
-                  "units": "inst",
-                  "special": "",
-                  "override": false
-                },
-                "effects": [],
-                "range": {
-                  "value": "5",
-                  "units": "ft",
-                  "special": "",
-                  "override": false
-                },
-                "target": {
-                  "template": {
-                    "count": "",
-                    "contiguous": false,
-                    "type": "",
-                    "size": "",
-                    "width": "",
-                    "height": "",
-                    "units": ""
-                  },
-                  "affects": {
-                    "count": "",
-                    "type": "",
-                    "choice": false,
-                    "special": ""
-                  },
-                  "prompt": true,
-                  "override": false
+                  "value": 1
                 },
                 "attack": {
                   "ability": "",
@@ -27671,9 +25866,17 @@ import axios from 'axios';
                   },
                   "flat": false,
                   "type": {
-                    "value": "melee",
-                    "classification": "weapon"
+                    "classification": "unarmed",
+                    "value": "melee"
                   }
+                },
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": []
                 },
                 "damage": {
                   "critical": {
@@ -27682,39 +25885,1833 @@ import axios from 'axios';
                   "includeBase": true,
                   "parts": []
                 },
-                "uses": {
-                  "spent": 0,
-                  "recovery": []
+                "description": {
+                  "chatFlavor": ""
                 },
-                "sort": 0
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "inst",
+                  "value": ""
+                },
+                "effects": [],
+                "name": "",
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "ft",
+                  "value": "5"
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
+                },
+                "type": "attack",
+                "uses": {
+                  "max": "",
+                  "recovery": [],
+                  "spent": 0
+                }
               }
             },
-            "attuned": false,
             "ammunition": {},
-            "identifier": "shortsword"
+            "armor": {
+              "value": 10
+            },
+            "attuned": false,
+            "attunement": "",
+            "container": null,
+            "cover": null,
+            "crewed": false,
+            "damage": {
+              "base": {
+                "bonus": "",
+                "custom": {
+                  "enabled": true,
+                  "formula": "@scale.monk.die"
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "formula": "",
+                  "mode": "",
+                  "number": null
+                },
+                "types": [
+                  "bludgeoning"
+                ]
+              },
+              "versatile": {
+                "bonus": "",
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "formula": "",
+                  "mode": "",
+                  "number": null
+                },
+                "types": []
+              }
+            },
+            "description": {
+              "chat": "",
+              "value": "<p>A  punch, kick, head-butt, or similar forceful blow (none of which count as weapons). On a hit, an unarmed strike deals bludgeoning damage equal to 1 + your Strength modifier. You are proficient with your unarmed strikes.</p>"
+            },
+            "equipped": true,
+            "hp": {
+              "conditions": "",
+              "dt": null,
+              "max": 0,
+              "value": 0
+            },
+            "identified": true,
+            "identifier": "unarmed-strike",
+            "magicalBonus": null,
+            "mastery": "",
+            "price": {
+              "denomination": "gp",
+              "value": 0
+            },
+            "proficient": null,
+            "properties": [
+              "fin"
+            ],
+            "quantity": 1,
+            "range": {
+              "long": null,
+              "reach": null,
+              "units": "ft",
+              "value": null
+            },
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "baseItem": "",
+              "value": "simpleM"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 0
+            }
           },
-          "effects": [],
-          "folder": "MLMTCAvKsuFE3vYA",
-          "ownership": {
-            "default": 0
-          },
-          "flags": {},
+          "type": "weapon"
+        },
+        {
+          "_id": "WcROGD590imVj9qp",
           "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
             "duplicateSource": null,
-            "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
             "exportSource": null,
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "lastModifiedBy": null
           },
+          "effects": [],
+          "flags": {},
+          "folder": "PgtyWdfkDTDbc0ov",
+          "img": "icons/containers/bags/pack-leather-white-tan.webp",
+          "name": "Backpack",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "attuned": false,
+            "attunement": "",
+            "capacity": {
+              "volume": {
+                "units": "cubicFoot"
+              },
+              "weight": {
+                "units": "lb",
+                "value": 30
+              }
+            },
+            "container": null,
+            "currency": {
+              "cp": 0,
+              "ep": 0,
+              "gp": 0,
+              "pp": 0,
+              "sp": 0
+            },
+            "description": {
+              "chat": "",
+              "value": "<p>A backpack can hold one cubic foot or 30 pounds of gear. You can also strap items, such as a bedroll or a coil of rope, to the outside of a backpack.</p>"
+            },
+            "equipped": false,
+            "identified": true,
+            "identifier": "backpack",
+            "price": {
+              "denomination": "gp",
+              "value": 2
+            },
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "weight": {
+              "units": "lb",
+              "value": 5
+            }
+          },
+          "type": "container"
+        },
+        {
+          "_id": "8UQanAvHUIHZXp0O",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "Dx3K2y0J1wJUPP9m",
+          "img": "icons/tools/fasteners/nail-steel.webp",
+          "name": "Piton",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "activation": {
+                  "condition": "",
+                  "override": false,
+                  "type": "action",
+                  "value": 1
+                },
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": [
+                    {
+                      "scaling": {
+                        "formula": "",
+                        "mode": ""
+                      },
+                      "target": "",
+                      "type": "itemUses",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "inst",
+                  "value": ""
+                },
+                "effects": [],
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "ft",
+                  "value": "5"
+                },
+                "roll": {
+                  "formula": "",
+                  "name": "",
+                  "prompt": false,
+                  "visible": false
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
+                },
+                "type": "utility",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
+                }
+              }
+            },
+            "attuned": false,
+            "attunement": "",
+            "container": "xsB7Y2WI476kvOt4",
+            "damage": {
+              "base": {
+                "custom": {
+                  "enabled": false
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "number": 1
+                },
+                "types": []
+              },
+              "replace": false
+            },
+            "description": {
+              "chat": "",
+              "value": "<p>A metal spike that is drive into a seam in a climbing surface with a climbing hammer. It can also be used like iron spikes to block doors in a pinch.</p>"
+            },
+            "equipped": false,
+            "identified": true,
+            "identifier": "piton",
+            "magicalBonus": null,
+            "price": {
+              "denomination": "cp",
+              "value": 5
+            },
+            "properties": [],
+            "quantity": 10,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "trinket"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "autoDestroy": false,
+              "max": "1",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 0.25
+            }
+          },
+          "type": "consumable"
+        },
+        {
+          "_id": "irCoxLHje0eA6Qmu",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {
+            "dnd5e": {
+              "riders": {
+                "activity": [],
+                "effect": []
+              }
+            }
+          },
+          "folder": "UnUwTG4YIgd0kaUJ",
+          "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+          "name": "Hempen Rope (50 ft.)",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "activation": {
+                  "condition": "",
+                  "override": false,
+                  "type": "action",
+                  "value": 1
+                },
+                "check": {
+                  "ability": "str",
+                  "associated": [],
+                  "dc": {
+                    "calculation": "",
+                    "formula": "17"
+                  }
+                },
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": [
+                    {
+                      "scaling": {},
+                      "target": "",
+                      "type": "itemUses",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "inst",
+                  "value": ""
+                },
+                "effects": [],
+                "name": "Burst",
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "self"
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
+                },
+                "type": "check",
+                "uses": {
+                  "max": "",
+                  "recovery": [],
+                  "spent": 0
+                }
+              }
+            },
+            "attuned": false,
+            "attunement": "",
+            "container": null,
+            "damage": {
+              "base": {
+                "custom": {
+                  "enabled": false
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "number": 1
+                },
+                "types": []
+              },
+              "replace": false
+            },
+            "description": {
+              "chat": "",
+              "value": "<p>Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.</p>"
+            },
+            "equipped": false,
+            "identified": true,
+            "identifier": "hempen-rope-50-ft",
+            "magicalBonus": null,
+            "price": {
+              "denomination": "gp",
+              "value": 1
+            },
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": "trinket"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "autoDestroy": false,
+              "max": "1",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 10
+            }
+          },
+          "type": "consumable"
+        },
+        {
+          "_id": "GfKuJYLFfw00oW9R",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {
+            "dnd5e": {
+              "riders": {
+                "activity": [],
+                "effect": []
+              }
+            }
+          },
+          "folder": "xedn1r43VWuEBcli",
+          "img": "icons/containers/chest/chest-reinforced-steel-red.webp",
+          "name": "Reliquary",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "activities": {},
+            "armor": {
+              "dex": null,
+              "magicalBonus": null,
+              "value": null
+            },
+            "attuned": false,
+            "attunement": "",
+            "container": null,
+            "cover": null,
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>A tiny box or other container holding a fragment of a precious relic, saint, or other historical figure that dedicated their life to walk the path of a true believer. A deity imbues the bearer of this artifact with the ability to call forth their power and in doing so spread the faith once more.</p>\n<p><strong>Spellcasting Focus</strong>. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield.</p>"
+            },
+            "equipped": false,
+            "hp": {
+              "conditions": "",
+              "dt": null,
+              "max": 0,
+              "value": 0
+            },
+            "identified": true,
+            "identifier": "reliquary",
+            "price": {
+              "denomination": "gp",
+              "value": 5
+            },
+            "proficient": null,
+            "properties": [
+              "foc"
+            ],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "speed": {
+              "conditions": "",
+              "value": null
+            },
+            "strength": null,
+            "type": {
+              "baseItem": "",
+              "value": "trinket"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 2
+            }
+          },
+          "type": "equipment"
+        },
+        {
+          "_id": "NsNcJBUG5ajbk7sG",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "aJgMxnZED9XdoN2W",
+          "img": "icons/equipment/back/mantle-collared-black.webp",
+          "name": "Vestments",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "activation": {
+                  "condition": "",
+                  "override": false,
+                  "type": "",
+                  "value": null
+                },
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": []
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "inst",
+                  "value": ""
+                },
+                "effects": [],
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "self"
+                },
+                "roll": {
+                  "formula": "",
+                  "name": "",
+                  "prompt": false,
+                  "visible": false
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
+                },
+                "type": "utility",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
+                }
+              }
+            },
+            "armor": {
+              "dex": null,
+              "magicalBonus": null,
+              "value": null
+            },
+            "attuned": false,
+            "attunement": "",
+            "container": null,
+            "cover": null,
+            "crewed": false,
+            "description": {
+              "chat": "",
+              "value": "<p>Simple or ostentacious wear, often used by priests and other religious figures for use in rituals and ceremonies.</p>"
+            },
+            "equipped": true,
+            "hp": {
+              "conditions": "",
+              "dt": null,
+              "max": 0,
+              "value": 0
+            },
+            "identified": true,
+            "identifier": "vestments",
+            "price": {
+              "denomination": "gp",
+              "value": 1
+            },
+            "proficient": null,
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "speed": {
+              "conditions": "",
+              "value": null
+            },
+            "strength": null,
+            "type": {
+              "baseItem": "",
+              "value": "clothing"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 4
+            }
+          },
+          "type": "equipment"
+        },
+        {
+          "_id": "XbF0CTipyqbMKHsB",
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "dlru9Hy74nSMv6fr",
+          "img": "icons/sundries/books/book-purple-cross.webp",
+          "name": "Prayer Book",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "container": null,
+            "description": {
+              "chat": "",
+              "value": "<p>A book containing prayers and incantations dedicated to a specific power for the faithful to follow.</p>"
+            },
+            "identified": true,
+            "identifier": "prayer-book",
+            "price": {
+              "denomination": "gp",
+              "value": 25
+            },
+            "properties": [],
+            "quantity": 1,
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "subtype": "",
+              "value": ""
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "weight": {
+              "units": "lb",
+              "value": 5
+            }
+          },
+          "type": "loot"
+        },
+        {
           "_id": "GYyovoNdU66nxOlX",
-          "sort": 0
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "lastModifiedBy": null
+          },
+          "effects": [],
+          "flags": {},
+          "folder": "MLMTCAvKsuFE3vYA",
+          "img": "icons/weapons/swords/sword-guard-worn-purple.webp",
+          "name": "Shortsword",
+          "ownership": {
+            "default": 0
+          },
+          "sort": 0,
+          "system": {
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "activation": {
+                  "condition": "",
+                  "override": false,
+                  "type": "action",
+                  "value": 1
+                },
+                "attack": {
+                  "ability": "",
+                  "bonus": "",
+                  "critical": {
+                    "threshold": null
+                  },
+                  "flat": false,
+                  "type": {
+                    "classification": "weapon",
+                    "value": "melee"
+                  }
+                },
+                "consumption": {
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true,
+                  "targets": []
+                },
+                "damage": {
+                  "critical": {
+                    "bonus": ""
+                  },
+                  "includeBase": true,
+                  "parts": []
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "override": false,
+                  "special": "",
+                  "units": "inst",
+                  "value": ""
+                },
+                "effects": [],
+                "range": {
+                  "override": false,
+                  "special": "",
+                  "units": "ft",
+                  "value": "5"
+                },
+                "sort": 0,
+                "target": {
+                  "affects": {
+                    "choice": false,
+                    "count": "",
+                    "special": "",
+                    "type": ""
+                  },
+                  "override": false,
+                  "prompt": true,
+                  "template": {
+                    "contiguous": false,
+                    "count": "",
+                    "height": "",
+                    "size": "",
+                    "type": "",
+                    "units": "",
+                    "width": ""
+                  }
+                },
+                "type": "attack",
+                "uses": {
+                  "recovery": [],
+                  "spent": 0
+                }
+              }
+            },
+            "ammunition": {},
+            "armor": {
+              "value": 10
+            },
+            "attuned": false,
+            "attunement": "",
+            "container": null,
+            "cover": null,
+            "crewed": false,
+            "damage": {
+              "base": {
+                "bonus": "",
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "denomination": 6,
+                "number": 1,
+                "scaling": {
+                  "formula": "",
+                  "mode": "",
+                  "number": null
+                },
+                "types": [
+                  "piercing"
+                ]
+              },
+              "versatile": {
+                "bonus": "",
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "denomination": null,
+                "number": null,
+                "scaling": {
+                  "formula": "",
+                  "mode": "",
+                  "number": null
+                },
+                "types": []
+              }
+            },
+            "description": {
+              "chat": "",
+              "value": "<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>"
+            },
+            "equipped": true,
+            "hp": {
+              "conditions": "",
+              "dt": null,
+              "max": 0,
+              "value": 0
+            },
+            "identified": true,
+            "identifier": "shortsword",
+            "magicalBonus": null,
+            "price": {
+              "denomination": "gp",
+              "value": 10
+            },
+            "proficient": null,
+            "properties": [
+              "fin",
+              "lgt"
+            ],
+            "quantity": 1,
+            "range": {
+              "long": null,
+              "reach": null,
+              "units": "ft",
+              "value": null
+            },
+            "rarity": "",
+            "source": {
+              "book": "SRD 5.1",
+              "custom": "",
+              "license": "CC-BY-4.0",
+              "page": "",
+              "revision": 1,
+              "rules": "2014"
+            },
+            "type": {
+              "baseItem": "shortsword",
+              "value": "martialM"
+            },
+            "unidentified": {
+              "description": ""
+            },
+            "uses": {
+              "max": "",
+              "recovery": [],
+              "spent": 0
+            },
+            "weight": {
+              "units": "lb",
+              "value": 2
+            }
+          },
+          "type": "weapon"
         }
       ],
-      "effects": [],
+      "name": "Updated Test Actor",
+      "prototypeToken": {
+        "actorLink": true,
+        "alpha": 1,
+        "appendNumber": false,
+        "bar1": {
+          "attribute": "attributes.hp"
+        },
+        "bar2": {
+          "attribute": "attributes.ac.value"
+        },
+        "detectionModes": [],
+        "displayBars": 40,
+        "displayName": 30,
+        "disposition": 1,
+        "flags": {},
+        "height": 1,
+        "light": {
+          "alpha": 1,
+          "angle": 360,
+          "animation": {
+            "intensity": 5,
+            "reverse": false,
+            "speed": 5,
+            "type": null
+          },
+          "attenuation": 0.5,
+          "bright": 0,
+          "color": null,
+          "coloration": 1,
+          "contrast": 0,
+          "darkness": {
+            "max": 1,
+            "min": 0
+          },
+          "dim": 0,
+          "luminosity": 0.5,
+          "negative": false,
+          "priority": 0,
+          "saturation": 0,
+          "shadows": 0
+        },
+        "lockRotation": false,
+        "movementAction": null,
+        "name": "Perrin",
+        "occludable": {
+          "radius": 0
+        },
+        "prependAdjective": false,
+        "randomImg": false,
+        "ring": {
+          "colors": {
+            "background": null,
+            "ring": null
+          },
+          "effects": 1,
+          "enabled": false,
+          "subject": {
+            "scale": 1,
+            "texture": null
+          }
+        },
+        "rotation": 0,
+        "sight": {
+          "angle": 360,
+          "attenuation": 0.1,
+          "brightness": 0,
+          "color": null,
+          "contrast": 0,
+          "enabled": true,
+          "range": 5,
+          "saturation": 0,
+          "visionMode": "basic"
+        },
+        "texture": {
+          "alphaThreshold": 0.75,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "fit": "contain",
+          "offsetX": 0,
+          "offsetY": 0,
+          "rotation": 0,
+          "scaleX": 0.8,
+          "scaleY": 0.8,
+          "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+          "tint": "#ffffff"
+        },
+        "turnMarker": {
+          "animation": null,
+          "disposition": false,
+          "mode": 1,
+          "src": null
+        },
+        "width": 1
+      },
+      "system": {
+        "abilities": {
+          "cha": {
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "check": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "max": 20,
+            "proficient": 0,
+            "save": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "value": 11
+          },
+          "con": {
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "check": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "max": 20,
+            "proficient": 0,
+            "save": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "value": 13
+          },
+          "dex": {
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "check": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "max": 20,
+            "proficient": 1,
+            "save": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "value": 16
+          },
+          "int": {
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "check": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "max": 20,
+            "proficient": 0,
+            "save": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "value": 12
+          },
+          "str": {
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "check": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "max": 20,
+            "proficient": 1,
+            "save": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "value": 8
+          },
+          "wis": {
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "check": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "max": 20,
+            "proficient": 0,
+            "save": {
+              "roll": {
+                "max": null,
+                "min": null,
+                "mode": 0
+              }
+            },
+            "value": 15
+          }
+        },
+        "attributes": {
+          "ac": {
+            "calc": "unarmoredMonk",
+            "flat": null,
+            "formula": ""
+          },
+          "attunement": {
+            "max": 3
+          },
+          "concentration": {
+            "ability": "",
+            "bonuses": {
+              "save": ""
+            },
+            "limit": 1,
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "death": {
+            "bonuses": {
+              "save": ""
+            },
+            "failure": 0,
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "success": 0
+          },
+          "exhaustion": 0,
+          "hp": {
+            "bonuses": {
+              "level": "",
+              "overall": ""
+            },
+            "max": 9,
+            "temp": null,
+            "tempmax": null,
+            "value": 9
+          },
+          "init": {
+            "ability": "",
+            "bonus": "0",
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            }
+          },
+          "inspiration": false,
+          "loyalty": {},
+          "movement": {
+            "burrow": 0,
+            "climb": 0,
+            "fly": 0,
+            "hover": false,
+            "swim": 0,
+            "units": "ft",
+            "walk": 25
+          },
+          "senses": {
+            "blindsight": 0,
+            "darkvision": 0,
+            "special": "",
+            "tremorsense": 0,
+            "truesight": 0,
+            "units": "ft"
+          },
+          "spellcasting": "int"
+        },
+        "bastion": {
+          "description": "",
+          "name": ""
+        },
+        "bonuses": {
+          "abilities": {
+            "check": "",
+            "save": "",
+            "skill": ""
+          },
+          "msak": {
+            "attack": "",
+            "damage": ""
+          },
+          "mwak": {
+            "attack": "",
+            "damage": ""
+          },
+          "rsak": {
+            "attack": "",
+            "damage": ""
+          },
+          "rwak": {
+            "attack": "",
+            "damage": ""
+          },
+          "spell": {
+            "dc": ""
+          }
+        },
+        "currency": {
+          "cp": 0,
+          "ep": 0,
+          "gp": 15,
+          "pp": 0,
+          "sp": 0
+        },
+        "details": {
+          "age": "",
+          "alignment": "True Neutral",
+          "appearance": "",
+          "background": "q4tr1vTU8RxtU1UZ",
+          "biography": {
+            "public": "",
+            "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>"
+          },
+          "bond": "",
+          "eyes": "",
+          "faith": "",
+          "flaw": "",
+          "gender": "",
+          "hair": "",
+          "height": "",
+          "ideal": "",
+          "originalClass": "8Grf7ga6JcZF0X6x",
+          "race": "O3ZjSw0GtAOPScHI",
+          "skin": "",
+          "trait": "",
+          "weight": "",
+          "xp": {
+            "value": 0
+          }
+        },
+        "favorites": [
+          {
+            "id": ".Item.FtOM4QiOW5MwgcS3",
+            "sort": 500000,
+            "type": "item"
+          },
+          {
+            "id": ".Item.WeKJI3gPUAU52WAX",
+            "sort": 600000,
+            "type": "item"
+          },
+          {
+            "id": ".Item.g7U3OAXVcoI4lwzf",
+            "sort": 550000,
+            "type": "item"
+          },
+          {
+            "id": ".Item.GYyovoNdU66nxOlX",
+            "sort": 700000,
+            "type": "item"
+          }
+        ],
+        "resources": {
+          "primary": {
+            "label": "Ki",
+            "lr": true,
+            "max": null,
+            "sr": true,
+            "value": null
+          },
+          "secondary": {
+            "label": "",
+            "lr": false,
+            "max": null,
+            "sr": false,
+            "value": null
+          },
+          "tertiary": {
+            "label": "",
+            "lr": false,
+            "max": null,
+            "sr": false,
+            "value": null
+          }
+        },
+        "skills": {
+          "acr": {
+            "ability": "dex",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 1
+          },
+          "ani": {
+            "ability": "wis",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "arc": {
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "ath": {
+            "ability": "str",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 1
+          },
+          "dec": {
+            "ability": "cha",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "his": {
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "ins": {
+            "ability": "wis",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 1
+          },
+          "inv": {
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "itm": {
+            "ability": "cha",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "med": {
+            "ability": "wis",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "nat": {
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "per": {
+            "ability": "cha",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "prc": {
+            "ability": "wis",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "prf": {
+            "ability": "cha",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "rel": {
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 1
+          },
+          "slt": {
+            "ability": "dex",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "ste": {
+            "ability": "dex",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          },
+          "sur": {
+            "ability": "wis",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 0
+          }
+        },
+        "spells": {
+          "pact": {
+            "override": null,
+            "value": 0
+          },
+          "spell0": {
+            "override": null,
+            "value": 0
+          },
+          "spell1": {
+            "override": null,
+            "value": 0
+          },
+          "spell2": {
+            "override": null,
+            "value": 0
+          },
+          "spell3": {
+            "override": null,
+            "value": 0
+          },
+          "spell4": {
+            "override": null,
+            "value": 0
+          },
+          "spell5": {
+            "override": null,
+            "value": 0
+          },
+          "spell6": {
+            "override": null,
+            "value": 0
+          },
+          "spell7": {
+            "override": null,
+            "value": 0
+          },
+          "spell8": {
+            "override": null,
+            "value": 0
+          },
+          "spell9": {
+            "override": null,
+            "value": 0
+          }
+        },
+        "tools": {
+          "art": {
+            "ability": "int",
+            "bonuses": {
+              "check": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 1
+          },
+          "brewer": {
+            "ability": "int",
+            "bonuses": {
+              "check": ""
+            },
+            "roll": {
+              "max": null,
+              "min": null,
+              "mode": 0
+            },
+            "value": 1
+          }
+        },
+        "traits": {
+          "armorProf": {
+            "custom": "",
+            "value": []
+          },
+          "ci": {
+            "custom": "Advantage against being frightenned",
+            "value": []
+          },
+          "di": {
+            "bypasses": [],
+            "custom": "",
+            "value": []
+          },
+          "dm": {
+            "amount": {},
+            "bypasses": []
+          },
+          "dr": {
+            "bypasses": [],
+            "custom": "",
+            "value": []
+          },
+          "dv": {
+            "bypasses": [],
+            "custom": "",
+            "value": []
+          },
+          "languages": {
+            "communication": {},
+            "custom": "",
+            "value": [
+              "celestial",
+              "draconic",
+              "common",
+              "halfling"
+            ]
+          },
+          "size": "sm",
+          "weaponProf": {
+            "custom": "",
+            "mastery": {
+              "bonus": [],
+              "value": []
+            },
+            "value": [
+              "sim",
+              "shortsword"
+            ]
+          }
+        }
+      },
+      "type": "character",
       "folder": null,
-      "_id": "2Hl8s4nj9yJQueBG",
+      "_id": "ioZexonJDGVuU8zl",
       "sort": 0,
       "ownership": {
         "default": 0,
@@ -27728,8 +27725,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1774001731205,
-        "modifiedTime": 1774001737763,
+        "createdTime": 1774367580132,
+        "modifiedTime": 1774367580866,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     }
@@ -27748,7 +27745,7 @@ Delete an entity This endpoint deletes an entity from the Foundry world.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | uuid | string |  | query | UUID of the entity to delete (optional if selected=true) |
 | selected | boolean |  | query | Whether to delete the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -27762,7 +27759,7 @@ Delete an entity This endpoint deletes an entity from the Foundry world.
 <ApiTester
   method="DELETE"
   path="/delete"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -27774,8 +27771,8 @@ Delete an entity This endpoint deletes an entity from the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/delete';
 const params = {
-  clientId: 'your-client-id',
-  uuid: 'Actor.Z38MvL1erRWgj2mw'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  uuid: 'Actor.uelJdzb2eFr1vOa3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -27794,7 +27791,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete?clientId=your-client-id&uuid=Actor.Z38MvL1erRWgj2mw' \
+curl -X DELETE 'http://localhost:3010/delete?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.uelJdzb2eFr1vOa3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -27807,8 +27804,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/delete'
 params = {
-    'clientId': 'your-client-id',
-    'uuid': 'Actor.Z38MvL1erRWgj2mw'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'uuid': 'Actor.uelJdzb2eFr1vOa3'
 }
 url = f'{base_url}{path}'
 
@@ -27833,8 +27830,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/delete';
   const params = {
-    clientId: 'your-client-id',
-    uuid: 'Actor.Z38MvL1erRWgj2mw'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    uuid: 'Actor.uelJdzb2eFr1vOa3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -27868,8 +27865,8 @@ import axios from 'axios';
   🔤/delete🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.Z38MvL1erRWgj2mw🔤 ➡️ uuid
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤uuid=Actor.uelJdzb2eFr1vOa3🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -27897,10 +27894,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete_1774001737942",
-  "clientId": "your-client-id",
   "type": "delete-result",
-  "uuid": "Actor.Z38MvL1erRWgj2mw",
+  "requestId": "delete_1774367580914",
+  "uuid": "Actor.uelJdzb2eFr1vOa3",
   "success": true
 }
 ```
@@ -27916,7 +27912,7 @@ Give an item to an entity This endpoint gives an item to a specified entity. Opt
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | fromUuid | string |  | body | UUID of the entity giving the item |
 | toUuid | string |  | body | UUID of the entity receiving the item |
 | selected | boolean |  | body | Whether to give to the selected token's actor |
@@ -27934,7 +27930,7 @@ Give an item to an entity This endpoint gives an item to a specified entity. Opt
 <ApiTester
   method="POST"
   path="/give"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"fromUuid","type":"string","required":false,"source":"body"},{"name":"toUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"fromUuid","type":"string","required":false,"source":"body"},{"name":"toUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -27946,7 +27942,7 @@ Give an item to an entity This endpoint gives an item to a specified entity. Opt
 const baseUrl = 'http://localhost:3010';
 const path = '/give';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -27958,8 +27954,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "toUuid": "Actor.2Hl8s4nj9yJQueBG",
-      "itemUuid": "Item.5TH7Z5eX9h1RlM3B",
+      "toUuid": "Actor.ioZexonJDGVuU8zl",
+      "itemUuid": "Item.MzkwwMiKxqXzGG3X",
       "quantity": 1
     })
 });
@@ -27971,10 +27967,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/give?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/give?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"toUuid":"Actor.2Hl8s4nj9yJQueBG","itemUuid":"Item.5TH7Z5eX9h1RlM3B","quantity":1}'
+  -d '{"toUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Item.MzkwwMiKxqXzGG3X","quantity":1}'
 ```
 
 </TabItem>
@@ -27986,7 +27982,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/give'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -27997,8 +27993,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "toUuid": "Actor.2Hl8s4nj9yJQueBG",
-      "itemUuid": "Item.5TH7Z5eX9h1RlM3B",
+      "toUuid": "Actor.ioZexonJDGVuU8zl",
+      "itemUuid": "Item.MzkwwMiKxqXzGG3X",
       "quantity": 1
     }
 )
@@ -28016,7 +28012,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/give';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28029,8 +28025,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "toUuid": "Actor.2Hl8s4nj9yJQueBG",
-        "itemUuid": "Item.5TH7Z5eX9h1RlM3B",
+        "toUuid": "Actor.ioZexonJDGVuU8zl",
+        "itemUuid": "Item.MzkwwMiKxqXzGG3X",
         "quantity": 1
       }
   });
@@ -28056,11 +28052,11 @@ import axios from 'axios';
   🔤/give🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"toUuid":"Actor.2Hl8s4nj9yJQueBG","itemUuid":"Item.5TH7Z5eX9h1RlM3B","quantity":1}🔤 ➡️ body
+  🔤{"toUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Item.MzkwwMiKxqXzGG3X","quantity":1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /give🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 83❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -28087,13 +28083,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "give_1774001738230",
-  "clientId": "your-client-id",
   "type": "give-result",
-  "toUuid": "Actor.2Hl8s4nj9yJQueBG",
+  "requestId": "give_1774367580941",
+  "toUuid": "Actor.ioZexonJDGVuU8zl",
   "quantity": 1,
-  "itemUuid": "Item.5TH7Z5eX9h1RlM3B",
-  "newItemId": "30FEZc4zPdB1DS66",
+  "itemUuid": "Item.MzkwwMiKxqXzGG3X",
+  "newItemId": "nId4eOCCXAKUeRjr",
   "success": true
 }
 ```
@@ -28109,7 +28104,7 @@ Remove an item from an entity This endpoint removes an item from a specified ent
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | actorUuid | string |  | body | UUID of the actor to remove the item from (optional if selected=true) |
 | selected | boolean |  | body | Whether to remove from the selected token's actor |
 | itemUuid | string |  | body | UUID of the item to remove |
@@ -28126,7 +28121,7 @@ Remove an item from an entity This endpoint removes an item from a specified ent
 <ApiTester
   method="POST"
   path="/remove"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -28138,7 +28133,7 @@ Remove an item from an entity This endpoint removes an item from a specified ent
 const baseUrl = 'http://localhost:3010';
 const path = '/remove';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -28150,8 +28145,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
-      "itemUuid": "Actor.2Hl8s4nj9yJQueBG.Item.30FEZc4zPdB1DS66",
+      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
       "quantity": 1
     })
 });
@@ -28163,10 +28158,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/remove?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/remove?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","itemUuid":"Actor.2Hl8s4nj9yJQueBG.Item.30FEZc4zPdB1DS66","quantity":1}'
+  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr","quantity":1}'
 ```
 
 </TabItem>
@@ -28178,7 +28173,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/remove'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -28189,8 +28184,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
-      "itemUuid": "Actor.2Hl8s4nj9yJQueBG.Item.30FEZc4zPdB1DS66",
+      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
       "quantity": 1
     }
 )
@@ -28208,7 +28203,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/remove';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28221,8 +28216,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
-        "itemUuid": "Actor.2Hl8s4nj9yJQueBG.Item.30FEZc4zPdB1DS66",
+        "actorUuid": "Actor.ioZexonJDGVuU8zl",
+        "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
         "quantity": 1
       }
   });
@@ -28248,11 +28243,11 @@ import axios from 'axios';
   🔤/remove🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.2Hl8s4nj9yJQueBG","itemUuid":"Actor.2Hl8s4nj9yJQueBG.Item.30FEZc4zPdB1DS66","quantity":1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr","quantity":1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /remove🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 109❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -28279,11 +28274,10 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "remove_1774001738521",
-  "clientId": "your-client-id",
   "type": "remove-result",
-  "actorUuid": "Actor.2Hl8s4nj9yJQueBG",
-  "itemUuid": "Actor.2Hl8s4nj9yJQueBG.Item.30FEZc4zPdB1DS66",
+  "requestId": "remove_1774367580995",
+  "actorUuid": "Actor.ioZexonJDGVuU8zl",
+  "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
   "quantity": 0,
   "success": true
 }
@@ -28300,9 +28294,9 @@ Decrease an attribute This endpoint decreases an attribute of a specified entity
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | attribute | string | ✓ | body | The attribute data path to decrease (e.g., "system.attributes.hp.value") |
 | amount | number | ✓ | body | The amount to decrease the attribute by |
+| clientId | string |  | query | Client ID for the Foundry world |
 | uuid | string |  | query | UUID of the entity to decrease the attribute for (optional if selected=true) |
 | selected | boolean |  | query | Whether to decrease the attribute for the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -28316,7 +28310,7 @@ Decrease an attribute This endpoint decreases an attribute of a specified entity
 <ApiTester
   method="POST"
   path="/decrease"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"attribute","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"attribute","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -28328,8 +28322,8 @@ Decrease an attribute This endpoint decreases an attribute of a specified entity
 const baseUrl = 'http://localhost:3010';
 const path = '/decrease';
 const params = {
-  clientId: 'your-client-id',
-  uuid: 'Actor.2Hl8s4nj9yJQueBG'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  uuid: 'Actor.ioZexonJDGVuU8zl'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -28353,7 +28347,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/decrease?clientId=your-client-id&uuid=Actor.2Hl8s4nj9yJQueBG' \
+curl -X POST 'http://localhost:3010/decrease?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"attribute":"prototypeToken.height","amount":5}'
@@ -28368,8 +28362,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/decrease'
 params = {
-    'clientId': 'your-client-id',
-    'uuid': 'Actor.2Hl8s4nj9yJQueBG'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'uuid': 'Actor.ioZexonJDGVuU8zl'
 }
 url = f'{base_url}{path}'
 
@@ -28398,8 +28392,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/decrease';
   const params = {
-    clientId: 'your-client-id',
-    uuid: 'Actor.2Hl8s4nj9yJQueBG'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    uuid: 'Actor.ioZexonJDGVuU8zl'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28438,8 +28432,8 @@ import axios from 'axios';
   🔤/decrease🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.2Hl8s4nj9yJQueBG🔤 ➡️ uuid
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -28470,12 +28464,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "decrease_1774001739130",
-  "clientId": "your-client-id",
   "type": "decrease-result",
+  "requestId": "decrease_1774367581091",
   "results": [
     {
-      "uuid": "Actor.2Hl8s4nj9yJQueBG",
+      "uuid": "Actor.ioZexonJDGVuU8zl",
       "attribute": "prototypeToken.height",
       "oldValue": 6,
       "newValue": 1
@@ -28496,9 +28489,9 @@ Increase an attribute This endpoint increases an attribute of a specified entity
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | attribute | string | ✓ | body | The attribute data path to increase (e.g., "system.attributes.hp.value") |
 | amount | number | ✓ | body | The amount to increase the attribute by |
+| clientId | string |  | query | Client ID for the Foundry world |
 | uuid | string |  | query | UUID of the entity to increase the attribute for (optional if selected=true) |
 | selected | boolean |  | query | Whether to increase the attribute for the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -28512,7 +28505,7 @@ Increase an attribute This endpoint increases an attribute of a specified entity
 <ApiTester
   method="POST"
   path="/increase"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"attribute","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"attribute","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -28524,8 +28517,8 @@ Increase an attribute This endpoint increases an attribute of a specified entity
 const baseUrl = 'http://localhost:3010';
 const path = '/increase';
 const params = {
-  clientId: 'your-client-id',
-  uuid: 'Actor.2Hl8s4nj9yJQueBG'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  uuid: 'Actor.ioZexonJDGVuU8zl'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -28549,7 +28542,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/increase?clientId=your-client-id&uuid=Actor.2Hl8s4nj9yJQueBG' \
+curl -X POST 'http://localhost:3010/increase?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"attribute":"prototypeToken.height","amount":5}'
@@ -28564,8 +28557,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/increase'
 params = {
-    'clientId': 'your-client-id',
-    'uuid': 'Actor.2Hl8s4nj9yJQueBG'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'uuid': 'Actor.ioZexonJDGVuU8zl'
 }
 url = f'{base_url}{path}'
 
@@ -28594,8 +28587,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/increase';
   const params = {
-    clientId: 'your-client-id',
-    uuid: 'Actor.2Hl8s4nj9yJQueBG'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    uuid: 'Actor.ioZexonJDGVuU8zl'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28634,8 +28627,8 @@ import axios from 'axios';
   🔤/increase🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.2Hl8s4nj9yJQueBG🔤 ➡️ uuid
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -28666,12 +28659,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "increase_1774001738840",
-  "clientId": "your-client-id",
   "type": "increase-result",
+  "requestId": "increase_1774367581046",
   "results": [
     {
-      "uuid": "Actor.2Hl8s4nj9yJQueBG",
+      "uuid": "Actor.ioZexonJDGVuU8zl",
       "attribute": "prototypeToken.height",
       "oldValue": 1,
       "newValue": 6
@@ -28692,7 +28684,7 @@ Kill an entity Marks an entity as killed in the combat tracker, gives it the "de
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | uuid | string |  | query | UUID of the entity to kill (optional if selected=true) |
 | selected | boolean |  | query | Whether to kill the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -28706,7 +28698,7 @@ Kill an entity Marks an entity as killed in the combat tracker, gives it the "de
 <ApiTester
   method="POST"
   path="/kill"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -28718,8 +28710,8 @@ Kill an entity Marks an entity as killed in the combat tracker, gives it the "de
 const baseUrl = 'http://localhost:3010';
 const path = '/kill';
 const params = {
-  clientId: 'your-client-id',
-  uuid: 'Actor.f3Pt6ArPVuqeHGdI'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  uuid: 'Actor.Qp0LBxXXqiTjZ822'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -28738,7 +28730,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/kill?clientId=your-client-id&uuid=Actor.f3Pt6ArPVuqeHGdI' \
+curl -X POST 'http://localhost:3010/kill?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.Qp0LBxXXqiTjZ822' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -28751,8 +28743,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/kill'
 params = {
-    'clientId': 'your-client-id',
-    'uuid': 'Actor.f3Pt6ArPVuqeHGdI'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'uuid': 'Actor.Qp0LBxXXqiTjZ822'
 }
 url = f'{base_url}{path}'
 
@@ -28777,8 +28769,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/kill';
   const params = {
-    clientId: 'your-client-id',
-    uuid: 'Actor.f3Pt6ArPVuqeHGdI'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    uuid: 'Actor.Qp0LBxXXqiTjZ822'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28812,8 +28804,8 @@ import axios from 'axios';
   🔤/kill🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤uuid=Actor.f3Pt6ArPVuqeHGdI🔤 ➡️ uuid
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤uuid=Actor.Qp0LBxXXqiTjZ822🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -28841,12 +28833,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "kill_1774001739431",
-  "clientId": "your-client-id",
   "type": "kill-result",
+  "requestId": "kill_1774367581136",
   "results": [
     {
-      "uuid": "Actor.f3Pt6ArPVuqeHGdI",
+      "uuid": "Actor.Qp0LBxXXqiTjZ822",
       "success": true,
       "message": "Actor marked as defeated, HP set to 0, and dead effect applied to 0 tokens"
     }

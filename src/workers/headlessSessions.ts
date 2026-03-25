@@ -9,16 +9,16 @@ export function isHeadlessClient(clientId: string): boolean {
   return clientId.startsWith('foundry-');
 }
 
-// Generate consistent client IDs for headless sessions
+// Generate a placeholder client ID for headless sessions (actual ID is determined by the module)
 export function getHeadlessClientId(userId: string): string {
-  return `foundry-${userId}`;
+  return `foundry-pending-${userId}`;
 }
 
 // Track pending headless sessions
 export async function registerHeadlessSession(sessionId: string, userId: string, apiKey: string): Promise<void> {
   const redis = getRedisClient();
   if (!redis) return;
-  
+
   const clientId = getHeadlessClientId(userId);
   const instanceId = process.env.FLY_ALLOC_ID || 'local';
   
@@ -102,6 +102,31 @@ export async function validateHeadlessSession(clientId: string, token: string): 
   } catch (error) {
     log.error(`Error validating headless session: ${error}`);
     return true; // Allow connection on error to avoid blocking legitimate connections
+  }
+}
+
+// Update Redis with the actual clientId once the module connects
+export async function updateHeadlessSessionClientId(sessionId: string, actualClientId: string, apiKey: string): Promise<void> {
+  const redis = getRedisClient();
+  if (!redis) return;
+
+  const instanceId = process.env.FLY_ALLOC_ID || 'local';
+
+  try {
+    // Update the session record
+    await redis.hSet(`headless_session:${sessionId}`, 'clientId', actualClientId);
+
+    // Set the reverse lookup for the actual clientId
+    await redis.set(`headless_client:${actualClientId}`, sessionId);
+    await redis.expire(`headless_client:${actualClientId}`, 10800);
+
+    // Update client-to-instance mapping
+    await redis.set(`client:${actualClientId}:instance`, instanceId);
+    await redis.expire(`client:${actualClientId}:instance`, 10800);
+
+    log.info(`Updated headless session ${sessionId} with actual clientId: ${actualClientId}`);
+  } catch (error) {
+    log.error(`Failed to update headless session clientId: ${error}`);
   }
 }
 

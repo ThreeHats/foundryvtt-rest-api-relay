@@ -17,7 +17,7 @@ Get all macros Retrieves a list of all macros available in the Foundry world.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -29,7 +29,7 @@ Get all macros Retrieves a list of all macros available in the Foundry world.
 <ApiTester
   method="GET"
   path="/macros"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -41,7 +41,7 @@ Get all macros Retrieves a list of all macros available in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/macros';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -60,7 +60,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/macros?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/macros?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -73,7 +73,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/macros'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -98,7 +98,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/macros';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -132,7 +132,7 @@ import axios from 'axios';
   🔤/macros🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -160,13 +160,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "macros_1774001786822",
-  "clientId": "your-client-id",
   "type": "macros-result",
+  "requestId": "macros_1774367599990",
   "macros": [
     {
-      "uuid": "Macro.TLcYwBMu3V4c09Ap",
-      "id": "TLcYwBMu3V4c09Ap",
+      "uuid": "Macro.Nrh1ygc5FiaOejnA",
+      "id": "Nrh1ygc5FiaOejnA",
       "name": "test-macro",
       "type": "script",
       "author": "tester",
@@ -176,30 +175,8 @@ import axios from 'axios';
       "canExecute": true
     },
     {
-      "uuid": "Macro.jxIBRKLXepzR9tmu",
-      "id": "jxIBRKLXepzR9tmu",
-      "name": "test-macro",
-      "type": "script",
-      "author": "tester",
-      "command": "// Example macro that uses parameters\nfunction myMacro(args) {\n  const targetName = args.targetName || \"Target\";\n  const damage = args.damage || 0;\n  const effect = args.effect || \"none\";\n  \n  // Use the parameters\n  console.log(`Attacking ${targetName} for ${damage} ${effect} damage`);\n  \n  // Return a value (can be any data type)\n  return {\n    success: true,\n    damageDealt: damage,\n    target: targetName\n  };\n}\n\n// Don't forget to return the result of your function\nreturn myMacro(args);",
-      "img": "icons/svg/dice-target.svg",
-      "scope": "global",
-      "canExecute": true
-    },
-    {
-      "uuid": "Macro.u4CgAClWghPlKQRs",
-      "id": "u4CgAClWghPlKQRs",
-      "name": "test-macro",
-      "type": "script",
-      "author": "tester",
-      "command": "// Example macro that uses parameters\nfunction myMacro(args) {\n  const targetName = args.targetName || \"Target\";\n  const damage = args.damage || 0;\n  const effect = args.effect || \"none\";\n  \n  // Use the parameters\n  console.log(`Attacking ${targetName} for ${damage} ${effect} damage`);\n  \n  // Return a value (can be any data type)\n  return {\n    success: true,\n    damageDealt: damage,\n    target: targetName\n  };\n}\n\n// Don't forget to return the result of your function\nreturn myMacro(args);",
-      "img": "icons/svg/dice-target.svg",
-      "scope": "global",
-      "canExecute": true
-    },
-    {
-      "uuid": "Macro.7vNQ0KIOOWnMMLST",
-      "id": "7vNQ0KIOOWnMMLST",
+      "uuid": "Macro.t9vpHDBsGpo0kONJ",
+      "id": "t9vpHDBsGpo0kONJ",
       "name": "test-macro",
       "type": "script",
       "author": "tester",
@@ -223,8 +200,8 @@ Execute a macro by UUID Executes a specific macro in the Foundry world by its UU
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
 | uuid | string | ✓ | params | UUID of the macro to execute |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | args | object |  | body | Optional arguments to pass to the macro execution |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -237,7 +214,7 @@ Execute a macro by UUID Executes a specific macro in the Foundry world by its UU
 <ApiTester
   method="POST"
   path="/macro/:uuid/execute"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"uuid","type":"string","required":true,"source":"params"},{"name":"args","type":"object","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"uuid","type":"string","required":true,"source":"params"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"args","type":"object","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -247,9 +224,9 @@ Execute a macro by UUID Executes a specific macro in the Foundry world by its UU
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/macro/Macro.7vNQ0KIOOWnMMLST/execute';
+const path = '/macro/Macro.t9vpHDBsGpo0kONJ/execute';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -276,7 +253,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/macro/Macro.7vNQ0KIOOWnMMLST/execute?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/macro/Macro.t9vpHDBsGpo0kONJ/execute?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}'
@@ -289,9 +266,9 @@ curl -X POST 'http://localhost:3010/macro/Macro.7vNQ0KIOOWnMMLST/execute?clientI
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/macro/Macro.7vNQ0KIOOWnMMLST/execute'
+path = '/macro/Macro.t9vpHDBsGpo0kONJ/execute'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -321,9 +298,9 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/macro/Macro.7vNQ0KIOOWnMMLST/execute';
+  const path = '/macro/Macro.t9vpHDBsGpo0kONJ/execute';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -362,17 +339,17 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/macro/Macro.7vNQ0KIOOWnMMLST/execute🔤 ➡️ path
+  🔤/macro/Macro.t9vpHDBsGpo0kONJ/execute🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
   🔤{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /macro/Macro.7vNQ0KIOOWnMMLST/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+  🔤POST /macro/Macro.t9vpHDBsGpo0kONJ/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -396,10 +373,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "macro-execute_1774001786879",
-  "clientId": "your-client-id",
   "type": "macro-execute-result",
-  "uuid": "Macro.7vNQ0KIOOWnMMLST",
+  "requestId": "macro-execute_1774367599993",
+  "uuid": "Macro.t9vpHDBsGpo0kONJ",
   "success": true,
   "result": {
     "success": true,

@@ -251,10 +251,9 @@ Just don't 😂
 
 ```json
 {
-  "success": true,
-  "message": "Foundry session started successfully",
-  "sessionId": "91523500-0db9-4a9a-9bb6-684d2f630ed3",
-  "clientId": "your-client-id"
+  "clientId": "foundry-testing-r6bXhB7k9cXa3cif",
+  "sessionId": "e43fe29d-c2a1-414d-b099-76478bed628e",
+  "success": true
 }
 ```
 
@@ -293,7 +292,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: '91523500-0db9-4a9a-9bb6-684d2f630ed3'
+  sessionId: 'e43fe29d-c2a1-414d-b099-76478bed628e'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -312,7 +311,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=91523500-0db9-4a9a-9bb6-684d2f630ed3' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=e43fe29d-c2a1-414d-b099-76478bed628e' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -325,7 +324,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': '91523500-0db9-4a9a-9bb6-684d2f630ed3'
+    'sessionId': 'e43fe29d-c2a1-414d-b099-76478bed628e'
 }
 url = f'{base_url}{path}'
 
@@ -350,7 +349,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: '91523500-0db9-4a9a-9bb6-684d2f630ed3'
+    sessionId: 'e43fe29d-c2a1-414d-b099-76478bed628e'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -384,7 +383,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=91523500-0db9-4a9a-9bb6-684d2f630ed3🔤 ➡️ sessionId
+  🔤sessionId=e43fe29d-c2a1-414d-b099-76478bed628e🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -412,8 +411,8 @@ import axios from 'axios';
 
 ```json
 {
-  "success": true,
-  "message": "Foundry session terminated (partial cleanup)"
+  "message": "Session ended",
+  "status": "ok"
 }
 ```
 
@@ -556,22 +555,21 @@ import axios from 'axios';
 {
   "activeSessions": [
     {
-      "id": "91523500-0db9-4a9a-9bb6-684d2f630ed3",
-      "clientId": "your-client-id",
-      "lastActivity": 1774001705024,
-      "idleMinutes": 0,
-      "instanceId": "local",
-      "worldId": "testing",
-      "worldTitle": "testing",
+      "clientId": "foundry-testing-r6bXhB7k9cXa3cif",
+      "foundryUrl": "http://localhost:30013",
       "foundryVersion": "13.348",
+      "lastActivity": 1774367571762,
+      "sessionId": "e43fe29d-c2a1-414d-b099-76478bed628e",
+      "startedAt": 1774367571762,
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
       "systemVersion": "5.0.4",
-      "customName": ""
+      "username": "tester",
+      "worldId": "testing",
+      "worldName": "testing",
+      "worldTitle": "testing"
     }
-  ],
-  "pendingSessions": []
+  ]
 }
 ```
-
 

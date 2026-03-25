@@ -99,8 +99,22 @@ If successful, you will receive a JSON response with a `clients` array. Each obj
 
 ### Using the `clientId`
 
-The `clientId` is crucial. You will need to include it as a parameter in most other API calls to specify which connected world you want to interact with.
+The `clientId` identifies which connected Foundry world to interact with. Include it as a parameter in API calls.
 
-For example, to get a list of actors from this world, you would make a request to `/structure` and include `clientId=aBcDeFgHiJkLmNoP` and `types=Actor` as query parameters.
+**`clientId` is optional** when only one Foundry client is connected — the API will auto-resolve it. When multiple clients are connected, you must specify which one to use.
 
-Congratulations! You've made your first successful API call. You can now explore the other endpoints in the [API Reference](/api).
+For example, to get a list of actors from a world:
+
+```bash
+# Explicit clientId
+curl -X GET "http://localhost:3010/structure?clientId=aBcDeFgHiJkLmNoP&types=Actor" \
+  -H "x-api-key: YOUR_API_KEY_HERE"
+
+# Auto-resolved (works when only one client is connected)
+curl -X GET "http://localhost:3010/structure?types=Actor" \
+  -H "x-api-key: YOUR_API_KEY_HERE"
+```
+
+If you omit `clientId` with multiple clients connected, the API returns a 400 error listing the connected clients so you can choose one.
+
+Congratulations! You've made your first successful API call. You can now explore the other endpoints in the [API Reference](/api), or learn about [Scoped API Keys](./scoped-keys) for delegated access.

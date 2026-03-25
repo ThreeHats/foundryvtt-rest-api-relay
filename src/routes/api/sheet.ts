@@ -3,7 +3,7 @@ import { Router } from 'express';
 import express from 'express';
 import { requestForwarderMiddleware } from '../../middleware/requestForwarder';
 import { authMiddleware, trackApiUsage } from '../../middleware/auth';
-import { pendingRequests, safeResponse } from '../shared';
+import { pendingRequests, safeResponse, resolveClientId, resolveScopedUserId } from '../shared';
 import { log } from '../../utils/logger';
 
 export const sheetRouter = Router();
@@ -31,19 +31,14 @@ sheetRouter.get("/sheet", ...commonMiddleware, async (req: express.Request, res:
     const uuid = req.query.uuid as string;
     const selected = req.query.selected === 'true';
     const actor = req.query.actor === 'true';
-    const clientId = req.query.clientId as string;
     const format = req.query.format as string || 'html';
     const initialScale = parseFloat(req.query.scale as string) || null;
     const activeTab = req.query.tab ? (isNaN(Number(req.query.tab)) ? null : Number(req.query.tab)) : null;
     const darkMode = req.query.darkMode === 'true';
-    const userId = req.query.userId as string | undefined;
-    
-    if (!clientId) {
-      safeResponse(res, 400, { 
-        error: "Client ID is required to identify the Foundry instance"
-      });
-			return;
-    }
+    const userId = resolveScopedUserId(req, req.query.userId as string | undefined);
+
+    const clientId = await resolveClientId(req, res, req.query.clientId as string);
+    if (!clientId) return;
 
     if (!uuid && !selected) {
       safeResponse(res, 400, { error: "UUID or selected parameter is required" });

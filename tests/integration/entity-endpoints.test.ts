@@ -406,8 +406,9 @@ describe('Entity', () => {
         expect(captured.response.data).toHaveProperty('results');
         expect(captured.response.data.results[0]).toHaveProperty('uuid', actorUuid);
         expect(captured.response.data.results[0]).toHaveProperty('attribute', 'prototypeToken.height');
-        expect(captured.response.data.results[0]).toHaveProperty('oldValue', 1);
-        expect(captured.response.data.results[0]).toHaveProperty('newValue', 6);
+        // Verify the increase was applied correctly (oldValue + amount = newValue)
+        const increaseResult = captured.response.data.results[0];
+        expect(increaseResult.newValue).toBe(increaseResult.oldValue + 5);
       });
     });
 
@@ -467,8 +468,9 @@ describe('Entity', () => {
         expect(captured.response.data).toHaveProperty('results');
         expect(captured.response.data.results[0]).toHaveProperty('uuid', actorUuid);
         expect(captured.response.data.results[0]).toHaveProperty('attribute', 'prototypeToken.height');
-        expect(captured.response.data.results[0]).toHaveProperty('oldValue', 6);
-        expect(captured.response.data.results[0]).toHaveProperty('newValue', 1);
+        // Verify the decrease was applied correctly (oldValue - amount = newValue)
+        const decreaseResult = captured.response.data.results[0];
+        expect(decreaseResult.newValue).toBe(decreaseResult.oldValue - 5);
       });
     });
 

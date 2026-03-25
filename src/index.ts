@@ -9,12 +9,13 @@
  * @since 1.8.1
  */
 
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 import { createServer } from "http";
 import { WebSocketServer } from "ws";
 import { corsMiddleware } from "./middleware/cors";
 import { log } from "./utils/logger";
 import { wsRoutes } from "./routes/websocket";
+import { setupClientWebSocket } from "./routes/clientWebSocket";
 import { apiRoutes, browserSessions, pendingSessions } from "./routes/api";
 import authRoutes from "./routes/auth";
 import { config } from "dotenv";
@@ -29,6 +30,8 @@ import { redisSessionMiddleware } from './middleware/redisSession';
 import { startHealthMonitoring, logSystemHealth, getSystemHealth } from './utils/healthCheck';
 import { setupCronJobs } from './cron';
 import { migrateDailyRequestTracking } from './migrations/addDailyRequestTracking';
+import { migrateApiKeysTable } from './migrations/addApiKeysTable';
+import { migrateMaxHeadlessSessions } from './migrations/addMaxHeadlessSessions';
 
 config();
 
@@ -84,37 +87,43 @@ app.use((req, res, next) => {
 app.use(redisSessionMiddleware);
 
 // Add global error handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   log.error('Unhandled error:', err);
   log.error(`Error on ${req.method} ${req.path}`);
   if (!res.headersSent) {
     // Handle JSON parsing errors
-    if (err.type === 'entity.parse.failed' || err instanceof SyntaxError || 
+    if (err.type === 'entity.parse.failed' || err instanceof SyntaxError ||
         (err.message && err.message.includes('JSON'))) {
-      return res.status(400).json({ 
+      res.status(400).json({
         error: 'Invalid JSON format',
         message: 'The request body contains malformed JSON. Please check your JSON syntax.',
         details: err.message
       });
+      return;
     }
-    
+
     // Handle payload too large errors
     if (err.type === 'entity.too.large') {
-      return res.status(413).json({ 
+      res.status(413).json({
         error: 'Request entity too large',
         message: 'The request body is too large. Please reduce the size of your request.'
       });
+      return;
     }
-    
+
     // Default error response
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+};
+app.use(errorHandler);
 
-// Serve static files from public directory
+// Serve static files from public directory (API specs, sheet-test, etc.)
 app.use("/static", express.static(path.join(__dirname, "../public")));
 app.use("/static/css", express.static(path.join(__dirname, "../public/css")));
 app.use("/static/js", express.static(path.join(__dirname, "../public/js")));
+
+// Serve Astro frontend build assets
+app.use("/_astro", express.static(path.join(__dirname, "../public-dist/_astro")));
 
 // Serve OpenAPI spec with dynamic server URL
 const openApiSpecPath = path.resolve(__dirname, '../public/openapi.json');
@@ -134,6 +143,28 @@ app.get('/openapi.json', (req: Request, res: Response) => {
   }
 });
 
+
+// Serve AsyncAPI spec with dynamic server URL
+const asyncApiSpecPath = path.resolve(__dirname, '../public/asyncapi.json');
+app.get('/asyncapi.json', (req: Request, res: Response) => {
+  try {
+    if (!fs.existsSync(asyncApiSpecPath)) {
+      log.warn(`AsyncAPI spec file not found at: ${asyncApiSpecPath}`);
+      res.status(404).json({ error: 'AsyncAPI spec not available' });
+      return;
+    }
+    const spec = JSON.parse(fs.readFileSync(asyncApiSpecPath, 'utf8'));
+    // Inject dynamic server URL
+    const wsUrl = `ws://${req.get('host')}`;
+    if (spec.servers?.production) {
+      spec.servers.production.url = `${wsUrl}/ws/api`;
+    }
+    res.json(spec);
+  } catch (error) {
+    log.error('Error serving AsyncAPI spec:', { error: error instanceof Error ? error.message : String(error) });
+    res.status(500).json({ error: 'Failed to load AsyncAPI spec' });
+  }
+});
 
 // Redirect trailing slashes in docs routes to clean URLs
 app.use('/docs', (req, res, next) => {
@@ -163,16 +194,17 @@ try {
     });
 
     // Handle directory requests by serving their index.html
-    app.get('/docs/*', (req, res, next) => {
+    app.get('/docs/*path', (req: Request, res: Response, next: NextFunction): void => {
       // Decode and normalize the request path to prevent path traversal
       const requestPath = decodeURIComponent(req.path.replace('/docs', ''));
       // Remove leading slashes and parent directory references
       const normalizedPath = path.normalize(requestPath).replace(/^(\.\.[\/\\])+/, '').replace(/^[\/\\]+/, '');
-      
+
       // Resolve the full file path and verify it's within docsPath
       const filePath = path.resolve(docsPath, normalizedPath);
       if (!filePath.startsWith(docsPath)) {
-        return res.status(404).json({ error: 'Not found' });
+        res.status(404).json({ error: 'Not found' });
+        return;
       }
       
       const indexPath = path.join(filePath, 'index.html');
@@ -209,21 +241,61 @@ try {
   });
 }
 
-// Serve the main HTML page at the root URL
+// Serve the main HTML page at the root URL (Astro build)
 app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  const astroIndex = path.join(__dirname, "../public-dist/index.html");
+  if (fs.existsSync(astroIndex)) {
+    res.sendFile(astroIndex);
+  } else {
+    // Fallback to legacy public/index.html
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  }
 });
 
-// Serve the privacy policy page
+// Serve the privacy policy page (Astro build)
 app.get("/privacy", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../public/privacy.html"));
+  const astroPrivacy = path.join(__dirname, "../public-dist/privacy/index.html");
+  if (fs.existsSync(astroPrivacy)) {
+    res.sendFile(astroPrivacy);
+  } else {
+    res.sendFile(path.join(__dirname, "../public/privacy.html"));
+  }
 });
 
-// Create WebSocket server
-const wss = new WebSocketServer({ server: httpServer });
+// Serve Astro-built subscription pages
+app.get("/subscription-success", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../public-dist/subscription-success/index.html"));
+});
+
+app.get("/subscription-cancel", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../public-dist/subscription-cancel/index.html"));
+});
+
+// Create WebSocket servers with noServer mode for path-based routing
+const moduleWss = new WebSocketServer({ noServer: true });
+const clientWss = new WebSocketServer({ noServer: true });
 
 // Setup WebSocket routes
-wsRoutes(wss);
+wsRoutes(moduleWss);
+setupClientWebSocket(clientWss);
+
+// Route upgrade requests by URL path
+httpServer.on('upgrade', (request, socket, head) => {
+  const url = new URL(request.url || '', `http://${request.headers.host}`);
+  const pathname = url.pathname;
+
+  if (pathname === '/ws/api') {
+    clientWss.handleUpgrade(request, socket, head, (ws) => {
+      clientWss.emit('connection', ws, request);
+    });
+  } else {
+    // All other paths (/, /relay, etc.) go to the Foundry module WSS.
+    // The module connects on the root path by default.
+    moduleWss.handleUpgrade(request, socket, head, (ws) => {
+      moduleWss.emit('connection', ws, request);
+    });
+  }
+});
 
 // Setup API routes
 apiRoutes(app);
@@ -279,6 +351,7 @@ async function initializeServices() {
     httpServer.listen(port, () => {
       log.info(`Server running at http://localhost:${port}`);
       log.info(`WebSocket server ready at ws://localhost:${port}/relay`);
+      log.info(`Client WebSocket API ready at ws://localhost:${port}/ws/api`);
     });
     
     // Do heavy initialization in background after server is running
@@ -290,8 +363,10 @@ async function initializeServices() {
         await sequelize.sync();
         log.info('Database synced');
         
-        // Run migration to add daily request tracking columns
+        // Run migrations
         await migrateDailyRequestTracking();
+        await migrateApiKeysTable();
+        await migrateMaxHeadlessSessions();
         log.info('Database migrations completed');
         
         if (!isLocalMode && process.env.REDIS_URL && process.env.REDIS_URL.length > 0) {
@@ -343,9 +418,12 @@ async function gracefulShutdown(signal: string) {
     log.info('HTTP server closed');
   });
   
-  // Close WebSocket server to stop accepting new WS connections
-  wss.close(() => {
-    log.info('WebSocket server closed');
+  // Close WebSocket servers to stop accepting new WS connections
+  moduleWss.close(() => {
+    log.info('Module WebSocket server closed');
+  });
+  clientWss.close(() => {
+    log.info('Client WebSocket server closed');
   });
   
   // Give in-flight requests a moment to complete

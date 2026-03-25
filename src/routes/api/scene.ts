@@ -18,10 +18,8 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  */
 sceneRouter.get("/scene", ...commonMiddleware, createApiRoute({
     type: 'get-scene',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: 'query', type: 'string' }, // ID of a specific scene to retrieve
         { name: 'name', from: 'query', type: 'string' }, // Name of the scene to retrieve
         { name: 'active', from: 'query', type: 'boolean' }, // Set to true to get the currently active scene
@@ -46,10 +44,10 @@ sceneRouter.get("/scene", ...commonMiddleware, createApiRoute({
 sceneRouter.post("/scene", ...commonMiddleware, express.json(), createApiRoute({
     type: 'create-scene',
     requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'data', from: 'body', type: 'object' } // Scene data object (name, width, height, grid, etc.)
     ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ],
     timeout: 30000
@@ -64,10 +62,10 @@ sceneRouter.post("/scene", ...commonMiddleware, express.json(), createApiRoute({
 sceneRouter.put("/scene", ...commonMiddleware, express.json(), createApiRoute({
     type: 'update-scene',
     requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'data', from: 'body', type: 'object' } // Object containing the scene fields to update
     ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: ['query', 'body'], type: 'string' }, // ID of the scene to update
         { name: 'name', from: ['query', 'body'], type: 'string' }, // Name of the scene to update (alternative to sceneId)
         { name: 'active', from: ['query', 'body'], type: 'boolean' }, // Set to true to target the active scene
@@ -90,10 +88,8 @@ sceneRouter.put("/scene", ...commonMiddleware, express.json(), createApiRoute({
  */
 sceneRouter.delete("/scene", ...commonMiddleware, createApiRoute({
     type: 'delete-scene',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: 'query', type: 'string' }, // ID of the scene to delete
         { name: 'name', from: 'query', type: 'string' }, // Name of the scene to delete (alternative to sceneId)
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
@@ -114,10 +110,8 @@ sceneRouter.delete("/scene", ...commonMiddleware, createApiRoute({
  */
 sceneRouter.post("/switch-scene", ...commonMiddleware, express.json(), createApiRoute({
     type: 'switch-scene',
-    requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: ['body', 'query'], type: 'string' }, // ID of the scene to activate
         { name: 'name', from: ['body', 'query'], type: 'string' }, // Name of the scene to activate (alternative to sceneId)
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)

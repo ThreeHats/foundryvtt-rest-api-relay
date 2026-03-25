@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ClientManager } from '../core/ClientManager';
-import { pendingRequests, safeResponse, PendingRequest, PendingRequestType } from './shared';
+import { pendingRequests, safeResponse, PendingRequest, PendingRequestType, tryAutoStartForScopedKey } from './shared';
 import { log } from '../utils/logger';
 
 /**
@@ -72,11 +72,11 @@ export function createApiRoute(config: ApiRouteConfig) {
     for (const p of allParamDefs) {
         let value = params[p.name];
         if (value === undefined || value === null) continue;
-  
+
         if (p.type) {
           let coercedValue = value;
           let validationError: string | null = null;
-          
+
           switch (p.type) {
             case 'number':
               if (typeof value !== 'number') {
@@ -117,7 +117,7 @@ export function createApiRoute(config: ApiRouteConfig) {
               if (typeof value !== 'object' || Array.isArray(value)) validationError = `'${p.name}' must be an object.`;
               break;
           }
-  
+
           if (validationError) {
             return safeResponse(res, 400, { error: validationError });
           }
@@ -138,10 +138,57 @@ export function createApiRoute(config: ApiRouteConfig) {
       }
     }
 
+    // Scoped key enforcement — always override, never trust caller
+    if (req.scopedKey) {
+      if (req.scopedKey.scopedClientId) {
+        params.clientId = req.scopedKey.scopedClientId;
+      }
+      if (req.scopedKey.scopedUserId) {
+        params.userId = req.scopedKey.scopedUserId;
+      }
+    }
+
+    // Auto-resolve clientId if still missing
+    if (!params.clientId) {
+      const masterKey = req.masterApiKey || req.user?.apiKey ||
+        (req.user?.getDataValue ? req.user.getDataValue('apiKey') : undefined);
+      if (masterKey) {
+        const clients = await ClientManager.getConnectedClients(masterKey);
+        if (clients.length === 1) {
+          params.clientId = clients[0];
+        } else if (clients.length === 0) {
+          // No clients connected — try auto-starting a headless session
+          const autoClientId = await tryAutoStartForScopedKey(req);
+          if (autoClientId) {
+            params.clientId = autoClientId;
+          } else {
+            return safeResponse(res, 404, { error: 'No connected Foundry clients found' });
+          }
+        } else {
+          return safeResponse(res, 400, {
+            error: 'Multiple clients connected. Please specify clientId.',
+            connectedClients: clients
+          });
+        }
+      } else {
+        return safeResponse(res, 400, { error: "'clientId' is required" });
+      }
+    }
+
     const clientId = params.clientId as string;
 
     // Get the client instance
-    const client = await ClientManager.getClient(clientId);
+    let client = await ClientManager.getClient(clientId);
+
+    // If scopedClientId was forced but client isn't connected, try auto-start
+    if (!client && req.scopedKey) {
+      const autoClientId = await tryAutoStartForScopedKey(req);
+      if (autoClientId) {
+        params.clientId = autoClientId;
+        client = await ClientManager.getClient(autoClientId);
+      }
+    }
+
     if (!client) {
       return safeResponse(res, 404, { error: "Invalid client ID" });
     }
@@ -194,4 +241,4 @@ export function createApiRoute(config: ApiRouteConfig) {
       safeResponse(res, 500, { error: `Internal server error during ${config.type} request` });
     }
   };
-} 
+}

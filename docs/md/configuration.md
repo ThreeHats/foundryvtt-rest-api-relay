@@ -43,6 +43,11 @@ Here are the primary environment variables you can use:
 -   `DAILY_REQUEST_LIMIT`: Number of requests per day allowed per API key
     -   **Default** 1000
 
+-   `CAPTURE_BROWSER_CONSOLE`: Log level for capturing browser console output from headless Foundry sessions to files in `data/browser-logs/`.
+    -   **Options:** `error`, `warn`, `debug`
+    -   Each level includes all levels above it (e.g., `warn` captures both warnings and errors).
+    -   **Default:** unset (no browser console logging)
+
 ## Docker Configuration
 
 When using Docker, you can set these variables in the `environment` section of your `docker-compose.yml` file.

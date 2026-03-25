@@ -6,11 +6,15 @@ import { ClientManager } from '../../core/ClientManager';
 import { safeResponse } from '../shared';
 import { log } from '../../utils/logger';
 import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
 import * as puppeteer from 'puppeteer';
 import { getRedisClient } from '../../config/redis';
-import { registerHeadlessSession } from "../../workers/headlessSessions";
+import { registerHeadlessSession, updateHeadlessSessionClientId } from "../../workers/headlessSessions";
+import { ApiKey } from '../../models/apiKey';
+import { decrypt, isEncryptionAvailable } from '../../utils/encryption';
+import { attachBrowserConsoleLogger } from '../../utils/browserConsoleLogger';
+
+// 0 = unlimited (default). Set MAX_HEADLESS_SESSIONS env var to enforce a per-user cap.
+const MAX_HEADLESS_SESSIONS = parseInt(process.env.MAX_HEADLESS_SESSIONS || '0');
 
 // Temporary handshake tokens
 interface PendingHandshake {
@@ -44,7 +48,14 @@ export const pendingSessions = new Map<string, PendingSession>();
 
 // Changed to support multiple sessions per API key (especially for local mode testing)
 // Maps: apiKey -> sessionId -> session data
-export const apiKeyToSessions = new Map<string, Map<string, { sessionId: string, clientId: string, lastActivity: number }>>();
+interface SessionData {
+    sessionId: string;
+    clientId: string;
+    lastActivity: number;
+    foundryUrl?: string;
+    worldId?: string;
+}
+export const apiKeyToSessions = new Map<string, Map<string, SessionData>>();
 // Legacy export for backward compatibility
 // TODO: Remove this once all clients are updated to use multiple sessions per API key
 export const apiKeyToSession = {
@@ -52,7 +63,7 @@ export const apiKeyToSession = {
         const sessions = apiKeyToSessions.get(apiKey);
         if (!sessions || sessions.size === 0) return undefined;
         // Return the most recent session for backward compatibility
-        let mostRecent: { sessionId: string, clientId: string, lastActivity: number } | undefined;
+        let mostRecent: SessionData | undefined;
         for (const session of sessions.values()) {
             if (!mostRecent || session.lastActivity > mostRecent.lastActivity) {
                 mostRecent = session;
@@ -60,7 +71,7 @@ export const apiKeyToSession = {
         }
         return mostRecent;
     },
-    set: (apiKey: string, session: { sessionId: string, clientId: string, lastActivity: number }) => {
+    set: (apiKey: string, session: SessionData) => {
         let sessions = apiKeyToSessions.get(apiKey);
         if (!sessions) {
             sessions = new Map();
@@ -80,12 +91,12 @@ export const apiKeyToSession = {
             }
         }
     },
-    getAll: (apiKey: string) => {
+    getAll: (apiKey: string): SessionData[] => {
         const sessions = apiKeyToSessions.get(apiKey);
         return sessions ? Array.from(sessions.values()) : [];
     },
     entries: () => {
-        const allEntries: [string, { sessionId: string, clientId: string, lastActivity: number }][] = [];
+        const allEntries: [string, SessionData][] = [];
         for (const [apiKey, sessions] of apiKeyToSessions.entries()) {
             for (const session of sessions.values()) {
                 allEntries.push([apiKey, session]);
@@ -95,6 +106,20 @@ export const apiKeyToSession = {
     }
 };
 const pendingHeadlessSessionsRequests = new Map<string, string>();
+
+/**
+ * Check if a headless session is already pending (being launched) for the given API key + URL.
+ * We only ever want one GM connected per URL — this prevents duplicate launches
+ * when multiple requests arrive before the first session finishes connecting.
+ */
+export function findPendingSessionForUrl(apiKey: string, foundryUrl: string): PendingSession | undefined {
+    for (const pending of pendingSessions.values()) {
+        if (pending.apiKey === apiKey && pending.foundryUrl === foundryUrl) {
+            return pending;
+        }
+    }
+    return undefined;
+}
 
 export const sessionRouter = Router();
 
@@ -205,34 +230,287 @@ try {
  * @route POST /start-session
  * @param {string} handshakeToken - [body] The token received from session-handshake
  * @param {string} encryptedPassword - [body] Password encrypted with the public key
+ * @param {string} [captureBrowserConsole] - [body] Log level for browser console capture ("error", "warn", or "debug"). Overrides the CAPTURE_BROWSER_CONSOLE env var for this session. Logs written to data/browser-logs/.
  * @param {string} x-api-key - [header] API key header
  * @returns {object} Session information including sessionId and clientId
  */
 sessionRouter.post("/start-session", requestForwarderMiddleware, authMiddleware, async (req: Request, res: Response) => {
 try {
-    const { handshakeToken, encryptedPassword, captureBrowserConsole, foundryVersion } = req.body;
-    const apiKey = req.header('x-api-key') as string;
-    
+    let { handshakeToken, encryptedPassword, captureBrowserConsole, foundryVersion } = req.body;
+    const rawApiKey = req.header('x-api-key') as string;
+    const masterKey = req.masterApiKey || rawApiKey;
+
+    // Paid-only enforcement for headless sessions (opt-in via env var)
+    const requirePaidHeadless = process.env.REQUIRE_PAID_HEADLESS === 'true';
+    if (requirePaidHeadless) {
+      const subscriptionStatus = req.subscriptionStatus || 'free';
+      if (subscriptionStatus !== 'active') {
+        return safeResponse(res, 403, {
+          error: 'Headless sessions require a paid subscription',
+          message: 'Please upgrade to a paid subscription to use headless Foundry sessions.',
+          upgradeUrl: '/api/subscriptions/create-checkout-session'
+        });
+      }
+    }
+
+    // Resolve session limit from user config or env var
+    const user = req.user;
+    const userMaxSessions = user?.getDataValue ? user.getDataValue('maxHeadlessSessions') : user?.maxHeadlessSessions;
+    const sessionLimit = userMaxSessions ?? MAX_HEADLESS_SESSIONS;
+
     const redis = getRedisClient();
     const isLocalMode = !redis;
-    
-    // In non-local mode (Redis available), check if an active session already exists for this API key
-    // If so, return that session instead of creating a new one
-    if (!isLocalMode) {
-        const existingSessionId = await redis.get(`headless_apikey:${apiKey}:session`);
+
+    // Check session limit and return existing sessions if at limit (0 = unlimited)
+    if (!isLocalMode && sessionLimit > 0) {
+        const existingSessionId = await redis.get(`headless_apikey:${masterKey}:session`);
         if (existingSessionId) {
             const existingSessionData = await redis.hGetAll(`headless_session:${existingSessionId}`);
             if (existingSessionData && existingSessionData.clientId) {
-                log.info(`Returning existing session ${existingSessionId} for API key ${apiKey.substring(0, 8)}...`);
+                log.info(`Returning existing session ${existingSessionId} for API key ${masterKey.substring(0, 8)}...`);
                 return safeResponse(res, 200, {
                     success: true,
-                    message: "Existing session returned (each API key is limited to one headless session)",
+                    message: `Session limit (${sessionLimit}) reached. Returning existing session.`,
                     sessionId: existingSessionId,
                     clientId: existingSessionData.clientId,
                     existingSession: true
                 });
             }
         }
+    } else {
+        // Local mode: check apiKeyToSessions
+        const existingSessions = apiKeyToSession.getAll(masterKey);
+
+        // Determine the requested URL and world for matching (from stored creds or handshake)
+        let requestedFoundryUrl: string | undefined;
+        let worldName: string | undefined;
+        if (req.scopedKey && !handshakeToken) {
+            const scopedKeyRecord = await ApiKey.findOne({ where: { id: req.scopedKey.id } });
+            if (scopedKeyRecord) {
+                const get = (f: string) => scopedKeyRecord.getDataValue ? scopedKeyRecord.getDataValue(f) : scopedKeyRecord[f];
+                requestedFoundryUrl = get('foundryUrl');
+            }
+            worldName = req.body.worldName;
+        } else if (handshakeToken) {
+            // Try to get URL from the pending handshake
+            const handshake = pendingHandshakes.get(handshakeToken);
+            if (handshake) {
+                requestedFoundryUrl = handshake.foundryUrl;
+                worldName = handshake.worldName;
+            }
+        }
+
+        // Only one GM session per URL — reuse existing if same URL
+        if (existingSessions.length > 0 && requestedFoundryUrl) {
+            const matchingSession = existingSessions.find(s => s.foundryUrl === requestedFoundryUrl);
+            if (matchingSession) {
+                log.info(`GM already connected for ${requestedFoundryUrl}, reusing session`);
+                return safeResponse(res, 200, {
+                    success: true,
+                    message: 'GM already connected for this Foundry URL. Returning existing session.',
+                    sessionId: matchingSession.sessionId,
+                    clientId: matchingSession.clientId,
+                    existingSession: true
+                });
+            }
+        }
+
+        // Also check if a client is already connected for the target world
+        // (e.g. from a real browser, not tracked in apiKeyToSessions)
+        if (worldName) {
+            const connectedClients = await ClientManager.getConnectedClients(masterKey);
+            for (const cid of connectedClients) {
+                const client = await ClientManager.getClient(cid);
+                if (client && client.getWorldId() === worldName) {
+                    log.info(`Client ${cid} already connected for world "${worldName}", reusing`);
+                    return safeResponse(res, 200, {
+                        success: true,
+                        message: `Client already connected for world "${worldName}".`,
+                        clientId: cid,
+                        existingSession: true
+                    });
+                }
+            }
+        }
+
+        // Check if a session is already being launched for this URL
+        if (requestedFoundryUrl) {
+            const pendingForUrl = findPendingSessionForUrl(masterKey, requestedFoundryUrl);
+            if (pendingForUrl) {
+                log.info(`Headless session already launching for ${requestedFoundryUrl}, rejecting duplicate`);
+                return safeResponse(res, 202, {
+                    message: 'A headless session is already starting for this Foundry URL. Please wait and retry.',
+                    sessionId: pendingForUrl.sessionId
+                });
+            }
+        }
+
+        if (sessionLimit > 0 && existingSessions.length >= sessionLimit) {
+            // If scoped key with scopedClientId, try to return that specific session
+            if (req.scopedKey?.scopedClientId) {
+                const matchingSession = existingSessions.find(s => s.clientId === req.scopedKey!.scopedClientId);
+                if (matchingSession) {
+                    return safeResponse(res, 200, {
+                        success: true,
+                        message: `Session limit (${sessionLimit}) reached. Returning existing session.`,
+                        sessionId: matchingSession.sessionId,
+                        clientId: matchingSession.clientId,
+                        existingSession: true
+                    });
+                }
+            }
+            // Generic error — don't leak what URLs existing sessions use
+            return safeResponse(res, 409, {
+                error: `Session limit (${sessionLimit}) reached. No matching session found.`
+            });
+        }
+    }
+
+    // Stored credentials flow: if scoped key has stored credentials, use them
+    let storedCredentialsUsed = false;
+    let storedFoundryUrl: string | undefined;
+    let storedUsername: string | undefined;
+    let storedPassword: string | undefined;
+
+    if (req.scopedKey && !handshakeToken) {
+      // Try to use stored credentials from the scoped key
+      const scopedKeyRecord = await ApiKey.findOne({ where: { id: req.scopedKey.id } });
+      if (scopedKeyRecord) {
+        const get = (f: string) => scopedKeyRecord.getDataValue ? scopedKeyRecord.getDataValue(f) : scopedKeyRecord[f];
+        const encPwd = get('encryptedFoundryPassword');
+        const url = get('foundryUrl');
+        const uname = get('foundryUsername');
+
+        if (encPwd && url && uname) {
+          if (!isEncryptionAvailable()) {
+            return safeResponse(res, 500, { error: 'Credential decryption not available. CREDENTIALS_ENCRYPTION_KEY not configured.' });
+          }
+          try {
+            storedPassword = decrypt(encPwd, get('passwordIv'), get('passwordAuthTag'));
+            storedFoundryUrl = url;
+            storedUsername = uname;
+            storedCredentialsUsed = true;
+            log.info(`Using stored credentials from scoped key for session start`);
+          } catch (err) {
+            log.error(`Failed to decrypt stored credentials: ${err}`);
+            return safeResponse(res, 500, { error: 'Failed to decrypt stored credentials' });
+          }
+        }
+      }
+    }
+
+    // Use masterKey consistently for session tracking
+    const apiKey = masterKey;
+
+    // If using stored credentials, skip the entire handshake/decryption flow
+    if (storedCredentialsUsed && !handshakeToken) {
+      // Build a synthetic handshake so the browser launch code works
+      const foundryUrl = storedFoundryUrl!;
+      const worldName = req.body.worldName;
+      const username = storedUsername!;
+      const password = storedPassword!;
+
+      // Jump directly to browser launch (the try block at line ~480+)
+      // We duplicate the launch here to avoid restructuring the deeply nested flow
+      try {
+        log.info(`Starting headless Foundry session with stored credentials for URL: ${foundryUrl}`);
+
+        const browser = await puppeteer.launch({
+          headless: true,
+          executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+          args: [
+            '--no-sandbox', '--disable-setuid-sandbox', '--enable-gpu-rasterization',
+            '--enable-oop-rasterization', '--disable-dev-shm-usage', '--no-first-run',
+            '--no-zygote', '--disable-extensions', '--disable-web-security',
+            '--disable-features=site-per-process,IsolateOrigins,site-isolation-trials',
+            '--disable-background-networking', '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows', '--disable-renderer-backgrounding',
+            '--disable-sync', '--disable-breakpad',
+            '--disable-component-extensions-with-background-pages',
+            '--disable-default-apps', '--disable-infobars', '--disable-popup-blocking',
+            '--disable-translate', '--metrics-recording-only', '--mute-audio',
+            '--log-level=0', '--js-flags="--max_old_space_size=8192"',
+          ],
+          defaultViewport: { width: 1366, height: 768 }
+        });
+
+        const page = await browser.newPage();
+        await page.goto(foundryUrl, { waitUntil: 'networkidle0', timeout: 180000 });
+
+        // Handle world selection if provided
+        if (worldName) {
+          await page.waitForSelector('li.package.world', { timeout: 10000 }).catch(() => {});
+          await page.evaluate((wn: string) => {
+            const titles = Array.from(document.querySelectorAll('h3.package-title'));
+            for (const title of titles) {
+              if (title.textContent?.trim() === wn) {
+                const li = title.closest('li.package.world');
+                const btn = li?.querySelector('a.control.play') as HTMLElement;
+                if (btn) { btn.click(); return; }
+              }
+            }
+          }, worldName);
+          await new Promise(r => setTimeout(r, 6000));
+        }
+
+        // Login
+        const hasUserSelect = await page.$('select[name="userid"]').then(el => !!el).catch(() => false);
+        if (hasUserSelect) {
+          const options = await page.$$eval('select[name="userid"] option', opts =>
+            opts.map((o: any) => ({ value: o.value, text: o.textContent?.trim() })));
+          const match = options.find((o: any) => o.text === username);
+          if (match) await page.select('select[name="userid"]', match.value);
+        }
+        await page.type('input[name="password"]', password);
+        await page.click('button[type="submit"]').catch(() =>
+          page.evaluate(() => (document.querySelector('form') as HTMLFormElement)?.submit()));
+
+        await page.waitForSelector('#ui-left, #sidebar, .vtt, #game', { timeout: 30000 });
+
+        const sessionId = crypto.randomUUID();
+        browserSessions.set(sessionId, browser);
+        await registerHeadlessSession(sessionId, username, apiKey);
+
+        // Track clients before so we can detect the new one
+        const clientsBefore = new Set(await ClientManager.getConnectedClients(apiKey));
+
+        pendingSessions.set(sessionId, {
+          sessionId, browser, apiKey, expectedClientId: `foundry-*-${username} (polling)`,
+          startTime: Date.now(), foundryUrl, worldName, username
+        });
+
+        // Wait for a NEW client to connect, verifying worldName to avoid grabbing
+        // a client from a different concurrent session under the same API key
+        const connectedClientId = await new Promise<string>((resolve, reject) => {
+          const check = setInterval(async () => {
+            const currentClients = await ClientManager.getConnectedClients(apiKey);
+            const newClientIds = currentClients.filter(id => !clientsBefore.has(id));
+            for (const candidateId of newClientIds) {
+              const client = await ClientManager.getClient(candidateId);
+              if (!client) continue;
+              const clientWorldId = client.getWorldId();
+              if (worldName && clientWorldId && clientWorldId !== worldName) continue;
+              clearInterval(check); clearTimeout(timeout); resolve(candidateId);
+              return;
+            }
+          }, 2000);
+          const timeout = setTimeout(() => { clearInterval(check); reject(new Error('Timeout')); }, 300000);
+        });
+
+        pendingSessions.delete(sessionId);
+        apiKeyToSession.set(apiKey, { sessionId, clientId: connectedClientId, lastActivity: Date.now(), foundryUrl });
+
+        return safeResponse(res, 200, {
+          success: true,
+          message: "Foundry session started with stored credentials",
+          sessionId,
+          clientId: connectedClientId
+        });
+      } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        log.error(`Stored credentials session error: ${msg}`);
+        return safeResponse(res, 500, { error: 'Failed to start session with stored credentials', details: msg });
+      }
     }
 
     // Get handshake data from Redis or local storage
@@ -432,99 +710,17 @@ try {
         '--log-level=0',
         '--js-flags="--max_old_space_size=8192"',
     ],
-    defaultViewport: { width: 1280, height: 720 }
+    defaultViewport: { width: 1366, height: 768 }
     });
 
 
     const page = await browser.newPage();
-
-    const browserConsoleLevel = captureBrowserConsole || process.env.CAPTURE_BROWSER_CONSOLE;
-    if (browserConsoleLevel) {
-      const levelOrder = ['error', 'warn', 'debug'] as const;
-      const threshold = levelOrder.indexOf(browserConsoleLevel as typeof levelOrder[number]);
-
-      if (threshold === -1) {
-        log.warn(`Invalid CAPTURE_BROWSER_CONSOLE value: "${browserConsoleLevel}". Use "error", "warn", or "debug".`);
-      } else {
-        const logsDir = path.join(process.cwd(), 'data', 'browser-logs');
-        fs.mkdirSync(logsDir, { recursive: true });
-
-        // Remove previous log files for the same world/username
-        const logPrefix = `${worldName || 'unknown'}_${username}`;
-        try {
-          for (const file of fs.readdirSync(logsDir)) {
-            if (file.startsWith(logPrefix) && file.endsWith('.log')) {
-              fs.unlinkSync(path.join(logsDir, file));
-            }
-          }
-        } catch { /* ignore cleanup errors */ }
-
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const logFileName = `${logPrefix}_${foundryVersion ? `fvtt-${foundryVersion}_` : ''}${timestamp}.log`;
-        const logStream = fs.createWriteStream(path.join(logsDir, logFileName), { flags: 'a' });
-        log.info(`Browser console logs will be written to data/browser-logs/${logFileName}`);
-
-        page.on('pageerror', (error: unknown) => {
-          const message = error instanceof Error ? error.message : String(error);
-          const ts = new Date().toISOString();
-          logStream.write(`[${ts}] [PAGEERROR] ${message}\n`);
-        });
-        page.on('requestfailed', (request: puppeteer.HTTPRequest) => {
-          const ts = new Date().toISOString();
-          logStream.write(`[${ts}] [REQUESTFAILED] ${request.url()}\n`);
-        });
-
-        page.on('console', (msg: puppeteer.ConsoleMessage) => {
-          const type = msg.type();
-          const msgLevel = type === 'error' ? 0 : type === 'warn' ? 1 : 2;
-          if (msgLevel > threshold) return;
-
-          const fallbackText = msg.text();
-          const ts = new Date().toISOString();
-
-          const writeLog = (text: string) => {
-            logStream.write(`[${ts}] [${type.toUpperCase()}] ${text}\n`);
-          };
-
-          const args = msg.args();
-          if (args.length === 0) {
-            writeLog(fallbackText);
-            return;
-          }
-
-          // Serialize each arg in the browser context to capture non-enumerable
-          // properties, getters, and class instances that JSON.stringify misses
-          Promise.all(
-            args.map(arg =>
-              arg.evaluate((obj: unknown) => {
-                if (obj === null || obj === undefined) return String(obj);
-                if (typeof obj === 'string') return obj;
-                if (obj instanceof Error) return `${obj.name}: ${obj.message}\n${obj.stack}`;
-                try {
-                  // Use a Set to handle circular references
-                  const seen = new WeakSet();
-                  return JSON.stringify(obj, (_key, value) => {
-                    if (typeof value === 'object' && value !== null) {
-                      if (seen.has(value)) return '[Circular]';
-                      seen.add(value);
-                    }
-                    return value;
-                  }, 2);
-                } catch {
-                  return String(obj);
-                }
-              }).catch(() => arg.toString())
-            )
-          ).then(resolved => {
-            writeLog(resolved.join(' '));
-          }).catch(() => {
-            writeLog(fallbackText);
-          });
-        });
-
-        page.once('close', () => logStream.end());
-      }
-    }
+    attachBrowserConsoleLogger(page, {
+      level: captureBrowserConsole,
+      worldName,
+      username,
+      foundryVersion,
+    });
 
     // Navigate to Foundry
     log.debug(`Navigating to Foundry URL: ${foundryUrl}`);
@@ -752,73 +948,62 @@ try {
     // Register this session in Redis for cross-instance support
     await registerHeadlessSession(sessionId, userId, apiKey);
     
-    // The expected client ID will be in format "foundry-{userId}"
-    const expectedClientId = `foundry-${userId}`;
-    log.info(`Waiting for Foundry client connection with ID: ${expectedClientId}`);
-    
+    // The clientId format includes worldId (e.g. "foundry-{worldId}-{userId}") which
+    // the relay can't predict. Poll for any NEW client with the matching API key instead.
+    log.info(`Waiting for Foundry client connection for user ${userId}`);
+
+    // Track clients before launch so we can detect the new one
+    const clientsBefore = new Set(await ClientManager.getConnectedClients(apiKey));
+
     // Track this as a pending session immediately so it can be cleaned up if something goes wrong
     pendingSessions.set(sessionId, {
         sessionId,
         browser,
         apiKey,
-        expectedClientId,
+        expectedClientId: `foundry-*-${userId} (polling)`,
         startTime: Date.now(),
         foundryUrl,
         worldName,
         username
     });
-    log.info(`Tracking pending session ${sessionId} for client ${expectedClientId}`);
-    
-    // Create a promise that resolves when the client connects or rejects on timeout
+    log.info(`Tracking pending session ${sessionId} for user ${userId}`);
+
+    // Create a promise that resolves when a new client connects or rejects on timeout.
+    // We verify the new client's worldId to avoid grabbing a client from a different
+    // concurrent session launch under the same master API key.
     const clientConnectionPromise = new Promise<string>((resolve, reject) => {
-    // Initial check for existing client
-    const checkExistingClient = async () => {
-        const client = await ClientManager.getClient(expectedClientId);
-        if (client && client.getApiKey() === apiKey) {
-    return expectedClientId;
-        } else if (client) {
-    // If the client ID matches but the API key doesn't, log a warning
-    log.warn(`Client ID ${expectedClientId} found but API key mismatch`);
-    return 'invalid';
-        }
-        return null;
-    };
-    
-    // Set up polling for client connection with reduced verbosity
     let logCounter = 0;
     const checkInterval = setInterval(async () => {
         try {
-    const clientId = await checkExistingClient();
-    if (clientId) {
-        // Only log the connection once
-        if (clientId === 'invalid') {
-        // close the browser session
-        await browser.close();
-        browserSessions.delete(sessionId);
-        clearInterval(checkInterval);
-        clearTimeout(timeoutId);
-        reject(new Error(`Unauthorized client connection attempt`));
-        return;
+        const currentClients = await ClientManager.getConnectedClients(apiKey);
+        const newClientIds = currentClients.filter(id => !clientsBefore.has(id));
+        for (const candidateId of newClientIds) {
+            const client = await ClientManager.getClient(candidateId);
+            if (!client) continue;
+            // If we know the worldName, verify it matches the client's worldId
+            const clientWorldId = client.getWorldId();
+            if (worldName && clientWorldId && clientWorldId !== worldName) {
+                // Different world — not our session
+                continue;
+            }
+            log.info(`Client connected successfully: ${candidateId} (world: ${clientWorldId})`);
+            clearInterval(checkInterval);
+            clearTimeout(timeoutId);
+            resolve(candidateId);
+            return;
         }
-        log.info(`Client connected successfully: ${clientId}`);
-        clearInterval(checkInterval);
-        clearTimeout(timeoutId);
-        resolve(clientId);
-    } else {
-        // Log less frequently to reduce noise
         if (++logCounter % 10 === 0) {
-        log.debug(`Waiting for client connection: ${expectedClientId} (${logCounter} checks)`);
+            log.debug(`Waiting for client connection for user ${userId} (${logCounter} checks)`);
         }
-    }
         } catch (error) {
-    log.error(`Error checking for client: ${error}`);
+        log.error(`Error checking for client: ${error}`);
         }
     }, 2000);
-    
+
     // Set timeout for client connection
     const timeoutId = setTimeout(() => {
         clearInterval(checkInterval);
-        reject(new Error(`Timeout waiting for client connection: ${expectedClientId}`));
+        reject(new Error(`Timeout waiting for client connection for user ${userId}`));
     }, 300000); // Wait up to 5 minutes for the client to connect
     });
     
@@ -829,14 +1014,18 @@ try {
     // Remove from pending sessions - connection successful
     pendingSessions.delete(sessionId);
     log.info(`Session ${sessionId} connected successfully, removed from pending`);
-    
+
+    // Update Redis with the actual clientId
+    await updateHeadlessSessionClientId(sessionId, connectedClientId, apiKey);
+
     // Store the session in our API key mapping
-    apiKeyToSession.set(apiKey, { 
-        sessionId, 
+    apiKeyToSession.set(apiKey, {
+        sessionId,
         clientId: connectedClientId,
-        lastActivity: Date.now()
+        lastActivity: Date.now(),
+        foundryUrl
     });
-    
+
     // Return success with the session ID and client ID
     pendingHeadlessSessionsRequests.delete(apiKey);
     return safeResponse(res, 200, {
@@ -863,7 +1052,7 @@ try {
                  "This usually happens when another GM is already logged in and is elected as the 'primary GM'. " +
                  "The Foundry REST API module only allows one GM to connect to the relay at a time. " +
                  "Try logging out other GM users before starting a headless session.",
-        expectedClientId
+        expectedUser: userId
     });
     }
     } catch (error) {
@@ -1137,3 +1326,6 @@ sessionRouter.get("/session", requestForwarderMiddleware, authMiddleware, async 
         safeResponse(res, 500, { error: "Failed to retrieve session data" });
     }
 });
+
+// startHeadlessWithStoredCredentials moved to src/utils/headlessSessionStarter.ts
+// to avoid circular dependencies (session ↔ auth ↔ api)

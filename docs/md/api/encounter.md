@@ -17,7 +17,7 @@ Get all active encounters Retrieves a list of all currently active encounters in
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -29,7 +29,7 @@ Get all active encounters Retrieves a list of all currently active encounters in
 <ApiTester
   method="GET"
   path="/encounters"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -41,7 +41,7 @@ Get all active encounters Retrieves a list of all currently active encounters in
 const baseUrl = 'http://localhost:3010';
 const path = '/encounters';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -60,7 +60,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/encounters?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/encounters?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -73,7 +73,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/encounters'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -98,7 +98,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/encounters';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -132,7 +132,7 @@ import axios from 'axios';
   🔤/encounters🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -160,23 +160,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "encounters_1774001790245",
-  "clientId": "your-client-id",
   "type": "encounters-result",
+  "requestId": "encounters_1774367600757",
   "encounters": [
     {
-      "id": "4Ji8LDdrk3WrPKaH",
+      "id": "I6SnmHmny0CvWH0g",
       "round": 1,
       "turn": 0,
       "current": true,
       "combatants": [
         {
-          "id": "wuDqRmLpYEqnGgZK",
+          "id": "4O0vxvFV3K1xTAqw",
           "name": "Updated Test Actor",
-          "tokenUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
-          "actorUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
+          "tokenUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
+          "actorUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl",
           "img": "icons/svg/mystery-man.svg",
-          "initiative": 15,
+          "initiative": 16,
           "hidden": false,
           "defeated": false
         }
@@ -197,7 +196,7 @@ Start a new encounter Initiates a new encounter in the Foundry world.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | tokens | array |  | body | Array of token UUIDs to include in the encounter |
 | startWithSelected | boolean |  | body | Whether to start with selected tokens |
 | startWithPlayers | boolean |  | body | Whether to start with players |
@@ -215,7 +214,7 @@ Start a new encounter Initiates a new encounter in the Foundry world.
 <ApiTester
   method="POST"
   path="/start-encounter"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"tokens","type":"array","required":false,"source":"body"},{"name":"startWithSelected","type":"boolean","required":false,"source":"body"},{"name":"startWithPlayers","type":"boolean","required":false,"source":"body"},{"name":"rollNPC","type":"boolean","required":false,"source":"body"},{"name":"rollAll","type":"boolean","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"tokens","type":"array","required":false,"source":"body"},{"name":"startWithSelected","type":"boolean","required":false,"source":"body"},{"name":"startWithPlayers","type":"boolean","required":false,"source":"body"},{"name":"rollNPC","type":"boolean","required":false,"source":"body"},{"name":"rollAll","type":"boolean","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -227,7 +226,7 @@ Start a new encounter Initiates a new encounter in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/start-encounter';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -251,7 +250,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/start-encounter?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/start-encounter?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"startWithSelected":true,"rollAll":true}'
@@ -266,7 +265,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/start-encounter'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -295,7 +294,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/start-encounter';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -334,7 +333,7 @@ import axios from 'axios';
   🔤/start-encounter🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -365,22 +364,21 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "start-encounter_1774001789234",
-  "clientId": "your-client-id",
   "type": "start-encounter-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "start-encounter_1774367600723",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "encounter": {
-    "id": "4Ji8LDdrk3WrPKaH",
+    "id": "I6SnmHmny0CvWH0g",
     "round": 1,
     "turn": 0,
     "combatants": [
       {
-        "id": "wuDqRmLpYEqnGgZK",
+        "id": "4O0vxvFV3K1xTAqw",
         "name": "Updated Test Actor",
-        "tokenUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
-        "actorUuid": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
+        "tokenUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
+        "actorUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl",
         "img": "icons/svg/mystery-man.svg",
-        "initiative": 15,
+        "initiative": 16,
         "hidden": false,
         "defeated": false
       }
@@ -400,7 +398,7 @@ Advance to the next turn in the encounter Moves the encounter to the next turn.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -413,7 +411,7 @@ Advance to the next turn in the encounter Moves the encounter to the next turn.
 <ApiTester
   method="POST"
   path="/next-turn"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -425,8 +423,8 @@ Advance to the next turn in the encounter Moves the encounter to the next turn.
 const baseUrl = 'http://localhost:3010';
 const path = '/next-turn';
 const params = {
-  clientId: 'your-client-id',
-  encounterId: '4Ji8LDdrk3WrPKaH'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  encounterId: 'I6SnmHmny0CvWH0g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -445,7 +443,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/next-turn?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
+curl -X POST 'http://localhost:3010/next-turn?clientId=foundry-testing-r6bXhB7k9cXa3cif&encounterId=I6SnmHmny0CvWH0g' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -458,8 +456,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/next-turn'
 params = {
-    'clientId': 'your-client-id',
-    'encounterId': '4Ji8LDdrk3WrPKaH'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'encounterId': 'I6SnmHmny0CvWH0g'
 }
 url = f'{base_url}{path}'
 
@@ -484,8 +482,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/next-turn';
   const params = {
-    clientId: 'your-client-id',
-    encounterId: '4Ji8LDdrk3WrPKaH'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    encounterId: 'I6SnmHmny0CvWH0g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -519,8 +517,8 @@ import axios from 'axios';
   🔤/next-turn🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤encounterId=I6SnmHmny0CvWH0g🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -548,17 +546,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "next-turn_1774001790423",
-  "clientId": "your-client-id",
   "type": "next-turn-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "next-turn_1774367600760",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "action": "nextTurn",
   "currentTurn": 0,
   "currentRound": 2,
-  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
-  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
+  "actorTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl",
+  "tokenTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
   "encounter": {
-    "id": "4Ji8LDdrk3WrPKaH",
+    "id": "I6SnmHmny0CvWH0g",
     "round": 2,
     "turn": 0
   }
@@ -576,7 +573,7 @@ Advance to the next round in the encounter Moves the encounter to the next round
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -589,7 +586,7 @@ Advance to the next round in the encounter Moves the encounter to the next round
 <ApiTester
   method="POST"
   path="/next-round"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -601,8 +598,8 @@ Advance to the next round in the encounter Moves the encounter to the next round
 const baseUrl = 'http://localhost:3010';
 const path = '/next-round';
 const params = {
-  clientId: 'your-client-id',
-  encounterId: '4Ji8LDdrk3WrPKaH'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  encounterId: 'I6SnmHmny0CvWH0g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -621,7 +618,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/next-round?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
+curl -X POST 'http://localhost:3010/next-round?clientId=foundry-testing-r6bXhB7k9cXa3cif&encounterId=I6SnmHmny0CvWH0g' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -634,8 +631,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/next-round'
 params = {
-    'clientId': 'your-client-id',
-    'encounterId': '4Ji8LDdrk3WrPKaH'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'encounterId': 'I6SnmHmny0CvWH0g'
 }
 url = f'{base_url}{path}'
 
@@ -660,8 +657,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/next-round';
   const params = {
-    clientId: 'your-client-id',
-    encounterId: '4Ji8LDdrk3WrPKaH'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    encounterId: 'I6SnmHmny0CvWH0g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -695,8 +692,8 @@ import axios from 'axios';
   🔤/next-round🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤encounterId=I6SnmHmny0CvWH0g🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -724,17 +721,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "next-round_1774001790852",
-  "clientId": "your-client-id",
   "type": "next-round-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "next-round_1774367600767",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "action": "nextRound",
   "currentTurn": 0,
   "currentRound": 3,
-  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
-  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
+  "actorTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl",
+  "tokenTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
   "encounter": {
-    "id": "4Ji8LDdrk3WrPKaH",
+    "id": "I6SnmHmny0CvWH0g",
     "round": 3,
     "turn": 0
   }
@@ -752,7 +748,7 @@ Advance to the last turn in the encounter Moves the encounter to the last turn.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -765,7 +761,7 @@ Advance to the last turn in the encounter Moves the encounter to the last turn.
 <ApiTester
   method="POST"
   path="/last-turn"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -777,8 +773,8 @@ Advance to the last turn in the encounter Moves the encounter to the last turn.
 const baseUrl = 'http://localhost:3010';
 const path = '/last-turn';
 const params = {
-  clientId: 'your-client-id',
-  encounterId: '4Ji8LDdrk3WrPKaH'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  encounterId: 'I6SnmHmny0CvWH0g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -797,7 +793,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/last-turn?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
+curl -X POST 'http://localhost:3010/last-turn?clientId=foundry-testing-r6bXhB7k9cXa3cif&encounterId=I6SnmHmny0CvWH0g' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -810,8 +806,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/last-turn'
 params = {
-    'clientId': 'your-client-id',
-    'encounterId': '4Ji8LDdrk3WrPKaH'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'encounterId': 'I6SnmHmny0CvWH0g'
 }
 url = f'{base_url}{path}'
 
@@ -836,8 +832,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/last-turn';
   const params = {
-    clientId: 'your-client-id',
-    encounterId: '4Ji8LDdrk3WrPKaH'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    encounterId: 'I6SnmHmny0CvWH0g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -871,8 +867,8 @@ import axios from 'axios';
   🔤/last-turn🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤encounterId=I6SnmHmny0CvWH0g🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -900,17 +896,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-turn_1774001791289",
-  "clientId": "your-client-id",
   "type": "last-turn-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "last-turn_1774367600776",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "action": "previousTurn",
   "currentTurn": 0,
   "currentRound": 2,
-  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
-  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
+  "actorTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl",
+  "tokenTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
   "encounter": {
-    "id": "4Ji8LDdrk3WrPKaH",
+    "id": "I6SnmHmny0CvWH0g",
     "round": 2,
     "turn": 0
   }
@@ -928,7 +923,7 @@ Advance to the last round in the encounter Moves the encounter to the last round
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to advance (optional, defaults to current encounter) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -941,7 +936,7 @@ Advance to the last round in the encounter Moves the encounter to the last round
 <ApiTester
   method="POST"
   path="/last-round"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -953,8 +948,8 @@ Advance to the last round in the encounter Moves the encounter to the last round
 const baseUrl = 'http://localhost:3010';
 const path = '/last-round';
 const params = {
-  clientId: 'your-client-id',
-  encounterId: '4Ji8LDdrk3WrPKaH'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  encounterId: 'I6SnmHmny0CvWH0g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -973,7 +968,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/last-round?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
+curl -X POST 'http://localhost:3010/last-round?clientId=foundry-testing-r6bXhB7k9cXa3cif&encounterId=I6SnmHmny0CvWH0g' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -986,8 +981,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/last-round'
 params = {
-    'clientId': 'your-client-id',
-    'encounterId': '4Ji8LDdrk3WrPKaH'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'encounterId': 'I6SnmHmny0CvWH0g'
 }
 url = f'{base_url}{path}'
 
@@ -1012,8 +1007,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/last-round';
   const params = {
-    clientId: 'your-client-id',
-    encounterId: '4Ji8LDdrk3WrPKaH'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    encounterId: 'I6SnmHmny0CvWH0g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1047,8 +1042,8 @@ import axios from 'axios';
   🔤/last-round🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤encounterId=I6SnmHmny0CvWH0g🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1076,17 +1071,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-round_1774001791740",
-  "clientId": "your-client-id",
   "type": "last-round-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "last-round_1774367600785",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "action": "previousRound",
   "currentTurn": 0,
   "currentRound": 1,
-  "actorTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU.Actor.2Hl8s4nj9yJQueBG",
-  "tokenTurn": "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU",
+  "actorTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl",
+  "tokenTurn": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
   "encounter": {
-    "id": "4Ji8LDdrk3WrPKaH",
+    "id": "I6SnmHmny0CvWH0g",
     "round": 1,
     "turn": 0
   }
@@ -1104,7 +1098,7 @@ End an encounter Ends the current encounter in the Foundry world.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to end (optional, defaults to current encounter) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -1117,7 +1111,7 @@ End an encounter Ends the current encounter in the Foundry world.
 <ApiTester
   method="POST"
   path="/end-encounter"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1129,8 +1123,8 @@ End an encounter Ends the current encounter in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/end-encounter';
 const params = {
-  clientId: 'your-client-id',
-  encounterId: '4Ji8LDdrk3WrPKaH'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  encounterId: 'I6SnmHmny0CvWH0g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1149,7 +1143,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/end-encounter?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
+curl -X POST 'http://localhost:3010/end-encounter?clientId=foundry-testing-r6bXhB7k9cXa3cif&encounterId=I6SnmHmny0CvWH0g' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1162,8 +1156,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-encounter'
 params = {
-    'clientId': 'your-client-id',
-    'encounterId': '4Ji8LDdrk3WrPKaH'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'encounterId': 'I6SnmHmny0CvWH0g'
 }
 url = f'{base_url}{path}'
 
@@ -1188,8 +1182,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-encounter';
   const params = {
-    clientId: 'your-client-id',
-    encounterId: '4Ji8LDdrk3WrPKaH'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    encounterId: 'I6SnmHmny0CvWH0g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1223,8 +1217,8 @@ import axios from 'axios';
   🔤/end-encounter🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤encounterId=I6SnmHmny0CvWH0g🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1252,10 +1246,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "end-encounter_1774001792720",
-  "clientId": "your-client-id",
   "type": "end-encounter-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "end-encounter_1774367600805",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "message": "Encounter successfully ended"
 }
 ```
@@ -1271,7 +1264,7 @@ Add tokens to an encounter Adds selected tokens or specified UUIDs to the curren
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to add tokens to (optional, defaults to current encounter) |
 | selected | boolean |  | body | Whether to add selected tokens (optional, defaults to false) |
 | uuids | array |  | body | The UUIDs of the tokens to add (optional, defaults to empty array) |
@@ -1287,7 +1280,7 @@ Add tokens to an encounter Adds selected tokens or specified UUIDs to the curren
 <ApiTester
   method="POST"
   path="/add-to-encounter"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"rollInitiative","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"rollInitiative","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1299,8 +1292,8 @@ Add tokens to an encounter Adds selected tokens or specified UUIDs to the curren
 const baseUrl = 'http://localhost:3010';
 const path = '/add-to-encounter';
 const params = {
-  clientId: 'your-client-id',
-  encounterId: '4Ji8LDdrk3WrPKaH'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  encounterId: 'I6SnmHmny0CvWH0g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1325,7 +1318,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/add-to-encounter?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
+curl -X POST 'http://localhost:3010/add-to-encounter?clientId=foundry-testing-r6bXhB7k9cXa3cif&encounterId=I6SnmHmny0CvWH0g' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"selected":true,"uuids":[],"rollInitiative":true}'
@@ -1340,8 +1333,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/add-to-encounter'
 params = {
-    'clientId': 'your-client-id',
-    'encounterId': '4Ji8LDdrk3WrPKaH'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'encounterId': 'I6SnmHmny0CvWH0g'
 }
 url = f'{base_url}{path}'
 
@@ -1371,8 +1364,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/add-to-encounter';
   const params = {
-    clientId: 'your-client-id',
-    encounterId: '4Ji8LDdrk3WrPKaH'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    encounterId: 'I6SnmHmny0CvWH0g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1412,8 +1405,8 @@ import axios from 'axios';
   🔤/add-to-encounter🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤encounterId=I6SnmHmny0CvWH0g🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1444,12 +1437,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "add-to-encounter_1774001792424",
-  "clientId": "your-client-id",
   "type": "add-to-encounter-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "add-to-encounter_1774367600799",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "added": [
-    "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU"
+    "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS"
   ],
   "failed": []
 }
@@ -1466,7 +1458,7 @@ Remove tokens from an encounter Removes selected tokens or specified UUIDs from 
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | The ID of the Foundry client to connect to |
 | encounter | string |  | query, body | The ID of the encounter to remove tokens from (optional, defaults to current encounter) |
 | selected | boolean |  | body | Whether to remove selected tokens (optional, defaults to false) |
 | uuids | array |  | body | The UUIDs of the tokens to remove (optional, defaults to empty array) |
@@ -1481,7 +1473,7 @@ Remove tokens from an encounter Removes selected tokens or specified UUIDs from 
 <ApiTester
   method="POST"
   path="/remove-from-encounter"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"query"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1493,8 +1485,8 @@ Remove tokens from an encounter Removes selected tokens or specified UUIDs from 
 const baseUrl = 'http://localhost:3010';
 const path = '/remove-from-encounter';
 const params = {
-  clientId: 'your-client-id',
-  encounterId: '4Ji8LDdrk3WrPKaH'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  encounterId: 'I6SnmHmny0CvWH0g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1517,7 +1509,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=your-client-id&encounterId=4Ji8LDdrk3WrPKaH' \
+curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=foundry-testing-r6bXhB7k9cXa3cif&encounterId=I6SnmHmny0CvWH0g' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"selected":true}'
@@ -1532,8 +1524,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/remove-from-encounter'
 params = {
-    'clientId': 'your-client-id',
-    'encounterId': '4Ji8LDdrk3WrPKaH'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'encounterId': 'I6SnmHmny0CvWH0g'
 }
 url = f'{base_url}{path}'
 
@@ -1561,8 +1553,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/remove-from-encounter';
   const params = {
-    clientId: 'your-client-id',
-    encounterId: '4Ji8LDdrk3WrPKaH'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    encounterId: 'I6SnmHmny0CvWH0g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1600,8 +1592,8 @@ import axios from 'axios';
   🔤/remove-from-encounter🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤encounterId=4Ji8LDdrk3WrPKaH🔤 ➡️ encounterId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤encounterId=I6SnmHmny0CvWH0g🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1632,15 +1624,13 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "remove-from-encounter_1774001792146",
-  "clientId": "your-client-id",
   "type": "remove-from-encounter-result",
-  "encounterId": "4Ji8LDdrk3WrPKaH",
+  "requestId": "remove-from-encounter_1774367600792",
+  "encounterId": "I6SnmHmny0CvWH0g",
   "removed": [
-    "Scene.3Uqr7p8CXMoL0pVi.Token.BmoRnUj9Ab3iNgkU"
+    "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS"
   ],
   "failed": []
 }
 ```
-
 

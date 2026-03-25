@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import InteractiveJson from './InteractiveJson';
 
 interface Parameter {
   name: string;
@@ -242,9 +243,7 @@ export default function ApiTester({ method, path, parameters = [] }: ApiTesterPr
                 </span>
                 <span className="api-tester__response-label">Response</span>
               </div>
-              <pre className="api-tester__response-body">
-                {typeof response.data === 'string' ? response.data : JSON.stringify(response.data, null, 2)}
-              </pre>
+              <InteractiveJson data={response.data} className="api-tester__response-body" />
             </div>
           )}
         </div>

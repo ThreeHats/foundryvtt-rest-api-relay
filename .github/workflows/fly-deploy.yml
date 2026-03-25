@@ -35,14 +35,16 @@ jobs:
         id: generate_notes
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          # Get previous tag
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
-          
-          # If no previous tag, get all commits
+          # Get previous tag by version sort (not git ancestry, which breaks with merge commits)
+          CURRENT_TAG=${GITHUB_REF#refs/tags/}
+          PREVIOUS_TAG=$(git tag --sort=-v:refname | grep -v "^${CURRENT_TAG}$" | head -1)
+
+          # If no previous tag, get all commits; otherwise get commits between tags
+          # Filter out [skip ci] commits (version bump noise from previous releases)
           if [ -z "$PREVIOUS_TAG" ]; then
-            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" --reverse)
+            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" --reverse --grep='\[skip ci\]' --invert-grep)
           else
-            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" ${PREVIOUS_TAG}..HEAD --reverse)
+            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${{ github.repository }}/commit/%H)" ${PREVIOUS_TAG}..HEAD --reverse --grep='\[skip ci\]' --invert-grep)
           fi
           
           # Format release notes

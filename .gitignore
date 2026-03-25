@@ -43,3 +43,4 @@ data/relay.db
 docs/.docusaurus/
 
 devNotes.md
+public-dist/*

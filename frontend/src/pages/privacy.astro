@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Privacy Policy - Foundry REST API">
+  <div class="privacy-page">
+    <div class="privacy-container">
+      <a href="/" class="back-link">&larr; Back to Home</a>
+
+      <h1>Privacy Policy</h1>
+      <p><strong>Effective Date:</strong> December 13, 2025</p>
+
+      <h2>1. Introduction</h2>
+      <p>
+        This Privacy Policy describes how Foundry REST API ("we", "our", or "us") collects, uses, and protects your personal information when you use our service.
+      </p>
+
+      <h2>2. Information We Collect</h2>
+      <p>We collect the following types of information:</p>
+      <ul>
+        <li><strong>Account Information:</strong> Email address and password (encrypted)</li>
+        <li><strong>API Usage Data:</strong> API key, request counts, and usage statistics</li>
+        <li><strong>Payment Information:</strong> Processed securely through Stripe (we do not store credit card details)</li>
+        <li><strong>Technical Data:</strong> IP address, browser type, and access logs for security and service optimization</li>
+      </ul>
+
+      <h2>3. How We Use Your Information</h2>
+      <p>We use your information to:</p>
+      <ul>
+        <li>Provide and maintain the REST API service</li>
+        <li>Process subscription payments</li>
+        <li>Monitor API usage and enforce rate limits</li>
+        <li>Send important service updates and notifications</li>
+        <li>Improve our service and user experience</li>
+        <li>Protect against fraud and abuse</li>
+      </ul>
+
+      <h2>4. Data Sharing and Third Parties</h2>
+      <p>We do not sell your personal information. We may share data with:</p>
+      <ul>
+        <li><strong>Stripe:</strong> For payment processing</li>
+        <li><strong>Service Providers:</strong> Hosting and infrastructure providers (e.g., Fly.io, Redis)</li>
+        <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+      </ul>
+
+      <h2>5. Data Storage and Security</h2>
+      <p>
+        Your data is stored securely using industry-standard encryption. Passwords are hashed using bcrypt. API keys are stored securely and can be regenerated at any time. We implement appropriate technical and organizational measures to protect your information.
+      </p>
+
+      <h2>6. Your Rights (GDPR/CCPA)</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of your personal data</li>
+        <li><strong>Rectification:</strong> Correct inaccurate information</li>
+        <li><strong>Erasure:</strong> Request deletion of your account and data</li>
+        <li><strong>Data Portability:</strong> Export your data in a machine-readable format</li>
+        <li><strong>Opt-out:</strong> Unsubscribe from marketing communications</li>
+      </ul>
+      <p>
+        To exercise these rights, use the "Export My Data" or "Delete Account" buttons in your dashboard, or contact us at the email below.
+      </p>
+
+      <h2>7. Data Retention</h2>
+      <p>
+        We retain your data for as long as your account is active or as needed to provide services. When you delete your account, we will delete your personal information within 30 days, except where we are required to retain it for legal purposes.
+      </p>
+
+      <h2>8. Cookies and Tracking</h2>
+      <p>
+        We use session cookies to maintain user authentication. We do not use third-party tracking or advertising cookies.
+      </p>
+
+      <h2>9. Children's Privacy</h2>
+      <p>
+        Our service is not intended for users under 13 years of age. We do not knowingly collect information from children.
+      </p>
+
+      <h2>10. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. We will notify users of significant changes via email or through the service.
+      </p>
+
+      <h2>11. Contact Us</h2>
+      <p>
+        For questions about this Privacy Policy or to exercise your rights, please contact us:
+      </p>
+      <ul>
+        <li><strong>GitHub:</strong> <a href="https://github.com/JustAnotherIdea/foundryvtt-rest-api/issues" target="_blank" rel="noopener">Report an Issue</a></li>
+        <li><strong>Discord:</strong> <a href="https://discord.gg/U634xNGRAC" target="_blank" rel="noopener">Join our Discord</a></li>
+      </ul>
+
+      <p class="disclaimer">
+        This is an open-source project not associated with Foundry Virtual Tabletop or Foundry Gaming, LLC.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .privacy-page {
+    min-height: 100dvh;
+    background: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .privacy-container {
+    max-width: 800px;
+    width: 100%;
+    background: var(--color-bg-elevated);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    height: fit-content;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  h1 {
+    color: var(--color-primary);
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    color: var(--color-text);
+    font-size: 1.15rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  a {
+    color: var(--color-primary);
+  }
+
+  .disclaimer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-light);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+</style>

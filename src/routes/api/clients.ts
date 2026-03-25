@@ -22,7 +22,8 @@ export const clientsRouter = Router();
  */
 clientsRouter.get("/clients", authMiddleware, async (req: Request, res: Response) => {
   try {
-    const apiKey = req.header('x-api-key') || '';
+    // Use master key for scoped keys so clients are found via the parent's tokenGroups
+    const apiKey = req.masterApiKey || req.header('x-api-key') || '';
     const redis = getRedisClient();
 
     // Array to store all client details
@@ -90,6 +91,11 @@ clientsRouter.get("/clients", authMiddleware, async (req: Request, res: Response
           customName: client?.getCustomName() || ''
         };
       }));
+    }
+
+    // Scoped keys with scopedClientId only see their bound client
+    if (req.scopedKey?.scopedClientId) {
+      allClients = allClients.filter(c => c.id === req.scopedKey!.scopedClientId);
     }
 
     // Send combined response

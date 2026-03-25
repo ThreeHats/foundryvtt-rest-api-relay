@@ -15,10 +15,8 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  */
 structureRouter.get("/structure", ...commonMiddleware, createApiRoute({
     type: 'structure',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'includeEntityData', from: 'query', type: 'boolean' }, // Whether to include full entity data or just UUIDs and names
         { name: 'path', from: 'query', type: 'string' }, // Path to read structure from (null = root)
         { name: 'recursive', from: 'query', type: 'boolean' }, // Whether to read down the folder tree
@@ -64,10 +62,10 @@ structureRouter.get("/contents/:path", (req, res) => {
 structureRouter.get("/get-folder", ...commonMiddleware, createApiRoute({
     type: 'get-folder',
     requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'name', from: ['body', 'query'], type: 'string' } // Name of the folder to retrieve
     ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
@@ -81,11 +79,11 @@ structureRouter.get("/get-folder", ...commonMiddleware, createApiRoute({
 structureRouter.post("/create-folder", ...commonMiddleware, createApiRoute({
     type: 'create-folder',
     requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'name', from: ['body', 'query'], type: 'string' }, // Name of the new folder
         { name: 'folderType', from: ['body', 'query'], type: 'string' } // Type of folder (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist)
     ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'parentFolderId', from: ['body', 'query'], type: 'string' }, // ID of the parent folder (optional for root level)
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
@@ -100,10 +98,10 @@ structureRouter.post("/create-folder", ...commonMiddleware, createApiRoute({
 structureRouter.delete("/delete-folder", ...commonMiddleware, createApiRoute({
     type: 'delete-folder',
     requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'folderId', from: ['body', 'query'], type: 'string' } // ID of the folder to delete
     ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'deleteAll', from: ['body', 'query'], type: 'boolean' }, // Whether to delete all entities in the folder
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]

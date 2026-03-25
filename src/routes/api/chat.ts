@@ -21,10 +21,8 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  */
 chatRouter.get("/chat", ...commonMiddleware, createApiRoute({
     type: 'chat-messages',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'limit', from: 'query', type: 'number' }, // Maximum number of messages to return (default: 10)
         { name: 'offset', from: 'query', type: 'number' }, // Number of messages to skip for pagination
         { name: 'userId', from: ['query', 'body'], type: 'string' }, // Foundry user ID or username to scope permissions (omit for GM-level access)
@@ -44,10 +42,10 @@ chatRouter.get("/chat", ...commonMiddleware, createApiRoute({
 chatRouter.post("/chat", ...commonMiddleware, createApiRoute({
     type: 'chat-send',
     requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'content', from: 'body', type: 'string' } // The message content (supports HTML)
     ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'whisper', from: 'body', type: 'array' }, // Array of user IDs to whisper the message to
         { name: 'speaker', from: 'body', type: 'string' }, // Actor ID to use as the message speaker
         { name: 'alias', from: 'body', type: 'string' }, // Display name alias for the speaker
@@ -68,10 +66,10 @@ chatRouter.post("/chat", ...commonMiddleware, createApiRoute({
 chatRouter.delete("/chat/:messageId", ...commonMiddleware, createApiRoute({
     type: 'chat-delete',
     requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'messageId', from: 'params', type: 'string' } // ID of the chat message to delete
     ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));
@@ -86,10 +84,8 @@ chatRouter.delete("/chat/:messageId", ...commonMiddleware, createApiRoute({
  */
 chatRouter.delete("/chat", ...commonMiddleware, createApiRoute({
     type: 'chat-flush',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-    ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]
 }));

@@ -1,0 +1,5111 @@
+{
+  "asyncapi": "2.6.0",
+  "info": {
+    "title": "FoundryVTT WebSocket API",
+    "description": "Client-facing WebSocket API for bidirectional communication with Foundry VTT through the relay server. Connect to /ws/api with a token and clientId to send requests and receive real-time events.",
+    "version": "2.2.1",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": {
+    "production": {
+      "url": "ws://localhost:3010/ws/api",
+      "protocol": "ws",
+      "description": "Replaced dynamically at /asyncapi.json",
+      "variables": {
+        "token": {
+          "description": "API key for authentication"
+        },
+        "clientId": {
+          "description": "ID of the connected Foundry instance to target"
+        }
+      }
+    }
+  },
+  "channels": {
+    "request/json": {
+      "description": "Get file system structure",
+      "publish": {
+        "operationId": "send_json",
+        "summary": "Send json request",
+        "message": {
+          "name": "json",
+          "summary": "Get file system structure",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "json",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "path": {
+                "type": "string",
+                "description": "The path to retrieve (relative to source)"
+              },
+              "source": {
+                "type": "string",
+                "description": "The source directory to use (data, systems, modules, etc.)"
+              },
+              "recursive": {
+                "type": "boolean",
+                "description": "Whether to recursively list all subdirectories"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_json_result",
+        "summary": "Receive json response",
+        "message": {
+          "name": "json-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "json-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/get-canvas-documents": {
+      "description": "Get canvas embedded documents",
+      "publish": {
+        "operationId": "send_get-canvas-documents",
+        "summary": "Send get-canvas-documents request",
+        "message": {
+          "name": "get-canvas-documents",
+          "summary": "Get canvas embedded documents",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-canvas-documents",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "documentType": {
+                "type": "string",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "Scene ID to query (defaults to the active scene)"
+              },
+              "documentId": {
+                "type": "string",
+                "description": "Specific document ID to retrieve"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "documentType"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_get-canvas-documents_result",
+        "summary": "Receive get-canvas-documents response",
+        "message": {
+          "name": "get-canvas-documents-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-canvas-documents-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/create-canvas-document": {
+      "description": "Create canvas embedded document(s)",
+      "publish": {
+        "operationId": "send_create-canvas-document",
+        "summary": "Send create-canvas-document request",
+        "message": {
+          "name": "create-canvas-document",
+          "summary": "Create canvas embedded document(s)",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create-canvas-document",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "documentType": {
+                "type": "string",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "Scene ID to create in (defaults to the active scene)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "documentType"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_create-canvas-document_result",
+        "summary": "Receive create-canvas-document response",
+        "message": {
+          "name": "create-canvas-document-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create-canvas-document-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/update-canvas-document": {
+      "description": "Update a canvas embedded document",
+      "publish": {
+        "operationId": "send_update-canvas-document",
+        "summary": "Send update-canvas-document request",
+        "message": {
+          "name": "update-canvas-document",
+          "summary": "Update a canvas embedded document",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "update-canvas-document",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "documentType": {
+                "type": "string",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"
+              },
+              "documentId": {
+                "type": "string",
+                "description": "ID of the document to update"
+              },
+              "data": {
+                "type": "object",
+                "description": "Object containing the fields to update"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "Scene ID containing the document (defaults to the active scene)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "documentType",
+              "documentId",
+              "data"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_update-canvas-document_result",
+        "summary": "Receive update-canvas-document response",
+        "message": {
+          "name": "update-canvas-document-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "update-canvas-document-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/delete-canvas-document": {
+      "description": "Delete a canvas embedded document",
+      "publish": {
+        "operationId": "send_delete-canvas-document",
+        "summary": "Send delete-canvas-document request",
+        "message": {
+          "name": "delete-canvas-document",
+          "summary": "Delete a canvas embedded document",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete-canvas-document",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "documentType": {
+                "type": "string",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"
+              },
+              "documentId": {
+                "type": "string",
+                "description": "ID of the document to delete"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "Scene ID containing the document (defaults to the active scene)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "documentType",
+              "documentId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_delete-canvas-document_result",
+        "summary": "Receive delete-canvas-document response",
+        "message": {
+          "name": "delete-canvas-document-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete-canvas-document-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/chat-messages": {
+      "description": "Get chat messages Retrieves chat messages from the Foundry world with optional pagination and filtering.",
+      "publish": {
+        "operationId": "send_chat-messages",
+        "summary": "Send chat-messages request",
+        "message": {
+          "name": "chat-messages",
+          "summary": "Get chat messages Retrieves chat messages from the Foundry world with optional pagination and filtering.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-messages",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "limit": {
+                "type": "number",
+                "description": "Maximum number of messages to return (default: 10)"
+              },
+              "offset": {
+                "type": "number",
+                "description": "Number of messages to skip for pagination"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              },
+              "chatType": {
+                "type": "number",
+                "description": "Foundry chat message type (0=OOC, 1=IC, 2=Emote, 3=Whisper, 4=Roll). Named chatType to avoid collision with WS message type field."
+              },
+              "speaker": {
+                "type": "string",
+                "description": "Filter messages by speaker name or actor ID"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_chat-messages_result",
+        "summary": "Receive chat-messages response",
+        "message": {
+          "name": "chat-messages-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-messages-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/chat-send": {
+      "description": "Send a chat message Creates a new chat message in the Foundry world.",
+      "publish": {
+        "operationId": "send_chat-send",
+        "summary": "Send chat-send request",
+        "message": {
+          "name": "chat-send",
+          "summary": "Send a chat message Creates a new chat message in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-send",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "content": {
+                "type": "string",
+                "description": "The message content (supports HTML)"
+              },
+              "whisper": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of user IDs to whisper the message to"
+              },
+              "speaker": {
+                "type": "string",
+                "description": "Actor ID to use as the message speaker"
+              },
+              "alias": {
+                "type": "string",
+                "description": "Display name alias for the speaker"
+              },
+              "chatType": {
+                "type": "number",
+                "description": "Foundry chat message type (0=OOC, 1=IC, 2=Emote, 3=Whisper, 4=Roll). Named chatType to avoid collision with WS message type field."
+              },
+              "flavor": {
+                "type": "string",
+                "description": "Flavor text displayed above the message content"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "content"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_chat-send_result",
+        "summary": "Receive chat-send response",
+        "message": {
+          "name": "chat-send-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-send-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/chat-delete": {
+      "description": "Delete a specific chat message Deletes a chat message by its ID. Only the message author or a GM can delete messages.",
+      "publish": {
+        "operationId": "send_chat-delete",
+        "summary": "Send chat-delete request",
+        "message": {
+          "name": "chat-delete",
+          "summary": "Delete a specific chat message Deletes a chat message by its ID. Only the message author or a GM can delete messages.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-delete",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "messageId": {
+                "type": "string",
+                "description": "ID of the chat message to delete"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "messageId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_chat-delete_result",
+        "summary": "Receive chat-delete response",
+        "message": {
+          "name": "chat-delete-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-delete-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/chat-flush": {
+      "description": "Clear all chat messages Flushes all chat message history. Only GMs can perform this action.",
+      "publish": {
+        "operationId": "send_chat-flush",
+        "summary": "Send chat-flush request",
+        "message": {
+          "name": "chat-flush",
+          "summary": "Clear all chat messages Flushes all chat message history. Only GMs can perform this action.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-flush",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_chat-flush_result",
+        "summary": "Receive chat-flush response",
+        "message": {
+          "name": "chat-flush-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-flush-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/get-actor-details": {
+      "description": "Get detailed information for a specific D&D 5e actor. Retrieves comprehensive details about an actor including stats, inventory, spells, features, and other character information based on the requested details array.",
+      "publish": {
+        "operationId": "send_get-actor-details",
+        "summary": "Send get-actor-details request",
+        "message": {
+          "name": "get-actor-details",
+          "summary": "Get detailed information for a specific D&D 5e actor. Retrieves comprehensive details about an actor including stats, inventory, spells, features, and other character information based on the requested details array.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-actor-details",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of detail types to retrieve (e.g., [\"resources\", \"items\", \"spells\", \"features\"])"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid",
+              "details"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_get-actor-details_result",
+        "summary": "Receive get-actor-details response",
+        "message": {
+          "name": "get-actor-details-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-actor-details-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/modify-item-charges": {
+      "description": "Modify the charges for a specific item owned by an actor. Increases or decreases the charges/uses of an item in an actor's inventory. Useful for consumable items like potions, scrolls, or charged magic items.",
+      "publish": {
+        "operationId": "send_modify-item-charges",
+        "summary": "Send modify-item-charges request",
+        "message": {
+          "name": "modify-item-charges",
+          "summary": "Modify the charges for a specific item owned by an actor. Increases or decreases the charges/uses of an item in an actor's inventory. Useful for consumable items like potions, scrolls, or charged magic items.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "modify-item-charges",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor who owns the item"
+              },
+              "amount": {
+                "type": "number",
+                "description": "The amount to modify charges by (positive or negative)"
+              },
+              "itemUuid": {
+                "type": "string",
+                "description": "The UUID of the specific item (optional if itemName provided)"
+              },
+              "itemName": {
+                "type": "string",
+                "description": "The name of the item if UUID not provided (optional if itemUuid provided)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid",
+              "amount"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_modify-item-charges_result",
+        "summary": "Receive modify-item-charges response",
+        "message": {
+          "name": "modify-item-charges-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "modify-item-charges-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/use-ability": {
+      "description": "Use a general ability for an actor. Triggers the use of any ability, feature, spell, or item for an actor. This is a generic endpoint that can handle various types of abilities.",
+      "publish": {
+        "operationId": "send_use-ability",
+        "summary": "Send use-ability request",
+        "message": {
+          "name": "use-ability",
+          "summary": "Use a general ability for an actor. Triggers the use of any ability, feature, spell, or item for an actor. This is a generic endpoint that can handle various types of abilities.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-ability",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor using the ability"
+              },
+              "abilityUuid": {
+                "type": "string",
+                "description": "The UUID of the specific ability (optional if abilityName provided)"
+              },
+              "abilityName": {
+                "type": "string",
+                "description": "The name of the ability if UUID not provided (optional if abilityUuid provided)"
+              },
+              "targetUuid": {
+                "type": "string",
+                "description": "The UUID of the target for the ability (optional)"
+              },
+              "targetName": {
+                "type": "string",
+                "description": "The name of the target if UUID not provided (optional)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_use-ability_result",
+        "summary": "Receive use-ability response",
+        "message": {
+          "name": "use-ability-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-ability-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/use-feature": {
+      "description": "Use a class or racial feature for an actor. Activates class features (like Action Surge, Rage) or racial features (like Dragonborn Breath Weapon) for a character.",
+      "publish": {
+        "operationId": "send_use-feature",
+        "summary": "Send use-feature request",
+        "message": {
+          "name": "use-feature",
+          "summary": "Use a class or racial feature for an actor. Activates class features (like Action Surge, Rage) or racial features (like Dragonborn Breath Weapon) for a character.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-feature",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor using the feature"
+              },
+              "abilityUuid": {
+                "type": "string",
+                "description": "The UUID of the specific feature (optional if abilityName provided)"
+              },
+              "abilityName": {
+                "type": "string",
+                "description": "The name of the feature if UUID not provided (optional if abilityUuid provided)"
+              },
+              "targetUuid": {
+                "type": "string",
+                "description": "The UUID of the target for the feature (optional)"
+              },
+              "targetName": {
+                "type": "string",
+                "description": "The name of the target if UUID not provided (optional)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_use-feature_result",
+        "summary": "Receive use-feature response",
+        "message": {
+          "name": "use-feature-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-feature-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/use-spell": {
+      "description": "Cast a spell for an actor. Casts a spell from the actor's spell list, consuming spell slots as appropriate. Handles cantrips, leveled spells, and spell-like abilities.",
+      "publish": {
+        "operationId": "send_use-spell",
+        "summary": "Send use-spell request",
+        "message": {
+          "name": "use-spell",
+          "summary": "Cast a spell for an actor. Casts a spell from the actor's spell list, consuming spell slots as appropriate. Handles cantrips, leveled spells, and spell-like abilities.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-spell",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor casting the spell"
+              },
+              "abilityUuid": {
+                "type": "string",
+                "description": "The UUID of the specific spell (optional if abilityName provided)"
+              },
+              "abilityName": {
+                "type": "string",
+                "description": "The name of the spell if UUID not provided (optional if abilityUuid provided)"
+              },
+              "targetUuid": {
+                "type": "string",
+                "description": "The UUID of the target for the spell (optional)"
+              },
+              "targetName": {
+                "type": "string",
+                "description": "The name of the target if UUID not provided (optional)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_use-spell_result",
+        "summary": "Receive use-spell response",
+        "message": {
+          "name": "use-spell-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-spell-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/use-item": {
+      "description": "Use an item for an actor. Activates an item from the actor's inventory, such as drinking a potion, using a magic item, or activating equipment with special properties.",
+      "publish": {
+        "operationId": "send_use-item",
+        "summary": "Send use-item request",
+        "message": {
+          "name": "use-item",
+          "summary": "Use an item for an actor. Activates an item from the actor's inventory, such as drinking a potion, using a magic item, or activating equipment with special properties.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-item",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor using the item"
+              },
+              "abilityUuid": {
+                "type": "string",
+                "description": "The UUID of the specific item (optional if abilityName provided)"
+              },
+              "abilityName": {
+                "type": "string",
+                "description": "The name of the item if UUID not provided (optional if abilityUuid provided)"
+              },
+              "targetUuid": {
+                "type": "string",
+                "description": "The UUID of the target for the item (optional)"
+              },
+              "targetName": {
+                "type": "string",
+                "description": "The name of the target if UUID not provided (optional)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_use-item_result",
+        "summary": "Receive use-item response",
+        "message": {
+          "name": "use-item-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "use-item-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/short-rest": {
+      "description": "Perform a short rest for an actor. Triggers the D&D 5e short rest workflow including hit dice recovery, class feature resets, and HP recovery.",
+      "publish": {
+        "operationId": "send_short-rest",
+        "summary": "Send short-rest request",
+        "message": {
+          "name": "short-rest",
+          "summary": "Perform a short rest for an actor. Triggers the D&D 5e short rest workflow including hit dice recovery, class feature resets, and HP recovery.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "short-rest",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor to rest (optional if selected is true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Use the currently selected token's actor"
+              },
+              "autoHD": {
+                "type": "boolean",
+                "description": "Automatically spend hit dice during short rest"
+              },
+              "autoHDThreshold": {
+                "type": "number",
+                "description": "HP threshold below which to auto-spend hit dice (0-1 as fraction of max HP)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_short-rest_result",
+        "summary": "Receive short-rest response",
+        "message": {
+          "name": "short-rest-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "short-rest-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/long-rest": {
+      "description": "Perform a long rest for an actor. Triggers the D&D 5e long rest workflow including full HP recovery, spell slot restoration, hit dice recovery, and feature resets.",
+      "publish": {
+        "operationId": "send_long-rest",
+        "summary": "Send long-rest request",
+        "message": {
+          "name": "long-rest",
+          "summary": "Perform a long rest for an actor. Triggers the D&D 5e long rest workflow including full HP recovery, spell slot restoration, hit dice recovery, and feature resets.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "long-rest",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor to rest (optional if selected is true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Use the currently selected token's actor"
+              },
+              "newDay": {
+                "type": "boolean",
+                "description": "Whether the long rest marks a new day (default: true)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_long-rest_result",
+        "summary": "Receive long-rest response",
+        "message": {
+          "name": "long-rest-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "long-rest-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/skill-check": {
+      "description": "Roll a skill check for an actor. Rolls a D&D 5e skill check with all applicable modifiers including proficiency, expertise, Jack of All Trades, and conditional bonuses.",
+      "publish": {
+        "operationId": "send_skill-check",
+        "summary": "Send skill-check request",
+        "message": {
+          "name": "skill-check",
+          "summary": "Roll a skill check for an actor. Rolls a D&D 5e skill check with all applicable modifiers including proficiency, expertise, Jack of All Trades, and conditional bonuses.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "skill-check",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor rolling the check"
+              },
+              "skill": {
+                "type": "string",
+                "description": "Skill abbreviation (e.g., \"acr\", \"ath\", \"ste\", \"prc\")"
+              },
+              "advantage": {
+                "type": "boolean",
+                "description": "Roll with advantage"
+              },
+              "disadvantage": {
+                "type": "boolean",
+                "description": "Roll with disadvantage"
+              },
+              "bonus": {
+                "type": "string",
+                "description": "Extra bonus formula to add (e.g., \"1d4\", \"+2\")"
+              },
+              "createChatMessage": {
+                "type": "boolean",
+                "description": "Whether to post the roll to chat (default: true)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid",
+              "skill"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_skill-check_result",
+        "summary": "Receive skill-check response",
+        "message": {
+          "name": "skill-check-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "skill-check-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/ability-save": {
+      "description": "Roll an ability saving throw for an actor. Rolls a D&D 5e ability saving throw with all applicable modifiers.",
+      "publish": {
+        "operationId": "send_ability-save",
+        "summary": "Send ability-save request",
+        "message": {
+          "name": "ability-save",
+          "summary": "Roll an ability saving throw for an actor. Rolls a D&D 5e ability saving throw with all applicable modifiers.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "ability-save",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor rolling the save"
+              },
+              "ability": {
+                "type": "string",
+                "description": "Ability abbreviation (e.g., \"str\", \"dex\", \"con\", \"int\", \"wis\", \"cha\")"
+              },
+              "advantage": {
+                "type": "boolean",
+                "description": "Roll with advantage"
+              },
+              "disadvantage": {
+                "type": "boolean",
+                "description": "Roll with disadvantage"
+              },
+              "bonus": {
+                "type": "string",
+                "description": "Extra bonus formula to add (e.g., \"1d4\", \"+2\")"
+              },
+              "createChatMessage": {
+                "type": "boolean",
+                "description": "Whether to post the roll to chat (default: true)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid",
+              "ability"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_ability-save_result",
+        "summary": "Receive ability-save response",
+        "message": {
+          "name": "ability-save-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "ability-save-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/ability-check": {
+      "description": "Roll an ability check for an actor. Rolls a D&D 5e ability check (raw ability test, not a skill check) with all applicable modifiers.",
+      "publish": {
+        "operationId": "send_ability-check",
+        "summary": "Send ability-check request",
+        "message": {
+          "name": "ability-check",
+          "summary": "Roll an ability check for an actor. Rolls a D&D 5e ability check (raw ability test, not a skill check) with all applicable modifiers.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "ability-check",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor rolling the check"
+              },
+              "ability": {
+                "type": "string",
+                "description": "Ability abbreviation (e.g., \"str\", \"dex\", \"con\", \"int\", \"wis\", \"cha\")"
+              },
+              "advantage": {
+                "type": "boolean",
+                "description": "Roll with advantage"
+              },
+              "disadvantage": {
+                "type": "boolean",
+                "description": "Roll with disadvantage"
+              },
+              "bonus": {
+                "type": "string",
+                "description": "Extra bonus formula to add (e.g., \"1d4\", \"+2\")"
+              },
+              "createChatMessage": {
+                "type": "boolean",
+                "description": "Whether to post the roll to chat (default: true)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid",
+              "ability"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_ability-check_result",
+        "summary": "Receive ability-check response",
+        "message": {
+          "name": "ability-check-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "ability-check-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/death-save": {
+      "description": "Roll a death saving throw for an actor. Rolls a D&D 5e death saving throw, handling DC 10 CON save, three successes/failures tracking, nat 20 healing, and nat 1 double failure.",
+      "publish": {
+        "operationId": "send_death-save",
+        "summary": "Send death-save request",
+        "message": {
+          "name": "death-save",
+          "summary": "Roll a death saving throw for an actor. Rolls a D&D 5e death saving throw, handling DC 10 CON save, three successes/failures tracking, nat 20 healing, and nat 1 double failure.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "death-save",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor rolling the death save"
+              },
+              "advantage": {
+                "type": "boolean",
+                "description": "Roll with advantage"
+              },
+              "createChatMessage": {
+                "type": "boolean",
+                "description": "Whether to post the roll to chat (default: true)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_death-save_result",
+        "summary": "Receive death-save response",
+        "message": {
+          "name": "death-save-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "death-save-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/modify-experience": {
+      "description": "Modify the experience points for a specific actor. Adds or removes experience points from an actor.",
+      "publish": {
+        "operationId": "send_modify-experience",
+        "summary": "Send modify-experience request",
+        "message": {
+          "name": "modify-experience",
+          "summary": "Modify the experience points for a specific actor. Adds or removes experience points from an actor.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "modify-experience",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "amount": {
+                "type": "number",
+                "description": "The amount of experience to add (can be negative)"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor to modify"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Modify the selected token's actor"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "amount"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_modify-experience_result",
+        "summary": "Receive modify-experience response",
+        "message": {
+          "name": "modify-experience-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "modify-experience-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/get-effects": {
+      "description": "Get all active effects on an actor or token. Returns the collection of ActiveEffect documents currently applied to the specified actor or token.",
+      "publish": {
+        "operationId": "send_get-effects",
+        "summary": "Send get-effects request",
+        "message": {
+          "name": "get-effects",
+          "summary": "Get all active effects on an actor or token. Returns the collection of ActiveEffect documents currently applied to the specified actor or token.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-effects",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the actor or token to query"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "uuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_get-effects_result",
+        "summary": "Receive get-effects response",
+        "message": {
+          "name": "get-effects-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-effects-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/add-effect": {
+      "description": "Add an active effect to an actor or token. Adds a status condition (by statusId) or a custom ActiveEffect (via effectData) to the specified actor or token.",
+      "publish": {
+        "operationId": "send_add-effect",
+        "summary": "Send add-effect request",
+        "message": {
+          "name": "add-effect",
+          "summary": "Add an active effect to an actor or token. Adds a status condition (by statusId) or a custom ActiveEffect (via effectData) to the specified actor or token.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "add-effect",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the actor or token to add the effect to"
+              },
+              "statusId": {
+                "type": "string",
+                "description": "Standard status condition ID (e.g., \"poisoned\", \"blinded\", \"prone\")"
+              },
+              "effectData": {
+                "type": "object",
+                "description": "Custom ActiveEffect data object (name, icon, duration, changes)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "uuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_add-effect_result",
+        "summary": "Receive add-effect response",
+        "message": {
+          "name": "add-effect-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "add-effect-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/remove-effect": {
+      "description": "Remove an active effect from an actor or token. Removes an effect by its document ID (effectId) or by status condition identifier (statusId).",
+      "publish": {
+        "operationId": "send_remove-effect",
+        "summary": "Send remove-effect request",
+        "message": {
+          "name": "remove-effect",
+          "summary": "Remove an active effect from an actor or token. Removes an effect by its document ID (effectId) or by status condition identifier (statusId).",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "remove-effect",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the actor or token to remove the effect from"
+              },
+              "effectId": {
+                "type": "string",
+                "description": "The ActiveEffect document ID to remove"
+              },
+              "statusId": {
+                "type": "string",
+                "description": "Standard status condition ID to remove (e.g., \"poisoned\")"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "uuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_remove-effect_result",
+        "summary": "Receive remove-effect response",
+        "message": {
+          "name": "remove-effect-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "remove-effect-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/encounters": {
+      "description": "Get all active encounters Retrieves a list of all currently active encounters in the Foundry world.",
+      "publish": {
+        "operationId": "send_encounters",
+        "summary": "Send encounters request",
+        "message": {
+          "name": "encounters",
+          "summary": "Get all active encounters Retrieves a list of all currently active encounters in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "encounters",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_encounters_result",
+        "summary": "Receive encounters response",
+        "message": {
+          "name": "encounters-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "encounters-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/start-encounter": {
+      "description": "Start a new encounter Initiates a new encounter in the Foundry world.",
+      "publish": {
+        "operationId": "send_start-encounter",
+        "summary": "Send start-encounter request",
+        "message": {
+          "name": "start-encounter",
+          "summary": "Start a new encounter Initiates a new encounter in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "start-encounter",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of token UUIDs to include in the encounter"
+              },
+              "startWithSelected": {
+                "type": "boolean",
+                "description": "Whether to start with selected tokens"
+              },
+              "startWithPlayers": {
+                "type": "boolean",
+                "description": "Whether to start with players"
+              },
+              "rollNPC": {
+                "type": "boolean",
+                "description": "Whether to roll for NPCs"
+              },
+              "rollAll": {
+                "type": "boolean",
+                "description": "Whether to roll for all tokens"
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the encounter (unused)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_start-encounter_result",
+        "summary": "Receive start-encounter response",
+        "message": {
+          "name": "start-encounter-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "start-encounter-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/next-turn": {
+      "description": "Advance to the next turn in the encounter Moves the encounter to the next turn.",
+      "publish": {
+        "operationId": "send_next-turn",
+        "summary": "Send next-turn request",
+        "message": {
+          "name": "next-turn",
+          "summary": "Advance to the next turn in the encounter Moves the encounter to the next turn.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "next-turn",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "encounter": {
+                "type": "string",
+                "description": "The ID of the encounter to advance (optional, defaults to current encounter)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_next-turn_result",
+        "summary": "Receive next-turn response",
+        "message": {
+          "name": "next-turn-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "next-turn-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/next-round": {
+      "description": "Advance to the next round in the encounter Moves the encounter to the next round.",
+      "publish": {
+        "operationId": "send_next-round",
+        "summary": "Send next-round request",
+        "message": {
+          "name": "next-round",
+          "summary": "Advance to the next round in the encounter Moves the encounter to the next round.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "next-round",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "encounter": {
+                "type": "string",
+                "description": "The ID of the encounter to advance (optional, defaults to current encounter)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_next-round_result",
+        "summary": "Receive next-round response",
+        "message": {
+          "name": "next-round-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "next-round-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/last-turn": {
+      "description": "Advance to the last turn in the encounter Moves the encounter to the last turn.",
+      "publish": {
+        "operationId": "send_last-turn",
+        "summary": "Send last-turn request",
+        "message": {
+          "name": "last-turn",
+          "summary": "Advance to the last turn in the encounter Moves the encounter to the last turn.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "last-turn",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "encounter": {
+                "type": "string",
+                "description": "The ID of the encounter to advance (optional, defaults to current encounter)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_last-turn_result",
+        "summary": "Receive last-turn response",
+        "message": {
+          "name": "last-turn-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "last-turn-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/last-round": {
+      "description": "Advance to the last round in the encounter Moves the encounter to the last round.",
+      "publish": {
+        "operationId": "send_last-round",
+        "summary": "Send last-round request",
+        "message": {
+          "name": "last-round",
+          "summary": "Advance to the last round in the encounter Moves the encounter to the last round.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "last-round",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "encounter": {
+                "type": "string",
+                "description": "The ID of the encounter to advance (optional, defaults to current encounter)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_last-round_result",
+        "summary": "Receive last-round response",
+        "message": {
+          "name": "last-round-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "last-round-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/end-encounter": {
+      "description": "End an encounter Ends the current encounter in the Foundry world.",
+      "publish": {
+        "operationId": "send_end-encounter",
+        "summary": "Send end-encounter request",
+        "message": {
+          "name": "end-encounter",
+          "summary": "End an encounter Ends the current encounter in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "end-encounter",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "encounter": {
+                "type": "string",
+                "description": "The ID of the encounter to end (optional, defaults to current encounter)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_end-encounter_result",
+        "summary": "Receive end-encounter response",
+        "message": {
+          "name": "end-encounter-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "end-encounter-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/add-to-encounter": {
+      "description": "Add tokens to an encounter Adds selected tokens or specified UUIDs to the current encounter.",
+      "publish": {
+        "operationId": "send_add-to-encounter",
+        "summary": "Send add-to-encounter request",
+        "message": {
+          "name": "add-to-encounter",
+          "summary": "Add tokens to an encounter Adds selected tokens or specified UUIDs to the current encounter.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "add-to-encounter",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "encounter": {
+                "type": "string",
+                "description": "The ID of the encounter to add tokens to (optional, defaults to current encounter)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to add selected tokens (optional, defaults to false)"
+              },
+              "uuids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The UUIDs of the tokens to add (optional, defaults to empty array)"
+              },
+              "rollInitiative": {
+                "type": "boolean",
+                "description": "Whether to roll initiative for the added tokens (optional, defaults to false)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_add-to-encounter_result",
+        "summary": "Receive add-to-encounter response",
+        "message": {
+          "name": "add-to-encounter-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "add-to-encounter-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/remove-from-encounter": {
+      "description": "Remove tokens from an encounter Removes selected tokens or specified UUIDs from the current encounter.",
+      "publish": {
+        "operationId": "send_remove-from-encounter",
+        "summary": "Send remove-from-encounter request",
+        "message": {
+          "name": "remove-from-encounter",
+          "summary": "Remove tokens from an encounter Removes selected tokens or specified UUIDs from the current encounter.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "remove-from-encounter",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "encounter": {
+                "type": "string",
+                "description": "The ID of the encounter to remove tokens from (optional, defaults to current encounter)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to remove selected tokens (optional, defaults to false)"
+              },
+              "uuids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The UUIDs of the tokens to remove (optional, defaults to empty array)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_remove-from-encounter_result",
+        "summary": "Receive remove-from-encounter response",
+        "message": {
+          "name": "remove-from-encounter-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "remove-from-encounter-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/entity": {
+      "description": "Get entity details This endpoint retrieves the details of a specific entity.",
+      "publish": {
+        "operationId": "send_entity",
+        "summary": "Send entity request",
+        "message": {
+          "name": "entity",
+          "summary": "Get entity details This endpoint retrieves the details of a specific entity.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "entity",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the entity to retrieve (optional if selected=true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to get the selected entity"
+              },
+              "actor": {
+                "type": "boolean",
+                "description": "Return the actor of specified entity"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_entity_result",
+        "summary": "Receive entity response",
+        "message": {
+          "name": "entity-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "entity-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/create": {
+      "description": "Create a new entity This endpoint creates a new entity in the Foundry world.",
+      "publish": {
+        "operationId": "send_create",
+        "summary": "Send create request",
+        "message": {
+          "name": "create",
+          "summary": "Create a new entity This endpoint creates a new entity in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "entityType": {
+                "type": "string",
+                "description": "Document type of entity to create (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist, ext.)"
+              },
+              "data": {
+                "type": "object",
+                "description": "Data for the new entity"
+              },
+              "folder": {
+                "type": "string",
+                "description": "Optional folder UUID to place the new entity in"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "entityType",
+              "data"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_create_result",
+        "summary": "Receive create response",
+        "message": {
+          "name": "create-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/update": {
+      "description": "Update an existing entity This endpoint updates an existing entity in the Foundry world.",
+      "publish": {
+        "operationId": "send_update",
+        "summary": "Send update request",
+        "message": {
+          "name": "update",
+          "summary": "Update an existing entity This endpoint updates an existing entity in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "update",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "data": {
+                "type": "object",
+                "description": "Data to update the entity with"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the entity to update (optional if selected=true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to update the selected entity"
+              },
+              "actor": {
+                "type": "boolean",
+                "description": "Update the actor of selected entity when selected=true"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "data"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_update_result",
+        "summary": "Receive update response",
+        "message": {
+          "name": "update-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "update-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/delete": {
+      "description": "Delete an entity This endpoint deletes an entity from the Foundry world.",
+      "publish": {
+        "operationId": "send_delete",
+        "summary": "Send delete request",
+        "message": {
+          "name": "delete",
+          "summary": "Delete an entity This endpoint deletes an entity from the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the entity to delete (optional if selected=true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to delete the selected entity"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_delete_result",
+        "summary": "Receive delete response",
+        "message": {
+          "name": "delete-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/give": {
+      "description": "Give an item to an entity This endpoint gives an item to a specified entity. Optionally, removes the item from the giver.",
+      "publish": {
+        "operationId": "send_give",
+        "summary": "Send give request",
+        "message": {
+          "name": "give",
+          "summary": "Give an item to an entity This endpoint gives an item to a specified entity. Optionally, removes the item from the giver.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "give",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "fromUuid": {
+                "type": "string",
+                "description": "UUID of the entity giving the item"
+              },
+              "toUuid": {
+                "type": "string",
+                "description": "UUID of the entity receiving the item"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to give to the selected token's actor"
+              },
+              "itemUuid": {
+                "type": "string",
+                "description": "UUID of the item to give (optional if itemName provided)"
+              },
+              "itemName": {
+                "type": "string",
+                "description": "Name of the item to give (search with Quick Insert if UUID not provided)"
+              },
+              "quantity": {
+                "type": "number",
+                "description": "Quantity of the item to give (negative values decrease quantity to 0)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_give_result",
+        "summary": "Receive give response",
+        "message": {
+          "name": "give-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "give-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/remove": {
+      "description": "Remove an item from an entity This endpoint removes an item from a specified entity.",
+      "publish": {
+        "operationId": "send_remove",
+        "summary": "Send remove request",
+        "message": {
+          "name": "remove",
+          "summary": "Remove an item from an entity This endpoint removes an item from a specified entity.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "remove",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "actorUuid": {
+                "type": "string",
+                "description": "UUID of the actor to remove the item from (optional if selected=true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to remove from the selected token's actor"
+              },
+              "itemUuid": {
+                "type": "string",
+                "description": "UUID of the item to remove"
+              },
+              "itemName": {
+                "type": "string",
+                "description": "Name of the item to remove (search with Quick Insert if UUID not provided)"
+              },
+              "quantity": {
+                "type": "number",
+                "description": "Quantity of the item to remove"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_remove_result",
+        "summary": "Receive remove response",
+        "message": {
+          "name": "remove-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "remove-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/decrease": {
+      "description": "Decrease an attribute This endpoint decreases an attribute of a specified entity.",
+      "publish": {
+        "operationId": "send_decrease",
+        "summary": "Send decrease request",
+        "message": {
+          "name": "decrease",
+          "summary": "Decrease an attribute This endpoint decreases an attribute of a specified entity.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "decrease",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "attribute": {
+                "type": "string",
+                "description": "The attribute data path to decrease (e.g., \"system.attributes.hp.value\")"
+              },
+              "amount": {
+                "type": "number",
+                "description": "The amount to decrease the attribute by"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the entity to decrease the attribute for (optional if selected=true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to decrease the attribute for the selected entity"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "attribute",
+              "amount"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_decrease_result",
+        "summary": "Receive decrease response",
+        "message": {
+          "name": "decrease-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "decrease-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/increase": {
+      "description": "Increase an attribute This endpoint increases an attribute of a specified entity.",
+      "publish": {
+        "operationId": "send_increase",
+        "summary": "Send increase request",
+        "message": {
+          "name": "increase",
+          "summary": "Increase an attribute This endpoint increases an attribute of a specified entity.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "increase",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "attribute": {
+                "type": "string",
+                "description": "The attribute data path to increase (e.g., \"system.attributes.hp.value\")"
+              },
+              "amount": {
+                "type": "number",
+                "description": "The amount to increase the attribute by"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the entity to increase the attribute for (optional if selected=true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to increase the attribute for the selected entity"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "attribute",
+              "amount"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_increase_result",
+        "summary": "Receive increase response",
+        "message": {
+          "name": "increase-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "increase-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/kill": {
+      "description": "Kill an entity Marks an entity as killed in the combat tracker, gives it the \"dead\" status, and sets its health to 0 in the Foundry world.",
+      "publish": {
+        "operationId": "send_kill",
+        "summary": "Send kill request",
+        "message": {
+          "name": "kill",
+          "summary": "Kill an entity Marks an entity as killed in the combat tracker, gives it the \"dead\" status, and sets its health to 0 in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "kill",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the entity to kill (optional if selected=true)"
+              },
+              "selected": {
+                "type": "boolean",
+                "description": "Whether to kill the selected entity"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_kill_result",
+        "summary": "Receive kill response",
+        "message": {
+          "name": "kill-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "kill-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/macros": {
+      "description": "Get all macros Retrieves a list of all macros available in the Foundry world.",
+      "publish": {
+        "operationId": "send_macros",
+        "summary": "Send macros request",
+        "message": {
+          "name": "macros",
+          "summary": "Get all macros Retrieves a list of all macros available in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "macros",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_macros_result",
+        "summary": "Receive macros response",
+        "message": {
+          "name": "macros-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "macros-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/macro-execute": {
+      "description": "Execute a macro by UUID Executes a specific macro in the Foundry world by its UUID.",
+      "publish": {
+        "operationId": "send_macro-execute",
+        "summary": "Send macro-execute request",
+        "message": {
+          "name": "macro-execute",
+          "summary": "Execute a macro by UUID Executes a specific macro in the Foundry world by its UUID.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "macro-execute",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "UUID of the macro to execute"
+              },
+              "args": {
+                "type": "object",
+                "description": "Optional arguments to pass to the macro execution"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "uuid"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_macro-execute_result",
+        "summary": "Receive macro-execute response",
+        "message": {
+          "name": "macro-execute-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "macro-execute-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/rolls": {
+      "description": "Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry world.",
+      "publish": {
+        "operationId": "send_rolls",
+        "summary": "Send rolls request",
+        "message": {
+          "name": "rolls",
+          "summary": "Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "rolls",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "limit": {
+                "type": "number",
+                "description": "Optional limit on the number of rolls to return (default is 20)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_rolls_result",
+        "summary": "Receive rolls response",
+        "message": {
+          "name": "rolls-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "rolls-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/last-roll": {
+      "description": "Get the last roll Retrieves the most recent roll made in the Foundry world.",
+      "publish": {
+        "operationId": "send_last-roll",
+        "summary": "Send last-roll request",
+        "message": {
+          "name": "last-roll",
+          "summary": "Get the last roll Retrieves the most recent roll made in the Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "last-roll",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_last-roll_result",
+        "summary": "Receive last-roll response",
+        "message": {
+          "name": "last-roll-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "last-roll-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/roll": {
+      "description": "Make a roll Executes a roll with the specified formula",
+      "publish": {
+        "operationId": "send_roll",
+        "summary": "Send roll request",
+        "message": {
+          "name": "roll",
+          "summary": "Make a roll Executes a roll with the specified formula",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "roll",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "formula": {
+                "type": "string",
+                "description": "The roll formula to evaluate (e.g., \"1d20 + 5\")"
+              },
+              "flavor": {
+                "type": "string",
+                "description": "Optional flavor text for the roll"
+              },
+              "createChatMessage": {
+                "type": "boolean",
+                "description": "Whether to create a chat message for the roll"
+              },
+              "speaker": {
+                "type": "string",
+                "description": "The speaker for the roll"
+              },
+              "whisper": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Users to whisper the roll result to"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "formula"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_roll_result",
+        "summary": "Receive roll response",
+        "message": {
+          "name": "roll-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "roll-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/get-scene": {
+      "description": "Get scene(s) Retrieves one or more scenes by ID, name, active status, viewed status, or all.",
+      "publish": {
+        "operationId": "send_get-scene",
+        "summary": "Send get-scene request",
+        "message": {
+          "name": "get-scene",
+          "summary": "Get scene(s) Retrieves one or more scenes by ID, name, active status, viewed status, or all.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-scene",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "ID of a specific scene to retrieve"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the scene to retrieve"
+              },
+              "active": {
+                "type": "boolean",
+                "description": "Set to true to get the currently active scene"
+              },
+              "viewed": {
+                "type": "boolean",
+                "description": "Set to true to get the currently viewed scene"
+              },
+              "all": {
+                "type": "boolean",
+                "description": "Set to true to get all scenes"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_get-scene_result",
+        "summary": "Receive get-scene response",
+        "message": {
+          "name": "get-scene-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-scene-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/create-scene": {
+      "description": "Create a new scene",
+      "publish": {
+        "operationId": "send_create-scene",
+        "summary": "Send create-scene request",
+        "message": {
+          "name": "create-scene",
+          "summary": "Create a new scene",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create-scene",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "data": {
+                "type": "object",
+                "description": "Scene data object (name, width, height, grid, etc.)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "data"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_create-scene_result",
+        "summary": "Receive create-scene response",
+        "message": {
+          "name": "create-scene-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create-scene-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/update-scene": {
+      "description": "Update an existing scene",
+      "publish": {
+        "operationId": "send_update-scene",
+        "summary": "Send update-scene request",
+        "message": {
+          "name": "update-scene",
+          "summary": "Update an existing scene",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "update-scene",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "data": {
+                "type": "object",
+                "description": "Object containing the scene fields to update"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "ID of the scene to update"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the scene to update (alternative to sceneId)"
+              },
+              "active": {
+                "type": "boolean",
+                "description": "Set to true to target the active scene"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "data"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_update-scene_result",
+        "summary": "Receive update-scene response",
+        "message": {
+          "name": "update-scene-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "update-scene-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/delete-scene": {
+      "description": "Delete a scene",
+      "publish": {
+        "operationId": "send_delete-scene",
+        "summary": "Send delete-scene request",
+        "message": {
+          "name": "delete-scene",
+          "summary": "Delete a scene",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete-scene",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "ID of the scene to delete"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the scene to delete (alternative to sceneId)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_delete-scene_result",
+        "summary": "Receive delete-scene response",
+        "message": {
+          "name": "delete-scene-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete-scene-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/switch-scene": {
+      "description": "Switch the active scene",
+      "publish": {
+        "operationId": "send_switch-scene",
+        "summary": "Send switch-scene request",
+        "message": {
+          "name": "switch-scene",
+          "summary": "Switch the active scene",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "switch-scene",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "sceneId": {
+                "type": "string",
+                "description": "ID of the scene to activate"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the scene to activate (alternative to sceneId)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_switch-scene_result",
+        "summary": "Receive switch-scene response",
+        "message": {
+          "name": "switch-scene-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "switch-scene-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/search": {
+      "description": "Search entities This endpoint allows searching for entities in the Foundry world based on a query string. Requires Quick Insert module to be installed and enabled.",
+      "publish": {
+        "operationId": "send_search",
+        "summary": "Send search request",
+        "message": {
+          "name": "search",
+          "summary": "Search entities This endpoint allows searching for entities in the Foundry world based on a query string. Requires Quick Insert module to be installed and enabled.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "search",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "query": {
+                "type": "string",
+                "description": "Search query string"
+              },
+              "filter": {
+                "type": "string",
+                "description": "Filter to apply (simple: filter=\"Actor\", property-based: filter=\"key:value,key2:value2\")"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "query"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_search_result",
+        "summary": "Receive search response",
+        "message": {
+          "name": "search-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "search-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/structure": {
+      "description": "Get the structure of the Foundry world Retrieves the folder and compendium structure for the specified Foundry world.",
+      "publish": {
+        "operationId": "send_structure",
+        "summary": "Send structure request",
+        "message": {
+          "name": "structure",
+          "summary": "Get the structure of the Foundry world Retrieves the folder and compendium structure for the specified Foundry world.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "structure",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "includeEntityData": {
+                "type": "boolean",
+                "description": "Whether to include full entity data or just UUIDs and names"
+              },
+              "path": {
+                "type": "string",
+                "description": "Path to read structure from (null = root)"
+              },
+              "recursive": {
+                "type": "boolean",
+                "description": "Whether to read down the folder tree"
+              },
+              "recursiveDepth": {
+                "type": "number",
+                "description": "Depth to recurse into folders (default 5)"
+              },
+              "types": {
+                "type": "string",
+                "description": "Types to return (Scene/Actor/Item/JournalEntry/RollTable/Cards/Macro/Playlist), can be comma-separated or JSON array"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_structure_result",
+        "summary": "Receive structure response",
+        "message": {
+          "name": "structure-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "structure-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/get-folder": {
+      "description": "Get a specific folder by name",
+      "publish": {
+        "operationId": "send_get-folder",
+        "summary": "Send get-folder request",
+        "message": {
+          "name": "get-folder",
+          "summary": "Get a specific folder by name",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-folder",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the folder to retrieve"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "name"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_get-folder_result",
+        "summary": "Receive get-folder response",
+        "message": {
+          "name": "get-folder-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "get-folder-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/create-folder": {
+      "description": "Create a new folder",
+      "publish": {
+        "operationId": "send_create-folder",
+        "summary": "Send create-folder request",
+        "message": {
+          "name": "create-folder",
+          "summary": "Create a new folder",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create-folder",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the new folder"
+              },
+              "folderType": {
+                "type": "string",
+                "description": "Type of folder (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist)"
+              },
+              "parentFolderId": {
+                "type": "string",
+                "description": "ID of the parent folder (optional for root level)"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "name",
+              "folderType"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_create-folder_result",
+        "summary": "Receive create-folder response",
+        "message": {
+          "name": "create-folder-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "create-folder-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/delete-folder": {
+      "description": "Delete a folder",
+      "publish": {
+        "operationId": "send_delete-folder",
+        "summary": "Send delete-folder request",
+        "message": {
+          "name": "delete-folder",
+          "summary": "Delete a folder",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete-folder",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "folderId": {
+                "type": "string",
+                "description": "ID of the folder to delete"
+              },
+              "deleteAll": {
+                "type": "boolean",
+                "description": "Whether to delete all entities in the folder"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "folderId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_delete-folder_result",
+        "summary": "Receive delete-folder response",
+        "message": {
+          "name": "delete-folder-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "delete-folder-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/select": {
+      "description": "Select token(s) Selects one or more tokens in the Foundry VTT client.",
+      "publish": {
+        "operationId": "send_select",
+        "summary": "Send select request",
+        "message": {
+          "name": "select",
+          "summary": "Select token(s) Selects one or more tokens in the Foundry VTT client.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "select",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "uuids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Array of UUIDs to select"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the token(s) to select"
+              },
+              "data": {
+                "type": "object",
+                "description": "Data to match for selection (e.g., \"data.attributes.hp.value\": 20)"
+              },
+              "overwrite": {
+                "type": "boolean",
+                "description": "Whether to overwrite existing selection"
+              },
+              "all": {
+                "type": "boolean",
+                "description": "Whether to select all tokens on the canvas"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_select_result",
+        "summary": "Receive select response",
+        "message": {
+          "name": "select-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "select-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/selected": {
+      "description": "Get selected token(s) Retrieves the currently selected token(s) in the Foundry VTT client.",
+      "publish": {
+        "operationId": "send_selected",
+        "summary": "Send selected request",
+        "message": {
+          "name": "selected",
+          "summary": "Get selected token(s) Retrieves the currently selected token(s) in the Foundry VTT client.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "selected",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_selected_result",
+        "summary": "Receive selected response",
+        "message": {
+          "name": "selected-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "selected-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/players": {
+      "description": "Get players/users Retrieves a list of all users configured in the Foundry VTT world. Useful for discovering valid userId values for permission-scoped API calls.",
+      "publish": {
+        "operationId": "send_players",
+        "summary": "Send players request",
+        "message": {
+          "name": "players",
+          "summary": "Get players/users Retrieves a list of all users configured in the Foundry VTT world. Useful for discovering valid userId values for permission-scoped API calls.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "players",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_players_result",
+        "summary": "Receive players response",
+        "message": {
+          "name": "players-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "players-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "request/execute-js": {
+      "description": "Execute JavaScript Executes a JavaScript script in the Foundry VTT client.",
+      "publish": {
+        "operationId": "send_execute-js",
+        "summary": "Send execute-js request",
+        "message": {
+          "name": "execute-js",
+          "summary": "Execute JavaScript Executes a JavaScript script in the Foundry VTT client.",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "execute-js",
+                "description": "Message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Unique request ID for correlation"
+              },
+              "script": {
+                "type": "string",
+                "description": "JavaScript script to execute"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      },
+      "subscribe": {
+        "operationId": "receive_execute-js_result",
+        "summary": "Receive execute-js response",
+        "message": {
+          "name": "execute-js-result",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "execute-js-result",
+                "description": "Response message type"
+              },
+              "requestId": {
+                "type": "string",
+                "description": "Echoed request ID"
+              },
+              "clientId": {
+                "type": "string",
+                "description": "Foundry client ID"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if request failed"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ]
+          }
+        }
+      }
+    },
+    "events/chat": {
+      "description": "Real-time chat message events from Foundry. Subscribe with { type: \"subscribe\", channel: \"chat-events\" }.",
+      "subscribe": {
+        "operationId": "receive_chat_event",
+        "summary": "Receive chat events",
+        "message": {
+          "name": "chat-event",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "chat-event"
+              },
+              "event": {
+                "type": "string",
+                "enum": [
+                  "create",
+                  "update",
+                  "delete"
+                ],
+                "description": "Event type"
+              },
+              "data": {
+                "type": "object",
+                "description": "Chat message data"
+              }
+            },
+            "required": [
+              "type",
+              "event",
+              "data"
+            ]
+          }
+        }
+      }
+    },
+    "events/roll": {
+      "description": "Real-time dice roll events from Foundry. Subscribe with { type: \"subscribe\", channel: \"roll-events\" }.",
+      "subscribe": {
+        "operationId": "receive_roll_event",
+        "summary": "Receive roll events",
+        "message": {
+          "name": "roll-event",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "roll-event"
+              },
+              "data": {
+                "type": "object",
+                "description": "Roll data"
+              }
+            },
+            "required": [
+              "type",
+              "data"
+            ]
+          }
+        }
+      }
+    },
+    "control/subscribe": {
+      "description": "Subscribe to event channels",
+      "publish": {
+        "operationId": "subscribe",
+        "summary": "Subscribe to an event channel",
+        "message": {
+          "name": "subscribe",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "subscribe"
+              },
+              "channel": {
+                "type": "string",
+                "enum": [
+                  "chat-events",
+                  "roll-events"
+                ]
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "filters": {
+                "type": "object",
+                "properties": {
+                  "speaker": {
+                    "type": "string",
+                    "description": "Filter by speaker alias"
+                  },
+                  "type": {
+                    "type": "number",
+                    "description": "Filter by chat message type"
+                  },
+                  "whisperOnly": {
+                    "type": "boolean",
+                    "description": "Only receive whispered messages"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "description": "Filter by Foundry user ID or username"
+                  }
+                }
+              }
+            },
+            "required": [
+              "type",
+              "channel"
+            ]
+          }
+        }
+      }
+    },
+    "control/unsubscribe": {
+      "description": "Unsubscribe from event channels",
+      "publish": {
+        "operationId": "unsubscribe",
+        "summary": "Unsubscribe from an event channel",
+        "message": {
+          "name": "unsubscribe",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "unsubscribe"
+              },
+              "channel": {
+                "type": "string",
+                "enum": [
+                  "chat-events",
+                  "roll-events"
+                ],
+                "description": "Omit to unsubscribe from all channels"
+              },
+              "requestId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "error"
+          },
+          "error": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "error"
+        ]
+      },
+      "ConnectedMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "connected"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "supportedTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "eventChannels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

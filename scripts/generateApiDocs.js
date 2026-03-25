@@ -1118,7 +1118,327 @@ function main() {
     console.error('Error generating openapi.json:', error.message);
   }
 
+  // Generate AsyncAPI spec for WebSocket API
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const asyncApiSpec = generateAsyncApiSpec(allRoutes, packageJson);
+    const asyncApiOutputPath = path.join(jsonOutputDir, 'asyncapi.json');
+    fs.writeFileSync(asyncApiOutputPath, JSON.stringify(asyncApiSpec, null, 2));
+    console.log(`Generated AsyncAPI spec with ${Object.keys(asyncApiSpec.channels).length} channels in asyncapi.json`);
+  } catch (error) {
+    console.error('Error generating asyncapi.json:', error.message);
+  }
+
+  // Generate WebSocket markdown docs
+  try {
+    const wsMarkdown = generateWebSocketMarkdown(allRoutes);
+    const wsOutputPath = path.join(markdownOutputDir, 'websocket.md');
+    fs.writeFileSync(wsOutputPath, wsMarkdown);
+    console.log('Generated WebSocket documentation in websocket.md');
+  } catch (error) {
+    console.error('Error generating websocket.md:', error.message);
+  }
+
   console.log('API documentation generation complete!');
+}
+
+/**
+ * Generate an AsyncAPI 2.6.0 spec from the extracted route data.
+ */
+function generateAsyncApiSpec(allRoutes, packageJson) {
+  // Type mapping helper (reused from OpenAPI)
+  function mapType(type) {
+    switch (type) {
+      case 'string': return { type: 'string' };
+      case 'number': return { type: 'number' };
+      case 'boolean': return { type: 'boolean' };
+      case 'array': return { type: 'array', items: { type: 'string' } };
+      case 'object': return { type: 'object' };
+      default: return { type: 'string' };
+    }
+  }
+
+  const spec = {
+    asyncapi: '2.6.0',
+    info: {
+      title: 'FoundryVTT WebSocket API',
+      description: 'Client-facing WebSocket API for bidirectional communication with Foundry VTT through the relay server. Connect to /ws/api with a token and clientId to send requests and receive real-time events.',
+      version: packageJson.version || '1.0.0',
+      license: { name: 'MIT' }
+    },
+    servers: {
+      production: {
+        url: 'ws://localhost:3010/ws/api',
+        protocol: 'ws',
+        description: 'Replaced dynamically at /asyncapi.json',
+        variables: {
+          token: { description: 'API key for authentication' },
+          clientId: { description: 'ID of the connected Foundry instance to target' }
+        }
+      }
+    },
+    channels: {},
+    components: {
+      schemas: {
+        ErrorMessage: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'error' },
+            error: { type: 'string' },
+            requestId: { type: 'string' }
+          },
+          required: ['type', 'error']
+        },
+        ConnectedMessage: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'connected' },
+            clientId: { type: 'string' },
+            supportedTypes: { type: 'array', items: { type: 'string' } },
+            eventChannels: { type: 'array', items: { type: 'string' } }
+          }
+        }
+      }
+    }
+  };
+
+  // Deduplicate routes by type (many REST endpoints share the same WS message type)
+  const seenTypes = new Set();
+
+  for (const route of allRoutes) {
+    const msgType = route.type;
+    if (!msgType || seenTypes.has(msgType)) continue;
+    seenTypes.add(msgType);
+
+    // Build request properties from params (exclude clientId — it's in the connection URL)
+    const requestProps = {
+      type: { type: 'string', const: msgType, description: 'Message type' },
+      requestId: { type: 'string', description: 'Unique request ID for correlation' }
+    };
+    const requiredFields = ['type', 'requestId'];
+
+    const allParams = [
+      ...(route.requiredParams || []),
+      ...(route.optionalParams || [])
+    ].filter(p => p.name !== 'clientId');
+
+    for (const param of allParams) {
+      requestProps[param.name] = {
+        ...mapType(param.type),
+        description: param.description || ''
+      };
+    }
+
+    // Add required params (minus clientId)
+    for (const p of (route.requiredParams || [])) {
+      if (p.name !== 'clientId') {
+        requiredFields.push(p.name);
+      }
+    }
+
+    // Response schema
+    const responseProps = {
+      type: { type: 'string', const: `${msgType}-result`, description: 'Response message type' },
+      requestId: { type: 'string', description: 'Echoed request ID' },
+      clientId: { type: 'string', description: 'Foundry client ID' },
+      error: { type: 'string', description: 'Error message if request failed' }
+    };
+
+    const channelName = `request/${msgType}`;
+    spec.channels[channelName] = {
+      description: route.description || `${msgType} request/response`,
+      publish: {
+        operationId: `send_${msgType}`,
+        summary: `Send ${msgType} request`,
+        message: {
+          name: msgType,
+          summary: route.description || '',
+          payload: {
+            type: 'object',
+            properties: requestProps,
+            required: requiredFields
+          }
+        }
+      },
+      subscribe: {
+        operationId: `receive_${msgType}_result`,
+        summary: `Receive ${msgType} response`,
+        message: {
+          name: `${msgType}-result`,
+          payload: {
+            type: 'object',
+            properties: responseProps,
+            required: ['type', 'requestId']
+          }
+        }
+      }
+    };
+  }
+
+  // Event channels (subscribe-only)
+  spec.channels['events/chat'] = {
+    description: 'Real-time chat message events from Foundry. Subscribe with { type: "subscribe", channel: "chat-events" }.',
+    subscribe: {
+      operationId: 'receive_chat_event',
+      summary: 'Receive chat events',
+      message: {
+        name: 'chat-event',
+        payload: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'chat-event' },
+            event: { type: 'string', enum: ['create', 'update', 'delete'], description: 'Event type' },
+            data: { type: 'object', description: 'Chat message data' }
+          },
+          required: ['type', 'event', 'data']
+        }
+      }
+    }
+  };
+
+  spec.channels['events/roll'] = {
+    description: 'Real-time dice roll events from Foundry. Subscribe with { type: "subscribe", channel: "roll-events" }.',
+    subscribe: {
+      operationId: 'receive_roll_event',
+      summary: 'Receive roll events',
+      message: {
+        name: 'roll-event',
+        payload: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'roll-event' },
+            data: { type: 'object', description: 'Roll data' }
+          },
+          required: ['type', 'data']
+        }
+      }
+    }
+  };
+
+  // Subscribe/unsubscribe control channels
+  spec.channels['control/subscribe'] = {
+    description: 'Subscribe to event channels',
+    publish: {
+      operationId: 'subscribe',
+      summary: 'Subscribe to an event channel',
+      message: {
+        name: 'subscribe',
+        payload: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'subscribe' },
+            channel: { type: 'string', enum: ['chat-events', 'roll-events'] },
+            requestId: { type: 'string' },
+            filters: {
+              type: 'object',
+              properties: {
+                speaker: { type: 'string', description: 'Filter by speaker alias' },
+                type: { type: 'number', description: 'Filter by chat message type' },
+                whisperOnly: { type: 'boolean', description: 'Only receive whispered messages' },
+                userId: { type: 'string', description: 'Filter by Foundry user ID or username' }
+              }
+            }
+          },
+          required: ['type', 'channel']
+        }
+      }
+    }
+  };
+
+  spec.channels['control/unsubscribe'] = {
+    description: 'Unsubscribe from event channels',
+    publish: {
+      operationId: 'unsubscribe',
+      summary: 'Unsubscribe from an event channel',
+      message: {
+        name: 'unsubscribe',
+        payload: {
+          type: 'object',
+          properties: {
+            type: { type: 'string', const: 'unsubscribe' },
+            channel: { type: 'string', enum: ['chat-events', 'roll-events'], description: 'Omit to unsubscribe from all channels' },
+            requestId: { type: 'string' }
+          },
+          required: ['type']
+        }
+      }
+    }
+  };
+
+  return spec;
+}
+
+/**
+ * Generate WebSocket documentation markdown
+ */
+function generateWebSocketMarkdown(allRoutes) {
+  let md = `---\ntag: WebSocket\n---\n\n`;
+  md += `import Tabs from '@theme/Tabs';\nimport TabItem from '@theme/TabItem';\n\n`;
+  md += `# WebSocket API\n\n`;
+  md += `The WebSocket API provides bidirectional communication with Foundry VTT through the relay server. `;
+  md += `It supports the same operations as the REST API, plus real-time event subscriptions.\n\n`;
+
+  // Connection
+  md += `## Connection\n\n`;
+  md += `Connect to the WebSocket endpoint with your API key and target Foundry client ID:\n\n`;
+  md += '```\n';
+  md += `ws://<host>/ws/api?token=<apiKey>&clientId=<clientId>\n`;
+  md += '```\n\n';
+  md += `On successful connection, you will receive a \`connected\` message listing all supported message types and event channels.\n\n`;
+
+  // Message format
+  md += `## Message Format\n\n`;
+  md += `All messages are JSON objects with a \`type\` field. Request messages must also include a \`requestId\` for correlation.\n\n`;
+  md += `### Request\n\n`;
+  md += '```json\n';
+  md += `{\n  "type": "search",\n  "requestId": "my-unique-id",\n  "query": "dragon"\n}\n`;
+  md += '```\n\n';
+  md += `### Response\n\n`;
+  md += '```json\n';
+  md += `{\n  "type": "search-result",\n  "requestId": "my-unique-id",\n  "clientId": "abc123",\n  "results": [...]\n}\n`;
+  md += '```\n\n';
+
+  // Event subscriptions
+  md += `## Event Subscriptions\n\n`;
+  md += `Subscribe to real-time events from Foundry:\n\n`;
+  md += '```json\n';
+  md += `{\n  "type": "subscribe",\n  "channel": "chat-events",\n  "filters": { "speaker": "GM" }\n}\n`;
+  md += '```\n\n';
+  md += `Available channels: \`chat-events\`, \`roll-events\`\n\n`;
+  md += `To unsubscribe:\n\n`;
+  md += '```json\n';
+  md += `{\n  "type": "unsubscribe",\n  "channel": "chat-events"\n}\n`;
+  md += '```\n\n';
+
+  // Supported message types
+  md += `## Supported Message Types\n\n`;
+
+  // Deduplicate by type
+  const seenTypes = new Set();
+
+  md += `| Type | Description | Required Params |\n`;
+  md += `|------|-------------|-----------------|\n`;
+
+  for (const route of allRoutes) {
+    const msgType = route.type;
+    if (!msgType || seenTypes.has(msgType)) continue;
+    seenTypes.add(msgType);
+
+    const requiredParams = (route.requiredParams || [])
+      .filter(p => p.name !== 'clientId')
+      .map(p => `\`${p.name}\``)
+      .join(', ');
+
+    md += `| \`${msgType}\` | ${(route.description || '').replace(/\|/g, '\\|').substring(0, 80)} | ${requiredParams || '—'} |\n`;
+  }
+
+  md += `\n`;
+
+  // AsyncAPI spec link
+  md += `## AsyncAPI Spec\n\n`;
+  md += `The full AsyncAPI specification is available at [\`/asyncapi.json\`](/asyncapi.json).\n\n`;
+
+  return md;
 }
 
 main();

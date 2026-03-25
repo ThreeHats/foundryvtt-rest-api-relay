@@ -97,13 +97,19 @@ export async function fetchCompendiumEntityData(
       // Apply pack filter if specified
       if (options?.packFilter && !pack.id.includes(options.packFilter)) continue;
 
-      // Pick entry — apply entry filter or take first
+      // Pick entry — apply entry filter, or prefer character/npc types for actors
       let entry = pack.entities[0];
       if (options?.entryFilter) {
         const filter = options.entryFilter.toLowerCase();
         const match = pack.entities.find((e: any) => e.name?.toLowerCase().includes(filter));
         if (!match) continue; // Try next pack
         entry = match;
+      } else if (entityType === 'Actor') {
+        // Prefer character > npc > anything non-vehicle for actor tests
+        const charEntry = pack.entities.find((e: any) => e.type === 'character');
+        const npcEntry = pack.entities.find((e: any) => e.type === 'npc');
+        const nonVehicle = pack.entities.find((e: any) => e.type !== 'vehicle');
+        entry = charEntry || npcEntry || nonVehicle || entry;
       }
 
       targetEntry = {

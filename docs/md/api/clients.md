@@ -137,26 +137,24 @@ import axios from 'axios';
 
 ```json
 {
-  "total": 2,
   "clients": [
     {
-      "id": "your-client-id",
-      "instanceId": "default",
-      "lastSeen": 1774001723362,
-      "connectedSince": 1774001723362,
+      "id": "foundry-testing-r6bXhB7k9cXa3cif",
+      "instanceId": "local",
+      "lastSeen": 1774367571744,
+      "connectedSince": 1774367571742,
       "worldId": "testing",
       "worldTitle": "testing",
       "foundryVersion": "13.348",
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
-      "systemVersion": "5.0.4",
-      "customName": ""
+      "systemVersion": "5.0.4"
     },
     {
-      "id": "your-client-id",
-      "instanceId": "default",
-      "lastSeen": 1774001727172,
-      "connectedSince": 1774001727172,
+      "id": "foundry-rest-api-fCfNJPT9Atc26yyv",
+      "instanceId": "local",
+      "lastSeen": 1774367578644,
+      "connectedSince": 1774367578615,
       "worldId": "rest-api",
       "worldTitle": "rest-api",
       "foundryVersion": "12.331",
@@ -165,8 +163,8 @@ import axios from 'axios';
       "systemVersion": "4.3.8",
       "customName": "v12-test"
     }
-  ]
+  ],
+  "total": 2
 }
 ```
-
 

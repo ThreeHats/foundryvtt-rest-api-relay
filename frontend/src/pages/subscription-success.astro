@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Subscription Successful - Foundry REST API">
+  <div class="status-page">
+    <div class="status-card">
+      <div class="status-icon success">&#10003;</div>
+      <h1>Subscription Successful!</h1>
+      <p>Thank you for subscribing to Foundry REST API.</p>
+      <p class="text-muted">Your account now has unlimited API access.</p>
+      <a href="/" class="btn btn-primary mt-2">Return to Dashboard</a>
+      <p class="redirect-note">Redirecting automatically in 5 seconds...</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  setTimeout(() => { window.location.href = '/'; }, 5000);
+</script>
+
+<style>
+  .status-page {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    padding: 2rem;
+  }
+
+  .status-card {
+    text-align: center;
+    max-width: 480px;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  .status-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .status-icon.success {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+  }
+
+  p {
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .redirect-note {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+</style>

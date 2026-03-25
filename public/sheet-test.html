@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sheet Screenshot & Interactive Session Tester</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a2e; color: #e0e0e0; padding: 20px; }
+  h1 { color: #00d4ff; margin-bottom: 20px; font-size: 1.5em; }
+  h2 { color: #7b68ee; margin: 20px 0 10px; font-size: 1.2em; }
+  .section { background: #16213e; border-radius: 8px; padding: 16px; margin-bottom: 16px; border: 1px solid #0f3460; }
+  label { display: block; font-size: 0.85em; color: #aaa; margin-bottom: 4px; }
+  input, select { width: 100%; padding: 8px; border: 1px solid #0f3460; border-radius: 4px; background: #0a0a23; color: #e0e0e0; margin-bottom: 10px; font-size: 0.9em; }
+  input[type="range"] { padding: 0; }
+  button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.9em; margin-right: 8px; margin-bottom: 8px; }
+  .btn-primary { background: #00d4ff; color: #1a1a2e; }
+  .btn-danger { background: #e74c3c; color: white; }
+  .btn-secondary { background: #555; color: white; }
+  .btn-primary:hover { background: #00b8d9; }
+  .btn-danger:hover { background: #c0392b; }
+  .btn-primary:disabled, .btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row > div { flex: 1; min-width: 200px; }
+  .status { padding: 6px 12px; border-radius: 4px; font-size: 0.85em; display: inline-block; margin-bottom: 10px; }
+  .status-disconnected { background: #e74c3c33; color: #e74c3c; }
+  .status-connected { background: #2ecc7133; color: #2ecc71; }
+  .status-active { background: #f39c1233; color: #f39c12; }
+  .image-container { background: #0a0a23; border: 1px solid #0f3460; border-radius: 4px; min-height: 200px; display: flex; align-items: center; justify-content: center; overflow: auto; position: relative; }
+  .image-container img { max-width: 100%; cursor: crosshair; }
+  .image-placeholder { color: #555; font-style: italic; }
+  .stats { font-size: 0.8em; color: #888; margin-top: 6px; }
+  .log-panel { max-height: 200px; overflow-y: auto; background: #0a0a23; border: 1px solid #0f3460; border-radius: 4px; padding: 8px; font-family: monospace; font-size: 0.75em; margin-top: 10px; }
+  .log-entry { margin-bottom: 2px; word-break: break-all; }
+  .log-sent { color: #00d4ff; }
+  .log-received { color: #2ecc71; }
+  .log-error { color: #e74c3c; }
+  .log-info { color: #888; }
+  .toggle-log { font-size: 0.8em; cursor: pointer; color: #7b68ee; text-decoration: underline; margin-top: 6px; display: inline-block; }
+  .frame-info { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; font-size: 0.75em; }
+</style>
+</head>
+<body>
+
+<h1>Sheet Screenshot & Interactive Session Tester</h1>
+
+<!-- Connection Fields -->
+<div class="section">
+  <h2>Connection</h2>
+  <div class="row">
+    <div>
+      <label>Relay URL</label>
+      <input type="text" id="relayUrl" placeholder="http://localhost:3010">
+    </div>
+    <div>
+      <label>API Key</label>
+      <input type="text" id="apiKey" placeholder="Your API key">
+    </div>
+    <div>
+      <label>Client ID</label>
+      <input type="text" id="clientId" placeholder="Connected Foundry client ID">
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <label>Actor UUID</label>
+      <input type="text" id="actorUuid" placeholder="Actor.xxxxxxxxxxxx">
+    </div>
+    <div>
+      <label>User ID (optional)</label>
+      <input type="text" id="userId" placeholder="Leave empty for GM access">
+    </div>
+  </div>
+</div>
+
+<!-- Phase 1: Static Screenshot -->
+<div class="section">
+  <h2>Phase 1 — Static Screenshot</h2>
+  <div class="row">
+    <div>
+      <label>Format</label>
+      <select id="ssFormat">
+        <option value="png">PNG</option>
+        <option value="jpeg">JPEG</option>
+      </select>
+    </div>
+    <div>
+      <label>Quality (JPEG): <span id="ssQualityVal">0.9</span></label>
+      <input type="range" id="ssQuality" min="0.1" max="1" step="0.1" value="0.9">
+    </div>
+    <div>
+      <label>Scale</label>
+      <input type="number" id="ssScale" value="1" min="0.5" max="3" step="0.5">
+    </div>
+  </div>
+  <button class="btn-primary" id="btnCapture" onclick="captureScreenshot()">Capture Screenshot</button>
+  <div class="stats" id="ssStats"></div>
+  <div class="image-container" id="ssImageContainer">
+    <span class="image-placeholder">No screenshot captured yet</span>
+  </div>
+</div>
+
+<!-- Phase 2: Interactive Session -->
+<div class="section">
+  <h2>Phase 2 — Interactive Session</h2>
+  <div class="row">
+    <div>
+      <label>Quality: <span id="isQualityVal">0.7</span></label>
+      <input type="range" id="isQuality" min="0.1" max="1" step="0.1" value="0.7">
+    </div>
+    <div>
+      <label>Scale</label>
+      <input type="number" id="isScale" value="1" min="0.5" max="3" step="0.5">
+    </div>
+  </div>
+  <span class="status status-disconnected" id="wsStatus">Disconnected</span>
+  <br>
+  <button class="btn-primary" id="btnStartSession" onclick="startInteractiveSession()">Start Session</button>
+  <button class="btn-danger" id="btnEndSession" onclick="endInteractiveSession()" disabled>End Session</button>
+  <div class="stats" id="isStats"></div>
+  <div class="image-container" id="isImageContainer">
+    <span class="image-placeholder">No interactive session active</span>
+    <div class="frame-info" id="frameInfo" style="display:none">
+      <span id="frameCount">0</span> frames | <span id="frameTrigger">-</span>
+    </div>
+  </div>
+  <span class="toggle-log" onclick="toggleLog()">Toggle Log</span>
+  <div class="log-panel" id="logPanel" style="display:none"></div>
+</div>
+
+<script>
+// State
+let ws = null;
+let sessionId = null;
+let frameCounter = 0;
+
+// Helpers
+function getVal(id) { return document.getElementById(id).value.trim(); }
+
+function getRelayUrl() {
+  return getVal('relayUrl') || `${location.protocol}//${location.hostname}:${location.port || 3010}`;
+}
+
+function logMessage(cls, text) {
+  const panel = document.getElementById('logPanel');
+  const entry = document.createElement('div');
+  entry.className = 'log-entry ' + cls;
+  entry.textContent = new Date().toISOString().substring(11, 23) + ' ' + text;
+  panel.appendChild(entry);
+  panel.scrollTop = panel.scrollHeight;
+}
+
+function toggleLog() {
+  const p = document.getElementById('logPanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+}
+
+// Quality slider labels
+document.getElementById('ssQuality').oninput = function() {
+  document.getElementById('ssQualityVal').textContent = this.value;
+};
+document.getElementById('isQuality').oninput = function() {
+  document.getElementById('isQualityVal').textContent = this.value;
+};
+
+// Phase 1: Static Screenshot via HTTP
+async function captureScreenshot() {
+  const btn = document.getElementById('btnCapture');
+  btn.disabled = true;
+
+  const base = getRelayUrl();
+  const params = new URLSearchParams();
+  const ssClientId = getVal('clientId');
+  if (ssClientId) params.set('clientId', ssClientId);
+  const uuid = getVal('actorUuid');
+  if (uuid) params.set('uuid', uuid);
+  else params.set('selected', 'true');
+  params.set('format', getVal('ssFormat'));
+  params.set('quality', document.getElementById('ssQuality').value);
+  params.set('scale', getVal('ssScale'));
+  const userId = getVal('userId');
+  if (userId) params.set('userId', userId);
+
+  const url = `${base}/sheet/image?${params}`;
+  const start = performance.now();
+
+  try {
+    const resp = await fetch(url, { headers: { 'x-api-key': getVal('apiKey') } });
+    const elapsed = Math.round(performance.now() - start);
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({ error: resp.statusText }));
+      document.getElementById('ssStats').textContent = `Error: ${err.error || resp.statusText} (${elapsed}ms)`;
+      btn.disabled = false;
+      return;
+    }
+
+    const blob = await resp.blob();
+    const imgUrl = URL.createObjectURL(blob);
+    const w = resp.headers.get('X-Image-Width') || '?';
+    const h = resp.headers.get('X-Image-Height') || '?';
+
+    document.getElementById('ssImageContainer').innerHTML = `<img src="${imgUrl}" alt="Sheet screenshot">`;
+    document.getElementById('ssStats').textContent = `${w}x${h} | ${(blob.size / 1024).toFixed(1)} KB | ${elapsed}ms`;
+  } catch (err) {
+    document.getElementById('ssStats').textContent = `Fetch error: ${err.message}`;
+  }
+
+  btn.disabled = false;
+}
+
+// Phase 2: Interactive Session via WebSocket
+function startInteractiveSession() {
+  const base = getRelayUrl().replace(/^http/, 'ws');
+  const token = getVal('apiKey');
+  const clientId = getVal('clientId');
+
+  if (ws) { ws.close(); ws = null; }
+
+  // clientId is optional — server auto-resolves or starts headless session
+  let wsUrl = `${base}/ws/api?token=${encodeURIComponent(token)}`;
+  if (clientId) wsUrl += `&clientId=${encodeURIComponent(clientId)}`;
+  logMessage('log-info', `Connecting to ${wsUrl}`);
+
+  ws = new WebSocket(wsUrl);
+  frameCounter = 0;
+  updateStatus('connecting');
+
+  ws.onopen = () => {
+    logMessage('log-info', 'WebSocket connected');
+    updateStatus('connected');
+  };
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    logMessage('log-received', `← ${data.type} ${data.sessionId || ''}`);
+
+    if (data.type === 'status') {
+      logMessage('log-info', `Status: ${data.message}`);
+      document.getElementById('isStats').textContent = data.message;
+    }
+
+    if (data.type === 'connected') {
+      // WS connected, now start the session
+      const msg = {
+        type: 'sheet-session-start',
+        uuid: getVal('actorUuid') || undefined,
+        selected: !getVal('actorUuid') ? true : undefined,
+        quality: parseFloat(document.getElementById('isQuality').value),
+        scale: parseFloat(getVal('isScale')),
+        userId: getVal('userId') || undefined,
+      };
+      ws.send(JSON.stringify(msg));
+      logMessage('log-sent', `→ sheet-session-start`);
+    }
+
+    if (data.type === 'sheet-session-started') {
+      sessionId = data.sessionId;
+      displayFrame(data);
+      updateStatus('active');
+      document.getElementById('btnStartSession').disabled = true;
+      document.getElementById('btnEndSession').disabled = false;
+    }
+
+    if (data.type === 'sheet-frame') {
+      displayFrame(data);
+    }
+
+    if (data.type === 'sheet-session-error') {
+      logMessage('log-error', `Error: ${data.error}`);
+      document.getElementById('isStats').textContent = `Error: ${data.error}`;
+    }
+
+    if (data.type === 'sheet-session-ended') {
+      logMessage('log-info', `Session ended: ${data.reason}`);
+      sessionCleanup();
+    }
+  };
+
+  ws.onclose = (e) => {
+    logMessage('log-info', `WebSocket closed: ${e.code} ${e.reason}`);
+    sessionCleanup();
+  };
+
+  ws.onerror = (e) => {
+    logMessage('log-error', `WebSocket error`);
+  };
+}
+
+function displayFrame(data) {
+  frameCounter++;
+  const container = document.getElementById('isImageContainer');
+  let img = container.querySelector('img');
+  if (!img) {
+    container.innerHTML = '<div class="frame-info" id="frameInfo"><span id="frameCount">0</span> frames | <span id="frameTrigger">-</span></div>';
+    img = document.createElement('img');
+    img.alt = 'Sheet interactive view';
+    img.addEventListener('click', onImageClick);
+    img.addEventListener('dblclick', onImageDblClick);
+    img.addEventListener('contextmenu', onImageContextMenu);
+    img.addEventListener('wheel', onImageWheel, { passive: false });
+    img.tabIndex = 0; // make focusable for keyboard
+    img.addEventListener('keydown', onImageKeyDown);
+    img.addEventListener('keyup', onImageKeyUp);
+    container.prepend(img);
+  }
+  img.src = data.imageData;
+  document.getElementById('frameCount').textContent = frameCounter;
+  document.getElementById('frameTrigger').textContent = data.trigger || 'initial';
+  document.getElementById('frameInfo').style.display = 'block';
+
+  const sizeKb = (data.imageData.length * 0.75 / 1024).toFixed(1);
+  document.getElementById('isStats').textContent = `${data.width}x${data.height} | ~${sizeKb} KB | Frame #${frameCounter}`;
+}
+
+function getRelativeCoords(e) {
+  const img = e.target;
+  const rect = img.getBoundingClientRect();
+  // Scale to actual image dimensions
+  const scaleX = img.naturalWidth / rect.width;
+  const scaleY = img.naturalHeight / rect.height;
+  return {
+    x: Math.round((e.clientX - rect.left) * scaleX),
+    y: Math.round((e.clientY - rect.top) * scaleY),
+  };
+}
+
+function sendInput(payload) {
+  if (!ws || !sessionId) return;
+  const msg = { type: 'sheet-input', sessionId, ...payload };
+  ws.send(JSON.stringify(msg));
+  logMessage('log-sent', `→ sheet-input ${payload.action} (${payload.x || ''},${payload.y || ''})`);
+}
+
+function onImageClick(e) {
+  e.preventDefault();
+  const { x, y } = getRelativeCoords(e);
+  sendInput({ action: 'click', x, y, button: e.button, modifiers: getModifiers(e) });
+}
+
+function onImageDblClick(e) {
+  e.preventDefault();
+  const { x, y } = getRelativeCoords(e);
+  sendInput({ action: 'dblclick', x, y, button: e.button, modifiers: getModifiers(e) });
+}
+
+function onImageContextMenu(e) {
+  e.preventDefault();
+  const { x, y } = getRelativeCoords(e);
+  sendInput({ action: 'contextmenu', x, y, button: 2, modifiers: getModifiers(e) });
+}
+
+// Scroll throttling — accumulate deltas and send every 300ms
+let scrollAccum = { deltaX: 0, deltaY: 0, modifiers: null };
+let scrollTimer = null;
+
+function onImageWheel(e) {
+  e.preventDefault();
+  scrollAccum.deltaX += e.deltaX;
+  scrollAccum.deltaY += e.deltaY;
+  scrollAccum.modifiers = getModifiers(e);
+
+  if (!scrollTimer) {
+    scrollTimer = setTimeout(() => {
+      sendInput({
+        action: 'scroll',
+        deltaX: scrollAccum.deltaX,
+        deltaY: scrollAccum.deltaY,
+        modifiers: scrollAccum.modifiers,
+      });
+      scrollAccum = { deltaX: 0, deltaY: 0, modifiers: null };
+      scrollTimer = null;
+    }, 300);
+  }
+}
+
+function onImageKeyDown(e) {
+  e.preventDefault();
+  sendInput({ action: 'keydown', key: e.key, code: e.code, modifiers: getModifiers(e) });
+}
+
+function onImageKeyUp(e) {
+  e.preventDefault();
+  sendInput({ action: 'keyup', key: e.key, code: e.code, modifiers: getModifiers(e) });
+}
+
+function getModifiers(e) {
+  return { shift: e.shiftKey, ctrl: e.ctrlKey, alt: e.altKey, meta: e.metaKey };
+}
+
+function endInteractiveSession() {
+  if (ws && sessionId) {
+    ws.send(JSON.stringify({ type: 'sheet-session-end', sessionId }));
+    logMessage('log-sent', `→ sheet-session-end ${sessionId}`);
+  }
+}
+
+function sessionCleanup() {
+  sessionId = null;
+  updateStatus('disconnected');
+  document.getElementById('btnStartSession').disabled = false;
+  document.getElementById('btnEndSession').disabled = true;
+}
+
+function updateStatus(status) {
+  const el = document.getElementById('wsStatus');
+  el.className = 'status status-' + status;
+  el.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+}
+
+// Auto-fill relay URL from current page
+document.getElementById('relayUrl').value = `${location.protocol}//${location.hostname}:${location.port || 3010}`;
+</script>
+</body>
+</html>

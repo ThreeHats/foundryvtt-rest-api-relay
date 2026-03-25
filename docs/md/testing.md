@@ -608,6 +608,23 @@ pnpm docs:build
 Check the `docs/examples/` folder to see the full requests, responses, and auto-generated code examples captured during tests. This is very helpful for debugging API issues.
 :::
 
+### Browser Console Logging
+
+When debugging headless session issues, you can capture the browser's console output to log files by setting the `CAPTURE_BROWSER_CONSOLE` environment variable:
+
+```bash
+CAPTURE_BROWSER_CONSOLE=debug pnpm test
+```
+
+Valid levels (each includes levels above it):
+- `error` — page errors and failed requests only
+- `warn` — warnings + errors
+- `debug` — all console output
+
+Logs are written to `data/browser-logs/` with filenames like `{world}_{username}_{foundryVersion}_{timestamp}.log`. Previous logs for the same world/username are automatically cleaned up when a new session starts.
+
+You can also pass `captureBrowserConsole` in the request body of `POST /start-session` to enable logging for individual sessions.
+
 ### Debugging Test Output
 
 After running tests, check the generated outputs for debugging:

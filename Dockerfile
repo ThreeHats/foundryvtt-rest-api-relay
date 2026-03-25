@@ -62,9 +62,16 @@ RUN pnpm rebuild sqlite3
 # Copy source code
 COPY src/ ./src/
 COPY public/ ./public/
+COPY frontend/ ./frontend/
 COPY tsconfig.json ./
 
-# Build the application first
+# Build the frontend (Astro + Svelte)
+RUN if [ -d "frontend" ] && [ -f "frontend/package.json" ]; then \
+      echo "Building frontend..." && \
+      (cd frontend && pnpm install && pnpm build) || echo "Frontend build failed, continuing with legacy public/"; \
+    fi
+
+# Build the application
 RUN pnpm build
 
 # Try to build docs if possible, but don't fail the build if it doesn't work

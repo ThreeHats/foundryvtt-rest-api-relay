@@ -17,7 +17,7 @@ Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry w
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | limit | number |  | query | Optional limit on the number of rolls to return (default is 20) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -30,7 +30,7 @@ Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry w
 <ApiTester
   method="GET"
   path="/rolls"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"limit","type":"number","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"limit","type":"number","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -42,7 +42,7 @@ Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry w
 const baseUrl = 'http://localhost:3010';
 const path = '/rolls';
 const params = {
-  clientId: 'your-client-id',
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
   limit: '20'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -62,7 +62,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/rolls?clientId=your-client-id&limit=20' \
+curl -X GET 'http://localhost:3010/rolls?clientId=foundry-testing-r6bXhB7k9cXa3cif&limit=20' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -75,7 +75,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/rolls'
 params = {
-    'clientId': 'your-client-id',
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
     'limit': '20'
 }
 url = f'{base_url}{path}'
@@ -101,7 +101,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/rolls';
   const params = {
-    clientId: 'your-client-id',
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
     limit: '20'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -136,7 +136,7 @@ import axios from 'axios';
   🔤/rolls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤limit=20🔤 ➡️ limit
   🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString
 
@@ -165,13 +165,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "rolls_1774001780476",
-  "clientId": "your-client-id",
   "type": "rolls-result",
+  "requestId": "rolls_1774367598406",
   "data": [
     {
-      "id": "rT0e1CpGpcTOjSMo",
-      "messageId": "rT0e1CpGpcTOjSMo",
+      "id": "nsZzR85bzPva0kKD",
+      "messageId": "nsZzR85bzPva0kKD",
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"
@@ -182,7 +181,7 @@ import axios from 'axios';
         "token": null
       },
       "flavor": "Test Roll",
-      "rollTotal": 7,
+      "rollTotal": 15,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -191,17 +190,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 2,
+              "result": 7,
               "active": false
             },
             {
-              "result": 7,
+              "result": 15,
               "active": true
             }
           ]
         }
       ],
-      "timestamp": 1774001780460
+      "timestamp": 1774367598400
     }
   ]
 }
@@ -218,7 +217,7 @@ Get the last roll Retrieves the most recent roll made in the Foundry world.
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -230,7 +229,7 @@ Get the last roll Retrieves the most recent roll made in the Foundry world.
 <ApiTester
   method="GET"
   path="/lastroll"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -242,7 +241,7 @@ Get the last roll Retrieves the most recent roll made in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/lastroll';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -261,7 +260,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/lastroll?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/lastroll?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -274,7 +273,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/lastroll'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -299,7 +298,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/lastroll';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -333,7 +332,7 @@ import axios from 'axios';
   🔤/lastroll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -361,12 +360,11 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "last-roll_1774001780673",
-  "clientId": "your-client-id",
   "type": "last-roll-result",
+  "requestId": "last-roll_1774367598415",
   "data": {
-    "id": "rT0e1CpGpcTOjSMo",
-    "messageId": "rT0e1CpGpcTOjSMo",
+    "id": "nsZzR85bzPva0kKD",
+    "messageId": "nsZzR85bzPva0kKD",
     "user": {
       "id": "r6bXhB7k9cXa3cif",
       "name": "tester"
@@ -377,7 +375,7 @@ import axios from 'axios';
       "token": null
     },
     "flavor": "Test Roll",
-    "rollTotal": 7,
+    "rollTotal": 15,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -386,17 +384,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 2,
+            "result": 7,
             "active": false
           },
           {
-            "result": 7,
+            "result": 15,
             "active": true
           }
         ]
       }
     ],
-    "timestamp": 1774001780460
+    "timestamp": 1774367598400
   }
 }
 ```
@@ -412,8 +410,8 @@ Make a roll Executes a roll with the specified formula
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | formula | string | ✓ | body | The roll formula to evaluate (e.g., "1d20 + 5") |
+| clientId | string |  | query | Client ID for the Foundry world |
 | flavor | string |  | body | Optional flavor text for the roll |
 | createChatMessage | boolean |  | body | Whether to create a chat message for the roll |
 | speaker | string |  | body | The speaker for the roll |
@@ -429,7 +427,7 @@ Make a roll Executes a roll with the specified formula
 <ApiTester
   method="POST"
   path="/roll"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"formula","type":"string","required":true,"source":"body"},{"name":"flavor","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"speaker","type":"string","required":false,"source":"body"},{"name":"whisper","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"formula","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"flavor","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"speaker","type":"string","required":false,"source":"body"},{"name":"whisper","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -441,7 +439,7 @@ Make a roll Executes a roll with the specified formula
 const baseUrl = 'http://localhost:3010';
 const path = '/roll';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -466,7 +464,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/roll?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/roll?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"formula":"2d20kh","flavor":"Test Roll","createChatMessage":true}'
@@ -481,7 +479,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/roll'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -511,7 +509,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/roll';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -551,7 +549,7 @@ import axios from 'axios';
   🔤/roll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -582,16 +580,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "roll_1774001780029",
-  "clientId": "your-client-id",
   "type": "roll-result",
+  "requestId": "roll_1774367598387",
   "success": true,
   "data": {
-    "id": "manual_1774001780460_pbymaridwyj",
+    "id": "manual_1774367598401_f1zk4l0aopu",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 7,
+      "total": 15,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -599,17 +596,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 2,
+              "result": 7,
               "active": false
             },
             {
-              "result": 7,
+              "result": 15,
               "active": true
             }
           ]
         }
       ],
-      "timestamp": 1774001780460
+      "timestamp": 1774367598401
     }
   }
 }
@@ -814,7 +811,7 @@ Just don't 😂
 {
   "event": "connected",
   "data": {
-    "clientId": "your-client-id"
+    "clientId": "foundry-testing-r6bXhB7k9cXa3cif"
   }
 }
 ```

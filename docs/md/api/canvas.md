@@ -17,7 +17,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -31,7 +31,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/tokens"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -43,7 +43,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -62,7 +62,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/tokens?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/tokens?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -75,7 +75,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -100,7 +100,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -134,7 +134,7 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -162,23 +162,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001757341",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595094",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tokens",
   "data": [
     {
+      "actorId": "ioZexonJDGVuU8zl",
       "x": 400,
       "y": 400,
-      "actorId": "2Hl8s4nj9yJQueBG",
       "shape": 4,
-      "_id": "SC8wxOcPgw7sS7xN",
+      "_id": "Heqy5aHlLawQKBBr",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "jduQMTX5m80g0Mnw",
+        "_id": "cn634UDxWVXk8AwV",
         "system": {},
         "items": [],
         "effects": [],
@@ -292,7 +291,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -306,7 +305,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/tiles"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -318,7 +317,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tiles';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -337,7 +336,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/tiles?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/tiles?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -350,7 +349,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tiles'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -375,7 +374,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tiles';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -409,7 +408,7 @@ import axios from 'axios';
   🔤/canvas/tiles🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -437,16 +436,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001758504",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595261",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tiles",
   "data": [
     {
-      "x": 0,
-      "y": 0,
-      "width": 200,
       "height": 200,
       "texture": {
         "src": null,
@@ -461,7 +456,10 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "_id": "z1Jin3Aa3EyWbE0N",
+      "width": 200,
+      "x": 0,
+      "y": 0,
+      "_id": "2EicZ3TAlmmmOo0y",
       "elevation": 0,
       "sort": 0,
       "rotation": 0,
@@ -498,7 +496,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -512,7 +510,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/drawings"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -524,7 +522,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/drawings';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -543,7 +541,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/drawings?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/drawings?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -556,7 +554,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/drawings'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -581,7 +579,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/drawings';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -615,7 +613,7 @@ import axios from 'axios';
   🔤/canvas/drawings🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -643,23 +641,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001759609",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595288",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "drawings",
   "data": [
     {
-      "x": 100,
-      "y": 100,
       "shape": {
+        "height": 100,
         "type": "r",
         "width": 100,
-        "height": 100,
         "radius": null,
         "points": []
       },
-      "_id": "nsGNA7Fz95iKFLZk",
+      "x": 100,
+      "y": 100,
+      "_id": "YzO5P3J7r93GX6Y2",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -696,7 +693,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -710,7 +707,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/lights"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -722,7 +719,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/lights';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -741,7 +738,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/lights?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/lights?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -754,7 +751,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/lights'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -779,7 +776,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/lights';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -813,7 +810,7 @@ import axios from 'axios';
   🔤/canvas/lights🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -841,18 +838,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001760787",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595347",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "lights",
   "data": [
     {
-      "x": 300,
-      "y": 300,
       "config": {
-        "dim": 20,
         "bright": 10,
+        "dim": 20,
         "negative": false,
         "priority": 0,
         "alpha": 0.5,
@@ -875,7 +869,9 @@ import axios from 'axios';
           "max": 1
         }
       },
-      "_id": "oLgYxtjXc83j4D3R",
+      "x": 300,
+      "y": 300,
+      "_id": "eWgJwsXCxb9N1Qtu",
       "elevation": 0,
       "rotation": 0,
       "walls": true,
@@ -898,7 +894,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -912,7 +908,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/sounds"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -924,7 +920,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/sounds';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -943,7 +939,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/sounds?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/sounds?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -956,7 +952,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/sounds'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -981,7 +977,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/sounds';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1015,7 +1011,7 @@ import axios from 'axios';
   🔤/canvas/sounds🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1043,18 +1039,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001762038",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595862",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "sounds",
   "data": [
     {
+      "path": null,
+      "radius": 10,
       "x": 200,
       "y": 200,
-      "radius": 10,
-      "path": null,
-      "_id": "9Ply4LLaXpxJNmDZ",
+      "_id": "lN108gGVbeArmWZN",
       "elevation": 0,
       "repeat": false,
       "volume": 0.5,
@@ -1090,7 +1085,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -1104,7 +1099,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/notes"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1116,7 +1111,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/notes';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1135,7 +1130,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/notes?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/notes?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1148,7 +1143,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/notes'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -1173,7 +1168,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/notes';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1207,7 +1202,7 @@ import axios from 'axios';
   🔤/canvas/notes🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1235,17 +1230,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001763159",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595890",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "notes",
   "data": [
     {
+      "text": "Test Note",
       "x": 250,
       "y": 250,
-      "text": "Test Note",
-      "_id": "qF5xlip8hlsAkJeb",
+      "_id": "rToo0BqoHokR122A",
       "entryId": null,
       "pageId": null,
       "elevation": 0,
@@ -1286,7 +1280,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -1300,7 +1294,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/templates"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1312,7 +1306,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/templates';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1331,7 +1325,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/templates?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/templates?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1344,7 +1338,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/templates'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -1369,7 +1363,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/templates';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1403,7 +1397,7 @@ import axios from 'axios';
   🔤/canvas/templates🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1431,18 +1425,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001764347",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595919",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "templates",
   "data": [
     {
+      "distance": 15,
+      "t": "circle",
       "x": 350,
       "y": 350,
-      "t": "circle",
-      "distance": 15,
-      "_id": "P2Tlecpvz8mUPRB3",
+      "_id": "aM295HjgRpcG9EgY",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -1470,7 +1463,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -1484,7 +1477,7 @@ Get canvas embedded documents
 <ApiTester
   method="GET"
   path="/canvas/walls"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1496,7 +1489,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/walls';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1515,7 +1508,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/walls?clientId=your-client-id' \
+curl -X GET 'http://localhost:3010/canvas/walls?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1528,7 +1521,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/walls'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -1553,7 +1546,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/walls';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1587,7 +1580,7 @@ import axios from 'axios';
   🔤/canvas/walls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1615,10 +1608,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "get-canvas-documents_1774001765492",
-  "clientId": "your-client-id",
   "type": "get-canvas-documents-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "get-canvas-documents_1774367595936",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "walls",
   "data": [
     {
@@ -1628,7 +1620,7 @@ import axios from 'axios';
         300,
         100
       ],
-      "_id": "HQl8rYMGlx5A3lAZ",
+      "_id": "BJJ5Vviv5vYhN76K",
       "light": 20,
       "move": 20,
       "sight": 20,
@@ -1660,7 +1652,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -1673,7 +1665,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/tokens"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1685,7 +1677,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1700,7 +1692,7 @@ const response = await fetch(url, {
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "2Hl8s4nj9yJQueBG"
+        "actorId": "ioZexonJDGVuU8zl"
       }
     })
 });
@@ -1712,10 +1704,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/tokens?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/tokens?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"data":{"x":400,"y":400,"actorId":"2Hl8s4nj9yJQueBG"}}'
+  -d '{"data":{"x":400,"y":400,"actorId":"ioZexonJDGVuU8zl"}}'
 ```
 
 </TabItem>
@@ -1727,7 +1719,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -1742,7 +1734,7 @@ response = requests.post(
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "2Hl8s4nj9yJQueBG"
+        "actorId": "ioZexonJDGVuU8zl"
       }
     }
 )
@@ -1760,7 +1752,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1776,7 +1768,7 @@ import axios from 'axios';
         "data": {
           "x": 400,
           "y": 400,
-          "actorId": "2Hl8s4nj9yJQueBG"
+          "actorId": "ioZexonJDGVuU8zl"
         }
       }
   });
@@ -1802,11 +1794,11 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"data":{"x":400,"y":400,"actorId":"2Hl8s4nj9yJQueBG"}}🔤 ➡️ body
+  🔤{"data":{"x":400,"y":400,"actorId":"ioZexonJDGVuU8zl"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 55❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1833,23 +1825,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001757048",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367594977",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tokens",
   "data": [
     {
+      "actorId": "ioZexonJDGVuU8zl",
       "x": 400,
       "y": 400,
-      "actorId": "2Hl8s4nj9yJQueBG",
       "shape": 4,
-      "_id": "SC8wxOcPgw7sS7xN",
+      "_id": "Heqy5aHlLawQKBBr",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "jduQMTX5m80g0Mnw",
+        "_id": "cn634UDxWVXk8AwV",
         "system": {},
         "items": [],
         "effects": [],
@@ -1963,7 +1954,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -1976,7 +1967,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/tiles"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1988,7 +1979,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tiles';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -2019,7 +2010,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/tiles?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/tiles?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"x":0,"y":0,"width":200,"height":200,"texture":{"src":""}}}'
@@ -2034,7 +2025,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tiles'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -2071,7 +2062,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tiles';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -2117,7 +2108,7 @@ import axios from 'axios';
   🔤/canvas/tiles🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -2148,16 +2139,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001758227",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367595248",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tiles",
   "data": [
     {
-      "x": 0,
-      "y": 0,
-      "width": 200,
       "height": 200,
       "texture": {
         "src": null,
@@ -2172,7 +2159,10 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "_id": "z1Jin3Aa3EyWbE0N",
+      "width": 200,
+      "x": 0,
+      "y": 0,
+      "_id": "2EicZ3TAlmmmOo0y",
       "elevation": 0,
       "sort": 0,
       "rotation": 0,
@@ -2209,7 +2199,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -2222,7 +2212,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/drawings"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -2234,7 +2224,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/drawings';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -2265,7 +2255,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/drawings?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/drawings?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"x":100,"y":100,"shape":{"type":"r","width":100,"height":100}}}'
@@ -2280,7 +2270,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/drawings'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -2317,7 +2307,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/drawings';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -2363,7 +2353,7 @@ import axios from 'axios';
   🔤/canvas/drawings🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -2394,23 +2384,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001759333",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367595277",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "drawings",
   "data": [
     {
-      "x": 100,
-      "y": 100,
       "shape": {
+        "height": 100,
         "type": "r",
         "width": 100,
-        "height": 100,
         "radius": null,
         "points": []
       },
-      "_id": "nsGNA7Fz95iKFLZk",
+      "x": 100,
+      "y": 100,
+      "_id": "YzO5P3J7r93GX6Y2",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -2447,7 +2436,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -2460,7 +2449,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/lights"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -2472,7 +2461,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/lights';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -2502,7 +2491,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/lights?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/lights?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"x":300,"y":300,"config":{"dim":20,"bright":10}}}'
@@ -2517,7 +2506,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/lights'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -2553,7 +2542,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/lights';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -2598,7 +2587,7 @@ import axios from 'axios';
   🔤/canvas/lights🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -2629,18 +2618,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001760499",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367595318",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "lights",
   "data": [
     {
-      "x": 300,
-      "y": 300,
       "config": {
-        "dim": 20,
         "bright": 10,
+        "dim": 20,
         "negative": false,
         "priority": 0,
         "alpha": 0.5,
@@ -2663,7 +2649,9 @@ import axios from 'axios';
           "max": 1
         }
       },
-      "_id": "oLgYxtjXc83j4D3R",
+      "x": 300,
+      "y": 300,
+      "_id": "eWgJwsXCxb9N1Qtu",
       "elevation": 0,
       "rotation": 0,
       "walls": true,
@@ -2686,7 +2674,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -2699,7 +2687,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/sounds"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -2711,7 +2699,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/sounds';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -2739,7 +2727,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/sounds?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/sounds?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"x":200,"y":200,"radius":10,"path":""}}'
@@ -2754,7 +2742,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/sounds'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -2788,7 +2776,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/sounds';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -2831,7 +2819,7 @@ import axios from 'axios';
   🔤/canvas/sounds🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -2862,18 +2850,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001761765",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367595855",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "sounds",
   "data": [
     {
+      "path": null,
+      "radius": 10,
       "x": 200,
       "y": 200,
-      "radius": 10,
-      "path": null,
-      "_id": "9Ply4LLaXpxJNmDZ",
+      "_id": "lN108gGVbeArmWZN",
       "elevation": 0,
       "repeat": false,
       "volume": 0.5,
@@ -2909,7 +2896,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -2922,7 +2909,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/notes"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -2934,7 +2921,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/notes';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -2961,7 +2948,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/notes?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/notes?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"x":250,"y":250,"text":"Test Note"}}'
@@ -2976,7 +2963,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/notes'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -3009,7 +2996,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/notes';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -3051,7 +3038,7 @@ import axios from 'axios';
   🔤/canvas/notes🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -3082,17 +3069,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001762878",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367595881",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "notes",
   "data": [
     {
+      "text": "Test Note",
       "x": 250,
       "y": 250,
-      "text": "Test Note",
-      "_id": "qF5xlip8hlsAkJeb",
+      "_id": "rToo0BqoHokR122A",
       "entryId": null,
       "pageId": null,
       "elevation": 0,
@@ -3133,7 +3119,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -3146,7 +3132,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/templates"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -3158,7 +3144,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/templates';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -3186,7 +3172,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/templates?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/templates?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"x":350,"y":350,"t":"circle","distance":15}}'
@@ -3201,7 +3187,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/templates'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -3235,7 +3221,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/templates';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -3278,7 +3264,7 @@ import axios from 'axios';
   🔤/canvas/templates🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -3309,18 +3295,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001764074",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367595910",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "templates",
   "data": [
     {
+      "distance": 15,
+      "t": "circle",
       "x": 350,
       "y": 350,
-      "t": "circle",
-      "distance": 15,
-      "_id": "P2Tlecpvz8mUPRB3",
+      "_id": "aM295HjgRpcG9EgY",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -3348,7 +3333,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID to create in (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -3361,7 +3346,7 @@ Create canvas embedded document(s)
 <ApiTester
   method="POST"
   path="/canvas/walls"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -3373,7 +3358,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/walls';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -3403,7 +3388,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/walls?clientId=your-client-id' \
+curl -X POST 'http://localhost:3010/canvas/walls?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"c":[100,100,300,100]}}'
@@ -3418,7 +3403,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/walls'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -3454,7 +3439,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/walls';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -3499,7 +3484,7 @@ import axios from 'axios';
   🔤/canvas/walls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -3530,10 +3515,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "create-canvas-document_1774001765208",
-  "clientId": "your-client-id",
   "type": "create-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "create-canvas-document_1774367595930",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "walls",
   "data": [
     {
@@ -3543,7 +3527,7 @@ import axios from 'axios';
         300,
         100
       ],
-      "_id": "HQl8rYMGlx5A3lAZ",
+      "_id": "BJJ5Vviv5vYhN76K",
       "light": 20,
       "move": 20,
       "sight": 20,
@@ -3575,9 +3559,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -3590,7 +3574,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/tokens"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -3602,7 +3586,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -3614,7 +3598,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "SC8wxOcPgw7sS7xN",
+      "documentId": "Heqy5aHlLawQKBBr",
       "data": {
         "x": 450,
         "y": 450
@@ -3629,10 +3613,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"SC8wxOcPgw7sS7xN","data":{"x":450,"y":450}}'
+  -d '{"documentId":"Heqy5aHlLawQKBBr","data":{"x":450,"y":450}}'
 ```
 
 </TabItem>
@@ -3644,7 +3628,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -3656,7 +3640,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "SC8wxOcPgw7sS7xN",
+      "documentId": "Heqy5aHlLawQKBBr",
       "data": {
         "x": 450,
         "y": 450
@@ -3677,7 +3661,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -3690,7 +3674,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "SC8wxOcPgw7sS7xN",
+        "documentId": "Heqy5aHlLawQKBBr",
         "data": {
           "x": 450,
           "y": 450
@@ -3719,11 +3703,11 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"SC8wxOcPgw7sS7xN","data":{"x":450,"y":450}}🔤 ➡️ body
+  🔤{"documentId":"Heqy5aHlLawQKBBr","data":{"x":450,"y":450}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -3750,23 +3734,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001757686",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595110",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tokens",
   "data": [
     {
+      "actorId": "ioZexonJDGVuU8zl",
       "x": 450,
       "y": 450,
-      "actorId": "2Hl8s4nj9yJQueBG",
       "shape": 4,
-      "_id": "SC8wxOcPgw7sS7xN",
+      "_id": "Heqy5aHlLawQKBBr",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "jduQMTX5m80g0Mnw",
+        "_id": "cn634UDxWVXk8AwV",
         "system": {},
         "items": [],
         "effects": [],
@@ -3880,9 +3863,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -3895,7 +3878,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/tiles"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -3907,7 +3890,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tiles';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -3919,7 +3902,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "z1Jin3Aa3EyWbE0N",
+      "documentId": "2EicZ3TAlmmmOo0y",
       "data": {
         "width": 300,
         "height": 300
@@ -3934,10 +3917,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/tiles?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/tiles?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"z1Jin3Aa3EyWbE0N","data":{"width":300,"height":300}}'
+  -d '{"documentId":"2EicZ3TAlmmmOo0y","data":{"width":300,"height":300}}'
 ```
 
 </TabItem>
@@ -3949,7 +3932,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tiles'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -3961,7 +3944,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "z1Jin3Aa3EyWbE0N",
+      "documentId": "2EicZ3TAlmmmOo0y",
       "data": {
         "width": 300,
         "height": 300
@@ -3982,7 +3965,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tiles';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -3995,7 +3978,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "z1Jin3Aa3EyWbE0N",
+        "documentId": "2EicZ3TAlmmmOo0y",
         "data": {
           "width": 300,
           "height": 300
@@ -4024,11 +4007,11 @@ import axios from 'axios';
   🔤/canvas/tiles🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"z1Jin3Aa3EyWbE0N","data":{"width":300,"height":300}}🔤 ➡️ body
+  🔤{"documentId":"2EicZ3TAlmmmOo0y","data":{"width":300,"height":300}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/tiles🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4055,16 +4038,12 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001758788",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595266",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tiles",
   "data": [
     {
-      "x": 0,
-      "y": 0,
-      "width": 300,
       "height": 300,
       "texture": {
         "src": null,
@@ -4079,7 +4058,10 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "_id": "z1Jin3Aa3EyWbE0N",
+      "width": 300,
+      "x": 0,
+      "y": 0,
+      "_id": "2EicZ3TAlmmmOo0y",
       "elevation": 0,
       "sort": 0,
       "rotation": 0,
@@ -4116,9 +4098,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -4131,7 +4113,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/drawings"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4143,7 +4125,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/drawings';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4155,7 +4137,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "nsGNA7Fz95iKFLZk",
+      "documentId": "YzO5P3J7r93GX6Y2",
       "data": {
         "x": 150,
         "y": 150
@@ -4170,10 +4152,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/drawings?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/drawings?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"nsGNA7Fz95iKFLZk","data":{"x":150,"y":150}}'
+  -d '{"documentId":"YzO5P3J7r93GX6Y2","data":{"x":150,"y":150}}'
 ```
 
 </TabItem>
@@ -4185,7 +4167,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/drawings'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -4197,7 +4179,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "nsGNA7Fz95iKFLZk",
+      "documentId": "YzO5P3J7r93GX6Y2",
       "data": {
         "x": 150,
         "y": 150
@@ -4218,7 +4200,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/drawings';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4231,7 +4213,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "nsGNA7Fz95iKFLZk",
+        "documentId": "YzO5P3J7r93GX6Y2",
         "data": {
           "x": 150,
           "y": 150
@@ -4260,11 +4242,11 @@ import axios from 'axios';
   🔤/canvas/drawings🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"nsGNA7Fz95iKFLZk","data":{"x":150,"y":150}}🔤 ➡️ body
+  🔤{"documentId":"YzO5P3J7r93GX6Y2","data":{"x":150,"y":150}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/drawings🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4291,23 +4273,22 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001759935",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595299",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "drawings",
   "data": [
     {
-      "x": 150,
-      "y": 150,
       "shape": {
+        "height": 100,
         "type": "r",
         "width": 100,
-        "height": 100,
         "radius": null,
         "points": []
       },
-      "_id": "nsGNA7Fz95iKFLZk",
+      "x": 150,
+      "y": 150,
+      "_id": "YzO5P3J7r93GX6Y2",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -4344,9 +4325,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -4359,7 +4340,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/lights"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4371,7 +4352,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/lights';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4383,7 +4364,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "oLgYxtjXc83j4D3R",
+      "documentId": "eWgJwsXCxb9N1Qtu",
       "data": {
         "config": {
           "dim": 30,
@@ -4400,10 +4381,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/lights?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/lights?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"oLgYxtjXc83j4D3R","data":{"config":{"dim":30,"bright":15}}}'
+  -d '{"documentId":"eWgJwsXCxb9N1Qtu","data":{"config":{"dim":30,"bright":15}}}'
 ```
 
 </TabItem>
@@ -4415,7 +4396,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/lights'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -4427,7 +4408,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "oLgYxtjXc83j4D3R",
+      "documentId": "eWgJwsXCxb9N1Qtu",
       "data": {
         "config": {
           "dim": 30,
@@ -4450,7 +4431,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/lights';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4463,7 +4444,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "oLgYxtjXc83j4D3R",
+        "documentId": "eWgJwsXCxb9N1Qtu",
         "data": {
           "config": {
             "dim": 30,
@@ -4494,11 +4475,11 @@ import axios from 'axios';
   🔤/canvas/lights🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"oLgYxtjXc83j4D3R","data":{"config":{"dim":30,"bright":15}}}🔤 ➡️ body
+  🔤{"documentId":"eWgJwsXCxb9N1Qtu","data":{"config":{"dim":30,"bright":15}}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/lights🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4525,18 +4506,15 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001761108",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595355",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "lights",
   "data": [
     {
-      "x": 300,
-      "y": 300,
       "config": {
-        "dim": 30,
         "bright": 15,
+        "dim": 30,
         "negative": false,
         "priority": 0,
         "alpha": 0.5,
@@ -4559,7 +4537,9 @@ import axios from 'axios';
           "max": 1
         }
       },
-      "_id": "oLgYxtjXc83j4D3R",
+      "x": 300,
+      "y": 300,
+      "_id": "eWgJwsXCxb9N1Qtu",
       "elevation": 0,
       "rotation": 0,
       "walls": true,
@@ -4582,9 +4562,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -4597,7 +4577,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/sounds"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4609,7 +4589,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/sounds';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4621,7 +4601,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "9Ply4LLaXpxJNmDZ",
+      "documentId": "lN108gGVbeArmWZN",
       "data": {
         "radius": 20
       }
@@ -4635,10 +4615,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/sounds?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/sounds?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"9Ply4LLaXpxJNmDZ","data":{"radius":20}}'
+  -d '{"documentId":"lN108gGVbeArmWZN","data":{"radius":20}}'
 ```
 
 </TabItem>
@@ -4650,7 +4630,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/sounds'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -4662,7 +4642,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "9Ply4LLaXpxJNmDZ",
+      "documentId": "lN108gGVbeArmWZN",
       "data": {
         "radius": 20
       }
@@ -4682,7 +4662,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/sounds';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4695,7 +4675,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "9Ply4LLaXpxJNmDZ",
+        "documentId": "lN108gGVbeArmWZN",
         "data": {
           "radius": 20
         }
@@ -4723,11 +4703,11 @@ import axios from 'axios';
   🔤/canvas/sounds🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"9Ply4LLaXpxJNmDZ","data":{"radius":20}}🔤 ➡️ body
+  🔤{"documentId":"lN108gGVbeArmWZN","data":{"radius":20}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/sounds🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4754,18 +4734,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001762324",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595866",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "sounds",
   "data": [
     {
+      "path": null,
+      "radius": 20,
       "x": 200,
       "y": 200,
-      "radius": 20,
-      "path": null,
-      "_id": "9Ply4LLaXpxJNmDZ",
+      "_id": "lN108gGVbeArmWZN",
       "elevation": 0,
       "repeat": false,
       "volume": 0.5,
@@ -4801,9 +4780,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -4816,7 +4795,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/notes"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4828,7 +4807,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/notes';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4840,7 +4819,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "qF5xlip8hlsAkJeb",
+      "documentId": "rToo0BqoHokR122A",
       "data": {
         "text": "Updated Test Note"
       }
@@ -4854,10 +4833,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/notes?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/notes?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"qF5xlip8hlsAkJeb","data":{"text":"Updated Test Note"}}'
+  -d '{"documentId":"rToo0BqoHokR122A","data":{"text":"Updated Test Note"}}'
 ```
 
 </TabItem>
@@ -4869,7 +4848,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/notes'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -4881,7 +4860,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "qF5xlip8hlsAkJeb",
+      "documentId": "rToo0BqoHokR122A",
       "data": {
         "text": "Updated Test Note"
       }
@@ -4901,7 +4880,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/notes';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4914,7 +4893,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "qF5xlip8hlsAkJeb",
+        "documentId": "rToo0BqoHokR122A",
         "data": {
           "text": "Updated Test Note"
         }
@@ -4942,11 +4921,11 @@ import axios from 'axios';
   🔤/canvas/notes🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"qF5xlip8hlsAkJeb","data":{"text":"Updated Test Note"}}🔤 ➡️ body
+  🔤{"documentId":"rToo0BqoHokR122A","data":{"text":"Updated Test Note"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/notes🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4973,17 +4952,16 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001763446",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595895",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "notes",
   "data": [
     {
+      "text": "Updated Test Note",
       "x": 250,
       "y": 250,
-      "text": "Updated Test Note",
-      "_id": "qF5xlip8hlsAkJeb",
+      "_id": "rToo0BqoHokR122A",
       "entryId": null,
       "pageId": null,
       "elevation": 0,
@@ -5024,9 +5002,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5039,7 +5017,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/templates"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5051,7 +5029,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/templates';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5063,7 +5041,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "P2Tlecpvz8mUPRB3",
+      "documentId": "aM295HjgRpcG9EgY",
       "data": {
         "distance": 20
       }
@@ -5077,10 +5055,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/templates?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/templates?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"P2Tlecpvz8mUPRB3","data":{"distance":20}}'
+  -d '{"documentId":"aM295HjgRpcG9EgY","data":{"distance":20}}'
 ```
 
 </TabItem>
@@ -5092,7 +5070,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/templates'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -5104,7 +5082,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "P2Tlecpvz8mUPRB3",
+      "documentId": "aM295HjgRpcG9EgY",
       "data": {
         "distance": 20
       }
@@ -5124,7 +5102,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/templates';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5137,7 +5115,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "P2Tlecpvz8mUPRB3",
+        "documentId": "aM295HjgRpcG9EgY",
         "data": {
           "distance": 20
         }
@@ -5165,11 +5143,11 @@ import axios from 'axios';
   🔤/canvas/templates🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"P2Tlecpvz8mUPRB3","data":{"distance":20}}🔤 ➡️ body
+  🔤{"documentId":"aM295HjgRpcG9EgY","data":{"distance":20}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/templates🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 56❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -5196,18 +5174,17 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001764638",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595924",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "templates",
   "data": [
     {
+      "distance": 20,
+      "t": "circle",
       "x": 350,
       "y": 350,
-      "t": "circle",
-      "distance": 20,
-      "_id": "P2Tlecpvz8mUPRB3",
+      "_id": "aM295HjgRpcG9EgY",
       "author": "r6bXhB7k9cXa3cif",
       "elevation": 0,
       "sort": 0,
@@ -5235,9 +5212,9 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | body, query | Client ID for the Foundry world |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
+| clientId | string |  | body, query | Client ID for the Foundry world |
 | sceneId | string |  | query, body | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5250,7 +5227,7 @@ Update a canvas embedded document
 <ApiTester
   method="PUT"
   path="/canvas/walls"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"body"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5262,7 +5239,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/walls';
 const params = {
-  clientId: 'your-client-id'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5274,7 +5251,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "HQl8rYMGlx5A3lAZ",
+      "documentId": "BJJ5Vviv5vYhN76K",
       "data": {
         "c": [
           100,
@@ -5293,10 +5270,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/walls?clientId=your-client-id' \
+curl -X PUT 'http://localhost:3010/canvas/walls?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"HQl8rYMGlx5A3lAZ","data":{"c":[100,100,400,100]}}'
+  -d '{"documentId":"BJJ5Vviv5vYhN76K","data":{"c":[100,100,400,100]}}'
 ```
 
 </TabItem>
@@ -5308,7 +5285,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/walls'
 params = {
-    'clientId': 'your-client-id'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
 url = f'{base_url}{path}'
 
@@ -5320,7 +5297,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "HQl8rYMGlx5A3lAZ",
+      "documentId": "BJJ5Vviv5vYhN76K",
       "data": {
         "c": [
           100,
@@ -5345,7 +5322,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/walls';
   const params = {
-    clientId: 'your-client-id'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5358,7 +5335,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "HQl8rYMGlx5A3lAZ",
+        "documentId": "BJJ5Vviv5vYhN76K",
         "data": {
           "c": [
             100,
@@ -5391,11 +5368,11 @@ import axios from 'axios';
   🔤/canvas/walls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"HQl8rYMGlx5A3lAZ","data":{"c":[100,100,400,100]}}🔤 ➡️ body
+  🔤{"documentId":"BJJ5Vviv5vYhN76K","data":{"c":[100,100,400,100]}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/walls🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 64❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -5422,10 +5399,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "update-canvas-document_1774001765795",
-  "clientId": "your-client-id",
   "type": "update-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "update-canvas-document_1774367595939",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "walls",
   "data": [
     {
@@ -5435,7 +5411,7 @@ import axios from 'axios';
         400,
         100
       ],
-      "_id": "HQl8rYMGlx5A3lAZ",
+      "_id": "BJJ5Vviv5vYhN76K",
       "light": 20,
       "move": 20,
       "sight": 20,
@@ -5467,8 +5443,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5481,7 +5457,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/tokens"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5493,8 +5469,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'your-client-id',
-  documentId: 'SC8wxOcPgw7sS7xN'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: 'Heqy5aHlLawQKBBr'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5513,7 +5489,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=your-client-id&documentId=SC8wxOcPgw7sS7xN' \
+curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=Heqy5aHlLawQKBBr' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5526,8 +5502,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': 'SC8wxOcPgw7sS7xN'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': 'Heqy5aHlLawQKBBr'
 }
 url = f'{base_url}{path}'
 
@@ -5552,8 +5528,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'your-client-id',
-    documentId: 'SC8wxOcPgw7sS7xN'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: 'Heqy5aHlLawQKBBr'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5587,8 +5563,8 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=SC8wxOcPgw7sS7xN🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=Heqy5aHlLawQKBBr🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5616,10 +5592,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001757973",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595218",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tokens",
   "success": true
 }
@@ -5636,8 +5611,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5650,7 +5625,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/tiles"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5662,8 +5637,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tiles';
 const params = {
-  clientId: 'your-client-id',
-  documentId: 'z1Jin3Aa3EyWbE0N'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: '2EicZ3TAlmmmOo0y'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5682,7 +5657,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/tiles?clientId=your-client-id&documentId=z1Jin3Aa3EyWbE0N' \
+curl -X DELETE 'http://localhost:3010/canvas/tiles?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=2EicZ3TAlmmmOo0y' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5695,8 +5670,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tiles'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': 'z1Jin3Aa3EyWbE0N'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': '2EicZ3TAlmmmOo0y'
 }
 url = f'{base_url}{path}'
 
@@ -5721,8 +5696,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tiles';
   const params = {
-    clientId: 'your-client-id',
-    documentId: 'z1Jin3Aa3EyWbE0N'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: '2EicZ3TAlmmmOo0y'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5756,8 +5731,8 @@ import axios from 'axios';
   🔤/canvas/tiles🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=z1Jin3Aa3EyWbE0N🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=2EicZ3TAlmmmOo0y🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5785,10 +5760,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001759054",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595272",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "tiles",
   "success": true
 }
@@ -5805,8 +5779,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5819,7 +5793,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/drawings"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5831,8 +5805,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/drawings';
 const params = {
-  clientId: 'your-client-id',
-  documentId: 'nsGNA7Fz95iKFLZk'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: 'YzO5P3J7r93GX6Y2'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5851,7 +5825,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/drawings?clientId=your-client-id&documentId=nsGNA7Fz95iKFLZk' \
+curl -X DELETE 'http://localhost:3010/canvas/drawings?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=YzO5P3J7r93GX6Y2' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5864,8 +5838,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/drawings'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': 'nsGNA7Fz95iKFLZk'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': 'YzO5P3J7r93GX6Y2'
 }
 url = f'{base_url}{path}'
 
@@ -5890,8 +5864,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/drawings';
   const params = {
-    clientId: 'your-client-id',
-    documentId: 'nsGNA7Fz95iKFLZk'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: 'YzO5P3J7r93GX6Y2'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5925,8 +5899,8 @@ import axios from 'axios';
   🔤/canvas/drawings🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=nsGNA7Fz95iKFLZk🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=YzO5P3J7r93GX6Y2🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5954,10 +5928,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001760222",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595308",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "drawings",
   "success": true
 }
@@ -5974,8 +5947,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5988,7 +5961,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/lights"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -6000,8 +5973,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/lights';
 const params = {
-  clientId: 'your-client-id',
-  documentId: 'oLgYxtjXc83j4D3R'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: 'eWgJwsXCxb9N1Qtu'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6020,7 +5993,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/lights?clientId=your-client-id&documentId=oLgYxtjXc83j4D3R' \
+curl -X DELETE 'http://localhost:3010/canvas/lights?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=eWgJwsXCxb9N1Qtu' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6033,8 +6006,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/lights'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': 'oLgYxtjXc83j4D3R'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': 'eWgJwsXCxb9N1Qtu'
 }
 url = f'{base_url}{path}'
 
@@ -6059,8 +6032,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/lights';
   const params = {
-    clientId: 'your-client-id',
-    documentId: 'oLgYxtjXc83j4D3R'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: 'eWgJwsXCxb9N1Qtu'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6094,8 +6067,8 @@ import axios from 'axios';
   🔤/canvas/lights🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=oLgYxtjXc83j4D3R🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=eWgJwsXCxb9N1Qtu🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6123,10 +6096,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001761438",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595849",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "lights",
   "success": true
 }
@@ -6143,8 +6115,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -6157,7 +6129,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/sounds"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -6169,8 +6141,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/sounds';
 const params = {
-  clientId: 'your-client-id',
-  documentId: '9Ply4LLaXpxJNmDZ'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: 'lN108gGVbeArmWZN'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6189,7 +6161,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/sounds?clientId=your-client-id&documentId=9Ply4LLaXpxJNmDZ' \
+curl -X DELETE 'http://localhost:3010/canvas/sounds?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=lN108gGVbeArmWZN' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6202,8 +6174,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/sounds'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': '9Ply4LLaXpxJNmDZ'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': 'lN108gGVbeArmWZN'
 }
 url = f'{base_url}{path}'
 
@@ -6228,8 +6200,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/sounds';
   const params = {
-    clientId: 'your-client-id',
-    documentId: '9Ply4LLaXpxJNmDZ'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: 'lN108gGVbeArmWZN'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6263,8 +6235,8 @@ import axios from 'axios';
   🔤/canvas/sounds🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=9Ply4LLaXpxJNmDZ🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=lN108gGVbeArmWZN🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6292,10 +6264,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001762609",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595873",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "sounds",
   "success": true
 }
@@ -6312,8 +6283,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -6326,7 +6297,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/notes"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -6338,8 +6309,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/notes';
 const params = {
-  clientId: 'your-client-id',
-  documentId: 'qF5xlip8hlsAkJeb'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: 'rToo0BqoHokR122A'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6358,7 +6329,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/notes?clientId=your-client-id&documentId=qF5xlip8hlsAkJeb' \
+curl -X DELETE 'http://localhost:3010/canvas/notes?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=rToo0BqoHokR122A' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6371,8 +6342,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/notes'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': 'qF5xlip8hlsAkJeb'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': 'rToo0BqoHokR122A'
 }
 url = f'{base_url}{path}'
 
@@ -6397,8 +6368,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/notes';
   const params = {
-    clientId: 'your-client-id',
-    documentId: 'qF5xlip8hlsAkJeb'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: 'rToo0BqoHokR122A'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6432,8 +6403,8 @@ import axios from 'axios';
   🔤/canvas/notes🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=qF5xlip8hlsAkJeb🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=rToo0BqoHokR122A🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6461,10 +6432,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001763781",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595900",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "notes",
   "success": true
 }
@@ -6481,8 +6451,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -6495,7 +6465,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/templates"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -6507,8 +6477,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/templates';
 const params = {
-  clientId: 'your-client-id',
-  documentId: 'P2Tlecpvz8mUPRB3'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: 'aM295HjgRpcG9EgY'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6527,7 +6497,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/templates?clientId=your-client-id&documentId=P2Tlecpvz8mUPRB3' \
+curl -X DELETE 'http://localhost:3010/canvas/templates?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=aM295HjgRpcG9EgY' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6540,8 +6510,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/templates'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': 'P2Tlecpvz8mUPRB3'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': 'aM295HjgRpcG9EgY'
 }
 url = f'{base_url}{path}'
 
@@ -6566,8 +6536,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/templates';
   const params = {
-    clientId: 'your-client-id',
-    documentId: 'P2Tlecpvz8mUPRB3'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: 'aM295HjgRpcG9EgY'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6601,8 +6571,8 @@ import axios from 'axios';
   🔤/canvas/templates🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=P2Tlecpvz8mUPRB3🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=aM295HjgRpcG9EgY🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6630,10 +6600,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001764935",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595927",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "templates",
   "success": true
 }
@@ -6650,8 +6619,8 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
 | documentId | string | ✓ | query | ID of the document to delete |
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -6664,7 +6633,7 @@ Delete a canvas embedded document
 <ApiTester
   method="DELETE"
   path="/canvas/walls"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -6676,8 +6645,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/walls';
 const params = {
-  clientId: 'your-client-id',
-  documentId: 'HQl8rYMGlx5A3lAZ'
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  documentId: 'BJJ5Vviv5vYhN76K'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6696,7 +6665,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/walls?clientId=your-client-id&documentId=HQl8rYMGlx5A3lAZ' \
+curl -X DELETE 'http://localhost:3010/canvas/walls?clientId=foundry-testing-r6bXhB7k9cXa3cif&documentId=BJJ5Vviv5vYhN76K' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6709,8 +6678,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/walls'
 params = {
-    'clientId': 'your-client-id',
-    'documentId': 'HQl8rYMGlx5A3lAZ'
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'documentId': 'BJJ5Vviv5vYhN76K'
 }
 url = f'{base_url}{path}'
 
@@ -6735,8 +6704,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/walls';
   const params = {
-    clientId: 'your-client-id',
-    documentId: 'HQl8rYMGlx5A3lAZ'
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    documentId: 'BJJ5Vviv5vYhN76K'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6770,8 +6739,8 @@ import axios from 'axios';
   🔤/canvas/walls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=your-client-id🔤 ➡️ clientId
-  🔤documentId=HQl8rYMGlx5A3lAZ🔤 ➡️ documentId
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤documentId=BJJ5Vviv5vYhN76K🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6799,10 +6768,9 @@ import axios from 'axios';
 
 ```json
 {
-  "requestId": "delete-canvas-document_1774001766077",
-  "clientId": "your-client-id",
   "type": "delete-canvas-document-result",
-  "sceneId": "3Uqr7p8CXMoL0pVi",
+  "requestId": "delete-canvas-document_1774367595942",
+  "sceneId": "u2dOm1Uzbx9CT9jn",
   "documentType": "walls",
   "success": true
 }

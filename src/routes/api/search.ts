@@ -19,10 +19,10 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
 searchRouter.get("/search", ...commonMiddleware, createApiRoute({
     type: 'search',
     requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'query', from: 'query', type: 'string' } // Search query string
     ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'filter', from: 'query', type: 'string' }, // Filter to apply (simple: filter="Actor", property-based: filter="key:value,key2:value2")
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ]

@@ -77,8 +77,8 @@ router.post('/create-checkout-session', authMiddleware, async (req: Request, res
         }
       ],
       mode: 'subscription',
-      success_url: `${process.env.FRONTEND_URL}/api/subscriptions/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.FRONTEND_URL}/api/subscriptions/subscription-cancel`,
+      success_url: `${process.env.FRONTEND_URL}/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.FRONTEND_URL}/subscription-cancel`,
       metadata: { userId: user.dataValues.id.toString() }
     });
 
@@ -114,14 +114,14 @@ router.post('/create-portal-session', authMiddleware, async (req: Request, res: 
   }
 });
 
-// Handle subscription success
+// Handle subscription success — redirect to Astro page
 router.get('/subscription-success', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../../public/subscription-success.html'));
+  res.redirect('/subscription-success');
 });
 
-// Handle subscription cancel
+// Handle subscription cancel — redirect to Astro page
 router.get('/subscription-cancel', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../../public/subscription-cancel.html'));
+  res.redirect('/subscription-cancel');
 });
 
 export default router;

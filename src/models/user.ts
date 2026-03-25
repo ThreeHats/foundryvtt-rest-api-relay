@@ -22,6 +22,7 @@ export class User extends Model {
   declare subscriptionStatus?: string;
   declare subscriptionId?: string;
   declare subscriptionEndsAt?: Date;
+  declare maxHeadlessSessions?: number;
 
   // Memory store methods
   static async findOne(options: any): Promise<any> {
@@ -59,6 +60,7 @@ export class User extends Model {
         requestsToday: data.requestsToday || 0,
         lastRequestDate: data.lastRequestDate || null,
         subscriptionStatus: data.subscriptionStatus || 'free',
+        maxHeadlessSessions: data.maxHeadlessSessions || null,
         createdAt: new Date(),
         updatedAt: new Date(),
         getDataValue: function(key: string): any { 
@@ -144,6 +146,10 @@ if (!isMemoryStore) {
     },
     subscriptionEndsAt: {
       type: DataTypes.DATE,
+      allowNull: true
+    },
+    maxHeadlessSessions: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {

@@ -4,6 +4,7 @@ import { log } from "../utils/logger";
 import { Client } from "./Client";
 import { WSCloseCodes } from "../lib/constants";
 import { getRedisClient } from "../config/redis";
+import { SheetSessionManager } from "./SheetSessionManager";
 
 type MessageHandler = (client: Client, message: any) => void;
 
@@ -31,11 +32,20 @@ export class ClientManager {
     systemVersion: string | null = null,
     customName: string | null = null
   ): Promise<Client | null> {
-    // Check if client already exists
+    // If a client with this ID is already connected, replace it.
+    // This happens when a headless session takes over from a browser tab,
+    // or when a module reconnects after a brief disconnect.
     if (this.clients.has(id)) {
-      log.warn(`Client ${id} already exists, rejecting connection`);
-      ws.close(WSCloseCodes.DuplicateConnection, "Client ID already connected");
-      return null;
+      log.info(`Client ${id} already exists, replacing old connection`);
+      const oldClient = this.clients.get(id)!;
+      const oldToken = oldClient.getApiKey();
+      // Remove from old token group
+      this.tokenGroups.get(oldToken)?.delete(id);
+      if (this.tokenGroups.get(oldToken)?.size === 0) {
+        this.tokenGroups.delete(oldToken);
+      }
+      oldClient.disconnect();
+      this.clients.delete(id);
     }
 
     // Create new client
@@ -108,7 +118,10 @@ export class ClientManager {
     const client = this.clients.get(id);
     if (client) {
       const token = client.getApiKey();
-      
+
+      // Terminate any active sheet sessions for this client
+      SheetSessionManager.terminateSessionsForClient(id);
+
       // Clean up local state
       this.clients.delete(id);
       this.tokenGroups.get(token)?.delete(id);

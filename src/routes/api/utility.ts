@@ -21,6 +21,7 @@ export const utilityRouter = Router();
 const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUsage, express.json()];
 
 
+// Defense-in-depth only. Module-side permission enforcement is the security boundary.
 export function validateScript(script: string): boolean {
   // Disallow dangerous patterns
   const forbiddenPatterns = [
@@ -41,6 +42,13 @@ export function validateScript(script: string): boolean {
     /apiKey/,
     /privateKey/,
     /password/,
+    /Function\(/,
+    /Function\.constructor/,
+    /globalThis/,
+    /game\.settings\.set/,
+    /Reflect\./,
+    /Proxy/,
+    /import\(/,
   ];
   return !forbiddenPatterns.some((pattern) => pattern.test(script));
 }
@@ -106,10 +114,8 @@ async function handleJavaScriptFile(req: Request, res: Response, next: NextFunct
  */
 utilityRouter.post("/select", ...commonMiddleware, createApiRoute({
   type: 'select',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
     { name: 'uuids', from: 'body', type: 'array' }, // Array of UUIDs to select
     { name: 'name', from: 'body', type: 'string' }, // Name of the token(s) to select
     { name: 'data', from: 'body', type: 'object' }, // Data to match for selection (e.g., "data.attributes.hp.value": 20)
@@ -138,10 +144,8 @@ utilityRouter.post("/select", ...commonMiddleware, createApiRoute({
  */
 utilityRouter.get("/selected", ...commonMiddleware, createApiRoute({
   type: 'selected',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
@@ -157,10 +161,8 @@ utilityRouter.get("/selected", ...commonMiddleware, createApiRoute({
  */
 utilityRouter.get("/players", ...commonMiddleware, createApiRoute({
   type: 'players',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
@@ -175,14 +177,21 @@ utilityRouter.get("/players", ...commonMiddleware, createApiRoute({
  */
 utilityRouter.post("/execute-js", ...commonMiddleware, upload.single("scriptFile"), handleJavaScriptFile, createApiRoute({
   type: 'execute-js',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // Client ID for the Foundry world
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
     { name: 'script', from: 'body', type: 'string' }, // JavaScript script to execute
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ],
   validateParams: (params, req) => {
+    // Audit log all execute-js requests
+    log.info("execute-js request", {
+      scopedKey: !!req.scopedKey,
+      scopedKeyId: req.scopedKey?.id,
+      userId: params.userId,
+      clientId: params.clientId,
+      scriptLength: params.script?.length,
+    });
+
     if (!params.script && !req.file) {
       return {
         error: "A JavaScript script or scriptFile is required"

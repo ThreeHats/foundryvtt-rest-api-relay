@@ -16,10 +16,8 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  */
 encounterRouter.get("/encounters", ...commonMiddleware, createApiRoute({
   type: 'encounters',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
 }));
@@ -34,10 +32,8 @@ encounterRouter.get("/encounters", ...commonMiddleware, createApiRoute({
  */
 encounterRouter.post("/start-encounter", ...commonMiddleware, express.json(), createApiRoute({
   type: 'start-encounter',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'tokens', from: 'body', type: 'array' }, // Array of token UUIDs to include in the encounter
     { name: 'startWithSelected', from: 'body', type: 'boolean' }, // Whether to start with selected tokens
     { name: 'startWithPlayers', from: 'body', type: 'boolean' }, // Whether to start with players
@@ -58,10 +54,8 @@ encounterRouter.post("/start-encounter", ...commonMiddleware, express.json(), cr
  */
 encounterRouter.post("/next-turn", ...commonMiddleware, express.json(), createApiRoute({
   type: 'next-turn',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
@@ -77,10 +71,8 @@ encounterRouter.post("/next-turn", ...commonMiddleware, express.json(), createAp
  */
 encounterRouter.post("/next-round", ...commonMiddleware, express.json(), createApiRoute({
   type: 'next-round',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
@@ -96,10 +88,8 @@ encounterRouter.post("/next-round", ...commonMiddleware, express.json(), createA
  */
 encounterRouter.post("/last-turn", ...commonMiddleware, express.json(), createApiRoute({
   type: 'last-turn',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
@@ -115,10 +105,8 @@ encounterRouter.post("/last-turn", ...commonMiddleware, express.json(), createAp
  */
 encounterRouter.post("/last-round", ...commonMiddleware, express.json(), createApiRoute({
   type: 'last-round',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to advance (optional, defaults to current encounter)
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
@@ -134,10 +122,8 @@ encounterRouter.post("/last-round", ...commonMiddleware, express.json(), createA
  */
 encounterRouter.post("/end-encounter", ...commonMiddleware, express.json(), createApiRoute({
   type: 'end-encounter',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to end (optional, defaults to current encounter)
     { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
   ]
@@ -153,10 +139,8 @@ encounterRouter.post("/end-encounter", ...commonMiddleware, express.json(), crea
  */
 encounterRouter.post("/add-to-encounter", ...commonMiddleware, express.json(), createApiRoute({
   type: 'add-to-encounter',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to add tokens to (optional, defaults to current encounter)
     { name: 'selected', from: 'body', type: 'boolean' }, // Whether to add selected tokens (optional, defaults to false)
     { name: 'uuids', from: 'body', type: 'array' }, // The UUIDs of the tokens to add (optional, defaults to empty array)
@@ -175,10 +159,8 @@ encounterRouter.post("/add-to-encounter", ...commonMiddleware, express.json(), c
  */
 encounterRouter.post("/remove-from-encounter", ...commonMiddleware, express.json(), createApiRoute({
   type: 'remove-from-encounter',
-  requiredParams: [
-    { name: 'clientId', from: 'query', type: 'string' } // The ID of the Foundry client to connect to 
-  ],
   optionalParams: [
+    { name: 'clientId', from: 'query', type: 'string' }, // The ID of the Foundry client to connect to
     { name: 'encounter', from: ['query', 'body'], type: 'string' }, // The ID of the encounter to remove tokens from (optional, defaults to current encounter)
     { name: 'selected', from: 'body', type: 'boolean' }, // Whether to remove selected tokens (optional, defaults to false)
     { name: 'uuids', from: 'body', type: 'array' }, // The UUIDs of the tokens to remove (optional, defaults to empty array)

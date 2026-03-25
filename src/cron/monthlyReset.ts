@@ -1,4 +1,5 @@
 import { User } from '../models/user';
+import { ApiKey } from '../models/apiKey';
 import { log } from '../utils/logger';
 import { getRedisClient } from '../config/redis';
 
@@ -52,6 +53,14 @@ export async function resetMonthlyRequests(): Promise<void> {
     // Calculate execution time
     const executionTime = Date.now() - startTime;
     
+    // Also reset ApiKey daily counters
+    try {
+      await ApiKey.resetDailyCounters();
+      log.info('Reset daily counters for all scoped API keys');
+    } catch (apiKeyError) {
+      log.error(`Error resetting ApiKey daily counters: ${apiKeyError}`);
+    }
+
     log.info(`Successfully reset request count for ${updatedCount} of ${totalUsers} users (took ${executionTime}ms)`);
     
     // Verify the reset worked by checking a sample

@@ -12,7 +12,7 @@ export async function storeHeadlessSession(
   const redis = getRedisClient();
   if (!redis) return false;
   
-  const clientId = `foundry-${userId}`;
+  const clientId = `foundry-pending-${userId}`;
   
   try {
     // Store session data with 3 hour expiry

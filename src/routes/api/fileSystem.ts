@@ -3,7 +3,7 @@ import express from 'express';
 import { requestForwarderMiddleware } from '../../middleware/requestForwarder';
 import { authMiddleware, trackApiUsage } from '../../middleware/auth';
 import { ClientManager } from '../../core/ClientManager';
-import { pendingRequests, safeResponse } from '../shared';
+import { pendingRequests, safeResponse, resolveClientId, resolveScopedUserId } from '../shared';
 import { log } from '../../utils/logger';
 
 export const fileSystemRouter = Router();
@@ -22,20 +22,14 @@ const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUs
  * @returns {object} File system structure with files and directories
  */
 fileSystemRouter.get("/file-system", ...commonMiddleware, async (req: Request, res: Response) => {
-    const clientId = req.query.clientId as string;
     const path = req.query.path as string || "";
     const source = req.query.source as string || "data";
     const recursive = req.query.recursive === "true";
-    const userId = req.query.userId as string | undefined;
+    const userId = resolveScopedUserId(req, req.query.userId as string | undefined);
 
-    if (!clientId) {
-      safeResponse(res, 400, { 
-        error: "Client ID is required",
-        howToUse: "Add ?clientId=yourClientId to your request"
-      });
-      return;
-    }
-    
+    const clientId = await resolveClientId(req, res, req.query.clientId as string);
+    if (!clientId) return;
+
     const client = await ClientManager.getClient(clientId);
     if (!client) {
       safeResponse(res, 404, { 
@@ -130,22 +124,16 @@ fileSystemRouter.post("/upload", ...commonMiddleware, async (req: express.Reques
       return;
     }
 
-    const clientId = req.query.clientId as string;
     const path = req.query.path || req.body?.path as string;
     const filename = req.query.filename || req.body?.filename as string;
     const source = req.query.source as string || req.body?.source || "data";
     const mimeType = req.query.mimeType as string || req.body?.mimeType || "application/octet-stream";
     const overwrite = req.query.overwrite === "true" || req.body?.overwrite === "true" || req.body?.overwrite === true;
     const fileData = req.body?.fileData as string | undefined;
-    const userId = req.query.userId as string || req.body?.userId as string | undefined;
+    const userId = resolveScopedUserId(req, req.query.userId as string || req.body?.userId as string | undefined);
 
-    if (!clientId) {
-      safeResponse(res, 400, {
-        error: "Client ID is required",
-        howToUse: "Add ?clientId=yourClientId to your request"
-      });
-      return;
-    }
+    const clientId = await resolveClientId(req, res, req.query.clientId as string);
+    if (!clientId) return;
 
     if (!path || !filename) {
       safeResponse(res, 400, {
@@ -308,20 +296,14 @@ fileSystemRouter.post("/upload", ...commonMiddleware, async (req: express.Reques
  * @returns {binary|object} File contents in the requested format
  */
 fileSystemRouter.get("/download", ...commonMiddleware, async (req: Request, res: Response) => {
-    const clientId = req.query.clientId as string;
     const path = req.query.path as string;
     const source = req.query.source as string || "data";
-    const format = req.query.format as string || "binary"; // Default to binary format for downloads
-    const userId = req.query.userId as string | undefined;
+    const format = req.query.format as string || "binary";
+    const userId = resolveScopedUserId(req, req.query.userId as string | undefined);
 
-    if (!clientId) {
-      safeResponse(res, 400, { 
-        error: "Client ID is required",
-        howToUse: "Add ?clientId=yourClientId to your request"
-      });
-      return;
-    }
-    
+    const clientId = await resolveClientId(req, res, req.query.clientId as string);
+    if (!clientId) return;
+
     if (!path) {
       safeResponse(res, 400, { 
         error: "Path parameter is required",

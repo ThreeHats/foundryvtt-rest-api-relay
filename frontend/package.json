@@ -1,0 +1,23 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.19.0",
+  "dependencies": {
+    "@astrojs/svelte": "^8.0.3",
+    "astro": "^6.0.8",
+    "svelte": "^5.54.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.3"
+  }
+}

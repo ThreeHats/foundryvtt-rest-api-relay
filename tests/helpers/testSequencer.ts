@@ -37,10 +37,13 @@ export const TEST_ORDER = [
   'chat-endpoints.test.ts',
   'permission-filtering.test.ts', // Tests userId permission scoping
 
-  // Phase 6: System-specific tests (only run on matching systems)
+  // Phase 6: System-agnostic feature tests
+  'effects-endpoints.test.ts',   // ActiveEffect CRUD
+
+  // Phase 7: System-specific tests (only run on matching systems)
   'dnd5e-endpoints.test.ts',     // Only runs if client has dnd5e
 
-  // Phase 7: Cleanup (order matters: entities first, then restore scene, then end sessions)
+  // Phase 8: Cleanup (order matters: entities first, then restore scene, then end sessions)
   'cleanup-entities.test.ts',    // Deletes all created entities
   'scene-cleanup.test.ts',       // Restores original scene, deletes test scene
   'end-sessions.test.ts',        // Must run last to cleanup sessions

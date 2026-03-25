@@ -302,22 +302,23 @@ describeOrSkip('Session', () => {
 
         // Assertions
         expect(captured.response.status).toBe(200);
-        expect(captured.response.data.sessionId).toBeTruthy();
+        expect(captured.response.data.clientId).toBeTruthy();
+
+        const clientId = captured.response.data.clientId;
+        const sessionId = captured.response.data.sessionId || null;
 
         // Store session data in globalVariables for other test files
-        if (captured.response.data.clientId) {
-          const clientId = captured.response.data.clientId;
-          const sessionId = captured.response.data.sessionId;
-          
-          setGlobalVariable(version, 'clientId', clientId);
+        setGlobalVariable(version, 'clientId', clientId);
+        if (sessionId) {
           setGlobalVariable(version, 'sessionId', sessionId);
-          
-          console.log(`Stored clientId=${clientId} and sessionId=${sessionId} for v${version}`);
-          return;
         }
-        
-        // If we get here without a clientId, fail the test
-        throw new Error(`Timed out waiting for clientId for v${version} session`);
+
+        if (captured.response.data.existingSession) {
+          console.log(`Reusing existing client=${clientId} for v${version}`);
+        } else {
+          expect(sessionId).toBeTruthy();
+          console.log(`Stored clientId=${clientId} and sessionId=${sessionId} for v${version}`);
+        }
       }, 90000); // Extended timeout for headless startup
     });
 

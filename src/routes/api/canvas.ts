@@ -41,10 +41,10 @@ function validateDocumentType(params: Record<string, any>) {
 canvasRouter.get("/canvas/:documentType", ...commonMiddleware, createApiRoute({
     type: 'get-canvas-documents',
     requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'documentType', from: 'params', type: 'string' } // Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)
     ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: 'query', type: 'string' }, // Scene ID to query (defaults to the active scene)
         { name: 'documentId', from: 'query', type: 'string' }, // Specific document ID to retrieve
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
@@ -65,11 +65,11 @@ canvasRouter.get("/canvas/:documentType", ...commonMiddleware, createApiRoute({
 canvasRouter.post("/canvas/:documentType", ...commonMiddleware, express.json(), createApiRoute({
     type: 'create-canvas-document',
     requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'documentType', from: 'params', type: 'string' }, // Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)
         { name: 'data', from: 'body' } // Document data object or array of objects to create
     ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: ['query', 'body'], type: 'string' }, // Scene ID to create in (defaults to the active scene)
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ],
@@ -90,12 +90,12 @@ canvasRouter.post("/canvas/:documentType", ...commonMiddleware, express.json(), 
 canvasRouter.put("/canvas/:documentType", ...commonMiddleware, express.json(), createApiRoute({
     type: 'update-canvas-document',
     requiredParams: [
-        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'documentType', from: 'params', type: 'string' }, // Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)
         { name: 'documentId', from: ['body', 'query'], type: 'string' }, // ID of the document to update
         { name: 'data', from: 'body', type: 'object' } // Object containing the fields to update
     ],
     optionalParams: [
+        { name: 'clientId', from: ['body', 'query'], type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: ['query', 'body'], type: 'string' }, // Scene ID containing the document (defaults to the active scene)
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ],
@@ -116,11 +116,11 @@ canvasRouter.put("/canvas/:documentType", ...commonMiddleware, express.json(), c
 canvasRouter.delete("/canvas/:documentType", ...commonMiddleware, createApiRoute({
     type: 'delete-canvas-document',
     requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'documentType', from: 'params', type: 'string' }, // Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)
         { name: 'documentId', from: 'query', type: 'string' } // ID of the document to delete
     ],
     optionalParams: [
+        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
         { name: 'sceneId', from: 'query', type: 'string' }, // Scene ID containing the document (defaults to the active scene)
         { name: 'userId', from: ['query', 'body'], type: 'string' } // Foundry user ID or username to scope permissions (omit for GM-level access)
     ],

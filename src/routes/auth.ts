@@ -1,14 +1,17 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import { User } from '../models/user';
+import { ApiKey } from '../models/apiKey';
 import { PasswordResetToken } from '../models/passwordResetToken';
 import crypto from 'crypto';
 import { Op } from 'sequelize';
 import { safeResponse } from './shared';
 import { log } from '../utils/logger';
 import { authRateLimiter, accountManagementRateLimiter, passwordResetRateLimiter } from '../middleware/rateLimiting';
+import { authMiddleware } from '../middleware/auth';
 import { stripe, isStripeDisabled } from '../config/stripe';
 import { sendPasswordResetEmail } from '../services/email';
+import { encrypt, isEncryptionAvailable } from '../utils/encryption';
 
 const router = Router();
 
@@ -207,8 +210,15 @@ router.post('/regenerate-key', authRateLimiter, async (req: Request, res: Respon
     
     // Generate new API key
     const newApiKey = crypto.randomBytes(32).toString('hex');
+    const userId = user.getDataValue ? user.getDataValue('id') : user.id;
     await user.update({ apiKey: newApiKey });
-    
+
+    // Cascade: delete all scoped sub-keys when master key is regenerated
+    const deletedCount = await ApiKey.deleteAllByUser(userId);
+    if (deletedCount > 0) {
+      log.info(`Deleted ${deletedCount} scoped API keys for user ${userId} due to master key regeneration`);
+    }
+
     // Return the new API key
     res.status(200).json({
       apiKey: newApiKey
@@ -291,6 +301,24 @@ router.get('/export-data', accountManagementRateLimiter, async (req: Request, re
       return;
     }
     
+    // Get scoped keys metadata (no key values or credentials)
+    const userId = user.getDataValue('id');
+    const scopedKeys = await ApiKey.findAllByUser(userId);
+    const scopedKeysExport = scopedKeys.map((k: any) => {
+      const get = (field: string) => k.getDataValue ? k.getDataValue(field) : k[field];
+      return {
+        id: get('id'),
+        name: get('name'),
+        scopedClientId: get('scopedClientId'),
+        scopedUserId: get('scopedUserId'),
+        dailyLimit: get('dailyLimit'),
+        expiresAt: get('expiresAt'),
+        enabled: get('enabled'),
+        hasFoundryCredentials: !!(get('encryptedFoundryPassword')),
+        createdAt: get('createdAt'),
+      };
+    });
+
     // Export all user data (excluding password hash for security)
     const exportData = {
       exportDate: new Date().toISOString(),
@@ -313,7 +341,8 @@ router.get('/export-data', accountManagementRateLimiter, async (req: Request, re
       apiAccess: {
         // Note: API key is included for user reference but should be regenerated if compromised
         apiKey: user.getDataValue('apiKey'),
-      }
+      },
+      scopedKeys: scopedKeysExport,
     };
     
     log.info(`Data export requested for user ID ${user.getDataValue('id')}`);
@@ -405,6 +434,12 @@ router.delete('/account', accountManagementRateLimiter, async (req: Request, res
       }
     }
     
+    // Cascade: delete all scoped API keys before deleting user
+    const deletedKeys = await ApiKey.deleteAllByUser(userId);
+    if (deletedKeys > 0) {
+      log.info(`Deleted ${deletedKeys} scoped API keys for user ${userId} during account deletion`);
+    }
+
     // Delete the user
     await user.destroy();
     
@@ -426,6 +461,76 @@ router.delete('/account', accountManagementRateLimiter, async (req: Request, res
       error: error instanceof Error ? { message: error.message, stack: error.stack } : error 
     });
     res.status(500).json({ error: 'Failed to delete account' });
+    return;
+  }
+});
+
+/**
+ * Change password while logged in
+ *
+ * Allows an authenticated user to change their password by providing their current password and a new one.
+ *
+ * @route POST /auth/change-password
+ * @group Auth
+ * @param {string} currentPassword - [body] The user's current password
+ * @param {string} newPassword - [body] The new password (min 8 chars, must include upper, lower, number)
+ * @returns {object} Success message
+ */
+router.post('/change-password', accountManagementRateLimiter, async (req: Request, res: Response) => {
+  try {
+    const apiKey = req.header('x-api-key');
+
+    if (!apiKey) {
+      res.status(401).json({ error: 'API key is required' });
+      return;
+    }
+
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      res.status(400).json({ error: 'Current password and new password are required' });
+      return;
+    }
+
+    const user = await User.findOne({ where: { apiKey } });
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    // Verify current password
+    const storedHash = user.getDataValue('password');
+    const isPasswordValid = await bcrypt.compare(currentPassword, storedHash);
+    if (!isPasswordValid) {
+      res.status(401).json({ error: 'Current password is incorrect' });
+      return;
+    }
+
+    // Validate new password complexity
+    const passwordCheck = validatePassword(newPassword);
+    if (!passwordCheck.valid) {
+      res.status(400).json({ error: passwordCheck.error });
+      return;
+    }
+
+    // Update password
+    if (process.env.DB_TYPE === 'memory') {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+      user.password = hashedPassword;
+      user.updatedAt = new Date();
+      const memoryStore = (await import('../sequelize')).sequelize as any;
+      memoryStore.users.set(user.getDataValue('email'), user);
+    } else {
+      await user.update({ password: newPassword });
+    }
+
+    log.info('Password changed successfully', { userId: user.getDataValue('id') });
+    res.status(200).json({ message: 'Password changed successfully' });
+    return;
+  } catch (error) {
+    log.error('Change password error', { error });
+    res.status(500).json({ error: 'Failed to change password' });
     return;
   }
 });
@@ -607,6 +712,284 @@ router.get('/validate-reset-token/:token', passwordResetRateLimiter, async (req:
   } catch (error) {
     log.error('Validate reset token error', { error });
     res.status(200).json({ valid: false });
+    return;
+  }
+});
+
+// ==================== Scoped API Key CRUD ====================
+
+/**
+ * Create a new scoped API key
+ *
+ * Creates a sub-key under the authenticated user's master key with optional scope restrictions.
+ *
+ * @route POST /auth/api-keys
+ * @group Auth - Scoped Keys
+ * @param {string} name - [body] Friendly name for the key
+ * @param {string} scopedClientId - [body,?] Lock to specific Foundry client ID
+ * @param {string} scopedUserId - [body,?] Lock to specific Foundry user ID
+ * @param {number} dailyLimit - [body,?] Per-key daily request cap
+ * @param {string} expiresAt - [body,?] Expiry timestamp (ISO 8601)
+ * @param {string} foundryUrl - [body,?] Foundry instance URL for headless sessions
+ * @param {string} foundryUsername - [body,?] Foundry login username
+ * @param {string} foundryPassword - [body,?] Foundry login password (encrypted at rest)
+ * @returns {object} Created key with full token (shown only once)
+ */
+router.post('/api-keys', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const apiKey = req.header('x-api-key') as string;
+
+    // Only master keys can create scoped keys
+    if (req.scopedKey) {
+      safeResponse(res, 403, { error: 'Scoped keys cannot create other scoped keys. Use your master API key.' });
+      return;
+    }
+
+    const user = req.user;
+    const userId = user.getDataValue ? user.getDataValue('id') : user.id;
+    const { name, scopedClientId, scopedUserId, dailyLimit, expiresAt, foundryUrl, foundryUsername, foundryPassword } = req.body;
+
+    if (!name) {
+      safeResponse(res, 400, { error: 'Name is required' });
+      return;
+    }
+
+    // Prepare credential fields
+    let encryptedFoundryPassword: string | null = null;
+    let passwordIv: string | null = null;
+    let passwordAuthTag: string | null = null;
+
+    if (foundryPassword) {
+      if (!isEncryptionAvailable()) {
+        safeResponse(res, 400, { error: 'Credential storage is not available. CREDENTIALS_ENCRYPTION_KEY is not configured.' });
+        return;
+      }
+      const encrypted = encrypt(foundryPassword);
+      encryptedFoundryPassword = encrypted.ciphertext;
+      passwordIv = encrypted.iv;
+      passwordAuthTag = encrypted.authTag;
+    }
+
+    const key = crypto.randomBytes(32).toString('hex');
+
+    const record = await ApiKey.create({
+      userId,
+      key,
+      name,
+      scopedClientId: scopedClientId || null,
+      scopedUserId: scopedUserId || null,
+      dailyLimit: dailyLimit ? parseInt(dailyLimit, 10) : null,
+      expiresAt: expiresAt ? new Date(expiresAt) : null,
+      foundryUrl: foundryUrl || null,
+      foundryUsername: foundryUsername || null,
+      encryptedFoundryPassword,
+      passwordIv,
+      passwordAuthTag,
+    });
+
+    const recordId = record.getDataValue ? record.getDataValue('id') : record.id;
+
+    log.info(`Created scoped API key "${name}" (ID: ${recordId}) for user ${userId}`);
+
+    safeResponse(res, 201, {
+      id: recordId,
+      key, // Full key shown only on creation
+      name,
+      scopedClientId: scopedClientId || null,
+      scopedUserId: scopedUserId || null,
+      dailyLimit: dailyLimit ? parseInt(dailyLimit, 10) : null,
+      expiresAt: expiresAt || null,
+      hasFoundryCredentials: !!foundryPassword,
+      enabled: true,
+      createdAt: record.getDataValue ? record.getDataValue('createdAt') : record.createdAt,
+    });
+    return;
+  } catch (error) {
+    log.error('Error creating scoped API key', { error });
+    safeResponse(res, 500, { error: 'Failed to create API key' });
+    return;
+  }
+});
+
+/**
+ * List all scoped API keys
+ *
+ * Returns all scoped keys for the authenticated user. Keys are masked.
+ *
+ * @route GET /auth/api-keys
+ * @group Auth - Scoped Keys
+ * @returns {object} Array of scoped keys with masked tokens
+ */
+router.get('/api-keys', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    // Only master keys can list scoped keys
+    if (req.scopedKey) {
+      safeResponse(res, 403, { error: 'Use your master API key to manage scoped keys.' });
+      return;
+    }
+
+    const user = req.user;
+    const userId = user.getDataValue ? user.getDataValue('id') : user.id;
+
+    const keys = await ApiKey.findAllByUser(userId);
+
+    const result = keys.map((k: any) => {
+      const get = (field: string) => k.getDataValue ? k.getDataValue(field) : k[field];
+      const keyVal = get('key');
+      const expiresAtVal = get('expiresAt');
+      return {
+        id: get('id'),
+        key: keyVal ? keyVal.substring(0, 8) + '...' : null,
+        name: get('name'),
+        scopedClientId: get('scopedClientId'),
+        scopedUserId: get('scopedUserId'),
+        dailyLimit: get('dailyLimit'),
+        requestsToday: get('requestsToday') || 0,
+        expiresAt: expiresAtVal,
+        isExpired: expiresAtVal ? new Date(expiresAtVal) < new Date() : false,
+        enabled: get('enabled'),
+        hasFoundryCredentials: !!(get('encryptedFoundryPassword')),
+        foundryUrl: get('foundryUrl'),
+        foundryUsername: get('foundryUsername'),
+        createdAt: get('createdAt'),
+        updatedAt: get('updatedAt'),
+      };
+    });
+
+    safeResponse(res, 200, { keys: result });
+    return;
+  } catch (error) {
+    log.error('Error listing scoped API keys', { error });
+    safeResponse(res, 500, { error: 'Failed to list API keys' });
+    return;
+  }
+});
+
+/**
+ * Update a scoped API key
+ *
+ * Update name, scopes, limits, enabled status, expiry, or credentials.
+ *
+ * @route PATCH /auth/api-keys/:id
+ * @group Auth - Scoped Keys
+ * @param {number} id - [params] The scoped key ID
+ * @returns {object} Updated key data
+ */
+router.patch('/api-keys/:id', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    if (req.scopedKey) {
+      safeResponse(res, 403, { error: 'Use your master API key to manage scoped keys.' });
+      return;
+    }
+
+    const user = req.user;
+    const userId = user.getDataValue ? user.getDataValue('id') : user.id;
+    const keyId = parseInt(req.params.id as string, 10);
+
+    const record = await ApiKey.findOne({ where: { id: keyId, userId } });
+    if (!record) {
+      safeResponse(res, 404, { error: 'API key not found' });
+      return;
+    }
+
+    const updates: any = {};
+    const { name, scopedClientId, scopedUserId, dailyLimit, expiresAt, enabled, foundryUrl, foundryUsername, foundryPassword } = req.body;
+
+    if (name !== undefined) updates.name = name;
+    if (scopedClientId !== undefined) updates.scopedClientId = scopedClientId || null;
+    if (scopedUserId !== undefined) updates.scopedUserId = scopedUserId || null;
+    if (dailyLimit !== undefined) updates.dailyLimit = dailyLimit ? parseInt(dailyLimit, 10) : null;
+    if (expiresAt !== undefined) updates.expiresAt = expiresAt ? new Date(expiresAt) : null;
+    if (enabled !== undefined) updates.enabled = !!enabled;
+    if (foundryUrl !== undefined) updates.foundryUrl = foundryUrl || null;
+    if (foundryUsername !== undefined) updates.foundryUsername = foundryUsername || null;
+
+    // Handle password update
+    if (foundryPassword !== undefined) {
+      if (foundryPassword === null) {
+        // Clear credentials
+        updates.encryptedFoundryPassword = null;
+        updates.passwordIv = null;
+        updates.passwordAuthTag = null;
+      } else {
+        if (!isEncryptionAvailable()) {
+          safeResponse(res, 400, { error: 'Credential storage is not available. CREDENTIALS_ENCRYPTION_KEY is not configured.' });
+          return;
+        }
+        const encrypted = encrypt(foundryPassword);
+        updates.encryptedFoundryPassword = encrypted.ciphertext;
+        updates.passwordIv = encrypted.iv;
+        updates.passwordAuthTag = encrypted.authTag;
+      }
+    }
+
+    if (record.update && typeof record.update === 'function') {
+      await record.update(updates);
+    }
+
+    const get = (field: string) => record.getDataValue ? record.getDataValue(field) : record[field];
+
+    log.info(`Updated scoped API key ID ${keyId} for user ${userId}`);
+
+    safeResponse(res, 200, {
+      id: get('id'),
+      name: get('name'),
+      scopedClientId: get('scopedClientId'),
+      scopedUserId: get('scopedUserId'),
+      dailyLimit: get('dailyLimit'),
+      expiresAt: get('expiresAt'),
+      enabled: get('enabled'),
+      hasFoundryCredentials: !!(get('encryptedFoundryPassword')),
+      foundryUrl: get('foundryUrl'),
+      foundryUsername: get('foundryUsername'),
+      updatedAt: get('updatedAt'),
+    });
+    return;
+  } catch (error) {
+    log.error('Error updating scoped API key', { error });
+    safeResponse(res, 500, { error: 'Failed to update API key' });
+    return;
+  }
+});
+
+/**
+ * Delete a scoped API key
+ *
+ * Permanently deletes a scoped key.
+ *
+ * @route DELETE /auth/api-keys/:id
+ * @group Auth - Scoped Keys
+ * @param {number} id - [params] The scoped key ID
+ * @returns {object} Deletion confirmation
+ */
+router.delete('/api-keys/:id', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    if (req.scopedKey) {
+      safeResponse(res, 403, { error: 'Use your master API key to manage scoped keys.' });
+      return;
+    }
+
+    const user = req.user;
+    const userId = user.getDataValue ? user.getDataValue('id') : user.id;
+    const keyId = parseInt(req.params.id as string, 10);
+
+    const record = await ApiKey.findOne({ where: { id: keyId, userId } });
+    if (!record) {
+      safeResponse(res, 404, { error: 'API key not found' });
+      return;
+    }
+
+    if (record.destroy && typeof record.destroy === 'function') {
+      await record.destroy();
+    }
+
+    log.info(`Deleted scoped API key ID ${keyId} for user ${userId}`);
+
+    safeResponse(res, 200, { success: true, message: 'API key deleted' });
+    return;
+  } catch (error) {
+    log.error('Error deleting scoped API key', { error });
+    safeResponse(res, 500, { error: 'Failed to delete API key' });
     return;
   }
 });

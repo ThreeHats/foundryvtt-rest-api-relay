@@ -8,7 +8,7 @@ import { PassThrough } from 'stream';
 import { JSDOM } from 'jsdom';
 import { authMiddleware, trackApiUsage } from '../middleware/auth';
 import { requestForwarderMiddleware } from '../middleware/requestForwarder';
-import { pendingRequests, PENDING_REQUEST_TYPES, safeResponse, sanitizeResponse, getSSEConnections, removeSSEConnection, getRollSSEConnections, removeRollSSEConnection } from './shared';
+import { pendingRequests, PENDING_REQUEST_TYPES, safeResponse, sanitizeResponse, resolvePendingRequest, getSSEConnections, removeSSEConnection, getRollSSEConnections, removeRollSSEConnection, getWSEventConnections, removeWSEventConnection } from './shared';
 import { dnd5eRouter } from './api/dnd5e';
 import { healthCheck } from '../routes/health';
 import { getRedisClient } from '../config/redis';
@@ -29,7 +29,10 @@ import { sceneRouter } from './api/scene';
 import { canvasRouter } from './api/canvas';
 import { chatRouter } from './api/chat';
 import { clientsRouter } from './api/clients';
+import { effectsRouter } from './api/effects';
+import { sheetImageRouter } from './api/sheetImage';
 import { log } from '../utils/logger';
+import { SheetSessionManager } from '../core/SheetSessionManager';
 // Import from session.ts instead of duplicating
 import { browserSessions, apiKeyToSession, pendingSessions } from './api/session';
 
@@ -305,11 +308,13 @@ export const apiRoutes = (app: express.Application): void => {
   app.use('/', canvasRouter);
   app.use('/', chatRouter);
   app.use('/', clientsRouter);
+  app.use('/', effectsRouter);
+  app.use('/', sheetImageRouter);
   app.use('/dnd5e', dnd5eRouter);
 };
 
 const REQUEST_TYPES_WITH_SPECIAL_RESPONSE_HANDLERS = [
-  'actor-sheet', 'download-file'
+  'actor-sheet', 'download-file', 'sheet-screenshot'
 ] as const;
 
 // Setup WebSocket message handlers to route responses back to API requests
@@ -329,22 +334,18 @@ function setupMessageHandlers() {
           log.warn(`Pending request ${data.requestId} was deleted before processing`);
           return;
         }
-        
-        const response: Record<string, any> = { 
-          requestId: data.requestId, 
-          clientId: pending.clientId || client.getId() 
+
+        const response: Record<string, any> = {
+          requestId: data.requestId,
+          clientId: pending.clientId || client.getId()
         };
         for (const [key, value] of Object.entries(data)) {
           if (key !== 'requestId') {
             response[key] = value;
           }
         }
-        if (response.error) {
-          safeResponse(pending.res, 400, response);
-        } else {
-          safeResponse(pending.res, 200, response);
-        }
-        pendingRequests.delete(data.requestId);
+        const statusCode = response.error ? 400 : 200;
+        resolvePendingRequest(data.requestId, statusCode, response);
         return;
       }
     });
@@ -377,11 +378,22 @@ function setupMessageHandlers() {
         if (pending.type === 'get-sheet' && (pending.uuid === responseUuid || (hasError && responseUuid === undefined))) {
           if (hasError) {
             const errorMsg = data.error || (data.data && data.data.error) || "Unknown error";
-            safeResponse(pending.res, 400, {
+            resolvePendingRequest(data.requestId, 400, {
               requestId: data.requestId,
               clientId: pending.clientId,
               uuid: pending.uuid,
               error: errorMsg
+            });
+          } else if (pending.wsCallback) {
+            // WS clients always get JSON format
+            const html = data.html || (data.data && data.data.html) || '';
+            const css = data.css || (data.data && data.data.css) || '';
+            resolvePendingRequest(data.requestId, 200, {
+              requestId: data.requestId,
+              clientId: pending.clientId,
+              uuid: pending.uuid,
+              html,
+              css
             });
           } else {
             // Get HTML content from either data or data.data
@@ -393,7 +405,7 @@ function setupMessageHandlers() {
             
             if (pending.format === 'json') {
               // Send response as JSON
-              safeResponse(pending.res, 200, {
+              safeResponse(pending.res!, 200, {
                 requestId: data.requestId,
                 clientId: pending.clientId,
                 uuid: pending.uuid,
@@ -473,7 +485,7 @@ function setupMessageHandlers() {
               // Generate the full HTML document
               const fullHtml = returnHtmlTemplate(responseUuid, html, css, gameSystemId, darkModeEnabled, includeInteractiveJS, activeTabIndex || 0, initialScale || 0, pending);
               
-              pending.res.send(fullHtml);
+              pending.res!.send(fullHtml);
             }
           }
           
@@ -499,38 +511,54 @@ function setupMessageHandlers() {
   // Handler for file download result
   ClientManager.onMessageType("download-file-result", (client: Client, data: any) => {
     log.info(`Received file download result for requestId: ${data.requestId}`);
-    
+
     if (data.requestId && pendingRequests.has(data.requestId)) {
       const request = pendingRequests.get(data.requestId)!;
-      pendingRequests.delete(data.requestId);
-      
+
       if (data.error) {
-        safeResponse(request.res, 500, { 
+        resolvePendingRequest(data.requestId, 500, {
           clientId: client.getId(),
           requestId: data.requestId,
           error: data.error
         });
         return;
       }
-      
+
+      // WS clients always get JSON with base64 data
+      if (request.wsCallback) {
+        resolvePendingRequest(data.requestId, 200, {
+          clientId: client.getId(),
+          requestId: data.requestId,
+          success: true,
+          path: data.path,
+          filename: data.filename,
+          mimeType: data.mimeType,
+          fileData: data.fileData,
+          size: Buffer.from(data.fileData.split(',')[1], 'base64').length
+        });
+        return;
+      }
+
+      pendingRequests.delete(data.requestId);
+
       // Check if the client wants raw binary data or JSON response
       const format = request.format || 'binary'; // Default to binary format
-      
+
       if (format === 'binary' || format === 'raw') {
         // Extract the base64 data and send as binary
         const base64Data = data.fileData.split(',')[1];
         const buffer = Buffer.from(base64Data, 'base64');
-        
+
         // Set the appropriate content type
-        request.res.setHeader('Content-Type', data.mimeType || 'application/octet-stream');
-        request.res.setHeader('Content-Disposition', `attachment; filename="${data.filename}"`);
-        request.res.setHeader('Content-Length', buffer.length);
-        
+        request.res!.setHeader('Content-Type', data.mimeType || 'application/octet-stream');
+        request.res!.setHeader('Content-Disposition', `attachment; filename="${data.filename}"`);
+        request.res!.setHeader('Content-Length', buffer.length);
+
         // Send the binary data
-        request.res.status(200).end(buffer);
+        request.res!.status(200).end(buffer);
       } else {
         // Send JSON response with the file data
-        safeResponse(request.res, 200, {
+        safeResponse(request.res!, 200, {
           clientId: client.getId(),
           requestId: data.requestId,
           success: true,
@@ -544,62 +572,239 @@ function setupMessageHandlers() {
     }
   });
 
-  // Handler for chat events (push from module, fan out to SSE connections)
-  ClientManager.onMessageType("chat-event", (client: Client, data: any) => {
-    const clientId = client.getId();
-    const connections = getSSEConnections(clientId);
-    if (!connections || connections.size === 0) return;
+  // Handler for sheet screenshot result
+  ClientManager.onMessageType("sheet-screenshot-result", (client: Client, data: any) => {
+    log.info(`Received sheet screenshot result for requestId: ${data.requestId}`);
 
-    const eventType = data.data?.eventType; // 'create', 'update', 'delete'
-    const eventData = sanitizeResponse(data.data?.data);
+    if (data.requestId && pendingRequests.has(data.requestId)) {
+      const request = pendingRequests.get(data.requestId)!;
 
-    for (const conn of connections) {
-      // Apply filters
-      if (conn.filters.type !== undefined && eventData?.type !== undefined && eventData.type !== conn.filters.type) continue;
-      if (conn.filters.speaker && eventData?.speaker?.alias !== conn.filters.speaker) continue;
-      if (conn.filters.whisperOnly && (!eventData?.whisper || eventData.whisper.length === 0)) continue;
-      // userId visibility: if filtering by userId, skip whispered messages not visible to that user
-      // userId can be either a Foundry user ID or username (case-insensitive name match)
-      if (conn.filters.userId && eventData?.whisper?.length > 0) {
-        const filterUserId = conn.filters.userId;
-        const matchesUser = eventData.author?.id === filterUserId
-          || eventData.author?.name?.toLowerCase() === filterUserId.toLowerCase();
-        const isRecipient = eventData.whisper.includes(filterUserId);
-        if (!isRecipient && !matchesUser) continue;
+      if (data.error || !data.success) {
+        resolvePendingRequest(data.requestId, 400, {
+          clientId: client.getId(),
+          requestId: data.requestId,
+          error: data.error || 'Screenshot capture failed'
+        });
+        return;
       }
 
+      // WS clients get JSON with base64 data
+      if (request.wsCallback) {
+        resolvePendingRequest(data.requestId, 200, {
+          clientId: client.getId(),
+          requestId: data.requestId,
+          success: true,
+          imageData: data.imageData,
+          mimeType: data.mimeType,
+          width: data.width,
+          height: data.height
+        });
+        return;
+      }
+
+      pendingRequests.delete(data.requestId);
+
+      // HTTP clients get binary image data
       try {
-        conn.res.write(`event: chat-${eventType}\ndata: ${JSON.stringify(eventData)}\n\n`);
+        const base64Data = data.imageData.split(',')[1];
+        const buffer = Buffer.from(base64Data, 'base64');
+
+        request.res!.setHeader('Content-Type', data.mimeType || 'image/png');
+        request.res!.setHeader('Content-Length', buffer.length);
+        request.res!.setHeader('X-Image-Width', String(data.width));
+        request.res!.setHeader('X-Image-Height', String(data.height));
+
+        request.res!.status(200).end(buffer);
       } catch (err) {
-        log.warn(`Failed to write SSE event to connection: ${err}`);
-        removeSSEConnection(clientId, conn);
+        log.error(`Error decoding screenshot image: ${err}`);
+        safeResponse(request.res!, 500, { error: 'Failed to decode screenshot image' });
       }
     }
   });
 
-  // Handler for roll events (push from module, fan out to roll SSE connections)
+  // Handler for sheet session messages (forwarded from Foundry to consumer WS)
+  ClientManager.onMessageType("sheet-session-started", (client: Client, data: any) => {
+    const session = SheetSessionManager.getSession(data.sessionId);
+    if (!session) return;
+
+    SheetSessionManager.activateSession(data.sessionId);
+
+    try {
+      if (session.consumerWs.readyState === 1 /* WebSocket.OPEN */) {
+        session.consumerWs.send(JSON.stringify({
+          type: 'sheet-session-started',
+          sessionId: data.sessionId,
+          imageData: data.imageData,
+          mimeType: data.mimeType,
+          width: data.width,
+          height: data.height,
+        }));
+      }
+    } catch (err) {
+      log.error(`Error forwarding sheet-session-started: ${err}`);
+    }
+  });
+
+  ClientManager.onMessageType("sheet-frame", (client: Client, data: any) => {
+    const session = SheetSessionManager.getSession(data.sessionId);
+    if (!session) return;
+
+    SheetSessionManager.updateActivity(data.sessionId);
+
+    try {
+      if (session.consumerWs.readyState === 1 /* WebSocket.OPEN */) {
+        session.consumerWs.send(JSON.stringify({
+          type: 'sheet-frame',
+          sessionId: data.sessionId,
+          imageData: data.imageData,
+          mimeType: data.mimeType,
+          width: data.width,
+          height: data.height,
+          trigger: data.trigger,
+        }));
+      }
+    } catch (err) {
+      log.error(`Error forwarding sheet-frame: ${err}`);
+    }
+  });
+
+  ClientManager.onMessageType("sheet-session-error", (client: Client, data: any) => {
+    const session = SheetSessionManager.getSession(data.sessionId);
+    if (!session) return;
+
+    try {
+      if (session.consumerWs.readyState === 1 /* WebSocket.OPEN */) {
+        session.consumerWs.send(JSON.stringify({
+          type: 'sheet-session-error',
+          sessionId: data.sessionId,
+          error: data.error,
+        }));
+      }
+    } catch (err) {
+      log.error(`Error forwarding sheet-session-error: ${err}`);
+    }
+
+    // Only end the session for fatal errors (session-start failures).
+    // Transient errors (input failures, capture timeouts) should not kill the session.
+    if (data.fatal) {
+      SheetSessionManager.endSession(data.sessionId);
+    }
+  });
+
+  ClientManager.onMessageType("sheet-session-ended", (client: Client, data: any) => {
+    const session = SheetSessionManager.getSession(data.sessionId);
+    if (!session) return;
+
+    try {
+      if (session.consumerWs.readyState === 1 /* WebSocket.OPEN */) {
+        session.consumerWs.send(JSON.stringify({
+          type: 'sheet-session-ended',
+          sessionId: data.sessionId,
+          reason: data.reason,
+        }));
+      }
+    } catch (err) {
+      log.error(`Error forwarding sheet-session-ended: ${err}`);
+    }
+
+    SheetSessionManager.endSession(data.sessionId);
+  });
+
+  // Handler for chat events (push from module, fan out to SSE and WS connections)
+  ClientManager.onMessageType("chat-event", (client: Client, data: any) => {
+    const clientId = client.getId();
+    const eventType = data.data?.eventType; // 'create', 'update', 'delete'
+    const eventData = sanitizeResponse(data.data?.data);
+
+    // Fan out to SSE connections
+    const sseConns = getSSEConnections(clientId);
+    if (sseConns && sseConns.size > 0) {
+      for (const conn of sseConns) {
+        if (conn.filters.type !== undefined && eventData?.type !== undefined && eventData.type !== conn.filters.type) continue;
+        if (conn.filters.speaker && eventData?.speaker?.alias !== conn.filters.speaker) continue;
+        if (conn.filters.whisperOnly && (!eventData?.whisper || eventData.whisper.length === 0)) continue;
+        if (conn.filters.userId && eventData?.whisper?.length > 0) {
+          const filterUserId = conn.filters.userId;
+          const matchesUser = eventData.author?.id === filterUserId
+            || eventData.author?.name?.toLowerCase() === filterUserId.toLowerCase();
+          const isRecipient = eventData.whisper.includes(filterUserId);
+          if (!isRecipient && !matchesUser) continue;
+        }
+        try {
+          conn.res.write(`event: chat-${eventType}\ndata: ${JSON.stringify(eventData)}\n\n`);
+        } catch (err) {
+          log.warn(`Failed to write SSE event to connection: ${err}`);
+          removeSSEConnection(clientId, conn);
+        }
+      }
+    }
+
+    // Fan out to WS event connections
+    const wsConns = getWSEventConnections(clientId);
+    if (wsConns && wsConns.size > 0) {
+      for (const conn of wsConns) {
+        if (conn.channel !== 'chat-events') continue;
+        if (conn.filters.type !== undefined && eventData?.type !== undefined && eventData.type !== conn.filters.type) continue;
+        if (conn.filters.speaker && eventData?.speaker?.alias !== conn.filters.speaker) continue;
+        if (conn.filters.whisperOnly && (!eventData?.whisper || eventData.whisper.length === 0)) continue;
+        if (conn.filters.userId && eventData?.whisper?.length > 0) {
+          const filterUserId = conn.filters.userId;
+          const matchesUser = eventData.author?.id === filterUserId
+            || eventData.author?.name?.toLowerCase() === filterUserId.toLowerCase();
+          const isRecipient = eventData.whisper.includes(filterUserId);
+          if (!isRecipient && !matchesUser) continue;
+        }
+        try {
+          conn.ws.send(JSON.stringify({ type: 'chat-event', event: eventType, data: eventData }));
+        } catch (err) {
+          log.warn(`Failed to write WS chat event: ${err}`);
+          removeWSEventConnection(clientId, conn);
+        }
+      }
+    }
+  });
+
+  // Handler for roll events (push from module, fan out to SSE and WS connections)
   ClientManager.onMessageType("roll-data", (client: Client, data: any) => {
     const clientId = client.getId();
-    const connections = getRollSSEConnections(clientId);
-    if (!connections || connections.size === 0) return;
-
     const rollData = sanitizeResponse(data.data);
 
-    for (const conn of connections) {
-      // userId filter: if set, only forward rolls by that user
-      // userId can be either a Foundry user ID or username (case-insensitive name match)
-      if (conn.filters.userId) {
-        const filterUserId = conn.filters.userId;
-        const matchesUser = rollData?.user?.id === filterUserId
-          || rollData?.user?.name?.toLowerCase() === filterUserId.toLowerCase();
-        if (!matchesUser) continue;
+    // Fan out to SSE connections
+    const sseConns = getRollSSEConnections(clientId);
+    if (sseConns && sseConns.size > 0) {
+      for (const conn of sseConns) {
+        if (conn.filters.userId) {
+          const filterUserId = conn.filters.userId;
+          const matchesUser = rollData?.user?.id === filterUserId
+            || rollData?.user?.name?.toLowerCase() === filterUserId.toLowerCase();
+          if (!matchesUser) continue;
+        }
+        try {
+          conn.res.write(`event: roll\ndata: ${JSON.stringify(rollData)}\n\n`);
+        } catch (err) {
+          log.warn(`Failed to write roll SSE event to connection: ${err}`);
+          removeRollSSEConnection(clientId, conn);
+        }
       }
+    }
 
-      try {
-        conn.res.write(`event: roll\ndata: ${JSON.stringify(rollData)}\n\n`);
-      } catch (err) {
-        log.warn(`Failed to write roll SSE event to connection: ${err}`);
-        removeRollSSEConnection(clientId, conn);
+    // Fan out to WS event connections
+    const wsConns = getWSEventConnections(clientId);
+    if (wsConns && wsConns.size > 0) {
+      for (const conn of wsConns) {
+        if (conn.channel !== 'roll-events') continue;
+        if (conn.filters.userId) {
+          const filterUserId = conn.filters.userId;
+          const matchesUser = rollData?.user?.id === filterUserId
+            || rollData?.user?.name?.toLowerCase() === filterUserId.toLowerCase();
+          if (!matchesUser) continue;
+        }
+        try {
+          conn.ws.send(JSON.stringify({ type: 'roll-event', data: rollData }));
+        } catch (err) {
+          log.warn(`Failed to write WS roll event: ${err}`);
+          removeWSEventConnection(clientId, conn);
+        }
       }
     }
   });

@@ -2,7 +2,9 @@
  * @file dnd5e-endpoints.test.ts
  * @description D&D 5th Edition System-Specific Endpoint Tests
  * @endpoints GET /dnd5e/get-actor-details, POST /dnd5e/modify-item-charges, POST /dnd5e/use-ability,
- *            POST /dnd5e/use-feature, POST /dnd5e/use-spell, POST /dnd5e/use-item, POST /dnd5e/modify-experience
+ *            POST /dnd5e/use-feature, POST /dnd5e/use-spell, POST /dnd5e/use-item, POST /dnd5e/modify-experience,
+ *            POST /dnd5e/short-rest, POST /dnd5e/long-rest, POST /dnd5e/skill-check,
+ *            POST /dnd5e/ability-save, POST /dnd5e/ability-check, POST /dnd5e/death-save
  *
  * These tests only run on Foundry instances with the dnd5e system.
  * They use compendium-sourced actors (from dnd5e.heroes) which come with
@@ -610,6 +612,414 @@ describe('Dnd5e', () => {
         expect(captured.response.data).toHaveProperty('data');
         expect(captured.response.data.data).toHaveProperty('ability', ability.name);
         console.log(`  ✓ Used ability: ${ability.name}`);
+      }, 15000);
+    });
+
+    // ═══════════════════════════════════════════
+    // POST /dnd5e/skill-check
+    // ═══════════════════════════════════════════
+
+    describe(`/dnd5e/skill-check (v${version})`, () => {
+      test('POST /dnd5e/skill-check - roll a perception check', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+        expect(actorUuid).toBeTruthy();
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/skill-check',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'skill-check'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid,
+              skill: 'prc'
+            })
+          }
+        };
+
+        const captured = await captureExample(requestConfig, testVariables, '/dnd5e/skill-check');
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('data');
+        expect(captured.response.data.data).toHaveProperty('skill', 'prc');
+        expect(captured.response.data.data).toHaveProperty('total');
+        expect(typeof captured.response.data.data.total).toBe('number');
+        console.log(`  ✓ Perception check: total=${captured.response.data.data.total}, formula=${captured.response.data.data.formula}`);
+      }, 15000);
+
+      test('POST /dnd5e/skill-check - roll with advantage', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+        expect(actorUuid).toBeTruthy();
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/skill-check',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'skill-check'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid,
+              skill: 'ste',
+              advantage: true
+            })
+          }
+        };
+
+        const captured = await captureExample(requestConfig, testVariables, '/dnd5e/skill-check - advantage');
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('data');
+        expect(captured.response.data.data).toHaveProperty('skill', 'ste');
+        expect(captured.response.data.data).toHaveProperty('total');
+        console.log(`  ✓ Stealth (advantage): total=${captured.response.data.data.total}`);
+      }, 15000);
+
+      test('POST /dnd5e/skill-check - invalid skill returns error', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/skill-check',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'skill-check'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid,
+              skill: 'invalid_skill'
+            })
+          }
+        };
+
+        const resolved = replaceVariables(requestConfig, testVariables);
+        const response = await makeRequest(resolved);
+
+        expect(response.status).toBe(400);
+        expect(response.data).toHaveProperty('error');
+        expect(response.data.error).toMatch(/invalid skill/i);
+        console.log(`  ✓ Invalid skill rejected: ${response.data.error}`);
+      }, 15000);
+    });
+
+    // ═══════════════════════════════════════════
+    // POST /dnd5e/ability-save
+    // ═══════════════════════════════════════════
+
+    describe(`/dnd5e/ability-save (v${version})`, () => {
+      test('POST /dnd5e/ability-save - roll a dexterity save', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+        expect(actorUuid).toBeTruthy();
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/ability-save',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'ability-save'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid,
+              ability: 'dex'
+            })
+          }
+        };
+
+        const captured = await captureExample(requestConfig, testVariables, '/dnd5e/ability-save');
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('data');
+        expect(captured.response.data.data).toHaveProperty('ability', 'dex');
+        expect(captured.response.data.data).toHaveProperty('total');
+        expect(typeof captured.response.data.data.total).toBe('number');
+        console.log(`  ✓ DEX save: total=${captured.response.data.data.total}, formula=${captured.response.data.data.formula}`);
+      }, 15000);
+
+      test('POST /dnd5e/ability-save - invalid ability returns error', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/ability-save',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'ability-save'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid,
+              ability: 'xyz'
+            })
+          }
+        };
+
+        const resolved = replaceVariables(requestConfig, testVariables);
+        const response = await makeRequest(resolved);
+
+        expect(response.status).toBe(400);
+        expect(response.data).toHaveProperty('error');
+        expect(response.data.error).toMatch(/invalid ability/i);
+        console.log(`  ✓ Invalid ability rejected: ${response.data.error}`);
+      }, 15000);
+    });
+
+    // ═══════════════════════════════════════════
+    // POST /dnd5e/ability-check
+    // ═══════════════════════════════════════════
+
+    describe(`/dnd5e/ability-check (v${version})`, () => {
+      test('POST /dnd5e/ability-check - roll a strength check', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+        expect(actorUuid).toBeTruthy();
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/ability-check',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'ability-check'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid,
+              ability: 'str'
+            })
+          }
+        };
+
+        const captured = await captureExample(requestConfig, testVariables, '/dnd5e/ability-check');
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('data');
+        expect(captured.response.data.data).toHaveProperty('ability', 'str');
+        expect(captured.response.data.data).toHaveProperty('total');
+        expect(typeof captured.response.data.data.total).toBe('number');
+        console.log(`  ✓ STR check: total=${captured.response.data.data.total}, formula=${captured.response.data.data.formula}`);
+      }, 15000);
+    });
+
+    // ═══════════════════════════════════════════
+    // POST /dnd5e/death-save
+    // ═══════════════════════════════════════════
+
+    describe(`/dnd5e/death-save (v${version})`, () => {
+      test('POST /dnd5e/death-save - roll a death saving throw', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+        expect(actorUuid).toBeTruthy();
+
+        // First, set the actor to 0 HP so death saves are valid
+        const killConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/kill',
+            host: ['{{baseUrl}}'],
+            path: ['kill'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' },
+              { key: 'uuid', value: actorUuid! }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' }
+          ]
+        };
+
+        const killResolved = replaceVariables(killConfig, testVariables);
+        await makeRequest(killResolved);
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/death-save',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'death-save'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid
+            })
+          }
+        };
+
+        const captured = await captureExample(requestConfig, testVariables, '/dnd5e/death-save');
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('data');
+        expect(captured.response.data.data).toHaveProperty('total');
+        expect(typeof captured.response.data.data.total).toBe('number');
+        expect(captured.response.data.data).toHaveProperty('deathSaves');
+        expect(captured.response.data.data.deathSaves).toHaveProperty('success');
+        expect(captured.response.data.data.deathSaves).toHaveProperty('failure');
+        console.log(`  ✓ Death save: total=${captured.response.data.data.total}, successes=${captured.response.data.data.deathSaves.success}, failures=${captured.response.data.data.deathSaves.failure}`);
+      }, 15000);
+    });
+
+    // ═══════════════════════════════════════════
+    // POST /dnd5e/short-rest
+    // ═══════════════════════════════════════════
+
+    describe(`/dnd5e/short-rest (v${version})`, () => {
+      test('POST /dnd5e/short-rest - perform a short rest', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+        expect(actorUuid).toBeTruthy();
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/short-rest',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'short-rest'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid
+            })
+          }
+        };
+
+        const captured = await captureExample(requestConfig, testVariables, '/dnd5e/short-rest');
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('data');
+        expect(captured.response.data.data).toHaveProperty('actorUuid');
+        expect(captured.response.data.data).toHaveProperty('result');
+        console.log(`  ✓ Short rest completed`);
+      }, 15000);
+    });
+
+    // ═══════════════════════════════════════════
+    // POST /dnd5e/long-rest
+    // ═══════════════════════════════════════════
+
+    describe(`/dnd5e/long-rest (v${version})`, () => {
+      test('POST /dnd5e/long-rest - perform a long rest', async () => {
+        setVariable('clientId', getClientId());
+
+        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
+        expect(actorUuid).toBeTruthy();
+
+        const requestConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/long-rest',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'long-rest'],
+            query: [
+              { key: 'clientId', value: '{{clientId}}' }
+            ]
+          },
+          method: 'POST',
+          header: [
+            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
+            { key: 'Content-Type', value: 'application/json', type: 'text' }
+          ],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+              actorUuid: actorUuid,
+              newDay: true
+            })
+          }
+        };
+
+        const captured = await captureExample(requestConfig, testVariables, '/dnd5e/long-rest');
+        capturedExamples.push(captured);
+
+        expect(captured.response.status).toBe(200);
+        expect(captured.response.data).toHaveProperty('data');
+        expect(captured.response.data.data).toHaveProperty('actorUuid');
+        expect(captured.response.data.data).toHaveProperty('result');
+        console.log(`  ✓ Long rest completed`);
       }, 15000);
     });
 

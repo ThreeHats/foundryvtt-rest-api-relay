@@ -44,12 +44,14 @@ export async function requestForwarderMiddleware(req: Request, res: Response, ne
     }
 
     // If no target found with client ID, check for API key mapping
+    // Use masterApiKey if available (scoped keys route via parent's master key)
     if (!targetInstanceId) {
+      const lookupKey = (req as any).masterApiKey || apiKey;
       try {
-        const instanceId = await redis.get(`apikey:${apiKey}:instance`);
+        const instanceId = await redis.get(`apikey:${lookupKey}:instance`);
         if (instanceId && instanceId !== INSTANCE_ID) {
           targetInstanceId = instanceId;
-          log.info(`Forwarding request for API key ${apiKey.substring(0, 8)}... to instance ${targetInstanceId}`);
+          log.info(`Forwarding request for API key ${lookupKey.substring(0, 8)}... to instance ${targetInstanceId}`);
         }
       } catch (error) {
         log.error(`Error checking API key instance: ${error}`);
