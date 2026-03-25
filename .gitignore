@@ -44,3 +44,6 @@ data/relay.db
 docs/.docusaurus/
 
 devNotes.md
+benchmark/results/*
+go-relay/data/relay.db
+go-relay/tmp/*
