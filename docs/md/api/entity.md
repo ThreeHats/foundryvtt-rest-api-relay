@@ -7,19 +7,21 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# entity
+# Entity
 
 ## GET /get
 
-Get entity details This endpoint retrieves the details of a specific entity.
+Get entity details
+
+This endpoint retrieves the details of a specific entity.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | uuid | string |  | query | UUID of the entity to retrieve (optional if selected=true) |
-| selected | boolean |  | query | Whether to get the selected entity |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | actor | boolean |  | query | Return the actor of specified entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -45,7 +47,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/get';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  uuid: 'Actor.ioZexonJDGVuU8zl'
+  uuid: 'Actor.pxZTVHItjx6GgPgC'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -64,7 +66,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/get?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
+curl -X GET 'http://localhost:3010/get?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.pxZTVHItjx6GgPgC' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -78,7 +80,7 @@ base_url = 'http://localhost:3010'
 path = '/get'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'uuid': 'Actor.ioZexonJDGVuU8zl'
+    'uuid': 'Actor.pxZTVHItjx6GgPgC'
 }
 url = f'{base_url}{path}'
 
@@ -104,7 +106,7 @@ import axios from 'axios';
   const path = '/get';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    uuid: 'Actor.ioZexonJDGVuU8zl'
+    uuid: 'Actor.pxZTVHItjx6GgPgC'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -139,7 +141,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
+  🔤uuid=Actor.pxZTVHItjx6GgPgC🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -168,8 +170,8 @@ import axios from 'axios';
 ```json
 {
   "type": "entity-result",
-  "requestId": "entity_1774367580848",
-  "uuid": "Actor.ioZexonJDGVuU8zl",
+  "requestId": "entity_1775068857136",
+  "uuid": "Actor.pxZTVHItjx6GgPgC",
   "data": {
     "effects": [],
     "img": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
@@ -4664,7 +4666,7 @@ import axios from 'axios';
     },
     "type": "character",
     "folder": null,
-    "_id": "ioZexonJDGVuU8zl",
+    "_id": "pxZTVHItjx6GgPgC",
     "sort": 0,
     "ownership": {
       "default": 0,
@@ -4678,8 +4680,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1774367580132,
-      "modifiedTime": 1774367580132,
+      "createdTime": 1775068856395,
+      "modifiedTime": 1775068856395,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -4691,12 +4693,14 @@ import axios from 'axios';
 
 ## POST /create
 
-Create a new entity This endpoint creates a new entity in the Foundry world.
+Create a new entity
+
+This endpoint creates a new entity in the Foundry world.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | entityType | string | ✓ | body | Document type of entity to create (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist, ext.) |
 | data | object | ✓ | body | Data for the new entity |
 | clientId | string |  | query | Client ID for the Foundry world |
@@ -18511,8 +18515,8 @@ import axios from 'axios';
 ```json
 {
   "type": "create-result",
-  "requestId": "create_1774367580060",
-  "uuid": "Actor.ioZexonJDGVuU8zl",
+  "requestId": "create_1775068856329",
+  "uuid": "Actor.pxZTVHItjx6GgPgC",
   "entity": {
     "effects": [],
     "img": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
@@ -23007,7 +23011,7 @@ import axios from 'axios';
     },
     "type": "character",
     "folder": null,
-    "_id": "ioZexonJDGVuU8zl",
+    "_id": "pxZTVHItjx6GgPgC",
     "sort": 0,
     "ownership": {
       "default": 0,
@@ -23021,8 +23025,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1774367580132,
-      "modifiedTime": 1774367580132,
+      "createdTime": 1775068856395,
+      "modifiedTime": 1775068856395,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -23034,17 +23038,19 @@ import axios from 'axios';
 
 ## PUT /update
 
-Update an existing entity This endpoint updates an existing entity in the Foundry world.
+Update an entity
+
+This endpoint updates an existing entity in the Foundry world.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| data | object | ✓ | body | Data to update the entity with |
+|------|------|----------|--------|-------------|
+| data | object | ✓ | body | Object containing the fields to update |
 | clientId | string |  | query | Client ID for the Foundry world |
-| uuid | string |  | query | UUID of the entity to update (optional if selected=true) |
-| selected | boolean |  | query | Whether to update the selected entity |
-| actor | boolean |  | query | Update the actor of selected entity when selected=true |
+| uuid | string |  | query | UUID of the entity to retrieve (optional if selected=true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
+| actor | boolean |  | query | Whether to update the actor of specified entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -23069,7 +23075,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/update';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  uuid: 'Actor.ioZexonJDGVuU8zl'
+  uuid: 'Actor.pxZTVHItjx6GgPgC'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -23094,7 +23100,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/update?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
+curl -X PUT 'http://localhost:3010/update?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.pxZTVHItjx6GgPgC' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"name":"Updated Test Actor"}}'
@@ -23110,7 +23116,7 @@ base_url = 'http://localhost:3010'
 path = '/update'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'uuid': 'Actor.ioZexonJDGVuU8zl'
+    'uuid': 'Actor.pxZTVHItjx6GgPgC'
 }
 url = f'{base_url}{path}'
 
@@ -23141,7 +23147,7 @@ import axios from 'axios';
   const path = '/update';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    uuid: 'Actor.ioZexonJDGVuU8zl'
+    uuid: 'Actor.pxZTVHItjx6GgPgC'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -23182,7 +23188,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
+  🔤uuid=Actor.pxZTVHItjx6GgPgC🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -23214,8 +23220,8 @@ import axios from 'axios';
 ```json
 {
   "type": "update-result",
-  "requestId": "update_1774367580862",
-  "uuid": "Actor.ioZexonJDGVuU8zl",
+  "requestId": "update_1775068857148",
+  "uuid": "Actor.pxZTVHItjx6GgPgC",
   "entity": [
     {
       "effects": [],
@@ -27711,7 +27717,7 @@ import axios from 'axios';
       },
       "type": "character",
       "folder": null,
-      "_id": "ioZexonJDGVuU8zl",
+      "_id": "pxZTVHItjx6GgPgC",
       "sort": 0,
       "ownership": {
         "default": 0,
@@ -27725,8 +27731,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1774367580132,
-        "modifiedTime": 1774367580866,
+        "createdTime": 1775068856395,
+        "modifiedTime": 1775068857154,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     }
@@ -27739,15 +27745,17 @@ import axios from 'axios';
 
 ## DELETE /delete
 
-Delete an entity This endpoint deletes an entity from the Foundry world.
+Delete an entity
+
+This endpoint deletes an entity from the Foundry world.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
-| uuid | string |  | query | UUID of the entity to delete (optional if selected=true) |
-| selected | boolean |  | query | Whether to delete the selected entity |
+| uuid | string |  | query | UUID of the entity to retrieve (optional if selected=true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -27772,7 +27780,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/delete';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  uuid: 'Actor.uelJdzb2eFr1vOa3'
+  uuid: 'Actor.0r1UJ1hwtTKpX1XB'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -27791,7 +27799,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.uelJdzb2eFr1vOa3' \
+curl -X DELETE 'http://localhost:3010/delete?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.0r1UJ1hwtTKpX1XB' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -27805,7 +27813,7 @@ base_url = 'http://localhost:3010'
 path = '/delete'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'uuid': 'Actor.uelJdzb2eFr1vOa3'
+    'uuid': 'Actor.0r1UJ1hwtTKpX1XB'
 }
 url = f'{base_url}{path}'
 
@@ -27831,7 +27839,7 @@ import axios from 'axios';
   const path = '/delete';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    uuid: 'Actor.uelJdzb2eFr1vOa3'
+    uuid: 'Actor.0r1UJ1hwtTKpX1XB'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -27866,7 +27874,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤uuid=Actor.uelJdzb2eFr1vOa3🔤 ➡️ uuid
+  🔤uuid=Actor.0r1UJ1hwtTKpX1XB🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -27895,8 +27903,8 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-result",
-  "requestId": "delete_1774367580914",
-  "uuid": "Actor.uelJdzb2eFr1vOa3",
+  "requestId": "delete_1775068857201",
+  "uuid": "Actor.0r1UJ1hwtTKpX1XB",
   "success": true
 }
 ```
@@ -27906,31 +27914,33 @@ import axios from 'axios';
 
 ## POST /give
 
-Give an item to an entity This endpoint gives an item to a specified entity. Optionally, removes the item from the giver.
+Give an item to another entity
+
+Transfers an item from one entity to another.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string |  | body, query | Client ID for the Foundry world |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
 | fromUuid | string |  | body | UUID of the entity giving the item |
 | toUuid | string |  | body | UUID of the entity receiving the item |
-| selected | boolean |  | body | Whether to give to the selected token's actor |
-| itemUuid | string |  | body | UUID of the item to give (optional if itemName provided) |
-| itemName | string |  | body | Name of the item to give (search with Quick Insert if UUID not provided) |
-| quantity | number |  | body | Quantity of the item to give (negative values decrease quantity to 0) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
+| itemUuid | string |  | body | UUID of the item to give |
+| itemName | string |  | body | Name of the item to give (alternative to itemUuid) |
+| quantity | number |  | body | Quantity of items to give |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - Result of the item giving operation
+**object** - Result of the give operation
 
 ### Try It Out
 
 <ApiTester
   method="POST"
   path="/give"
-  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"fromUuid","type":"string","required":false,"source":"body"},{"name":"toUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"fromUuid","type":"string","required":false,"source":"body"},{"name":"toUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -27954,8 +27964,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "toUuid": "Actor.ioZexonJDGVuU8zl",
-      "itemUuid": "Item.MzkwwMiKxqXzGG3X",
+      "toUuid": "Actor.pxZTVHItjx6GgPgC",
+      "itemUuid": "Item.blRaC6QACL9AyxUo",
       "quantity": 1
     })
 });
@@ -27970,7 +27980,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/give?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"toUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Item.MzkwwMiKxqXzGG3X","quantity":1}'
+  -d '{"toUuid":"Actor.pxZTVHItjx6GgPgC","itemUuid":"Item.blRaC6QACL9AyxUo","quantity":1}'
 ```
 
 </TabItem>
@@ -27993,8 +28003,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "toUuid": "Actor.ioZexonJDGVuU8zl",
-      "itemUuid": "Item.MzkwwMiKxqXzGG3X",
+      "toUuid": "Actor.pxZTVHItjx6GgPgC",
+      "itemUuid": "Item.blRaC6QACL9AyxUo",
       "quantity": 1
     }
 )
@@ -28025,8 +28035,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "toUuid": "Actor.ioZexonJDGVuU8zl",
-        "itemUuid": "Item.MzkwwMiKxqXzGG3X",
+        "toUuid": "Actor.pxZTVHItjx6GgPgC",
+        "itemUuid": "Item.blRaC6QACL9AyxUo",
         "quantity": 1
       }
   });
@@ -28056,7 +28066,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"toUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Item.MzkwwMiKxqXzGG3X","quantity":1}🔤 ➡️ body
+  🔤{"toUuid":"Actor.pxZTVHItjx6GgPgC","itemUuid":"Item.blRaC6QACL9AyxUo","quantity":1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /give🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 83❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -28084,11 +28094,11 @@ import axios from 'axios';
 ```json
 {
   "type": "give-result",
-  "requestId": "give_1774367580941",
-  "toUuid": "Actor.ioZexonJDGVuU8zl",
+  "requestId": "give_1775068857229",
+  "toUuid": "Actor.pxZTVHItjx6GgPgC",
   "quantity": 1,
-  "itemUuid": "Item.MzkwwMiKxqXzGG3X",
-  "newItemId": "nId4eOCCXAKUeRjr",
+  "itemUuid": "Item.blRaC6QACL9AyxUo",
+  "newItemId": "8f3jkm0bibUcFsdg",
   "success": true
 }
 ```
@@ -28098,30 +28108,32 @@ import axios from 'axios';
 
 ## POST /remove
 
-Remove an item from an entity This endpoint removes an item from a specified entity.
+Remove an item from an entity
+
+Removes an item from an entity's inventory.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| actorUuid | string |  | body | UUID of the actor to remove the item from (optional if selected=true) |
-| selected | boolean |  | body | Whether to remove from the selected token's actor |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body | UUID of the actor to remove the item from |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | itemUuid | string |  | body | UUID of the item to remove |
-| itemName | string |  | body | Name of the item to remove (search with Quick Insert if UUID not provided) |
-| quantity | number |  | body | Quantity of the item to remove |
+| itemName | string |  | body | Name of the item to remove (alternative to itemUuid) |
+| quantity | number |  | body | Quantity of items to remove |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - Result of the item removal operation
+**object** - Result of the remove operation
 
 ### Try It Out
 
 <ApiTester
   method="POST"
   path="/remove"
-  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"quantity","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -28145,8 +28157,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "itemUuid": "Actor.pxZTVHItjx6GgPgC.Item.8f3jkm0bibUcFsdg",
       "quantity": 1
     })
 });
@@ -28161,7 +28173,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/remove?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr","quantity":1}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","itemUuid":"Actor.pxZTVHItjx6GgPgC.Item.8f3jkm0bibUcFsdg","quantity":1}'
 ```
 
 </TabItem>
@@ -28184,8 +28196,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "itemUuid": "Actor.pxZTVHItjx6GgPgC.Item.8f3jkm0bibUcFsdg",
       "quantity": 1
     }
 )
@@ -28216,8 +28228,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
-        "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "itemUuid": "Actor.pxZTVHItjx6GgPgC.Item.8f3jkm0bibUcFsdg",
         "quantity": 1
       }
   });
@@ -28247,7 +28259,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","itemUuid":"Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr","quantity":1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","itemUuid":"Actor.pxZTVHItjx6GgPgC.Item.8f3jkm0bibUcFsdg","quantity":1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /remove🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 109❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -28275,9 +28287,9 @@ import axios from 'axios';
 ```json
 {
   "type": "remove-result",
-  "requestId": "remove_1774367580995",
-  "actorUuid": "Actor.ioZexonJDGVuU8zl",
-  "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.nId4eOCCXAKUeRjr",
+  "requestId": "remove_1775068857274",
+  "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+  "itemUuid": "Actor.pxZTVHItjx6GgPgC.Item.8f3jkm0bibUcFsdg",
   "quantity": 0,
   "success": true
 }
@@ -28288,22 +28300,24 @@ import axios from 'axios';
 
 ## POST /decrease
 
-Decrease an attribute This endpoint decreases an attribute of a specified entity.
+Decrease an attribute
+
+Decreases a numeric attribute of an entity by the specified amount.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| attribute | string | ✓ | body | The attribute data path to decrease (e.g., "system.attributes.hp.value") |
-| amount | number | ✓ | body | The amount to decrease the attribute by |
+|------|------|----------|--------|-------------|
+| attribute | string | ✓ | body | The attribute to decrease (e.g., hp.value) |
+| amount | number | ✓ | body | The amount to decrease by |
 | clientId | string |  | query | Client ID for the Foundry world |
-| uuid | string |  | query | UUID of the entity to decrease the attribute for (optional if selected=true) |
-| selected | boolean |  | query | Whether to decrease the attribute for the selected entity |
+| uuid | string |  | query | UUID of the entity to retrieve (optional if selected=true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - Result of the attribute decrease operation
+**object** - Result of the decrease operation
 
 ### Try It Out
 
@@ -28323,7 +28337,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/decrease';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  uuid: 'Actor.ioZexonJDGVuU8zl'
+  uuid: 'Actor.pxZTVHItjx6GgPgC'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -28347,7 +28361,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/decrease?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
+curl -X POST 'http://localhost:3010/decrease?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.pxZTVHItjx6GgPgC' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"attribute":"prototypeToken.height","amount":5}'
@@ -28363,7 +28377,7 @@ base_url = 'http://localhost:3010'
 path = '/decrease'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'uuid': 'Actor.ioZexonJDGVuU8zl'
+    'uuid': 'Actor.pxZTVHItjx6GgPgC'
 }
 url = f'{base_url}{path}'
 
@@ -28393,7 +28407,7 @@ import axios from 'axios';
   const path = '/decrease';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    uuid: 'Actor.ioZexonJDGVuU8zl'
+    uuid: 'Actor.pxZTVHItjx6GgPgC'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28433,7 +28447,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
+  🔤uuid=Actor.pxZTVHItjx6GgPgC🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -28465,10 +28479,10 @@ import axios from 'axios';
 ```json
 {
   "type": "decrease-result",
-  "requestId": "decrease_1774367581091",
+  "requestId": "decrease_1775068857358",
   "results": [
     {
-      "uuid": "Actor.ioZexonJDGVuU8zl",
+      "uuid": "Actor.pxZTVHItjx6GgPgC",
       "attribute": "prototypeToken.height",
       "oldValue": 6,
       "newValue": 1
@@ -28483,22 +28497,24 @@ import axios from 'axios';
 
 ## POST /increase
 
-Increase an attribute This endpoint increases an attribute of a specified entity.
+Increase an attribute
+
+Increases a numeric attribute of an entity by the specified amount.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| attribute | string | ✓ | body | The attribute data path to increase (e.g., "system.attributes.hp.value") |
-| amount | number | ✓ | body | The amount to increase the attribute by |
+|------|------|----------|--------|-------------|
+| attribute | string | ✓ | body | The attribute to increase (e.g., hp.value) |
+| amount | number | ✓ | body | The amount to increase by |
 | clientId | string |  | query | Client ID for the Foundry world |
-| uuid | string |  | query | UUID of the entity to increase the attribute for (optional if selected=true) |
-| selected | boolean |  | query | Whether to increase the attribute for the selected entity |
+| uuid | string |  | query | UUID of the entity to retrieve (optional if selected=true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - Result of the attribute increase operation
+**object** - Result of the increase operation
 
 ### Try It Out
 
@@ -28518,7 +28534,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/increase';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  uuid: 'Actor.ioZexonJDGVuU8zl'
+  uuid: 'Actor.pxZTVHItjx6GgPgC'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -28542,7 +28558,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/increase?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
+curl -X POST 'http://localhost:3010/increase?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.pxZTVHItjx6GgPgC' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"attribute":"prototypeToken.height","amount":5}'
@@ -28558,7 +28574,7 @@ base_url = 'http://localhost:3010'
 path = '/increase'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'uuid': 'Actor.ioZexonJDGVuU8zl'
+    'uuid': 'Actor.pxZTVHItjx6GgPgC'
 }
 url = f'{base_url}{path}'
 
@@ -28588,7 +28604,7 @@ import axios from 'axios';
   const path = '/increase';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    uuid: 'Actor.ioZexonJDGVuU8zl'
+    uuid: 'Actor.pxZTVHItjx6GgPgC'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28628,7 +28644,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
+  🔤uuid=Actor.pxZTVHItjx6GgPgC🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -28660,10 +28676,10 @@ import axios from 'axios';
 ```json
 {
   "type": "increase-result",
-  "requestId": "increase_1774367581046",
+  "requestId": "increase_1775068857314",
   "results": [
     {
-      "uuid": "Actor.ioZexonJDGVuU8zl",
+      "uuid": "Actor.pxZTVHItjx6GgPgC",
       "attribute": "prototypeToken.height",
       "oldValue": 1,
       "newValue": 6
@@ -28678,20 +28694,22 @@ import axios from 'axios';
 
 ## POST /kill
 
-Kill an entity Marks an entity as killed in the combat tracker, gives it the "dead" status, and sets its health to 0 in the Foundry world.
+Kill an entity
+
+Sets the entity's HP to 0.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
-| uuid | string |  | query | UUID of the entity to kill (optional if selected=true) |
-| selected | boolean |  | query | Whether to kill the selected entity |
+| uuid | string |  | query | UUID of the entity to retrieve (optional if selected=true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - Result of the entity kill operation
+**object** - Result of the kill operation
 
 ### Try It Out
 
@@ -28711,7 +28729,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/kill';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  uuid: 'Actor.Qp0LBxXXqiTjZ822'
+  uuid: 'Actor.9qqrtBqkKb83eSTb'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -28730,7 +28748,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/kill?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.Qp0LBxXXqiTjZ822' \
+curl -X POST 'http://localhost:3010/kill?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.9qqrtBqkKb83eSTb' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -28744,7 +28762,7 @@ base_url = 'http://localhost:3010'
 path = '/kill'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'uuid': 'Actor.Qp0LBxXXqiTjZ822'
+    'uuid': 'Actor.9qqrtBqkKb83eSTb'
 }
 url = f'{base_url}{path}'
 
@@ -28770,7 +28788,7 @@ import axios from 'axios';
   const path = '/kill';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    uuid: 'Actor.Qp0LBxXXqiTjZ822'
+    uuid: 'Actor.9qqrtBqkKb83eSTb'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -28805,7 +28823,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤uuid=Actor.Qp0LBxXXqiTjZ822🔤 ➡️ uuid
+  🔤uuid=Actor.9qqrtBqkKb83eSTb🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -28834,10 +28852,10 @@ import axios from 'axios';
 ```json
 {
   "type": "kill-result",
-  "requestId": "kill_1774367581136",
+  "requestId": "kill_1775068857403",
   "results": [
     {
-      "uuid": "Actor.Qp0LBxXXqiTjZ822",
+      "uuid": "Actor.9qqrtBqkKb83eSTb",
       "success": true,
       "message": "Actor marked as defeated, HP set to 0, and dead effect applied to 0 tokens"
     }

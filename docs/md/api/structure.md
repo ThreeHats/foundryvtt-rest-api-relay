@@ -7,16 +7,18 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# structure
+# Structure
 
 ## GET /structure
 
-Get the structure of the Foundry world Retrieves the folder and compendium structure for the specified Foundry world.
+Get the structure of the Foundry world
+
+Retrieves the folder and compendium structure for the specified Foundry world.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | includeEntityData | boolean |  | query | Whether to include full entity data or just UUIDs and names |
 | path | string |  | query | Path to read structure from (null = root) |
@@ -178,12 +180,12 @@ import axios from 'axios';
 ```json
 {
   "type": "structure-result",
-  "requestId": "structure_1774367596685",
+  "requestId": "structure_1775068876616",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "X6SfIWqtrd0NZsNk",
-        "uuid": "Folder.X6SfIWqtrd0NZsNk",
+        "id": "8DlpD7RwK8GKoP69",
+        "uuid": "Folder.8DlpD7RwK8GKoP69",
         "type": "Scene"
       }
     },
@@ -905,7 +907,7 @@ import axios from 'axios';
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "createdTime": 1774161335040,
-            "modifiedTime": 1774367584402,
+            "modifiedTime": 1775068870192,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -913,7 +915,7 @@ import axios from 'axios';
           }
         },
         {
-          "_id": "u2dOm1Uzbx9CT9jn",
+          "_id": "kxsUY8QzM6ClEZqt",
           "name": "test-scene-updated",
           "active": true,
           "navigation": true,
@@ -999,13 +1001,13 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "N1VQ21SQYx1RYjGS",
+              "_id": "L1vgbr5N5TEs5v1I",
               "name": "Updated Test Actor",
               "displayName": 0,
-              "actorId": "ioZexonJDGVuU8zl",
+              "actorId": "pxZTVHItjx6GgPgC",
               "actorLink": false,
               "delta": {
-                "_id": "fJtkarMd3HlcVJf8",
+                "_id": "T2eym3urFhVVkwz8",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -4842,8 +4844,8 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1774367584350,
-            "modifiedTime": 1774367584402,
+            "createdTime": 1775068870141,
+            "modifiedTime": 1775068870192,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -4859,24 +4861,6 @@ import axios from 'axios';
 
 ---
 
-## GET /contents/:path
-
-This route is deprecated - use /structure with the path query parameter instead
-
-### Returns
-
-**object** - Error message directing to use /structure endpoint
-
-### Try It Out
-
-<ApiTester
-  method="GET"
-  path="/contents/:path"
-  parameters={[]}
-/>
-
----
-
 ## GET /get-folder
 
 Get a specific folder by name
@@ -4884,9 +4868,9 @@ Get a specific folder by name
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | name | string | ✓ | body, query | Name of the folder to retrieve |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -4898,7 +4882,7 @@ Get a specific folder by name
 <ApiTester
   method="GET"
   path="/get-folder"
-  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5034,10 +5018,10 @@ import axios from 'axios';
 ```json
 {
   "type": "get-folder-result",
-  "requestId": "get-folder_1774367596696",
+  "requestId": "get-folder_1775068876633",
   "data": {
-    "id": "X6SfIWqtrd0NZsNk",
-    "uuid": "Folder.X6SfIWqtrd0NZsNk",
+    "id": "8DlpD7RwK8GKoP69",
+    "uuid": "Folder.8DlpD7RwK8GKoP69",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -5056,10 +5040,10 @@ Create a new folder
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | name | string | ✓ | body, query | Name of the new folder |
 | folderType | string | ✓ | body, query | Type of folder (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist) |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | parentFolderId | string |  | body, query | ID of the parent folder (optional for root level) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5072,7 +5056,7 @@ Create a new folder
 <ApiTester
   method="POST"
   path="/create-folder"
-  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"folderType","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"parentFolderId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"folderType","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"parentFolderId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5212,10 +5196,10 @@ import axios from 'axios';
 ```json
 {
   "type": "create-folder-result",
-  "requestId": "create-folder_1774367596678",
+  "requestId": "create-folder_1775068876602",
   "data": {
-    "id": "X6SfIWqtrd0NZsNk",
-    "uuid": "Folder.X6SfIWqtrd0NZsNk",
+    "id": "8DlpD7RwK8GKoP69",
+    "uuid": "Folder.8DlpD7RwK8GKoP69",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -5233,9 +5217,9 @@ Delete a folder
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | folderId | string | ✓ | body, query | ID of the folder to delete |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | deleteAll | boolean |  | body, query | Whether to delete all entities in the folder |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -5248,7 +5232,7 @@ Delete a folder
 <ApiTester
   method="DELETE"
   path="/delete-folder"
-  parameters={[{"name":"folderId","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"deleteAll","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"folderId","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"deleteAll","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -5261,7 +5245,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  folderId: 'X6SfIWqtrd0NZsNk'
+  folderId: '8DlpD7RwK8GKoP69'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5280,7 +5264,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&folderId=X6SfIWqtrd0NZsNk' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&folderId=8DlpD7RwK8GKoP69' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5294,7 +5278,7 @@ base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'folderId': 'X6SfIWqtrd0NZsNk'
+    'folderId': '8DlpD7RwK8GKoP69'
 }
 url = f'{base_url}{path}'
 
@@ -5320,7 +5304,7 @@ import axios from 'axios';
   const path = '/delete-folder';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    folderId: 'X6SfIWqtrd0NZsNk'
+    folderId: '8DlpD7RwK8GKoP69'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5355,7 +5339,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤folderId=X6SfIWqtrd0NZsNk🔤 ➡️ folderId
+  🔤folderId=8DlpD7RwK8GKoP69🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5384,13 +5368,34 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-folder-result",
-  "requestId": "delete-folder_1774367596698",
+  "requestId": "delete-folder_1775068876636",
   "data": {
     "deleted": true,
-    "folderId": "X6SfIWqtrd0NZsNk",
+    "folderId": "8DlpD7RwK8GKoP69",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }
 }
 ```
+
+
+---
+
+## GET /contents/:path
+
+This route is deprecated
+
+Use /structure with the path query parameter instead.
+
+### Returns
+
+**object** - Error message directing to use /structure endpoint
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/contents/:path"
+  parameters={[]}
+/>
 

@@ -7,16 +7,16 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# session
+# Session
 
 ## POST /session-handshake
 
-Create a handshake token for the client to use for secure authentication
+Create a handshake token for secure authentication
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | x-api-key | string | ✓ | header | API key header |
 | x-foundry-url | string | ✓ | header | Foundry URL header |
 | x-username | string | ✓ | header | Username header |
@@ -43,10 +43,11 @@ Start a headless Foundry session using puppeteer
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | handshakeToken | string | ✓ | body | The token received from session-handshake |
 | encryptedPassword | string | ✓ | body | Password encrypted with the public key |
 | x-api-key | string | ✓ | header | API key header |
+| captureBrowserConsole | string |  | body | Log level for browser console capture ("error", "warn", or "debug") |
 
 ### Returns
 
@@ -57,7 +58,7 @@ Start a headless Foundry session using puppeteer
 <ApiTester
   method="POST"
   path="/start-session"
-  parameters={[{"name":"handshakeToken","type":"string","required":true,"source":"body"},{"name":"encryptedPassword","type":"string","required":true,"source":"body"},{"name":"x-api-key","type":"string","required":true,"source":"header"}]}
+  parameters={[{"name":"handshakeToken","type":"string","required":true,"source":"body"},{"name":"encryptedPassword","type":"string","required":true,"source":"body"},{"name":"x-api-key","type":"string","required":true,"source":"header"},{"name":"captureBrowserConsole","type":"string","required":false,"source":"body"}]}
 />
 
 ### Code Examples
@@ -252,7 +253,7 @@ Just don't 😂
 ```json
 {
   "clientId": "foundry-testing-r6bXhB7k9cXa3cif",
-  "sessionId": "e43fe29d-c2a1-414d-b099-76478bed628e",
+  "sessionId": "555101a6-1587-4536-8e31-bb771eb6b95b",
   "success": true
 }
 ```
@@ -267,7 +268,7 @@ Stop a headless Foundry session
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | sessionId | string | ✓ | query | The ID of the session to end |
 | x-api-key | string | ✓ | header | API key header |
 
@@ -292,7 +293,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: 'e43fe29d-c2a1-414d-b099-76478bed628e'
+  sessionId: '555101a6-1587-4536-8e31-bb771eb6b95b'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -311,7 +312,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=e43fe29d-c2a1-414d-b099-76478bed628e' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=555101a6-1587-4536-8e31-bb771eb6b95b' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -324,7 +325,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': 'e43fe29d-c2a1-414d-b099-76478bed628e'
+    'sessionId': '555101a6-1587-4536-8e31-bb771eb6b95b'
 }
 url = f'{base_url}{path}'
 
@@ -349,7 +350,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: 'e43fe29d-c2a1-414d-b099-76478bed628e'
+    sessionId: '555101a6-1587-4536-8e31-bb771eb6b95b'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -383,7 +384,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=e43fe29d-c2a1-414d-b099-76478bed628e🔤 ➡️ sessionId
+  🔤sessionId=555101a6-1587-4536-8e31-bb771eb6b95b🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -426,7 +427,7 @@ Get all active headless Foundry sessions
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | x-api-key | string | ✓ | header | API key header |
 
 ### Returns
@@ -558,9 +559,9 @@ import axios from 'axios';
       "clientId": "foundry-testing-r6bXhB7k9cXa3cif",
       "foundryUrl": "http://localhost:30013",
       "foundryVersion": "13.348",
-      "lastActivity": 1774367571762,
-      "sessionId": "e43fe29d-c2a1-414d-b099-76478bed628e",
-      "startedAt": 1774367571762,
+      "lastActivity": 1775068855002,
+      "sessionId": "555101a6-1587-4536-8e31-bb771eb6b95b",
+      "startedAt": 1775068855002,
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
       "systemVersion": "5.0.4",
@@ -572,4 +573,5 @@ import axios from 'axios';
   ]
 }
 ```
+
 

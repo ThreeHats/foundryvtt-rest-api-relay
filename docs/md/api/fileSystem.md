@@ -1,5 +1,5 @@
 ---
-tag: fileSystem
+tag: filesystem
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# fileSystem
+# FileSystem
 
 ## GET /file-system
 
@@ -16,12 +16,12 @@ Get file system structure
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
 | path | string |  | query | The path to retrieve (relative to source) |
 | source | string |  | query | The source directory to use (data, systems, modules, etc.) |
 | recursive | boolean |  | query | Whether to recursively list all subdirectories |
-| userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -32,7 +32,7 @@ Get file system structure
 <ApiTester
   method="GET"
   path="/file-system"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -172,7 +172,7 @@ import axios from 'axios';
 ```json
 {
   "type": "file-system-result",
-  "requestId": "file-system_1774367601276",
+  "requestId": "file-system_1775068879896",
   "success": true,
   "path": "",
   "source": "data",
@@ -240,6 +240,185 @@ import axios from 'axios';
 
 ---
 
+## GET /download
+
+Download a file from Foundry's file system
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| path | string |  | query | The full path to the file to download |
+| source | string |  | query | The source directory to use (data, systems, modules, etc.) |
+| format | string |  | query | The format to return the file in (binary, base64) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - File contents in the requested format
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/download"
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"format","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/download';
+const params = {
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  path: 'rest-api-tests/test-file.txt',
+  source: 'data',
+  format: 'base64'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3010/download?clientId=foundry-testing-r6bXhB7k9cXa3cif&path=rest-api-tests%2Ftest-file.txt&source=data&format=base64' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/download'
+params = {
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'path': 'rest-api-tests/test-file.txt',
+    'source': 'data',
+    'format': 'base64'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/download';
+  const params = {
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    path: 'rest-api-tests/test-file.txt',
+    source: 'data',
+    format: 'base64'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/download🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤path=rest-api-tests/test-file.txt🔤 ➡️ path
+  🔤source=data🔤 ➡️ source
+  🔤format=base64🔤 ➡️ format
+  🔤?🧲clientId🧲&🧲path🧲&🧲source🧲&🧲format🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /download🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "fileData": "data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==",
+  "filename": "test-file.txt",
+  "mimeType": "text/plain",
+  "path": "rest-api-tests/test-file.txt",
+  "requestId": "download-file_1775068879903",
+  "success": true,
+  "type": "download-file-result"
+}
+```
+
+
+---
+
 ## POST /upload
 
 Upload a file to Foundry's file system (handles both base64 and binary data)
@@ -247,15 +426,15 @@ Upload a file to Foundry's file system (handles both base64 and binary data)
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
-| path | string | ✓ | query/body | The directory path to upload to |
-| filename | string | ✓ | query/body | The filename to save as |
-| source | string |  | query/body | The source directory to use (data, systems, modules, etc.) |
-| mimeType | string |  | query/body | The MIME type of the file |
-| overwrite | boolean |  | query/body | Whether to overwrite an existing file |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| path | string |  | query, body | The directory path to upload to |
+| filename | string |  | query, body | The filename to save as |
+| source | string |  | query, body | The source directory to use (data, systems, modules, etc.) |
+| mimeType | string |  | query, body | The MIME type of the file |
+| overwrite | boolean |  | query, body | Whether to overwrite an existing file |
 | fileData | string |  | body | Base64 encoded file data (if sending as JSON) 250MB limit |
-| userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -266,7 +445,7 @@ Upload a file to Foundry's file system (handles both base64 and binary data)
 <ApiTester
   method="POST"
   path="/upload"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":true,"source":"query/body"},{"name":"filename","type":"string","required":true,"source":"query/body"},{"name":"source","type":"string","required":false,"source":"query/body"},{"name":"mimeType","type":"string","required":false,"source":"query/body"},{"name":"overwrite","type":"boolean","required":false,"source":"query/body"},{"name":"fileData","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"filename","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"mimeType","type":"string","required":false,"source":"query"},{"name":"overwrite","type":"boolean","required":false,"source":"query"},{"name":"fileData","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -436,188 +615,10 @@ import axios from 'axios';
 ```json
 {
   "type": "upload-file-result",
-  "requestId": "upload-file_1774367601254",
+  "requestId": "upload-file_1775068879872",
   "success": true,
   "path": "rest-api-tests/test-file.txt"
 }
 ```
 
-
----
-
-## GET /download
-
-Download a file from Foundry's file system
-
-### Parameters
-
-| Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | The ID of the Foundry client to connect to |
-| path | string | ✓ | query | The full path to the file to download |
-| source | string |  | query | The source directory to use (data, systems, modules, etc.) |
-| format | string |  | query | The format to return the file in (binary, base64) |
-| userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-### Returns
-
-**binary|object** - File contents in the requested format
-
-### Try It Out
-
-<ApiTester
-  method="GET"
-  path="/download"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"path","type":"string","required":true,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"format","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
-/>
-
-### Code Examples
-
-<Tabs groupId="programming-language">
-<TabItem value="javascript" label="JavaScript">
-
-```javascript
-const baseUrl = 'http://localhost:3010';
-const path = '/download';
-const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  path: 'rest-api-tests/test-file.txt',
-  source: 'data',
-  format: 'base64'
-};
-const queryString = new URLSearchParams(params).toString();
-const url = `${baseUrl}${path}?${queryString}`;
-
-const response = await fetch(url, {
-  method: 'GET',
-  headers: {
-    'x-api-key': 'your-api-key-here'
-  }
-});
-const data = await response.json();
-console.log(data);
-```
-
-</TabItem>
-<TabItem value="curl" label="cURL">
-
-```bash
-curl -X GET 'http://localhost:3010/download?clientId=foundry-testing-r6bXhB7k9cXa3cif&path=rest-api-tests%2Ftest-file.txt&source=data&format=base64' \
-  -H "x-api-key: your-api-key-here"
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-import requests
-
-base_url = 'http://localhost:3010'
-path = '/download'
-params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'path': 'rest-api-tests/test-file.txt',
-    'source': 'data',
-    'format': 'base64'
-}
-url = f'{base_url}{path}'
-
-response = requests.get(
-    url,
-    params=params,
-    headers={
-        'x-api-key': 'your-api-key-here'
-    }
-)
-data = response.json()
-print(data)
-```
-
-</TabItem>
-<TabItem value="typescript" label="TypeScript">
-
-```typescript
-import axios from 'axios';
-
-(async () => {
-  const baseUrl = 'http://localhost:3010';
-  const path = '/download';
-  const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    path: 'rest-api-tests/test-file.txt',
-    source: 'data',
-    format: 'base64'
-  };
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${baseUrl}${path}?${queryString}`;
-
-  const response = await axios({
-    method: 'get',
-    headers: {
-      'x-api-key': 'your-api-key-here'
-    },
-    url
-  });
-  const data = response.data;
-  console.log(data);
-})();
-```
-
-</TabItem>
-<TabItem value="emojicode" label="Emojicode">
-
-```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/download🔤 ➡️ path
-
-  💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤path=rest-api-tests/test-file.txt🔤 ➡️ path
-  🔤source=data🔤 ➡️ source
-  🔤format=base64🔤 ➡️ format
-  🔤?🧲clientId🧲&🧲path🧲&🧲source🧲&🧲format🧲🔤 ➡️ queryString
-
-  💭 Build HTTP request
-  🔤GET /download🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
-```
-
-</TabItem>
-</Tabs>
-
-#### Response
-
-**Status:** 200
-
-```json
-{
-  "fileData": "data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==",
-  "filename": "test-file.txt",
-  "mimeType": "text/plain",
-  "path": "rest-api-tests/test-file.txt",
-  "requestId": "download-file_1774367601284",
-  "success": true,
-  "type": "download-file-result"
-}
-```
 

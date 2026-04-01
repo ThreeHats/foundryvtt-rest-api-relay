@@ -7,23 +7,25 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# roll
+# Roll
 
 ## GET /rolls
 
-Get recent rolls Retrieves a list of up to 20 recent rolls made in the Foundry world.
+Get recent rolls
+
+Retrieves a list of up to 20 recent rolls made in the Foundry world.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | limit | number |  | query | Optional limit on the number of rolls to return (default is 20) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - An array of recent rolls with details
+**array** - An array of recent rolls with details
 
 ### Try It Out
 
@@ -166,11 +168,11 @@ import axios from 'axios';
 ```json
 {
   "type": "rolls-result",
-  "requestId": "rolls_1774367598406",
+  "requestId": "rolls_1775068877894",
   "data": [
     {
-      "id": "nsZzR85bzPva0kKD",
-      "messageId": "nsZzR85bzPva0kKD",
+      "id": "hkv6n1MxVmjMyK2h",
+      "messageId": "hkv6n1MxVmjMyK2h",
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"
@@ -181,7 +183,7 @@ import axios from 'axios';
         "token": null
       },
       "flavor": "Test Roll",
-      "rollTotal": 15,
+      "rollTotal": 14,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -190,17 +192,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 7,
+              "result": 5,
               "active": false
             },
             {
-              "result": 15,
+              "result": 14,
               "active": true
             }
           ]
         }
       ],
-      "timestamp": 1774367598400
+      "timestamp": 1775068877887
     }
   ]
 }
@@ -211,12 +213,14 @@ import axios from 'axios';
 
 ## GET /lastroll
 
-Get the last roll Retrieves the most recent roll made in the Foundry world.
+Get the last roll
+
+Retrieves the most recent roll made in the Foundry world.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -361,10 +365,10 @@ import axios from 'axios';
 ```json
 {
   "type": "last-roll-result",
-  "requestId": "last-roll_1774367598415",
+  "requestId": "last-roll_1775068877899",
   "data": {
-    "id": "nsZzR85bzPva0kKD",
-    "messageId": "nsZzR85bzPva0kKD",
+    "id": "hkv6n1MxVmjMyK2h",
+    "messageId": "hkv6n1MxVmjMyK2h",
     "user": {
       "id": "r6bXhB7k9cXa3cif",
       "name": "tester"
@@ -375,7 +379,7 @@ import axios from 'axios';
       "token": null
     },
     "flavor": "Test Roll",
-    "rollTotal": 15,
+    "rollTotal": 14,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -384,17 +388,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 7,
+            "result": 5,
             "active": false
           },
           {
-            "result": 15,
+            "result": 14,
             "active": true
           }
         ]
       }
     ],
-    "timestamp": 1774367598400
+    "timestamp": 1775068877887
   }
 }
 ```
@@ -404,12 +408,14 @@ import axios from 'axios';
 
 ## POST /roll
 
-Make a roll Executes a roll with the specified formula
+Make a roll
+
+Executes a roll with the specified formula.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | formula | string | ✓ | body | The roll formula to evaluate (e.g., "1d20 + 5") |
 | clientId | string |  | query | Client ID for the Foundry world |
 | flavor | string |  | body | Optional flavor text for the roll |
@@ -581,14 +587,14 @@ import axios from 'axios';
 ```json
 {
   "type": "roll-result",
-  "requestId": "roll_1774367598387",
+  "requestId": "roll_1775068877874",
   "success": true,
   "data": {
-    "id": "manual_1774367598401_f1zk4l0aopu",
+    "id": "manual_1775068877888_wl3vmrcnrga",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 15,
+      "total": 14,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -596,17 +602,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 7,
+              "result": 5,
               "active": false
             },
             {
-              "result": 15,
+              "result": 14,
               "active": true
             }
           ]
         }
       ],
-      "timestamp": 1774367598401
+      "timestamp": 1775068877888
     }
   }
 }
@@ -617,25 +623,27 @@ import axios from 'axios';
 
 ## GET /rolls/subscribe
 
-Subscribe to real-time roll events via Server-Sent Events (SSE) Opens a persistent SSE connection that streams roll events as dice rolls occur in the Foundry world. Each event includes the full roll details including formula, total, individual dice results, and critical/fumble status.
+Subscribe to real-time roll events via Server-Sent Events (SSE)
+
+Opens a persistent SSE connection that streams roll events as they occur.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string | ✓ | query | Client ID for the Foundry world |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**stream** - SSE event stream
+**SSE stream** - SSE event stream
 
 ### Try It Out
 
 <ApiTester
   method="GET"
   path="/rolls/subscribe"
-  parameters={[{"name":"clientId","type":"string","required":true,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples

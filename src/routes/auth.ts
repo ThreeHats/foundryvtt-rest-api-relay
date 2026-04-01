@@ -585,7 +585,11 @@ router.post('/forgot-password', passwordResetRateLimiter, async (req: Request, r
     // Send email (fire-and-forget)
     sendPasswordResetEmail(user.getDataValue('email'), rawToken);
 
-    safeResponse(res, 200, { message: genericMessage });
+    const response: any = { message: genericMessage };
+    if (process.env.RETURN_RESET_TOKEN === 'true') {
+      response.token = rawToken;
+    }
+    safeResponse(res, 200, response);
     return;
   } catch (error) {
     log.error('Forgot password error', { error });

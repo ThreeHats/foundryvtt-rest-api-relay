@@ -20,6 +20,7 @@ export const TEST_ORDER = [
 
   // Phase 3: Auth validation
   'auth-requirements.test.ts',
+  'auth-endpoints.test.ts',          // Auth endpoint CRUD tests (register, login, user-data, etc.)
 
   // Phase 4: Scene + Canvas (test scene must be active for canvas and subsequent tests)
   'scene-endpoints.test.ts',     // Creates test scene, activates it
@@ -36,6 +37,7 @@ export const TEST_ORDER = [
   'fileSystem-endpoints.test.ts',
   'chat-endpoints.test.ts',
   'permission-filtering.test.ts', // Tests userId permission scoping
+  'scoped-keys-endpoints.test.ts', // Scoped API key CRUD + auto-routing (needs clientId)
 
   // Phase 6: System-agnostic feature tests
   'effects-endpoints.test.ts',   // ActiveEffect CRUD
@@ -43,10 +45,11 @@ export const TEST_ORDER = [
   // Phase 7: System-specific tests (only run on matching systems)
   'dnd5e-endpoints.test.ts',     // Only runs if client has dnd5e
 
-  // Phase 8: Cleanup (order matters: entities first, then restore scene, then end sessions)
+  // Phase 8: Cleanup (order matters: entities first, then restore scene, then end sessions, then auth)
   'cleanup-entities.test.ts',    // Deletes all created entities
   'scene-cleanup.test.ts',       // Restores original scene, deletes test scene
   'end-sessions.test.ts',        // Must run last to cleanup sessions
+  'auth-cleanup.test.ts',        // Deletes throwaway auth test user
 ];
 
 class OrderedTestSequencer extends Sequencer {

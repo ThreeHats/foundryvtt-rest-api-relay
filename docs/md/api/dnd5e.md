@@ -7,19 +7,21 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# dnd5e
+# Dnd5e
 
 ## GET /dnd5e/get-actor-details
 
-Get detailed information for a specific D&D 5e actor. Retrieves comprehensive details about an actor including stats, inventory, spells, features, and other character information based on the requested details array.
+Get detailed information for a specific D&D 5e actor
+
+Retrieves comprehensive details about an actor including stats, inventory, spells, features, and other character information based on the requested details array.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | actorUuid | string | ✓ | body, query | UUID of the actor |
 | details | array | ✓ | body, query | Array of detail types to retrieve (e.g., ["resources", "items", "spells", "features"]) |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -31,7 +33,7 @@ Get detailed information for a specific D&D 5e actor. Retrieves comprehensive de
 <ApiTester
   method="GET"
   path="/dnd5e/get-actor-details"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"details","type":"array","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"details","type":"array","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -44,7 +46,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/get-actor-details';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  actorUuid: 'Actor.ioZexonJDGVuU8zl',
+  actorUuid: 'Actor.pxZTVHItjx6GgPgC',
   details: '["resources","items","features","spells"]'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -64,7 +66,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=foundry-testing-r6bXhB7k9cXa3cif&actorUuid=Actor.ioZexonJDGVuU8zl&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
+curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=foundry-testing-r6bXhB7k9cXa3cif&actorUuid=Actor.pxZTVHItjx6GgPgC&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -78,7 +80,7 @@ base_url = 'http://localhost:3010'
 path = '/dnd5e/get-actor-details'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'actorUuid': 'Actor.ioZexonJDGVuU8zl',
+    'actorUuid': 'Actor.pxZTVHItjx6GgPgC',
     'details': '["resources","items","features","spells"]'
 }
 url = f'{base_url}{path}'
@@ -105,7 +107,7 @@ import axios from 'axios';
   const path = '/dnd5e/get-actor-details';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    actorUuid: 'Actor.ioZexonJDGVuU8zl',
+    actorUuid: 'Actor.pxZTVHItjx6GgPgC',
     details: '["resources","items","features","spells"]'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -141,7 +143,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤actorUuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ actorUuid
+  🔤actorUuid=Actor.pxZTVHItjx6GgPgC🔤 ➡️ actorUuid
   🔤details=["resources","items","features","spells"]🔤 ➡️ details
   🔤?🧲clientId🧲&🧲actorUuid🧲&🧲details🧲🔤 ➡️ queryString
 
@@ -171,9 +173,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-actor-details-result",
-  "requestId": "get-actor-details_1774367605072",
+  "requestId": "get-actor-details_1775068883198",
   "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
     "resources": {
       "primary": {
         "value": null,
@@ -382,11 +384,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1774367604775,
-          "modifiedTime": 1774367604775,
+          "createdTime": 1775068882899,
+          "modifiedTime": 1775068882899,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "cuN0zv7OrhLW1LKO"
+        "_id": "TXqlwJt6TUTGtZOQ"
       }
     ],
     "items": [
@@ -2680,11 +2682,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1774367604969,
-          "modifiedTime": 1774367604969,
+          "createdTime": 1775068883099,
+          "modifiedTime": 1775068883099,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "xzMsr0JNmiadK4Cr"
+        "_id": "MSWwHolX602YuBpc"
       }
     ],
     "features": [
@@ -3962,15 +3964,17 @@ import axios from 'axios';
 
 ## POST /dnd5e/modify-item-charges
 
-Modify the charges for a specific item owned by an actor. Increases or decreases the charges/uses of an item in an actor's inventory. Useful for consumable items like potions, scrolls, or charged magic items.
+Modify the charges for a specific item owned by an actor
+
+Increases or decreases the charges/uses of an item in an actor's inventory. Useful for consumable items like potions, scrolls, or charged magic items.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor who owns the item |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
 | amount | number | ✓ | body, query | The amount to modify charges by (positive or negative) |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | itemUuid | string |  | body, query | The UUID of the specific item (optional if itemName provided) |
 | itemName | string |  | body, query | The name of the item if UUID not provided (optional if itemUuid provided) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -3984,7 +3988,7 @@ Modify the charges for a specific item owned by an actor. Increases or decreases
 <ApiTester
   method="POST"
   path="/dnd5e/modify-item-charges"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"amount","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4008,7 +4012,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "itemName": "Waterskin",
       "amount": -1
     })
@@ -4024,7 +4028,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/modify-item-charges?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","itemName":"Waterskin","amount":-1}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","itemName":"Waterskin","amount":-1}'
 ```
 
 </TabItem>
@@ -4048,7 +4052,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "itemName": "Waterskin",
       "amount": -1
     }
@@ -4080,7 +4084,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
         "itemName": "Waterskin",
         "amount": -1
       }
@@ -4111,7 +4115,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","itemName":"Waterskin","amount":-1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","itemName":"Waterskin","amount":-1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-item-charges🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4139,9 +4143,9 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-item-charges-result",
-  "requestId": "modify-item-charges_1774367605322",
+  "requestId": "modify-item-charges_1775068883423",
   "data": {
-    "itemUuid": "Actor.ioZexonJDGVuU8zl.Item.5skKSSB4ShHbKoc8",
+    "itemUuid": "Actor.pxZTVHItjx6GgPgC.Item.5skKSSB4ShHbKoc8",
     "oldCharges": 4,
     "newCharges": 3
   }
@@ -4151,773 +4155,19 @@ import axios from 'axios';
 
 ---
 
-## POST /dnd5e/use-ability
-
-Use a general ability for an actor. Triggers the use of any ability, feature, spell, or item for an actor. This is a generic endpoint that can handle various types of abilities.
-
-### Parameters
-
-| Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor using the ability |
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| abilityUuid | string |  | body, query | The UUID of the specific ability (optional if abilityName provided) |
-| abilityName | string |  | body, query | The name of the ability if UUID not provided (optional if abilityUuid provided) |
-| targetUuid | string |  | body, query | The UUID of the target for the ability (optional) |
-| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
-| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-### Returns
-
-**object** - Result of the ability use operation
-
-### Try It Out
-
-<ApiTester
-  method="POST"
-  path="/dnd5e/use-ability"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
-/>
-
-### Code Examples
-
-<Tabs groupId="programming-language">
-<TabItem value="javascript" label="JavaScript">
-
-```javascript
-const baseUrl = 'http://localhost:3010';
-const path = '/dnd5e/use-ability';
-const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-};
-const queryString = new URLSearchParams(params).toString();
-const url = `${baseUrl}${path}?${queryString}`;
-
-const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'x-api-key': 'your-api-key-here',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "Hammer"
-    })
-});
-const data = await response.json();
-console.log(data);
-```
-
-</TabItem>
-<TabItem value="curl" label="cURL">
-
-```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
-  -H "x-api-key: your-api-key-here" \
-  -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"Hammer"}'
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-import requests
-
-base_url = 'http://localhost:3010'
-path = '/dnd5e/use-ability'
-params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
-}
-url = f'{base_url}{path}'
-
-response = requests.post(
-    url,
-    params=params,
-    headers={
-        'x-api-key': 'your-api-key-here',
-        'Content-Type': 'application/json'
-    },
-    json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "Hammer"
-    }
-)
-data = response.json()
-print(data)
-```
-
-</TabItem>
-<TabItem value="typescript" label="TypeScript">
-
-```typescript
-import axios from 'axios';
-
-(async () => {
-  const baseUrl = 'http://localhost:3010';
-  const path = '/dnd5e/use-ability';
-  const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-  };
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${baseUrl}${path}?${queryString}`;
-
-  const response = await axios({
-    method: 'post',
-    headers: {
-      'x-api-key': 'your-api-key-here',
-      'Content-Type': 'application/json'
-    },
-    url,
-    data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
-        "abilityName": "Hammer"
-      }
-  });
-  const data = response.data;
-  console.log(data);
-})();
-```
-
-</TabItem>
-<TabItem value="emojicode" label="Emojicode">
-
-```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/dnd5e/use-ability🔤 ➡️ path
-
-  💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤?🧲clientId🧲🔤 ➡️ queryString
-
-  💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"Hammer"}🔤 ➡️ body
-
-  💭 Build HTTP request
-  🔤POST /dnd5e/use-ability🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
-```
-
-</TabItem>
-</Tabs>
-
-#### Response
-
-**Status:** 200
-
-```json
-{
-  "type": "use-ability-result",
-  "requestId": "use-ability_1774367605665",
-  "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
-    "ability": "Hammer",
-    "result": "gj1tFIlRBZHn2lZE"
-  }
-}
-```
-
-
----
-
-## POST /dnd5e/use-feature
-
-Use a class or racial feature for an actor. Activates class features (like Action Surge, Rage) or racial features (like Dragonborn Breath Weapon) for a character.
-
-### Parameters
-
-| Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor using the feature |
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| abilityUuid | string |  | body, query | The UUID of the specific feature (optional if abilityName provided) |
-| abilityName | string |  | body, query | The name of the feature if UUID not provided (optional if abilityUuid provided) |
-| targetUuid | string |  | body, query | The UUID of the target for the feature (optional) |
-| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
-| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-### Returns
-
-**object** - Result of the feature use operation
-
-### Try It Out
-
-<ApiTester
-  method="POST"
-  path="/dnd5e/use-feature"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
-/>
-
-### Code Examples
-
-<Tabs groupId="programming-language">
-<TabItem value="javascript" label="JavaScript">
-
-```javascript
-const baseUrl = 'http://localhost:3010';
-const path = '/dnd5e/use-feature';
-const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-};
-const queryString = new URLSearchParams(params).toString();
-const url = `${baseUrl}${path}?${queryString}`;
-
-const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'x-api-key': 'your-api-key-here',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "Priest"
-    })
-});
-const data = await response.json();
-console.log(data);
-```
-
-</TabItem>
-<TabItem value="curl" label="cURL">
-
-```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
-  -H "x-api-key: your-api-key-here" \
-  -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"Priest"}'
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-import requests
-
-base_url = 'http://localhost:3010'
-path = '/dnd5e/use-feature'
-params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
-}
-url = f'{base_url}{path}'
-
-response = requests.post(
-    url,
-    params=params,
-    headers={
-        'x-api-key': 'your-api-key-here',
-        'Content-Type': 'application/json'
-    },
-    json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "Priest"
-    }
-)
-data = response.json()
-print(data)
-```
-
-</TabItem>
-<TabItem value="typescript" label="TypeScript">
-
-```typescript
-import axios from 'axios';
-
-(async () => {
-  const baseUrl = 'http://localhost:3010';
-  const path = '/dnd5e/use-feature';
-  const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-  };
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${baseUrl}${path}?${queryString}`;
-
-  const response = await axios({
-    method: 'post',
-    headers: {
-      'x-api-key': 'your-api-key-here',
-      'Content-Type': 'application/json'
-    },
-    url,
-    data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
-        "abilityName": "Priest"
-      }
-  });
-  const data = response.data;
-  console.log(data);
-})();
-```
-
-</TabItem>
-<TabItem value="emojicode" label="Emojicode">
-
-```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/dnd5e/use-feature🔤 ➡️ path
-
-  💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤?🧲clientId🧲🔤 ➡️ queryString
-
-  💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"Priest"}🔤 ➡️ body
-
-  💭 Build HTTP request
-  🔤POST /dnd5e/use-feature🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
-```
-
-</TabItem>
-</Tabs>
-
-#### Response
-
-**Status:** 200
-
-```json
-{
-  "type": "use-feature-result",
-  "requestId": "use-feature_1774367605619",
-  "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
-    "ability": "Priest",
-    "result": "oeo1w38mmP8wBl16"
-  }
-}
-```
-
-
----
-
-## POST /dnd5e/use-spell
-
-Cast a spell for an actor. Casts a spell from the actor's spell list, consuming spell slots as appropriate. Handles cantrips, leveled spells, and spell-like abilities.
-
-### Parameters
-
-| Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor casting the spell |
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| abilityUuid | string |  | body, query | The UUID of the specific spell (optional if abilityName provided) |
-| abilityName | string |  | body, query | The name of the spell if UUID not provided (optional if abilityUuid provided) |
-| targetUuid | string |  | body, query | The UUID of the target for the spell (optional) |
-| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
-| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-### Returns
-
-**object** - Result of the spell casting operation
-
-### Try It Out
-
-<ApiTester
-  method="POST"
-  path="/dnd5e/use-spell"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
-/>
-
-### Code Examples
-
-<Tabs groupId="programming-language">
-<TabItem value="javascript" label="JavaScript">
-
-```javascript
-const baseUrl = 'http://localhost:3010';
-const path = '/dnd5e/use-spell';
-const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-};
-const queryString = new URLSearchParams(params).toString();
-const url = `${baseUrl}${path}?${queryString}`;
-
-const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'x-api-key': 'your-api-key-here',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "test-polymorph"
-    })
-});
-const data = await response.json();
-console.log(data);
-```
-
-</TabItem>
-<TabItem value="curl" label="cURL">
-
-```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
-  -H "x-api-key: your-api-key-here" \
-  -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"test-polymorph"}'
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-import requests
-
-base_url = 'http://localhost:3010'
-path = '/dnd5e/use-spell'
-params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
-}
-url = f'{base_url}{path}'
-
-response = requests.post(
-    url,
-    params=params,
-    headers={
-        'x-api-key': 'your-api-key-here',
-        'Content-Type': 'application/json'
-    },
-    json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "test-polymorph"
-    }
-)
-data = response.json()
-print(data)
-```
-
-</TabItem>
-<TabItem value="typescript" label="TypeScript">
-
-```typescript
-import axios from 'axios';
-
-(async () => {
-  const baseUrl = 'http://localhost:3010';
-  const path = '/dnd5e/use-spell';
-  const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-  };
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${baseUrl}${path}?${queryString}`;
-
-  const response = await axios({
-    method: 'post',
-    headers: {
-      'x-api-key': 'your-api-key-here',
-      'Content-Type': 'application/json'
-    },
-    url,
-    data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
-        "abilityName": "test-polymorph"
-      }
-  });
-  const data = response.data;
-  console.log(data);
-})();
-```
-
-</TabItem>
-<TabItem value="emojicode" label="Emojicode">
-
-```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/dnd5e/use-spell🔤 ➡️ path
-
-  💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤?🧲clientId🧲🔤 ➡️ queryString
-
-  💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"test-polymorph"}🔤 ➡️ body
-
-  💭 Build HTTP request
-  🔤POST /dnd5e/use-spell🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
-```
-
-</TabItem>
-</Tabs>
-
-#### Response
-
-**Status:** 200
-
-```json
-{
-  "type": "use-spell-result",
-  "requestId": "use-spell_1774367605649",
-  "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
-    "ability": "test-polymorph",
-    "result": null
-  }
-}
-```
-
-
----
-
-## POST /dnd5e/use-item
-
-Use an item for an actor. Activates an item from the actor's inventory, such as drinking a potion, using a magic item, or activating equipment with special properties.
-
-### Parameters
-
-| Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor using the item |
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| abilityUuid | string |  | body, query | The UUID of the specific item (optional if abilityName provided) |
-| abilityName | string |  | body, query | The name of the item if UUID not provided (optional if abilityUuid provided) |
-| targetUuid | string |  | body, query | The UUID of the target for the item (optional) |
-| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
-| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-### Returns
-
-**object** - Result of the item use operation
-
-### Try It Out
-
-<ApiTester
-  method="POST"
-  path="/dnd5e/use-item"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
-/>
-
-### Code Examples
-
-<Tabs groupId="programming-language">
-<TabItem value="javascript" label="JavaScript">
-
-```javascript
-const baseUrl = 'http://localhost:3010';
-const path = '/dnd5e/use-item';
-const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-};
-const queryString = new URLSearchParams(params).toString();
-const url = `${baseUrl}${path}?${queryString}`;
-
-const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'x-api-key': 'your-api-key-here',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "Hammer"
-    })
-});
-const data = await response.json();
-console.log(data);
-```
-
-</TabItem>
-<TabItem value="curl" label="cURL">
-
-```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
-  -H "x-api-key: your-api-key-here" \
-  -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"Hammer"}'
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-import requests
-
-base_url = 'http://localhost:3010'
-path = '/dnd5e/use-item'
-params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
-}
-url = f'{base_url}{path}'
-
-response = requests.post(
-    url,
-    params=params,
-    headers={
-        'x-api-key': 'your-api-key-here',
-        'Content-Type': 'application/json'
-    },
-    json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
-      "abilityName": "Hammer"
-    }
-)
-data = response.json()
-print(data)
-```
-
-</TabItem>
-<TabItem value="typescript" label="TypeScript">
-
-```typescript
-import axios from 'axios';
-
-(async () => {
-  const baseUrl = 'http://localhost:3010';
-  const path = '/dnd5e/use-item';
-  const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
-  };
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${baseUrl}${path}?${queryString}`;
-
-  const response = await axios({
-    method: 'post',
-    headers: {
-      'x-api-key': 'your-api-key-here',
-      'Content-Type': 'application/json'
-    },
-    url,
-    data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
-        "abilityName": "Hammer"
-      }
-  });
-  const data = response.data;
-  console.log(data);
-})();
-```
-
-</TabItem>
-<TabItem value="emojicode" label="Emojicode">
-
-```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/dnd5e/use-item🔤 ➡️ path
-
-  💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤?🧲clientId🧲🔤 ➡️ queryString
-
-  💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","abilityName":"Hammer"}🔤 ➡️ body
-
-  💭 Build HTTP request
-  🔤POST /dnd5e/use-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
-```
-
-</TabItem>
-</Tabs>
-
-#### Response
-
-**Status:** 200
-
-```json
-{
-  "type": "use-item-result",
-  "requestId": "use-item_1774367605569",
-  "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
-    "ability": "Hammer",
-    "result": "MAccCmSp62Gr90hH"
-  }
-}
-```
-
-
----
-
 ## POST /dnd5e/short-rest
 
-Perform a short rest for an actor. Triggers the D&D 5e short rest workflow including hit dice recovery, class feature resets, and HP recovery.
+Perform a short rest for an actor
+
+Triggers the D&D 5e short rest workflow including hit dice recovery, class feature resets, and HP recovery.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| actorUuid | string |  | body, query | UUID of the actor to rest (optional if selected is true) |
-| selected | boolean |  | body, query | Use the currently selected token's actor |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | autoHD | boolean |  | body, query | Automatically spend hit dice during short rest |
 | autoHDThreshold | number |  | body, query | HP threshold below which to auto-spend hit dice (0-1 as fraction of max HP) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -4931,7 +4181,7 @@ Perform a short rest for an actor. Triggers the D&D 5e short rest workflow inclu
 <ApiTester
   method="POST"
   path="/dnd5e/short-rest"
-  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"autoHD","type":"boolean","required":false,"source":"body"},{"name":"autoHDThreshold","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"autoHD","type":"boolean","required":false,"source":"body"},{"name":"autoHDThreshold","type":"number","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -4955,7 +4205,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl"
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
     })
 });
 const data = await response.json();
@@ -4969,7 +4219,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/short-rest?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl"}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}'
 ```
 
 </TabItem>
@@ -4993,7 +4243,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl"
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
     }
 )
 data = response.json()
@@ -5023,7 +4273,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl"
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC"
       }
   });
   const data = response.data;
@@ -5052,7 +4302,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/short-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -5080,9 +4330,9 @@ import axios from 'axios';
 ```json
 {
   "type": "short-rest-result",
-  "requestId": "short-rest_1774367606152",
+  "requestId": "short-rest_1775068884127",
   "data": {
-    "actorUuid": "Actor.ioZexonJDGVuU8zl",
+    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
     "result": {
       "type": "short",
       "deltas": {
@@ -5097,7 +4347,7 @@ import axios from 'axios';
             }
           }
         },
-        "_id": "ioZexonJDGVuU8zl",
+        "_id": "pxZTVHItjx6GgPgC",
         "type": "character"
       },
       "updateItems": [],
@@ -5133,8 +4383,8 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1774367605935,
-              "modifiedTime": 1774367605935,
+              "createdTime": 1775068883943,
+              "modifiedTime": 1775068883943,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
@@ -6696,7 +5946,7 @@ import axios from 'axios';
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
               "lastModifiedBy": "r6bXhB7k9cXa3cif",
-              "modifiedTime": 1774367605451
+              "modifiedTime": 1775068883542
             },
             "effects": [],
             "flags": {
@@ -9043,11 +8293,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1774367604775,
-              "modifiedTime": 1774367604775,
+              "createdTime": 1775068882899,
+              "modifiedTime": 1775068882899,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "cuN0zv7OrhLW1LKO"
+            "_id": "TXqlwJt6TUTGtZOQ"
           },
           {
             "effects": [],
@@ -9205,11 +8455,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1774367604969,
-              "modifiedTime": 1774367604969,
+              "createdTime": 1775068883099,
+              "modifiedTime": 1775068883099,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "xzMsr0JNmiadK4Cr"
+            "_id": "MSWwHolX602YuBpc"
           }
         ],
         "name": "Updated Test Actor",
@@ -10005,8 +9255,8 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1774367580132,
-          "modifiedTime": 1774367606052,
+          "createdTime": 1775068856395,
+          "modifiedTime": 1775068884034,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
@@ -10024,15 +9274,17 @@ import axios from 'axios';
 
 ## POST /dnd5e/long-rest
 
-Perform a long rest for an actor. Triggers the D&D 5e long rest workflow including full HP recovery, spell slot restoration, hit dice recovery, and feature resets.
+Perform a long rest for an actor
+
+Triggers the D&D 5e long rest workflow including full HP recovery, spell slot restoration, hit dice recovery, and feature resets.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| actorUuid | string |  | body, query | UUID of the actor to rest (optional if selected is true) |
-| selected | boolean |  | body, query | Use the currently selected token's actor |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | newDay | boolean |  | body, query | Whether the long rest marks a new day (default: true) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -10045,7 +9297,7 @@ Perform a long rest for an actor. Triggers the D&D 5e long rest workflow includi
 <ApiTester
   method="POST"
   path="/dnd5e/long-rest"
-  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"newDay","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"newDay","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -10069,7 +9321,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "newDay": true
     })
 });
@@ -10084,7 +9336,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/long-rest?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","newDay":true}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","newDay":true}'
 ```
 
 </TabItem>
@@ -10108,7 +9360,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "newDay": True
     }
 )
@@ -10139,7 +9391,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
         "newDay": true
       }
   });
@@ -10169,7 +9421,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","newDay":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","newDay":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/long-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -10197,9 +9449,9 @@ import axios from 'axios';
 ```json
 {
   "type": "long-rest-result",
-  "requestId": "long-rest_1774367606211",
+  "requestId": "long-rest_1775068884165",
   "data": {
-    "actorUuid": "Actor.ioZexonJDGVuU8zl",
+    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
     "result": {
       "type": "long",
       "deltas": {
@@ -10250,7 +9502,7 @@ import axios from 'axios';
             }
           }
         },
-        "_id": "ioZexonJDGVuU8zl",
+        "_id": "pxZTVHItjx6GgPgC",
         "type": "character"
       },
       "updateItems": [],
@@ -10286,8 +9538,8 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1774367605935,
-              "modifiedTime": 1774367605935,
+              "createdTime": 1775068883943,
+              "modifiedTime": 1775068883943,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
@@ -11849,7 +11101,7 @@ import axios from 'axios';
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
               "lastModifiedBy": "r6bXhB7k9cXa3cif",
-              "modifiedTime": 1774367605451
+              "modifiedTime": 1775068883542
             },
             "effects": [],
             "flags": {
@@ -14196,11 +13448,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1774367604775,
-              "modifiedTime": 1774367604775,
+              "createdTime": 1775068882899,
+              "modifiedTime": 1775068882899,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "cuN0zv7OrhLW1LKO"
+            "_id": "TXqlwJt6TUTGtZOQ"
           },
           {
             "effects": [],
@@ -14358,11 +13610,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1774367604969,
-              "modifiedTime": 1774367604969,
+              "createdTime": 1775068883099,
+              "modifiedTime": 1775068883099,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "xzMsr0JNmiadK4Cr"
+            "_id": "MSWwHolX602YuBpc"
           }
         ],
         "name": "Updated Test Actor",
@@ -15158,8 +14410,8 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1774367580132,
-          "modifiedTime": 1774367606052,
+          "createdTime": 1775068856395,
+          "modifiedTime": 1775068884034,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
@@ -15177,20 +14429,22 @@ import axios from 'axios';
 
 ## POST /dnd5e/skill-check
 
-Roll a skill check for an actor. Rolls a D&D 5e skill check with all applicable modifiers including proficiency, expertise, Jack of All Trades, and conditional bonuses.
+Roll a skill check for an actor
+
+Rolls a D&D 5e skill check with all applicable modifiers including proficiency, expertise, Jack of All Trades, and conditional bonuses.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor rolling the check |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
 | skill | string | ✓ | body, query | Skill abbreviation (e.g., "acr", "ath", "ste", "prc") |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 | advantage | boolean |  | body, query | Roll with advantage |
 | disadvantage | boolean |  | body, query | Roll with disadvantage |
 | bonus | string |  | body, query | Extra bonus formula to add (e.g., "1d4", "+2") |
 | createChatMessage | boolean |  | body, query | Whether to post the roll to chat (default: true) |
-| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -15201,7 +14455,7 @@ Roll a skill check for an actor. Rolls a D&D 5e skill check with all applicable 
 <ApiTester
   method="POST"
   path="/dnd5e/skill-check"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"skill","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"disadvantage","type":"boolean","required":false,"source":"body"},{"name":"bonus","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"skill","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"disadvantage","type":"boolean","required":false,"source":"body"},{"name":"bonus","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"}]}
 />
 
 ### Code Examples
@@ -15225,7 +14479,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "skill": "prc"
     })
 });
@@ -15240,7 +14494,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/skill-check?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","skill":"prc"}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","skill":"prc"}'
 ```
 
 </TabItem>
@@ -15264,7 +14518,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "skill": "prc"
     }
 )
@@ -15295,7 +14549,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
         "skill": "prc"
       }
   });
@@ -15325,7 +14579,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","skill":"prc"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","skill":"prc"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/skill-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15353,13 +14607,13 @@ import axios from 'axios';
 ```json
 {
   "type": "skill-check-result",
-  "requestId": "skill-check_1774367605684",
+  "requestId": "skill-check_1775068883711",
   "data": {
-    "actorUuid": "Actor.ioZexonJDGVuU8zl",
+    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
     "skill": "prc",
-    "total": 17,
+    "total": 9,
     "formula": "1d20 + 2",
-    "result": "15 + 2"
+    "result": "7 + 2"
   }
 }
 ```
@@ -15369,20 +14623,22 @@ import axios from 'axios';
 
 ## POST /dnd5e/ability-save
 
-Roll an ability saving throw for an actor. Rolls a D&D 5e ability saving throw with all applicable modifiers.
+Roll an ability saving throw for an actor
+
+Rolls a D&D 5e ability saving throw with all applicable modifiers.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor rolling the save |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
 | ability | string | ✓ | body, query | Ability abbreviation (e.g., "str", "dex", "con", "int", "wis", "cha") |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 | advantage | boolean |  | body, query | Roll with advantage |
 | disadvantage | boolean |  | body, query | Roll with disadvantage |
 | bonus | string |  | body, query | Extra bonus formula to add (e.g., "1d4", "+2") |
 | createChatMessage | boolean |  | body, query | Whether to post the roll to chat (default: true) |
-| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -15393,7 +14649,7 @@ Roll an ability saving throw for an actor. Rolls a D&D 5e ability saving throw w
 <ApiTester
   method="POST"
   path="/dnd5e/ability-save"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"ability","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"disadvantage","type":"boolean","required":false,"source":"body"},{"name":"bonus","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"ability","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"disadvantage","type":"boolean","required":false,"source":"body"},{"name":"bonus","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"}]}
 />
 
 ### Code Examples
@@ -15417,7 +14673,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "ability": "dex"
     })
 });
@@ -15432,7 +14688,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/ability-save?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","ability":"dex"}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"dex"}'
 ```
 
 </TabItem>
@@ -15456,7 +14712,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "ability": "dex"
     }
 )
@@ -15487,7 +14743,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
         "ability": "dex"
       }
   });
@@ -15517,7 +14773,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","ability":"dex"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"dex"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15545,13 +14801,13 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-save-result",
-  "requestId": "ability-save_1774367605731",
+  "requestId": "ability-save_1775068883742",
   "data": {
-    "actorUuid": "Actor.ioZexonJDGVuU8zl",
+    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
     "ability": "dex",
-    "total": 8,
+    "total": 25,
     "formula": "1d20 + 3 + 2 + 0",
-    "result": "3 + 3 + 2 + 0"
+    "result": "20 + 3 + 2 + 0"
   }
 }
 ```
@@ -15561,20 +14817,22 @@ import axios from 'axios';
 
 ## POST /dnd5e/ability-check
 
-Roll an ability check for an actor. Rolls a D&D 5e ability check (raw ability test, not a skill check) with all applicable modifiers.
+Roll an ability check for an actor
+
+Rolls a D&D 5e ability check (raw ability test, not a skill check) with all applicable modifiers.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor rolling the check |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
 | ability | string | ✓ | body, query | Ability abbreviation (e.g., "str", "dex", "con", "int", "wis", "cha") |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 | advantage | boolean |  | body, query | Roll with advantage |
 | disadvantage | boolean |  | body, query | Roll with disadvantage |
 | bonus | string |  | body, query | Extra bonus formula to add (e.g., "1d4", "+2") |
 | createChatMessage | boolean |  | body, query | Whether to post the roll to chat (default: true) |
-| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
@@ -15585,7 +14843,7 @@ Roll an ability check for an actor. Rolls a D&D 5e ability check (raw ability te
 <ApiTester
   method="POST"
   path="/dnd5e/ability-check"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"ability","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"disadvantage","type":"boolean","required":false,"source":"body"},{"name":"bonus","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"ability","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"disadvantage","type":"boolean","required":false,"source":"body"},{"name":"bonus","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"}]}
 />
 
 ### Code Examples
@@ -15609,7 +14867,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "ability": "str"
     })
 });
@@ -15624,7 +14882,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/ability-check?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","ability":"str"}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"str"}'
 ```
 
 </TabItem>
@@ -15648,7 +14906,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "ability": "str"
     }
 )
@@ -15679,7 +14937,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
         "ability": "str"
       }
   });
@@ -15709,7 +14967,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","ability":"str"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"str"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15737,13 +14995,13 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-check-result",
-  "requestId": "ability-check_1774367605758",
+  "requestId": "ability-check_1775068883762",
   "data": {
-    "actorUuid": "Actor.ioZexonJDGVuU8zl",
+    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
     "ability": "str",
-    "total": 3,
+    "total": 7,
     "formula": "1d20 - 1",
-    "result": "4 - 1"
+    "result": "8 - 1"
   }
 }
 ```
@@ -15753,14 +15011,16 @@ import axios from 'axios';
 
 ## POST /dnd5e/death-save
 
-Roll a death saving throw for an actor. Rolls a D&D 5e death saving throw, handling DC 10 CON save, three successes/failures tracking, nat 20 healing, and nat 1 double failure.
+Roll a death saving throw for an actor
+
+Rolls a D&D 5e death saving throw, handling DC 10 CON save, three successes/failures tracking, nat 20 healing, and nat 1 double failure.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| actorUuid | string | ✓ | body, query | UUID of the actor rolling the death save |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
+| clientId | string |  | query | Client ID for the Foundry world |
 | advantage | boolean |  | body, query | Roll with advantage |
 | createChatMessage | boolean |  | body, query | Whether to post the roll to chat (default: true) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -15774,7 +15034,7 @@ Roll a death saving throw for an actor. Rolls a D&D 5e death saving throw, handl
 <ApiTester
   method="POST"
   path="/dnd5e/death-save"
-  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -15798,7 +15058,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl"
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
     })
 });
 const data = await response.json();
@@ -15812,7 +15072,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/death-save?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl"}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}'
 ```
 
 </TabItem>
@@ -15836,7 +15096,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl"
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
     }
 )
 data = response.json()
@@ -15866,7 +15126,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl"
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC"
       }
   });
   const data = response.data;
@@ -15895,7 +15155,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/death-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15923,12 +15183,12 @@ import axios from 'axios';
 ```json
 {
   "type": "death-save-result",
-  "requestId": "death-save_1774367605925",
+  "requestId": "death-save_1775068883931",
   "data": {
-    "actorUuid": "Actor.ioZexonJDGVuU8zl",
-    "total": 10,
+    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+    "total": 18,
     "formula": "1d20",
-    "result": "10",
+    "result": "18",
     "deathSaves": {
       "success": 1,
       "failure": 0
@@ -15942,16 +15202,18 @@ import axios from 'axios';
 
 ## POST /dnd5e/modify-experience
 
-Modify the experience points for a specific actor. Adds or removes experience points from an actor.
+Modify the experience points for a specific actor
+
+Adds or removes experience points from an actor.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | amount | number | ✓ | body, query | The amount of experience to add (can be negative) |
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| actorUuid | string |  | body, query | UUID of the actor to modify |
-| selected | boolean |  | body, query | Modify the selected token's actor |
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| selected | boolean |  | query, body | Whether to get the selected entity |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -15963,7 +15225,7 @@ Modify the experience points for a specific actor. Adds or removes experience po
 <ApiTester
   method="POST"
   path="/dnd5e/modify-experience"
-  parameters={[{"name":"amount","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"amount","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -15987,7 +15249,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "amount": 100
     })
 });
@@ -16002,7 +15264,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/modify-experience?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.ioZexonJDGVuU8zl","amount":100}'
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","amount":100}'
 ```
 
 </TabItem>
@@ -16026,7 +15288,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.ioZexonJDGVuU8zl",
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
       "amount": 100
     }
 )
@@ -16057,7 +15319,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.ioZexonJDGVuU8zl",
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
         "amount": 100
       }
   });
@@ -16087,7 +15349,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.ioZexonJDGVuU8zl","amount":100}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","amount":100}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-experience🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 51❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16115,12 +15377,777 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-experience-result",
-  "requestId": "modify-experience_1774367605094",
+  "requestId": "modify-experience_1775068883215",
   "data": {
-    "actorUuid": "Actor.ioZexonJDGVuU8zl",
+    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
     "oldXp": 0,
     "newXp": 100
   }
 }
 ```
+
+
+---
+
+## POST /dnd5e/use-ability
+
+Use an ability
+
+Activates a specific ability for an actor, optionally targeting another entity
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
+| clientId | string |  | query | Client ID for the Foundry world |
+| abilityUuid | string |  | body, query | The UUID of the specific ability (optional if abilityName provided) |
+| abilityName | string |  | body, query | The name of the ability if UUID not provided (optional if abilityUuid provided) |
+| targetUuid | string |  | body, query | The UUID of the target for the ability (optional) |
+| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Result of the use ability operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-ability"
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/use-ability';
+const params = {
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "Hammer"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/use-ability'
+params = {
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "Hammer"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/use-ability';
+  const params = {
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "abilityName": "Hammer"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/use-ability🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/use-ability🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "use-ability-result",
+  "requestId": "use-ability_1775068883697",
+  "data": {
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "ability": "Hammer",
+    "result": "Z4fpNi7hK4VV4coJ"
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/use-feature
+
+Use a feature
+
+Activates a specific feature for an actor, optionally targeting another entity
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
+| clientId | string |  | query | Client ID for the Foundry world |
+| abilityUuid | string |  | body, query | The UUID of the specific ability (optional if abilityName provided) |
+| abilityName | string |  | body, query | The name of the ability if UUID not provided (optional if abilityUuid provided) |
+| targetUuid | string |  | body, query | The UUID of the target for the ability (optional) |
+| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Result of the use feature operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-feature"
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/use-feature';
+const params = {
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "Priest"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Priest"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/use-feature'
+params = {
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "Priest"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/use-feature';
+  const params = {
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "abilityName": "Priest"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/use-feature🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Priest"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/use-feature🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "use-feature-result",
+  "requestId": "use-feature_1775068883662",
+  "data": {
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "ability": "Priest",
+    "result": "ZWsrpCaoj7GMxhmR"
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/use-spell
+
+Use a spell
+
+Casts a specific spell for an actor, optionally targeting another entity
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
+| clientId | string |  | query | Client ID for the Foundry world |
+| abilityUuid | string |  | body, query | The UUID of the specific ability (optional if abilityName provided) |
+| abilityName | string |  | body, query | The name of the ability if UUID not provided (optional if abilityUuid provided) |
+| targetUuid | string |  | body, query | The UUID of the target for the ability (optional) |
+| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Result of the use spell operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-spell"
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/use-spell';
+const params = {
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "test-polymorph"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"test-polymorph"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/use-spell'
+params = {
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "test-polymorph"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/use-spell';
+  const params = {
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "abilityName": "test-polymorph"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/use-spell🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"test-polymorph"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/use-spell🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "use-spell-result",
+  "requestId": "use-spell_1775068883676",
+  "data": {
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "ability": "test-polymorph",
+    "result": null
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/use-item
+
+Use an item
+
+Uses a specific item for an actor, optionally targeting another entity
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| actorUuid | string | ✓ | body, query | UUID of the actor |
+| clientId | string |  | query | Client ID for the Foundry world |
+| abilityUuid | string |  | body, query | The UUID of the specific ability (optional if abilityName provided) |
+| abilityName | string |  | body, query | The name of the ability if UUID not provided (optional if abilityUuid provided) |
+| targetUuid | string |  | body, query | The UUID of the target for the ability (optional) |
+| targetName | string |  | body, query | The name of the target if UUID not provided (optional) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Result of the use item operation
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/use-item"
+  parameters={[{"name":"actorUuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"abilityUuid","type":"string","required":false,"source":"body"},{"name":"abilityName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/use-item';
+const params = {
+  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "Hammer"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/use-item'
+params = {
+    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "abilityName": "Hammer"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/use-item';
+  const params = {
+    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "abilityName": "Hammer"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/use-item🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/use-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "use-item-result",
+  "requestId": "use-item_1775068883636",
+  "data": {
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "ability": "Hammer",
+    "result": "ot8PKnitKCxZXRD4"
+  }
+}
+```
+
 

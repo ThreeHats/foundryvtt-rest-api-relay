@@ -7,30 +7,32 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# effects
+# Effects
 
 ## GET /effects
 
-Get all active effects on an actor or token. Returns the collection of ActiveEffect documents currently applied to the specified actor or token.
+Get all active effects on an actor or token
+
+Returns the collection of ActiveEffect documents currently applied to the specified actor or token.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | uuid | string | ✓ | body, query | UUID of the actor or token to query |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - Array of active effects
+**array** - Array of active effects
 
 ### Try It Out
 
 <ApiTester
   method="GET"
   path="/effects"
-  parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -43,7 +45,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/effects';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  uuid: 'Actor.ioZexonJDGVuU8zl'
+  uuid: 'Actor.pxZTVHItjx6GgPgC'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -62,7 +64,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/effects?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.ioZexonJDGVuU8zl' \
+curl -X GET 'http://localhost:3010/effects?clientId=foundry-testing-r6bXhB7k9cXa3cif&uuid=Actor.pxZTVHItjx6GgPgC' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -76,7 +78,7 @@ base_url = 'http://localhost:3010'
 path = '/effects'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'uuid': 'Actor.ioZexonJDGVuU8zl'
+    'uuid': 'Actor.pxZTVHItjx6GgPgC'
 }
 url = f'{base_url}{path}'
 
@@ -102,7 +104,7 @@ import axios from 'axios';
   const path = '/effects';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    uuid: 'Actor.ioZexonJDGVuU8zl'
+    uuid: 'Actor.pxZTVHItjx6GgPgC'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -137,7 +139,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤uuid=Actor.ioZexonJDGVuU8zl🔤 ➡️ uuid
+  🔤uuid=Actor.pxZTVHItjx6GgPgC🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -166,9 +168,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-effects-result",
-  "requestId": "get-effects_1774367603195",
+  "requestId": "get-effects_1775068881867",
   "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
     "effects": []
   }
 }
@@ -179,14 +181,16 @@ import axios from 'axios';
 
 ## POST /effects
 
-Add an active effect to an actor or token. Adds a status condition (by statusId) or a custom ActiveEffect (via effectData) to the specified actor or token.
+Add an active effect to an actor or token
+
+Adds a status condition (by statusId) or a custom ActiveEffect (via effectData) to the specified actor or token.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | uuid | string | ✓ | body, query | UUID of the actor or token to add the effect to |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | statusId | string |  | body, query | Standard status condition ID (e.g., "poisoned", "blinded", "prone") |
 | effectData | object |  | body, query | Custom ActiveEffect data object (name, icon, duration, changes) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -200,7 +204,7 @@ Add an active effect to an actor or token. Adds a status condition (by statusId)
 <ApiTester
   method="POST"
   path="/effects"
-  parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"statusId","type":"string","required":false,"source":"body"},{"name":"effectData","type":"object","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"statusId","type":"string","required":false,"source":"body"},{"name":"effectData","type":"object","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -224,7 +228,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "uuid": "Actor.ioZexonJDGVuU8zl",
+      "uuid": "Actor.pxZTVHItjx6GgPgC",
       "effectData": {
         "name": "Test Effect",
         "icon": "icons/svg/aura.svg",
@@ -243,7 +247,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/effects?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"uuid":"Actor.ioZexonJDGVuU8zl","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}'
+  -d '{"uuid":"Actor.pxZTVHItjx6GgPgC","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}'
 ```
 
 </TabItem>
@@ -267,7 +271,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "uuid": "Actor.ioZexonJDGVuU8zl",
+      "uuid": "Actor.pxZTVHItjx6GgPgC",
       "effectData": {
         "name": "Test Effect",
         "icon": "icons/svg/aura.svg",
@@ -302,7 +306,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "uuid": "Actor.ioZexonJDGVuU8zl",
+        "uuid": "Actor.pxZTVHItjx6GgPgC",
         "effectData": {
           "name": "Test Effect",
           "icon": "icons/svg/aura.svg",
@@ -336,7 +340,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"uuid":"Actor.ioZexonJDGVuU8zl","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}🔤 ➡️ body
+  🔤{"uuid":"Actor.pxZTVHItjx6GgPgC","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 110❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -364,12 +368,12 @@ import axios from 'axios';
 ```json
 {
   "type": "add-effect-result",
-  "requestId": "add-effect_1774367603201",
+  "requestId": "add-effect_1775068881875",
   "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
     "effect": {
-      "id": "e5vn9Vc04IrM7PFo",
-      "uuid": "Actor.ioZexonJDGVuU8zl.ActiveEffect.e5vn9Vc04IrM7PFo",
+      "id": "enhJy4tchkKsw51Y",
+      "uuid": "Actor.pxZTVHItjx6GgPgC.ActiveEffect.enhJy4tchkKsw51Y",
       "name": "Test Effect",
       "icon": "icons/svg/aura.svg",
       "statuses": []
@@ -383,14 +387,16 @@ import axios from 'axios';
 
 ## DELETE /effects
 
-Remove an active effect from an actor or token. Removes an effect by its document ID (effectId) or by status condition identifier (statusId).
+Remove an active effect from an actor or token
+
+Removes an effect by its document ID (effectId) or by status condition identifier (statusId).
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | uuid | string | ✓ | body, query | UUID of the actor or token to remove the effect from |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | effectId | string |  | body, query | The ActiveEffect document ID to remove |
 | statusId | string |  | body, query | Standard status condition ID to remove (e.g., "poisoned") |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -404,7 +410,7 @@ Remove an active effect from an actor or token. Removes an effect by its documen
 <ApiTester
   method="DELETE"
   path="/effects"
-  parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"effectId","type":"string","required":false,"source":"body"},{"name":"statusId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"effectId","type":"string","required":false,"source":"body"},{"name":"statusId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -428,8 +434,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "uuid": "Actor.ioZexonJDGVuU8zl",
-      "effectId": "e5vn9Vc04IrM7PFo"
+      "uuid": "Actor.pxZTVHItjx6GgPgC",
+      "effectId": "enhJy4tchkKsw51Y"
     })
 });
 const data = await response.json();
@@ -443,7 +449,7 @@ console.log(data);
 curl -X DELETE 'http://localhost:3010/effects?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"uuid":"Actor.ioZexonJDGVuU8zl","effectId":"e5vn9Vc04IrM7PFo"}'
+  -d '{"uuid":"Actor.pxZTVHItjx6GgPgC","effectId":"enhJy4tchkKsw51Y"}'
 ```
 
 </TabItem>
@@ -467,8 +473,8 @@ response = requests.delete(
         'Content-Type': 'application/json'
     },
     json={
-      "uuid": "Actor.ioZexonJDGVuU8zl",
-      "effectId": "e5vn9Vc04IrM7PFo"
+      "uuid": "Actor.pxZTVHItjx6GgPgC",
+      "effectId": "enhJy4tchkKsw51Y"
     }
 )
 data = response.json()
@@ -498,8 +504,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "uuid": "Actor.ioZexonJDGVuU8zl",
-        "effectId": "e5vn9Vc04IrM7PFo"
+        "uuid": "Actor.pxZTVHItjx6GgPgC",
+        "effectId": "enhJy4tchkKsw51Y"
       }
   });
   const data = response.data;
@@ -528,7 +534,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"uuid":"Actor.ioZexonJDGVuU8zl","effectId":"e5vn9Vc04IrM7PFo"}🔤 ➡️ body
+  🔤{"uuid":"Actor.pxZTVHItjx6GgPgC","effectId":"enhJy4tchkKsw51Y"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤DELETE /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 63❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -556,10 +562,10 @@ import axios from 'axios';
 ```json
 {
   "type": "remove-effect-result",
-  "requestId": "remove-effect_1774367603395",
+  "requestId": "remove-effect_1775068881979",
   "data": {
-    "uuid": "Actor.ioZexonJDGVuU8zl",
-    "removedEffectId": "e5vn9Vc04IrM7PFo"
+    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "removedEffectId": "enhJy4tchkKsw51Y"
   }
 }
 ```
