@@ -7,7 +7,7 @@ import { log } from '../utils/logger';
  */
 export const authRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limit each IP to 5 requests per windowMs
+  max: parseInt(process.env.AUTH_RATE_LIMIT || '5'),
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   handler: (req, res) => {
@@ -28,7 +28,7 @@ export const authRateLimiter = rateLimit({
  */
 export const passwordResetRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3, // Limit each IP to 3 requests per hour
+  max: parseInt(process.env.PASSWORD_RESET_RATE_LIMIT || '3'),
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
@@ -41,7 +41,7 @@ export const passwordResetRateLimiter = rateLimit({
 
 export const accountManagementRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10, // Limit each IP to 10 requests per hour
+  max: parseInt(process.env.ACCOUNT_MGMT_RATE_LIMIT || '10'),
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {

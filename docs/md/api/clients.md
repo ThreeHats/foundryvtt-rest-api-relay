@@ -7,22 +7,30 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# clients
+# Clients
 
 ## GET /clients
 
-Get all connected clients for the authenticated API key Returns a list of all currently connected Foundry VTT clients associated with the provided API key, including their connection details and world information.
+Get all connected clients for the authenticated API key
+
+Returns a list of all currently connected Foundry VTT clients associated with the provided API key, including their connection details and world information.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| x-api-key | string |  | header | API key for authentication |
 
 ### Returns
 
-**object** - Object containing total count and array of connected client details
+**array** - Object containing total count and array of connected client details
 
 ### Try It Out
 
 <ApiTester
   method="GET"
   path="/clients"
-  parameters={[]}
+  parameters={[{"name":"x-api-key","type":"string","required":false,"source":"header"}]}
 />
 
 ### Code Examples
@@ -141,30 +149,18 @@ import axios from 'axios';
     {
       "id": "foundry-testing-r6bXhB7k9cXa3cif",
       "instanceId": "local",
-      "lastSeen": 1774367571744,
-      "connectedSince": 1774367571742,
+      "lastSeen": 1775068854841,
+      "connectedSince": 1775068854838,
       "worldId": "testing",
       "worldTitle": "testing",
       "foundryVersion": "13.348",
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
       "systemVersion": "5.0.4"
-    },
-    {
-      "id": "foundry-rest-api-fCfNJPT9Atc26yyv",
-      "instanceId": "local",
-      "lastSeen": 1774367578644,
-      "connectedSince": 1774367578615,
-      "worldId": "rest-api",
-      "worldTitle": "rest-api",
-      "foundryVersion": "12.331",
-      "systemId": "dnd5e",
-      "systemTitle": "Dungeons & Dragons Fifth Edition",
-      "systemVersion": "4.3.8",
-      "customName": "v12-test"
     }
   ],
-  "total": 2
+  "total": 1
 }
 ```
+
 

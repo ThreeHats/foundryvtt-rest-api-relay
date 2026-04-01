@@ -7,16 +7,18 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# search
+# Search
 
 ## GET /search
 
-Search entities This endpoint allows searching for entities in the Foundry world based on a query string. Requires Quick Insert module to be installed and enabled.
+Search entities
+
+This endpoint allows searching for entities in the Foundry world based on a query string. Requires Quick Insert module to be installed and enabled.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | query | string | ✓ | query | Search query string |
 | clientId | string |  | query | Client ID for the Foundry world |
 | filter | string |  | query | Filter to apply (simple: filter="Actor", property-based: filter="key:value,key2:value2") |
@@ -171,18 +173,18 @@ import axios from 'axios';
 ```json
 {
   "type": "search-result",
-  "requestId": "search_1774367596949",
+  "requestId": "search_1775068876994",
   "query": "test-",
   "filter": "documentType:Item",
   "results": [
     {
       "documentType": "Item",
-      "id": "MzkwwMiKxqXzGG3X",
+      "id": "blRaC6QACL9AyxUo",
       "name": "test-studded leather armor +3",
       "subType": "equipment",
-      "uuid": "Item.MzkwwMiKxqXzGG3X",
+      "uuid": "Item.blRaC6QACL9AyxUo",
       "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
-      "journalLink": "@UUID[Item.MzkwwMiKxqXzGG3X]{test-studded leather armor +3}",
+      "journalLink": "@UUID[Item.blRaC6QACL9AyxUo]{test-studded leather armor +3}",
       "tagline": "Items Directory",
       "formattedMatch": "<strong>test-</strong>studded leather armor +3",
       "resultType": "EntitySearchItem"
@@ -202,4 +204,5 @@ import axios from 'axios';
   ]
 }
 ```
+
 

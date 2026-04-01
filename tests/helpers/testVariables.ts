@@ -13,6 +13,10 @@ export const testVariables = {
   worldName: 'testing',
   username: 'Gamemaster',
   
+  // Test user credentials (for auth endpoint tests)
+  userEmail: process.env.TEST_USER_EMAIL || '',
+  userPassword: process.env.TEST_USER_PASSWORD || '',
+
   // Test data UUIDs (will be populated as entities are created)
   testActorUuid: '',
   testItemUuid: '',

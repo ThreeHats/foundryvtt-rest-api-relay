@@ -7,22 +7,24 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# macro
+# Macro
 
 ## GET /macros
 
-Get all macros Retrieves a list of all macros available in the Foundry world.
+Get all macros
+
+Retrieves a list of all macros available in the Foundry world.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string |  | query | The ID of the Foundry client to connect to |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
 
-**object** - An array of macros with details
+**array** - An array of macros with details
 
 ### Try It Out
 
@@ -161,7 +163,7 @@ import axios from 'axios';
 ```json
 {
   "type": "macros-result",
-  "requestId": "macros_1774367599990",
+  "requestId": "macros_1775068878592",
   "macros": [
     {
       "uuid": "Macro.Nrh1ygc5FiaOejnA",
@@ -175,8 +177,8 @@ import axios from 'axios';
       "canExecute": true
     },
     {
-      "uuid": "Macro.t9vpHDBsGpo0kONJ",
-      "id": "t9vpHDBsGpo0kONJ",
+      "uuid": "Macro.U6cSK3XwXh0ghYcP",
+      "id": "U6cSK3XwXh0ghYcP",
       "name": "test-macro",
       "type": "script",
       "author": "tester",
@@ -194,14 +196,16 @@ import axios from 'axios';
 
 ## POST /macro/:uuid/execute
 
-Execute a macro by UUID Executes a specific macro in the Foundry world by its UUID.
+Execute a macro by UUID
+
+Executes a specific macro in the Foundry world by its UUID.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | uuid | string | ✓ | params | UUID of the macro to execute |
-| clientId | string |  | query | The ID of the Foundry client to connect to |
+| clientId | string |  | query | Client ID for the Foundry world |
 | args | object |  | body | Optional arguments to pass to the macro execution |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -224,7 +228,7 @@ Execute a macro by UUID Executes a specific macro in the Foundry world by its UU
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/macro/Macro.t9vpHDBsGpo0kONJ/execute';
+const path = '/macro/Macro.U6cSK3XwXh0ghYcP/execute';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
 };
@@ -253,7 +257,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/macro/Macro.t9vpHDBsGpo0kONJ/execute?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/macro/Macro.U6cSK3XwXh0ghYcP/execute?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}'
@@ -266,7 +270,7 @@ curl -X POST 'http://localhost:3010/macro/Macro.t9vpHDBsGpo0kONJ/execute?clientI
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/macro/Macro.t9vpHDBsGpo0kONJ/execute'
+path = '/macro/Macro.U6cSK3XwXh0ghYcP/execute'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
 }
@@ -298,7 +302,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/macro/Macro.t9vpHDBsGpo0kONJ/execute';
+  const path = '/macro/Macro.U6cSK3XwXh0ghYcP/execute';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
   };
@@ -339,7 +343,7 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/macro/Macro.t9vpHDBsGpo0kONJ/execute🔤 ➡️ path
+  🔤/macro/Macro.U6cSK3XwXh0ghYcP/execute🔤 ➡️ path
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
@@ -349,7 +353,7 @@ import axios from 'axios';
   🔤{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /macro/Macro.t9vpHDBsGpo0kONJ/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+  🔤POST /macro/Macro.U6cSK3XwXh0ghYcP/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -374,8 +378,8 @@ import axios from 'axios';
 ```json
 {
   "type": "macro-execute-result",
-  "requestId": "macro-execute_1774367599993",
-  "uuid": "Macro.t9vpHDBsGpo0kONJ",
+  "requestId": "macro-execute_1775068878597",
+  "uuid": "Macro.U6cSK3XwXh0ghYcP",
   "success": true,
   "result": {
     "success": true,

@@ -1,0 +1,16 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/relay ./cmd/server/"
+  bin = "./tmp/relay"
+  full_bin = "./tmp/relay"
+  include_ext = ["go"]
+  exclude_dir = ["tmp", "data", "static"]
+  delay = 1000
+
+[log]
+  time = false
+
+[misc]
+  clean_on_exit = true

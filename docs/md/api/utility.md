@@ -7,16 +7,18 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# utility
+# Utility
 
 ## POST /select
 
-Select token(s) Selects one or more tokens in the Foundry VTT client.
+Select token(s)
+
+Selects one or more tokens in the Foundry VTT client.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | uuids | array |  | body | Array of UUIDs to select |
 | name | string |  | body | Name of the token(s) to select |
@@ -185,12 +187,12 @@ import axios from 'axios';
 ```json
 {
   "type": "select-result",
-  "requestId": "select_1774367600369",
+  "requestId": "select_1775068878959",
   "success": true,
   "count": 1,
   "message": "1 entities selected",
   "selected": [
-    "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS"
+    "Scene.kxsUY8QzM6ClEZqt.Token.L1vgbr5N5TEs5v1I"
   ]
 }
 ```
@@ -200,12 +202,14 @@ import axios from 'axios';
 
 ## GET /selected
 
-Get selected token(s) Retrieves the currently selected token(s) in the Foundry VTT client.
+Get selected token(s)
+
+Retrieves the currently selected token(s) in the Foundry VTT client.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -350,12 +354,12 @@ import axios from 'axios';
 ```json
 {
   "type": "selected-result",
-  "requestId": "selected_1774367600374",
+  "requestId": "selected_1775068878964",
   "success": true,
   "selected": [
     {
-      "tokenUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS",
-      "actorUuid": "Scene.u2dOm1Uzbx9CT9jn.Token.N1VQ21SQYx1RYjGS.Actor.ioZexonJDGVuU8zl"
+      "tokenUuid": "Scene.kxsUY8QzM6ClEZqt.Token.L1vgbr5N5TEs5v1I",
+      "actorUuid": "Scene.kxsUY8QzM6ClEZqt.Token.L1vgbr5N5TEs5v1I.Actor.pxZTVHItjx6GgPgC"
     }
   ]
 }
@@ -366,12 +370,14 @@ import axios from 'axios';
 
 ## GET /players
 
-Get players/users Retrieves a list of all users configured in the Foundry VTT world. Useful for discovering valid userId values for permission-scoped API calls.
+Get players/users
+
+Retrieves a list of all users configured in the Foundry VTT world. Useful for discovering valid userId values for permission-scoped API calls.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
@@ -516,7 +522,7 @@ import axios from 'axios';
 ```json
 {
   "type": "players-result",
-  "requestId": "players_1774367600379",
+  "requestId": "players_1775068878967",
   "users": [
     {
       "id": "5ypAoBvOiyjDKiaZ",
@@ -554,12 +560,14 @@ import axios from 'axios';
 
 ## POST /execute-js
 
-Execute JavaScript Executes a JavaScript script in the Foundry VTT client.
+Execute JavaScript
+
+Executes a JavaScript script in the Foundry VTT client.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | script | string |  | body | JavaScript script to execute |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -721,9 +729,10 @@ import axios from 'axios';
 ```json
 {
   "type": "execute-js-result",
-  "requestId": "execute-js_1774367600387",
+  "requestId": "execute-js_1775068878970",
   "success": true,
   "result": "ws://localhost:3010/"
 }
 ```
+
 

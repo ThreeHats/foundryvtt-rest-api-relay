@@ -48,5 +48,10 @@
   },
   "engines": {
     "node": ">=18.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "gray-matter>js-yaml": "3.14.1"
+    }
   }
 }

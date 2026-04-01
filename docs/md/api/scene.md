@@ -7,16 +7,18 @@ import TabItem from '@theme/TabItem';
 
 import ApiTester from '@site/src/components/ApiTester';
 
-# scene
+# Scene
 
 ## GET /scene
 
-Get scene(s) Retrieves one or more scenes by ID, name, active status, viewed status, or all.
+Get scene(s)
+
+Retrieves one or more scenes by ID, name, active status, viewed status, or all.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | ID of a specific scene to retrieve |
 | name | string |  | query | Name of the scene to retrieve |
@@ -170,7 +172,7 @@ import axios from 'axios';
 ```json
 {
   "type": "get-scene-result",
-  "requestId": "get-scene_1774367584375",
+  "requestId": "get-scene_1775068870167",
   "data": [
     {
       "_id": "NUEDEFAULTSCENE0",
@@ -890,7 +892,7 @@ import axios from 'axios';
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
         "createdTime": 1774161335040,
-        "modifiedTime": 1774365414522,
+        "modifiedTime": 1774478428913,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -908,7 +910,7 @@ import axios from 'axios';
       "height": 1000,
       "name": "test-scene",
       "width": 1000,
-      "_id": "u2dOm1Uzbx9CT9jn",
+      "_id": "kxsUY8QzM6ClEZqt",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -1006,8 +1008,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1774367584350,
-        "modifiedTime": 1774367584350,
+        "createdTime": 1775068870141,
+        "modifiedTime": 1775068870141,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -1015,7 +1017,7 @@ import axios from 'axios';
       "height": 500,
       "name": "test-scene-expendable",
       "width": 500,
-      "_id": "jUAhtzPlUbAb5Jfh",
+      "_id": "5j81dbM9EdgSABQF",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -1123,8 +1125,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1774367584363,
-        "modifiedTime": 1774367584363,
+        "createdTime": 1775068870156,
+        "modifiedTime": 1775068870156,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     }
@@ -1142,9 +1144,9 @@ Create a new scene
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | data | object | ✓ | body | Scene data object (name, width, height, grid, etc.) |
-| clientId | string |  | body, query | Client ID for the Foundry world |
+| clientId | string |  | query | Client ID for the Foundry world |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -1156,7 +1158,7 @@ Create a new scene
 <ApiTester
   method="POST"
   path="/scene"
-  parameters={[{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1325,7 +1327,7 @@ import axios from 'axios';
 ```json
 {
   "type": "create-scene-result",
-  "requestId": "create-scene_1774367584346",
+  "requestId": "create-scene_1775068870137",
   "data": {
     "grid": {
       "size": 100,
@@ -1340,7 +1342,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene",
     "width": 1000,
-    "_id": "u2dOm1Uzbx9CT9jn",
+    "_id": "kxsUY8QzM6ClEZqt",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -1438,8 +1440,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1774367584350,
-      "modifiedTime": 1774367584350,
+      "createdTime": 1775068870141,
+      "modifiedTime": 1775068870141,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -1456,12 +1458,12 @@ Update an existing scene
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | data | object | ✓ | body | Object containing the scene fields to update |
-| clientId | string |  | body, query | Client ID for the Foundry world |
-| sceneId | string |  | query, body | ID of the scene to update |
-| name | string |  | query, body | Name of the scene to update (alternative to sceneId) |
-| active | boolean |  | query, body | Set to true to target the active scene |
+| clientId | string |  | query | Client ID for the Foundry world |
+| sceneId | string |  | body, query | ID of the scene to update |
+| name | string |  | body, query | Name of the scene to update (alternative to sceneId) |
+| active | boolean |  | body, query | Set to true to target the active scene |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -1473,7 +1475,7 @@ Update an existing scene
 <ApiTester
   method="PUT"
   path="/scene"
-  parameters={[{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"name","type":"string","required":false,"source":"query"},{"name":"active","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"active","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1497,7 +1499,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "u2dOm1Uzbx9CT9jn",
+      "sceneId": "kxsUY8QzM6ClEZqt",
       "data": {
         "name": "test-scene-updated"
       }
@@ -1514,7 +1516,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/scene?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"u2dOm1Uzbx9CT9jn","data":{"name":"test-scene-updated"}}'
+  -d '{"sceneId":"kxsUY8QzM6ClEZqt","data":{"name":"test-scene-updated"}}'
 ```
 
 </TabItem>
@@ -1537,7 +1539,7 @@ response = requests.put(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "u2dOm1Uzbx9CT9jn",
+      "sceneId": "kxsUY8QzM6ClEZqt",
       "data": {
         "name": "test-scene-updated"
       }
@@ -1570,7 +1572,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "u2dOm1Uzbx9CT9jn",
+        "sceneId": "kxsUY8QzM6ClEZqt",
         "data": {
           "name": "test-scene-updated"
         }
@@ -1602,7 +1604,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"u2dOm1Uzbx9CT9jn","data":{"name":"test-scene-updated"}}🔤 ➡️ body
+  🔤{"sceneId":"kxsUY8QzM6ClEZqt","data":{"name":"test-scene-updated"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1630,7 +1632,7 @@ import axios from 'axios';
 ```json
 {
   "type": "update-scene-result",
-  "requestId": "update-scene_1774367584390",
+  "requestId": "update-scene_1775068870178",
   "data": {
     "grid": {
       "size": 100,
@@ -1645,7 +1647,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene-updated",
     "width": 1000,
-    "_id": "u2dOm1Uzbx9CT9jn",
+    "_id": "kxsUY8QzM6ClEZqt",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -1743,8 +1745,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1774367584350,
-      "modifiedTime": 1774367584392,
+      "createdTime": 1775068870141,
+      "modifiedTime": 1775068870180,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -1761,7 +1763,7 @@ Delete a scene
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
+|------|------|----------|--------|-------------|
 | clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | ID of the scene to delete |
 | name | string |  | query | Name of the scene to delete (alternative to sceneId) |
@@ -1789,7 +1791,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/scene';
 const params = {
   clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  sceneId: 'jUAhtzPlUbAb5Jfh'
+  sceneId: '5j81dbM9EdgSABQF'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1808,7 +1810,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/scene?clientId=foundry-testing-r6bXhB7k9cXa3cif&sceneId=jUAhtzPlUbAb5Jfh' \
+curl -X DELETE 'http://localhost:3010/scene?clientId=foundry-testing-r6bXhB7k9cXa3cif&sceneId=5j81dbM9EdgSABQF' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1822,7 +1824,7 @@ base_url = 'http://localhost:3010'
 path = '/scene'
 params = {
     'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'sceneId': 'jUAhtzPlUbAb5Jfh'
+    'sceneId': '5j81dbM9EdgSABQF'
 }
 url = f'{base_url}{path}'
 
@@ -1848,7 +1850,7 @@ import axios from 'axios';
   const path = '/scene';
   const params = {
     clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    sceneId: 'jUAhtzPlUbAb5Jfh'
+    sceneId: '5j81dbM9EdgSABQF'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1883,7 +1885,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤sceneId=jUAhtzPlUbAb5Jfh🔤 ➡️ sceneId
+  🔤sceneId=5j81dbM9EdgSABQF🔤 ➡️ sceneId
   🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1912,7 +1914,7 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-scene-result",
-  "requestId": "delete-scene_1774367589416",
+  "requestId": "delete-scene_1775068875211",
   "success": true
 }
 ```
@@ -1927,8 +1929,8 @@ Switch the active scene
 ### Parameters
 
 | Name | Type | Required | Source | Description |
-|------|------|----------|--------|--------------|
-| clientId | string |  | body, query | Client ID for the Foundry world |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | body, query | ID of the scene to activate |
 | name | string |  | body, query | Name of the scene to activate (alternative to sceneId) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
@@ -1942,7 +1944,7 @@ Switch the active scene
 <ApiTester
   method="POST"
   path="/switch-scene"
-  parameters={[{"name":"clientId","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -1966,7 +1968,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "u2dOm1Uzbx9CT9jn"
+      "sceneId": "kxsUY8QzM6ClEZqt"
     })
 });
 const data = await response.json();
@@ -1980,7 +1982,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/switch-scene?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"u2dOm1Uzbx9CT9jn"}'
+  -d '{"sceneId":"kxsUY8QzM6ClEZqt"}'
 ```
 
 </TabItem>
@@ -2003,7 +2005,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "u2dOm1Uzbx9CT9jn"
+      "sceneId": "kxsUY8QzM6ClEZqt"
     }
 )
 data = response.json()
@@ -2033,7 +2035,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "u2dOm1Uzbx9CT9jn"
+        "sceneId": "kxsUY8QzM6ClEZqt"
       }
   });
   const data = response.data;
@@ -2062,7 +2064,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"u2dOm1Uzbx9CT9jn"}🔤 ➡️ body
+  🔤{"sceneId":"kxsUY8QzM6ClEZqt"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -2090,7 +2092,7 @@ import axios from 'axios';
 ```json
 {
   "type": "switch-scene-result",
-  "requestId": "switch-scene_1774367584400",
+  "requestId": "switch-scene_1775068870188",
   "success": true,
   "data": {
     "grid": {
@@ -2106,7 +2108,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene-updated",
     "width": 1000,
-    "_id": "u2dOm1Uzbx9CT9jn",
+    "_id": "kxsUY8QzM6ClEZqt",
     "active": true,
     "navigation": true,
     "navOrder": 0,
@@ -2204,8 +2206,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1774367584350,
-      "modifiedTime": 1774367584402,
+      "createdTime": 1775068870141,
+      "modifiedTime": 1775068870192,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
