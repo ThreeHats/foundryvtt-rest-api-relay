@@ -172,9 +172,6 @@ func (s *SQLUserStore) FindAll(ctx context.Context) ([]*User, error) {
 }
 
 func (s *SQLUserStore) Create(ctx context.Context, user *User) error {
-	query := fmt.Sprintf(`INSERT INTO %s (email, password, api_key, requests_this_month, requests_today, subscription_status, created_at, updated_at)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`, s.tableName())
-
 	now := time.Now()
 	status := "free"
 	if user.SubscriptionStatus.Valid {
@@ -182,7 +179,7 @@ func (s *SQLUserStore) Create(ctx context.Context, user *User) error {
 	}
 
 	if s.DBType == "sqlite" {
-		query = fmt.Sprintf(`INSERT INTO Users (email, password, %s, %s, %s, %s, %s, %s)
+		query := fmt.Sprintf(`INSERT INTO Users (email, password, %s, %s, %s, %s, %s, %s)
 			VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
 			s.col("api_key"), s.col("requests_this_month"), s.col("requests_today"),
 			s.col("subscription_status"), s.col("created_at"), s.col("updated_at"))
@@ -201,6 +198,11 @@ func (s *SQLUserStore) Create(ctx context.Context, user *User) error {
 		return nil
 	}
 
+	query := fmt.Sprintf(`INSERT INTO %s (email, password, %s, %s, %s, %s, %s, %s)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`,
+		s.tableName(),
+		s.col("api_key"), s.col("requests_this_month"), s.col("requests_today"),
+		s.col("subscription_status"), s.col("created_at"), s.col("updated_at"))
 	return s.DB.QueryRowContext(ctx, query,
 		user.Email, user.Password, user.APIKey, user.RequestsThisMonth, user.RequestsToday, status, now, now,
 	).Scan(&user.ID)

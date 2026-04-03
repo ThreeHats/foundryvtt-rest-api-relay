@@ -53,33 +53,28 @@ jobs:
           echo -e "${FORMATTED_NOTES}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      # Update version in package.json, and api.ts
+      # Update version in package.json and Go server
       - name: Update version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION=${{ steps.get_version.outputs.version }}
           echo "Updating version to $VERSION"
-          
+
           # Switch to main branch first
           git checkout main
           git pull origin main
-          
+
           # Update package.json
           jq --arg v "$VERSION" '.version = $v' package.json > package.tmp.json && mv package.tmp.json package.json
-          # Update api.ts
-          sed -i "s/^export const VERSION = .*/export const VERSION = '$VERSION';/" src/routes/api.ts
-          
+          # Update Go server version
+          sed -i "s/const version = .*/const version = \"$VERSION\"/" go-relay/cmd/server/main.go
+
           # Configure git
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
+
           # Commit and push changes
-          git add package.json src/routes/api.ts
+          git add package.json go-relay/cmd/server/main.go
           git commit -m "bump version to $VERSION [skip ci]"
           git push origin main
 
@@ -109,6 +104,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          file: go-relay/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -127,7 +123,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           mkdir -p release
-          zip -r release/foundryvtt-rest-api-relay.zip . -x "node_modules/*" -x ".git/*" -x ".github/*"
+          zip -r release/foundryvtt-rest-api-relay.zip . -x "node_modules/*" -x ".git/*" -x ".github/*" -x "go-relay/tmp/*" -x "go-relay/data/*"
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')

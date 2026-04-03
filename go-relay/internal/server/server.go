@@ -53,12 +53,16 @@ func New(cfg *config.Config, db *database.DB, redis *config.RedisClient, version
 		SSEManager:     helpers.NewSSEManager(),
 		SheetSessions:  ws.NewSheetSessionManager(cfg.MaxSheetSessionsPerKey),
 	}
-	s.Headless = worker.NewHeadlessManager(s.ClientManager, redis, cfg)
+	if cfg.AllowHeadless {
+		s.Headless = worker.NewHeadlessManager(s.ClientManager, redis, cfg)
+	}
 
 	// Clean up when a Foundry client disconnects
 	s.ClientManager.OnClientRemoved = func(clientID string) {
 		s.SheetSessions.TerminateSessionsForClient(clientID)
-		s.Headless.OnClientDisconnected(clientID)
+		if s.Headless != nil {
+			s.Headless.OnClientDisconnected(clientID)
+		}
 	}
 
 	// Register WS message handlers with SSE fan-out
@@ -77,39 +81,42 @@ func New(cfg *config.Config, db *database.DB, redis *config.RedisClient, version
 	s.ClientManager.StartCleanupLoop(ctx, time.Duration(cfg.ClientCleanupIntervalMs)*time.Millisecond)
 	s.PendingReqs.StartCleanupLoop(ctx, 30*time.Second, 30*time.Second)
 	s.SheetSessions.StartCleanupLoop(ctx)
-	s.Headless.StartCleanupLoop(ctx)
+	if s.Headless != nil {
+		s.Headless.StartCleanupLoop(ctx)
+	}
 
 	// Set up auto-start for scoped keys with stored credentials
-	// Track recent failures to prevent retry loops
-	var autoStartMu sync.Mutex
-	autoStartCooldowns := make(map[int64]time.Time) // scopedKeyID -> cooldown until
+	if s.Headless != nil {
+		var autoStartMu sync.Mutex
+		autoStartCooldowns := make(map[int64]time.Time) // scopedKeyID -> cooldown until
 
-	helpers.AutoStartFunc = func(reqCtx *helpers.RequestContext) string {
-		if reqCtx == nil || reqCtx.ScopedKey == nil || reqCtx.MasterAPIKey == "" {
-			return ""
-		}
+		helpers.AutoStartFunc = func(reqCtx *helpers.RequestContext) string {
+			if reqCtx == nil || reqCtx.ScopedKey == nil || reqCtx.MasterAPIKey == "" {
+				return ""
+			}
 
-		keyID := reqCtx.ScopedKey.ID
+			keyID := reqCtx.ScopedKey.ID
 
-		// Check cooldown
-		autoStartMu.Lock()
-		if until, ok := autoStartCooldowns[keyID]; ok && time.Now().Before(until) {
-			autoStartMu.Unlock()
-			return ""
-		}
-		autoStartMu.Unlock()
-
-		clientID, err := s.Headless.StartHeadlessWithStoredCredentials(
-			reqCtx.ScopedKey.ID, reqCtx.MasterAPIKey, s.db, s.cfg, "")
-		if err != nil {
-			log.Warn().Err(err).Int64("scopedKeyId", keyID).Msg("Auto-start headless failed")
-			// Cooldown: don't retry for 60 seconds
+			// Check cooldown
 			autoStartMu.Lock()
-			autoStartCooldowns[keyID] = time.Now().Add(60 * time.Second)
+			if until, ok := autoStartCooldowns[keyID]; ok && time.Now().Before(until) {
+				autoStartMu.Unlock()
+				return ""
+			}
 			autoStartMu.Unlock()
-			return ""
+
+			clientID, err := s.Headless.StartHeadlessWithStoredCredentials(
+				reqCtx.ScopedKey.ID, reqCtx.MasterAPIKey, s.db, s.cfg, "")
+			if err != nil {
+				log.Warn().Err(err).Int64("scopedKeyId", keyID).Msg("Auto-start headless failed")
+				// Cooldown: don't retry for 60 seconds
+				autoStartMu.Lock()
+				autoStartCooldowns[keyID] = time.Now().Add(60 * time.Second)
+				autoStartMu.Unlock()
+				return ""
+			}
+			return clientID
 		}
-		return clientID
 	}
 
 	s.router = s.setupRouter()
@@ -157,14 +164,17 @@ func (s *Server) setupRouter() *chi.Mux {
 	// Auth routes
 	r.Mount("/auth", handler.AuthRouter(s.db, s.cfg))
 
-	// Stripe routes
-	r.Mount("/api/subscriptions", handler.StripeRouter(s.db, s.cfg))
-	r.Mount("/api/webhooks", handler.WebhookRouter(s.db, s.cfg))
-
-	// API routes — all require auth middleware
+	// API routes — auth middleware needed by Stripe and API routes
 	isMemory := s.cfg.DBType == "memory"
 	authMw := appmw.AuthMiddleware(s.db, s.ClientManager, isMemory)
 	usageMw := appmw.TrackAPIUsage(s.db, s.cfg.FreeAPIRequestsLimit, s.cfg.DailyRequestLimit, isMemory)
+
+	// Stripe routes — subscriptions require auth, webhooks do not
+	r.Route("/api/subscriptions", func(sub chi.Router) {
+		sub.Use(authMw)
+		sub.Mount("/", handler.StripeRouter(s.db, s.cfg))
+	})
+	r.Mount("/api/webhooks", handler.WebhookRouter(s.db, s.cfg))
 
 	// WebSocket routes — registered before API route group to avoid catch-all conflict
 	// Use isMemory (not IsLocalMode) so sqlite still validates API keys
@@ -173,6 +183,9 @@ func (s *Server) setupRouter() *chi.Mux {
 		CleanupInterval: time.Duration(s.cfg.ClientCleanupIntervalMs) * time.Millisecond,
 		ValidateAPIKey:   service.MakeWSValidateAPIKey(s.db, isMemory),
 		ValidateHeadless: func(clientID, token string) (bool, error) {
+			if s.Headless == nil {
+				return false, nil
+			}
 			return s.Headless.ValidateHeadlessSession(clientID, token)
 		},
 	}
@@ -209,7 +222,10 @@ func (s *Server) setupRouter() *chi.Mux {
 	handler.RegisterAPIRoutes(r, s.ClientManager, s.PendingReqs, s.cfg, s.db, s.SSEManager, s.Headless, authMw, usageMw)
 
 	// Static file serving
-	baseDir := ".." // Relative to go-relay directory
+	baseDir := os.Getenv("STATIC_DIR")
+	if baseDir == "" {
+		baseDir = ".." // Relative to go-relay directory (local dev)
+	}
 
 	// API spec endpoints with dynamic URL injection
 	if p := findStaticFile(baseDir, "public/openapi.json"); p != "" {

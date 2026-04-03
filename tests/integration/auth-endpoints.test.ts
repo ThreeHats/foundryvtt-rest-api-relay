@@ -30,6 +30,9 @@ const masterApiKey = testVariables.apiKey;
 // Whether we have test user credentials configured
 const hasUserCredentials = userEmail !== '' && userPassword !== '';
 
+// Whether registration is disabled on the server (DISABLE_REGISTRATION)
+let registrationDisabled = false;
+
 // Whether Stripe test keys are configured (check via a status request)
 let stripeEnabled = false;
 
@@ -62,6 +65,13 @@ describe('Auth Endpoints', () => {
       };
 
       const captured = await captureExample(requestConfig, {}, '/auth/register');
+
+      if (captured.response.status === 403) {
+        registrationDisabled = true;
+        console.log('Registration is disabled on this server — skipping registration-dependent tests');
+        return;
+      }
+
       capturedExamples.push(captured);
 
       expect(captured.response.status).toBe(201);
@@ -78,6 +88,8 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/register - should reject missing fields', async () => {
+      if (registrationDisabled) return;
+
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/register`,
@@ -98,6 +110,8 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/register - should reject weak password', async () => {
+      if (registrationDisabled) return;
+
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/register`,
@@ -118,6 +132,8 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/register - should reject duplicate email', async () => {
+      if (registrationDisabled) return;
+
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/register`,
@@ -177,6 +193,7 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/login - should reject wrong password', async () => {
+      if (registrationDisabled) return;
       // Use throwaway email since we know it exists
       const requestConfig: ApiRequestConfig = {
         url: {
@@ -201,6 +218,7 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/login - should reject missing fields', async () => {
+      if (registrationDisabled) return;
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/login`,
@@ -458,6 +476,7 @@ describe('Auth Endpoints', () => {
 
   describe('/auth/regenerate-key', () => {
     test('POST /auth/regenerate-key - regenerate API key', async () => {
+      if (registrationDisabled) return;
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/regenerate-key`,
@@ -519,6 +538,7 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/regenerate-key - should reject wrong password', async () => {
+      if (registrationDisabled) return;
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/regenerate-key`,
@@ -541,6 +561,7 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/regenerate-key - should reject missing fields', async () => {
+      if (registrationDisabled) return;
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/regenerate-key`,
@@ -568,6 +589,7 @@ describe('Auth Endpoints', () => {
 
   describe('/auth/forgot-password', () => {
     test('POST /auth/forgot-password - request reset for valid email', async () => {
+      if (registrationDisabled) return;
       // Use throwaway email to avoid sending real emails
       const requestConfig: ApiRequestConfig = {
         url: {

@@ -89,7 +89,18 @@ func StripeRouter(db *database.DB, cfg *config.Config) chi.Router {
 
 		// Get or create Stripe customer
 		customerId := user.StripeCustomerID.String
-		if !user.StripeCustomerID.Valid || customerId == "" {
+		needsNewCustomer := !user.StripeCustomerID.Valid || customerId == ""
+
+		// Verify existing customer still exists in Stripe
+		if !needsNewCustomer {
+			_, err := stripeCustomer.Get(customerId, nil)
+			if err != nil {
+				log.Warn().Str("customerId", customerId).Int64("userId", user.ID).Msg("Stale Stripe customer ID, creating new customer")
+				needsNewCustomer = true
+			}
+		}
+
+		if needsNewCustomer {
 			customerParams := &stripe.CustomerParams{
 				Email: stripe.String(user.Email),
 				Params: stripe.Params{
@@ -200,8 +211,10 @@ func WebhookRouter(db *database.DB, cfg *config.Config) chi.Router {
 			return
 		}
 
-		// Verify webhook signature
-		event, err := webhook.ConstructEvent(body, r.Header.Get("Stripe-Signature"), cfg.StripeWebhookSecret)
+		// Verify webhook signature (ignore API version mismatch — Stripe dashboard may use a newer version)
+		event, err := webhook.ConstructEventWithOptions(body, r.Header.Get("Stripe-Signature"), cfg.StripeWebhookSecret, webhook.ConstructEventOptions{
+			IgnoreAPIVersionMismatch: true,
+		})
 		if err != nil {
 			log.Error().Err(err).Msg("Webhook signature verification failed")
 			w.WriteHeader(http.StatusBadRequest)
@@ -268,6 +281,7 @@ func handleSubscriptionUpdated(db *database.DB, event stripe.Event) bool {
 	}
 
 	// Status priority check to prevent downgrade race conditions
+	// Only apply within the SAME subscription — a new subscription ID always wins
 	newPriority, ok := statusPriority[effectiveStatus]
 	if !ok {
 		newPriority = 1
@@ -278,7 +292,13 @@ func handleSubscriptionUpdated(db *database.DB, event stripe.Event) bool {
 		currentPriority = -1
 	}
 
-	if newPriority < currentPriority {
+	currentSubID := ""
+	if user.SubscriptionID.Valid {
+		currentSubID = user.SubscriptionID.String
+	}
+	sameSubscription := currentSubID == subscription.ID
+
+	if sameSubscription && newPriority < currentPriority {
 		log.Info().
 			Int64("userId", user.ID).
 			Str("currentStatus", currentStatus).

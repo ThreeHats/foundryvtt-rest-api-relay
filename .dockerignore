@@ -1,54 +1,28 @@
-# Development
-.yarn
-.vscode
-.idea
-
 # Dependencies
 node_modules
 docs/node_modules
-dist
-docs/build
-docs/.docusaurus
+frontend/node_modules
 
 # Environment
 .env
-.env.production
-.env.local
-.env.development
+.env.*
 
 # Logs
 logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-# Test coverage
+# Test
 coverage
+test-results
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Cache directories
+# Cache
 .npm
 .cache
 .pnpm-store
-.yarn/cache
-.parcel-cache
 
 # Build artifacts
-dist/
-build/
-out/
-
-# Documentation build artifacts
-docs/build/
-docs/.docusaurus/
+docs/build
+docs/.docusaurus
 
 # Git
 .git/
@@ -58,45 +32,28 @@ docs/.docusaurus/
 # CI/CD
 .github/
 fly.toml
-Dockerfile*
+fly.staging.toml
 docker-compose*.yml
 
-# Database
+# Database/runtime
 data/
 *.db
 *.sqlite
 *.sqlite3
+go-relay/data/
+go-relay/tmp/
 
-# Misc
-.DS_Store
-.nyc_output
-*.tgz
-*.tar.gz
-coverage/
-.coverage
-.sass-cache
-lib-cov
-*.lcov
-.instrument
-.eslintcache
-
-# IDE
+# IDE/OS
 .vscode/
 .idea/
+.DS_Store
 *.swp
 *.swo
-*~
-
-# OS generated files
-Thumbs.db
-ehthumbs.db
-Desktop.ini
 
 # Documentation
 README.md
-*.md
-docs/build/
-docs/.docusaurus/
-docs/node_modules/
+CLAUDE.md
+CHANGELOG.md
 
 .VSCodeCounter/
+.claude/

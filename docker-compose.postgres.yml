@@ -18,7 +18,9 @@ services:
     restart: unless-stopped
 
   relay:
-    image: threehats/foundryvtt-rest-api-relay:latest
+    build:
+      context: .
+      dockerfile: go-relay/Dockerfile
     container_name: foundryvtt-rest-api-relay
     ports:
       - "3010:3010"

@@ -76,6 +76,11 @@ func New(cfg *config.Config) (*DB, error) {
 		sqlDB.SetMaxOpenConns(25)
 		sqlDB.SetMaxIdleConns(5)
 		sqlDB.SetConnMaxLifetime(5 * time.Minute)
+		// Sequelize-created Postgres uses camelCase columns; normalize for matching.
+		sqlDB.Unsafe()
+		sqlDB.MapperFunc(func(s string) string {
+			return strings.ToLower(strings.ReplaceAll(s, "_", ""))
+		})
 		db.sqlDB = sqlDB
 		return db, nil
 	}
@@ -214,6 +219,45 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			return fmt.Errorf("postgres migration: %w", err)
 		}
 	}
+
+	// Add columns that may be missing from Sequelize-created tables
+	alterMigrations := []string{
+		`ALTER TABLE "Users" ADD COLUMN IF NOT EXISTS "maxHeadlessSessions" INTEGER`,
+	}
+	for _, m := range alterMigrations {
+		_, _ = db.sqlDB.ExecContext(ctx, m)
+	}
+
+	// Rename snake_case columns to camelCase to match Sequelize convention.
+	// These are safe to run repeatedly — they no-op if already renamed.
+	renames := []struct{ table, from, to string }{
+		// ApiKeys table
+		{"ApiKeys", "user_id", "userId"},
+		{"ApiKeys", "scoped_client_id", "scopedClientId"},
+		{"ApiKeys", "scoped_user_id", "scopedUserId"},
+		{"ApiKeys", "daily_limit", "dailyLimit"},
+		{"ApiKeys", "requests_today", "requestsToday"},
+		{"ApiKeys", "last_request_date", "lastRequestDate"},
+		{"ApiKeys", "foundry_url", "foundryUrl"},
+		{"ApiKeys", "foundry_username", "foundryUsername"},
+		{"ApiKeys", "encrypted_foundry_password", "encryptedFoundryPassword"},
+		{"ApiKeys", "password_iv", "passwordIv"},
+		{"ApiKeys", "password_auth_tag", "passwordAuthTag"},
+		{"ApiKeys", "expires_at", "expiresAt"},
+		{"ApiKeys", "created_at", "createdAt"},
+		{"ApiKeys", "updated_at", "updatedAt"},
+		// PasswordResetTokens table
+		{"PasswordResetTokens", "user_id", "userId"},
+		{"PasswordResetTokens", "token_hash", "tokenHash"},
+		{"PasswordResetTokens", "expires_at", "expiresAt"},
+		{"PasswordResetTokens", "created_at", "createdAt"},
+		{"PasswordResetTokens", "updated_at", "updatedAt"},
+	}
+	for _, r := range renames {
+		_, _ = db.sqlDB.ExecContext(ctx, fmt.Sprintf(
+			`ALTER TABLE "%s" RENAME COLUMN %s TO "%s"`, r.table, r.from, r.to))
+	}
+
 	return nil
 }
 

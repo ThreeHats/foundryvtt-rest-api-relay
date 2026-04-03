@@ -2,24 +2,17 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "commonjs",
-    "outDir": "./dist",
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/lib"
-    ],
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src/**/*",
-    "node_modules/puppeteer-tsd/src/index.d.ts"
+    "tests/**/*",
+    "scripts/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "node_modules/**/*",
-    "dist"
+    "node_modules"
   ]
 }

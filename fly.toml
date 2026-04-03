@@ -3,6 +3,7 @@ app = 'foundryvtt-rest-api-relay'
 primary_region = 'ord'
 
 [build]
+  dockerfile = "go-relay/Dockerfile"
 
 [http]
   # This is the port Fly.io will expose to the internet
@@ -26,7 +27,7 @@ primary_region = 'ord'
     grace_period = "45s"  # Increased from 30s to allow more time for Redis reconnection
     interval = "30s"
     method = "GET"
-    path = "/health"
+    path = "/api/health"
     timeout = "10s"  # Increased from 5s
 
   [http_service.concurrency]

@@ -34,12 +34,9 @@ var snakeToCamel = map[string]string{
 }
 
 // Col returns the correct column name for a given database type.
-// For SQLite (Sequelize-created tables), maps snake_case to quoted camelCase.
-// For PostgreSQL, returns the snake_case name as-is.
+// Sequelize creates camelCase columns in both SQLite and PostgreSQL,
+// so we always map snake_case to quoted camelCase.
 func Col(dbType, name string) string {
-	if dbType != "sqlite" {
-		return name
-	}
 	if camel, ok := snakeToCamel[name]; ok {
 		return `"` + camel + `"`
 	}

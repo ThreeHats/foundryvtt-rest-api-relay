@@ -27,6 +27,7 @@ type Config struct {
 	// Limits
 	FreeAPIRequestsLimit int
 	DailyRequestLimit    int
+	AllowHeadless        bool
 	MaxHeadlessSessions  int
 	MaxSheetSessionsPerKey int
 
@@ -78,6 +79,7 @@ func Load() *Config {
 
 		FreeAPIRequestsLimit: getEnvInt("FREE_API_REQUESTS_LIMIT", 100),
 		DailyRequestLimit:    getEnvInt("DAILY_REQUEST_LIMIT", 1000),
+		AllowHeadless:        getEnvBool("ALLOW_HEADLESS", true),
 		MaxHeadlessSessions:  getEnvInt("MAX_HEADLESS_SESSIONS", 1),
 		MaxSheetSessionsPerKey: getEnvInt("MAX_SHEET_SESSIONS_PER_KEY", 3),
 
