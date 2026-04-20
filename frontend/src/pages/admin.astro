@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdminShell from '../components/admin/AdminShell.svelte';
+---
+
+<BaseLayout title="Admin — Foundry REST API">
+  <AdminShell client:load />
+</BaseLayout>
+
+<style is:global>
+  @import '../styles/admin.css';
+</style>

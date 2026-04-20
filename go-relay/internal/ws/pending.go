@@ -1,11 +1,11 @@
 package ws
 
 import (
-	"encoding/json"
 	"net/http"
 	"sync"
 	"time"
 
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/metrics"
 	"github.com/rs/zerolog/log"
 )
 
@@ -13,7 +13,7 @@ import (
 var PendingRequestTypes = map[string]bool{
 	"search": true, "entity": true, "structure": true, "contents": true,
 	"create": true, "update": true, "delete": true,
-	"rolls": true, "last-roll": true, "roll": true, "get-sheet": true,
+	"rolls": true, "last-roll": true, "roll": true,
 	"macro-execute": true, "macros": true,
 	"encounters": true, "start-encounter": true, "next-turn": true, "next-round": true,
 	"last-turn": true, "last-round": true, "end-encounter": true,
@@ -34,7 +34,17 @@ var PendingRequestTypes = map[string]bool{
 	"short-rest": true, "long-rest": true, "skill-check": true,
 	"ability-save": true, "ability-check": true, "death-save": true,
 	"get-effects": true, "add-effect": true, "remove-effect": true,
+	"get-status-effects": true,
 	"sheet-screenshot": true,
+	"move-token": true, "measure-distance": true,
+	"get-playlists": true, "playlist-play": true, "playlist-stop": true,
+	"playlist-next": true, "playlist-volume": true, "play-sound": true, "stop-sound": true,
+	"world-info": true,
+	"get-concentration": true, "break-concentration": true, "concentration-save": true,
+	"equip-item": true, "attune-item": true, "transfer-currency": true,
+	"scene-screenshot": true, "scene-raw-image": true,
+	"get-users": true, "get-user": true, "create-user": true,
+	"update-user": true, "delete-user": true,
 }
 
 // WSResponse is the response received from a Foundry client via WebSocket.
@@ -83,8 +93,17 @@ func NewPendingRequests() *PendingRequests {
 // Store adds a pending request.
 func (p *PendingRequests) Store(id string, req *PendingRequest) {
 	p.mu.Lock()
-	defer p.mu.Unlock()
 	p.requests[id] = req
+	count := len(p.requests)
+	p.mu.Unlock()
+	metrics.WSPendingRequests.Set(float64(count))
+}
+
+// Count returns the number of pending requests currently tracked.
+func (p *PendingRequests) Count() int {
+	p.mu.RLock()
+	defer p.mu.RUnlock()
+	return len(p.requests)
 }
 
 // Load retrieves a pending request.
@@ -98,8 +117,10 @@ func (p *PendingRequests) Load(id string) (*PendingRequest, bool) {
 // Delete removes a pending request.
 func (p *PendingRequests) Delete(id string) {
 	p.mu.Lock()
-	defer p.mu.Unlock()
 	delete(p.requests, id)
+	count := len(p.requests)
+	p.mu.Unlock()
+	metrics.WSPendingRequests.Set(float64(count))
 }
 
 // Resolve sends a response to a pending request and removes it.
@@ -121,7 +142,11 @@ func (p *PendingRequests) Resolve(id string, statusCode int, data map[string]int
 	select {
 	case req.ResponseCh <- resp:
 	default:
-		log.Warn().Str("requestId", id).Msg("Response channel full or closed")
+		log.Warn().
+			Str("requestId", id).
+			Str("clientId", req.ClientID).
+			Str("type", req.Type).
+			Msg("Response channel full or closed")
 	}
 }
 
@@ -145,15 +170,30 @@ func (p *PendingRequests) ResolveRaw(id string, statusCode int, raw []byte) {
 	}
 }
 
-// CleanupStale removes pending requests older than the given duration.
+// CleanupStale removes pending requests older than the given duration,
+// sending each a 408 timeout response so waiting handlers exit cleanly.
+// We never close ResponseCh — closing is not needed (goroutines use select
+// with ctx.Done) and avoids any theoretical panic if a send races the close.
 func (p *PendingRequests) CleanupStale(maxAge time.Duration) {
 	p.mu.Lock()
-	defer p.mu.Unlock()
 	cutoff := time.Now().Add(-maxAge)
+	var stale []*PendingRequest
 	for id, req := range p.requests {
 		if req.Timestamp.Before(cutoff) {
-			close(req.ResponseCh)
+			stale = append(stale, req)
 			delete(p.requests, id)
+		}
+	}
+	count := len(p.requests)
+	p.mu.Unlock()
+
+	metrics.WSPendingRequests.Set(float64(count))
+
+	// Send timeout responses outside the lock so slow receivers don't block cleanup.
+	for _, req := range stale {
+		select {
+		case req.ResponseCh <- &WSResponse{StatusCode: 408, Data: map[string]interface{}{"error": "request timeout"}}:
+		default:
 		}
 	}
 }
@@ -174,37 +214,3 @@ func (p *PendingRequests) StartCleanupLoop(ctx interface{ Done() <-chan struct{}
 	}()
 }
 
-// SanitizeResponse deep-removes sensitive keys from response data.
-func SanitizeResponse(data interface{}) interface{} {
-	if data == nil {
-		return nil
-	}
-
-	switch v := data.(type) {
-	case map[string]interface{}:
-		result := make(map[string]interface{}, len(v))
-		for key, val := range v {
-			if key == "privateKey" || key == "apiKey" || key == "password" {
-				continue
-			}
-			result[key] = SanitizeResponse(val)
-		}
-		return result
-	case []interface{}:
-		result := make([]interface{}, len(v))
-		for i, val := range v {
-			result[i] = SanitizeResponse(val)
-		}
-		return result
-	default:
-		return data
-	}
-}
-
-// WriteJSON writes a sanitized JSON response.
-func WriteJSON(w http.ResponseWriter, statusCode int, data interface{}) {
-	sanitized := SanitizeResponse(data)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(sanitized)
-}

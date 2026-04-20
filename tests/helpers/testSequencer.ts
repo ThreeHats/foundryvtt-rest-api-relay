@@ -9,6 +9,9 @@ import type { Test } from '@jest/test-result';
 import path from 'path';
 
 export const TEST_ORDER = [
+  // Phase 0: Account setup (registers ephemeral account or validates pre-provisioned one)
+  'register-account.test.ts',
+
   // Phase 1: Session setup
   'session-endpoints.test.ts',   // Must run first to create sessions
 
@@ -38,12 +41,42 @@ export const TEST_ORDER = [
   'chat-endpoints.test.ts',
   'permission-filtering.test.ts', // Tests userId permission scoping
   'scoped-keys-endpoints.test.ts', // Scoped API key CRUD + auto-routing (needs clientId)
+  'scopes.test.ts',               // Action scopes + multi-client enforcement
+
+  // Phase 5b: New feature tests
+  'playlist-endpoints.test.ts',  // Playlist control + play sound
+  'hooks-subscribe.test.ts',     // Hooks firehose SSE/WS
+  'combat-subscribe.test.ts',    // Combat event subscription
+  'websocket-api.test.ts',       // Client-facing WebSocket API (/ws/api)
+  'scene-image.test.ts',         // Scene screenshot + raw image
+  'user-endpoints.test.ts',      // User CRUD (self-contained: creates + deletes test user)
 
   // Phase 6: System-agnostic feature tests
-  'effects-endpoints.test.ts',   // ActiveEffect CRUD
+  'effects-endpoints.test.ts',   // ActiveEffect CRUD + status effects list
 
   // Phase 7: System-specific tests (only run on matching systems)
-  'dnd5e-endpoints.test.ts',     // Only runs if client has dnd5e
+  'dnd5e-endpoints.test.ts',     // Only runs if client has dnd5e (includes concentration + inventory)
+
+  // Phase 5c: Security architecture tests
+  'account-security.test.ts',     // Email verification
+  'connection-tokens.test.ts',    // Pairing, connection tokens, audit logs
+  'credentials.test.ts',          // Credential vault + known clients
+  'key-request.test.ts',          // OAuth-like key request flow
+  'notifications.test.ts',        // Connection notification settings
+  'transfer.test.ts',             // Relay-brokered transfers
+
+  // Phase 5d: Admin dashboard tests (require admin user, separate cookie auth)
+  'admin-auth.test.ts',           // Admin login/logout/JWT/CSRF/lockout
+  'admin-users.test.ts',          // Admin user management
+  'admin-keys.test.ts',           // Admin API key management
+  'admin-clients.test.ts',        // Admin connected clients view
+  'admin-audit.test.ts',          // Admin audit log queries
+  'admin-health.test.ts',         // Admin system health endpoint
+  'admin-metrics.test.ts',        // In-app metrics + Prometheus
+  'admin-ops.test.ts',            // Operational tools + feature flags
+  'admin-alerts.test.ts',         // Alert subscriptions
+  'admin-sessions.test.ts',       // Headless session admin
+  'admin-subscriptions.test.ts',  // Stripe admin overview
 
   // Phase 8: Cleanup (order matters: entities first, then restore scene, then end sessions, then auth)
   'cleanup-entities.test.ts',    // Deletes all created entities

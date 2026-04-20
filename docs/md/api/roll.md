@@ -6,6 +6,7 @@ import TabItem from '@theme/TabItem';
 
 
 import ApiTester from '@site/src/components/ApiTester';
+import SseTester from '@site/src/components/SseTester';
 
 # Roll
 
@@ -44,7 +45,7 @@ Retrieves a list of up to 20 recent rolls made in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/rolls';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   limit: '20'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -64,7 +65,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/rolls?clientId=foundry-testing-r6bXhB7k9cXa3cif&limit=20' \
+curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_099ad17ea199e7e3&limit=20' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -77,7 +78,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/rolls'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'limit': '20'
 }
 url = f'{base_url}{path}'
@@ -103,7 +104,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/rolls';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     limit: '20'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -138,7 +139,7 @@ import axios from 'axios';
   🔤/rolls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤limit=20🔤 ➡️ limit
   🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString
 
@@ -168,22 +169,15 @@ import axios from 'axios';
 ```json
 {
   "type": "rolls-result",
-  "requestId": "rolls_1775068877894",
+  "requestId": "rolls_1776657970172",
   "data": [
     {
-      "id": "hkv6n1MxVmjMyK2h",
-      "messageId": "hkv6n1MxVmjMyK2h",
-      "user": {
-        "id": "r6bXhB7k9cXa3cif",
-        "name": "tester"
-      },
-      "speaker": {
-        "scene": null,
-        "actor": null,
-        "token": null
-      },
+      "id": "manual_1776657969666_24z58qfq2z1",
+      "messageId": "manual_1776657969666_24z58qfq2z1",
+      "user": null,
+      "speaker": {},
       "flavor": "Test Roll",
-      "rollTotal": 14,
+      "rollTotal": 13,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -192,17 +186,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 5,
-              "active": false
+              "result": 13,
+              "active": true
             },
             {
-              "result": 14,
-              "active": true
+              "result": 8,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1775068877887
+      "timestamp": 1776657969666
     }
   ]
 }
@@ -245,7 +239,7 @@ Retrieves the most recent roll made in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/lastroll';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -264,7 +258,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/lastroll?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -277,7 +271,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/lastroll'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -302,7 +296,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/lastroll';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -336,7 +330,7 @@ import axios from 'axios';
   🔤/lastroll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -365,21 +359,14 @@ import axios from 'axios';
 ```json
 {
   "type": "last-roll-result",
-  "requestId": "last-roll_1775068877899",
+  "requestId": "last-roll_1776657970175",
   "data": {
-    "id": "hkv6n1MxVmjMyK2h",
-    "messageId": "hkv6n1MxVmjMyK2h",
-    "user": {
-      "id": "r6bXhB7k9cXa3cif",
-      "name": "tester"
-    },
-    "speaker": {
-      "scene": null,
-      "actor": null,
-      "token": null
-    },
+    "id": "manual_1776657969666_24z58qfq2z1",
+    "messageId": "manual_1776657969666_24z58qfq2z1",
+    "user": null,
+    "speaker": {},
     "flavor": "Test Roll",
-    "rollTotal": 14,
+    "rollTotal": 13,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -388,17 +375,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 5,
-            "active": false
+            "result": 13,
+            "active": true
           },
           {
-            "result": 14,
-            "active": true
+            "result": 8,
+            "active": false
           }
         ]
       }
     ],
-    "timestamp": 1775068877887
+    "timestamp": 1776657969666
   }
 }
 ```
@@ -445,7 +432,7 @@ Executes a roll with the specified formula.
 const baseUrl = 'http://localhost:3010';
 const path = '/roll';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -470,7 +457,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/roll?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/roll?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"formula":"2d20kh","flavor":"Test Roll","createChatMessage":true}'
@@ -485,7 +472,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/roll'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -515,7 +502,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/roll';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -555,7 +542,7 @@ import axios from 'axios';
   🔤/roll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -587,14 +574,14 @@ import axios from 'axios';
 ```json
 {
   "type": "roll-result",
-  "requestId": "roll_1775068877874",
+  "requestId": "roll_1776657969658",
   "success": true,
   "data": {
-    "id": "manual_1775068877888_wl3vmrcnrga",
+    "id": "manual_1776657969666_24z58qfq2z1",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 14,
+      "total": 13,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -602,17 +589,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 5,
-              "active": false
+              "result": 13,
+              "active": true
             },
             {
-              "result": 14,
-              "active": true
+              "result": 8,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1775068877888
+      "timestamp": 1776657969666
     }
   }
 }
@@ -640,8 +627,7 @@ Opens a persistent SSE connection that streams roll events as they occur.
 
 ### Try It Out
 
-<ApiTester
-  method="GET"
+<SseTester
   path="/rolls/subscribe"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
@@ -819,7 +805,7 @@ Just don't 😂
 {
   "event": "connected",
   "data": {
-    "clientId": "foundry-testing-r6bXhB7k9cXa3cif"
+    "clientId": "fvtt_099ad17ea199e7e3"
   }
 }
 ```

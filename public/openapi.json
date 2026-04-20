@@ -18,6 +18,108 @@
   },
   "openapi": "3.0.3",
   "paths": {
+    "/actor/subscribe": {
+      "get": {
+        "operationId": "get_actor_subscribe",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma-separated hook names to filter (hooks type only)",
+            "in": "query",
+            "name": "hooks",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by encounter ID (combat type only)",
+            "in": "query",
+            "name": "encounterId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Actor UUID to subscribe to (actor type, required)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scene ID to filter (scene type only)",
+            "in": "query",
+            "name": "sceneId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "SSE event stream"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Subscribe to real-time events via Server-Sent Events (SSE)",
+        "tags": [
+          "Events"
+        ]
+      }
+    },
     "/add-to-encounter": {
       "post": {
         "operationId": "post_add_to_encounter",
@@ -281,10 +383,6 @@
             "application/json": {
               "schema": {
                 "properties": {
-                  "dailyLimit": {
-                    "description": "Per-key daily request cap",
-                    "type": "string"
-                  },
                   "expiresAt": {
                     "description": "Expiry timestamp (ISO 8601)",
                     "type": "string"
@@ -299,6 +397,10 @@
                   },
                   "foundryUsername": {
                     "description": "Foundry login username",
+                    "type": "string"
+                  },
+                  "monthlyLimit": {
+                    "description": "Per-key monthly request cap",
                     "type": "string"
                   },
                   "name": {
@@ -2194,6 +2296,24 @@
             }
           },
           {
+            "description": "If true, preserve the _id from the provided data instead of generating a new one",
+            "in": "query",
+            "name": "keepId",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "If true and keepId is set, replace any existing entity with the same ID",
+            "in": "query",
+            "name": "override",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
             "in": "query",
             "name": "userId",
@@ -2219,6 +2339,14 @@
                   "folder": {
                     "description": "Optional folder UUID to place the new entity in",
                     "type": "string"
+                  },
+                  "keepId": {
+                    "description": "If true, preserve the _id from the provided data instead of generating a new one",
+                    "type": "boolean"
+                  },
+                  "override": {
+                    "description": "If true and keepId is set, replace any existing entity with the same ID",
+                    "type": "boolean"
                   },
                   "userId": {
                     "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
@@ -3118,6 +3246,557 @@
         ]
       }
     },
+    "/dnd5e/attune-item": {
+      "post": {
+        "operationId": "post_dnd5e_attune_item",
+        "parameters": [
+          {
+            "description": "Whether the item should be attuned (true) or unattuned (false)",
+            "in": "query",
+            "name": "attuned",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the actor (optional if selected is true)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the actor (optional if actorUuid provided)",
+            "in": "query",
+            "name": "actorName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the item (optional if itemName provided)",
+            "in": "query",
+            "name": "itemUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the item (optional if itemUuid provided)",
+            "in": "query",
+            "name": "itemName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "actorName": {
+                    "description": "Name of the actor (optional if actorUuid provided)",
+                    "type": "string"
+                  },
+                  "actorUuid": {
+                    "description": "UUID of the actor (optional if selected is true)",
+                    "type": "string"
+                  },
+                  "attuned": {
+                    "description": "Whether the item should be attuned (true) or unattuned (false)",
+                    "type": "boolean"
+                  },
+                  "itemName": {
+                    "description": "Name of the item (optional if itemUuid provided)",
+                    "type": "string"
+                  },
+                  "itemUuid": {
+                    "description": "UUID of the item (optional if itemName provided)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "attuned"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Updated attunement status"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Attune or unattune an item",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
+    "/dnd5e/break-concentration": {
+      "post": {
+        "operationId": "post_dnd5e_break_concentration",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the actor (optional if selected is true)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the actor (optional if actorUuid provided)",
+            "in": "query",
+            "name": "actorName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "actorName": {
+                    "description": "Name of the actor (optional if actorUuid provided)",
+                    "type": "string"
+                  },
+                  "actorUuid": {
+                    "description": "UUID of the actor (optional if selected is true)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Confirmation that concentration was broken"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Break an actor's concentration",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
+    "/dnd5e/concentration": {
+      "get": {
+        "operationId": "get_dnd5e_concentration",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the actor (optional if selected is true)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the actor (optional if actorUuid provided)",
+            "in": "query",
+            "name": "actorName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Concentration status with effect details and spell name"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Check if an actor is concentrating on a spell",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
+    "/dnd5e/concentration-save": {
+      "post": {
+        "operationId": "post_dnd5e_concentration_save",
+        "parameters": [
+          {
+            "description": "Amount of damage taken (used to calculate DC = max(10, floor(damage/2)))",
+            "in": "query",
+            "name": "damage",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the actor (optional if selected is true)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the actor (optional if actorUuid provided)",
+            "in": "query",
+            "name": "actorName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Roll with advantage",
+            "in": "query",
+            "name": "advantage",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Roll with disadvantage",
+            "in": "query",
+            "name": "disadvantage",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Extra bonus formula to add (e.g., \"1d4\", \"+2\")",
+            "in": "query",
+            "name": "bonus",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Whether to post the roll to chat (default: true)",
+            "in": "query",
+            "name": "createChatMessage",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "actorName": {
+                    "description": "Name of the actor (optional if actorUuid provided)",
+                    "type": "string"
+                  },
+                  "actorUuid": {
+                    "description": "UUID of the actor (optional if selected is true)",
+                    "type": "string"
+                  },
+                  "advantage": {
+                    "description": "Roll with advantage",
+                    "type": "boolean"
+                  },
+                  "bonus": {
+                    "description": "Extra bonus formula to add (e.g., \"1d4\", \"+2\")",
+                    "type": "string"
+                  },
+                  "createChatMessage": {
+                    "description": "Whether to post the roll to chat (default: true)",
+                    "type": "boolean"
+                  },
+                  "damage": {
+                    "description": "Amount of damage taken (used to calculate DC = max(10, floor(damage/2)))",
+                    "type": "number"
+                  },
+                  "disadvantage": {
+                    "description": "Roll with disadvantage",
+                    "type": "boolean"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "damage"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Roll result and concentration maintained status"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Roll a concentration saving throw",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
     "/dnd5e/death-save": {
       "post": {
         "operationId": "post_dnd5e_death_save",
@@ -3245,6 +3924,164 @@
           }
         },
         "summary": "Roll a death saving throw for an actor",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
+    "/dnd5e/equip-item": {
+      "post": {
+        "operationId": "post_dnd5e_equip_item",
+        "parameters": [
+          {
+            "description": "Whether the item should be equipped (true) or unequipped (false)",
+            "in": "query",
+            "name": "equipped",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the actor (optional if selected is true)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the actor (optional if actorUuid provided)",
+            "in": "query",
+            "name": "actorName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the item (optional if itemName provided)",
+            "in": "query",
+            "name": "itemUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the item (optional if itemUuid provided)",
+            "in": "query",
+            "name": "itemName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "actorName": {
+                    "description": "Name of the actor (optional if actorUuid provided)",
+                    "type": "string"
+                  },
+                  "actorUuid": {
+                    "description": "UUID of the actor (optional if selected is true)",
+                    "type": "string"
+                  },
+                  "equipped": {
+                    "description": "Whether the item should be equipped (true) or unequipped (false)",
+                    "type": "boolean"
+                  },
+                  "itemName": {
+                    "description": "Name of the item (optional if itemUuid provided)",
+                    "type": "string"
+                  },
+                  "itemUuid": {
+                    "description": "UUID of the item (optional if itemName provided)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "equipped"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Updated equipment status"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Equip or unequip an item",
         "tags": [
           "Dnd5e"
         ]
@@ -4059,6 +4896,164 @@
           }
         },
         "summary": "Roll a skill check for an actor",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
+    "/dnd5e/transfer-currency": {
+      "post": {
+        "operationId": "post_dnd5e_transfer_currency",
+        "parameters": [
+          {
+            "description": "Currency amounts to transfer, e.g. pp, gp, ep, sp, cp denomination keys with numeric values",
+            "in": "query",
+            "name": "currency",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the source actor (optional if sourceActorName provided)",
+            "in": "query",
+            "name": "sourceActorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the source actor",
+            "in": "query",
+            "name": "sourceActorName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the target actor (optional if targetActorName provided)",
+            "in": "query",
+            "name": "targetActorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the target actor",
+            "in": "query",
+            "name": "targetActorName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "currency": {
+                    "description": "Currency amounts to transfer, e.g. pp, gp, ep, sp, cp denomination keys with numeric values",
+                    "type": "object"
+                  },
+                  "sourceActorName": {
+                    "description": "Name of the source actor",
+                    "type": "string"
+                  },
+                  "sourceActorUuid": {
+                    "description": "UUID of the source actor (optional if sourceActorName provided)",
+                    "type": "string"
+                  },
+                  "targetActorName": {
+                    "description": "Name of the target actor",
+                    "type": "string"
+                  },
+                  "targetActorUuid": {
+                    "description": "UUID of the target actor (optional if targetActorName provided)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "currency"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Transfer result with updated balances"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Transfer currency between actors",
         "tags": [
           "Dnd5e"
         ]
@@ -5142,6 +6137,81 @@
         ]
       }
     },
+    "/effects/list": {
+      "get": {
+        "operationId": "get_effects_list",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Array of available status effects with id, name, and icon"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "List all available status effects",
+        "tags": [
+          "Effects"
+        ]
+      }
+    },
     "/encounters": {
       "get": {
         "operationId": "get_encounters",
@@ -5214,6 +6284,108 @@
         "summary": "Get all active encounters",
         "tags": [
           "Encounter"
+        ]
+      }
+    },
+    "/encounters/subscribe": {
+      "get": {
+        "operationId": "get_encounters_subscribe",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma-separated hook names to filter (hooks type only)",
+            "in": "query",
+            "name": "hooks",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by encounter ID (combat type only)",
+            "in": "query",
+            "name": "encounterId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Actor UUID to subscribe to (actor type, required)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scene ID to filter (scene type only)",
+            "in": "query",
+            "name": "sceneId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "SSE event stream"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Subscribe to real-time events via Server-Sent Events (SSE)",
+        "tags": [
+          "Events"
         ]
       }
     },
@@ -5392,100 +6564,6 @@
         "summary": "Stop a headless Foundry session",
         "tags": [
           "Session"
-        ]
-      }
-    },
-    "/execute-js": {
-      "post": {
-        "operationId": "post_execute_js",
-        "parameters": [
-          {
-            "description": "Client ID for the Foundry world",
-            "in": "query",
-            "name": "clientId",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
-            "in": "query",
-            "name": "userId",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "script": {
-                    "description": "JavaScript script to execute",
-                    "type": "string"
-                  },
-                  "userId": {
-                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "The result of the executed script"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Execute JavaScript",
-        "tags": [
-          "Utility"
         ]
       }
     },
@@ -5897,6 +6975,108 @@
         "summary": "Give an item to another entity",
         "tags": [
           "Entity"
+        ]
+      }
+    },
+    "/hooks/subscribe": {
+      "get": {
+        "operationId": "get_hooks_subscribe",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma-separated hook names to filter (hooks type only)",
+            "in": "query",
+            "name": "hooks",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by encounter ID (combat type only)",
+            "in": "query",
+            "name": "encounterId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Actor UUID to subscribe to (actor type, required)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scene ID to filter (scene type only)",
+            "in": "query",
+            "name": "sceneId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "SSE event stream"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Subscribe to real-time events via Server-Sent Events (SSE)",
+        "tags": [
+          "Events"
         ]
       }
     },
@@ -6417,109 +7597,6 @@
         ]
       }
     },
-    "/macro/{uuid}/execute": {
-      "post": {
-        "operationId": "post_macro_uuid_execute",
-        "parameters": [
-          {
-            "description": "UUID of the macro to execute",
-            "in": "path",
-            "name": "uuid",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Client ID for the Foundry world",
-            "in": "query",
-            "name": "clientId",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
-            "in": "query",
-            "name": "userId",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "args": {
-                    "description": "Optional arguments to pass to the macro execution",
-                    "type": "object"
-                  },
-                  "userId": {
-                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Result of the macro execution"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Execute a macro by UUID",
-        "tags": [
-          "Macro"
-        ]
-      }
-    },
     "/macros": {
       "get": {
         "operationId": "get_macros",
@@ -6592,6 +7669,347 @@
         "summary": "Get all macros",
         "tags": [
           "Macro"
+        ]
+      }
+    },
+    "/measure-distance": {
+      "get": {
+        "operationId": "get_measure_distance",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Origin x coordinate (optional if originUuid/originName provided)",
+            "in": "query",
+            "name": "originX",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Origin y coordinate",
+            "in": "query",
+            "name": "originY",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Target x coordinate (optional if targetUuid/targetName provided)",
+            "in": "query",
+            "name": "targetX",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Target y coordinate",
+            "in": "query",
+            "name": "targetY",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "UUID of the origin token",
+            "in": "query",
+            "name": "originUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the origin token",
+            "in": "query",
+            "name": "originName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the target token",
+            "in": "query",
+            "name": "targetUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the target token",
+            "in": "query",
+            "name": "targetName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scene ID (defaults to active scene)",
+            "in": "query",
+            "name": "sceneId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Distance measurement including units and grid spaces"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Measure the distance between two points or tokens",
+        "tags": [
+          "Canvas"
+        ]
+      }
+    },
+    "/move-token": {
+      "post": {
+        "operationId": "post_move_token",
+        "parameters": [
+          {
+            "description": "Target x coordinate",
+            "in": "query",
+            "name": "x",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Target y coordinate",
+            "in": "query",
+            "name": "y",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "UUID of the token to move (optional if name provided)",
+            "in": "query",
+            "name": "uuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the token to move (optional if uuid provided)",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Array of waypoint objects with x and y coordinates to animate through before reaching final position",
+            "in": "query",
+            "name": "waypoints",
+            "required": false,
+            "schema": {
+              "type": "array"
+            }
+          },
+          {
+            "description": "Whether to animate the movement (default: true)",
+            "in": "query",
+            "name": "animate",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Scene ID (defaults to active scene)",
+            "in": "query",
+            "name": "sceneId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "animate": {
+                    "description": "Whether to animate the movement (default: true)",
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "description": "Name of the token to move (optional if uuid provided)",
+                    "type": "string"
+                  },
+                  "sceneId": {
+                    "description": "Scene ID (defaults to active scene)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "description": "UUID of the token to move (optional if name provided)",
+                    "type": "string"
+                  },
+                  "waypoints": {
+                    "description": "Array of waypoint objects with x and y coordinates to animate through before reaching final position",
+                    "type": "array"
+                  },
+                  "x": {
+                    "description": "Target x coordinate",
+                    "type": "number"
+                  },
+                  "y": {
+                    "description": "Target y coordinate",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Result of the token movement including new position"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Move a token to specific coordinates",
+        "tags": [
+          "Canvas"
         ]
       }
     },
@@ -6801,6 +8219,135 @@
         ]
       }
     },
+    "/play-sound": {
+      "post": {
+        "operationId": "post_play_sound",
+        "parameters": [
+          {
+            "description": "Path to the audio file (e.g., \"sounds/effect.mp3\")",
+            "in": "query",
+            "name": "src",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Volume from 0.0 to 1.0 (default: 0.5)",
+            "in": "query",
+            "name": "volume",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Whether to loop the sound (default: false)",
+            "in": "query",
+            "name": "loop",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "loop": {
+                    "description": "Whether to loop the sound (default: false)",
+                    "type": "boolean"
+                  },
+                  "src": {
+                    "description": "Path to the audio file (e.g., \"sounds/effect.mp3\")",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  },
+                  "volume": {
+                    "description": "Volume from 0.0 to 1.0 (default: 0.5)",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "src"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": ""
+      }
+    },
     "/players": {
       "get": {
         "operationId": "get_players",
@@ -6873,6 +8420,613 @@
         "summary": "Get players/users",
         "tags": [
           "Utility"
+        ]
+      }
+    },
+    "/playlist/next": {
+      "post": {
+        "operationId": "post_playlist_next",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the playlist (optional if playlistName provided)",
+            "in": "query",
+            "name": "playlistId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the playlist (optional if playlistId provided)",
+            "in": "query",
+            "name": "playlistName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "playlistId": {
+                    "description": "ID of the playlist (optional if playlistName provided)",
+                    "type": "string"
+                  },
+                  "playlistName": {
+                    "description": "Name of the playlist (optional if playlistId provided)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Next track information"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Skip to next track in a playlist",
+        "tags": [
+          "Playlist"
+        ]
+      }
+    },
+    "/playlist/play": {
+      "post": {
+        "operationId": "post_playlist_play",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the playlist (optional if playlistName provided)",
+            "in": "query",
+            "name": "playlistId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the playlist (optional if playlistId provided)",
+            "in": "query",
+            "name": "playlistName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of a specific sound to play within the playlist",
+            "in": "query",
+            "name": "soundId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of a specific sound to play (optional if soundId provided)",
+            "in": "query",
+            "name": "soundName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "playlistId": {
+                    "description": "ID of the playlist (optional if playlistName provided)",
+                    "type": "string"
+                  },
+                  "playlistName": {
+                    "description": "Name of the playlist (optional if playlistId provided)",
+                    "type": "string"
+                  },
+                  "soundId": {
+                    "description": "ID of a specific sound to play within the playlist",
+                    "type": "string"
+                  },
+                  "soundName": {
+                    "description": "Name of a specific sound to play (optional if soundId provided)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playback status confirmation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Play a playlist or specific sound",
+        "tags": [
+          "Playlist"
+        ]
+      }
+    },
+    "/playlist/stop": {
+      "post": {
+        "operationId": "post_playlist_stop",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the playlist (optional if playlistName provided)",
+            "in": "query",
+            "name": "playlistId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the playlist (optional if playlistId provided)",
+            "in": "query",
+            "name": "playlistName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "playlistId": {
+                    "description": "ID of the playlist (optional if playlistName provided)",
+                    "type": "string"
+                  },
+                  "playlistName": {
+                    "description": "Name of the playlist (optional if playlistId provided)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Stop confirmation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Stop a playlist",
+        "tags": [
+          "Playlist"
+        ]
+      }
+    },
+    "/playlist/volume": {
+      "post": {
+        "operationId": "post_playlist_volume",
+        "parameters": [
+          {
+            "description": "Volume level from 0.0 (silent) to 1.0 (full volume)",
+            "in": "query",
+            "name": "volume",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the playlist (optional if playlistName provided)",
+            "in": "query",
+            "name": "playlistId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the playlist (optional if playlistId provided)",
+            "in": "query",
+            "name": "playlistName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of a specific sound to adjust volume for",
+            "in": "query",
+            "name": "soundId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of a specific sound to adjust volume for (optional if soundId provided)",
+            "in": "query",
+            "name": "soundName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "playlistId": {
+                    "description": "ID of the playlist (optional if playlistName provided)",
+                    "type": "string"
+                  },
+                  "playlistName": {
+                    "description": "Name of the playlist (optional if playlistId provided)",
+                    "type": "string"
+                  },
+                  "soundId": {
+                    "description": "ID of a specific sound to adjust volume for",
+                    "type": "string"
+                  },
+                  "soundName": {
+                    "description": "Name of a specific sound to adjust volume for (optional if soundId provided)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  },
+                  "volume": {
+                    "description": "Volume level from 0.0 (silent) to 1.0 (full volume)",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "volume"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Updated volume level"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Set volume for a playlist or specific sound",
+        "tags": [
+          "Playlist"
+        ]
+      }
+    },
+    "/playlists": {
+      "get": {
+        "operationId": "get_playlists",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Array of playlists with their sounds"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Get all playlists",
+        "tags": [
+          "Playlist"
         ]
       }
     },
@@ -7842,17 +9996,26 @@
         ]
       }
     },
-    "/search": {
+    "/scene/image": {
       "get": {
-        "operationId": "get_search",
+        "operationId": "get_scene_image",
         "parameters": [
           {
-            "description": "Search query string",
+            "description": "Scene ID (defaults to viewed/active scene)",
             "in": "query",
-            "name": "query",
-            "required": true,
+            "name": "sceneId",
+            "required": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "If true, explicitly use the player-facing active scene instead of the viewed scene",
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -7865,12 +10028,381 @@
             }
           },
           {
-            "description": "Filter to apply (simple: filter=\"Actor\", property-based: filter=\"key:value,key2:value2\")",
+            "description": "Image format: png or jpeg (default: png)",
+            "in": "query",
+            "name": "format",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Image quality 0-1 for JPEG (default: 0.9)",
+            "in": "query",
+            "name": "quality",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "If true, capture exactly what the browser currently shows instead of the full scene",
+            "in": "query",
+            "name": "viewport",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Output image width in pixels (default: scene width)",
+            "in": "query",
+            "name": "width",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Output image height in pixels (default: scene height)",
+            "in": "query",
+            "name": "height",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Include grid lines in capture (default: false)",
+            "in": "query",
+            "name": "showGrid",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Hide fog of war, weather, vision, and UI overlays (default: false)",
+            "in": "query",
+            "name": "hideOverlays",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Foundry user ID or username",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "The scene screenshot as an image"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Get a rendered screenshot of a scene",
+        "tags": [
+          "Scene"
+        ]
+      }
+    },
+    "/scene/image/raw": {
+      "get": {
+        "operationId": "get_scene_image_raw",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scene ID (defaults to viewed/active scene)",
+            "in": "query",
+            "name": "sceneId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "If true, explicitly use the player-facing active scene instead of the viewed scene",
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "The raw scene background image"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Get the raw background image of a scene",
+        "tags": [
+          "Scene"
+        ]
+      }
+    },
+    "/scene/subscribe": {
+      "get": {
+        "operationId": "get_scene_subscribe",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma-separated hook names to filter (hooks type only)",
+            "in": "query",
+            "name": "hooks",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by encounter ID (combat type only)",
+            "in": "query",
+            "name": "encounterId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Actor UUID to subscribe to (actor type, required)",
+            "in": "query",
+            "name": "actorUuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Scene ID to filter (scene type only)",
+            "in": "query",
+            "name": "sceneId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "SSE event stream"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Subscribe to real-time events via Server-Sent Events (SSE)",
+        "tags": [
+          "Events"
+        ]
+      }
+    },
+    "/search": {
+      "get": {
+        "operationId": "get_search",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Search query string (omit to browse all entities matching filter)",
+            "in": "query",
+            "name": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType",
             "in": "query",
             "name": "filter",
             "required": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Exclude compendium entries from results (default: false — compendiums are included by default)",
+            "in": "query",
+            "name": "excludeCompendiums",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Maximum number of results to return (default: 200, max: 500)",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Return minimal fields only — uuid, id, name, img, documentType (default: false)",
+            "in": "query",
+            "name": "minified",
+            "required": false,
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -8284,144 +10816,6 @@
         "operationId": "get_sheet",
         "parameters": [
           {
-            "description": "The UUID of the entity to get the sheet for",
-            "in": "query",
-            "name": "uuid",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Whether to get the sheet for the selected entity",
-            "in": "query",
-            "name": "selected",
-            "required": false,
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "Whether to get the sheet for the selected token's actor if selected is true",
-            "in": "query",
-            "name": "actor",
-            "required": false,
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "Client ID for the Foundry world",
-            "in": "query",
-            "name": "clientId",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "The format to return the sheet in (html, json)",
-            "in": "query",
-            "name": "format",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "The initial scale of the sheet",
-            "in": "query",
-            "name": "scale",
-            "required": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "description": "The active tab index to open",
-            "in": "query",
-            "name": "tab",
-            "required": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "description": "Whether to use dark mode for the sheet",
-            "in": "query",
-            "name": "darkMode",
-            "required": false,
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
-            "in": "query",
-            "name": "userId",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "The sheet HTML or data depending on format requested"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Get actor sheet HTML",
-        "tags": [
-          "Sheet"
-        ]
-      }
-    },
-    "/sheet/image": {
-      "get": {
-        "operationId": "get_sheet_image",
-        "parameters": [
-          {
             "description": "The UUID of the entity to screenshot",
             "in": "query",
             "name": "uuid",
@@ -8542,7 +10936,7 @@
         },
         "summary": "Get actor sheet as screenshot image",
         "tags": [
-          "SheetImage"
+          "Sheet"
         ]
       }
     },
@@ -8750,6 +11144,109 @@
         "summary": "Start a headless Foundry session using puppeteer",
         "tags": [
           "Session"
+        ]
+      }
+    },
+    "/stop-sound": {
+      "post": {
+        "operationId": "post_stop_sound",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Path to the audio file to stop (omit to stop all sounds)",
+            "in": "query",
+            "name": "src",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "src": {
+                    "description": "Path to the audio file to stop (omit to stop all sounds)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Stop confirmation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Play a one-shot sound effect",
+        "tags": [
+          "Playlist"
         ]
       }
     },
@@ -9275,6 +11772,579 @@
           "FileSystem"
         ]
       }
+    },
+    "/user": {
+      "delete": {
+        "operationId": "delete_user",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the user to delete",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the user to delete (alternative to id)",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Deletion result"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Delete a Foundry user",
+        "tags": [
+          "User"
+        ]
+      },
+      "get": {
+        "operationId": "get_user",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the user to retrieve",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the user to retrieve (alternative to id)",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "User object with id, name, role, isGM, active, color, avatar, and character fields"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Get a single Foundry user",
+        "tags": [
+          "User"
+        ]
+      },
+      "post": {
+        "operationId": "post_user",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "Username for the new user",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "Password for the new user",
+                    "type": "string"
+                  },
+                  "role": {
+                    "description": "User role: 0=None, 1=Player, 2=Trusted, 3=Assistant, 4=GM (default: 1)",
+                    "type": "number"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "The created user object"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Create a new Foundry user",
+        "tags": [
+          "User"
+        ]
+      },
+      "put": {
+        "operationId": "put_user",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the user to update",
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the user to update (alternative to id)",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "data": {
+                    "description": "Object containing user fields to update (name, role, password, color, avatar, character)",
+                    "type": "object"
+                  },
+                  "id": {
+                    "description": "ID of the user to update",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Name of the user to update (alternative to id)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "The updated user object"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Update an existing Foundry user",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "get_users",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Array of user objects with id, name, role, isGM, active, color, avatar, and character fields"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "List all Foundry users",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/world-info": {
+      "get": {
+        "operationId": "get_world_info",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "World information object"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Get comprehensive world information",
+        "tags": [
+          "Utility"
+        ]
+      }
     }
   },
   "security": [
@@ -9314,10 +12384,16 @@
       "name": "Entity"
     },
     {
+      "name": "Events"
+    },
+    {
       "name": "FileSystem"
     },
     {
       "name": "Macro"
+    },
+    {
+      "name": "Playlist"
     },
     {
       "name": "Roll"
@@ -9335,10 +12411,10 @@
       "name": "Sheet"
     },
     {
-      "name": "SheetImage"
+      "name": "Structure"
     },
     {
-      "name": "Structure"
+      "name": "User"
     },
     {
       "name": "Utility"

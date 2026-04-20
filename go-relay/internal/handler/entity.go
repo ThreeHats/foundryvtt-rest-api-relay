@@ -1,11 +1,17 @@
 package handler
 
 import (
+	"context"
+	"fmt"
 	"net/http"
 	"time"
 
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/alerts"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/config"
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/database"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/handler/helpers"
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/model"
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/service"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/ws"
 )
 
@@ -52,9 +58,13 @@ func entityCreate() helpers.APIRouteConfig {
 			{Name: "entityType", From: []helpers.ParamSource{helpers.FromBody}, Type: helpers.TypeString, Required: true, Description: "Document type of entity to create (Scene, Actor, Item, JournalEntry, RollTable, Cards, Macro, Playlist, ext.)"},
 			{Name: "data", From: []helpers.ParamSource{helpers.FromBody}, Type: helpers.TypeObject, Required: true, Description: "Data for the new entity"},
 		},
-		OptionalParams: []helpers.ParamDef{clientIDParam(), {Name: "folder", From: []helpers.ParamSource{helpers.FromBody}, Type: helpers.TypeString, Description: "Optional folder UUID to place the new entity in"}, userIDParam()},
+		OptionalParams: []helpers.ParamDef{clientIDParam(), {Name: "folder", From: []helpers.ParamSource{helpers.FromBody}, Type: helpers.TypeString, Description: "Optional folder UUID to place the new entity in"}, {Name: "keepId", From: bqParam, Type: helpers.TypeBoolean, Description: "If true, preserve the _id from the provided data instead of generating a new one"}, {Name: "override", From: bqParam, Type: helpers.TypeBoolean, Description: "If true and keepId is set, replace any existing entity with the same ID"}, userIDParam()},
 		ValidateParams: func(params helpers.Params, r *http.Request) (map[string]interface{}, bool) {
 			if params.GetString("entityType") == "Macro" {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx != nil && reqCtx.ScopedKey != nil && !reqCtx.ScopedKey.HasScope(model.ScopeMacroWrite) {
+					return map[string]interface{}{"error": "macro:write scope is required to create macros"}, true
+				}
 				if data, ok := params["data"].(map[string]interface{}); ok {
 					if cmd, ok := data["command"].(string); ok && !helpers.ValidateScript(cmd) {
 						return map[string]interface{}{"error": "Script contains forbidden patterns"}, true
@@ -175,14 +185,29 @@ func entityKill() helpers.APIRouteConfig {
 // Search entities
 //
 // This endpoint allows searching for entities in the Foundry world based on a query string.
-// Requires Quick Insert module to be installed and enabled.
+// Search world entities and compendiums using the native built-in search engine.
+// No third-party modules required. Results are ranked by relevance: exact match,
+// prefix match, substring match, word-prefix match, and subsequence match.
 // @tag Search
 // @returns Search results containing matching entities
 func searchGet() helpers.APIRouteConfig {
 	return helpers.APIRouteConfig{
-		Type:           "search",
-		RequiredParams: []helpers.ParamDef{{Name: "query", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeString, Required: true, Description: "Search query string"}},
-		OptionalParams: []helpers.ParamDef{clientIDParam(), {Name: "filter", From: []helpers.ParamSource{helpers.FromQuery}, Description: "Filter to apply (simple: filter=\"Actor\", property-based: filter=\"key:value,key2:value2\")"}, userIDParam()},
+		Type: "search",
+		OptionalParams: []helpers.ParamDef{
+			clientIDParam(),
+			{Name: "query", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeString, Description: "Search query string (omit to browse all entities matching filter)"},
+			{Name: "filter", From: []helpers.ParamSource{helpers.FromQuery}, Description: "Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},
+			{Name: "excludeCompendiums", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeBoolean, Description: "Exclude compendium entries from results (default: false — compendiums are included by default)"},
+			{Name: "limit", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeNumber, Description: "Maximum number of results to return (default: 200, max: 500)"},
+			{Name: "minified", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeBoolean, Description: "Return minimal fields only — uuid, id, name, img, documentType (default: false)"},
+			userIDParam(),
+		},
+		ValidateParams: func(params helpers.Params, r *http.Request) (map[string]interface{}, bool) {
+			if !params.Has("query") && !params.Has("filter") {
+				return map[string]interface{}{"error": "'query' or 'filter' is required"}, true
+			}
+			return nil, false
+		},
 	}
 }
 
@@ -344,7 +369,7 @@ func macrosGet() helpers.APIRouteConfig {
 // Executes a specific macro in the Foundry world by its UUID.
 // @tag Macro
 // @returns Result of the macro execution
-func macroExecute() helpers.APIRouteConfig {
+func macroExecute(disp *service.Dispatcher, db *database.DB) helpers.APIRouteConfig {
 	return helpers.APIRouteConfig{
 		Type: "macro-execute",
 		RequiredParams: []helpers.ParamDef{
@@ -354,6 +379,34 @@ func macroExecute() helpers.APIRouteConfig {
 			clientIDParam(),
 			{Name: "args", From: []helpers.ParamSource{helpers.FromBody}, Type: helpers.TypeObject, Description: "Optional arguments to pass to the macro execution"},
 			userIDParam(),
+		},
+		AfterForward: func(reqCtx *helpers.RequestContext, clientID string, params helpers.Params) {
+			user, ok := reqCtx.GetUser()
+			if !ok {
+				return
+			}
+			uuid := params.GetString("uuid")
+			var apiKeyID int64
+			if reqCtx.ScopedKey != nil {
+				apiKeyID = reqCtx.ScopedKey.ID
+			}
+
+			disp.Dispatch(service.NotificationContext{
+				Event:       service.EventMacroExecute,
+				UserID:      user.ID,
+				ApiKeyID:    apiKeyID,
+				ClientID:    clientID,
+				Description: fmt.Sprintf("**Macro UUID:** `%s`", uuid),
+			})
+
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			_ = db.ModuleEventLogStore().Create(ctx, &model.ModuleEventLog{
+				UserID:      user.ID,
+				ClientID:    clientID,
+				EventType:   "macro-execute",
+				Description: uuid,
+			})
 		},
 	}
 }
@@ -481,7 +534,7 @@ func playersGet() helpers.APIRouteConfig {
 // Executes a JavaScript script in the Foundry VTT client.
 // @tag Utility
 // @returns The result of the executed script
-func executeJsPost() helpers.APIRouteConfig {
+func executeJsPost(disp *service.Dispatcher, db *database.DB) helpers.APIRouteConfig {
 	return helpers.APIRouteConfig{
 		Type: "execute-js", Timeout: 20 * time.Second,
 		OptionalParams: []helpers.ParamDef{clientIDParam(), {Name: "script", From: []helpers.ParamSource{helpers.FromBody}, Description: "JavaScript script to execute"}, userIDParam()},
@@ -490,6 +543,47 @@ func executeJsPost() helpers.APIRouteConfig {
 				return map[string]interface{}{"error": "Script contains forbidden patterns"}, true
 			}
 			return nil, false
+		},
+		AfterForward: func(reqCtx *helpers.RequestContext, clientID string, params helpers.Params) {
+			user, ok := reqCtx.GetUser()
+			if !ok {
+				return
+			}
+			snippet := params.GetString("script")
+			if len(snippet) > 100 {
+				snippet = snippet[:100] + "…"
+			}
+			var apiKeyID int64
+			if reqCtx.ScopedKey != nil {
+				apiKeyID = reqCtx.ScopedKey.ID
+			}
+
+			// Burst detection
+			if alerts.Track(fmt.Sprintf("execjs:%d", user.ID), 50, 5*time.Minute, 30*time.Minute) {
+				alerts.Fire(alerts.Event{
+					Type:     alerts.TypeExecuteJsBurst,
+					Severity: "warning",
+					Message:  "execute-js called 50+ times in 5 minutes",
+					Details:  map[string]interface{}{"userId": user.ID, "clientId": clientID},
+				})
+			}
+
+			disp.Dispatch(service.NotificationContext{
+				Event:       service.EventExecuteJs,
+				UserID:      user.ID,
+				ApiKeyID:    apiKeyID,
+				ClientID:    clientID,
+				Description: "```js\n" + snippet + "\n```",
+			})
+
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			_ = db.ModuleEventLogStore().Create(ctx, &model.ModuleEventLog{
+				UserID:      user.ID,
+				ClientID:    clientID,
+				EventType:   "execute-js",
+				Description: snippet,
+			})
 		},
 	}
 }
@@ -780,7 +874,115 @@ func chatFlush() helpers.APIRouteConfig {
 	return helpers.APIRouteConfig{Type: "chat-flush", OptionalParams: []helpers.ParamDef{clientIDParam(), userIDParam()}}
 }
 
+// --- Token Movement ---
+
+// Move a token to specific coordinates
+//
+// Moves a token on the canvas to the specified x,y position, optionally
+// animating through waypoints. Token can be identified by UUID or name.
+// @tag Canvas
+// @returns Result of the token movement including new position
+func tokenMove() helpers.APIRouteConfig {
+	return helpers.APIRouteConfig{
+		Type: "move-token",
+		RequiredParams: []helpers.ParamDef{
+			{Name: "x", From: bqParam, Type: helpers.TypeNumber, Required: true, Description: "Target x coordinate"},
+			{Name: "y", From: bqParam, Type: helpers.TypeNumber, Required: true, Description: "Target y coordinate"},
+		},
+		OptionalParams: []helpers.ParamDef{
+			clientIDParam(),
+			{Name: "uuid", From: bqParam, Type: helpers.TypeString, Description: "UUID of the token to move (optional if name provided)"},
+			{Name: "name", From: bqParam, Type: helpers.TypeString, Description: "Name of the token to move (optional if uuid provided)"},
+			{Name: "waypoints", From: bqParam, Type: helpers.TypeArray, Description: "Array of waypoint objects with x and y coordinates to animate through before reaching final position"},
+			{Name: "animate", From: bqParam, Type: helpers.TypeBoolean, Description: "Whether to animate the movement (default: true)"},
+			{Name: "sceneId", From: bqParam, Type: helpers.TypeString, Description: "Scene ID (defaults to active scene)"},
+			userIDParam(),
+		},
+	}
+}
+
+// --- Measure Distance ---
+
+// Measure the distance between two points or tokens
+//
+// Calculates the distance between two positions on the canvas, respecting
+// the grid type and measurement rules. Points can be specified as coordinates
+// or by referencing tokens by UUID or name.
+// @tag Canvas
+// @returns Distance measurement including units and grid spaces
+func measureDistance() helpers.APIRouteConfig {
+	return helpers.APIRouteConfig{
+		Type: "measure-distance",
+		OptionalParams: []helpers.ParamDef{
+			clientIDParam(),
+			{Name: "originX", From: bqParam, Type: helpers.TypeNumber, Description: "Origin x coordinate (optional if originUuid/originName provided)"},
+			{Name: "originY", From: bqParam, Type: helpers.TypeNumber, Description: "Origin y coordinate"},
+			{Name: "targetX", From: bqParam, Type: helpers.TypeNumber, Description: "Target x coordinate (optional if targetUuid/targetName provided)"},
+			{Name: "targetY", From: bqParam, Type: helpers.TypeNumber, Description: "Target y coordinate"},
+			{Name: "originUuid", From: bqParam, Type: helpers.TypeString, Description: "UUID of the origin token"},
+			{Name: "originName", From: bqParam, Type: helpers.TypeString, Description: "Name of the origin token"},
+			{Name: "targetUuid", From: bqParam, Type: helpers.TypeString, Description: "UUID of the target token"},
+			{Name: "targetName", From: bqParam, Type: helpers.TypeString, Description: "Name of the target token"},
+			{Name: "sceneId", From: bqParam, Type: helpers.TypeString, Description: "Scene ID (defaults to active scene)"},
+			userIDParam(),
+		},
+	}
+}
+
+// --- Scene Image ---
+
+// Get the raw background image of a scene
+//
+// Returns the scene's background image file without any tokens, lights,
+// or other canvas elements rendered on it.
+// @tag Scene
+// @returns The raw scene background image
+func sceneRawImage() helpers.APIRouteConfig {
+	return helpers.APIRouteConfig{
+		Type:    "scene-raw-image",
+		Timeout: 30 * time.Second,
+		OptionalParams: []helpers.ParamDef{
+			clientIDParam(),
+			{Name: "sceneId", From: bqParam, Type: helpers.TypeString, Description: "Scene ID (defaults to viewed/active scene)"},
+			{Name: "active", From: bqParam, Type: helpers.TypeBoolean, Description: "If true, explicitly use the player-facing active scene instead of the viewed scene"},
+			userIDParam(),
+		},
+		BuildPendingRequest: func(params helpers.Params) *ws.PendingRequest {
+			return &ws.PendingRequest{Format: "binary"}
+		},
+	}
+}
+
+// --- World Info ---
+
+// Get comprehensive world information
+//
+// Returns a single object with world name, game system, Foundry version,
+// all modules (with active status), all users (with online status), and
+// the active scene. Useful for API clients to discover the world state.
+// @tag Utility
+// @returns World information object
+func worldInfoGet() helpers.APIRouteConfig {
+	return helpers.APIRouteConfig{
+		Type:           "world-info",
+		OptionalParams: []helpers.ParamDef{clientIDParam(), userIDParam()},
+	}
+}
+
 // --- Effects ---
+
+// List all available status effects
+//
+// Returns all status effects defined by the game system's configuration.
+// Useful for discovering valid statusId values for the add/remove effect endpoints.
+// @tag Effects
+// @returns Array of available status effects with id, name, and icon
+func statusEffectsGet() helpers.APIRouteConfig {
+	return helpers.APIRouteConfig{
+		Type:           "get-status-effects",
+		OptionalParams: []helpers.ParamDef{clientIDParam(), userIDParam()},
+	}
+}
 
 // Get all active effects on an actor or token
 //
@@ -877,26 +1079,71 @@ func downloadFileGet() helpers.APIRouteConfig {
 // @tag Clients
 // @param {string} x-api-key [header] API key for authentication
 // @returns Object containing total count and array of connected client details
-func clientsHandler(mgr *ws.ClientManager, cfg *config.Config) http.HandlerFunc {
+func clientsHandler(mgr *ws.ClientManager, cfg *config.Config, db *database.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		reqCtx := helpers.GetRequestContext(r)
 		if reqCtx == nil {
 			helpers.WriteError(w, http.StatusUnauthorized, "Authentication required")
 			return
 		}
-		clients := mgr.GetConnectedClientInfos(reqCtx.MasterAPIKey)
+
+		// Build a map of live clients keyed by clientID
+		liveClients := mgr.GetConnectedClientInfos(reqCtx.MasterAPIKey)
+		liveMap := make(map[string]ws.ClientInfo, len(liveClients))
+		for _, c := range liveClients {
+			liveMap[c.ID] = c
+		}
+
+		type clientResponse struct {
+			ws.ClientInfo
+			IsOnline bool `json:"isOnline"`
+		}
+
+		var results []clientResponse
+
+		// Add all live clients with isOnline: true
+		for _, c := range liveClients {
+			results = append(results, clientResponse{ClientInfo: c, IsOnline: true})
+		}
+
+		// Merge known (offline) clients from the database
+		if user, ok := reqCtx.User.(*model.User); ok && user != nil {
+			known, err := db.KnownClientStore().FindAllByUser(r.Context(), user.ID)
+			if err == nil {
+				for _, kc := range known {
+					if _, online := liveMap[kc.ClientID]; !online {
+						results = append(results, clientResponse{
+							ClientInfo: ws.ClientInfo{
+								ID:             kc.ClientID,
+								WorldID:        kc.WorldID.String,
+								WorldTitle:     kc.WorldTitle.String,
+								FoundryVersion: kc.FoundryVersion.String,
+								SystemID:       kc.SystemID.String,
+								SystemTitle:    kc.SystemTitle.String,
+								SystemVersion:  kc.SystemVersion.String,
+								CustomName:     kc.CustomName.String,
+							},
+							IsOnline: false,
+						})
+					}
+				}
+			}
+		}
+
+		// Apply scoped client filtering
 		if reqCtx.ScopedKey != nil && reqCtx.ScopedKey.ScopedClientID != "" {
-			var filtered []ws.ClientInfo
-			for _, c := range clients {
+			var filtered []clientResponse
+			for _, c := range results {
 				if c.ID == reqCtx.ScopedKey.ScopedClientID {
 					filtered = append(filtered, c)
 				}
 			}
-			clients = filtered
+			results = filtered
 		}
-		if clients == nil {
-			clients = []ws.ClientInfo{}
+
+		if results == nil {
+			results = []clientResponse{}
 		}
-		helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{"total": len(clients), "clients": clients})
+		helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{"total": len(results), "clients": results})
 	}
 }

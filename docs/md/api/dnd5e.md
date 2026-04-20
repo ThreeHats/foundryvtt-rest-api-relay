@@ -45,8 +45,8 @@ Retrieves comprehensive details about an actor including stats, inventory, spell
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/get-actor-details';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  actorUuid: 'Actor.pxZTVHItjx6GgPgC',
+  clientId: 'fvtt_099ad17ea199e7e3',
+  actorUuid: 'Actor.q9uWyfdPwTlzbpxb',
   details: '["resources","items","features","spells"]'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -66,7 +66,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=foundry-testing-r6bXhB7k9cXa3cif&actorUuid=Actor.pxZTVHItjx6GgPgC&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
+curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.q9uWyfdPwTlzbpxb&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -79,8 +79,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/get-actor-details'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'actorUuid': 'Actor.pxZTVHItjx6GgPgC',
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'actorUuid': 'Actor.q9uWyfdPwTlzbpxb',
     'details': '["resources","items","features","spells"]'
 }
 url = f'{base_url}{path}'
@@ -106,8 +106,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/get-actor-details';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    actorUuid: 'Actor.pxZTVHItjx6GgPgC',
+    clientId: 'fvtt_099ad17ea199e7e3',
+    actorUuid: 'Actor.q9uWyfdPwTlzbpxb',
     details: '["resources","items","features","spells"]'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -142,8 +142,8 @@ import axios from 'axios';
   🔤/dnd5e/get-actor-details🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤actorUuid=Actor.pxZTVHItjx6GgPgC🔤 ➡️ actorUuid
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤actorUuid=Actor.q9uWyfdPwTlzbpxb🔤 ➡️ actorUuid
   🔤details=["resources","items","features","spells"]🔤 ➡️ details
   🔤?🧲clientId🧲&🧲actorUuid🧲&🧲details🧲🔤 ➡️ queryString
 
@@ -173,9 +173,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-actor-details-result",
-  "requestId": "get-actor-details_1775068883198",
+  "requestId": "get-actor-details_1776657999779",
   "data": {
-    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "uuid": "Actor.q9uWyfdPwTlzbpxb",
     "resources": {
       "primary": {
         "value": null,
@@ -384,11 +384,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1775068882899,
-          "modifiedTime": 1775068882899,
+          "createdTime": 1776657999579,
+          "modifiedTime": 1776657999579,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "TXqlwJt6TUTGtZOQ"
+        "_id": "tH64TCkyzF32g8Wq"
       }
     ],
     "items": [
@@ -2682,11 +2682,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1775068883099,
-          "modifiedTime": 1775068883099,
+          "createdTime": 1776657999707,
+          "modifiedTime": 1776657999707,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "MSWwHolX602YuBpc"
+        "_id": "gv23gZKhpII5owcO"
       }
     ],
     "features": [
@@ -4000,7 +4000,7 @@ Increases or decreases the charges/uses of an item in an actor's inventory. Usef
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/modify-item-charges';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4012,7 +4012,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "itemName": "Waterskin",
       "amount": -1
     })
@@ -4025,10 +4025,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/modify-item-charges?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/modify-item-charges?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","itemName":"Waterskin","amount":-1}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","itemName":"Waterskin","amount":-1}'
 ```
 
 </TabItem>
@@ -4040,7 +4040,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/modify-item-charges'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -4052,7 +4052,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "itemName": "Waterskin",
       "amount": -1
     }
@@ -4071,7 +4071,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/modify-item-charges';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4084,7 +4084,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "itemName": "Waterskin",
         "amount": -1
       }
@@ -4111,11 +4111,11 @@ import axios from 'axios';
   🔤/dnd5e/modify-item-charges🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","itemName":"Waterskin","amount":-1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","itemName":"Waterskin","amount":-1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-item-charges🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4143,9 +4143,9 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-item-charges-result",
-  "requestId": "modify-item-charges_1775068883423",
+  "requestId": "modify-item-charges_1776657999970",
   "data": {
-    "itemUuid": "Actor.pxZTVHItjx6GgPgC.Item.5skKSSB4ShHbKoc8",
+    "itemUuid": "Actor.q9uWyfdPwTlzbpxb.Item.5skKSSB4ShHbKoc8",
     "oldCharges": 4,
     "newCharges": 3
   }
@@ -4193,7 +4193,7 @@ Triggers the D&D 5e short rest workflow including hit dice recovery, class featu
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/short-rest';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4205,7 +4205,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
     })
 });
 const data = await response.json();
@@ -4216,10 +4216,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/short-rest?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/short-rest?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb"}'
 ```
 
 </TabItem>
@@ -4231,7 +4231,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/short-rest'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -4243,7 +4243,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
     }
 )
 data = response.json()
@@ -4260,7 +4260,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/short-rest';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4273,7 +4273,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC"
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
       }
   });
   const data = response.data;
@@ -4298,11 +4298,11 @@ import axios from 'axios';
   🔤/dnd5e/short-rest🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/short-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4330,9 +4330,9 @@ import axios from 'axios';
 ```json
 {
   "type": "short-rest-result",
-  "requestId": "short-rest_1775068884127",
+  "requestId": "short-rest_1776658000507",
   "data": {
-    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
     "result": {
       "type": "short",
       "deltas": {
@@ -4347,7 +4347,7 @@ import axios from 'axios';
             }
           }
         },
-        "_id": "pxZTVHItjx6GgPgC",
+        "_id": "q9uWyfdPwTlzbpxb",
         "type": "character"
       },
       "updateItems": [],
@@ -4383,8 +4383,8 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1775068883943,
-              "modifiedTime": 1775068883943,
+              "createdTime": 1776658000349,
+              "modifiedTime": 1776658000349,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
@@ -5946,7 +5946,7 @@ import axios from 'axios';
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
               "lastModifiedBy": "r6bXhB7k9cXa3cif",
-              "modifiedTime": 1775068883542
+              "modifiedTime": 1776658000062
             },
             "effects": [],
             "flags": {
@@ -8293,11 +8293,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1775068882899,
-              "modifiedTime": 1775068882899,
+              "createdTime": 1776657999579,
+              "modifiedTime": 1776657999579,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "TXqlwJt6TUTGtZOQ"
+            "_id": "tH64TCkyzF32g8Wq"
           },
           {
             "effects": [],
@@ -8455,11 +8455,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1775068883099,
-              "modifiedTime": 1775068883099,
+              "createdTime": 1776657999707,
+              "modifiedTime": 1776657999707,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "MSWwHolX602YuBpc"
+            "_id": "gv23gZKhpII5owcO"
           }
         ],
         "name": "Updated Test Actor",
@@ -8723,13 +8723,13 @@ import axios from 'axios';
               "bonuses": {
                 "save": ""
               },
-              "failure": 0,
+              "failure": 1,
               "roll": {
                 "max": null,
                 "min": null,
                 "mode": 0
               },
-              "success": 1
+              "success": 0
             },
             "exhaustion": 0,
             "hp": {
@@ -9255,8 +9255,8 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1775068856395,
-          "modifiedTime": 1775068884034,
+          "createdTime": 1776657952239,
+          "modifiedTime": 1776658000428,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
@@ -9309,7 +9309,7 @@ Triggers the D&D 5e long rest workflow including full HP recovery, spell slot re
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/long-rest';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -9321,7 +9321,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "newDay": true
     })
 });
@@ -9333,10 +9333,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/long-rest?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/long-rest?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","newDay":true}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","newDay":true}'
 ```
 
 </TabItem>
@@ -9348,7 +9348,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/long-rest'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -9360,7 +9360,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "newDay": True
     }
 )
@@ -9378,7 +9378,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/long-rest';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -9391,7 +9391,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "newDay": true
       }
   });
@@ -9417,11 +9417,11 @@ import axios from 'axios';
   🔤/dnd5e/long-rest🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","newDay":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","newDay":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/long-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -9449,9 +9449,9 @@ import axios from 'axios';
 ```json
 {
   "type": "long-rest-result",
-  "requestId": "long-rest_1775068884165",
+  "requestId": "long-rest_1776658000550",
   "data": {
-    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
     "result": {
       "type": "long",
       "deltas": {
@@ -9502,7 +9502,7 @@ import axios from 'axios';
             }
           }
         },
-        "_id": "pxZTVHItjx6GgPgC",
+        "_id": "q9uWyfdPwTlzbpxb",
         "type": "character"
       },
       "updateItems": [],
@@ -9538,8 +9538,8 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1775068883943,
-              "modifiedTime": 1775068883943,
+              "createdTime": 1776658000349,
+              "modifiedTime": 1776658000349,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
@@ -11101,7 +11101,7 @@ import axios from 'axios';
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
               "lastModifiedBy": "r6bXhB7k9cXa3cif",
-              "modifiedTime": 1775068883542
+              "modifiedTime": 1776658000062
             },
             "effects": [],
             "flags": {
@@ -13448,11 +13448,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1775068882899,
-              "modifiedTime": 1775068882899,
+              "createdTime": 1776657999579,
+              "modifiedTime": 1776657999579,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "TXqlwJt6TUTGtZOQ"
+            "_id": "tH64TCkyzF32g8Wq"
           },
           {
             "effects": [],
@@ -13610,11 +13610,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1775068883099,
-              "modifiedTime": 1775068883099,
+              "createdTime": 1776657999707,
+              "modifiedTime": 1776657999707,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "MSWwHolX602YuBpc"
+            "_id": "gv23gZKhpII5owcO"
           }
         ],
         "name": "Updated Test Actor",
@@ -13878,13 +13878,13 @@ import axios from 'axios';
               "bonuses": {
                 "save": ""
               },
-              "failure": 0,
+              "failure": 1,
               "roll": {
                 "max": null,
                 "min": null,
                 "mode": 0
               },
-              "success": 1
+              "success": 0
             },
             "exhaustion": 0,
             "hp": {
@@ -14410,8 +14410,8 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1775068856395,
-          "modifiedTime": 1775068884034,
+          "createdTime": 1776657952239,
+          "modifiedTime": 1776658000428,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
@@ -14467,7 +14467,7 @@ Rolls a D&D 5e skill check with all applicable modifiers including proficiency, 
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/skill-check';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -14479,7 +14479,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "skill": "prc"
     })
 });
@@ -14491,10 +14491,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/skill-check?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/skill-check?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","skill":"prc"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","skill":"prc"}'
 ```
 
 </TabItem>
@@ -14506,7 +14506,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/skill-check'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -14518,7 +14518,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "skill": "prc"
     }
 )
@@ -14536,7 +14536,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/skill-check';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -14549,7 +14549,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "skill": "prc"
       }
   });
@@ -14575,11 +14575,11 @@ import axios from 'axios';
   🔤/dnd5e/skill-check🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","skill":"prc"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","skill":"prc"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/skill-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -14607,13 +14607,13 @@ import axios from 'axios';
 ```json
 {
   "type": "skill-check-result",
-  "requestId": "skill-check_1775068883711",
+  "requestId": "skill-check_1776658000184",
   "data": {
-    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
     "skill": "prc",
-    "total": 9,
+    "total": 8,
     "formula": "1d20 + 2",
-    "result": "7 + 2"
+    "result": "6 + 2"
   }
 }
 ```
@@ -14661,7 +14661,7 @@ Rolls a D&D 5e ability saving throw with all applicable modifiers.
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/ability-save';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -14673,7 +14673,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "ability": "dex"
     })
 });
@@ -14685,10 +14685,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/ability-save?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/ability-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"dex"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","ability":"dex"}'
 ```
 
 </TabItem>
@@ -14700,7 +14700,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/ability-save'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -14712,7 +14712,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "ability": "dex"
     }
 )
@@ -14730,7 +14730,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/ability-save';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -14743,7 +14743,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "ability": "dex"
       }
   });
@@ -14769,11 +14769,11 @@ import axios from 'axios';
   🔤/dnd5e/ability-save🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"dex"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","ability":"dex"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -14801,13 +14801,13 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-save-result",
-  "requestId": "ability-save_1775068883742",
+  "requestId": "ability-save_1776658000206",
   "data": {
-    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
     "ability": "dex",
-    "total": 25,
+    "total": 12,
     "formula": "1d20 + 3 + 2 + 0",
-    "result": "20 + 3 + 2 + 0"
+    "result": "7 + 3 + 2 + 0"
   }
 }
 ```
@@ -14855,7 +14855,7 @@ Rolls a D&D 5e ability check (raw ability test, not a skill check) with all appl
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/ability-check';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -14867,7 +14867,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "ability": "str"
     })
 });
@@ -14879,10 +14879,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/ability-check?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/ability-check?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"str"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","ability":"str"}'
 ```
 
 </TabItem>
@@ -14894,7 +14894,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/ability-check'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -14906,7 +14906,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "ability": "str"
     }
 )
@@ -14924,7 +14924,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/ability-check';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -14937,7 +14937,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "ability": "str"
       }
   });
@@ -14963,11 +14963,11 @@ import axios from 'axios';
   🔤/dnd5e/ability-check🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","ability":"str"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","ability":"str"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -14995,13 +14995,13 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-check-result",
-  "requestId": "ability-check_1775068883762",
+  "requestId": "ability-check_1776658000217",
   "data": {
-    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
     "ability": "str",
-    "total": 7,
+    "total": 19,
     "formula": "1d20 - 1",
-    "result": "8 - 1"
+    "result": "20 - 1"
   }
 }
 ```
@@ -15046,7 +15046,7 @@ Rolls a D&D 5e death saving throw, handling DC 10 CON save, three successes/fail
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/death-save';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15058,7 +15058,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
     })
 });
 const data = await response.json();
@@ -15069,10 +15069,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/death-save?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/death-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb"}'
 ```
 
 </TabItem>
@@ -15084,7 +15084,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/death-save'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15096,7 +15096,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC"
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
     }
 )
 data = response.json()
@@ -15113,7 +15113,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/death-save';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15126,7 +15126,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC"
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
       }
   });
   const data = response.data;
@@ -15151,11 +15151,11 @@ import axios from 'axios';
   🔤/dnd5e/death-save🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/death-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15183,15 +15183,15 @@ import axios from 'axios';
 ```json
 {
   "type": "death-save-result",
-  "requestId": "death-save_1775068883931",
+  "requestId": "death-save_1776658000344",
   "data": {
-    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
-    "total": 18,
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+    "total": 3,
     "formula": "1d20",
-    "result": "18",
+    "result": "3",
     "deathSaves": {
-      "success": 1,
-      "failure": 0
+      "success": 0,
+      "failure": 1
     }
   }
 }
@@ -15237,7 +15237,7 @@ Adds or removes experience points from an actor.
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/modify-experience';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15249,7 +15249,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "amount": 100
     })
 });
@@ -15261,10 +15261,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/modify-experience?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/modify-experience?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","amount":100}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","amount":100}'
 ```
 
 </TabItem>
@@ -15276,7 +15276,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/modify-experience'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15288,7 +15288,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "amount": 100
     }
 )
@@ -15306,7 +15306,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/modify-experience';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15319,7 +15319,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "amount": 100
       }
   });
@@ -15345,11 +15345,11 @@ import axios from 'axios';
   🔤/dnd5e/modify-experience🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","amount":100}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","amount":100}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-experience🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 51❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15377,11 +15377,1166 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-experience-result",
-  "requestId": "modify-experience_1775068883215",
+  "requestId": "modify-experience_1776657999791",
   "data": {
-    "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
     "oldXp": 0,
     "newXp": 100
+  }
+}
+```
+
+
+---
+
+## GET /dnd5e/concentration
+
+Check if an actor is concentrating on a spell
+
+Returns whether the actor currently has a concentration effect active, and if so, what spell they are concentrating on.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| actorName | string |  | body, query | Name of the actor (optional if actorUuid provided) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Concentration status with effect details and spell name
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/dnd5e/concentration"
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"actorName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/concentration';
+const params = {
+  clientId: 'fvtt_099ad17ea199e7e3',
+  actorUuid: 'Actor.q9uWyfdPwTlzbpxb'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3010/dnd5e/concentration?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.q9uWyfdPwTlzbpxb' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/concentration'
+params = {
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'actorUuid': 'Actor.q9uWyfdPwTlzbpxb'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/concentration';
+  const params = {
+    clientId: 'fvtt_099ad17ea199e7e3',
+    actorUuid: 'Actor.q9uWyfdPwTlzbpxb'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/concentration🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤actorUuid=Actor.q9uWyfdPwTlzbpxb🔤 ➡️ actorUuid
+  🔤?🧲clientId🧲&🧲actorUuid🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /dnd5e/concentration🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "get-concentration-result",
+  "requestId": "get-concentration_1776658000748",
+  "data": {
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+    "isConcentrating": false,
+    "effect": null,
+    "spell": null
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/break-concentration
+
+Break an actor's concentration
+
+Removes the concentration effect from the actor, ending any spell that requires concentration.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| actorName | string |  | body, query | Name of the actor (optional if actorUuid provided) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Confirmation that concentration was broken
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/break-concentration"
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"actorName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/break-concentration';
+const params = {
+  clientId: 'fvtt_099ad17ea199e7e3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/break-concentration?clientId=fvtt_099ad17ea199e7e3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/break-concentration'
+params = {
+    'clientId': 'fvtt_099ad17ea199e7e3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/break-concentration';
+  const params = {
+    clientId: 'fvtt_099ad17ea199e7e3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/break-concentration🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/break-concentration🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "break-concentration-result",
+  "requestId": "break-concentration_1776658000842",
+  "data": {
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+    "broken": true,
+    "removedEffectId": "rLIXojKRXnP7ekUr"
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/concentration-save
+
+Roll a concentration saving throw
+
+Rolls a Constitution saving throw to maintain concentration after taking damage. The DC is calculated as max(10, floor(damage/2)). Returns the roll result and whether concentration was maintained or broken.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| damage | number | ✓ | body, query | Amount of damage taken (used to calculate DC = max(10, floor(damage/2))) |
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| actorName | string |  | body, query | Name of the actor (optional if actorUuid provided) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+| advantage | boolean |  | body, query | Roll with advantage |
+| disadvantage | boolean |  | body, query | Roll with disadvantage |
+| bonus | string |  | body, query | Extra bonus formula to add (e.g., "1d4", "+2") |
+| createChatMessage | boolean |  | body, query | Whether to post the roll to chat (default: true) |
+
+### Returns
+
+**object** - Roll result and concentration maintained status
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/concentration-save"
+  parameters={[{"name":"damage","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"actorName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"},{"name":"advantage","type":"boolean","required":false,"source":"body"},{"name":"disadvantage","type":"boolean","required":false,"source":"body"},{"name":"bonus","type":"string","required":false,"source":"body"},{"name":"createChatMessage","type":"boolean","required":false,"source":"body"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/concentration-save';
+const params = {
+  clientId: 'fvtt_099ad17ea199e7e3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "damage": 15
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/concentration-save?clientId=fvtt_099ad17ea199e7e3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","damage":15}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/concentration-save'
+params = {
+    'clientId': 'fvtt_099ad17ea199e7e3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "damage": 15
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/concentration-save';
+  const params = {
+    clientId: 'fvtt_099ad17ea199e7e3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+        "damage": 15
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/concentration-save🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","damage":15}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/concentration-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "concentration-save-result",
+  "requestId": "concentration-save_1776658000832",
+  "data": {
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+    "dc": 10,
+    "total": 12,
+    "formula": "1d20 + 1",
+    "result": "11 + 1",
+    "maintained": true
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/equip-item
+
+Equip or unequip an item
+
+Changes the equipped status of an item in an actor's inventory.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| equipped | boolean | ✓ | body, query | Whether the item should be equipped (true) or unequipped (false) |
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| actorName | string |  | body, query | Name of the actor (optional if actorUuid provided) |
+| itemUuid | string |  | body, query | UUID of the item (optional if itemName provided) |
+| itemName | string |  | body, query | Name of the item (optional if itemUuid provided) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Updated equipment status
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/equip-item"
+  parameters={[{"name":"equipped","type":"boolean","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"actorName","type":"string","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/equip-item';
+const params = {
+  clientId: 'fvtt_099ad17ea199e7e3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "itemName": "Dart",
+      "equipped": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/equip-item?clientId=fvtt_099ad17ea199e7e3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","itemName":"Dart","equipped":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/equip-item'
+params = {
+    'clientId': 'fvtt_099ad17ea199e7e3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "itemName": "Dart",
+      "equipped": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/equip-item';
+  const params = {
+    clientId: 'fvtt_099ad17ea199e7e3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+        "itemName": "Dart",
+        "equipped": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/equip-item🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","itemName":"Dart","equipped":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/equip-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 72❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "equip-item-result",
+  "requestId": "equip-item_1776658000924",
+  "data": {
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+    "itemUuid": "Actor.q9uWyfdPwTlzbpxb.Item.WeKJI3gPUAU52WAX",
+    "itemName": "Dart",
+    "equipped": true
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/attune-item
+
+Attune or unattune an item
+
+Changes the attunement status of a magic item in an actor's inventory.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| attuned | boolean | ✓ | body, query | Whether the item should be attuned (true) or unattuned (false) |
+| clientId | string |  | query | Client ID for the Foundry world |
+| actorUuid | string |  | body, query | UUID of the actor (optional if selected is true) |
+| actorName | string |  | body, query | Name of the actor (optional if actorUuid provided) |
+| itemUuid | string |  | body, query | UUID of the item (optional if itemName provided) |
+| itemName | string |  | body, query | Name of the item (optional if itemUuid provided) |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Updated attunement status
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/attune-item"
+  parameters={[{"name":"attuned","type":"boolean","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"actorUuid","type":"string","required":false,"source":"body"},{"name":"actorName","type":"string","required":false,"source":"body"},{"name":"itemUuid","type":"string","required":false,"source":"body"},{"name":"itemName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/attune-item';
+const params = {
+  clientId: 'fvtt_099ad17ea199e7e3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "itemName": "Dart",
+      "attuned": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/attune-item?clientId=fvtt_099ad17ea199e7e3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","itemName":"Dart","attuned":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/attune-item'
+params = {
+    'clientId': 'fvtt_099ad17ea199e7e3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "itemName": "Dart",
+      "attuned": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/attune-item';
+  const params = {
+    clientId: 'fvtt_099ad17ea199e7e3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+        "itemName": "Dart",
+        "attuned": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/attune-item🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","itemName":"Dart","attuned":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/attune-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 71❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "attune-item-result",
+  "requestId": "attune-item_1776658000926",
+  "data": {
+    "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
+    "itemUuid": "Actor.q9uWyfdPwTlzbpxb.Item.WeKJI3gPUAU52WAX",
+    "itemName": "Dart",
+    "attuned": true
+  }
+}
+```
+
+
+---
+
+## POST /dnd5e/transfer-currency
+
+Transfer currency between actors
+
+Moves currency from one actor to another. Validates that the source actor has sufficient funds before transferring.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| currency | object | ✓ | body, query | Currency amounts to transfer, e.g. pp, gp, ep, sp, cp denomination keys with numeric values |
+| clientId | string |  | query | Client ID for the Foundry world |
+| sourceActorUuid | string |  | body, query | UUID of the source actor (optional if sourceActorName provided) |
+| sourceActorName | string |  | body, query | Name of the source actor |
+| targetActorUuid | string |  | body, query | UUID of the target actor (optional if targetActorName provided) |
+| targetActorName | string |  | body, query | Name of the target actor |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - Transfer result with updated balances
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/dnd5e/transfer-currency"
+  parameters={[{"name":"currency","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sourceActorUuid","type":"string","required":false,"source":"body"},{"name":"sourceActorName","type":"string","required":false,"source":"body"},{"name":"targetActorUuid","type":"string","required":false,"source":"body"},{"name":"targetActorName","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/dnd5e/transfer-currency';
+const params = {
+  clientId: 'fvtt_099ad17ea199e7e3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "sourceActorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "targetActorUuid": "Actor.w5STPCwE3YTDztRk",
+      "currency": {
+        "gp": 1
+      }
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/dnd5e/transfer-currency?clientId=fvtt_099ad17ea199e7e3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"sourceActorUuid":"Actor.q9uWyfdPwTlzbpxb","targetActorUuid":"Actor.w5STPCwE3YTDztRk","currency":{"gp":1}}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/dnd5e/transfer-currency'
+params = {
+    'clientId': 'fvtt_099ad17ea199e7e3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "sourceActorUuid": "Actor.q9uWyfdPwTlzbpxb",
+      "targetActorUuid": "Actor.w5STPCwE3YTDztRk",
+      "currency": {
+        "gp": 1
+      }
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/dnd5e/transfer-currency';
+  const params = {
+    clientId: 'fvtt_099ad17ea199e7e3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "sourceActorUuid": "Actor.q9uWyfdPwTlzbpxb",
+        "targetActorUuid": "Actor.w5STPCwE3YTDztRk",
+        "currency": {
+          "gp": 1
+        }
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/dnd5e/transfer-currency🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"sourceActorUuid":"Actor.q9uWyfdPwTlzbpxb","targetActorUuid":"Actor.w5STPCwE3YTDztRk","currency":{"gp":1}}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /dnd5e/transfer-currency🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 107❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "transfer-currency-result",
+  "requestId": "transfer-currency_1776658001001",
+  "data": {
+    "sourceActorUuid": "Actor.q9uWyfdPwTlzbpxb",
+    "targetActorUuid": "Actor.w5STPCwE3YTDztRk",
+    "transferred": {
+      "gp": 1
+    },
+    "sourceBalance": {
+      "pp": 0,
+      "gp": 14,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "targetBalance": {
+      "pp": 0,
+      "gp": 16,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    }
   }
 }
 ```
@@ -15428,7 +16583,7 @@ Activates a specific ability for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-ability';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15440,7 +16595,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "Hammer"
     })
 });
@@ -15452,10 +16607,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -15467,7 +16622,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-ability'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15479,7 +16634,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "Hammer"
     }
 )
@@ -15497,7 +16652,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-ability';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15510,7 +16665,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "abilityName": "Hammer"
       }
   });
@@ -15536,11 +16691,11 @@ import axios from 'axios';
   🔤/dnd5e/use-ability🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-ability🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15568,11 +16723,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-ability-result",
-  "requestId": "use-ability_1775068883697",
+  "requestId": "use-ability_1776658000177",
   "data": {
-    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "uuid": "Actor.q9uWyfdPwTlzbpxb",
     "ability": "Hammer",
-    "result": "Z4fpNi7hK4VV4coJ"
+    "result": "jrBzBjZjgSDILzAg"
   }
 }
 ```
@@ -15619,7 +16774,7 @@ Activates a specific feature for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-feature';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15631,7 +16786,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "Priest"
     })
 });
@@ -15643,10 +16798,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Priest"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"Priest"}'
 ```
 
 </TabItem>
@@ -15658,7 +16813,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-feature'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15670,7 +16825,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "Priest"
     }
 )
@@ -15688,7 +16843,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-feature';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15701,7 +16856,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "abilityName": "Priest"
       }
   });
@@ -15727,11 +16882,11 @@ import axios from 'axios';
   🔤/dnd5e/use-feature🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Priest"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"Priest"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-feature🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15759,11 +16914,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-feature-result",
-  "requestId": "use-feature_1775068883662",
+  "requestId": "use-feature_1776658000154",
   "data": {
-    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "uuid": "Actor.q9uWyfdPwTlzbpxb",
     "ability": "Priest",
-    "result": "ZWsrpCaoj7GMxhmR"
+    "result": "P6TSyGzbecXGG6l7"
   }
 }
 ```
@@ -15810,7 +16965,7 @@ Casts a specific spell for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-spell';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15822,7 +16977,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "test-polymorph"
     })
 });
@@ -15834,10 +16989,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"test-polymorph"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"test-polymorph"}'
 ```
 
 </TabItem>
@@ -15849,7 +17004,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-spell'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15861,7 +17016,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "test-polymorph"
     }
 )
@@ -15879,7 +17034,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-spell';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15892,7 +17047,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "abilityName": "test-polymorph"
       }
   });
@@ -15918,11 +17073,11 @@ import axios from 'axios';
   🔤/dnd5e/use-spell🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"test-polymorph"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"test-polymorph"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-spell🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15950,9 +17105,9 @@ import axios from 'axios';
 ```json
 {
   "type": "use-spell-result",
-  "requestId": "use-spell_1775068883676",
+  "requestId": "use-spell_1776658000164",
   "data": {
-    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "uuid": "Actor.q9uWyfdPwTlzbpxb",
     "ability": "test-polymorph",
     "result": null
   }
@@ -16001,7 +17156,7 @@ Uses a specific item for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-item';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -16013,7 +17168,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "Hammer"
     })
 });
@@ -16025,10 +17180,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -16040,7 +17195,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-item'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -16052,7 +17207,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+      "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
       "abilityName": "Hammer"
     }
 )
@@ -16070,7 +17225,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-item';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -16083,7 +17238,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.pxZTVHItjx6GgPgC",
+        "actorUuid": "Actor.q9uWyfdPwTlzbpxb",
         "abilityName": "Hammer"
       }
   });
@@ -16109,11 +17264,11 @@ import axios from 'axios';
   🔤/dnd5e/use-item🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.pxZTVHItjx6GgPgC","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.q9uWyfdPwTlzbpxb","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16141,11 +17296,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-item-result",
-  "requestId": "use-item_1775068883636",
+  "requestId": "use-item_1776658000135",
   "data": {
-    "uuid": "Actor.pxZTVHItjx6GgPgC",
+    "uuid": "Actor.q9uWyfdPwTlzbpxb",
     "ability": "Hammer",
-    "result": "ot8PKnitKCxZXRD4"
+    "result": "0QSxNeFwn6GyULTh"
   }
 }
 ```

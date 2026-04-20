@@ -2,45 +2,24 @@ package model
 
 import "strings"
 
-// snakeToCamel maps all known snake_case column names to their Sequelize camelCase equivalents.
-var snakeToCamel = map[string]string{
-	// Users table
-	"api_key":              "apiKey",
-	"requests_this_month":  "requestsThisMonth",
-	"requests_today":       "requestsToday",
-	"last_request_date":    "lastRequestDate",
-	"stripe_customer_id":   "stripeCustomerId",
-	"subscription_status":  "subscriptionStatus",
-	"subscription_id":      "subscriptionId",
-	"subscription_ends_at": "subscriptionEndsAt",
-	"max_headless_sessions": "maxHeadlessSessions",
-	"created_at":           "createdAt",
-	"updated_at":           "updatedAt",
-	// PasswordResetTokens table
-	"user_id":    "userId",
-	"token_hash": "tokenHash",
-	"expires_at": "expiresAt",
-	// ApiKeys table
-	"master_api_key":            "masterApiKey",
-	"scoped_client_id":          "scopedClientId",
-	"scoped_user_id":            "scopedUserId",
-	"daily_limit":               "dailyLimit",
-	"foundry_url":               "foundryUrl",
-	"foundry_username":          "foundryUsername",
-	"foundry_password":          "foundryPassword",
-	"encrypted_foundry_password": "encryptedFoundryPassword",
-	"password_iv":               "passwordIv",
-	"password_auth_tag":         "passwordAuthTag",
-}
-
-// Col returns the correct column name for a given database type.
-// Sequelize creates camelCase columns in both SQLite and PostgreSQL,
-// so we always map snake_case to quoted camelCase.
+// Col converts a snake_case column name to a quoted camelCase column name for
+// use in SQL queries. Sequelize creates camelCase columns in both SQLite and
+// PostgreSQL, so any snake_case name passed here is converted algorithmically.
+//
+// Names with no underscores (id, email, password, name, etc.) are returned
+// as-is — they are identical in both conventions.
 func Col(dbType, name string) string {
-	if camel, ok := snakeToCamel[name]; ok {
-		return `"` + camel + `"`
+	if !strings.Contains(name, "_") {
+		return name
 	}
-	return name // id, email, password, name, used — same in both
+	parts := strings.Split(name, "_")
+	result := parts[0]
+	for _, part := range parts[1:] {
+		if len(part) > 0 {
+			result += strings.ToUpper(part[:1]) + part[1:]
+		}
+	}
+	return `"` + result + `"`
 }
 
 // NormalizeColumnName strips underscores and lowercases for sqlx mapper matching.

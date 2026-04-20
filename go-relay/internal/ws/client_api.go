@@ -27,14 +27,15 @@ type SSEManagerInterface interface {
 
 // ClientAPIConfig holds configuration for the client-facing WebSocket API.
 type ClientAPIConfig struct {
-	PingInterval   time.Duration
-	ValidateAPIKey func(token string) (*APIKeyValidation, error)
-	TrackUsage     func(apiKey string) (bool, string)
+	PingInterval            time.Duration
+	ValidateAPIKey          func(token string) (*APIKeyValidation, error)
+	ValidateConnectionToken func(token string) (masterAPIKey string, allowedIPs string, tokenName string, tokenID int64, err error)
+	TrackUsage              func(apiKey string) (bool, string)
 	// AutoStart attempts to start a headless session for a scoped key with stored credentials.
 	// Args: masterAPIKey, scopedClientID, scopedUserID. Returns the new clientID or empty string.
 	AutoStart      func(masterAPIKey, scopedClientID, scopedUserID string) string
 	SSEManager     SSEManagerInterface
-	SheetSessions  *SheetSessionManager
+	InteractiveSessions  *InteractiveSessionManager
 }
 
 // clientWSState tracks the state of a client API WebSocket connection.
@@ -42,186 +43,272 @@ type clientWSState struct {
 	mu               sync.Mutex
 	apiKey           string
 	masterAPIKey     string
+	userID           int64  // relay DB user ID; 0 for connection-token auth or unknown
 	clientID         string
 	scopedUserID     string
 	conn              *websocket.Conn
+	consumerID        string            // stable identity for interactive session cleanup
 	pendingRequestIDs map[string]string // internalID -> clientRequestID
 	subscriptions     []*WSEventSub
 	done              chan struct{}
+	semaphore         chan struct{} // limits concurrent goroutines spawned per connection
+}
+
+// clientAPIValidateToken validates a token for the client API connection, trying connection token first, then API key.
+// Returns (matchKey, allowedIPs, scopedUserID, validation, error).
+// allowedIPs is non-empty only for connection token auth.
+func clientAPIValidateToken(cfg *ClientAPIConfig, token string) (matchKey string, allowedIPs string, scopedUserID string, validation *APIKeyValidation, err error) {
+	// Try connection token first
+	if cfg.ValidateConnectionToken != nil {
+		masterAPIKey, ips, _, _, ctErr := cfg.ValidateConnectionToken(token)
+		if ctErr == nil && masterAPIKey != "" {
+			return masterAPIKey, ips, "", &APIKeyValidation{Valid: true, MasterAPIKey: masterAPIKey}, nil
+		}
+		// Fall through to API key validation
+	}
+
+	// Fall back to API key validation
+	if cfg.ValidateAPIKey != nil {
+		validation, err = cfg.ValidateAPIKey(token)
+		if err != nil || !validation.Valid {
+			return "", "", "", nil, fmt.Errorf("invalid API key")
+		}
+		matchKey = validation.MasterAPIKey
+		if matchKey == "" {
+			matchKey = token
+		}
+		return matchKey, "", validation.ScopedUserID, validation, nil
+	}
+
+	return "", "", "", nil, fmt.Errorf("no validators configured")
+}
+
+// clientAPIResolveAndValidate validates the token and resolves the clientID.
+// Returns the validated state fields or an error string suitable for HTTP response.
+// allowedIPs is non-empty only for connection token auth and must be checked by the caller.
+func clientAPIResolveAndValidate(manager *ClientManager, cfg *ClientAPIConfig, token, clientID string) (matchKey, allowedIPs, resolvedClientID, scopedUserID string, validation *APIKeyValidation, httpErr string, httpStatus int) {
+	truncatedToken := token
+	if len(truncatedToken) > 8 {
+		truncatedToken = truncatedToken[:8] + "..."
+	}
+
+	matchKey, allowedIPs, scopedUserID, validation, err := clientAPIValidateToken(cfg, token)
+	if err != nil {
+		log.Warn().Str("token", truncatedToken).Msg("WS /ws/api rejected: invalid API key")
+		return "", "", "", "", nil, "Invalid API key", http.StatusUnauthorized
+	}
+
+	truncatedMatchKey := matchKey
+	if len(truncatedMatchKey) > 8 {
+		truncatedMatchKey = truncatedMatchKey[:8] + "..."
+	}
+	log.Debug().Str("token", truncatedToken).Str("matchKey", truncatedMatchKey).Msg("WS API key validated")
+
+	// Apply scoped clientId constraint
+	if validation != nil && validation.ScopedClientID != "" {
+		clientID = validation.ScopedClientID
+	}
+
+	// Auto-resolve clientId
+	if clientID == "" {
+		clients := manager.GetConnectedClients(matchKey)
+		log.Debug().Str("matchKey", matchKey[:8]+"...").Int("connectedClients", len(clients)).Msg("WS auto-resolving clientId")
+		switch len(clients) {
+		case 1:
+			clientID = clients[0]
+			log.Debug().Str("clientId", clientID).Msg("WS auto-resolved clientId")
+		case 0:
+			if cfg.AutoStart != nil && validation != nil {
+				if autoID := cfg.AutoStart(matchKey, validation.ScopedClientID, validation.ScopedUserID); autoID != "" {
+					clientID = autoID
+					log.Info().Str("clientId", clientID).Msg("WS auto-started headless session")
+					break
+				}
+			}
+			log.Warn().Str("matchKey", matchKey[:8]+"...").Msg("WS /ws/api rejected: no connected clients")
+			return "", "", "", "", nil, "No connected Foundry client found", http.StatusNotFound
+		default:
+			log.Warn().Int("count", len(clients)).Msg("WS /ws/api rejected: multiple clients")
+			return "", "", "", "", nil, "Multiple clients connected. Please specify clientId.", http.StatusBadRequest
+		}
+	}
+
+	// Verify client exists and belongs to this API key
+	foundryClient := manager.GetClient(clientID)
+	if foundryClient == nil {
+		log.Warn().Str("clientId", clientID).Msg("WS /ws/api rejected: client not found")
+		return "", "", "", "", nil, "Invalid clientId", http.StatusNotFound
+	}
+	if foundryClient.APIKey() != matchKey {
+		log.Warn().Str("clientId", clientID).Msg("WS /ws/api rejected: key mismatch")
+		return "", "", "", "", nil, "API key does not match the specified clientId", http.StatusForbidden
+	}
+
+	return matchKey, allowedIPs, clientID, scopedUserID, validation, "", 0
+}
+
+// startClientWSPumps sets up the client WS state, sends welcome, and starts ping/read pumps.
+func startClientWSPumps(conn *websocket.Conn, manager *ClientManager, pending *PendingRequests, cfg *ClientAPIConfig, token, matchKey, clientID, scopedUserID string, userID int64) {
+	state := &clientWSState{
+		apiKey:            token,
+		masterAPIKey:      matchKey,
+		userID:            userID,
+		clientID:          clientID,
+		scopedUserID:      scopedUserID,
+		conn:              conn,
+		consumerID:        randomStr(8),
+		pendingRequestIDs: make(map[string]string),
+		done:              make(chan struct{}),
+		semaphore:         make(chan struct{}, 100),
+	}
+
+	kp := token
+	if len(kp) > 8 {
+		kp = kp[:8]
+	}
+	log.Info().Str("clientId", clientID).Int64("userId", userID).Str("keyPrefix", kp).Msg("Client WS connected")
+
+	// Send welcome
+	sendWSJSON(conn, map[string]interface{}{
+		"type":           "connected",
+		"clientId":       clientID,
+		"supportedTypes": pendingRequestTypesList(),
+		"eventChannels":  []string{"chat-events", "roll-events", "hooks", "combat-events", "actor-events", "scene-events"},
+	})
+
+	// Ping keepalive
+	go func() {
+		ticker := time.NewTicker(cfg.PingInterval)
+		defer ticker.Stop()
+		for {
+			select {
+			case <-ticker.C:
+				if err := conn.WriteControl(websocket.PingMessage, nil, time.Now().Add(5*time.Second)); err != nil {
+					return
+				}
+			case <-state.done:
+				return
+			}
+		}
+	}()
+
+	// Read pump
+	go func() {
+		defer func() {
+			close(state.done)
+			conn.Close()
+			cleanupClientWSState(state, pending, cfg, manager)
+			dkp := state.apiKey
+			if len(dkp) > 8 {
+				dkp = dkp[:8]
+			}
+			log.Info().Str("clientId", clientID).Int64("userId", state.userID).Str("keyPrefix", dkp).Msg("Client WS disconnected")
+		}()
+
+		for {
+			_, messageBytes, err := conn.ReadMessage()
+			if err != nil {
+				if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure, websocket.CloseNoStatusReceived) {
+					log.Error().Err(err).Str("clientId", clientID).Msg("Client WS read error")
+				}
+				return
+			}
+
+			var msg map[string]interface{}
+			if err := json.Unmarshal(messageBytes, &msg); err != nil {
+				sendWSJSON(conn, map[string]interface{}{"type": "error", "error": "Invalid JSON"})
+				continue
+			}
+
+			// Track usage
+			if cfg.TrackUsage != nil {
+				allowed, errMsg := cfg.TrackUsage(state.masterAPIKey)
+				if !allowed {
+					requestID, _ := msg["requestId"].(string)
+					sendWSJSON(conn, map[string]interface{}{"type": "error", "error": errMsg, "requestId": requestID})
+					continue
+				}
+			}
+
+			handleClientWSMessage(state, manager, pending, cfg, msg)
+		}
+	}()
 }
 
 // HandleClientAPIConnection handles WebSocket connections on /ws/api.
+//
+// Auth-via-first-message: after the WebSocket upgrade, the client must send
+// a JSON message {"type":"auth","token":"<key>"} within 10 seconds. Both
+// connection tokens and API keys (master or scoped) are accepted.
 func HandleClientAPIConnection(manager *ClientManager, pending *PendingRequests, cfg *ClientAPIConfig) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Debug().Str("url", r.URL.String()).Msg("WS /ws/api connection attempt")
 
 		query := r.URL.Query()
-		token := query.Get("token")
 		clientID := query.Get("clientId")
 
-		if token == "" {
-			log.Warn().Msg("WS /ws/api rejected: missing token")
-			http.Error(w, "Missing token query parameter", http.StatusBadRequest)
-			return
-		}
-
-		truncatedToken := token
-		if len(truncatedToken) > 8 {
-			truncatedToken = truncatedToken[:8] + "..."
-		}
-
-		// Validate API key
-		var matchKey string
-		var scopedUserID string
-		var validation *APIKeyValidation
-		if cfg.ValidateAPIKey != nil {
-			var err error
-			validation, err = cfg.ValidateAPIKey(token)
-			if err != nil || !validation.Valid {
-				log.Warn().Str("token", truncatedToken).Msg("WS /ws/api rejected: invalid API key")
-				http.Error(w, "Invalid API key", http.StatusUnauthorized)
-				return
-			}
-			matchKey = validation.MasterAPIKey
-			if matchKey == "" {
-				matchKey = token
-			}
-			scopedUserID = validation.ScopedUserID
-
-			log.Debug().Str("token", truncatedToken).Str("matchKey", matchKey[:8]+"...").Str("scopedClientId", validation.ScopedClientID).Msg("WS API key validated")
-
-			// Apply scoped clientId constraint
-			if validation.ScopedClientID != "" {
-				clientID = validation.ScopedClientID
-			}
-		} else {
-			matchKey = token
-		}
-
-		// Auto-resolve clientId
-		if clientID == "" {
-			clients := manager.GetConnectedClients(matchKey)
-			log.Debug().Str("matchKey", matchKey[:8]+"...").Int("connectedClients", len(clients)).Msg("WS auto-resolving clientId")
-			switch len(clients) {
-			case 1:
-				clientID = clients[0]
-				log.Info().Str("clientId", clientID).Msg("WS auto-resolved clientId")
-			case 0:
-				// Try auto-start headless session for scoped keys with stored credentials
-				if cfg.AutoStart != nil && validation != nil {
-					if autoID := cfg.AutoStart(matchKey, validation.ScopedClientID, validation.ScopedUserID); autoID != "" {
-						clientID = autoID
-						log.Info().Str("clientId", clientID).Msg("WS auto-started headless session")
-						break
-					}
-				}
-				log.Warn().Str("matchKey", matchKey[:8]+"...").Msg("WS /ws/api rejected: no connected clients")
-				http.Error(w, "No connected Foundry client found", http.StatusNotFound)
-				return
-			default:
-				log.Warn().Int("count", len(clients)).Msg("WS /ws/api rejected: multiple clients")
-				http.Error(w, "Multiple clients connected. Please specify clientId.", http.StatusBadRequest)
-				return
-			}
-		}
-
-		// Verify client exists and belongs to this API key
-		foundryClient := manager.GetClient(clientID)
-		if foundryClient == nil {
-			log.Warn().Str("clientId", clientID).Msg("WS /ws/api rejected: client not found")
-			http.Error(w, "Invalid clientId", http.StatusNotFound)
-			return
-		}
-		if foundryClient.APIKey() != matchKey {
-			log.Warn().Str("clientId", clientID).Str("clientKey", foundryClient.APIKey()[:8]+"...").Str("matchKey", matchKey[:8]+"...").Msg("WS /ws/api rejected: key mismatch")
-			http.Error(w, "API key does not match the specified clientId", http.StatusForbidden)
-			return
-		}
-
-		// Upgrade to WebSocket
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
 			log.Error().Err(err).Msg("Client API WebSocket upgrade failed")
 			return
 		}
 
-		state := &clientWSState{
-			apiKey:           token,
-			masterAPIKey:     matchKey,
-			clientID:         clientID,
-			scopedUserID:     scopedUserID,
-			conn:             conn,
-			pendingRequestIDs: make(map[string]string),
-			done:             make(chan struct{}),
+		// Auth-via-first-message ONLY. Tokens must never be passed in URL params
+		// (they appear in server access logs and are visible to proxies).
+		conn.SetReadDeadline(time.Now().Add(10 * time.Second))
+
+		_, messageBytes, err := conn.ReadMessage()
+		if err != nil {
+			log.Warn().Err(err).Msg("WS /ws/api auth message read failed")
+			conn.WriteMessage(websocket.CloseMessage,
+				websocket.FormatCloseMessage(4002, "Authentication timeout"))
+			conn.Close()
+			return
 		}
 
-		truncated := token
-		if len(truncated) > 8 {
-			truncated = truncated[:8] + "..."
+		var authMsg struct {
+			Type     string `json:"type"`
+			Token    string `json:"token"`
+			ClientID string `json:"clientId"`
 		}
-		log.Info().Str("clientId", clientID).Str("apiKey", truncated).Msg("Client WS connected")
+		if err := json.Unmarshal(messageBytes, &authMsg); err != nil || authMsg.Type != "auth" || authMsg.Token == "" {
+			log.Warn().Msg("WS /ws/api invalid auth message")
+			conn.WriteMessage(websocket.CloseMessage,
+				websocket.FormatCloseMessage(4002, "Invalid auth message"))
+			conn.Close()
+			return
+		}
 
-		// Send welcome
-		sendWSJSON(conn, map[string]interface{}{
-			"type":           "connected",
-			"clientId":       clientID,
-			"supportedTypes": pendingRequestTypesList(),
-			"eventChannels":  []string{"chat-events", "roll-events"},
-		})
+		token := authMsg.Token
+		if authMsg.ClientID != "" {
+			clientID = authMsg.ClientID
+		}
 
-		// Ping keepalive
-		go func() {
-			ticker := time.NewTicker(cfg.PingInterval)
-			defer ticker.Stop()
-			for {
-				select {
-				case <-ticker.C:
-					if err := conn.WriteControl(websocket.PingMessage, nil, time.Now().Add(5*time.Second)); err != nil {
-						return
-					}
-				case <-state.done:
-					return
-				}
-			}
-		}()
+		matchKey, allowedIPs, resolvedClientID, scopedUserID, validation, wsErr, _ := clientAPIResolveAndValidate(manager, cfg, token, clientID)
+		if wsErr != "" {
+			log.Warn().Str("error", wsErr).Msg("WS /ws/api auth rejected")
+			conn.WriteMessage(websocket.CloseMessage,
+				websocket.FormatCloseMessage(4002, wsErr))
+			conn.Close()
+			return
+		}
 
-		// Read pump
-		go func() {
-			defer func() {
-				close(state.done)
-				conn.Close()
-				cleanupClientWSState(state, pending, cfg, manager)
-				log.Info().Str("clientId", clientID).Msg("Client WS disconnected")
-			}()
+		// Validate connection token IP allowlist
+		if allowedIPs != "" && !isIPAllowed(r.RemoteAddr, allowedIPs) {
+			log.Warn().Str("remoteAddr", r.RemoteAddr).Msg("WS /ws/api rejected: IP not in allowlist")
+			conn.WriteMessage(websocket.CloseMessage,
+				websocket.FormatCloseMessage(4002, "IP address not allowed"))
+			conn.Close()
+			return
+		}
 
-			for {
-				_, messageBytes, err := conn.ReadMessage()
-				if err != nil {
-					if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
-						log.Error().Err(err).Str("clientId", clientID).Msg("Client WS read error")
-					}
-					return
-				}
+		var userID int64
+		if validation != nil {
+			userID = validation.UserID
+		}
 
-				var msg map[string]interface{}
-				if err := json.Unmarshal(messageBytes, &msg); err != nil {
-					sendWSJSON(conn, map[string]interface{}{"type": "error", "error": "Invalid JSON"})
-					continue
-				}
-
-				// Track usage
-				if cfg.TrackUsage != nil {
-					allowed, errMsg := cfg.TrackUsage(state.masterAPIKey)
-					if !allowed {
-						requestID, _ := msg["requestId"].(string)
-						sendWSJSON(conn, map[string]interface{}{"type": "error", "error": errMsg, "requestId": requestID})
-						continue
-					}
-				}
-
-				handleClientWSMessage(state, manager, pending, cfg, msg)
-			}
-		}()
+		conn.SetReadDeadline(time.Time{})
+		startClientWSPumps(conn, manager, pending, cfg, token, matchKey, resolvedClientID, scopedUserID, userID)
 	}
 }
 
@@ -250,17 +337,17 @@ func handleClientWSMessage(state *clientWSState, manager *ClientManager, pending
 		return
 	}
 
-	// Sheet session messages
-	if msgType == "sheet-session-start" {
-		handleSheetSessionStart(state, manager, cfg, msg)
+	// Interactive session messages
+	if msgType == "interactive-session-start" {
+		handleInteractiveSessionStart(state, manager, cfg, msg)
 		return
 	}
-	if msgType == "sheet-input" {
-		handleSheetInput(state, manager, cfg, msg)
+	if msgType == "interactive-input" {
+		handleInteractiveInput(state, manager, cfg, msg)
 		return
 	}
-	if msgType == "sheet-session-end" {
-		handleSheetSessionEnd(state, manager, cfg, msg)
+	if msgType == "interactive-session-end" {
+		handleInteractiveSessionEnd(state, manager, cfg, msg)
 		return
 	}
 
@@ -338,8 +425,27 @@ func handleClientWSMessage(state *clientWSState, manager *ClientManager, pending
 		return
 	}
 
+	// Acquire semaphore slot — cap concurrent response goroutines per connection to 100.
+	// If the slot isn't available immediately, reject the in-flight request rather than
+	// spawning an unbounded number of goroutines.
+	select {
+	case state.semaphore <- struct{}{}:
+	default:
+		pending.Delete(internalID)
+		state.mu.Lock()
+		delete(state.pendingRequestIDs, internalID)
+		state.mu.Unlock()
+		sendWSJSON(state.conn, map[string]interface{}{
+			"type":      fmt.Sprintf("%s-result", msgType),
+			"requestId": requestID,
+			"error":     "Too many concurrent requests; try again shortly",
+		})
+		return
+	}
+
 	// Wait for response in a goroutine
 	go func() {
+		defer func() { <-state.semaphore }()
 		select {
 		case resp := <-responseCh:
 			state.mu.Lock()
@@ -347,10 +453,21 @@ func handleClientWSMessage(state *clientWSState, manager *ClientManager, pending
 			delete(state.pendingRequestIDs, internalID)
 			state.mu.Unlock()
 
-			if resp != nil && resp.Data != nil {
-				resp.Data["type"] = fmt.Sprintf("%s-result", msgType)
-				resp.Data["requestId"] = clientReqID
-				sendWSJSON(state.conn, resp.Data)
+			if resp != nil {
+				var responseData map[string]interface{}
+				if resp.Data != nil {
+					responseData = resp.Data
+				} else if resp.RawData != nil {
+					if err := json.Unmarshal(resp.RawData, &responseData); err != nil {
+						responseData = map[string]interface{}{"error": "failed to parse response"}
+					}
+				}
+				if responseData != nil {
+					responseData["type"] = fmt.Sprintf("%s-result", msgType)
+					responseData["requestId"] = clientReqID
+					responseData["clientId"] = state.clientID
+					sendWSJSON(state.conn, responseData)
+				}
 			}
 		case <-time.After(30 * time.Second):
 			pending.Delete(internalID)
@@ -374,10 +491,14 @@ func handleWSSubscribe(state *clientWSState, manager *ClientManager, msg map[str
 	requestID, _ := msg["requestId"].(string)
 	channel, _ := msg["channel"].(string)
 
-	if channel != "chat-events" && channel != "roll-events" {
+	validChannels := map[string]bool{
+		"chat-events": true, "roll-events": true,
+		"hooks": true, "combat-events": true, "actor-events": true, "scene-events": true,
+	}
+	if !validChannels[channel] {
 		sendWSJSON(state.conn, map[string]interface{}{
 			"type":      "error",
-			"error":     fmt.Sprintf("Invalid channel: %q. Supported: chat-events, roll-events", channel),
+			"error":     fmt.Sprintf("Invalid channel: %q. Supported: chat-events, roll-events, hooks, combat-events, actor-events, scene-events", channel),
 			"requestId": requestID,
 		})
 		return
@@ -412,7 +533,7 @@ func handleWSSubscribe(state *clientWSState, manager *ClientManager, msg map[str
 	state.mu.Unlock()
 
 	sendWSJSON(state.conn, map[string]interface{}{"type": "subscribed", "channel": channel, "requestId": requestID})
-	log.Info().Str("clientId", state.clientID).Str("channel", channel).Msg("Client WS subscribed")
+	log.Debug().Str("clientId", state.clientID).Str("channel", channel).Msg("Client WS subscribed")
 }
 
 func handleWSUnsubscribe(state *clientWSState, msg map[string]interface{}) {
@@ -439,7 +560,7 @@ func handleWSUnsubscribe(state *clientWSState, msg map[string]interface{}) {
 		channel = "all"
 	}
 	sendWSJSON(state.conn, map[string]interface{}{"type": "unsubscribed", "channel": channel, "removed": removed, "requestId": requestID})
-	log.Info().Str("clientId", state.clientID).Str("channel", channel).Int("removed", removed).Msg("Client WS unsubscribed")
+	log.Debug().Str("clientId", state.clientID).Str("channel", channel).Int("removed", removed).Msg("Client WS unsubscribed")
 }
 
 func sendWSJSONSafe(conn *websocket.Conn, done chan struct{}, data interface{}) bool {
@@ -455,15 +576,15 @@ func sendWSJSONSafe(conn *websocket.Conn, done chan struct{}, data interface{}) 
 	return conn.WriteMessage(websocket.TextMessage, msg) == nil
 }
 
-func handleSheetSessionStart(state *clientWSState, manager *ClientManager, cfg *ClientAPIConfig, msg map[string]interface{}) {
-	if cfg.SheetSessions == nil {
-		sendWSJSON(state.conn, map[string]interface{}{"type": "sheet-session-error", "error": "Sheet sessions not available"})
+func handleInteractiveSessionStart(state *clientWSState, manager *ClientManager, cfg *ClientAPIConfig, msg map[string]interface{}) {
+	if cfg.InteractiveSessions == nil {
+		sendWSJSON(state.conn, map[string]interface{}{"type": "interactive-session-error", "error": "Interactive sessions not available"})
 		return
 	}
 
 	foundryClient := manager.GetClient(state.clientID)
 	if foundryClient == nil {
-		sendWSJSON(state.conn, map[string]interface{}{"type": "sheet-session-error", "error": "Foundry client is no longer connected"})
+		sendWSJSON(state.conn, map[string]interface{}{"type": "interactive-session-error", "error": "Foundry client is no longer connected"})
 		return
 	}
 
@@ -477,11 +598,11 @@ func handleSheetSessionStart(state *clientWSState, manager *ClientManager, cfg *
 		scale = s
 	}
 
-	sessionID, err := cfg.SheetSessions.CreateSession(state.clientID, state.apiKey, state.conn, SheetSessionMetadata{
+	sessionID, err := cfg.InteractiveSessions.CreateSession(state.clientID, state.apiKey, state.consumerID, state.conn, InteractiveSessionMetadata{
 		UUID: uuid, Quality: quality, Scale: scale,
 	})
 	if err != nil {
-		sendWSJSON(state.conn, map[string]interface{}{"type": "sheet-session-error", "error": err.Error()})
+		sendWSJSON(state.conn, map[string]interface{}{"type": "interactive-session-error", "error": err.Error()})
 		return
 	}
 
@@ -493,7 +614,7 @@ func handleSheetSessionStart(state *clientWSState, manager *ClientManager, cfg *
 	}
 
 	payload := map[string]interface{}{
-		"type": "sheet-session-start", "sessionId": sessionID,
+		"type": "interactive-session-start", "sessionId": sessionID,
 		"uuid": uuid, "quality": quality, "scale": scale,
 	}
 	if selected, ok := msg["selected"].(bool); ok {
@@ -507,51 +628,51 @@ func handleSheetSessionStart(state *clientWSState, manager *ClientManager, cfg *
 	}
 
 	if !foundryClient.Send(payload) {
-		cfg.SheetSessions.EndSession(sessionID)
-		sendWSJSON(state.conn, map[string]interface{}{"type": "sheet-session-error", "error": "Failed to send session start to Foundry"})
+		cfg.InteractiveSessions.EndSession(sessionID)
+		sendWSJSON(state.conn, map[string]interface{}{"type": "interactive-session-error", "error": "Failed to send session start to Foundry"})
 	}
 }
 
-func handleSheetInput(state *clientWSState, manager *ClientManager, cfg *ClientAPIConfig, msg map[string]interface{}) {
-	if cfg.SheetSessions == nil {
+func handleInteractiveInput(state *clientWSState, manager *ClientManager, cfg *ClientAPIConfig, msg map[string]interface{}) {
+	if cfg.InteractiveSessions == nil {
 		return
 	}
 
 	sessionID, _ := msg["sessionId"].(string)
-	session := cfg.SheetSessions.GetSession(sessionID)
+	session := cfg.InteractiveSessions.GetSession(sessionID)
 	if session == nil || session.ConsumerConn != state.conn {
-		sendWSJSON(state.conn, map[string]interface{}{"type": "sheet-session-error", "sessionId": sessionID, "error": "Invalid session"})
+		sendWSJSON(state.conn, map[string]interface{}{"type": "interactive-session-error", "sessionId": sessionID, "error": "Invalid session"})
 		return
 	}
 
-	cfg.SheetSessions.UpdateActivity(sessionID)
+	cfg.InteractiveSessions.UpdateActivity(sessionID)
 
 	foundryClient := manager.GetClient(state.clientID)
 	if foundryClient == nil {
-		sendWSJSON(state.conn, map[string]interface{}{"type": "sheet-session-error", "sessionId": sessionID, "error": "Foundry client disconnected"})
-		cfg.SheetSessions.EndSession(sessionID)
+		sendWSJSON(state.conn, map[string]interface{}{"type": "interactive-session-error", "sessionId": sessionID, "error": "Foundry client disconnected"})
+		cfg.InteractiveSessions.EndSession(sessionID)
 		return
 	}
 
 	foundryClient.Send(map[string]interface{}{
-		"type": "sheet-input", "sessionId": sessionID,
+		"type": "interactive-input", "sessionId": sessionID,
 		"action": msg["action"], "x": msg["x"], "y": msg["y"], "button": msg["button"],
 		"deltaX": msg["deltaX"], "deltaY": msg["deltaY"],
 		"key": msg["key"], "code": msg["code"], "modifiers": msg["modifiers"],
 	})
 }
 
-func handleSheetSessionEnd(state *clientWSState, manager *ClientManager, cfg *ClientAPIConfig, msg map[string]interface{}) {
-	if cfg.SheetSessions == nil {
+func handleInteractiveSessionEnd(state *clientWSState, manager *ClientManager, cfg *ClientAPIConfig, msg map[string]interface{}) {
+	if cfg.InteractiveSessions == nil {
 		return
 	}
 
 	sessionID, _ := msg["sessionId"].(string)
-	cfg.SheetSessions.EndSession(sessionID)
+	cfg.InteractiveSessions.EndSession(sessionID)
 
 	foundryClient := manager.GetClient(state.clientID)
 	if foundryClient != nil {
-		foundryClient.Send(map[string]interface{}{"type": "sheet-session-end", "sessionId": sessionID})
+		foundryClient.Send(map[string]interface{}{"type": "interactive-session-end", "sessionId": sessionID})
 	}
 }
 
@@ -570,14 +691,14 @@ func cleanupClientWSState(state *clientWSState, pending *PendingRequests, cfg *C
 	state.subscriptions = nil
 	state.mu.Unlock()
 
-	// Clean up sheet sessions — notify Foundry to close them
-	if cfg != nil && cfg.SheetSessions != nil {
-		sessionIDs := cfg.SheetSessions.TerminateSessionsForConsumer(state.conn)
+	// Clean up interactive sessions — notify Foundry to close them
+	if cfg != nil && cfg.InteractiveSessions != nil {
+		sessionIDs := cfg.InteractiveSessions.TerminateSessionsForConsumer(state.consumerID)
 		if len(sessionIDs) > 0 {
 			foundryClient := manager.GetClient(state.clientID)
 			if foundryClient != nil {
 				for _, sid := range sessionIDs {
-					foundryClient.Send(map[string]interface{}{"type": "sheet-session-end", "sessionId": sid})
+					foundryClient.Send(map[string]interface{}{"type": "interactive-session-end", "sessionId": sid})
 				}
 			}
 		}

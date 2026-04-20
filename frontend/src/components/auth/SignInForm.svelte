@@ -17,6 +17,7 @@
 
   async function handleSubmit(e: Event) {
     e.preventDefault();
+
     loading = true;
     message = '';
 

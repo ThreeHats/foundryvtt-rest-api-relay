@@ -5,8 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
-
-	"github.com/jmoiron/sqlx"
 )
 
 // PasswordResetToken represents a temporary token for password resets.
@@ -32,7 +30,7 @@ type PasswordResetTokenStore interface {
 
 // SQLPasswordResetTokenStore implements PasswordResetTokenStore with sqlx.
 type SQLPasswordResetTokenStore struct {
-	DB     *sqlx.DB
+	DB     DBTX
 	DBType string
 }
 

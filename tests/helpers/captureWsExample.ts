@@ -38,14 +38,19 @@ export function captureWsExample(
 
 function generateJsWsExample(type: string, request: Record<string, any>, wsUrl: string): string {
   const msg = JSON.stringify({ ...request, type, requestId: 'unique-id' }, null, 2);
-  return `const ws = new WebSocket('${wsUrl}?token=YOUR_API_KEY&clientId=YOUR_CLIENT_ID');
+  return `const ws = new WebSocket('${wsUrl}?clientId=YOUR_CLIENT_ID');
 
 ws.onopen = () => {
-  ws.send(JSON.stringify(${msg.replace(/\n/g, '\n  ')}));
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
 };
 
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify(${msg.replace(/\n/g, '\n    ')}));
+  }
   if (data.type === '${type}-result') {
     console.log(data);
   }
@@ -61,8 +66,13 @@ import websockets
 import json
 
 async def main():
-    uri = '${wsUrl}?token=YOUR_API_KEY&clientId=YOUR_CLIENT_ID'
+    uri = '${wsUrl}?clientId=YOUR_CLIENT_ID'
     async with websockets.connect(uri) as ws:
+        # Send auth message first — token must not be in the URL
+        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))
+        connected = json.loads(await ws.recv())
+        if connected.get('type') != 'connected':
+            raise Exception('Auth failed')
         await ws.send(json.dumps(${pyMsg}))
         response = await ws.recv()
         data = json.loads(response)
@@ -75,18 +85,23 @@ function generateTsWsExample(type: string, request: Record<string, any>, wsUrl: 
   const msg = JSON.stringify({ ...request, type, requestId: 'unique-id' }, null, 2);
   return `import WebSocket from 'ws';
 
-const ws = new WebSocket('${wsUrl}?token=YOUR_API_KEY&clientId=YOUR_CLIENT_ID');
+const ws = new WebSocket('${wsUrl}?clientId=YOUR_CLIENT_ID');
 
 ws.on('open', () => {
-  ws.send(JSON.stringify(${msg.replace(/\n/g, '\n  ')}));
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
 });
 
 ws.on('message', (raw: string) => {
   const data = JSON.parse(raw);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify(${msg.replace(/\n/g, '\n    ')}));
+  }
   if (data.type === '${type}-result') {
     console.log(data);
   }
-});`;
+}):`;
 }
 
 /**

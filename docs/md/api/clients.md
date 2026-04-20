@@ -147,19 +147,38 @@ import axios from 'axios';
 {
   "clients": [
     {
-      "id": "foundry-testing-r6bXhB7k9cXa3cif",
+      "clientId": "fvtt_099ad17ea199e7e3",
       "instanceId": "local",
-      "lastSeen": 1775068854841,
-      "connectedSince": 1775068854838,
+      "lastSeen": 1776657949081,
+      "connectedSince": 1776657947584,
       "worldId": "testing",
       "worldTitle": "testing",
       "foundryVersion": "13.348",
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
-      "systemVersion": "5.0.4"
+      "systemVersion": "5.0.4",
+      "ipAddress": "[::1]:37278",
+      "tokenName": "headless session 2026-04-19 23:05",
+      "isOnline": true
+    },
+    {
+      "clientId": "fvtt_71dbc81bd608978a",
+      "instanceId": "local",
+      "lastSeen": 1776657951294,
+      "connectedSince": 1776657951292,
+      "worldId": "rest-api",
+      "worldTitle": "rest-api",
+      "foundryVersion": "12.331",
+      "systemId": "dnd5e",
+      "systemTitle": "Dungeons & Dragons Fifth Edition",
+      "systemVersion": "4.3.8",
+      "customName": "my-cool-server",
+      "ipAddress": "[::1]:37286",
+      "tokenName": "headless session 2026-04-19 23:05",
+      "isOnline": true
     }
   ],
-  "total": 1
+  "total": 2
 }
 ```
 

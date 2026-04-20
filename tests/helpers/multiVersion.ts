@@ -44,14 +44,14 @@ export function forEachVersion(
         if (envClientId) {
           return envClientId;
         }
-        console.warn(`⚠️ USE_EXISTING_SESSION=true but TEST_CLIENT_ID_V${version} not set`);
+        console.warn(`USE_EXISTING_SESSION=true but TEST_CLIENT_ID_V${version} not set`);
         return '';
       }
       
       // Otherwise get clientId from globalVariables (set by session tests)
       const clientId = getGlobalVariable(version, 'clientId');
       if (!clientId) {
-        console.warn(`⚠️ No clientId found for v${version} - the relay server may be unreachable or session tests may not have run yet`);
+        console.warn(`No clientId found for v${version}`);
       }
       return clientId || '';
     };
@@ -137,13 +137,13 @@ export function forEachVersionWithSystem(
         if (envClientId) {
           return envClientId;
         }
-        console.warn(`⚠️ USE_EXISTING_SESSION=true but TEST_CLIENT_ID_V${version} not set`);
+        console.warn(`USE_EXISTING_SESSION=true but TEST_CLIENT_ID_V${version} not set`);
         return '';
       }
       
       const clientId = getGlobalVariable(version, 'clientId');
       if (!clientId) {
-        console.warn(`⚠️ No clientId found for v${version} - the relay server may be unreachable or session tests may not have run yet`);
+        console.warn(`No clientId found for v${version}`);
       }
       return clientId || '';
     };

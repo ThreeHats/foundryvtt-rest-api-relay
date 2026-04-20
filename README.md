@@ -47,25 +47,25 @@ You can either use the **public relay server** (no setup required) or **self-hos
 
 ### Option A: Use the Public Relay (Easiest)
 
-1. Go to **[https://foundryvtt-rest-api-relay.fly.dev](https://foundryvtt-rest-api-relay.fly.dev)**
+1. Go to **[https://foundryrestapi.com](https://foundryrestapi.com)**
 2. Create an account and copy your API key from the dashboard
-3. Install the [Foundry module](#3-install-the-foundry-module) and set the relay URL to `wss://foundryvtt-rest-api-relay.fly.dev`
+3. Install the [Foundry module](#3-install-the-foundry-module) and set the relay URL to `wss://foundryrestapi.com`
 
-> The public relay has rate limits (100 requests/month free, 1000/day). For unlimited usage, self-host or [subscribe](https://foundryvtt-rest-api-relay.fly.dev) for $5/month.
+> The public relay has rate limits (100 requests/month free, 1000/day). For unlimited usage, self-host or [subscribe](https://foundryrestapi.com) for $5/month.
 
 ### Option B: Self-Host with Docker
 
 ```bash
 # Download and run with Docker Compose
-curl -O https://raw.githubusercontent.com/ThreeHats/foundryvtt-rest-api-relay/main/docker-compose.yml
-docker-compose up -d
+curl -O https://raw.githubusercontent.com/ThreeHats/foundryvtt-rest-api-relay/main/docker-compose.local.yml
+docker compose -f docker-compose.local.yml up -d
 ```
 
 The server runs at `http://localhost:3010`.
 
 ### 2. Get Your API Key
 
-1. Open your relay server (`http://localhost:3010` or the [public URL](https://foundryvtt-rest-api-relay.fly.dev)) in your browser
+1. Open your relay server (`http://localhost:3010` or the [public URL](https://foundryrestapi.com)) in your browser
 2. **Create an account** using the Sign Up form
 3. After logging in, your API key is displayed on the dashboard — click **Copy** to copy it
 
@@ -77,7 +77,7 @@ https://github.com/ThreeHats/foundryvtt-rest-api/releases/latest/download/module
 ```
 
 Enable the module in your world and configure the relay URL in the module settings:
-- **Public relay:** `wss://foundryvtt-rest-api-relay.fly.dev`
+- **Public relay:** `wss://foundryrestapi.com`
 - **Self-hosted:** `ws://localhost:3010` (or `wss://` if using HTTPS)
 
 ### 4. Make Your First API Call
@@ -106,13 +106,13 @@ The REST API provides endpoints across these resource groups:
 | `/dnd5e` | D&D 5th Edition specific operations |
 | `/structure` | World structure information |
 | `/session` | Headless Foundry sessions via Puppeteer |
-| `and more` | Read the [api reference](https://foundryvtt-rest-api-relay.fly.dev/docs/api) for more details |
+| `and more` | Read the [api reference](https://foundryrestapi.com/docs/api) for more details |
 
 **Authentication:** Include your API key in the `x-api-key` header for all requests.
 
-📖 **[Full API Documentation](https://foundryvtt-rest-api-relay.fly.dev/docs)**
+📖 **[Full API Documentation](https://foundryrestapi.com/docs)**
 
-> *The Postman Collection is deprecated — the interactive API documentation now includes code examples in multiple languages.*
+> *The Postman Collection is deprecated — the interactive API documentation now includes interactive tests and code examples in multiple languages.*
 
 ---
 
@@ -129,7 +129,7 @@ services:
     ports:
       - "3010:3010"
     environment:
-      - NODE_ENV=production
+      - APP_ENV=production
       - PORT=3010
       - DB_TYPE=sqlite
     volumes:
@@ -161,13 +161,13 @@ cd node_modules/.pnpm/sqlite3@*/node_modules/sqlite3 && npm run install && cd -
 pnpm run local:sqlite
 ```
 
-> **Note:** On Windows, the SQLite build step may require additional configuration. See the [full installation guide](https://foundryvtt-rest-api-relay.fly.dev/docs/installation) for platform-specific instructions.
+> **Note:** On Windows, the SQLite build step may require additional configuration. See the [full installation guide](https://foundryrestapi.com/docs/installation) for platform-specific instructions.
 
 ---
 
 ## Configuration
 
-Key environment variables (see [full configuration guide](https://foundryvtt-rest-api-relay.fly.dev/docs/configuration) for details):
+Key environment variables (see [full configuration guide](https://foundryrestapi.com/docs/configuration) for details):
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -177,8 +177,8 @@ Key environment variables (see [full configuration guide](https://foundryvtt-res
 | `WEBSOCKET_PING_INTERVAL_MS` | `20000` | WebSocket ping interval for keep-alive |
 | `CLIENT_CLEANUP_INTERVAL_MS` | `15000` | Interval for removing inactive clients |
 | `REDIS_URL` | — | Redis URL for session storage in multi-instance deployments |
-| `FREE_API_REQUESTS_LIMIT` | `100` | Monthly API request limit per user |
-| `DAILY_REQUEST_LIMIT` | `1000` | Daily API request limit per user |
+| `MONTHLY_REQUEST_LIMIT` | `0` (unlimited) | Monthly API request limit per free-tier user. `0` = unlimited. Paid subscribers are always unlimited |
+| `PER_MINUTE_REQUEST_LIMIT` | `300` | Per-API-key request limit per minute (0 to disable) |
 | `SMTP_HOST` | — | SMTP server hostname (enables email delivery) |
 | `SMTP_PORT` | `587` | SMTP server port |
 | `SMTP_USER` | — | SMTP auth username |
@@ -187,7 +187,7 @@ Key environment variables (see [full configuration guide](https://foundryvtt-res
 | `SMTP_SECURE` | `false` | Use TLS for SMTP connection |
 | `FRONTEND_URL` | `http://localhost:3010` | Base URL for links in emails and Stripe redirects |
 
-> **Self-hosting tip:** Set `FREE_API_REQUESTS_LIMIT=999999999` and `DAILY_REQUEST_LIMIT=999999999` to effectively disable rate limits for local use.
+> **Self-hosting tip:** Request limits default to `0` (unlimited) in the Docker image — no configuration needed. Set `PER_MINUTE_REQUEST_LIMIT=0` to also disable the per-minute burst limit. Subscription UI (plan badge, upgrade button) is automatically hidden when `STRIPE_SECRET_KEY` is not set.
 
 ### Password Recovery
 
@@ -237,8 +237,8 @@ pnpm docs:dev        # Start docs server at localhost:3000
 
 ## Links
 
-- 📖 [Documentation](https://foundryvtt-rest-api-relay.fly.dev/docs)
-- 🤝 [Contributing Guide](https://foundryvtt-rest-api-relay.fly.dev/docs/contributing)
+- 📖 [Documentation](https://foundryrestapi.com/docs)
+- 🤝 [Contributing Guide](https://foundryrestapi.com/docs/contributing)
 - 💬 [Discord Community](https://discord.gg/7SdGxJmKkE)
 
 ---

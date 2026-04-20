@@ -48,7 +48,7 @@ Retrieves one or more scenes by ID, name, active status, viewed status, or all.
 const baseUrl = 'http://localhost:3010';
 const path = '/scene';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   all: 'true'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -68,7 +68,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/scene?clientId=foundry-testing-r6bXhB7k9cXa3cif&all=true' \
+curl -X GET 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&all=true' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -81,7 +81,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/scene'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'all': 'true'
 }
 url = f'{base_url}{path}'
@@ -107,7 +107,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/scene';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     all: 'true'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -142,7 +142,7 @@ import axios from 'axios';
   🔤/scene🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤all=true🔤 ➡️ all
   🔤?🧲clientId🧲&🧲all🧲🔤 ➡️ queryString
 
@@ -172,437 +172,52 @@ import axios from 'axios';
 ```json
 {
   "type": "get-scene-result",
-  "requestId": "get-scene_1775068870167",
+  "requestId": "get-scene_1776657957940",
   "data": [
     {
-      "_id": "NUEDEFAULTSCENE0",
-      "name": "Foundry Virtual Tabletop",
+      "name": "Scene",
+      "_id": "i01IgzYFzGddbTtP",
+      "active": false,
       "navigation": true,
       "navOrder": 0,
-      "navName": "",
       "background": {
-        "src": "nue/defaultscene/fvtt-background.webp",
-        "scaleX": 1,
-        "scaleY": 1,
-        "offsetX": 0,
-        "offsetY": 0,
-        "rotation": 0,
-        "tint": "#ffffff",
+        "src": null,
         "anchorX": 0,
         "anchorY": 0,
+        "offsetX": 0,
+        "offsetY": 0,
         "fit": "fill",
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotation": 0,
+        "tint": "#ffffff",
         "alphaThreshold": 0
       },
       "foreground": null,
-      "foregroundElevation": 4,
-      "thumb": "nue/defaultscene/thumb.webp",
-      "width": 3840,
-      "height": 1920,
-      "padding": 0,
+      "foregroundElevation": null,
+      "thumb": null,
+      "width": 4000,
+      "height": 3000,
+      "padding": 0.25,
       "initial": {
         "x": null,
         "y": null,
         "scale": null
       },
-      "backgroundColor": "#25070d",
+      "backgroundColor": "#999999",
       "grid": {
-        "type": 0,
+        "type": 1,
         "size": 100,
+        "style": "solidLines",
+        "thickness": 1,
         "color": "#000000",
         "alpha": 0.2,
-        "distance": 1,
-        "units": "",
-        "style": "solidLines",
-        "thickness": 1
+        "distance": 5,
+        "units": "ft"
       },
-      "tokenVision": false,
-      "drawings": [
-        {
-          "shape": {
-            "height": 100,
-            "type": "r",
-            "width": 100,
-            "radius": null,
-            "points": []
-          },
-          "x": 100,
-          "y": 100,
-          "_id": "YXXBrFbROdLYoYvm",
-          "author": "r6bXhB7k9cXa3cif",
-          "elevation": 0,
-          "sort": 0,
-          "rotation": 0,
-          "bezierFactor": 0,
-          "fillType": 0,
-          "fillColor": "#cc2829",
-          "fillAlpha": 0.5,
-          "strokeWidth": 8,
-          "strokeColor": "#cc2829",
-          "strokeAlpha": 1,
-          "texture": null,
-          "fontFamily": "Signika",
-          "fontSize": 48,
-          "textColor": "#ffffff",
-          "textAlpha": 1,
-          "hidden": false,
-          "locked": false,
-          "interface": false,
-          "flags": {}
-        }
-      ],
-      "tokens": [
-        {
-          "name": "actor",
-          "displayName": 0,
-          "actorLink": true,
-          "width": 1,
-          "height": 1,
-          "texture": {
-            "src": "icons/svg/mystery-man.svg",
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "contain",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0.75
-          },
-          "lockRotation": false,
-          "rotation": 0,
-          "alpha": 1,
-          "disposition": 1,
-          "displayBars": 0,
-          "bar1": {
-            "attribute": "attributes.hp"
-          },
-          "bar2": {
-            "attribute": null
-          },
-          "light": {
-            "negative": false,
-            "priority": 0,
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 0,
-            "color": null,
-            "coloration": 1,
-            "dim": 0,
-            "attenuation": 0.5,
-            "luminosity": 0.5,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": null,
-              "speed": 5,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            }
-          },
-          "sight": {
-            "enabled": true,
-            "range": 0,
-            "angle": 360,
-            "visionMode": "basic",
-            "color": null,
-            "attenuation": 0.1,
-            "brightness": 0,
-            "saturation": 0,
-            "contrast": 0
-          },
-          "detectionModes": [],
-          "occludable": {
-            "radius": 0
-          },
-          "ring": {
-            "enabled": false,
-            "colors": {
-              "ring": null,
-              "background": null
-            },
-            "effects": 1,
-            "subject": {
-              "scale": 1,
-              "texture": null
-            }
-          },
-          "turnMarker": {
-            "mode": 1,
-            "animation": null,
-            "src": null,
-            "disposition": false
-          },
-          "movementAction": null,
-          "flags": {},
-          "actorId": "sj7XQgYVZv8SpEQG",
-          "hidden": false,
-          "sort": 3,
-          "shape": 4,
-          "_id": "ZROaJlBucaNukYyI",
-          "delta": {
-            "_id": "ZROaJlBucaNukYyI",
-            "system": {},
-            "flags": {},
-            "name": null,
-            "type": null,
-            "img": null,
-            "items": [],
-            "effects": [],
-            "ownership": null
-          },
-          "x": 1390,
-          "y": 418,
-          "elevation": 0,
-          "locked": false,
-          "_movementHistory": [],
-          "_regions": []
-        }
-      ],
-      "lights": [
-        {
-          "_id": "d22Cax8HDPMG4F6I",
-          "x": 656,
-          "y": 1473,
-          "rotation": 0,
-          "walls": true,
-          "vision": false,
-          "config": {
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 4.27,
-            "color": "#ff9072",
-            "coloration": 1,
-            "dim": 8.54,
-            "attenuation": 0.5,
-            "luminosity": 0,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": "fog",
-              "speed": 2,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            },
-            "negative": false,
-            "priority": 0
-          },
-          "hidden": false,
-          "flags": {},
-          "elevation": 0
-        },
-        {
-          "x": 1826,
-          "y": 1891,
-          "rotation": 0,
-          "walls": true,
-          "vision": false,
-          "config": {
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 4.27,
-            "color": "#ffffff",
-            "coloration": 1,
-            "dim": 8.54,
-            "attenuation": 0.5,
-            "luminosity": 0,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": "fog",
-              "speed": 2,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            },
-            "negative": false,
-            "priority": 0
-          },
-          "hidden": false,
-          "flags": {},
-          "_id": "eGuMjw01vEYimWVX",
-          "elevation": 0
-        },
-        {
-          "x": 3057,
-          "y": 1439,
-          "rotation": 0,
-          "walls": true,
-          "vision": false,
-          "config": {
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 4.27,
-            "color": "#ffffff",
-            "coloration": 1,
-            "dim": 8.54,
-            "attenuation": 0.5,
-            "luminosity": 0,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": "fog",
-              "speed": 2,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            },
-            "negative": false,
-            "priority": 0
-          },
-          "hidden": false,
-          "flags": {},
-          "_id": "TCET4ZNPkl5oZukY",
-          "elevation": 0
-        },
-        {
-          "_id": "cOpD0Q4AuCGiKRCb",
-          "x": 2824,
-          "y": 772,
-          "rotation": 0,
-          "walls": true,
-          "vision": false,
-          "config": {
-            "alpha": 0.5,
-            "angle": 360,
-            "bright": 0.26,
-            "color": "#ffed79",
-            "coloration": 1,
-            "dim": 0.53,
-            "attenuation": 0.5,
-            "luminosity": 0.5,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": "torch",
-              "speed": 5,
-              "intensity": 5,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            },
-            "negative": false,
-            "priority": 0
-          },
-          "hidden": false,
-          "flags": {},
-          "elevation": 0
-        },
-        {
-          "_id": "adhkydxURYamgKKF",
-          "x": 2822,
-          "y": 777,
-          "rotation": 179,
-          "walls": true,
-          "vision": false,
-          "config": {
-            "alpha": 0.65,
-            "angle": 30,
-            "bright": 5,
-            "color": "#ff976f",
-            "coloration": 1,
-            "dim": 5,
-            "attenuation": 0.7,
-            "luminosity": 0.3,
-            "saturation": 0,
-            "contrast": 0,
-            "shadows": 0,
-            "animation": {
-              "type": "sunburst",
-              "speed": 1,
-              "intensity": 7,
-              "reverse": false
-            },
-            "darkness": {
-              "min": 0,
-              "max": 1
-            },
-            "negative": false,
-            "priority": 0
-          },
-          "hidden": false,
-          "flags": {},
-          "elevation": 0
-        }
-      ],
-      "notes": [],
-      "sounds": [],
-      "templates": [],
-      "tiles": [
-        {
-          "texture": {
-            "src": "nue/defaultscene/fvtt-logo.webp",
-            "scaleX": 1,
-            "scaleY": 1,
-            "offsetX": 0,
-            "offsetY": 0,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "fit": "fill",
-            "alphaThreshold": 0.75
-          },
-          "x": 1520,
-          "y": 480,
-          "width": 800,
-          "height": 800,
-          "_id": "mMxIUI1fXJmrR1zK",
-          "rotation": 0,
-          "alpha": 1,
-          "hidden": false,
-          "locked": false,
-          "occlusion": {
-            "mode": 1,
-            "alpha": 0
-          },
-          "video": {
-            "loop": true,
-            "autoplay": true,
-            "volume": 0
-          },
-          "flags": {},
-          "sort": 100,
-          "restrictions": {
-            "light": false,
-            "weather": false
-          },
-          "elevation": 0
-        }
-      ],
-      "walls": [],
-      "playlist": null,
-      "playlistSound": null,
-      "journal": null,
-      "journalEntryPage": null,
-      "weather": "",
-      "flags": {},
-      "active": false,
+      "tokenVision": true,
       "fog": {
-        "exploration": false,
-        "reset": 1660769143211,
+        "exploration": true,
         "overlay": null,
         "colors": {
           "explored": null,
@@ -610,12 +225,10 @@ import axios from 'axios';
         }
       },
       "environment": {
+        "darknessLevel": 0,
+        "darknessLock": false,
         "globalLight": {
           "enabled": false,
-          "darkness": {
-            "max": 1,
-            "min": 0
-          },
           "alpha": 0.5,
           "bright": false,
           "color": null,
@@ -623,10 +236,12 @@ import axios from 'axios';
           "luminosity": 0,
           "saturation": 0,
           "contrast": 0,
-          "shadows": 0
+          "shadows": 0,
+          "darkness": {
+            "min": 0,
+            "max": 1
+          }
         },
-        "darknessLevel": 0,
-        "darknessLock": false,
         "cycle": true,
         "base": {
           "hue": 0,
@@ -643,129 +258,26 @@ import axios from 'axios';
           "shadows": 0
         }
       },
+      "drawings": [],
+      "tokens": [],
+      "lights": [],
+      "notes": [],
+      "sounds": [],
       "regions": [],
+      "templates": [],
+      "tiles": [],
+      "walls": [],
+      "playlist": null,
+      "playlistSound": null,
+      "journal": null,
+      "journalEntryPage": null,
+      "weather": "",
       "folder": null,
       "sort": 0,
       "ownership": {
         "default": 0,
         "5ypAoBvOiyjDKiaZ": 3
       },
-      "_stats": {
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "13.348",
-        "systemId": "dnd5e",
-        "systemVersion": "5.0.4",
-        "createdTime": 1763765287462,
-        "modifiedTime": 1774161338704,
-        "lastModifiedBy": "r6bXhB7k9cXa3cif"
-      }
-    },
-    {
-      "name": "test-scene-expendable",
-      "width": 500,
-      "height": 500,
-      "_id": "zA0IVJWezqEadUaA",
-      "active": false,
-      "navigation": true,
-      "navOrder": 0,
-      "background": {
-        "src": null,
-        "anchorX": 0,
-        "anchorY": 0,
-        "offsetX": 0,
-        "offsetY": 0,
-        "fit": "fill",
-        "scaleX": 1,
-        "scaleY": 1,
-        "rotation": 0,
-        "tint": "#ffffff",
-        "alphaThreshold": 0
-      },
-      "foreground": null,
-      "foregroundElevation": null,
-      "thumb": null,
-      "padding": 0.25,
-      "initial": {
-        "x": null,
-        "y": null,
-        "scale": null
-      },
-      "backgroundColor": "#999999",
-      "grid": {
-        "type": 1,
-        "size": 100,
-        "style": "solidLines",
-        "thickness": 1,
-        "color": "#000000",
-        "alpha": 0.2,
-        "distance": 5,
-        "units": "ft"
-      },
-      "tokenVision": true,
-      "fog": {
-        "exploration": true,
-        "overlay": null,
-        "colors": {
-          "explored": null,
-          "unexplored": null
-        }
-      },
-      "environment": {
-        "darknessLevel": 0,
-        "darknessLock": false,
-        "globalLight": {
-          "enabled": false,
-          "alpha": 0.5,
-          "bright": false,
-          "color": null,
-          "coloration": 1,
-          "luminosity": 0,
-          "saturation": 0,
-          "contrast": 0,
-          "shadows": 0,
-          "darkness": {
-            "min": 0,
-            "max": 1
-          }
-        },
-        "cycle": true,
-        "base": {
-          "hue": 0,
-          "intensity": 0,
-          "luminosity": 0,
-          "saturation": 0,
-          "shadows": 0
-        },
-        "dark": {
-          "hue": 0.7138888888888889,
-          "intensity": 0,
-          "luminosity": -0.25,
-          "saturation": 0,
-          "shadows": 0
-        }
-      },
-      "drawings": [],
-      "tokens": [],
-      "lights": [],
-      "notes": [],
-      "sounds": [],
-      "regions": [],
-      "templates": [],
-      "tiles": [],
-      "walls": [],
-      "playlist": null,
-      "playlistSound": null,
-      "journal": null,
-      "journalEntryPage": null,
-      "weather": "",
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0,
-        "r6bXhB7k9cXa3cif": 3
-      },
       "flags": {},
       "_stats": {
         "compendiumSource": null,
@@ -774,31 +286,19 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1774161335815,
-        "modifiedTime": 1774161335815,
-        "lastModifiedBy": "r6bXhB7k9cXa3cif"
+        "createdTime": 1776529787190,
+        "modifiedTime": 1776596230732,
+        "lastModifiedBy": "5ypAoBvOiyjDKiaZ"
       }
     },
     {
-      "name": "test-scene-updated",
-      "width": 1000,
-      "height": 1000,
-      "grid": {
-        "size": 100,
-        "type": 1,
-        "style": "solidLines",
-        "thickness": 1,
-        "color": "#000000",
-        "alpha": 0.2,
-        "distance": 5,
-        "units": "ft"
-      },
-      "_id": "lQBzUavCuBjGxRW8",
+      "name": "test",
+      "_id": "fWuYVDZAnXQiKXM5",
       "active": true,
       "navigation": true,
       "navOrder": 0,
       "background": {
-        "src": null,
+        "src": "flooded-cave-test.webp",
         "anchorX": 0,
         "anchorY": 0,
         "offsetX": 0,
@@ -812,7 +312,9 @@ import axios from 'axios';
       },
       "foreground": null,
       "foregroundElevation": null,
-      "thumb": null,
+      "thumb": "worlds/testing/assets/scenes/fWuYVDZAnXQiKXM5-thumb.webp",
+      "width": 2221,
+      "height": 2962,
       "padding": 0.25,
       "initial": {
         "x": null,
@@ -820,6 +322,16 @@ import axios from 'axios';
         "scale": null
       },
       "backgroundColor": "#999999",
+      "grid": {
+        "type": 1,
+        "size": 74,
+        "style": "solidLines",
+        "thickness": 1,
+        "color": "#000000",
+        "alpha": 0.2,
+        "distance": 5,
+        "units": "ft"
+      },
       "tokenVision": true,
       "fog": {
         "exploration": true,
@@ -881,7 +393,7 @@ import axios from 'axios';
       "sort": 0,
       "ownership": {
         "default": 0,
-        "r6bXhB7k9cXa3cif": 3
+        "5ypAoBvOiyjDKiaZ": 3
       },
       "flags": {},
       "_stats": {
@@ -891,10 +403,11 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1774161335040,
-        "modifiedTime": 1774478428913,
+        "createdTime": 1776596215113,
+        "modifiedTime": 1776656673046,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
-      }
+      },
+      "navName": ""
     },
     {
       "grid": {
@@ -910,7 +423,7 @@ import axios from 'axios';
       "height": 1000,
       "name": "test-scene",
       "width": 1000,
-      "_id": "kxsUY8QzM6ClEZqt",
+      "_id": "r36nfimJGHYGUGQX",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -1008,8 +521,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1775068870141,
-        "modifiedTime": 1775068870141,
+        "createdTime": 1776657957926,
+        "modifiedTime": 1776657957926,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -1017,7 +530,7 @@ import axios from 'axios';
       "height": 500,
       "name": "test-scene-expendable",
       "width": 500,
-      "_id": "5j81dbM9EdgSABQF",
+      "_id": "yomijR8uu8kQrjip",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -1125,8 +638,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1775068870156,
-        "modifiedTime": 1775068870156,
+        "createdTime": 1776657957934,
+        "modifiedTime": 1776657957934,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     }
@@ -1134,6 +647,35 @@ import axios from 'axios';
 }
 ```
 
+
+---
+
+## GET /scene/image/raw
+
+Get the raw background image of a scene
+
+Returns the scene's background image file without any tokens, lights, or other canvas elements rendered on it.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| sceneId | string |  | body, query | Scene ID (defaults to viewed/active scene) |
+| active | boolean |  | body, query | If true, explicitly use the player-facing active scene instead of the viewed scene |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**binary** - The raw scene background image
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/scene/image/raw"
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"active","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 
 ---
 
@@ -1170,7 +712,7 @@ Create a new scene
 const baseUrl = 'http://localhost:3010';
 const path = '/scene';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1200,7 +742,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/scene?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"data":{"name":"test-scene","width":1000,"height":1000,"grid":{"size":100}}}'
@@ -1215,7 +757,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/scene'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -1250,7 +792,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/scene';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1295,7 +837,7 @@ import axios from 'axios';
   🔤/scene🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1327,7 +869,7 @@ import axios from 'axios';
 ```json
 {
   "type": "create-scene-result",
-  "requestId": "create-scene_1775068870137",
+  "requestId": "create-scene_1776657957923",
   "data": {
     "grid": {
       "size": 100,
@@ -1342,7 +884,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene",
     "width": 1000,
-    "_id": "kxsUY8QzM6ClEZqt",
+    "_id": "r36nfimJGHYGUGQX",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -1440,8 +982,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1775068870141,
-      "modifiedTime": 1775068870141,
+      "createdTime": 1776657957926,
+      "modifiedTime": 1776657957926,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -1487,7 +1029,7 @@ Update an existing scene
 const baseUrl = 'http://localhost:3010';
 const path = '/scene';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1499,7 +1041,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "kxsUY8QzM6ClEZqt",
+      "sceneId": "r36nfimJGHYGUGQX",
       "data": {
         "name": "test-scene-updated"
       }
@@ -1513,10 +1055,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/scene?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X PUT 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"kxsUY8QzM6ClEZqt","data":{"name":"test-scene-updated"}}'
+  -d '{"sceneId":"r36nfimJGHYGUGQX","data":{"name":"test-scene-updated"}}'
 ```
 
 </TabItem>
@@ -1528,7 +1070,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/scene'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -1539,7 +1081,7 @@ response = requests.put(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "kxsUY8QzM6ClEZqt",
+      "sceneId": "r36nfimJGHYGUGQX",
       "data": {
         "name": "test-scene-updated"
       }
@@ -1559,7 +1101,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/scene';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1572,7 +1114,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "kxsUY8QzM6ClEZqt",
+        "sceneId": "r36nfimJGHYGUGQX",
         "data": {
           "name": "test-scene-updated"
         }
@@ -1600,11 +1142,11 @@ import axios from 'axios';
   🔤/scene🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"kxsUY8QzM6ClEZqt","data":{"name":"test-scene-updated"}}🔤 ➡️ body
+  🔤{"sceneId":"r36nfimJGHYGUGQX","data":{"name":"test-scene-updated"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1632,7 +1174,7 @@ import axios from 'axios';
 ```json
 {
   "type": "update-scene-result",
-  "requestId": "update-scene_1775068870178",
+  "requestId": "update-scene_1776657957945",
   "data": {
     "grid": {
       "size": 100,
@@ -1647,7 +1189,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene-updated",
     "width": 1000,
-    "_id": "kxsUY8QzM6ClEZqt",
+    "_id": "r36nfimJGHYGUGQX",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -1745,8 +1287,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1775068870141,
-      "modifiedTime": 1775068870180,
+      "createdTime": 1776657957926,
+      "modifiedTime": 1776657957946,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -1790,8 +1332,8 @@ Delete a scene
 const baseUrl = 'http://localhost:3010';
 const path = '/scene';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  sceneId: '5j81dbM9EdgSABQF'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  sceneId: 'yomijR8uu8kQrjip'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1810,7 +1352,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/scene?clientId=foundry-testing-r6bXhB7k9cXa3cif&sceneId=5j81dbM9EdgSABQF' \
+curl -X DELETE 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&sceneId=yomijR8uu8kQrjip' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1823,8 +1365,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/scene'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'sceneId': '5j81dbM9EdgSABQF'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'sceneId': 'yomijR8uu8kQrjip'
 }
 url = f'{base_url}{path}'
 
@@ -1849,8 +1391,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/scene';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    sceneId: '5j81dbM9EdgSABQF'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    sceneId: 'yomijR8uu8kQrjip'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1884,8 +1426,8 @@ import axios from 'axios';
   🔤/scene🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤sceneId=5j81dbM9EdgSABQF🔤 ➡️ sceneId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤sceneId=yomijR8uu8kQrjip🔤 ➡️ sceneId
   🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1914,7 +1456,7 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-scene-result",
-  "requestId": "delete-scene_1775068875211",
+  "requestId": "delete-scene_1776657962962",
   "success": true
 }
 ```
@@ -1956,7 +1498,7 @@ Switch the active scene
 const baseUrl = 'http://localhost:3010';
 const path = '/switch-scene';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1968,7 +1510,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "kxsUY8QzM6ClEZqt"
+      "sceneId": "r36nfimJGHYGUGQX"
     })
 });
 const data = await response.json();
@@ -1979,10 +1521,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/switch-scene?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/switch-scene?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"kxsUY8QzM6ClEZqt"}'
+  -d '{"sceneId":"r36nfimJGHYGUGQX"}'
 ```
 
 </TabItem>
@@ -1994,7 +1536,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/switch-scene'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -2005,7 +1547,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "kxsUY8QzM6ClEZqt"
+      "sceneId": "r36nfimJGHYGUGQX"
     }
 )
 data = response.json()
@@ -2022,7 +1564,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/switch-scene';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -2035,7 +1577,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "kxsUY8QzM6ClEZqt"
+        "sceneId": "r36nfimJGHYGUGQX"
       }
   });
   const data = response.data;
@@ -2060,11 +1602,11 @@ import axios from 'axios';
   🔤/switch-scene🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"kxsUY8QzM6ClEZqt"}🔤 ➡️ body
+  🔤{"sceneId":"r36nfimJGHYGUGQX"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -2092,7 +1634,7 @@ import axios from 'axios';
 ```json
 {
   "type": "switch-scene-result",
-  "requestId": "switch-scene_1775068870188",
+  "requestId": "switch-scene_1776657957950",
   "success": true,
   "data": {
     "grid": {
@@ -2108,7 +1650,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene-updated",
     "width": 1000,
-    "_id": "kxsUY8QzM6ClEZqt",
+    "_id": "r36nfimJGHYGUGQX",
     "active": true,
     "navigation": true,
     "navOrder": 0,
@@ -2206,12 +1748,48 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1775068870141,
-      "modifiedTime": 1775068870192,
+      "createdTime": 1776657957926,
+      "modifiedTime": 1776657957952,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
 }
 ```
 
+
+---
+
+## GET /scene/image
+
+Get a rendered screenshot of a scene
+
+Captures the full rendered canvas of a scene including all visible layers (tokens, lights, walls, etc.) as an image. The scene can be specified by ID or defaults to the active scene.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| sceneId | string |  | query | Scene ID (defaults to viewed/active scene) |
+| active | boolean |  | query | If true, explicitly use the player-facing active scene instead of the viewed scene |
+| clientId | string |  | query | Client ID for the Foundry world |
+| format | string |  | query | Image format: png or jpeg (default: png) |
+| quality | number |  | query | Image quality 0-1 for JPEG (default: 0.9) |
+| viewport | boolean |  | query | If true, capture exactly what the browser currently shows instead of the full scene |
+| width | number |  | query | Output image width in pixels (default: scene width) |
+| height | number |  | query | Output image height in pixels (default: scene height) |
+| showGrid | boolean |  | query | Include grid lines in capture (default: false) |
+| hideOverlays | boolean |  | query | Hide fog of war, weather, vision, and UI overlays (default: false) |
+| userId | string |  | query | Foundry user ID or username |
+
+### Returns
+
+**binary** - The scene screenshot as an image
+
+### Try It Out
+
+<ApiTester
+  method="GET"
+  path="/scene/image"
+  parameters={[{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"active","type":"boolean","required":false,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"format","type":"string","required":false,"source":"query"},{"name":"quality","type":"number","required":false,"source":"query"},{"name":"viewport","type":"boolean","required":false,"source":"query"},{"name":"width","type":"number","required":false,"source":"query"},{"name":"height","type":"number","required":false,"source":"query"},{"name":"showGrid","type":"boolean","required":false,"source":"query"},{"name":"hideOverlays","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
 

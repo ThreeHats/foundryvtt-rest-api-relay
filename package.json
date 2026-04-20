@@ -1,12 +1,13 @@
 {
   "name": "foundryvtt-rest-api-relay",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Message relay server for the foundryvtt-rest-api Foundry Module",
   "private": true,
   "scripts": {
-    "local": "cd go-relay && DB_TYPE=memory PORT=3010 FREE_API_REQUESTS_LIMIT=999999999 DAILY_REQUEST_LIMIT=999999999 go run ./cmd/server/",
-    "local:sqlite": "cd go-relay && DB_TYPE=sqlite PORT=3010 FREE_API_REQUESTS_LIMIT=999999999 DAILY_REQUEST_LIMIT=999999999 go run ./cmd/server/",
-    "go:dev": "cd go-relay && air",
+    "local": "cd go-relay && DB_TYPE=sqlite PORT=3010 PER_MINUTE_REQUEST_LIMIT=0 go run ./cmd/server/",
+    "local:sqlite": "cd go-relay && DB_TYPE=sqlite PORT=3010 PER_MINUTE_REQUEST_LIMIT=0 go run ./cmd/server/",
+    "go:dev": "concurrently -k -n go,frontend -c blue,green \"cd go-relay && air\" \"pnpm frontend:watch\"",
+    "go:dev:only": "cd go-relay && air",
     "go:build": "cd go-relay && go build -o relay ./cmd/server/",
     "go:docs": "cd go-relay && go run ./cmd/docgen",
     "go:docs:full": "pnpm go:docs && pnpm docs:examples && pnpm docs:build",

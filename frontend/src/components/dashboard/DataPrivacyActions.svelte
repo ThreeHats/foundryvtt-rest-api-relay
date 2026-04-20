@@ -62,7 +62,7 @@
 <div class="privacy-section">
   <h3 class="section-title">Data & Privacy</h3>
   <p class="text-muted mb-1" style="font-size: 0.85rem;">
-    Export your data or delete your account in accordance with GDPR/CCPA.
+    Export your data or delete your account.
   </p>
   <div class="flex gap-1 flex-wrap">
     <button class="btn btn-secondary btn-sm" onclick={handleExport} disabled={exportLoading}>

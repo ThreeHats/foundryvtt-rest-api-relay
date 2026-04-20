@@ -12,6 +12,16 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// forwardClient is a shared HTTP client for inter-instance forwarding.
+// Using a shared client enables TCP connection pooling to Fly.io instances.
+var forwardClient = &http.Client{
+	Transport: &http.Transport{
+		MaxIdleConns:        100,
+		MaxIdleConnsPerHost: 10,
+		IdleConnTimeout:     30 * time.Second,
+	},
+}
+
 // RequestForwarder forwards requests to the correct Fly.io instance when a client
 // is connected to a different instance than the one receiving the request.
 type RequestForwarder struct {
@@ -114,7 +124,7 @@ func (f *RequestForwarder) forwardRequest(w http.ResponseWriter, r *http.Request
 	proxyReq, err := http.NewRequestWithContext(ctx, r.Method, targetURL, r.Body)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to create proxy request")
-		// Fall back to local handling
+		http.Error(w, "Bad Gateway: failed to forward request", http.StatusBadGateway)
 		return
 	}
 
@@ -128,11 +138,11 @@ func (f *RequestForwarder) forwardRequest(w http.ResponseWriter, r *http.Request
 		}
 	}
 
-	// Execute request
-	client := &http.Client{Timeout: timeout}
-	resp, err := client.Do(proxyReq)
+	// Execute request using the shared client (context carries the timeout)
+	resp, err := forwardClient.Do(proxyReq)
 	if err != nil {
-		log.Error().Err(err).Msg("Forward request failed, falling back to local")
+		log.Error().Err(err).Str("targetInstance", targetInstanceID).Msg("Forward request failed")
+		http.Error(w, "Bad Gateway: upstream instance unavailable", http.StatusBadGateway)
 		return
 	}
 	defer resp.Body.Close()
@@ -148,7 +158,7 @@ func (f *RequestForwarder) forwardRequest(w http.ResponseWriter, r *http.Request
 		}
 	}
 
-	// Copy response
+	// Copy response, capped at 256 MB to match the JSON body limit and prevent memory exhaustion.
 	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
+	io.Copy(w, io.LimitReader(resp.Body, 256<<20))
 }

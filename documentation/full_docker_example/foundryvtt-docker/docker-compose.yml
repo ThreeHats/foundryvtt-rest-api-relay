@@ -100,12 +100,15 @@ services:
     restart: "always"
     mem_limit: 256m
     hostname: foundryrelay
-    # Commented we use the port on the proxy
+    # Port is exposed via the SWAG reverse proxy above — no direct port binding needed.
     # ports:
     #   - "3010:3010"
     environment:
-      - NODE_ENV=production
+      - APP_ENV=production
       - PORT=3010
+      - DB_TYPE=sqlite
+      # Set ADMIN_EMAIL and ADMIN_PASSWORD to secure your admin dashboard.
+      # - ADMIN_EMAIL=admin@example.com
+      # - ADMIN_PASSWORD=changeme
     volumes:
       - ./data/relay:/app/data
-    command: pnpm local

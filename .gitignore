@@ -45,6 +45,7 @@ devNotes.md
 go-relay/data/relay.db
 benchmark/results/*
 go-relay/tmp/*
+go-relay/server
 go-relay/docgen
 go-relay/relay
 go-relay/data/*.png
@@ -52,3 +53,4 @@ public-dist/*
 benchmark/results/*
 go-relay/data/relay.db
 go-relay/tmp/*
+data/*

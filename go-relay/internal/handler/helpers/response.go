@@ -4,16 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
-	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/ws"
 )
 
-// WriteJSON writes a sanitized JSON response.
+// WriteJSON writes a JSON response.
 func WriteJSON(w http.ResponseWriter, statusCode int, data interface{}) {
-	sanitized := ws.SanitizeResponse(data)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(sanitized)
+	json.NewEncoder(w).Encode(data)
 }
 
 // WriteError writes a JSON error response.

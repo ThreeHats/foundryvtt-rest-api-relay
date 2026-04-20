@@ -28,48 +28,26 @@
   }
 </script>
 
-<div class="subscription-row">
-  <div class="status-display">
-    <span class="form-label">Subscription</span>
-    <span class="status-text">
-      {#if status === 'active'}
-        <span class="badge badge-active">Active</span>
-      {:else if status === 'past_due'}
-        <span class="badge badge-disabled">Past Due</span>
-      {:else}
-        <span class="badge badge-expired">Free</span>
-      {/if}
-    </span>
-  </div>
-  <div class="subscription-actions">
-    {#if status === 'active' || status === 'past_due'}
-      <button class="btn btn-secondary btn-sm" onclick={handleManage} disabled={loading}>
-        Manage Subscription
-      </button>
-    {:else}
-      <button class="btn btn-primary btn-sm" onclick={handleSubscribe} disabled={loading}>
-        {loading ? 'Loading...' : '$5/month - Unlimited Access'}
-      </button>
-    {/if}
-  </div>
+<div class="sub-inline">
+  {#if status === 'active'}
+    <span class="badge badge-active">Active</span>
+    <button class="btn btn-ghost btn-sm" onclick={handleManage} disabled={loading}>Manage</button>
+  {:else if status === 'past_due'}
+    <span class="badge badge-disabled">Past Due</span>
+    <button class="btn btn-ghost btn-sm" onclick={handleManage} disabled={loading}>Manage</button>
+  {:else}
+    <span class="badge badge-expired">Free plan</span>
+    <button class="btn btn-primary btn-sm" onclick={handleSubscribe} disabled={loading}>
+      {loading ? 'Loading…' : 'Upgrade · $5/month'}
+    </button>
+  {/if}
 </div>
 
 <style>
-  .subscription-row {
+  .sub-inline {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .status-display {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .status-text {
-    font-size: 0.875rem;
+    gap: 0.5rem;
+    flex-shrink: 0;
   }
 </style>

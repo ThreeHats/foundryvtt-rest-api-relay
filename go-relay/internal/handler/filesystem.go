@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/handler/helpers"
@@ -36,8 +37,15 @@ func uploadHandler(mgr *ws.ClientManager, pending *ws.PendingRequests) http.Hand
 		var overwrite bool
 		var fileData []byte
 
-		if contentType == "application/json" || contentType == "" {
-			body := parseBody(r)
+		// Enforce 250MB body size limit for file uploads
+		r.Body = http.MaxBytesReader(w, r.Body, 250<<20)
+
+		if strings.HasPrefix(contentType, "application/json") || contentType == "" {
+			body, err := parseBody(r)
+			if err != nil {
+				helpers.WriteError(w, http.StatusBadRequest, err.Error())
+				return
+			}
 			filePath = bodyStr(body, "path")
 			if filePath == "" {
 				filePath = r.URL.Query().Get("path")
@@ -68,7 +76,7 @@ func uploadHandler(mgr *ws.ClientManager, pending *ws.PendingRequests) http.Hand
 			overwrite = r.URL.Query().Get("overwrite") == "true"
 			data, err := io.ReadAll(r.Body)
 			if err != nil {
-				helpers.WriteError(w, http.StatusBadRequest, "Failed to read upload data")
+				helpers.WriteError(w, http.StatusBadRequest, "Failed to read upload data: "+err.Error())
 				return
 			}
 			fileData = data

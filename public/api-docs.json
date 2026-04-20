@@ -61,6 +61,18 @@
           "type": "string"
         },
         {
+          "description": "If true, preserve the _id from the provided data instead of generating a new one",
+          "location": "body/query",
+          "name": "keepId",
+          "type": "boolean"
+        },
+        {
+          "description": "If true and keepId is set, replace any existing entity with the same ID",
+          "location": "body/query",
+          "name": "override",
+          "type": "boolean"
+        },
+        {
           "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
           "location": "query/body",
           "name": "userId",
@@ -399,10 +411,34 @@
           "type": "string"
         },
         {
-          "description": "Filter to apply (simple: filter=\"Actor\", property-based: filter=\"key:value,key2:value2\")",
+          "description": "Search query string (omit to browse all entities matching filter)",
+          "location": "query",
+          "name": "query",
+          "type": "string"
+        },
+        {
+          "description": "Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType",
           "location": "query",
           "name": "filter",
           "type": "string"
+        },
+        {
+          "description": "Exclude compendium entries from results (default: false — compendiums are included by default)",
+          "location": "query",
+          "name": "excludeCompendiums",
+          "type": "boolean"
+        },
+        {
+          "description": "Maximum number of results to return (default: 200, max: 500)",
+          "location": "query",
+          "name": "limit",
+          "type": "number"
+        },
+        {
+          "description": "Return minimal fields only — uuid, id, name, img, documentType (default: false)",
+          "location": "query",
+          "name": "minified",
+          "type": "boolean"
         },
         {
           "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
@@ -412,14 +448,7 @@
         }
       ],
       "path": "/search",
-      "requiredParameters": [
-        {
-          "description": "Search query string",
-          "location": "query",
-          "name": "query",
-          "type": "string"
-        }
-      ]
+      "requiredParameters": []
     },
     {
       "description": "Get recent rolls",
@@ -827,39 +856,6 @@
       "requiredParameters": []
     },
     {
-      "description": "Execute a macro by UUID",
-      "method": "POST",
-      "optionalParameters": [
-        {
-          "description": "Client ID for the Foundry world",
-          "location": "query",
-          "name": "clientId",
-          "type": "string"
-        },
-        {
-          "description": "Optional arguments to pass to the macro execution",
-          "location": "body",
-          "name": "args",
-          "type": "object"
-        },
-        {
-          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
-          "location": "query/body",
-          "name": "userId",
-          "type": "string"
-        }
-      ],
-      "path": "/macro/:uuid/execute",
-      "requiredParameters": [
-        {
-          "description": "UUID of the macro to execute",
-          "location": "path",
-          "name": "uuid",
-          "type": "string"
-        }
-      ]
-    },
-    {
       "description": "Get the structure of the Foundry world",
       "method": "GET",
       "optionalParameters": [
@@ -1099,19 +1095,13 @@
       "requiredParameters": []
     },
     {
-      "description": "Execute JavaScript",
-      "method": "POST",
+      "description": "List all Foundry users",
+      "method": "GET",
       "optionalParameters": [
         {
           "description": "Client ID for the Foundry world",
           "location": "query",
           "name": "clientId",
-          "type": "string"
-        },
-        {
-          "description": "JavaScript script to execute",
-          "location": "body",
-          "name": "script",
           "type": "string"
         },
         {
@@ -1121,7 +1111,149 @@
           "type": "string"
         }
       ],
-      "path": "/execute-js",
+      "path": "/users",
+      "requiredParameters": []
+    },
+    {
+      "description": "Get a single Foundry user",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "ID of the user to retrieve",
+          "location": "query",
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "description": "Name of the user to retrieve (alternative to id)",
+          "location": "query",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/user",
+      "requiredParameters": []
+    },
+    {
+      "description": "Create a new Foundry user",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "User role: 0=None, 1=Player, 2=Trusted, 3=Assistant, 4=GM (default: 1)",
+          "location": "body",
+          "name": "role",
+          "type": "number"
+        },
+        {
+          "description": "Password for the new user",
+          "location": "body",
+          "name": "password",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/user",
+      "requiredParameters": [
+        {
+          "description": "Username for the new user",
+          "location": "body",
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "description": "Update an existing Foundry user",
+      "method": "PUT",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "ID of the user to update",
+          "location": "body/query",
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "description": "Name of the user to update (alternative to id)",
+          "location": "body/query",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/user",
+      "requiredParameters": [
+        {
+          "description": "Object containing user fields to update (name, role, password, color, avatar, character)",
+          "location": "body",
+          "name": "data",
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "description": "Delete a Foundry user",
+      "method": "DELETE",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "ID of the user to delete",
+          "location": "query",
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "description": "Name of the user to delete (alternative to id)",
+          "location": "query",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/user",
       "requiredParameters": []
     },
     {
@@ -1172,6 +1304,38 @@
         }
       ],
       "path": "/scene",
+      "requiredParameters": []
+    },
+    {
+      "description": "Get the raw background image of a scene",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Scene ID (defaults to viewed/active scene)",
+          "location": "body/query",
+          "name": "sceneId",
+          "type": "string"
+        },
+        {
+          "description": "If true, explicitly use the player-facing active scene instead of the viewed scene",
+          "location": "body/query",
+          "name": "active",
+          "type": "boolean"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/scene/image/raw",
       "requiredParameters": []
     },
     {
@@ -1567,6 +1731,80 @@
       "requiredParameters": []
     },
     {
+      "description": "Measure the distance between two points or tokens",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Origin x coordinate (optional if originUuid/originName provided)",
+          "location": "body/query",
+          "name": "originX",
+          "type": "number"
+        },
+        {
+          "description": "Origin y coordinate",
+          "location": "body/query",
+          "name": "originY",
+          "type": "number"
+        },
+        {
+          "description": "Target x coordinate (optional if targetUuid/targetName provided)",
+          "location": "body/query",
+          "name": "targetX",
+          "type": "number"
+        },
+        {
+          "description": "Target y coordinate",
+          "location": "body/query",
+          "name": "targetY",
+          "type": "number"
+        },
+        {
+          "description": "UUID of the origin token",
+          "location": "body/query",
+          "name": "originUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the origin token",
+          "location": "body/query",
+          "name": "originName",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the target token",
+          "location": "body/query",
+          "name": "targetUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the target token",
+          "location": "body/query",
+          "name": "targetName",
+          "type": "string"
+        },
+        {
+          "description": "Scene ID (defaults to active scene)",
+          "location": "body/query",
+          "name": "sceneId",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/measure-distance",
+      "requiredParameters": []
+    },
+    {
       "description": "Create canvas embedded document(s)",
       "method": "POST",
       "optionalParameters": [
@@ -2403,6 +2641,69 @@
           "location": "query",
           "name": "documentId",
           "type": "string"
+        }
+      ]
+    },
+    {
+      "description": "Move a token to specific coordinates",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the token to move (optional if name provided)",
+          "location": "body/query",
+          "name": "uuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the token to move (optional if uuid provided)",
+          "location": "body/query",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "description": "Array of waypoint objects with x and y coordinates to animate through before reaching final position",
+          "location": "body/query",
+          "name": "waypoints",
+          "type": "array"
+        },
+        {
+          "description": "Whether to animate the movement (default: true)",
+          "location": "body/query",
+          "name": "animate",
+          "type": "boolean"
+        },
+        {
+          "description": "Scene ID (defaults to active scene)",
+          "location": "body/query",
+          "name": "sceneId",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/move-token",
+      "requiredParameters": [
+        {
+          "description": "Target x coordinate",
+          "location": "body/query",
+          "name": "x",
+          "type": "number"
+        },
+        {
+          "description": "Target y coordinate",
+          "location": "body/query",
+          "name": "y",
+          "type": "number"
         }
       ]
     },
@@ -2582,6 +2883,26 @@
       ]
     },
     {
+      "description": "List all available status effects",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/effects/list",
+      "requiredParameters": []
+    },
+    {
       "description": "Add an active effect to an actor or token",
       "method": "POST",
       "optionalParameters": [
@@ -2658,6 +2979,270 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "description": "Get comprehensive world information",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/world-info",
+      "requiredParameters": []
+    },
+    {
+      "description": "Get all playlists",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/playlists",
+      "requiredParameters": []
+    },
+    {
+      "description": "Play a playlist or specific sound",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "ID of the playlist (optional if playlistName provided)",
+          "location": "body/query",
+          "name": "playlistId",
+          "type": "string"
+        },
+        {
+          "description": "Name of the playlist (optional if playlistId provided)",
+          "location": "body/query",
+          "name": "playlistName",
+          "type": "string"
+        },
+        {
+          "description": "ID of a specific sound to play within the playlist",
+          "location": "body/query",
+          "name": "soundId",
+          "type": "string"
+        },
+        {
+          "description": "Name of a specific sound to play (optional if soundId provided)",
+          "location": "body/query",
+          "name": "soundName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/playlist/play",
+      "requiredParameters": []
+    },
+    {
+      "description": "Stop a playlist",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "ID of the playlist (optional if playlistName provided)",
+          "location": "body/query",
+          "name": "playlistId",
+          "type": "string"
+        },
+        {
+          "description": "Name of the playlist (optional if playlistId provided)",
+          "location": "body/query",
+          "name": "playlistName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/playlist/stop",
+      "requiredParameters": []
+    },
+    {
+      "description": "Skip to next track in a playlist",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "ID of the playlist (optional if playlistName provided)",
+          "location": "body/query",
+          "name": "playlistId",
+          "type": "string"
+        },
+        {
+          "description": "Name of the playlist (optional if playlistId provided)",
+          "location": "body/query",
+          "name": "playlistName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/playlist/next",
+      "requiredParameters": []
+    },
+    {
+      "description": "Set volume for a playlist or specific sound",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "ID of the playlist (optional if playlistName provided)",
+          "location": "body/query",
+          "name": "playlistId",
+          "type": "string"
+        },
+        {
+          "description": "Name of the playlist (optional if playlistId provided)",
+          "location": "body/query",
+          "name": "playlistName",
+          "type": "string"
+        },
+        {
+          "description": "ID of a specific sound to adjust volume for",
+          "location": "body/query",
+          "name": "soundId",
+          "type": "string"
+        },
+        {
+          "description": "Name of a specific sound to adjust volume for (optional if soundId provided)",
+          "location": "body/query",
+          "name": "soundName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/playlist/volume",
+      "requiredParameters": [
+        {
+          "description": "Volume level from 0.0 (silent) to 1.0 (full volume)",
+          "location": "body/query",
+          "name": "volume",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "description": "",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Volume from 0.0 to 1.0 (default: 0.5)",
+          "location": "body/query",
+          "name": "volume",
+          "type": "number"
+        },
+        {
+          "description": "Whether to loop the sound (default: false)",
+          "location": "body/query",
+          "name": "loop",
+          "type": "boolean"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/play-sound",
+      "requiredParameters": [
+        {
+          "description": "Path to the audio file (e.g., \"sounds/effect.mp3\")",
+          "location": "body/query",
+          "name": "src",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "description": "Play a one-shot sound effect",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Path to the audio file to stop (omit to stop all sounds)",
+          "location": "body/query",
+          "name": "src",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/stop-sound",
+      "requiredParameters": []
     },
     {
       "description": "Get file system structure",
@@ -2753,6 +3338,80 @@
         }
       ],
       "path": "/rolls/subscribe",
+      "requiredParameters": []
+    },
+    {
+      "description": "Get a rendered screenshot of a scene",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Scene ID (defaults to viewed/active scene)",
+          "location": "query",
+          "name": "sceneId",
+          "type": "string"
+        },
+        {
+          "description": "If true, explicitly use the player-facing active scene instead of the viewed scene",
+          "location": "query",
+          "name": "active",
+          "type": "boolean"
+        },
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Image format: png or jpeg (default: png)",
+          "location": "query",
+          "name": "format",
+          "type": "string"
+        },
+        {
+          "description": "Image quality 0-1 for JPEG (default: 0.9)",
+          "location": "query",
+          "name": "quality",
+          "type": "number"
+        },
+        {
+          "description": "If true, capture exactly what the browser currently shows instead of the full scene",
+          "location": "query",
+          "name": "viewport",
+          "type": "boolean"
+        },
+        {
+          "description": "Output image width in pixels (default: scene width)",
+          "location": "query",
+          "name": "width",
+          "type": "number"
+        },
+        {
+          "description": "Output image height in pixels (default: scene height)",
+          "location": "query",
+          "name": "height",
+          "type": "number"
+        },
+        {
+          "description": "Include grid lines in capture (default: false)",
+          "location": "query",
+          "name": "showGrid",
+          "type": "boolean"
+        },
+        {
+          "description": "Hide fog of war, weather, vision, and UI overlays (default: false)",
+          "location": "query",
+          "name": "hideOverlays",
+          "type": "boolean"
+        },
+        {
+          "description": "Foundry user ID or username",
+          "location": "query",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/scene/image",
       "requiredParameters": []
     },
     {
@@ -2864,68 +3523,6 @@
       "requiredParameters": []
     },
     {
-      "description": "Get actor sheet HTML",
-      "method": "GET",
-      "optionalParameters": [
-        {
-          "description": "The UUID of the entity to get the sheet for",
-          "location": "query",
-          "name": "uuid",
-          "type": "string"
-        },
-        {
-          "description": "Whether to get the sheet for the selected entity",
-          "location": "query",
-          "name": "selected",
-          "type": "boolean"
-        },
-        {
-          "description": "Whether to get the sheet for the selected token's actor if selected is true",
-          "location": "query",
-          "name": "actor",
-          "type": "boolean"
-        },
-        {
-          "description": "Client ID for the Foundry world",
-          "location": "query",
-          "name": "clientId",
-          "type": "string"
-        },
-        {
-          "description": "The format to return the sheet in (html, json)",
-          "location": "query",
-          "name": "format",
-          "type": "string"
-        },
-        {
-          "description": "The initial scale of the sheet",
-          "location": "query",
-          "name": "scale",
-          "type": "number"
-        },
-        {
-          "description": "The active tab index to open",
-          "location": "query",
-          "name": "tab",
-          "type": "number"
-        },
-        {
-          "description": "Whether to use dark mode for the sheet",
-          "location": "query",
-          "name": "darkMode",
-          "type": "boolean"
-        },
-        {
-          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
-          "location": "query",
-          "name": "userId",
-          "type": "string"
-        }
-      ],
-      "path": "/sheet",
-      "requiredParameters": []
-    },
-    {
       "description": "Get actor sheet as screenshot image",
       "method": "GET",
       "optionalParameters": [
@@ -2978,7 +3575,7 @@
           "type": "string"
         }
       ],
-      "path": "/sheet/image",
+      "path": "/sheet",
       "requiredParameters": []
     },
     {
@@ -3080,6 +3677,158 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "description": "Subscribe to real-time events via Server-Sent Events (SSE)",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Comma-separated hook names to filter (hooks type only)",
+          "location": "query",
+          "name": "hooks",
+          "type": "string"
+        },
+        {
+          "description": "Filter by encounter ID (combat type only)",
+          "location": "query",
+          "name": "encounterId",
+          "type": "string"
+        },
+        {
+          "description": "Actor UUID to subscribe to (actor type, required)",
+          "location": "query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Scene ID to filter (scene type only)",
+          "location": "query",
+          "name": "sceneId",
+          "type": "string"
+        }
+      ],
+      "path": "/hooks/subscribe",
+      "requiredParameters": []
+    },
+    {
+      "description": "Subscribe to real-time events via Server-Sent Events (SSE)",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Comma-separated hook names to filter (hooks type only)",
+          "location": "query",
+          "name": "hooks",
+          "type": "string"
+        },
+        {
+          "description": "Filter by encounter ID (combat type only)",
+          "location": "query",
+          "name": "encounterId",
+          "type": "string"
+        },
+        {
+          "description": "Actor UUID to subscribe to (actor type, required)",
+          "location": "query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Scene ID to filter (scene type only)",
+          "location": "query",
+          "name": "sceneId",
+          "type": "string"
+        }
+      ],
+      "path": "/encounters/subscribe",
+      "requiredParameters": []
+    },
+    {
+      "description": "Subscribe to real-time events via Server-Sent Events (SSE)",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Comma-separated hook names to filter (hooks type only)",
+          "location": "query",
+          "name": "hooks",
+          "type": "string"
+        },
+        {
+          "description": "Filter by encounter ID (combat type only)",
+          "location": "query",
+          "name": "encounterId",
+          "type": "string"
+        },
+        {
+          "description": "Actor UUID to subscribe to (actor type, required)",
+          "location": "query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Scene ID to filter (scene type only)",
+          "location": "query",
+          "name": "sceneId",
+          "type": "string"
+        }
+      ],
+      "path": "/actor/subscribe",
+      "requiredParameters": []
+    },
+    {
+      "description": "Subscribe to real-time events via Server-Sent Events (SSE)",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "Comma-separated hook names to filter (hooks type only)",
+          "location": "query",
+          "name": "hooks",
+          "type": "string"
+        },
+        {
+          "description": "Filter by encounter ID (combat type only)",
+          "location": "query",
+          "name": "encounterId",
+          "type": "string"
+        },
+        {
+          "description": "Actor UUID to subscribe to (actor type, required)",
+          "location": "query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Scene ID to filter (scene type only)",
+          "location": "query",
+          "name": "sceneId",
+          "type": "string"
+        }
+      ],
+      "path": "/scene/subscribe",
+      "requiredParameters": []
     },
     {
       "description": "This route is deprecated",
@@ -3498,6 +4247,286 @@
       ]
     },
     {
+      "description": "Check if an actor is concentrating on a spell",
+      "method": "GET",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the actor (optional if selected is true)",
+          "location": "body/query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the actor (optional if actorUuid provided)",
+          "location": "body/query",
+          "name": "actorName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/dnd5e/concentration",
+      "requiredParameters": []
+    },
+    {
+      "description": "Break an actor's concentration",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the actor (optional if selected is true)",
+          "location": "body/query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the actor (optional if actorUuid provided)",
+          "location": "body/query",
+          "name": "actorName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/dnd5e/break-concentration",
+      "requiredParameters": []
+    },
+    {
+      "description": "Roll a concentration saving throw",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the actor (optional if selected is true)",
+          "location": "body/query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the actor (optional if actorUuid provided)",
+          "location": "body/query",
+          "name": "actorName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        },
+        {
+          "description": "Roll with advantage",
+          "location": "body/query",
+          "name": "advantage",
+          "type": "boolean"
+        },
+        {
+          "description": "Roll with disadvantage",
+          "location": "body/query",
+          "name": "disadvantage",
+          "type": "boolean"
+        },
+        {
+          "description": "Extra bonus formula to add (e.g., \"1d4\", \"+2\")",
+          "location": "body/query",
+          "name": "bonus",
+          "type": "string"
+        },
+        {
+          "description": "Whether to post the roll to chat (default: true)",
+          "location": "body/query",
+          "name": "createChatMessage",
+          "type": "boolean"
+        }
+      ],
+      "path": "/dnd5e/concentration-save",
+      "requiredParameters": [
+        {
+          "description": "Amount of damage taken (used to calculate DC = max(10, floor(damage/2)))",
+          "location": "body/query",
+          "name": "damage",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "description": "Equip or unequip an item",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the actor (optional if selected is true)",
+          "location": "body/query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the actor (optional if actorUuid provided)",
+          "location": "body/query",
+          "name": "actorName",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the item (optional if itemName provided)",
+          "location": "body/query",
+          "name": "itemUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the item (optional if itemUuid provided)",
+          "location": "body/query",
+          "name": "itemName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/dnd5e/equip-item",
+      "requiredParameters": [
+        {
+          "description": "Whether the item should be equipped (true) or unequipped (false)",
+          "location": "body/query",
+          "name": "equipped",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "description": "Attune or unattune an item",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the actor (optional if selected is true)",
+          "location": "body/query",
+          "name": "actorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the actor (optional if actorUuid provided)",
+          "location": "body/query",
+          "name": "actorName",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the item (optional if itemName provided)",
+          "location": "body/query",
+          "name": "itemUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the item (optional if itemUuid provided)",
+          "location": "body/query",
+          "name": "itemName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/dnd5e/attune-item",
+      "requiredParameters": [
+        {
+          "description": "Whether the item should be attuned (true) or unattuned (false)",
+          "location": "body/query",
+          "name": "attuned",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "description": "Transfer currency between actors",
+      "method": "POST",
+      "optionalParameters": [
+        {
+          "description": "Client ID for the Foundry world",
+          "location": "query",
+          "name": "clientId",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the source actor (optional if sourceActorName provided)",
+          "location": "body/query",
+          "name": "sourceActorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the source actor",
+          "location": "body/query",
+          "name": "sourceActorName",
+          "type": "string"
+        },
+        {
+          "description": "UUID of the target actor (optional if targetActorName provided)",
+          "location": "body/query",
+          "name": "targetActorUuid",
+          "type": "string"
+        },
+        {
+          "description": "Name of the target actor",
+          "location": "body/query",
+          "name": "targetActorName",
+          "type": "string"
+        },
+        {
+          "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+          "location": "query/body",
+          "name": "userId",
+          "type": "string"
+        }
+      ],
+      "path": "/dnd5e/transfer-currency",
+      "requiredParameters": [
+        {
+          "description": "Currency amounts to transfer, e.g. pp, gp, ep, sp, cp denomination keys with numeric values",
+          "location": "body/query",
+          "name": "currency",
+          "type": "object"
+        }
+      ]
+    },
+    {
       "description": "Use an ability",
       "method": "POST",
       "optionalParameters": [
@@ -3880,9 +4909,9 @@
           "type": "string"
         },
         {
-          "description": "Per-key daily request cap",
+          "description": "Per-key monthly request cap",
           "location": "body",
-          "name": "dailyLimit",
+          "name": "monthlyLimit",
           "type": "string"
         },
         {

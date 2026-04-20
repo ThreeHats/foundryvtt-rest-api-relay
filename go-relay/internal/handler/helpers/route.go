@@ -3,10 +3,12 @@ package helpers
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
+	"slices"
 	"time"
 
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/metrics"
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/model"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/ws"
 	"github.com/rs/zerolog/log"
 )
@@ -26,6 +28,11 @@ type APIRouteConfig struct {
 
 	// BuildPendingRequest adds extra fields to the pending request.
 	BuildPendingRequest func(params Params) *ws.PendingRequest
+
+	// AfterForward is called in a goroutine after the WS message is successfully
+	// sent to Foundry. Use for side-effects like notification dispatch or event
+	// logging. reqCtx and params are not mutated after this point and are safe to read.
+	AfterForward func(reqCtx *RequestContext, clientID string, params Params)
 }
 
 // RequestContext holds auth context set by middleware.
@@ -38,14 +45,50 @@ type RequestContext struct {
 
 // ScopedKeyInfo holds scoped key details from auth middleware.
 type ScopedKeyInfo struct {
-	ID             int64
-	ScopedClientID string
-	ScopedUserID   string
+	ID              int64
+	KeyPrefix       string            // first 8 chars of the raw key, safe to log
+	ScopedClientID  string            // single allowed client; use ScopedClientIDs for multiple
+	ScopedClientIDs []string          // multi-client scoping
+	ScopedUserID    string            // userId applied to all clients; use ScopedUserIDs for per-client
+	ScopedUserIDs   map[string]string // per-client userId: clientId → userId
+	Scopes          []string          // parsed scope list (nil = no scopes, deny all)
+	MonthlyLimit      int64           // 0 when MonthlyLimitSet is false
+	MonthlyLimitSet   bool            // true if this key has a MonthlyLimit configured
+	RequestsThisMonth int             // snapshot from auth time; used for approach alerts
 }
 
-// AutoStartFunc is called when no client is found and the request has a scoped key with stored credentials.
+// HasScope returns true if this scoped key has the given scope.
+// An empty scope list means no scopes — all requests are denied.
+// Master keys bypass this check (ScopedKey == nil in request context).
+func (s *ScopedKeyInfo) HasScope(scope string) bool {
+	if len(s.Scopes) == 0 {
+		return false
+	}
+	return slices.Contains(s.Scopes, scope)
+}
+
+// CanAccessClient returns true if this key can access the given clientId.
+// Nil/empty ScopedClientIDs means unrestricted.
+func (s *ScopedKeyInfo) CanAccessClient(clientID string) bool {
+	if len(s.ScopedClientIDs) == 0 {
+		return true
+	}
+	return slices.Contains(s.ScopedClientIDs, clientID)
+}
+
+// GetUser returns the authenticated User from the request context, if present.
+func (c *RequestContext) GetUser() (*model.User, bool) {
+	if c == nil {
+		return nil, false
+	}
+	u, ok := c.User.(*model.User)
+	return u, ok && u != nil
+}
+
+// AutoStartFunc is called when no client is found, to attempt headless auto-start.
+// targetClientID is the world to start; empty string means no specific target (no-op).
 // Set by the server at startup. Returns clientID or empty string.
-var AutoStartFunc func(reqCtx *RequestContext) string
+var AutoStartFunc func(reqCtx *RequestContext, targetClientID string) string
 
 type contextKey string
 
@@ -73,10 +116,7 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 		// Parse body for POST/PUT/PATCH/DELETE
 		var body map[string]interface{}
 		if r.Method != http.MethodGet && r.Body != nil {
-			bodyBytes, err := io.ReadAll(r.Body)
-			if err == nil && len(bodyBytes) > 0 {
-				json.Unmarshal(bodyBytes, &body)
-			}
+			json.NewDecoder(r.Body).Decode(&body)
 		}
 
 		// Extract parameters
@@ -103,11 +143,22 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 		// Scoped key enforcement
 		reqCtx := GetRequestContext(r)
 		if reqCtx != nil && reqCtx.ScopedKey != nil {
-			if reqCtx.ScopedKey.ScopedClientID != "" {
+			// Multi-client scoping: validate or auto-select allowed client
+			if len(reqCtx.ScopedKey.ScopedClientIDs) > 0 {
+				requestedClient := params.GetString("clientId")
+				if requestedClient != "" {
+					if !reqCtx.ScopedKey.CanAccessClient(requestedClient) {
+						WriteError(w, http.StatusForbidden, "API key is not authorized for this client")
+						return
+					}
+				} else if len(reqCtx.ScopedKey.ScopedClientIDs) == 1 {
+					// Auto-select if only one client allowed
+					params["clientId"] = reqCtx.ScopedKey.ScopedClientIDs[0]
+				}
+				// else: multiple allowed, none specified — fall through to auto-resolve
+				// which will be filtered below
+			} else if reqCtx.ScopedKey.ScopedClientID != "" {
 				params["clientId"] = reqCtx.ScopedKey.ScopedClientID
-			}
-			if reqCtx.ScopedKey.ScopedUserID != "" {
-				params["userId"] = reqCtx.ScopedKey.ScopedUserID
 			}
 		}
 
@@ -120,14 +171,26 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 			}
 			if masterKey != "" {
 				clients := manager.GetConnectedClients(masterKey)
+
+				// Filter to allowed clients when multi-client scoping is active
+				if reqCtx != nil && reqCtx.ScopedKey != nil && len(reqCtx.ScopedKey.ScopedClientIDs) > 0 {
+					filtered := make([]string, 0, len(clients))
+					for _, c := range clients {
+						if reqCtx.ScopedKey.CanAccessClient(c) {
+							filtered = append(filtered, c)
+						}
+					}
+					clients = filtered
+				}
+
 				switch len(clients) {
 				case 1:
 					clientID = clients[0]
 					params["clientId"] = clientID
 				case 0:
-					// Try auto-start for scoped keys with stored credentials
+					// Try auto-start (no specific clientId known at this point; no-op for unrestricted keys)
 					if AutoStartFunc != nil && reqCtx != nil {
-						if autoID := AutoStartFunc(reqCtx); autoID != "" {
+						if autoID := AutoStartFunc(reqCtx, ""); autoID != "" {
 							clientID = autoID
 							params["clientId"] = clientID
 							break
@@ -148,17 +211,37 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 			}
 		}
 
+		// Inject userId after clientId is resolved (per-client or global fallback)
+		if reqCtx != nil && reqCtx.ScopedKey != nil {
+			if len(reqCtx.ScopedKey.ScopedUserIDs) > 0 {
+				if uid := reqCtx.ScopedKey.ScopedUserIDs[clientID]; uid != "" {
+					params["userId"] = uid
+				}
+			} else if reqCtx.ScopedKey.ScopedUserID != "" {
+				params["userId"] = reqCtx.ScopedKey.ScopedUserID
+			}
+		}
+
 		// Get client
 		client := manager.GetClient(clientID)
 		if client == nil {
 			// Debug: log the state
 			hasScopedKey := reqCtx != nil && reqCtx.ScopedKey != nil
 			hasAutoStart := AutoStartFunc != nil
-			log.Warn().Str("clientId", clientID).Bool("hasScopedKey", hasScopedKey).Bool("hasAutoStart", hasAutoStart).Msg("Client not found, checking auto-start")
+			ev := log.Warn().
+				Str("clientId", clientID).
+				Str("method", r.Method).
+				Str("path", r.URL.Path).
+				Bool("hasScopedKey", hasScopedKey).
+				Bool("hasAutoStart", hasAutoStart)
+			if u, ok := reqCtx.GetUser(); ok {
+				ev = ev.Int64("userId", u.ID)
+			}
+			ev.Msg("Client not found, checking auto-start")
 
-			// Try auto-start for scoped keys with stored credentials
+			// Try auto-start using the world's stored credential
 			if AutoStartFunc != nil && reqCtx != nil && reqCtx.ScopedKey != nil {
-				if autoID := AutoStartFunc(reqCtx); autoID != "" {
+				if autoID := AutoStartFunc(reqCtx, clientID); autoID != "" {
 					clientID = autoID
 					params["clientId"] = clientID
 					client = manager.GetClient(clientID)
@@ -169,7 +252,7 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 			WriteJSON(w, http.StatusNotFound, map[string]interface{}{
 				"error":    "Invalid client ID",
 				"clientId": clientID,
-				"message":  "No Foundry client connected with this ID. If using a scoped key with stored credentials, check server logs for auto-start errors.",
+				"message":  "No Foundry client connected with this ID.",
 			})
 			return
 		}
@@ -216,6 +299,15 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 		payload["type"] = cfg.Type
 		payload["requestId"] = requestID
 
+		// Inject scopes for scoped-key requests so the module can enforce
+		// entity-type-level restrictions (e.g. macro:write) after UUID lookup.
+		// Master keys (ScopedKey == nil) get no _scopes field; the module treats
+		// absence as "all scopes allowed". The relay constructs this from the
+		// authenticated key — it is never populated from attacker-controlled input.
+		if reqCtx != nil && reqCtx.ScopedKey != nil {
+			payload["_scopes"] = reqCtx.ScopedKey.Scopes
+		}
+
 		// Ensure data sub-object exists
 		if _, ok := payload["data"]; !ok {
 			payload["data"] = map[string]interface{}{}
@@ -229,14 +321,34 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 			return
 		}
 
+		if cfg.AfterForward != nil {
+			go cfg.AfterForward(reqCtx, clientID, params)
+		}
+
 		// Wait for response with timeout
+		timer := time.NewTimer(cfg.Timeout)
+		defer timer.Stop()
 		select {
 		case resp := <-responseCh:
 			wsRoundTrip := time.Since(wsSendStart)
 			if wsRoundTrip > 500*time.Millisecond {
-				log.Warn().Str("type", cfg.Type).Str("requestId", requestID).Dur("roundTrip", wsRoundTrip).Msg("Slow WS round-trip")
+				ev := log.Warn().
+					Str("type", cfg.Type).
+					Str("requestId", requestID).
+					Dur("roundTrip", wsRoundTrip).
+					Str("clientId", clientID).
+					Str("method", r.Method).
+					Str("path", r.URL.Path)
+				if u, ok := reqCtx.GetUser(); ok {
+					ev = ev.Int64("userId", u.ID)
+				}
+				if reqCtx != nil && reqCtx.ScopedKey != nil {
+					ev = ev.Str("keyPrefix", reqCtx.ScopedKey.KeyPrefix)
+				}
+				ev.Msg("Slow WS round-trip")
 			}
 			if resp == nil {
+				metrics.WSRoundTripTimeouts.Inc()
 				WriteError(w, http.StatusGatewayTimeout, "Request timed out")
 				return
 			}
@@ -277,8 +389,9 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 				w.WriteHeader(resp.StatusCode)
 				json.NewEncoder(w).Encode(resp.Data)
 			}
-		case <-time.After(cfg.Timeout):
+		case <-timer.C:
 			pending.Delete(requestID)
+			metrics.WSRoundTripTimeouts.Inc()
 			WriteError(w, http.StatusRequestTimeout, "Request timed out")
 		case <-r.Context().Done():
 			pending.Delete(requestID)

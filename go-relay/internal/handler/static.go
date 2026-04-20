@@ -65,6 +65,7 @@ func OpenAPIHandler(specPath string) http.HandlerFunc {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "public, max-age=300")
 		json.NewEncoder(w).Encode(spec)
 	}
 }
@@ -97,6 +98,7 @@ func AsyncAPIHandler(specPath string) http.HandlerFunc {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "public, max-age=300")
 		json.NewEncoder(w).Encode(spec)
 	}
 }
@@ -123,6 +125,7 @@ func APIDocsHandler(docsPath string) http.HandlerFunc {
 		docs["baseUrl"] = scheme + "://" + r.Host
 
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "public, max-age=300")
 		json.NewEncoder(w).Encode(docs)
 	}
 }

@@ -14,6 +14,44 @@ interface ApiTesterProps {
   parameters?: Parameter[];
 }
 
+function findDataUri(obj: any): string | null {
+  if (!obj || typeof obj !== 'object') return null;
+  for (const value of Object.values(obj)) {
+    if (typeof value === 'string' && value.startsWith('data:image/')) return value;
+    if (typeof value === 'object') {
+      const found = findDataUri(value);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+function dataUriToBlob(dataUri: string): string {
+  const [header, base64] = dataUri.split(',');
+  const mime = header.match(/:(.*?);/)?.[1] || 'image/png';
+  const bytes = atob(base64);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return URL.createObjectURL(new Blob([arr], { type: mime }));
+}
+
+function stripDataUris(obj: any): any {
+  if (!obj || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(stripDataUris);
+  const result: any = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === 'string' && value.startsWith('data:image/')) {
+      const size = Math.round((value.length * 3) / 4 / 1024);
+      result[key] = `[image data ${size} KB]`;
+    } else if (typeof value === 'object') {
+      result[key] = stripDataUris(value);
+    } else {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
 const METHOD_COLORS: Record<string, string> = {
   GET: '#10b981',
   POST: '#3b82f6',
@@ -46,7 +84,7 @@ export default function ApiTester({ method, path, parameters = [] }: ApiTesterPr
     }
     return initial;
   });
-  const [response, setResponse] = useState<{ status: number; data: any } | null>(null);
+  const [response, setResponse] = useState<{ status: number; data: any; imageUrl?: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -74,7 +112,10 @@ export default function ApiTester({ method, path, parameters = [] }: ApiTesterPr
   const sendRequest = useCallback(async () => {
     setLoading(true);
     setError(null);
-    setResponse(null);
+    setResponse(prev => {
+      if (prev?.imageUrl) URL.revokeObjectURL(prev.imageUrl);
+      return null;
+    });
 
     try {
       // Build URL with path params replaced
@@ -140,15 +181,25 @@ export default function ApiTester({ method, path, parameters = [] }: ApiTesterPr
       }
 
       const res = await fetch(url, fetchOptions);
-      let data: any;
       const contentType = res.headers.get('content-type') || '';
-      if (contentType.includes('application/json')) {
-        data = await res.json();
-      } else {
-        data = await res.text();
-      }
 
-      setResponse({ status: res.status, data });
+      if (contentType.startsWith('image/')) {
+        const blob = await res.blob();
+        const imageUrl = URL.createObjectURL(blob);
+        setResponse({ status: res.status, data: `${contentType} (${(blob.size / 1024).toFixed(1)} KB)`, imageUrl });
+      } else if (contentType.includes('application/json')) {
+        const data = await res.json();
+        const dataUri = findDataUri(data);
+        if (dataUri) {
+          const blobUrl = dataUriToBlob(dataUri);
+          setResponse({ status: res.status, data: stripDataUris(data), imageUrl: blobUrl });
+        } else {
+          setResponse({ status: res.status, data });
+        }
+      } else {
+        const data = await res.text();
+        setResponse({ status: res.status, data });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Request failed');
     } finally {
@@ -242,8 +293,31 @@ export default function ApiTester({ method, path, parameters = [] }: ApiTesterPr
                   {response.status}
                 </span>
                 <span className="api-tester__response-label">Response</span>
+                {response.imageUrl && (
+                  <a
+                    className="api-tester__download-link"
+                    href={response.imageUrl}
+                    download="response-image"
+                  >
+                    Download
+                  </a>
+                )}
               </div>
-              <InteractiveJson data={response.data} className="api-tester__response-body" />
+              {response.imageUrl && (
+                <div className="api-tester__image-container">
+                  <img
+                    src={response.imageUrl}
+                    alt="API response image"
+                    className="api-tester__image"
+                  />
+                  {typeof response.data === 'string' && (
+                    <div className="api-tester__image-meta">{response.data}</div>
+                  )}
+                </div>
+              )}
+              {(!response.imageUrl || typeof response.data === 'object') && (
+                <InteractiveJson data={response.data} className="api-tester__response-body" />
+              )}
             </div>
           )}
         </div>

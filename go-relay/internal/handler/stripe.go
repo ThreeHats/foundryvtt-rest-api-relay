@@ -7,8 +7,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
 	"time"
 
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/alerts"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/config"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/database"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/handler/helpers"
@@ -22,7 +24,13 @@ import (
 )
 
 // statusPriority maps subscription statuses to a priority value.
-// Higher priority statuses should not be overwritten by lower ones.
+// Higher values = more "active" states. When processing events for the SAME
+// subscription ID, we skip updates that would downgrade to a lower-priority status
+// (prevents race conditions from out-of-order webhook delivery).
+// A NEW subscription ID always overrides regardless of priority.
+//
+// The ordering allows natural degradation: active(3) -> canceled(2) -> past_due(1)
+// but prevents: canceled(2) -> past_due(1) since a canceled sub shouldn't go back to past_due.
 var statusPriority = map[string]int{
 	"incomplete":         0,
 	"incomplete_expired": 0,
@@ -31,8 +39,44 @@ var statusPriority = map[string]int{
 	"active":             3,
 }
 
+// processedEvents tracks recently processed Stripe webhook event IDs to prevent
+// duplicate processing when Stripe retries deliveries.
+var (
+	processedEventsMu sync.Mutex
+	processedEvents   = make(map[string]time.Time)
+)
+
+func init() {
+	// Cleanup old event IDs every hour
+	go func() {
+		ticker := time.NewTicker(1 * time.Hour)
+		defer ticker.Stop()
+		for range ticker.C {
+			processedEventsMu.Lock()
+			cutoff := time.Now().Add(-24 * time.Hour)
+			for id, ts := range processedEvents {
+				if ts.Before(cutoff) {
+					delete(processedEvents, id)
+				}
+			}
+			processedEventsMu.Unlock()
+		}
+	}()
+}
+
+// markEventProcessed returns true if the event was already processed.
+func markEventProcessed(eventID string) bool {
+	processedEventsMu.Lock()
+	defer processedEventsMu.Unlock()
+	if _, exists := processedEvents[eventID]; exists {
+		return true
+	}
+	processedEvents[eventID] = time.Now()
+	return false
+}
+
 // StripeRouter creates Stripe subscription management routes.
-// Stripe integration is disabled in local (memory/sqlite) mode.
+// Stripe integration is disabled in local (sqlite) mode.
 func StripeRouter(db *database.DB, cfg *config.Config) chi.Router {
 	r := chi.NewRouter()
 
@@ -222,6 +266,13 @@ func WebhookRouter(db *database.DB, cfg *config.Config) chi.Router {
 			return
 		}
 
+		// Idempotency check — skip already-processed events
+		if markEventProcessed(event.ID) {
+			log.Info().Str("eventId", event.ID).Str("eventType", string(event.Type)).Msg("Skipping duplicate webhook event")
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
 		// Handle the event
 		var success bool
 		switch event.Type {
@@ -334,6 +385,15 @@ func handleSubscriptionUpdated(db *database.DB, event stripe.Event) bool {
 		return false
 	}
 
+	if effectiveStatus == "active" {
+		alerts.Fire(alerts.Event{
+			Type:     alerts.TypeNewSubscription,
+			Severity: "info",
+			Message:  "New subscription activated",
+			Details:  map[string]interface{}{"userId": user.ID, "subscriptionId": subscription.ID},
+		})
+	}
+
 	log.Info().Int64("userId", user.ID).Str("status", effectiveStatus).Msg("Successfully updated subscription")
 	return true
 }
@@ -366,6 +426,13 @@ func handleSubscriptionDeleted(db *database.DB, event stripe.Event) bool {
 		log.Error().Err(err).Int64("userId", user.ID).Msg("Failed to update subscription deletion")
 		return false
 	}
+
+	alerts.Fire(alerts.Event{
+		Type:     alerts.TypeSubscriptionCancelled,
+		Severity: "info",
+		Message:  "Subscription cancelled",
+		Details:  map[string]interface{}{"userId": user.ID},
+	})
 
 	log.Info().Int64("userId", user.ID).Msg("Subscription canceled")
 	return true
@@ -419,6 +486,13 @@ func handlePaymentFailed(db *database.DB, event stripe.Event) bool {
 			log.Error().Err(err).Int64("userId", user.ID).Msg("Failed to update subscription to past_due")
 			return false
 		}
+
+		alerts.Fire(alerts.Event{
+			Type:     alerts.TypeStripePaymentFailed,
+			Severity: "warning",
+			Message:  "Stripe payment failed — subscription set to past_due",
+			Details:  map[string]interface{}{"userId": user.ID, "subscriptionId": invoice.Subscription},
+		})
 
 		log.Info().Int64("userId", user.ID).Msg("Updated subscription status to past_due")
 	}

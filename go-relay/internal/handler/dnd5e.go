@@ -189,5 +189,98 @@ func Dnd5eRouter(mgr *ws.ClientManager, pending *ws.PendingRequests) chi.Router 
 		},
 	}))
 
+	// --- Concentration Tracking ---
+
+	actorNameParam := helpers.ParamDef{Name: "actorName", From: bq, Type: helpers.TypeString, Description: "Name of the actor (optional if actorUuid provided)"}
+
+	// Check if an actor is concentrating on a spell
+	//
+	// Returns whether the actor currently has a concentration effect active,
+	// and if so, what spell they are concentrating on.
+	// @tag Dnd5e
+	// @returns Concentration status with effect details and spell name
+	r.Get("/concentration", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type:           "get-concentration",
+		OptionalParams: []helpers.ParamDef{clientIDParam(), optActorUuid, actorNameParam, userIDParam()},
+	}))
+
+	// Break an actor's concentration
+	//
+	// Removes the concentration effect from the actor, ending any
+	// spell that requires concentration.
+	// @tag Dnd5e
+	// @returns Confirmation that concentration was broken
+	r.Post("/break-concentration", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type:           "break-concentration",
+		OptionalParams: []helpers.ParamDef{clientIDParam(), optActorUuid, actorNameParam, userIDParam()},
+	}))
+
+	// Roll a concentration saving throw
+	//
+	// Rolls a Constitution saving throw to maintain concentration after taking damage.
+	// The DC is calculated as max(10, floor(damage/2)). Returns the roll result
+	// and whether concentration was maintained or broken.
+	// @tag Dnd5e
+	// @returns Roll result and concentration maintained status
+	r.Post("/concentration-save", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type: "concentration-save",
+		RequiredParams: []helpers.ParamDef{
+			{Name: "damage", From: bq, Type: helpers.TypeNumber, Required: true, Description: "Amount of damage taken (used to calculate DC = max(10, floor(damage/2)))"},
+		},
+		OptionalParams: append([]helpers.ParamDef{clientIDParam(), optActorUuid, actorNameParam, userIDParam()}, rollOptions...),
+	}))
+
+	// --- Inventory Management ---
+
+	itemUuidParam := helpers.ParamDef{Name: "itemUuid", From: bq, Type: helpers.TypeString, Description: "UUID of the item (optional if itemName provided)"}
+	itemNameParam := helpers.ParamDef{Name: "itemName", From: bq, Type: helpers.TypeString, Description: "Name of the item (optional if itemUuid provided)"}
+
+	// Equip or unequip an item
+	//
+	// Changes the equipped status of an item in an actor's inventory.
+	// @tag Dnd5e
+	// @returns Updated equipment status
+	r.Post("/equip-item", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type: "equip-item",
+		RequiredParams: []helpers.ParamDef{
+			{Name: "equipped", From: bq, Type: helpers.TypeBoolean, Required: true, Description: "Whether the item should be equipped (true) or unequipped (false)"},
+		},
+		OptionalParams: []helpers.ParamDef{clientIDParam(), optActorUuid, actorNameParam, itemUuidParam, itemNameParam, userIDParam()},
+	}))
+
+	// Attune or unattune an item
+	//
+	// Changes the attunement status of a magic item in an actor's inventory.
+	// @tag Dnd5e
+	// @returns Updated attunement status
+	r.Post("/attune-item", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type: "attune-item",
+		RequiredParams: []helpers.ParamDef{
+			{Name: "attuned", From: bq, Type: helpers.TypeBoolean, Required: true, Description: "Whether the item should be attuned (true) or unattuned (false)"},
+		},
+		OptionalParams: []helpers.ParamDef{clientIDParam(), optActorUuid, actorNameParam, itemUuidParam, itemNameParam, userIDParam()},
+	}))
+
+	// Transfer currency between actors
+	//
+	// Moves currency from one actor to another. Validates that the source
+	// actor has sufficient funds before transferring.
+	// @tag Dnd5e
+	// @returns Transfer result with updated balances
+	r.Post("/transfer-currency", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type: "transfer-currency",
+		RequiredParams: []helpers.ParamDef{
+			{Name: "currency", From: bq, Type: helpers.TypeObject, Required: true, Description: "Currency amounts to transfer, e.g. pp, gp, ep, sp, cp denomination keys with numeric values"},
+		},
+		OptionalParams: []helpers.ParamDef{
+			clientIDParam(),
+			{Name: "sourceActorUuid", From: bq, Type: helpers.TypeString, Description: "UUID of the source actor (optional if sourceActorName provided)"},
+			{Name: "sourceActorName", From: bq, Type: helpers.TypeString, Description: "Name of the source actor"},
+			{Name: "targetActorUuid", From: bq, Type: helpers.TypeString, Description: "UUID of the target actor (optional if targetActorName provided)"},
+			{Name: "targetActorName", From: bq, Type: helpers.TypeString, Description: "Name of the target actor"},
+			userIDParam(),
+		},
+	}))
+
 	return r
 }

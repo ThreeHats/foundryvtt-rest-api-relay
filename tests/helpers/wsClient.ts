@@ -14,9 +14,12 @@ export class WsTestClient extends EventEmitter {
    * Connect to the client-facing WebSocket endpoint
    */
   async connect(url: string, token: string, clientId: string): Promise<any> {
-    const fullUrl = `${url}?token=${encodeURIComponent(token)}&clientId=${encodeURIComponent(clientId)}`;
+    // clientId is non-secret and may be passed in the URL; token must NOT be in the URL
+    const fullUrl = clientId ? `${url}?clientId=${encodeURIComponent(clientId)}` : url;
 
     return new Promise<any>((resolve, reject) => {
+      let isConnected = false;
+
       const timeout = setTimeout(() => {
         reject(new Error('Connection timeout'));
       }, 10000);
@@ -24,7 +27,8 @@ export class WsTestClient extends EventEmitter {
       this.ws = new WebSocket(fullUrl);
 
       this.ws.on('open', () => {
-        // Wait for the 'connected' message
+        // Send auth message — token must not appear in URL params
+        this.ws!.send(JSON.stringify({ type: 'auth', token }));
       });
 
       this.ws.on('message', (raw: Buffer | string) => {
@@ -33,6 +37,7 @@ export class WsTestClient extends EventEmitter {
 
           // Handle initial connected message
           if (data.type === 'connected') {
+            isConnected = true;
             clearTimeout(timeout);
             resolve(data);
           }
@@ -44,8 +49,9 @@ export class WsTestClient extends EventEmitter {
             handler.resolve(data);
           }
 
-          // Route events
-          if (data.type === 'chat-event' || data.type === 'roll-event') {
+          // Route events to registered handlers
+          const eventTypes = ['chat-event', 'roll-event', 'hook-event', 'combat-event', 'actor-event', 'scene-event'];
+          if (eventTypes.includes(data.type)) {
             const handlers = this.eventHandlers.get(data.type) || [];
             for (const handler of handlers) {
               handler(data);
@@ -84,8 +90,12 @@ export class WsTestClient extends EventEmitter {
 
       this.ws.on('close', (code, reason) => {
         clearTimeout(timeout);
+        // Reject connect() promise if auth hasn't completed yet
+        if (!isConnected) {
+          reject(new Error(`WebSocket closed before auth completed (code: ${code}, reason: ${reason})`));
+        }
         // Reject all pending requests
-        for (const [id, handler] of this.responseHandlers) {
+        for (const [, handler] of this.responseHandlers) {
           handler.reject(new Error(`WebSocket closed (code: ${code}, reason: ${reason})`));
         }
         this.responseHandlers.clear();
@@ -128,7 +138,10 @@ export class WsTestClient extends EventEmitter {
   /**
    * Subscribe to an event channel
    */
-  async subscribe(channel: 'chat-events' | 'roll-events', filters: Record<string, any> = {}): Promise<any> {
+  async subscribe(
+    channel: 'chat-events' | 'roll-events' | 'hooks' | 'combat-events' | 'actor-events' | 'scene-events',
+    filters: Record<string, any> = {}
+  ): Promise<any> {
     return this.sendAndWait({ type: 'subscribe', channel, filters });
   }
 
@@ -142,7 +155,10 @@ export class WsTestClient extends EventEmitter {
   /**
    * Register a handler for event messages
    */
-  onEvent(eventType: 'chat-event' | 'roll-event', handler: (data: any) => void): void {
+  onEvent(
+    eventType: 'chat-event' | 'roll-event' | 'hook-event' | 'combat-event' | 'actor-event' | 'scene-event',
+    handler: (data: any) => void
+  ): void {
     if (!this.eventHandlers.has(eventType)) {
       this.eventHandlers.set(eventType, []);
     }
@@ -164,7 +180,7 @@ export class WsTestClient extends EventEmitter {
    */
   close(): void {
     if (this.ws) {
-      this.ws.close();
+      this.ws.close(1000, 'test complete');
       this.ws = null;
     }
     this.responseHandlers.clear();

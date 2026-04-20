@@ -214,6 +214,13 @@ html {
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
 }
 
+/* Search input text — explicit override so browsers don't revert to dark text */
+[data-theme='dark'] .DocSearch-Input {
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  caret-color: #f8fafc;
+}
+
 /* Search modal additional styling */
 [data-theme='dark'] .DocSearch-Modal .DocSearch-Hit[aria-selected='true'] a {
   background: var(--ifm-color-primary-darker);
@@ -634,6 +641,39 @@ article div.language-json::-webkit-scrollbar-thumb:hover {
   background: var(--ifm-background-color);
 }
 
+.api-tester__download-link {
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.api-tester__download-link:hover {
+  text-decoration: underline;
+}
+
+.api-tester__image-container {
+  padding: 0.75rem;
+  background: var(--ifm-background-color);
+  text-align: center;
+}
+
+.api-tester__image {
+  max-width: 100%;
+  max-height: 600px;
+  border-radius: 4px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.api-tester__image-meta {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-500);
+  font-family: var(--ifm-font-family-monospace);
+}
+
 /* Dark mode */
 [data-theme='dark'] .api-tester {
   border-color: var(--ifm-color-emphasis-700);
@@ -675,5 +715,266 @@ article div.language-json::-webkit-scrollbar-thumb:hover {
 }
 
 [data-theme='dark'] .api-tester__response-body {
+  background: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .api-tester__image-container {
+  background: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .api-tester__image {
+  border-color: var(--ifm-color-emphasis-600);
+}
+
+/* ── Stream Tester (SSE + WebSocket) ── */
+
+.stream-tester__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.stream-tester__disconnect {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: #ef4444;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stream-tester__disconnect:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stream-tester__status {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-500);
+}
+
+.stream-tester__status::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ifm-color-emphasis-400);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.stream-tester__status--connected {
+  color: #10b981;
+}
+
+.stream-tester__status--connected::before {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+}
+
+.stream-tester__clear {
+  margin-left: auto;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-600);
+  background: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.stream-tester__clear:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.stream-tester__log {
+  margin-top: 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.stream-tester__log-header {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--ifm-color-emphasis-100);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-content);
+}
+
+.stream-tester__log-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.stream-tester__event {
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.stream-tester__event:last-child {
+  border-bottom: none;
+}
+
+.stream-tester__event-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.8rem;
+  color: var(--ifm-color-content);
+  text-align: left;
+}
+
+.stream-tester__event-header:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.stream-tester__event-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: #8b5cf6;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.stream-tester__event-badge--sent {
+  background: #3b82f6;
+}
+
+.stream-tester__event-badge--received {
+  background: #10b981;
+}
+
+.stream-tester__event-time {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-500);
+  font-family: var(--ifm-font-family-monospace);
+  margin-left: auto;
+}
+
+.stream-tester__event-toggle {
+  font-size: 0.6rem;
+  color: var(--ifm-color-emphasis-500);
+}
+
+.stream-tester__event-data {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-color);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* ── WebSocket Tester ── */
+
+.ws-tester__channels {
+  margin-top: 0.75rem;
+}
+
+.ws-tester__channel-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ws-tester__channel-btn {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: var(--ifm-font-family-monospace);
+  color: var(--ifm-color-emphasis-600);
+  background: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ws-tester__channel-btn:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.ws-tester__channel-btn--active {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: #fff;
+}
+
+.ws-tester__channel-btn--active:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+}
+
+.ws-tester__custom {
+  margin-top: 0.75rem;
+}
+
+.ws-tester__textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  font-family: var(--ifm-font-family-monospace);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-content);
+  resize: vertical;
+  margin-bottom: 0.5rem;
+}
+
+.ws-tester__textarea:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] .stream-tester__log {
+  border-color: var(--ifm-color-emphasis-700);
+}
+
+[data-theme='dark'] .stream-tester__log-header {
+  background: var(--ifm-color-emphasis-100);
+  border-bottom-color: var(--ifm-color-emphasis-700);
+}
+
+[data-theme='dark'] .stream-tester__event {
+  border-bottom-color: var(--ifm-color-emphasis-700);
+}
+
+[data-theme='dark'] .stream-tester__event-data {
+  border-top-color: var(--ifm-color-emphasis-700);
+  background: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .stream-tester__clear {
+  border-color: var(--ifm-color-emphasis-700);
+}
+
+[data-theme='dark'] .ws-tester__channel-btn {
+  border-color: var(--ifm-color-emphasis-700);
+}
+
+[data-theme='dark'] .ws-tester__textarea {
+  border-color: var(--ifm-color-emphasis-700);
   background: var(--ifm-color-emphasis-100);
 }

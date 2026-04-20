@@ -48,7 +48,7 @@ Retrieves the folder and compendium structure for the specified Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/structure';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   includeEntityData: 'true',
   recursive: 'true',
   types: 'Scene'
@@ -70,7 +70,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/structure?clientId=foundry-testing-r6bXhB7k9cXa3cif&includeEntityData=true&recursive=true&types=Scene' \
+curl -X GET 'http://localhost:3010/structure?clientId=fvtt_099ad17ea199e7e3&includeEntityData=true&recursive=true&types=Scene' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -83,7 +83,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/structure'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'includeEntityData': 'true',
     'recursive': 'true',
     'types': 'Scene'
@@ -111,7 +111,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/structure';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     includeEntityData: 'true',
     recursive: 'true',
     types: 'Scene'
@@ -148,7 +148,7 @@ import axios from 'axios';
   🔤/structure🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤includeEntityData=true🔤 ➡️ includeEntityData
   🔤recursive=true🔤 ➡️ recursive
   🔤types=Scene🔤 ➡️ types
@@ -180,26 +180,25 @@ import axios from 'axios';
 ```json
 {
   "type": "structure-result",
-  "requestId": "structure_1775068876616",
+  "requestId": "structure_1776657969188",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "8DlpD7RwK8GKoP69",
-        "uuid": "Folder.8DlpD7RwK8GKoP69",
+        "id": "eUklCVX5EirKdGao",
+        "uuid": "Folder.eUklCVX5EirKdGao",
         "type": "Scene"
       }
     },
     "entities": {
       "scenes": [
         {
-          "_id": "NUEDEFAULTSCENE0",
-          "name": "Foundry Virtual Tabletop",
+          "_id": "i01IgzYFzGddbTtP",
+          "name": "Scene",
           "active": false,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
           "background": {
-            "src": "nue/defaultscene/fvtt-background.webp",
+            "src": null,
             "anchorX": 0,
             "anchorY": 0,
             "offsetX": 0,
@@ -212,31 +211,30 @@ import axios from 'axios';
             "alphaThreshold": 0
           },
           "foreground": null,
-          "foregroundElevation": 4,
-          "thumb": "nue/defaultscene/thumb.webp",
-          "width": 3840,
-          "height": 1920,
-          "padding": 0,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 4000,
+          "height": 3000,
+          "padding": 0.25,
           "initial": {
             "x": null,
             "y": null,
             "scale": null
           },
-          "backgroundColor": "#25070d",
+          "backgroundColor": "#999999",
           "grid": {
-            "type": 0,
+            "type": 1,
             "size": 100,
             "style": "solidLines",
             "thickness": 1,
             "color": "#000000",
             "alpha": 0.2,
-            "distance": 1,
-            "units": ""
+            "distance": 5,
+            "units": "ft"
           },
-          "tokenVision": false,
+          "tokenVision": true,
           "fog": {
-            "exploration": false,
-            "reset": 1660769143211,
+            "exploration": true,
             "overlay": null,
             "colors": {
               "explored": null,
@@ -277,384 +275,14 @@ import axios from 'axios';
               "shadows": 0
             }
           },
-          "drawings": [
-            {
-              "_id": "YXXBrFbROdLYoYvm",
-              "author": "r6bXhB7k9cXa3cif",
-              "shape": {
-                "type": "r",
-                "width": 100,
-                "height": 100,
-                "radius": null,
-                "points": []
-              },
-              "x": 100,
-              "y": 100,
-              "elevation": 0,
-              "sort": 0,
-              "rotation": 0,
-              "bezierFactor": 0,
-              "fillType": 0,
-              "fillColor": "#cc2829",
-              "fillAlpha": 0.5,
-              "strokeWidth": 8,
-              "strokeColor": "#cc2829",
-              "strokeAlpha": 1,
-              "texture": null,
-              "fontFamily": "Signika",
-              "fontSize": 48,
-              "textColor": "#ffffff",
-              "textAlpha": 1,
-              "hidden": false,
-              "locked": false,
-              "interface": false,
-              "flags": {}
-            }
-          ],
-          "tokens": [
-            {
-              "_id": "ZROaJlBucaNukYyI",
-              "name": "actor",
-              "displayName": 0,
-              "actorId": "sj7XQgYVZv8SpEQG",
-              "actorLink": true,
-              "delta": null,
-              "width": 1,
-              "height": 1,
-              "texture": {
-                "src": "icons/svg/mystery-man.svg",
-                "anchorX": 0.5,
-                "anchorY": 0.5,
-                "offsetX": 0,
-                "offsetY": 0,
-                "fit": "contain",
-                "scaleX": 1,
-                "scaleY": 1,
-                "rotation": 0,
-                "tint": "#ffffff",
-                "alphaThreshold": 0.75
-              },
-              "shape": 4,
-              "x": 1390,
-              "y": 418,
-              "elevation": 0,
-              "sort": 3,
-              "locked": false,
-              "lockRotation": false,
-              "rotation": 0,
-              "alpha": 1,
-              "hidden": false,
-              "disposition": 1,
-              "displayBars": 0,
-              "bar1": {
-                "attribute": "attributes.hp"
-              },
-              "bar2": {
-                "attribute": null
-              },
-              "light": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 0,
-                "color": null,
-                "coloration": 1,
-                "dim": 0,
-                "attenuation": 0.5,
-                "luminosity": 0.5,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": null,
-                  "speed": 5,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "sight": {
-                "enabled": true,
-                "range": 0,
-                "angle": 360,
-                "visionMode": "basic",
-                "color": null,
-                "attenuation": 0.1,
-                "brightness": 0,
-                "saturation": 0,
-                "contrast": 0
-              },
-              "detectionModes": [
-                {
-                  "id": "lightPerception",
-                  "enabled": true,
-                  "range": null
-                },
-                {
-                  "id": "basicSight",
-                  "enabled": true,
-                  "range": 0
-                }
-              ],
-              "occludable": {
-                "radius": 0
-              },
-              "ring": {
-                "enabled": false,
-                "colors": {
-                  "ring": null,
-                  "background": null
-                },
-                "effects": 1,
-                "subject": {
-                  "scale": 1,
-                  "texture": null
-                }
-              },
-              "turnMarker": {
-                "mode": 1,
-                "animation": null,
-                "src": null,
-                "disposition": false
-              },
-              "movementAction": "walk",
-              "_movementHistory": [],
-              "_regions": [],
-              "flags": {}
-            }
-          ],
-          "lights": [
-            {
-              "_id": "d22Cax8HDPMG4F6I",
-              "x": 656,
-              "y": 1473,
-              "elevation": 0,
-              "rotation": 0,
-              "walls": true,
-              "vision": false,
-              "config": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 4.27,
-                "color": "#ff9072",
-                "coloration": 1,
-                "dim": 8.54,
-                "attenuation": 0.5,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": "fog",
-                  "speed": 2,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "hidden": false,
-              "flags": {}
-            },
-            {
-              "_id": "eGuMjw01vEYimWVX",
-              "x": 1826,
-              "y": 1891,
-              "elevation": 0,
-              "rotation": 0,
-              "walls": true,
-              "vision": false,
-              "config": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 4.27,
-                "color": "#ffffff",
-                "coloration": 1,
-                "dim": 8.54,
-                "attenuation": 0.5,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": "fog",
-                  "speed": 2,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "hidden": false,
-              "flags": {}
-            },
-            {
-              "_id": "TCET4ZNPkl5oZukY",
-              "x": 3057,
-              "y": 1439,
-              "elevation": 0,
-              "rotation": 0,
-              "walls": true,
-              "vision": false,
-              "config": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 4.27,
-                "color": "#ffffff",
-                "coloration": 1,
-                "dim": 8.54,
-                "attenuation": 0.5,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": "fog",
-                  "speed": 2,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "hidden": false,
-              "flags": {}
-            },
-            {
-              "_id": "cOpD0Q4AuCGiKRCb",
-              "x": 2824,
-              "y": 772,
-              "elevation": 0,
-              "rotation": 0,
-              "walls": true,
-              "vision": false,
-              "config": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 0.26,
-                "color": "#ffed79",
-                "coloration": 1,
-                "dim": 0.53,
-                "attenuation": 0.5,
-                "luminosity": 0.5,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": "torch",
-                  "speed": 5,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "hidden": false,
-              "flags": {}
-            },
-            {
-              "_id": "adhkydxURYamgKKF",
-              "x": 2822,
-              "y": 777,
-              "elevation": 0,
-              "rotation": 179,
-              "walls": true,
-              "vision": false,
-              "config": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.65,
-                "angle": 30,
-                "bright": 5,
-                "color": "#ff976f",
-                "coloration": 1,
-                "dim": 5,
-                "attenuation": 0.7,
-                "luminosity": 0.3,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": "sunburst",
-                  "speed": 1,
-                  "intensity": 7,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "hidden": false,
-              "flags": {}
-            }
-          ],
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
           "notes": [],
           "sounds": [],
           "regions": [],
           "templates": [],
-          "tiles": [
-            {
-              "_id": "mMxIUI1fXJmrR1zK",
-              "texture": {
-                "src": "nue/defaultscene/fvtt-logo.webp",
-                "anchorX": 0.5,
-                "anchorY": 0.5,
-                "offsetX": 0,
-                "offsetY": 0,
-                "fit": "fill",
-                "scaleX": 1,
-                "scaleY": 1,
-                "rotation": 0,
-                "tint": "#ffffff",
-                "alphaThreshold": 0.75
-              },
-              "width": 800,
-              "height": 800,
-              "x": 1520,
-              "y": 480,
-              "elevation": 0,
-              "sort": 100,
-              "rotation": 0,
-              "alpha": 1,
-              "hidden": false,
-              "locked": false,
-              "restrictions": {
-                "light": false,
-                "weather": false
-              },
-              "occlusion": {
-                "mode": 1,
-                "alpha": 0
-              },
-              "video": {
-                "loop": true,
-                "autoplay": true,
-                "volume": 0
-              },
-              "flags": {}
-            }
-          ],
+          "tiles": [],
           "walls": [],
           "playlist": null,
           "playlistSound": null,
@@ -672,22 +300,23 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1763765287462,
-            "modifiedTime": 1774161338704,
-            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "createdTime": 1776529787190,
+            "modifiedTime": 1776596230732,
+            "lastModifiedBy": "5ypAoBvOiyjDKiaZ",
             "compendiumSource": null,
             "duplicateSource": null,
             "exportSource": null
           }
         },
         {
-          "_id": "zA0IVJWezqEadUaA",
-          "name": "test-scene-expendable",
+          "_id": "fWuYVDZAnXQiKXM5",
+          "name": "test",
           "active": false,
           "navigation": true,
           "navOrder": 0,
+          "navName": "",
           "background": {
-            "src": null,
+            "src": "flooded-cave-test.webp",
             "anchorX": 0,
             "anchorY": 0,
             "offsetX": 0,
@@ -701,9 +330,9 @@ import axios from 'axios';
           },
           "foreground": null,
           "foregroundElevation": 20,
-          "thumb": null,
-          "width": 500,
-          "height": 500,
+          "thumb": "worlds/testing/assets/scenes/fWuYVDZAnXQiKXM5-thumb.webp",
+          "width": 2221,
+          "height": 2962,
           "padding": 0.25,
           "initial": {
             "x": null,
@@ -713,7 +342,7 @@ import axios from 'axios';
           "backgroundColor": "#999999",
           "grid": {
             "type": 1,
-            "size": 100,
+            "size": 74,
             "style": "solidLines",
             "thickness": 1,
             "color": "#000000",
@@ -782,15 +411,15 @@ import axios from 'axios';
           "sort": 0,
           "ownership": {
             "default": 0,
-            "r6bXhB7k9cXa3cif": 3
+            "5ypAoBvOiyjDKiaZ": 3
           },
           "flags": {},
           "_stats": {
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1774161335815,
-            "modifiedTime": 1774161335815,
+            "createdTime": 1776596215113,
+            "modifiedTime": 1776657957952,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -798,124 +427,7 @@ import axios from 'axios';
           }
         },
         {
-          "_id": "lQBzUavCuBjGxRW8",
-          "name": "test-scene-updated",
-          "active": false,
-          "navigation": true,
-          "navOrder": 0,
-          "background": {
-            "src": null,
-            "anchorX": 0,
-            "anchorY": 0,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "fill",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0
-          },
-          "foreground": null,
-          "foregroundElevation": 20,
-          "thumb": null,
-          "width": 1000,
-          "height": 1000,
-          "padding": 0.25,
-          "initial": {
-            "x": null,
-            "y": null,
-            "scale": null
-          },
-          "backgroundColor": "#999999",
-          "grid": {
-            "type": 1,
-            "size": 100,
-            "style": "solidLines",
-            "thickness": 1,
-            "color": "#000000",
-            "alpha": 0.2,
-            "distance": 5,
-            "units": "ft"
-          },
-          "tokenVision": true,
-          "fog": {
-            "exploration": true,
-            "overlay": null,
-            "colors": {
-              "explored": null,
-              "unexplored": null
-            }
-          },
-          "environment": {
-            "darknessLevel": 0,
-            "darknessLock": false,
-            "globalLight": {
-              "enabled": false,
-              "alpha": 0.5,
-              "bright": false,
-              "color": null,
-              "coloration": 1,
-              "luminosity": 0,
-              "saturation": 0,
-              "contrast": 0,
-              "shadows": 0,
-              "darkness": {
-                "min": 0,
-                "max": 1
-              }
-            },
-            "cycle": true,
-            "base": {
-              "hue": 0,
-              "intensity": 0,
-              "luminosity": 0,
-              "saturation": 0,
-              "shadows": 0
-            },
-            "dark": {
-              "hue": 0.7138888888888889,
-              "intensity": 0,
-              "luminosity": -0.25,
-              "saturation": 0,
-              "shadows": 0
-            }
-          },
-          "drawings": [],
-          "tokens": [],
-          "lights": [],
-          "notes": [],
-          "sounds": [],
-          "regions": [],
-          "templates": [],
-          "tiles": [],
-          "walls": [],
-          "playlist": null,
-          "playlistSound": null,
-          "journal": null,
-          "journalEntryPage": null,
-          "weather": "",
-          "folder": null,
-          "sort": 0,
-          "ownership": {
-            "default": 0,
-            "r6bXhB7k9cXa3cif": 3
-          },
-          "flags": {},
-          "_stats": {
-            "coreVersion": "13.348",
-            "systemId": "dnd5e",
-            "systemVersion": "5.0.4",
-            "createdTime": 1774161335040,
-            "modifiedTime": 1775068870192,
-            "lastModifiedBy": "r6bXhB7k9cXa3cif",
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          }
-        },
-        {
-          "_id": "kxsUY8QzM6ClEZqt",
+          "_id": "r36nfimJGHYGUGQX",
           "name": "test-scene-updated",
           "active": true,
           "navigation": true,
@@ -1001,13 +513,13 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "L1vgbr5N5TEs5v1I",
+              "_id": "Q9y6lc2dPYs2WRQT",
               "name": "Updated Test Actor",
               "displayName": 0,
-              "actorId": "pxZTVHItjx6GgPgC",
+              "actorId": "q9uWyfdPwTlzbpxb",
               "actorLink": false,
               "delta": {
-                "_id": "T2eym3urFhVVkwz8",
+                "_id": "M9QfeUpBFOJcH6HB",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -4844,8 +4356,8 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1775068870141,
-            "modifiedTime": 1775068870192,
+            "createdTime": 1776657957926,
+            "modifiedTime": 1776657957952,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -4894,7 +4406,7 @@ Get a specific folder by name
 const baseUrl = 'http://localhost:3010';
 const path = '/get-folder';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   name: 'test-folder'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -4914,7 +4426,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/get-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&name=test-folder' \
+curl -X GET 'http://localhost:3010/get-folder?clientId=fvtt_099ad17ea199e7e3&name=test-folder' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -4927,7 +4439,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/get-folder'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'name': 'test-folder'
 }
 url = f'{base_url}{path}'
@@ -4953,7 +4465,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/get-folder';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     name: 'test-folder'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -4988,7 +4500,7 @@ import axios from 'axios';
   🔤/get-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤name=test-folder🔤 ➡️ name
   🔤?🧲clientId🧲&🧲name🧲🔤 ➡️ queryString
 
@@ -5018,10 +4530,10 @@ import axios from 'axios';
 ```json
 {
   "type": "get-folder-result",
-  "requestId": "get-folder_1775068876633",
+  "requestId": "get-folder_1776657969208",
   "data": {
-    "id": "8DlpD7RwK8GKoP69",
-    "uuid": "Folder.8DlpD7RwK8GKoP69",
+    "id": "eUklCVX5EirKdGao",
+    "uuid": "Folder.eUklCVX5EirKdGao",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -5068,7 +4580,7 @@ Create a new folder
 const baseUrl = 'http://localhost:3010';
 const path = '/create-folder';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   name: 'test-folder',
   folderType: 'Scene'
 };
@@ -5089,7 +4601,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/create-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&name=test-folder&folderType=Scene' \
+curl -X POST 'http://localhost:3010/create-folder?clientId=fvtt_099ad17ea199e7e3&name=test-folder&folderType=Scene' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5102,7 +4614,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/create-folder'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'name': 'test-folder',
     'folderType': 'Scene'
 }
@@ -5129,7 +4641,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/create-folder';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     name: 'test-folder',
     folderType: 'Scene'
   };
@@ -5165,7 +4677,7 @@ import axios from 'axios';
   🔤/create-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤name=test-folder🔤 ➡️ name
   🔤folderType=Scene🔤 ➡️ folderType
   🔤?🧲clientId🧲&🧲name🧲&🧲folderType🧲🔤 ➡️ queryString
@@ -5196,10 +4708,10 @@ import axios from 'axios';
 ```json
 {
   "type": "create-folder-result",
-  "requestId": "create-folder_1775068876602",
+  "requestId": "create-folder_1776657969176",
   "data": {
-    "id": "8DlpD7RwK8GKoP69",
-    "uuid": "Folder.8DlpD7RwK8GKoP69",
+    "id": "eUklCVX5EirKdGao",
+    "uuid": "Folder.eUklCVX5EirKdGao",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -5244,8 +4756,8 @@ Delete a folder
 const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  folderId: '8DlpD7RwK8GKoP69'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  folderId: 'eUklCVX5EirKdGao'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -5264,7 +4776,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=foundry-testing-r6bXhB7k9cXa3cif&folderId=8DlpD7RwK8GKoP69' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=fvtt_099ad17ea199e7e3&folderId=eUklCVX5EirKdGao' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -5277,8 +4789,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'folderId': '8DlpD7RwK8GKoP69'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'folderId': 'eUklCVX5EirKdGao'
 }
 url = f'{base_url}{path}'
 
@@ -5303,8 +4815,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/delete-folder';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    folderId: '8DlpD7RwK8GKoP69'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    folderId: 'eUklCVX5EirKdGao'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -5338,8 +4850,8 @@ import axios from 'axios';
   🔤/delete-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤folderId=8DlpD7RwK8GKoP69🔤 ➡️ folderId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤folderId=eUklCVX5EirKdGao🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -5368,10 +4880,10 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-folder-result",
-  "requestId": "delete-folder_1775068876636",
+  "requestId": "delete-folder_1776657969211",
   "data": {
     "deleted": true,
-    "folderId": "8DlpD7RwK8GKoP69",
+    "folderId": "eUklCVX5EirKdGao",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }

@@ -1,9 +1,13 @@
 # fly.toml app configuration file
-app = 'foundryvtt-rest-api-relay'
+app = 'foundryrestapi'
 primary_region = 'ord'
 
 [build]
   dockerfile = "go-relay/Dockerfile"
+  [build.args]
+    ALGOLIA_APP_ID = "S6TB6KX8K6"
+    ALGOLIA_SEARCH_API_KEY = "54cb86f54a675d0bd897ce1e074b922c"
+    ALGOLIA_INDEX_NAME = "FVTT REST API Docs crawler"
 
 [http]
   # This is the port Fly.io will expose to the internet
@@ -15,8 +19,7 @@ primary_region = 'ord'
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
-  # TODO: reduce down to 0 min machines and allow to suspend
-  min_machines_running = 2  # Ensure we always have 2 machines
+  min_machines_running = 2  # Keep 2 machines for high availability
   max_machines_running = 5  # Allow scaling up to 5 machines
   force_instance_key = true
   
@@ -48,7 +51,19 @@ primary_region = 'ord'
   source = "myapp_data"
   destination = "/data"
   
+[metrics]
+  # Fly.io Prometheus scraper hits this port on the private network.
+  # The relay serves /metrics on this internal port alongside the admin dashboard.
+  port = 9091
+  path = "/metrics"
+
 [env]
-  ENABLE_REDIS = "true"
-  REDIS_CLIENT_EXPIRY = "14400"  # 4 hours in seconds
+  APP_ENV = "production"
+  ADMIN_SECURE_COOKIES = "true"
   DB_TYPE = "postgres"
+  MONTHLY_REQUEST_LIMIT = "5000"
+  REDIS_ENABLED = "true"
+  REDIS_CLIENT_EXPIRY = "14400"  # 4 hours in seconds
+  ADMIN_INTERNAL_PORT = "9091"   # enables the internal listener; Fly scrapes /metrics from here
+  ADMIN_ALLOWED_IPS = "fdaa::/16"  # restrict admin panel to Fly private network only
+  ALLOW_HEADLESS = "false"       # sorry, no headless sessions on the public relay

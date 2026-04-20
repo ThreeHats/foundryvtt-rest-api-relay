@@ -11,27 +11,30 @@ import (
 
 // Client represents a connected Foundry VTT instance.
 type Client struct {
-	mu             sync.Mutex
-	conn           *websocket.Conn
-	id             string
-	apiKey         string
-	lastSeen       time.Time
-	connectedSince time.Time
-	connected      bool
-	worldID        string
-	worldTitle     string
-	foundryVersion string
-	systemID       string
-	systemTitle    string
-	systemVersion  string
-	customName     string
-	sendCh         chan []byte
-	done           chan struct{}
+	mu                sync.Mutex
+	conn              *websocket.Conn
+	id                string
+	apiKey            string
+	connectionTokenID int64  // 0 if connected via legacy API key (no connection token)
+	tokenName         string // human-readable name of the connection token (e.g. "Firefox on Linux")
+	lastSeen          time.Time
+	connectedSince    time.Time
+	connected         bool
+	worldID           string
+	worldTitle        string
+	foundryVersion    string
+	systemID          string
+	systemTitle       string
+	systemVersion     string
+	customName        string
+	ipAddress         string
+	sendCh            chan []byte
+	done              chan struct{}
 }
 
 // ClientInfo holds metadata about a client for API responses.
 type ClientInfo struct {
-	ID             string `json:"id"`
+	ID             string `json:"clientId"`
 	InstanceID     string `json:"instanceId,omitempty"`
 	LastSeen       int64  `json:"lastSeen"`
 	ConnectedSince int64  `json:"connectedSince"`
@@ -42,14 +45,22 @@ type ClientInfo struct {
 	SystemTitle    string `json:"systemTitle,omitempty"`
 	SystemVersion  string `json:"systemVersion,omitempty"`
 	CustomName     string `json:"customName,omitempty"`
+	IPAddress      string `json:"ipAddress,omitempty"`
+	TokenName      string `json:"tokenName,omitempty"`
 }
 
 // NewClient creates a new Client and starts its write goroutine.
-func NewClient(conn *websocket.Conn, id, apiKey string, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName string) *Client {
+func NewClient(conn *websocket.Conn, id, apiKey, tokenName string, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName string) *Client {
+	remoteAddr := ""
+	if conn.RemoteAddr() != nil {
+		remoteAddr = conn.RemoteAddr().String()
+	}
+
 	c := &Client{
 		conn:           conn,
 		id:             id,
 		apiKey:         apiKey,
+		tokenName:      tokenName,
 		lastSeen:       time.Now(),
 		connectedSince: time.Now(),
 		connected:      true,
@@ -60,7 +71,8 @@ func NewClient(conn *websocket.Conn, id, apiKey string, worldID, worldTitle, fou
 		systemTitle:    systemTitle,
 		systemVersion:  systemVersion,
 		customName:     customName,
-		sendCh:         make(chan []byte, 256),
+		ipAddress:      remoteAddr,
+		sendCh:         make(chan []byte, 1024),
 		done:           make(chan struct{}),
 	}
 
@@ -159,19 +171,37 @@ func (c *Client) MarkDisconnected() {
 	c.connected = false
 }
 
+// SetConnectionTokenID records which connection token authenticated this client.
+// Called by the relay handler after successful auth-via-first-message.
+func (c *Client) SetConnectionTokenID(id int64) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.connectionTokenID = id
+}
+
+// ConnectionTokenID returns the ID of the connection token used to authenticate
+// this client. Returns 0 if the client connected via legacy API key.
+func (c *Client) ConnectionTokenID() int64 {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.connectionTokenID
+}
+
 // Getters
-func (c *Client) ID() string             { return c.id }
-func (c *Client) APIKey() string          { return c.apiKey }
-func (c *Client) WorldID() string         { return c.worldID }
-func (c *Client) WorldTitle() string      { return c.worldTitle }
-func (c *Client) FoundryVersion() string  { return c.foundryVersion }
-func (c *Client) SystemID() string        { return c.systemID }
-func (c *Client) SystemTitle() string     { return c.systemTitle }
-func (c *Client) SystemVersion() string   { return c.systemVersion }
-func (c *Client) CustomName() string      { return c.customName }
-func (c *Client) LastSeen() time.Time     { return c.lastSeen }
+func (c *Client) ID() string               { return c.id }
+func (c *Client) APIKey() string            { return c.apiKey }
+func (c *Client) IPAddress() string         { return c.ipAddress }
+func (c *Client) WorldID() string           { return c.worldID }
+func (c *Client) WorldTitle() string        { return c.worldTitle }
+func (c *Client) FoundryVersion() string    { return c.foundryVersion }
+func (c *Client) SystemID() string          { return c.systemID }
+func (c *Client) SystemTitle() string       { return c.systemTitle }
+func (c *Client) SystemVersion() string     { return c.systemVersion }
+func (c *Client) CustomName() string        { return c.customName }
+func (c *Client) TokenName() string         { return c.tokenName }
+func (c *Client) LastSeen() time.Time       { return c.lastSeen }
 func (c *Client) ConnectedSince() time.Time { return c.connectedSince }
-func (c *Client) Conn() *websocket.Conn   { return c.conn }
+func (c *Client) Conn() *websocket.Conn     { return c.conn }
 
 // Info returns client metadata for API responses.
 func (c *Client) Info(instanceID string) ClientInfo {
@@ -187,5 +217,7 @@ func (c *Client) Info(instanceID string) ClientInfo {
 		SystemTitle:    c.systemTitle,
 		SystemVersion:  c.systemVersion,
 		CustomName:     c.customName,
+		IPAddress:      c.ipAddress,
+		TokenName:      c.tokenName,
 	}
 }

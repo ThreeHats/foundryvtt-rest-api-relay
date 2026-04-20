@@ -243,6 +243,52 @@ body {
   color: var(--color-text-sidebar);
 }
 
+/* ==================== Standalone layout (approve / pair pages) ==================== */
+.standalone-layout {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-sunken);
+}
+
+.standalone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.standalone-brand {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.standalone-header .theme-toggle {
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.standalone-header .theme-toggle:hover {
+  color: var(--color-text);
+}
+
+.standalone-content {
+  flex: 1;
+  width: 100%;
+  max-width: 760px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
+}
+
 /* ==================== Main Content ==================== */
 .main-content {
   flex: 1;
@@ -250,12 +296,15 @@ body {
   height: 100dvh;
   overflow-y: auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .content-area {
+  flex-grow: 1;
   padding: 2rem;
   padding-bottom: calc(2rem + var(--footer-height, 4.5rem));
-  max-width: 900px;
+  max-width: 1100px;
   width: 100%;
   margin: 0 auto;
 }

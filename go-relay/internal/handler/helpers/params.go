@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 
@@ -92,6 +93,7 @@ func (p Params) Has(key string) bool {
 // Body should be pre-parsed JSON (map[string]interface{}).
 func ExtractParams(r *http.Request, body map[string]interface{}, defs []ParamDef) (Params, error) {
 	params := make(Params)
+	var query url.Values // parsed lazily on first FromQuery access
 
 	for _, def := range defs {
 		var value interface{}
@@ -99,7 +101,10 @@ func ExtractParams(r *http.Request, body map[string]interface{}, defs []ParamDef
 		for _, source := range def.From {
 			switch source {
 			case FromQuery:
-				if v := r.URL.Query().Get(def.Name); v != "" {
+				if query == nil {
+					query = r.URL.Query()
+				}
+				if v := query.Get(def.Name); v != "" {
 					value = v
 				}
 			case FromBody:

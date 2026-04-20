@@ -1,12 +1,12 @@
 ---
 id: postgres-setup
 title: Postgres Setup
-sidebar_position: 8
+sidebar_position: 11
 ---
 
 # PostgreSQL Setup for Foundry REST API Relay
 
-This setup provides persistent storage using PostgreSQL instead of the default SQLite or memory database.
+This setup provides persistent storage using PostgreSQL instead of the default SQLite database.
 
 ## Quick Start
 

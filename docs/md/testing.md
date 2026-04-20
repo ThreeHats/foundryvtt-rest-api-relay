@@ -1,7 +1,7 @@
 ---
 id: testing
 title: Testing
-sidebar_position: 12
+sidebar_position: 14
 ---
 
 # Testing
@@ -155,22 +155,34 @@ This runs all integration tests in the correct order using a custom test sequenc
    - Creates a persistent token for utility/encounter tests
 
 5. **Core Functionality Tests**
-   - Structure, search, roll (including SSE streaming), sheet, macro, utility endpoints
+   - Structure, search, roll (including SSE streaming), sheet, macro endpoints
+   - Utility endpoints (select, players, world info, token movement, measure distance)
    - Encounter management (uses persistent token on the test scene; rolls initiative when compendium actors are available)
    - File system operations (upload, download, browse)
    - Chat (including SSE streaming, whisper, flush)
+   - Playlist control and sound playback
 
 6. **Permission Filtering** (`permission-filtering.test.ts`)
    - Dynamically scans route files for all endpoints accepting `userId`
    - Tests invalid userId rejection on every endpoint
    - Tests player permission scoping (if `TEST_PLAYER_USER_ID` is configured)
 
+6b. **Feature Tests**
+   - Scoped API key management and auto-routing
+   - Hook and combat event subscriptions (WebSocket)
+   - Scene screenshots and raw background images
+   - User CRUD operations
+   - WebSocket API relay
+
 7. **System-Specific Tests** (`dnd5e-endpoints.test.ts`)
    - Only runs on Foundry instances with the matching system
    - Sets up system-specific test data (gives actor spells and consumables from compendiums)
-   - Tests get-actor-details, modify-experience, modify-item-charges, use-item, use-feature, use-spell, use-ability
+   - Tests actor details, modify experience, use abilities/spells/items
+   - Skill checks, ability saves, death saves, short/long rest
+   - Concentration tracking and saves
+   - Inventory management (equip, attune, transfer currency)
 
-8. **Cleanup** (`cleanup-entities.test.ts`, `scene-cleanup.test.ts`, `end-sessions.test.ts`)
+8. **Cleanup** (`cleanup-entities.test.ts`, `scene-cleanup.test.ts`, `end-sessions.test.ts`, `auth-cleanup.test.ts`)
    - Deletes all created test entities
    - Restores the original active scene and deletes the test scene
    - Closes headless sessions (if applicable)
@@ -220,34 +232,48 @@ This checks:
 tests/
 ├── integration/                        # API integration tests
 │   ├── session-endpoints.test.ts       # Session management (runs first)
+│   ├── client-endpoints.test.ts        # Connected client listing
 │   ├── entity-endpoints.test.ts        # Entity CRUD (creates test data)
 │   ├── auth-requirements.test.ts       # Auth validation (scans all routes)
+│   ├── auth-endpoints.test.ts          # Auth endpoint CRUD tests
 │   ├── scene-endpoints.test.ts         # Scene CRUD + activate test scene
-│   ├── canvas-endpoints.test.ts        # All canvas document types (data-driven)
-│   ├── structure-endpoints.test.ts     # World structure
+│   ├── canvas-endpoints.test.ts        # All canvas document types
+│   ├── structure-endpoints.test.ts     # World structure queries
 │   ├── search-endpoints.test.ts        # Search functionality
 │   ├── roll-endpoints.test.ts          # Dice rolling + SSE streaming
-│   ├── sheet-endpoints.test.ts         # Actor sheets
+│   ├── sheet-endpoints.test.ts         # Actor sheet screenshots
 │   ├── macro-endpoints.test.ts         # Macro execution
-│   ├── utility-endpoints.test.ts       # Utility functions
+│   ├── utility-endpoints.test.ts       # Utility endpoints (select, players, world-info, etc.)
 │   ├── encounter-endpoints.test.ts     # Combat/encounters
 │   ├── fileSystem-endpoints.test.ts    # File operations
 │   ├── chat-endpoints.test.ts          # Chat messages + SSE streaming
-│   ├── permission-filtering.test.ts    # userId permission scoping (scans all routes)
-│   ├── dnd5e-endpoints.test.ts         # D&D 5e system tests
+│   ├── permission-filtering.test.ts    # userId permission scoping
+│   ├── scoped-keys-endpoints.test.ts   # Scoped API key CRUD + auto-routing
+│   ├── playlist-endpoints.test.ts      # Playlist control + sound playback
+│   ├── hooks-subscribe.test.ts         # Hook event subscriptions (SSE/WS)
+│   ├── combat-subscribe.test.ts        # Combat event subscriptions (WS)
+│   ├── scene-image.test.ts             # Scene screenshots + raw backgrounds
+│   ├── user-endpoints.test.ts          # User CRUD (self-contained)
+│   ├── websocket-api.test.ts           # Raw WebSocket API relay
+│   ├── effects-endpoints.test.ts       # ActiveEffect CRUD + status effects list
+│   ├── dnd5e-endpoints.test.ts         # D&D 5e system tests (includes concentration + inventory)
 │   ├── cleanup-entities.test.ts        # Deletes test entities
 │   ├── scene-cleanup.test.ts           # Restores original scene
-│   └── end-sessions.test.ts            # Session cleanup (runs last)
+│   ├── end-sessions.test.ts            # Session cleanup (runs last)
+│   └── auth-cleanup.test.ts            # Auth test user cleanup
 ├── helpers/                            # Test utilities
 │   ├── apiRequest.ts                   # HTTP request helper
-│   ├── captureExample.ts               # Documentation capture
+│   ├── captureExample.ts               # Documentation capture (HTTP)
+│   ├── captureWsExample.ts             # Documentation capture (WebSocket)
 │   ├── compendiumData.ts               # Compendium entity fetching
+│   ├── endpointMetadata.ts             # Dynamic endpoint discovery
 │   ├── globalVariables.ts              # Cross-file state
 │   ├── multiVersion.ts                 # Multi-version test runner
 │   ├── systemSetup.ts                  # Per-system test data setup
 │   ├── testEntities.ts                 # Entity lifecycle management
 │   ├── testSequencer.ts                # Test execution order
-│   └── testVariables.ts                # Environment variables
+│   ├── testVariables.ts                # Environment variables
+│   └── wsClient.ts                     # WebSocket test client
 ├── setup.ts                            # Jest setup (loads .env.test)
 └── globalTeardown.ts                   # Cleanup after all tests
 ```

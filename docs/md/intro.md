@@ -14,13 +14,15 @@ This documentation will guide you through setting up the relay server, configuri
 
 The project consists of two main parts:
 
-1.  **The Relay Server:** A Node.js application that you can host yourself (or use the public one). It acts as a bridge, managing connections from your Foundry VTT instance and exposing a secure REST API.
-2.  **The Foundry VTT Module:** A module you install in your Foundry VTT setup. It connects to the relay server via WebSockets, authenticates, and then listens for API commands to execute within your world.
+1. **The Relay Server:** A Go application that you can host yourself (or use the public one). It acts as a bridge, managing WebSocket connections from your Foundry VTT instance(s) and exposing a secure HTTP/WebSocket API for external apps.
+2. **The Foundry VTT Module:** A module you install in your Foundry VTT setup. It connects to the relay server via WebSocket, authenticates with a per-browser connection token, and listens for API commands to execute within your world.
 
 ## Navigation
 
--   **[Installation](./installation):** Step-by-step guide to get the relay server running.
--   **[Foundry Module Setup](./foundry-module):** How to install and configure the module in Foundry VTT.
--   **[Authentication](./authentication):** How to get and use your API key.
--   **[Your First API Call](./first-api-call):** A simple tutorial to verify your setup is working.
--   **[API Reference](/api):** Detailed documentation for all available API endpoints.
+- **[Installation](./installation):** Step-by-step guide to get the relay server running.
+- **[Foundry Module Setup](./foundry-module):** How to install, pair, and configure the module in Foundry VTT.
+- **[Authentication & Security Model](./authentication):** Credential types, threat model, and defense in depth.
+- **[Your First API Call](./first-api-call):** A simple tutorial to verify your setup is working.
+- **[Scoped API Keys](./scoped-keys):** Production-grade integration credentials with narrow scopes and rate limits.
+- **[Building Cross-World Foundry Modules](./cross-world-modules):** How to build a Foundry module that talks to OTHER Foundry worlds via the WebSocket tunnel.
+- **[API Reference](/api):** Detailed documentation for all available API endpoints.

@@ -44,7 +44,7 @@ Get file system structure
 const baseUrl = 'http://localhost:3010';
 const path = '/file-system';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   source: 'data',
   recursive: 'false'
 };
@@ -65,7 +65,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/file-system?clientId=foundry-testing-r6bXhB7k9cXa3cif&source=data&recursive=false' \
+curl -X GET 'http://localhost:3010/file-system?clientId=fvtt_099ad17ea199e7e3&source=data&recursive=false' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -78,7 +78,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/file-system'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'source': 'data',
     'recursive': 'false'
 }
@@ -105,7 +105,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/file-system';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     source: 'data',
     recursive: 'false'
   };
@@ -141,7 +141,7 @@ import axios from 'axios';
   🔤/file-system🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤source=data🔤 ➡️ source
   🔤recursive=false🔤 ➡️ recursive
   🔤?🧲clientId🧲&🧲source🧲&🧲recursive🧲🔤 ➡️ queryString
@@ -172,7 +172,7 @@ import axios from 'axios';
 ```json
 {
   "type": "file-system-result",
-  "requestId": "file-system_1775068879896",
+  "requestId": "file-system_1776657991001",
   "success": true,
   "path": "",
   "source": "data",
@@ -275,7 +275,7 @@ Download a file from Foundry's file system
 const baseUrl = 'http://localhost:3010';
 const path = '/download';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   path: 'rest-api-tests/test-file.txt',
   source: 'data',
   format: 'base64'
@@ -297,7 +297,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/download?clientId=foundry-testing-r6bXhB7k9cXa3cif&path=rest-api-tests%2Ftest-file.txt&source=data&format=base64' \
+curl -X GET 'http://localhost:3010/download?clientId=fvtt_099ad17ea199e7e3&path=rest-api-tests%2Ftest-file.txt&source=data&format=base64' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -310,7 +310,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/download'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'path': 'rest-api-tests/test-file.txt',
     'source': 'data',
     'format': 'base64'
@@ -338,7 +338,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/download';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     path: 'rest-api-tests/test-file.txt',
     source: 'data',
     format: 'base64'
@@ -375,7 +375,7 @@ import axios from 'axios';
   🔤/download🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤path=rest-api-tests/test-file.txt🔤 ➡️ path
   🔤source=data🔤 ➡️ source
   🔤format=base64🔤 ➡️ format
@@ -410,7 +410,7 @@ import axios from 'axios';
   "filename": "test-file.txt",
   "mimeType": "text/plain",
   "path": "rest-api-tests/test-file.txt",
-  "requestId": "download-file_1775068879903",
+  "requestId": "download-file_1776657991006",
   "success": true,
   "type": "download-file-result"
 }
@@ -457,7 +457,7 @@ Upload a file to Foundry's file system (handles both base64 and binary data)
 const baseUrl = 'http://localhost:3010';
 const path = '/upload';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   path: 'rest-api-tests',
   source: 'data',
   filename: 'test-file.txt',
@@ -486,7 +486,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/upload?clientId=foundry-testing-r6bXhB7k9cXa3cif&path=rest-api-tests&source=data&filename=test-file.txt&mimeType=text%2Fplain' \
+curl -X POST 'http://localhost:3010/upload?clientId=fvtt_099ad17ea199e7e3&path=rest-api-tests&source=data&filename=test-file.txt&mimeType=text%2Fplain' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"fileData":"data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==","mimeType":"text/plain","overwrite":true}'
@@ -501,7 +501,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/upload'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'path': 'rest-api-tests',
     'source': 'data',
     'filename': 'test-file.txt',
@@ -535,7 +535,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/upload';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     path: 'rest-api-tests',
     source: 'data',
     filename: 'test-file.txt',
@@ -579,7 +579,7 @@ import axios from 'axios';
   🔤/upload🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤path=rest-api-tests🔤 ➡️ path
   🔤source=data🔤 ➡️ source
   🔤filename=test-file.txt🔤 ➡️ filename
@@ -615,7 +615,7 @@ import axios from 'axios';
 ```json
 {
   "type": "upload-file-result",
-  "requestId": "upload-file_1775068879872",
+  "requestId": "upload-file_1776657990987",
   "success": true,
   "path": "rest-api-tests/test-file.txt"
 }

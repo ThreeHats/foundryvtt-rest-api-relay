@@ -1,7 +1,7 @@
 ---
 id: relay-app-duckdns-example
 title: Relay + App + DNS Example
-sidebar_position: 9
+sidebar_position: 12
 ---
 
 Inspired by the incredible work done by [ChefsSlaad](https://github.com/ChefsSlaad/foundry_swag_docker), below is a cut and paste of his work, but only for the current use case of how to install the foundry relay , along with the foundry docker application integrated with a secure ssl domain all together.
@@ -279,7 +279,7 @@ services:
     # ports:
     #   - "3010:3010"
     environment:
-      - NODE_ENV=production
+      - APP_ENV=production
       - PORT=3010
     volumes:
       - ./data/relay:/app/data

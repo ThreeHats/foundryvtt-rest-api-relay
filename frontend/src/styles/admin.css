@@ -1,0 +1,251 @@
+/*
+ * Admin panel — global stylesheet.
+ *
+ * Astro static output only extracts CSS for components rendered during SSR.
+ * Because most admin components are hidden behind {#if $isAdmin} (false on
+ * the server), their Svelte-scoped CSS never makes it into the build output.
+ *
+ * This file mirrors the <style> blocks from every admin component without
+ * Svelte's scope hash, so Astro always bundles them as part of admin.astro.
+ * The scoped rules still exist for SSR-rendered components (AdminLogin,
+ * AdminUsers) and are harmless overrides; these unscoped rules cover everything
+ * that only renders client-side.
+ */
+
+/* ============================================================
+   Shared / Common
+   ============================================================ */
+.admin-page { padding: 1.5rem; }
+.admin-page h1 { margin-top: 0; }
+.admin-page h2 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+.error { color: var(--color-error, #e53935); }
+.pagination { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; align-items: center; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--color-border-light); font-size: 0.875rem; }
+th { background: var(--color-bg-elevated); font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+
+/* Danger button */
+button.danger { background: var(--color-error, #e53935); color: white; border: none; padding: 0.25rem 0.5rem; }
+
+/* Metric/health cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.card { padding: 1rem; background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.card h3 { margin: 0; font-size: 0.875rem; color: var(--color-text-muted); text-transform: uppercase; }
+.big { font-size: 1.75rem; margin: 0.25rem 0 0; font-weight: 700; word-break: break-all; }
+.big.degraded { color: var(--color-error, #e53935); }
+
+/* ============================================================
+   AdminLogin
+   ============================================================ */
+.admin-login {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.admin-login h1 { margin: 0 0 0.5rem; color: var(--color-primary); }
+.admin-login .hint { color: var(--color-text-muted); margin-bottom: 1.5rem; font-size: 0.875rem; }
+.admin-login form { display: flex; flex-direction: column; gap: 1rem; }
+.admin-login label { display: flex; flex-direction: column; gap: 0.25rem; font-weight: 500; }
+.admin-login input {
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+.admin-login button {
+  padding: 0.75rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-login button:disabled { opacity: 0.6; cursor: not-allowed; }
+.admin-login .error { color: var(--color-error, #e53935); margin: 0; }
+
+/* ============================================================
+   AdminUsers
+   ============================================================ */
+.bulk-bar {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 0.75rem; margin-bottom: 0.75rem;
+  background: var(--color-bg-elevated); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); font-size: 0.875rem;
+}
+.info-banner {
+  padding: 0.5rem 0.75rem;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+tr.disabled td { opacity: 0.5; }
+tr.selected td { background: color-mix(in srgb, var(--color-primary, #4f46e5) 6%, transparent); }
+
+/* ============================================================
+   AdminClients / AdminKeys / AdminSessions — table action button sizing
+   Scope to .table-wrap so AdminTestRunner's action bar buttons aren't shrunk.
+   ============================================================ */
+.table-wrap button { padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-right: 0.25rem; }
+code { font-size: 0.75rem; }
+
+/* ============================================================
+   AdminAuditLogs
+   ============================================================ */
+.section-activity { margin-bottom: 3rem; }
+.filters { margin-bottom: 1rem; display: flex; gap: 0.5rem; }
+.filters input { padding: 0.5rem; flex: 1; max-width: 400px; }
+
+/* ============================================================
+   AdminMetrics
+   ============================================================ */
+.bars { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 2rem; }
+.bar-row { display: grid; grid-template-columns: 250px 1fr 60px; align-items: center; gap: 0.5rem; font-size: 0.75rem; }
+.bar-row .label { font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar { background: var(--color-primary); height: 18px; border-radius: 4px; min-width: 2px; }
+.bar-row .count { text-align: right; }
+
+/* ============================================================
+   AdminOps
+   ============================================================ */
+.flags { display: flex; flex-direction: column; gap: 0.75rem; max-width: 500px; }
+.flag { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--color-bg-elevated); border-radius: var(--radius-md); }
+.flag .name { flex: 1; font-family: monospace; }
+.flag .value { font-weight: 700; }
+
+/* ============================================================
+   AdminAlerts
+   ============================================================ */
+.dest-inputs { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.dest-row { display: flex; align-items: center; gap: 0.5rem; }
+.dest-label { font-size: 0.875rem; font-weight: 500; min-width: 160px; white-space: nowrap; }
+.dest-input {
+  flex: 1; padding: 0.35rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--color-bg, white);
+  font-size: 0.875rem;
+}
+.btn-test {
+  padding: 0.3rem 0.6rem; font-size: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--color-bg-elevated);
+  cursor: pointer; white-space: nowrap;
+}
+.btn-test:disabled { opacity: 0.5; cursor: default; }
+.btn-test.ok  { background: #43a047; color: white; border-color: #43a047; }
+.btn-test.err { background: var(--color-error, #e53935); color: white; border-color: var(--color-error, #e53935); }
+.ch-col { text-align: center; width: 80px; }
+.ch-col input[type="checkbox"] { cursor: pointer; width: 15px; height: 15px; }
+tr.section-header td {
+  background: var(--color-bg-elevated); font-weight: 600;
+  font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--color-text-muted, #888);
+  padding: 0.3rem 0.75rem;
+}
+.save-row { display: flex; align-items: center; gap: 0.75rem; }
+.btn-save {
+  padding: 0.45rem 1rem; font-size: 0.875rem; font-weight: 500;
+  border: none; border-radius: var(--radius-sm, 4px);
+  background: var(--color-primary, #1e88e5); color: white; cursor: pointer;
+}
+.btn-save:disabled { opacity: 0.6; cursor: default; }
+.save-msg { font-size: 0.875rem; }
+.save-msg.success { color: #43a047; }
+.save-msg.error   { color: var(--color-error, #e06c75); }
+.event-list { list-style: none; padding: 0; margin: 0; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
+.event-item { border-bottom: 1px solid var(--color-border-light); }
+.event-item:last-child { border-bottom: none; }
+.event-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; cursor: pointer; font-size: 0.875rem; }
+.event-header:hover { background: var(--color-bg-elevated); }
+.badge { padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+.sev-critical { background: #e53935; color: white; }
+.sev-warning  { background: #fb8c00; color: white; }
+.sev-info     { background: #1e88e5; color: white; }
+.event-type { font-weight: 600; white-space: nowrap; }
+.event-msg  { flex: 1; color: var(--color-text-muted, #666); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.event-time { white-space: nowrap; color: var(--color-text-muted, #888); font-size: 0.75rem; }
+.expand-btn { background: none; border: none; cursor: pointer; padding: 0 0.25rem; font-size: 0.8rem; }
+.event-details {
+  display: grid; grid-template-columns: max-content 1fr;
+  gap: 0.1rem 0.75rem; margin: 0;
+  padding: 0.5rem 0.75rem 0.75rem 2.5rem;
+  background: var(--color-bg-elevated); font-size: 0.8rem;
+}
+.event-details dt { font-weight: 600; color: var(--color-text-muted, #666); }
+.event-details dd { margin: 0; font-family: monospace; }
+
+/* ============================================================
+   AdminTestRunner
+   ============================================================ */
+.actions { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+.status { color: var(--color-text-muted); margin-left: 0.25rem; }
+.kind-badge {
+  display: inline-block; font-size: 0.7rem; padding: 0 5px;
+  border-radius: 3px; background: var(--color-border, #444);
+  color: var(--color-text-muted); vertical-align: middle; margin-left: 4px;
+}
+button.secondary { background: transparent; border: 1px solid var(--color-border, #444); color: var(--color-text-muted); }
+button.secondary:hover { border-color: var(--color-text-muted); color: var(--color-text, #eee); }
+.terminal {
+  background: #1a1a1a; color: #d0d0d0;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md, 6px);
+  font-family: 'SF Mono', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+  font-size: 0.78rem; line-height: 1.55;
+  min-height: 6rem; max-height: 60vh;
+  overflow-y: auto; white-space: pre-wrap; word-break: break-all;
+  margin-bottom: 2rem;
+  scrollbar-width: thin; scrollbar-color: #444 #1a1a1a;
+}
+.terminal::-webkit-scrollbar       { width: 6px; }
+.terminal::-webkit-scrollbar-track { background: #1a1a1a; }
+.terminal::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+.terminal span { display: inline; }
+.terminal div  { margin: 0; }
+.env-section { border-top: 1px solid var(--color-border, #333); padding-top: 1.5rem; }
+.env-file {
+  font-family: monospace; font-size: 0.78rem;
+  color: var(--color-text-muted); font-weight: normal; margin-left: 0.4rem;
+}
+.hint { color: var(--color-text-muted); font-size: 0.82rem; margin: 0 0 1.25rem; }
+.env-grid {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+.env-section-header {
+  font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--color-text-muted);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border, #333);
+  margin-top: 0.25rem;
+}
+.env-section-header:first-child { border-top: none; padding-top: 0; }
+.env-label { font-size: 0.85rem; color: var(--color-text-muted); text-align: right; padding-right: 0.25rem; }
+.env-input-wrap { display: flex; align-items: center; gap: 0.4rem; }
+.env-input-wrap input {
+  flex: 1; min-width: 0;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 0.82rem; padding: 0.35rem 0.6rem;
+  background: var(--color-surface, #1f1f1f);
+  border: 1px solid var(--color-border, #444);
+  border-radius: var(--radius-sm, 4px);
+  color: var(--color-text, #eee);
+}
+.env-input-wrap input:focus { outline: none; border-color: var(--color-primary, #61afef); }
+.toggle-show { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0 0.2rem; opacity: 0.6; flex-shrink: 0; }
+.toggle-show:hover { opacity: 1; }
+.env-footer { display: flex; align-items: center; gap: 1rem; }

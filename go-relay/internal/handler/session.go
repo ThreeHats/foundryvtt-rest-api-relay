@@ -4,7 +4,7 @@ import (
 	"crypto"
 	cryptorand "crypto/rand"
 	"crypto/rsa"
-	"crypto/sha1"
+	"crypto/sha256"
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/json"
@@ -17,6 +17,7 @@ import (
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/config"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/database"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/handler/helpers"
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/model"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/worker"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/ws"
 	"github.com/rs/zerolog/log"
@@ -50,6 +51,15 @@ var (
 // @returns Handshake token and encryption details
 func sessionHandshakeHandler(db *database.DB, cfg *config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if !cfg.AllowHeadless {
+			helpers.WriteJSON(w, http.StatusServiceUnavailable, map[string]interface{}{
+				"error":   "Headless sessions are not available on this relay",
+				"message": "The operator has disabled headless sessions. To use headless sessions, self-host your own relay instance.",
+				"docsUrl": cfg.FrontendURL + "/docs/installation",
+			})
+			return
+		}
+
 		reqCtx := helpers.GetRequestContext(r)
 		if reqCtx == nil {
 			helpers.WriteError(w, http.StatusUnauthorized, "Authentication required")
@@ -119,7 +129,11 @@ func sessionHandshakeHandler(db *database.DB, cfg *config.Config) http.HandlerFu
 // @returns Session information including sessionId and clientId
 func sessionStartHandler(db *database.DB, cfg *config.Config, headless *worker.HeadlessManager) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		body := parseBody(r)
+		body, err := parseBody(r)
+		if err != nil {
+			helpers.WriteError(w, http.StatusBadRequest, err.Error())
+			return
+		}
 		handshakeToken := bodyStr(body, "handshakeToken")
 		encryptedPassword := bodyStr(body, "encryptedPassword")
 
@@ -147,8 +161,7 @@ func sessionStartHandler(db *database.DB, cfg *config.Config, headless *worker.H
 			return
 		}
 
-		// Node.js RSA_PKCS1_OAEP_PADDING defaults to SHA-1
-		decrypted, err := rsa.DecryptOAEP(sha1.New(), cryptorand.Reader, hs.PrivateKey, encBytes, nil)
+		decrypted, err := rsa.DecryptOAEP(sha256.New(), cryptorand.Reader, hs.PrivateKey, encBytes, nil)
 		if err != nil {
 			helpers.WriteError(w, http.StatusBadRequest, "Failed to decrypt password")
 			return
@@ -176,12 +189,39 @@ func sessionStartHandler(db *database.DB, cfg *config.Config, headless *worker.H
 		}
 
 		if headless == nil {
-			helpers.WriteError(w, http.StatusServiceUnavailable, "Headless sessions not available")
+			helpers.WriteJSON(w, http.StatusServiceUnavailable, map[string]interface{}{
+				"error":   "Headless sessions are not available on this relay",
+				"message": "The operator has disabled headless sessions. To use headless sessions, self-host your own relay instance.",
+				"docsUrl": cfg.FrontendURL + "/docs/installation",
+			})
 			return
 		}
 
+		// Mint a fresh headless connection token so the Foundry module can auth
+		// via the seeded localStorage value instead of requiring manual pairing.
+		rawToken := ""
+		if db != nil {
+			user, _ := db.UserStore().FindByAPIKeyHash(r.Context(), hs.APIKey)
+			if user != nil {
+				raw, hash, genErr := worker.GenerateHeadlessToken()
+				if genErr == nil {
+					ct := &model.ConnectionToken{
+						UserID:    user.ID,
+						TokenHash: hash,
+						Name:      fmt.Sprintf("headless session %s", time.Now().Format("2006-01-02 15:04")),
+						Source:    model.TokenSourceHeadless,
+					}
+					if createErr := db.ConnectionTokenStore().Create(r.Context(), ct); createErr == nil {
+						rawToken = raw
+					} else {
+						log.Warn().Err(createErr).Msg("Failed to mint headless connection token; session may fail to pair")
+					}
+				}
+			}
+		}
+
 		// Launch headless session (this blocks until client connects or timeout)
-		sessionID, clientID, err := headless.LaunchSession(hs.APIKey, hs.FoundryURL, hs.Username, creds.Password, worldName)
+		sessionID, clientID, err := headless.LaunchSession(hs.APIKey, hs.FoundryURL, hs.Username, creds.Password, worldName, rawToken)
 		if err != nil {
 			log.Error().Err(err).Msg("Headless session launch failed")
 			helpers.WriteJSON(w, http.StatusRequestTimeout, map[string]interface{}{
@@ -209,7 +249,11 @@ func sessionEndHandler(headless *worker.HeadlessManager) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		sessionID := r.URL.Query().Get("sessionId")
 		if sessionID == "" {
-			body := parseBody(r)
+			body, err := parseBody(r)
+			if err != nil {
+				helpers.WriteError(w, http.StatusBadRequest, err.Error())
+				return
+			}
 			sessionID = bodyStr(body, "sessionId")
 		}
 

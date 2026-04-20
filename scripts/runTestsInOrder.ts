@@ -7,13 +7,36 @@
 
 import { spawn } from 'child_process';
 import path from 'path';
+import fs from 'fs';
 import { TEST_ORDER } from '../tests/helpers/testSequencer';
+
+/** Recursively find all test files under a directory, indexed by basename */
+function indexTestFiles(dir: string): Map<string, string> {
+  const index = new Map<string, string>();
+  function walk(d: string) {
+    for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
+      const full = path.join(d, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.endsWith('.test.ts')) index.set(entry.name, full);
+    }
+  }
+  walk(dir);
+  return index;
+}
 
 async function runAllTestsInOrder(): Promise<void> {
   console.log('🚀 Starting ordered test execution (single Jest process)...\n');
-  
-  // Get all test files in order
-  const testFiles = TEST_ORDER.map(test => path.join('tests', 'integration', test));
+
+  // Index all test files by filename (supports subdirectories)
+  const fileIndex = indexTestFiles(path.join('tests', 'integration'));
+  const testFiles = TEST_ORDER.map(name => {
+    const fullPath = fileIndex.get(name);
+    if (!fullPath) {
+      console.warn(` Test file not found: ${name}`);
+      return null;
+    }
+    return fullPath;
+  }).filter((f): f is string => f !== null);
   
   console.log(`Running ${testFiles.length} test files in order:\n`);
   testFiles.forEach((file, i) => {

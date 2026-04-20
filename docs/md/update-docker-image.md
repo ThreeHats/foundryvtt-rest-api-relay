@@ -1,33 +1,41 @@
 ---
 id: update-docker-image
 title: Update Docker Image
-sidebar_position: 10
+sidebar_position: 13
 ---
 
 # Maintenance and Updates of the Docker Image
 
-## 1. Stop the docker image
+## 1. Stop the running container
 
-`docker-compose down`
+```bash
+docker compose -f docker-compose.local.yml down
+```
 
-## 2. Docker image update
+(If you're using the Postgres setup, replace `docker-compose.local.yml` with `docker-compose.postgres.yml`.)
 
-Pull the latest image:
-`docker-compose pull`
+## 2. Pull the latest image
 
-## 3. Optional remove docker images
+```bash
+docker compose -f docker-compose.local.yml pull
+```
 
-List all docker images so far pulled:
-`docker images -a`
+## 3. Optional: remove old images
 
-Remove pulled images with the image id:
-`docker imr [image_ID]`
+List all pulled images:
+```bash
+docker images -a
+```
 
-- Probably the best idea is to keep allways two versions. The latest one you pulled and the version   
-which you have been running on. That way you can allways easily revert to the last working version.
-You can differentiate by the timestamp you pulled your images
+Remove an old image by ID:
+```bash
+docker rmi [image_ID]
+```
 
-## 4. Restart the docker image
+Keeping the previous version around is a good idea — you can roll back by tagging or re-pulling a specific version if the update causes issues.
 
-Start the latest image DETACHED
-`docker-compose up -d`
+## 4. Restart with the latest image
+
+```bash
+docker compose -f docker-compose.local.yml up -d
+```

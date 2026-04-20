@@ -82,7 +82,7 @@ const handshakeResponse = await fetch(`${baseUrl}/session-handshake`, {
 });
 const { token, publicKey, nonce } = await handshakeResponse.json();
 
-// Step 2: Encrypt password using Web Crypto API (RSA-OAEP with SHA-1)
+// Step 2: Encrypt password using Web Crypto API (RSA-OAEP with SHA-256)
 const password = 'your-password';
 const payload = JSON.stringify({ password, nonce });
 
@@ -96,7 +96,7 @@ const binaryKey = Uint8Array.from(atob(pemContents), c => c.charCodeAt(0));
 const cryptoKey = await crypto.subtle.importKey(
   'spki',
   binaryKey,
-  { name: 'RSA-OAEP', hash: 'SHA-1' },  // Must use SHA-1 to match server
+  { name: 'RSA-OAEP', hash: 'SHA-256' },
   false,
   ['encrypt']
 );
@@ -169,7 +169,7 @@ token = handshake_data['token']
 public_key_pem = handshake_data['publicKey']
 nonce = handshake_data['nonce']
 
-# Step 2: Encrypt password using RSA-OAEP with SHA-1 (must match server)
+# Step 2: Encrypt password using RSA-OAEP with SHA-256
 password = 'your-password'
 payload = json.dumps({'password': password, 'nonce': nonce})
 
@@ -177,8 +177,8 @@ public_key = serialization.load_pem_public_key(public_key_pem.encode())
 encrypted = public_key.encrypt(
     payload.encode(),
     padding.OAEP(
-        mgf=padding.MGF1(algorithm=hashes.SHA1()),
-        algorithm=hashes.SHA1(),
+        mgf=padding.MGF1(algorithm=hashes.SHA256()),
+        algorithm=hashes.SHA256(),
         label=None
     )
 )
@@ -215,11 +215,11 @@ const handshakeResponse = await fetch(`${baseUrl}/session-handshake`, {
 });
 const { token, publicKey, nonce } = await handshakeResponse.json();
 
-// Step 2: Encrypt password using Node.js crypto (RSA-OAEP)
+// Step 2: Encrypt password using Node.js crypto (RSA-OAEP with SHA-256)
 const password = 'your-password';
 const payload = JSON.stringify({ password, nonce });
 const encryptedPassword = crypto.publicEncrypt(
-  { key: publicKey, padding: crypto.constants.RSA_PKCS1_OAEP_PADDING },
+  { key: publicKey, padding: crypto.constants.RSA_PKCS1_OAEP_PADDING, oaepHash: 'sha256' },
   Buffer.from(payload, 'utf8')
 ).toString('base64');
 
@@ -252,8 +252,8 @@ Just don't 😂
 
 ```json
 {
-  "clientId": "foundry-testing-r6bXhB7k9cXa3cif",
-  "sessionId": "555101a6-1587-4536-8e31-bb771eb6b95b",
+  "clientId": "fvtt_099ad17ea199e7e3",
+  "sessionId": "5dbbde56-8240-459d-a064-c9ee04152c41",
   "success": true
 }
 ```
@@ -293,7 +293,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: '555101a6-1587-4536-8e31-bb771eb6b95b'
+  sessionId: '5dbbde56-8240-459d-a064-c9ee04152c41'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -312,7 +312,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=555101a6-1587-4536-8e31-bb771eb6b95b' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=5dbbde56-8240-459d-a064-c9ee04152c41' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -325,7 +325,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': '555101a6-1587-4536-8e31-bb771eb6b95b'
+    'sessionId': '5dbbde56-8240-459d-a064-c9ee04152c41'
 }
 url = f'{base_url}{path}'
 
@@ -350,7 +350,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: '555101a6-1587-4536-8e31-bb771eb6b95b'
+    sessionId: '5dbbde56-8240-459d-a064-c9ee04152c41'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -384,7 +384,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=555101a6-1587-4536-8e31-bb771eb6b95b🔤 ➡️ sessionId
+  🔤sessionId=5dbbde56-8240-459d-a064-c9ee04152c41🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -556,12 +556,12 @@ import axios from 'axios';
 {
   "activeSessions": [
     {
-      "clientId": "foundry-testing-r6bXhB7k9cXa3cif",
+      "clientId": "fvtt_099ad17ea199e7e3",
       "foundryUrl": "http://localhost:30013",
       "foundryVersion": "13.348",
-      "lastActivity": 1775068855002,
-      "sessionId": "555101a6-1587-4536-8e31-bb771eb6b95b",
-      "startedAt": 1775068855002,
+      "lastActivity": 1776657947730,
+      "sessionId": "5dbbde56-8240-459d-a064-c9ee04152c41",
+      "startedAt": 1776657947730,
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
       "systemVersion": "5.0.4",

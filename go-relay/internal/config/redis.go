@@ -145,6 +145,36 @@ func (r *RedisClient) SafeExpire(ctx context.Context, key string, expiration tim
 	return r.client.Expire(ctx, key, expiration).Err()
 }
 
+// Pipeline returns a Redis pipeline for batching commands in a single round-trip.
+// Returns nil if Redis isn't connected.
+func (r *RedisClient) Pipeline() redis.Pipeliner {
+	if !r.IsConnected() {
+		return nil
+	}
+	return r.client.Pipeline()
+}
+
+// SafePublish publishes a message to a pub/sub channel.
+// Used by the cross-instance disconnect broadcaster so that revoking a
+// connection token or deleting a known client kills its live WebSocket
+// even when the socket is pinned to a different Fly.io instance.
+func (r *RedisClient) SafePublish(ctx context.Context, channel string, payload interface{}) error {
+	if !r.IsConnected() {
+		return nil
+	}
+	return r.client.Publish(ctx, channel, payload).Err()
+}
+
+// Subscribe opens a pub/sub subscription on the given channel. Returns nil
+// if Redis isn't connected (caller must handle). The caller is responsible
+// for closing the returned PubSub.
+func (r *RedisClient) Subscribe(ctx context.Context, channel string) *redis.PubSub {
+	if !r.IsConnected() {
+		return nil
+	}
+	return r.client.Subscribe(ctx, channel)
+}
+
 // CheckHealth returns the Redis health status.
 func (r *RedisClient) CheckHealth(ctx context.Context) (string, error) {
 	if !r.IsConnected() {

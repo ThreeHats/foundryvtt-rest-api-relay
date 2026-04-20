@@ -50,7 +50,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "auth-test-1775068868827@example.com",
+      "email": "auth-test-1776657955226@example.com",
       "password": "TestPassword1"
     })
 });
@@ -64,7 +64,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/register' \
   -H "Content-Type: application/json" \
-  -d '{"email":"auth-test-1775068868827@example.com","password":"TestPassword1"}'
+  -d '{"email":"auth-test-1776657955226@example.com","password":"TestPassword1"}'
 ```
 
 </TabItem>
@@ -80,7 +80,7 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "auth-test-1775068868827@example.com",
+      "email": "auth-test-1776657955226@example.com",
       "password": "TestPassword1"
     }
 )
@@ -106,7 +106,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "auth-test-1775068868827@example.com",
+        "email": "auth-test-1776657955226@example.com",
         "password": "TestPassword1"
       }
   });
@@ -132,10 +132,10 @@ import axios from 'axios';
   🔤/auth/register🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"auth-test-1775068868827@example.com","password":"TestPassword1"}🔤 ➡️ body
+  🔤{"email":"auth-test-1776657955226@example.com","password":"TestPassword1"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/register HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1775068868827@example.com","password":"TestPassword1"}🔤 ➡️ request
+  🔤POST /auth/register HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1776657955226@example.com","password":"TestPassword1"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -160,12 +160,12 @@ import axios from 'axios';
 ```json
 {
   "apiKey": "your-api-key-here",
-  "createdAt": {
-    "Time": "2026-04-01T13:41:08.884915504-05:00",
-    "Valid": true
-  },
-  "email": "auth-test-1775068868827@example.com",
-  "id": 12,
+  "createdAt": "2026-04-20T04:05:55Z",
+  "email": "auth-test-1776657955226@example.com",
+  "emailVerified": true,
+  "id": 379,
+  "sessionExpiresAt": "2026-05-20T04:05:55Z",
+  "sessionToken": "your-api-key-here",
   "subscriptionStatus": "free"
 }
 ```
@@ -214,8 +214,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "noahblalonde@gmail.com",
-      "password": "nek_jtq_awk7JZD6vwj"
+      "email": "relay-test-1776657942060@example.com",
+      "password": "TestPassword123!"
     })
 });
 const data = await response.json();
@@ -228,7 +228,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/login' \
   -H "Content-Type: application/json" \
-  -d '{"email":"noahblalonde@gmail.com","password":"nek_jtq_awk7JZD6vwj"}'
+  -d '{"email":"relay-test-1776657942060@example.com","password":"TestPassword123!"}'
 ```
 
 </TabItem>
@@ -244,8 +244,8 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "noahblalonde@gmail.com",
-      "password": "nek_jtq_awk7JZD6vwj"
+      "email": "relay-test-1776657942060@example.com",
+      "password": "TestPassword123!"
     }
 )
 data = response.json()
@@ -270,8 +270,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "noahblalonde@gmail.com",
-        "password": "nek_jtq_awk7JZD6vwj"
+        "email": "relay-test-1776657942060@example.com",
+        "password": "TestPassword123!"
       }
   });
   const data = response.data;
@@ -296,10 +296,10 @@ import axios from 'axios';
   🔤/auth/login🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"noahblalonde@gmail.com","password":"nek_jtq_awk7JZD6vwj"}🔤 ➡️ body
+  🔤{"email":"relay-test-1776657942060@example.com","password":"TestPassword123!"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/login HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n{"email":"noahblalonde@gmail.com","password":"nek_jtq_awk7JZD6vwj"}🔤 ➡️ request
+  🔤POST /auth/login HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 78❌r❌n❌r❌n{"email":"relay-test-1776657942060@example.com","password":"TestPassword123!"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -323,14 +323,15 @@ import axios from 'axios';
 
 ```json
 {
-  "apiKey": "your-api-key-here",
-  "createdAt": {
-    "Time": "0001-01-01T00:00:00Z",
-    "Valid": false
-  },
-  "email": "noahblalonde@gmail.com",
-  "id": 4,
-  "requestsThisMonth": 8059
+  "apiKeyRotationRequired": false,
+  "createdAt": "2026-04-20T04:05:42Z",
+  "email": "relay-test-1776657942060@example.com",
+  "emailVerified": true,
+  "id": 378,
+  "requestsThisMonth": 276,
+  "role": "user",
+  "sessionExpiresAt": "2026-05-20T04:05:55Z",
+  "sessionToken": "your-api-key-here"
 }
 ```
 
@@ -378,7 +379,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "auth-test-1775068868827@example.com",
+      "email": "auth-test-1776657955226@example.com",
       "password": "TestPassword1"
     })
 });
@@ -392,7 +393,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/regenerate-key' \
   -H "Content-Type: application/json" \
-  -d '{"email":"auth-test-1775068868827@example.com","password":"TestPassword1"}'
+  -d '{"email":"auth-test-1776657955226@example.com","password":"TestPassword1"}'
 ```
 
 </TabItem>
@@ -408,7 +409,7 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "auth-test-1775068868827@example.com",
+      "email": "auth-test-1776657955226@example.com",
       "password": "TestPassword1"
     }
 )
@@ -434,7 +435,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "auth-test-1775068868827@example.com",
+        "email": "auth-test-1776657955226@example.com",
         "password": "TestPassword1"
       }
   });
@@ -460,10 +461,10 @@ import axios from 'axios';
   🔤/auth/regenerate-key🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"auth-test-1775068868827@example.com","password":"TestPassword1"}🔤 ➡️ body
+  🔤{"email":"auth-test-1776657955226@example.com","password":"TestPassword1"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/regenerate-key HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1775068868827@example.com","password":"TestPassword1"}🔤 ➡️ request
+  🔤POST /auth/regenerate-key HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1776657955226@example.com","password":"TestPassword1"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -525,7 +526,7 @@ const url = `${baseUrl}${path}`;
 const response = await fetch(url, {
   method: 'GET',
   headers: {
-    'x-api-key': 'your-api-key-here'
+    'Authorization': 'Bearer your-api-key-here'
   }
 });
 const data = await response.json();
@@ -537,7 +538,7 @@ console.log(data);
 
 ```bash
 curl -X GET 'http://localhost:3010/auth/user-data' \
-  -H "x-api-key: your-api-key-here"
+  -H "Authorization: Bearer your-api-key-here"
 ```
 
 </TabItem>
@@ -553,7 +554,7 @@ url = f'{base_url}{path}'
 response = requests.get(
     url,
     headers={
-        'x-api-key': 'your-api-key-here'
+        'Authorization': 'Bearer your-api-key-here'
     }
 )
 data = response.json()
@@ -574,7 +575,7 @@ import axios from 'axios';
   const response = await axios({
     method: 'get',
     headers: {
-      'x-api-key': 'your-api-key-here'
+      'Authorization': 'Bearer your-api-key-here'
     },
     url
   });
@@ -600,7 +601,7 @@ import axios from 'axios';
   🔤/auth/user-data🔤 ➡️ path
 
   💭 Build HTTP request
-  🔤GET /auth/user-data HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+  🔤GET /auth/user-data HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -624,16 +625,16 @@ import axios from 'axios';
 
 ```json
 {
-  "apiKey": "your-api-key-here",
-  "email": "noahblalonde@gmail.com",
-  "id": 4,
+  "apiKeyRotationRequired": false,
+  "email": "auth-test-1776657955226@example.com",
+  "emailVerified": true,
+  "id": 379,
   "limits": {
-    "dailyLimit": 10000000,
     "monthlyLimit": 1000000,
     "unlimitedMonthly": false
   },
-  "requestsThisMonth": 8059,
-  "requestsToday": 272,
+  "requestsThisMonth": 0,
+  "role": "user",
   "subscriptionStatus": "free"
 }
 ```
@@ -772,87 +773,24 @@ import axios from 'axios';
 ```json
 {
   "apiAccess": {
-    "apiKey": "your-api-key-here"
+    "hasMasterKey": true
   },
-  "exportDate": "2026-04-01T18:41:09Z",
-  "scopedKeys": [
-    {
-      "createdAt": {
-        "Time": "0001-01-01T00:00:00Z",
-        "Valid": false
-      },
-      "dailyLimit": 1000,
-      "enabled": true,
-      "expiresAt": null,
-      "hasFoundryCredentials": false,
-      "id": 1,
-      "name": "test1",
-      "scopedClientId": "your-client-id",
-      "scopedUserId": "tester"
-    },
-    {
-      "createdAt": {
-        "Time": "0001-01-01T00:00:00Z",
-        "Valid": false
-      },
-      "dailyLimit": 0,
-      "enabled": true,
-      "expiresAt": null,
-      "hasFoundryCredentials": true,
-      "id": 2,
-      "name": "headless-test1",
-      "scopedClientId": "your-client-id",
-      "scopedUserId": ""
-    },
-    {
-      "createdAt": {
-        "Time": "0001-01-01T00:00:00Z",
-        "Valid": false
-      },
-      "dailyLimit": 0,
-      "enabled": true,
-      "expiresAt": null,
-      "hasFoundryCredentials": true,
-      "id": 3,
-      "name": "test-headless2-gm",
-      "scopedClientId": "foundry-testing-r6bXhB7k9cXa3cif",
-      "scopedUserId": "Gamemaster"
-    },
-    {
-      "createdAt": {
-        "Time": "2026-03-25T18:08:33.030028526-05:00",
-        "Valid": true
-      },
-      "dailyLimit": 0,
-      "enabled": true,
-      "expiresAt": null,
-      "hasFoundryCredentials": true,
-      "id": 16,
-      "name": "test-session",
-      "scopedClientId": "",
-      "scopedUserId": ""
-    }
-  ],
+  "exportDate": "2026-04-20T04:05:55Z",
+  "scopedKeys": [],
   "subscription": {
     "status": "free",
     "stripeCustomerId": "",
     "subscriptionId": ""
   },
   "usage": {
-    "requestsThisMonth": 8059,
-    "requestsToday": 272
+    "requestsThisMonth": 276,
+    "requestsToday": 276
   },
   "user": {
-    "createdAt": {
-      "Time": "0001-01-01T00:00:00Z",
-      "Valid": false
-    },
-    "email": "noahblalonde@gmail.com",
-    "id": 4,
-    "updatedAt": {
-      "Time": "2026-04-01T13:41:08.336801707-05:00",
-      "Valid": true
-    }
+    "createdAt": "2026-04-20T04:05:42Z",
+    "email": "relay-test-1776657942060@example.com",
+    "id": 378,
+    "updatedAt": "2026-04-20T04:05:55Z"
   }
 }
 ```
@@ -902,8 +840,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "confirmEmail": "auth-test-1775068868827@example.com",
-      "password": "ResetPassword1"
+      "confirmEmail": "auth-test-1776657955226@example.com",
+      "password": "TestPassword1"
     })
 });
 const data = await response.json();
@@ -917,7 +855,7 @@ console.log(data);
 curl -X DELETE 'http://localhost:3010/auth/account' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"confirmEmail":"auth-test-1775068868827@example.com","password":"ResetPassword1"}'
+  -d '{"confirmEmail":"auth-test-1776657955226@example.com","password":"TestPassword1"}'
 ```
 
 </TabItem>
@@ -936,8 +874,8 @@ response = requests.delete(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "confirmEmail": "auth-test-1775068868827@example.com",
-      "password": "ResetPassword1"
+      "confirmEmail": "auth-test-1776657955226@example.com",
+      "password": "TestPassword1"
     }
 )
 data = response.json()
@@ -963,8 +901,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "confirmEmail": "auth-test-1775068868827@example.com",
-        "password": "ResetPassword1"
+        "confirmEmail": "auth-test-1776657955226@example.com",
+        "password": "TestPassword1"
       }
   });
   const data = response.data;
@@ -989,10 +927,10 @@ import axios from 'axios';
   🔤/auth/account🔤 ➡️ path
 
   💭 Request body
-  🔤{"confirmEmail":"auth-test-1775068868827@example.com","password":"ResetPassword1"}🔤 ➡️ body
+  🔤{"confirmEmail":"auth-test-1776657955226@example.com","password":"TestPassword1"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤DELETE /auth/account HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 82❌r❌n❌r❌n{"confirmEmail":"auth-test-1775068868827@example.com","password":"ResetPassword1"}🔤 ➡️ request
+  🔤DELETE /auth/account HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 81❌r❌n❌r❌n{"confirmEmail":"auth-test-1776657955226@example.com","password":"TestPassword1"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -1066,7 +1004,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "currentPassword": "nek_jtq_awk7JZD6vwj",
+      "currentPassword": "TestPassword123!",
       "newPassword": "ChangedPassword2"
     })
 });
@@ -1081,7 +1019,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/auth/change-password' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"currentPassword":"nek_jtq_awk7JZD6vwj","newPassword":"ChangedPassword2"}'
+  -d '{"currentPassword":"TestPassword123!","newPassword":"ChangedPassword2"}'
 ```
 
 </TabItem>
@@ -1100,7 +1038,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "currentPassword": "nek_jtq_awk7JZD6vwj",
+      "currentPassword": "TestPassword123!",
       "newPassword": "ChangedPassword2"
     }
 )
@@ -1127,7 +1065,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "currentPassword": "nek_jtq_awk7JZD6vwj",
+        "currentPassword": "TestPassword123!",
         "newPassword": "ChangedPassword2"
       }
   });
@@ -1153,10 +1091,10 @@ import axios from 'axios';
   🔤/auth/change-password🔤 ➡️ path
 
   💭 Request body
-  🔤{"currentPassword":"nek_jtq_awk7JZD6vwj","newPassword":"ChangedPassword2"}🔤 ➡️ body
+  🔤{"currentPassword":"TestPassword123!","newPassword":"ChangedPassword2"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/change-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"currentPassword":"nek_jtq_awk7JZD6vwj","newPassword":"ChangedPassword2"}🔤 ➡️ request
+  🔤POST /auth/change-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 71❌r❌n❌r❌n{"currentPassword":"TestPassword123!","newPassword":"ChangedPassword2"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -1227,7 +1165,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "auth-test-1775068868827@example.com"
+      "email": "auth-test-1776657955226@example.com"
     })
 });
 const data = await response.json();
@@ -1240,7 +1178,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/forgot-password' \
   -H "Content-Type: application/json" \
-  -d '{"email":"auth-test-1775068868827@example.com"}'
+  -d '{"email":"auth-test-1776657955226@example.com"}'
 ```
 
 </TabItem>
@@ -1256,7 +1194,7 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "auth-test-1775068868827@example.com"
+      "email": "auth-test-1776657955226@example.com"
     }
 )
 data = response.json()
@@ -1281,7 +1219,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "auth-test-1775068868827@example.com"
+        "email": "auth-test-1776657955226@example.com"
       }
   });
   const data = response.data;
@@ -1306,10 +1244,10 @@ import axios from 'axios';
   🔤/auth/forgot-password🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"auth-test-1775068868827@example.com"}🔤 ➡️ body
+  🔤{"email":"auth-test-1776657955226@example.com"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/forgot-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 47❌r❌n❌r❌n{"email":"auth-test-1775068868827@example.com"}🔤 ➡️ request
+  🔤POST /auth/forgot-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 47❌r❌n❌r❌n{"email":"auth-test-1776657955226@example.com"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -1365,136 +1303,6 @@ Resets the user's password using a valid reset token.
   parameters={[{"name":"token","type":"string","required":true,"source":"body"},{"name":"password","type":"string","required":true,"source":"body"}]}
 />
 
-### Code Examples
-
-<Tabs groupId="programming-language">
-<TabItem value="javascript" label="JavaScript">
-
-```javascript
-const baseUrl = 'http://localhost:3010';
-const path = '/auth/reset-password';
-const url = `${baseUrl}${path}`;
-
-const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-      "token": "your-api-key-here",
-      "password": "ResetPassword1"
-    })
-});
-const data = await response.json();
-console.log(data);
-```
-
-</TabItem>
-<TabItem value="curl" label="cURL">
-
-```bash
-curl -X POST 'http://localhost:3010/auth/reset-password' \
-  -H "Content-Type: application/json" \
-  -d '{"token":"your-api-key-here","password":"ResetPassword1"}'
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-import requests
-
-base_url = 'http://localhost:3010'
-path = '/auth/reset-password'
-url = f'{base_url}{path}'
-
-response = requests.post(
-    url,
-    json={
-      "token": "your-api-key-here",
-      "password": "ResetPassword1"
-    }
-)
-data = response.json()
-print(data)
-```
-
-</TabItem>
-<TabItem value="typescript" label="TypeScript">
-
-```typescript
-import axios from 'axios';
-
-(async () => {
-  const baseUrl = 'http://localhost:3010';
-  const path = '/auth/reset-password';
-  const url = `${baseUrl}${path}`;
-
-  const response = await axios({
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    url,
-    data: {
-        "token": "your-api-key-here",
-        "password": "ResetPassword1"
-      }
-  });
-  const data = response.data;
-  console.log(data);
-})();
-```
-
-</TabItem>
-<TabItem value="emojicode" label="Emojicode">
-
-```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/auth/reset-password🔤 ➡️ path
-
-  💭 Request body
-  🔤{"token":"your-api-key-here","password":"ResetPassword1"}🔤 ➡️ body
-
-  💭 Build HTTP request
-  🔤POST /auth/reset-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 104❌r❌n❌r❌n{"token":"your-api-key-here","password":"ResetPassword1"}🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
-```
-
-</TabItem>
-</Tabs>
-
-#### Response
-
-**Status:** 200
-
-```json
-{
-  "message": "Password has been reset successfully"
-}
-```
-
-
 ---
 
 ## GET /auth/validate-reset-token/:token
@@ -1521,113 +1329,6 @@ Checks whether a password reset token is still valid before showing the reset fo
   parameters={[{"name":"token","type":"string","required":true,"source":"params"}]}
 />
 
-### Code Examples
-
-<Tabs groupId="programming-language">
-<TabItem value="javascript" label="JavaScript">
-
-```javascript
-const baseUrl = 'http://localhost:3010';
-const path = '/auth/validate-reset-token/your-api-key-here';
-const url = `${baseUrl}${path}`;
-
-const response = await fetch(url, {
-  method: 'GET'
-});
-const data = await response.json();
-console.log(data);
-```
-
-</TabItem>
-<TabItem value="curl" label="cURL">
-
-```bash
-curl -X GET 'http://localhost:3010/auth/validate-reset-token/your-api-key-here'
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-import requests
-
-base_url = 'http://localhost:3010'
-path = '/auth/validate-reset-token/your-api-key-here'
-url = f'{base_url}{path}'
-
-response = requests.get(
-    url
-)
-data = response.json()
-print(data)
-```
-
-</TabItem>
-<TabItem value="typescript" label="TypeScript">
-
-```typescript
-import axios from 'axios';
-
-(async () => {
-  const baseUrl = 'http://localhost:3010';
-  const path = '/auth/validate-reset-token/your-api-key-here';
-  const url = `${baseUrl}${path}`;
-
-  const response = await axios({
-    method: 'get',
-    url
-  });
-  const data = response.data;
-  console.log(data);
-})();
-```
-
-</TabItem>
-<TabItem value="emojicode" label="Emojicode">
-
-```emojicode
-📦 sockets 🏠
-
-💭 Emojicode HTTP Client
-💭 Compile: emojicodec example.🍇 -o example
-💭 Run: ./example
-
-🏁 🍇
-  💭 Connection settings
-  🔤localhost🔤 ➡️ host
-  3010 ➡️ port
-  🔤/auth/validate-reset-token/your-api-key-here🔤 ➡️ path
-
-  💭 Build HTTP request
-  🔤GET /auth/validate-reset-token/your-api-key-here HTTP/1.1❌r❌nHost: localhost:3010❌r❌n❌r❌n🔤 ➡️ request
-
-  💭 Connect and send
-  🍺 🆕📞 host port❗ ➡️ socket
-  🍺 💬 socket 📇 request❗❗
-  
-  💭 Read and print response
-  🍺 👂 socket 4096❗ ➡️ data
-  😀 🍺 🔡 data❗❗
-  
-  💭 Close socket
-  🚪 socket❗
-🍉
-```
-
-</TabItem>
-</Tabs>
-
-#### Response
-
-**Status:** 200
-
-```json
-{
-  "valid": true
-}
-```
-
-
 ---
 
 ## POST /auth/api-keys
@@ -1643,7 +1344,7 @@ Creates a sub-key under the authenticated user's master key with optional restri
 | name | string | ✓ | body | Friendly name for the key |
 | scopedClientId | string |  | body | Lock to specific Foundry client ID |
 | scopedUserId | string |  | body | Lock to specific Foundry user ID |
-| dailyLimit | string |  | body | Per-key daily request cap |
+| monthlyLimit | string |  | body | Per-key monthly request cap |
 | expiresAt | string |  | body | Expiry timestamp (ISO 8601) |
 | foundryUrl | string |  | body | Foundry instance URL for headless sessions |
 | foundryUsername | string |  | body | Foundry login username |
@@ -1658,7 +1359,7 @@ Creates a sub-key under the authenticated user's master key with optional restri
 <ApiTester
   method="POST"
   path="/auth/api-keys"
-  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"scopedClientId","type":"string","required":false,"source":"body"},{"name":"scopedUserId","type":"string","required":false,"source":"body"},{"name":"dailyLimit","type":"string","required":false,"source":"body"},{"name":"expiresAt","type":"string","required":false,"source":"body"},{"name":"foundryUrl","type":"string","required":false,"source":"body"},{"name":"foundryUsername","type":"string","required":false,"source":"body"},{"name":"foundryPassword","type":"string","required":false,"source":"body"}]}
+  parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"scopedClientId","type":"string","required":false,"source":"body"},{"name":"scopedUserId","type":"string","required":false,"source":"body"},{"name":"monthlyLimit","type":"string","required":false,"source":"body"},{"name":"expiresAt","type":"string","required":false,"source":"body"},{"name":"foundryUrl","type":"string","required":false,"source":"body"},{"name":"foundryUsername","type":"string","required":false,"source":"body"},{"name":"foundryPassword","type":"string","required":false,"source":"body"}]}
 />
 
 ### Code Examples
@@ -1679,7 +1380,11 @@ const response = await fetch(url, {
   },
   body: JSON.stringify({
       "name": "Test Scoped Key",
-      "dailyLimit": "500"
+      "scopes": [
+        "entity:read",
+        "structure:read"
+      ],
+      "monthlyLimit": "500"
     })
 });
 const data = await response.json();
@@ -1693,7 +1398,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/auth/api-keys' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"name":"Test Scoped Key","dailyLimit":"500"}'
+  -d '{"name":"Test Scoped Key","scopes":["entity:read","structure:read"],"monthlyLimit":"500"}'
 ```
 
 </TabItem>
@@ -1713,7 +1418,11 @@ response = requests.post(
     },
     json={
       "name": "Test Scoped Key",
-      "dailyLimit": "500"
+      "scopes": [
+        "entity:read",
+        "structure:read"
+      ],
+      "monthlyLimit": "500"
     }
 )
 data = response.json()
@@ -1740,7 +1449,11 @@ import axios from 'axios';
     url,
     data: {
         "name": "Test Scoped Key",
-        "dailyLimit": "500"
+        "scopes": [
+          "entity:read",
+          "structure:read"
+        ],
+        "monthlyLimit": "500"
       }
   });
   const data = response.data;
@@ -1765,10 +1478,10 @@ import axios from 'axios';
   🔤/auth/api-keys🔤 ➡️ path
 
   💭 Request body
-  🔤{"name":"Test Scoped Key","dailyLimit":"500"}🔤 ➡️ body
+  🔤{"name":"Test Scoped Key","scopes":["entity:read","structure:read"],"monthlyLimit":"500"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/api-keys HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 45❌r❌n❌r❌n{"name":"Test Scoped Key","dailyLimit":"500"}🔤 ➡️ request
+  🔤POST /auth/api-keys HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 89❌r❌n❌r❌n{"name":"Test Scoped Key","scopes":["entity:read","structure:read"],"monthlyLimit":"500"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -1792,19 +1505,21 @@ import axios from 'axios';
 
 ```json
 {
-  "createdAt": {
-    "Time": "2026-04-01T13:41:21.466281879-05:00",
-    "Valid": true
-  },
-  "dailyLimit": 500,
+  "createdAt": "2026-04-20T04:06:35Z",
   "enabled": true,
   "expiresAt": null,
-  "hasFoundryCredentials": false,
-  "id": 18,
+  "id": 2184,
   "key": "your-api-key-here",
+  "monthlyLimit": 500,
   "name": "Test Scoped Key",
   "scopedClientId": "",
-  "scopedUserId": ""
+  "scopedClientIds": null,
+  "scopedUserId": "",
+  "scopedUserIds": null,
+  "scopes": [
+    "entity:read",
+    "structure:read"
+  ]
 }
 ```
 
@@ -1943,119 +1658,24 @@ import axios from 'axios';
 {
   "keys": [
     {
-      "createdAt": {
-        "Time": "0001-01-01T00:00:00Z",
-        "Valid": false
-      },
-      "dailyLimit": 1000,
+      "createdAt": "2026-04-20T04:06:35Z",
       "enabled": true,
       "expiresAt": null,
-      "foundryUrl": "",
-      "foundryUsername": "",
-      "hasFoundryCredentials": false,
-      "id": 1,
+      "id": 2184,
       "isExpired": false,
-      "key": "8ede5230...",
-      "name": "test1",
-      "requestsToday": 0,
-      "scopedClientId": "your-client-id",
-      "scopedUserId": "tester",
-      "updatedAt": {
-        "Time": "2026-03-27T19:00:00.055861824-05:00",
-        "Valid": true
-      }
-    },
-    {
-      "createdAt": {
-        "Time": "0001-01-01T00:00:00Z",
-        "Valid": false
-      },
-      "dailyLimit": 0,
-      "enabled": true,
-      "expiresAt": null,
-      "foundryUrl": "http://localhost:30013",
-      "foundryUsername": "tester",
-      "hasFoundryCredentials": true,
-      "id": 2,
-      "isExpired": false,
-      "key": "164dd9b7...",
-      "name": "headless-test1",
-      "requestsToday": 0,
-      "scopedClientId": "your-client-id",
-      "scopedUserId": "",
-      "updatedAt": {
-        "Time": "2026-03-27T19:00:00.055861824-05:00",
-        "Valid": true
-      }
-    },
-    {
-      "createdAt": {
-        "Time": "0001-01-01T00:00:00Z",
-        "Valid": false
-      },
-      "dailyLimit": 0,
-      "enabled": true,
-      "expiresAt": null,
-      "foundryUrl": "http://localhost:30013",
-      "foundryUsername": "tester",
-      "hasFoundryCredentials": true,
-      "id": 3,
-      "isExpired": false,
-      "key": "0a7ff547...",
-      "name": "test-headless2-gm",
-      "requestsToday": 0,
-      "scopedClientId": "foundry-testing-r6bXhB7k9cXa3cif",
-      "scopedUserId": "Gamemaster",
-      "updatedAt": {
-        "Time": "2026-03-27T19:00:00.055861824-05:00",
-        "Valid": true
-      }
-    },
-    {
-      "createdAt": {
-        "Time": "2026-03-25T18:08:33.030028526-05:00",
-        "Valid": true
-      },
-      "dailyLimit": 0,
-      "enabled": true,
-      "expiresAt": null,
-      "foundryUrl": "http://localhost:30013",
-      "foundryUsername": "tester",
-      "hasFoundryCredentials": true,
-      "id": 16,
-      "isExpired": false,
-      "key": "62b5ae8a...",
-      "name": "test-session",
-      "requestsToday": 0,
-      "scopedClientId": "",
-      "scopedUserId": "",
-      "updatedAt": {
-        "Time": "2026-03-27T19:00:00.055861824-05:00",
-        "Valid": true
-      }
-    },
-    {
-      "createdAt": {
-        "Time": "2026-04-01T13:41:21.466281879-05:00",
-        "Valid": true
-      },
-      "dailyLimit": 500,
-      "enabled": true,
-      "expiresAt": null,
-      "foundryUrl": "",
-      "foundryUsername": "",
-      "hasFoundryCredentials": false,
-      "id": 18,
-      "isExpired": false,
-      "key": "69de5a63...",
+      "key": "e0c0c934...",
+      "monthlyLimit": 500,
       "name": "Test Scoped Key",
-      "requestsToday": 0,
+      "requestsThisMonth": 0,
       "scopedClientId": "",
+      "scopedClientIds": null,
       "scopedUserId": "",
-      "updatedAt": {
-        "Time": "2026-04-01T13:41:21.466281879-05:00",
-        "Valid": true
-      }
+      "scopedUserIds": null,
+      "scopes": [
+        "entity:read",
+        "structure:read"
+      ],
+      "updatedAt": "2026-04-20T04:06:35Z"
     }
   ]
 }
@@ -2095,7 +1715,7 @@ Permanently deletes a scoped key.
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/auth/api-keys/18';
+const path = '/auth/api-keys/2184';
 const url = `${baseUrl}${path}`;
 
 const response = await fetch(url, {
@@ -2112,7 +1732,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/auth/api-keys/18' \
+curl -X DELETE 'http://localhost:3010/auth/api-keys/2184' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -2123,7 +1743,7 @@ curl -X DELETE 'http://localhost:3010/auth/api-keys/18' \
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/auth/api-keys/18'
+path = '/auth/api-keys/2184'
 url = f'{base_url}{path}'
 
 response = requests.delete(
@@ -2144,7 +1764,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/auth/api-keys/18';
+  const path = '/auth/api-keys/2184';
   const url = `${baseUrl}${path}`;
 
   const response = await axios({
@@ -2173,10 +1793,10 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/auth/api-keys/18🔤 ➡️ path
+  🔤/auth/api-keys/2184🔤 ➡️ path
 
   💭 Build HTTP request
-  🔤DELETE /auth/api-keys/18 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+  🔤DELETE /auth/api-keys/2184 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket

@@ -1,7 +1,7 @@
 ---
 id: contributing
 title: Contributing
-sidebar_position: 11
+sidebar_position: 15
 ---
 
 # Contributing
@@ -14,7 +14,7 @@ The Foundry REST API consists of two interconnected repositories:
 
 ### 1. Relay Server (`foundryvtt-rest-api-relay`)
 
-The relay server is an Express.js application that:
+The relay server is a Go application that:
 - Provides HTTP REST endpoints for external clients
 - Manages WebSocket connections to Foundry clients
 - Handles authentication and session management
@@ -31,7 +31,7 @@ The Foundry module is a TypeScript module that:
 ```
 ┌─────────────────┐     HTTP      ┌─────────────────┐   WebSocket   ┌─────────────────┐
 │  External App   │ ─────────────▶│  Relay Server   │◀─────────────▶│  Foundry VTT    │
-│  (Your Code)    │◀───────────── │  (Express.js)   │               │  (Module)       │
+│  (Your Code)    │◀───────────── │  (Go/Chi)       │               │  (Module)       │
 └─────────────────┘               └─────────────────┘               └─────────────────┘
 ```
 
@@ -39,7 +39,8 @@ The Foundry module is a TypeScript module that:
 
 ### Prerequisites
 
-- **Node.js 18+** and **pnpm** package manager
+- **Go 1.22+** for the relay server
+- **Node.js 18+** and **pnpm** for frontend, docs, and tests
 - **Foundry VTT** with a valid license
 - **Git** for version control
 
@@ -51,10 +52,9 @@ The Foundry module is a TypeScript module that:
 ```bash
 git clone https://github.com/YOUR_USERNAME/foundryvtt-rest-api-relay.git
 cd foundryvtt-rest-api-relay
-pnpm install
 
-# Start development server (in-memory database)
-pnpm local
+# Start development server (SQLite)
+pnpm run local:sqlite
 ```
 
 ### Setting Up the Module
@@ -92,28 +92,31 @@ The build process automatically copies the module to your Foundry modules direct
 
 ```
 foundryvtt-rest-api-relay/
-├── src/
-│   ├── index.ts              # Application entry point
-│   ├── routes/
-│   │   ├── api/              # API route handlers
-│   │   │   ├── entity.ts     # Entity CRUD endpoints
-│   │   │   ├── roll.ts       # Dice rolling endpoints
-│   │   │   ├── session.ts    # Session management
-│   │   │   └── ...
-│   │   ├── route-helpers.ts  # createApiRoute helper
-│   │   └── shared.ts         # Pending requests tracking
-│   ├── core/
-│   │   └── ClientManager.ts  # WebSocket client management
-│   ├── middleware/
-│   │   ├── auth.ts           # API key authentication
-│   │   └── requestForwarder.ts
-│   └── utils/
-│       └── logger.ts
-├── tests/
-│   ├── integration/          # API integration tests
-│   └── helpers/              # Test utilities
-├── docs/                     # Documentation site (Docusaurus)
-└── scripts/                  # Build and utility scripts
+├── go-relay/
+│   ├── cmd/
+│   │   ├── server/main.go       # Application entry point
+│   │   └── docgen/main.go       # API documentation generator
+│   └── internal/
+│       ├── config/              # Environment variable loading
+│       ├── database/            # DB initialization, migrations (SQLite + Postgres)
+│       ├── server/              # Chi router setup, middleware wiring
+│       ├── handler/             # HTTP route handlers
+│       │   ├── helpers/         # Response helpers, parameter extraction
+│       │   ├── entity.go        # Entity CRUD, search, rolls, encounters, etc.
+│       │   ├── dnd5e.go         # D&D 5e system-specific endpoints
+│       │   ├── auth.go          # Auth routes + scoped API key management
+│       │   ├── stripe.go        # Stripe billing
+│       │   └── ...
+│       ├── middleware/          # Auth, rate limiting, request forwarding
+│       ├── ws/                  # WebSocket client management, message routing
+│       ├── model/               # Database models (User, ApiKey, etc.)
+│       ├── service/             # Email, encryption, API key validation
+│       ├── worker/              # Headless browser session management
+│       └── cron/                # Scheduled jobs (daily/monthly resets)
+├── frontend/                    # Astro/Svelte dashboard frontend
+├── docs/                        # Docusaurus documentation site
+├── tests/                       # Jest integration tests
+└── scripts/                     # Build and utility scripts
 ```
 
 ### Module Structure
@@ -151,172 +154,47 @@ foundryvtt-rest-api/
 
 Adding a new API endpoint requires changes to both repositories. Here's the complete process:
 
-### Step 1: Add the Route in the Relay Server
+### Step 1: Add the Route Handler (Relay Server)
 
-Create or update a route file in `src/routes/api/`:
+Create or update a handler in `go-relay/internal/handler/`:
 
-```typescript
-// src/routes/api/myFeature.ts
-import { Router } from 'express';
-import express from 'express';
-import { requestForwarderMiddleware } from '../../middleware/requestForwarder';
-import { authMiddleware, trackApiUsage } from '../../middleware/auth';
-import { createApiRoute } from '../route-helpers';
+```go
+// go-relay/internal/handler/entity.go (or a new file)
 
-export const myFeatureRouter = Router();
-
-const commonMiddleware = [requestForwarderMiddleware, authMiddleware, trackApiUsage];
-
-/**
- * My feature endpoint
- *
- * Detailed description of what this endpoint does.
- * JSDoc comments are REQUIRED for all endpoints - they are used to auto-generate API documentation.
- * 
- * @route POST /my-feature/do-something
- * @returns {object} Result object
- * 
- * NOTE: The @route tag MUST include the full path including any router prefix.
- * For example, if this router is mounted at '/dnd5e', use: @route POST /dnd5e/do-something
- */
-myFeatureRouter.post("/do-something", ...commonMiddleware, express.json(), createApiRoute({
-    type: 'my-action',  // Message type sent to Foundry
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Always required
-        { name: 'targetUuid', from: 'body', type: 'string' }
-    ],
-    optionalParams: [
-        { name: 'amount', from: 'body', type: 'number' },
-        { name: 'options', from: 'body', type: 'object' }
-    ],
-    validateParams: (params) => {
-        // Custom validation logic
-        if (params.amount && params.amount < 0) {
-            return { error: "'amount' must be positive" };
-        }
-        return null;
+// My feature endpoint description
+//
+// Detailed description of what this endpoint does.
+// Go doc comments with @tag and @param annotations are used to auto-generate API documentation.
+// @tag MyFeature
+// @param {string} clientId [query] Client ID for the Foundry world
+// @param {string} targetUuid [body] UUID of the target entity
+// @param {number} amount [body] Amount to modify (default: 1)
+// @returns Result of the operation
+var myFeatureAction = helpers.EndpointConfig{
+    Type: "my-action",
+    RequiredParams: []helpers.ParamDef{
+        {Name: "targetUuid", From: "body"},
     },
-    timeout: 15000  // Optional: custom timeout in ms
-}));
-```
-
-### JSDoc and Parameter Documentation
-
-**All endpoints MUST have JSDoc comments.** These comments are parsed by `scripts/generateApiDocs.js` to auto-generate API documentation.
-
-JSDoc comments should include:
-- A brief description of what the endpoint does
-- `@route` tag with the HTTP method and **full path** (including router prefix)
-- `@returns` tag describing the response
-
-#### createApiRoute Endpoints
-
-For endpoints using `createApiRoute`, parameter documentation is done via **inline comments** next to each parameter definition. The documentation generator automatically extracts these:
-
-```typescript
-createApiRoute({
-    type: 'my-action',
-    requiredParams: [
-        { name: 'clientId', from: 'query', type: 'string' }, // Client ID for the Foundry world
-        { name: 'targetUuid', from: 'body', type: 'string' } // UUID of the target entity
-    ],
-    optionalParams: [
-        { name: 'amount', from: 'body', type: 'number' } // Amount to modify (default: 1)
-    ]
-})
-```
-
-The `from`, `type`, and required/optional status are auto-generated from the configuration - you just need the description comment.
-
-#### Traditional Endpoints (Non-createApiRoute)
-
-For traditional Express handlers, use full JSDoc `@param` tags with this format:
-
-```typescript
-/**
- * Get actor sheet HTML
- * 
- * @route GET /sheet
- * @param {string} uuid - [query,?] The UUID of the entity
- * @param {boolean} selected - [query,?] Whether to use the selected entity
- * @param {string} clientId - [query] The ID of the Foundry client (required)
- * @returns {object} The sheet HTML or data
- */
-```
-
-The bracket notation `[source,?]` indicates:
-- `source`: Where the param comes from (`query`, `body`, `params`)
-- `?`: Optional (omit for required params)
-
-For system-specific endpoints (like D&D 5e), the `@route` tag must include the system prefix:
-```typescript
-/**
- * @route GET /dnd5e/get-actor-details  // Include the /dnd5e prefix!
- */
-```
-
-### Traditional Endpoints
-
-While `createApiRoute` is preferred, traditional Express route handlers are still valid if (and only if) `createApiRoute` cannot handle the functionality. They must:
-- Include JSDoc comments with the same requirements
-- Handle parameter validation manually
-- Follow the same response patterns
-- Include proper error handling
-
-### Understanding `createApiRoute`
-
-The `createApiRoute` helper standardizes API route handling:
-
-```typescript
-interface ApiRouteConfig {
-  // Message type identifier - must match the handler in the module
-  type: PendingRequestType;
-  
-  // Required parameters - request fails if missing
-  requiredParams?: ParamDef[];
-  
-  // Optional parameters
-  optionalParams?: ParamDef[];
-  
-  // Custom timeout (default: 10000ms)
-  timeout?: number;
-  
-  // Custom validation function (can be sync or async)
-  validateParams?: (params, req) => { error?: string; howToUse?: string } | null | Promise<...>;
-  
-  // Transform payload before sending to Foundry (can be sync or async)
-  buildPayload?: (params, req) => Record<string, any> | Promise<Record<string, any>>;
-  
-  // Add extra data to pending request tracking
-  buildPendingRequest?: (params) => Partial<PendingRequest>;
-}
-
-interface ParamDef {
-  name: string;
-  from: 'body' | 'query' | 'params' | ('body' | 'query' | 'params')[];
-  type?: 'string' | 'number' | 'boolean' | 'array' | 'object';
+    OptionalParams: []helpers.ParamDef{
+        {Name: "amount", From: "body", Type: "number"},
+    },
 }
 ```
 
-### Step 2: Register the Router (Relay)
+### Step 2: Register the Route (Relay Server)
 
-Add your router to `src/routes/api.ts`:
+Add the route in `go-relay/internal/handler/routes.go`:
 
-```typescript
-// Add import at the top with other router imports
-import { myFeatureRouter } from './api/myFeature';
-
-// Add to router registration section (around line 376)
-app.use('/my-feature', myFeatureRouter);
-// Or use '/' prefix if the routes already include the path:
-// app.use('/', myFeatureRouter);
+```go
+// In RegisterAPIRoutes function
+r.Post("/my-feature/do-something", h(mgr, pending, myFeatureAction))
 ```
 
 :::caution Important
-New routers **must** be registered in `api.ts` or they won't be accessible.
+New routes **must** be registered in `routes.go` or they won't be accessible.
 :::
 
-### Step 3: Add the Handler in the Module
+### Step 3: Add the Handler (Module)
 
 Create or update a router file in `src/ts/network/routers/`:
 
@@ -392,7 +270,7 @@ interface HandlerContext {
 - Use `deepSerializeEntity()` for entity data to handle circular references
 - Log errors with `ModuleLogger.error()`
 
-### Step 4: Register the Router (Module)
+### Step 4: Register the Router in the Module
 
 Add your router to `src/ts/network/routers/all.ts`:
 
@@ -409,25 +287,7 @@ export const routers: Router[] = [
 New module routers **must** be added to the `routers` array in `all.ts` or they won't receive WebSocket messages.
 :::
 
-### Step 5: Add the Request Type (Relay)
-
-Update `src/routes/shared.ts` to add your new request type to the `PENDING_REQUEST_TYPES` array:
-
-```typescript
-export const PENDING_REQUEST_TYPES = [
-    'search', 'entity', 'structure', 'contents', 'create', 'update', 'delete',
-    // ... existing types ...
-    'my-action'  // Add your new type
-] as const;
-```
-
-:::caution Important
-New request types **must** be added to `PENDING_REQUEST_TYPES` or the relay won't be able to track pending requests and match responses.
-:::
-
-The response handling is automatic through `createApiRoute`. When Foundry sends back a `{type}-result` message, the relay's WebSocket handler matches it to the pending request and sends the HTTP response.
-
-### Step 6: Write Tests
+### Step 5: Write Tests
 
 Add integration tests for your new endpoint:
 
@@ -528,7 +388,7 @@ The system configuration architecture exists but is largely unused. Most system-
 
 The primary way to add system-specific functionality is through dedicated router files:
 
-**Relay:** `src/routes/api/dnd5e.ts` - HTTP endpoints for D&D 5e
+**Relay:** `go-relay/internal/handler/dnd5e.go` - HTTP endpoints for D&D 5e
 **Module:** `src/ts/network/routers/dnd5e.ts` - WebSocket handlers for D&D 5e
 
 System-specific routers typically:
@@ -589,16 +449,16 @@ ModuleLogger.warn("Potential issue detected");
 ModuleLogger.error("Error occurred:", error);
 ```
 
-**Relay** (`src/utils/logger.ts`):
-```typescript
-import { log } from '../utils/logger';
+**Relay** (Go - zerolog):
+```go
+import "github.com/rs/zerolog/log"
 
-log.info("Processing request:", data);
-log.warn("Potential issue detected");
-log.error("Error occurred:", error);
+log.Info().Str("key", "value").Msg("Processing request")
+log.Warn().Msg("Potential issue detected")
+log.Error().Err(err).Msg("Error occurred")
 ```
 
-Use the appropriate logger for each project. Never use `console.log` directly.
+Use the appropriate logger for each project. Never use `console.log` (module) or `fmt.Println` (relay) directly.
 
 ## Pull Request Guidelines
 
@@ -619,11 +479,10 @@ Running tests regenerates documentation examples, which will modify files for en
 - [ ] Tests pass locally
 - [ ] New endpoints have corresponding tests
 - [ ] Test file added to `TEST_ORDER` in `testSequencer.ts`
-- [ ] JSDoc comments on all new endpoints (with correct `@route` paths)
-- [ ] New routers registered in `api.ts` (relay) and `all.ts` (module)
-- [ ] New request types added to `PENDING_REQUEST_TYPES` in `shared.ts`
-- [ ] No `console.log` statements (use appropriate logger)
-- [ ] TypeScript types are complete
+- [ ] Doc comments on all new endpoints (with correct `@route` paths)
+- [ ] Route registered in `routes.go` (relay) and router added to `all.ts` (module)
+- [ ] No `fmt.Println` statements in Go (use zerolog)
+- [ ] No `console.log` statements in TypeScript (use ModuleLogger)
 - [ ] Both relay and module changes coordinated
 - [ ] Unrelated documentation changes discarded
 

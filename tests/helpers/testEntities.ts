@@ -217,19 +217,22 @@ export async function createTestEntities(
     if (response.status === 200 && response.data?.uuid) {
       const uuid = response.data.uuid;
       const varKey = buildEntityKey(spec.entityType, spec.key);
-      
+
       // Store as named global variable
       setGlobalVariable(version, varKey, uuid);
-      
+
       // Register for cleanup
       registerForCleanup(version, uuid);
-      
+
       // Add to results map
       results.set(`${spec.entityType}:${spec.key}`, uuid);
-      
+
       console.log(`  ✓ Created ${spec.entityType} '${spec.key}': ${uuid}`);
     } else {
-      console.warn(`  ✗ Failed to create ${spec.entityType} '${spec.key}': ${response.status} - ${JSON.stringify(response.data)}`);
+      throw new Error(
+        `Failed to create ${spec.entityType} '${spec.key}' for v${version}: ` +
+        `HTTP ${response.status} — ${JSON.stringify(response.data)}`
+      );
     }
   }
   

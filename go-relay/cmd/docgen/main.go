@@ -62,17 +62,30 @@ func main() {
 	}
 
 	handlerDir := filepath.Join(baseDir, "internal", "handler")
+	wsDir := filepath.Join(baseDir, "internal", "ws")
 
-	// 1. Parse entity.go for config-builder functions & manual handlers
+	// 1. Parse handler files for config-builder functions & manual handlers
 	entitySrc := mustRead(filepath.Join(handlerDir, "entity.go"))
 	dnd5eSrc := mustRead(filepath.Join(handlerDir, "dnd5e.go"))
 	routesSrc := mustRead(filepath.Join(handlerDir, "routes.go"))
 	sheetSrc := mustRead(filepath.Join(handlerDir, "sheet.go"))
 	fsSrc := mustRead(filepath.Join(handlerDir, "filesystem.go"))
 	sessionSrc := mustRead(filepath.Join(handlerDir, "session.go"))
+	playlistSrc := mustRead(filepath.Join(handlerDir, "playlist.go"))
+	sceneImageSrc := mustRead(filepath.Join(handlerDir, "scene_image.go"))
+	userSrc := mustRead(filepath.Join(handlerDir, "user.go"))
 
-	// Build function-name -> parsed config map from entity.go
+	// Build function-name -> parsed config map from entity.go + playlist.go + user.go
+	// entity.go defines shared helper param functions (clientIDParam, userIDParam, etc.)
+	// so we parse it first and pass its helpers to other files.
 	configFuncs := parseConfigFunctions(entitySrc)
+	entityHelpers := parseHelperParamFuncs(strings.Split(entitySrc, "\n"))
+	for k, v := range parseConfigFunctions(playlistSrc, entityHelpers) {
+		configFuncs[k] = v
+	}
+	for k, v := range parseConfigFunctions(userSrc, entityHelpers) {
+		configFuncs[k] = v
+	}
 
 	// Parse routes.go to get HTTP method + path + handler function name
 	routes := parseRoutes(routesSrc)
@@ -86,6 +99,7 @@ func main() {
 	sessionRoutes := parseManualHandlers(sessionSrc)
 	sseRoutes := parseManualHandlers(routesSrc)      // SSE handlers are in routes.go
 	entityManual := parseManualHandlers(entitySrc)    // clientsHandler is in entity.go
+	sceneImageManual := parseManualHandlers(sceneImageSrc)
 
 	// Build a map of manual handler func name -> routeInfo
 	manualMap := make(map[string]*routeInfo)
@@ -103,6 +117,9 @@ func main() {
 	}
 	for i := range entityManual {
 		manualMap[entityManual[i].funcName] = &entityManual[i].info
+	}
+	for i := range sceneImageManual {
+		manualMap[sceneImageManual[i].funcName] = &sceneImageManual[i].info
 	}
 
 	// Resolve routes: merge route registrations with parsed configs
@@ -151,18 +168,23 @@ func main() {
 	// Add auth routes
 	allRoutes = append(allRoutes, buildAuthRoutes()...)
 
+	// 2. Parse WS-only channel definitions from ws/ handler files
+	wsChannels := parseWSChannels(
+		mustRead(filepath.Join(wsDir, "remote_request.go")),
+	)
+
 	// Write output files
 	outDir := filepath.Join(baseDir, "..", "public")
 	os.MkdirAll(outDir, 0o755)
 
 	writeJSON(filepath.Join(outDir, "api-docs.json"), buildAPIDocs(allRoutes))
 	writeJSON(filepath.Join(outDir, "openapi.json"), buildOpenAPI(allRoutes))
-	writeJSON(filepath.Join(outDir, "asyncapi.json"), buildAsyncAPI(allRoutes))
+	writeJSON(filepath.Join(outDir, "asyncapi.json"), buildAsyncAPI(allRoutes, wsChannels))
 
 	// Generate markdown documentation
 	mdDir := filepath.Join(baseDir, "..", "docs", "md", "api")
 	os.MkdirAll(mdDir, 0o755)
-	generateMarkdown(allRoutes, mdDir)
+	generateMarkdown(allRoutes, wsChannels, mdDir)
 
 	fmt.Printf("Generated %d routes into %s\n", len(allRoutes), outDir)
 }
@@ -234,12 +256,19 @@ type parsedConfig struct {
 	optional    []paramDef
 }
 
-func parseConfigFunctions(src string) map[string]*parsedConfig {
+func parseConfigFunctions(src string, extraHelpers ...map[string]paramDef) map[string]*parsedConfig {
 	configs := make(map[string]*parsedConfig)
 	lines := strings.Split(src, "\n")
 
 	// Pre-parse known helper param functions
 	helperParams := parseHelperParamFuncs(lines)
+	for _, eh := range extraHelpers {
+		for k, v := range eh {
+			if _, exists := helperParams[k]; !exists {
+				helperParams[k] = v
+			}
+		}
+	}
 
 	// Pre-parse package-level var params
 	pkgParams := parsePkgLevelParams(lines)
@@ -1343,10 +1372,201 @@ func openAPIComponents() map[string]interface{} {
 }
 
 // ---------------------------------------------------------------------------
+// WS-only channel parser
+//
+// Reads structured doc comments from WS handler registration functions.
+// Adding a new WS-only message type requires only annotating the RegisterXxx
+// function — docgen itself never needs to change.
+//
+// Comment format (placed on the RegisterXxx func doc block):
+//
+//	// @ws-type     remote-request
+//	// @ws-result   remote-response
+//	// @ws-summary  One-line description
+//	// @ws-description  Additional detail (may span multiple @ws-description lines)
+//	// @ws-note     Optional note shown in the docs table (e.g. auth requirements)
+//	// @ws-send fieldName {type} required|optional  Description
+//	// @ws-recv fieldName {type} required|optional  Description
+// ---------------------------------------------------------------------------
+
+type wsFieldDef struct {
+	Name        string
+	Type        string
+	Required    bool
+	Description string
+}
+
+type wsChannelDef struct {
+	MsgType     string
+	ResultType  string
+	Summary     string
+	Description string
+	Note        string // shown in the websocket.md table row, e.g. "(module token only)"
+	Send        []wsFieldDef
+	Recv        []wsFieldDef
+}
+
+// parseWSChannels scans one or more Go source files for @ws-* annotated
+// Register functions and returns the parsed channel definitions.
+func parseWSChannels(srcs ...string) []wsChannelDef {
+	reField := regexp.MustCompile(`@ws-(send|recv)\s+(\S+)\s+\{(\w+)\}\s+(required|optional)\s+(.+)`)
+
+	var channels []wsChannelDef
+	for _, src := range srcs {
+		lines := strings.Split(src, "\n")
+		for i, line := range lines {
+			trimmed := strings.TrimSpace(line)
+			if !strings.HasPrefix(trimmed, "func Register") {
+				continue
+			}
+
+			// Scan backwards through the doc comment block, collecting all
+			// annotations. Lines are in reverse order, so we fix up ordered
+			// fields (description, send, recv) after the loop.
+			var ch wsChannelDef
+			var descLines []string
+			var sendFields []wsFieldDef
+			var recvFields []wsFieldDef
+
+			for j := i - 1; j >= 0; j-- {
+				cl := strings.TrimSpace(lines[j])
+				if cl == "" {
+					continue
+				}
+				if !strings.HasPrefix(cl, "//") {
+					break
+				}
+				text := strings.TrimSpace(strings.TrimPrefix(cl, "//"))
+
+				switch {
+				case strings.HasPrefix(text, "@ws-type "):
+					ch.MsgType = strings.TrimSpace(strings.TrimPrefix(text, "@ws-type "))
+				case strings.HasPrefix(text, "@ws-result "):
+					ch.ResultType = strings.TrimSpace(strings.TrimPrefix(text, "@ws-result "))
+				case strings.HasPrefix(text, "@ws-summary "):
+					ch.Summary = strings.TrimSpace(strings.TrimPrefix(text, "@ws-summary "))
+				case strings.HasPrefix(text, "@ws-description "):
+					descLines = append(descLines, strings.TrimSpace(strings.TrimPrefix(text, "@ws-description ")))
+				case strings.HasPrefix(text, "@ws-note "):
+					ch.Note = strings.TrimSpace(strings.TrimPrefix(text, "@ws-note "))
+				default:
+					if m := reField.FindStringSubmatch(text); m != nil {
+						fd := wsFieldDef{
+							Name:        m[2],
+							Type:        m[3],
+							Required:    m[4] == "required",
+							Description: m[5],
+						}
+						if m[1] == "send" {
+							sendFields = append(sendFields, fd)
+						} else {
+							recvFields = append(recvFields, fd)
+						}
+					}
+				}
+			}
+
+			// Reverse order (scanner went bottom-up)
+			for l, r := 0, len(descLines)-1; l < r; l, r = l+1, r-1 {
+				descLines[l], descLines[r] = descLines[r], descLines[l]
+			}
+			ch.Description = strings.Join(descLines, " ")
+			for l, r := 0, len(sendFields)-1; l < r; l, r = l+1, r-1 {
+				sendFields[l], sendFields[r] = sendFields[r], sendFields[l]
+			}
+			ch.Send = sendFields
+			for l, r := 0, len(recvFields)-1; l < r; l, r = l+1, r-1 {
+				recvFields[l], recvFields[r] = recvFields[r], recvFields[l]
+			}
+			ch.Recv = recvFields
+
+			if ch.MsgType != "" {
+				channels = append(channels, ch)
+			}
+		}
+	}
+	return channels
+}
+
+// buildWSOnlyChannel converts a parsed wsChannelDef into an AsyncAPI channel map.
+func buildWSOnlyChannel(ch wsChannelDef) map[string]interface{} {
+	// Build send (publish) payload
+	sendProps := map[string]interface{}{
+		"type":      map[string]interface{}{"type": "string", "const": ch.MsgType, "description": "Message type"},
+		"requestId": map[string]interface{}{"type": "string", "description": "Unique request ID for correlation"},
+	}
+	sendRequired := []string{"type", "requestId"}
+	for _, f := range ch.Send {
+		prop := map[string]interface{}{"type": openAPIType(f.Type)}
+		if f.Description != "" {
+			prop["description"] = f.Description
+		}
+		sendProps[f.Name] = prop
+		if f.Required {
+			sendRequired = append(sendRequired, f.Name)
+		}
+	}
+
+	// Build recv (subscribe) payload
+	resultType := ch.ResultType
+	if resultType == "" {
+		resultType = ch.MsgType + "-result"
+	}
+	recvProps := map[string]interface{}{
+		"type":      map[string]interface{}{"type": "string", "const": resultType, "description": "Response message type"},
+		"requestId": map[string]interface{}{"type": "string", "description": "Echoed request ID"},
+		"success":   map[string]interface{}{"type": "boolean"},
+		"error":     map[string]interface{}{"type": "string", "description": "Error message if request failed"},
+	}
+	recvRequired := []string{"type", "requestId", "success"}
+	for _, f := range ch.Recv {
+		prop := map[string]interface{}{"type": openAPIType(f.Type)}
+		if f.Description != "" {
+			prop["description"] = f.Description
+		}
+		recvProps[f.Name] = prop
+	}
+
+	desc := ch.Summary
+	if ch.Description != "" {
+		desc += " " + ch.Description
+	}
+
+	return map[string]interface{}{
+		"description": desc,
+		"publish": map[string]interface{}{
+			"operationId": "send_" + strings.ReplaceAll(ch.MsgType, "-", "_"),
+			"summary":     "Send " + ch.MsgType,
+			"message": map[string]interface{}{
+				"name":    ch.MsgType,
+				"summary": ch.Summary,
+				"payload": map[string]interface{}{
+					"type":       "object",
+					"properties": sendProps,
+					"required":   sendRequired,
+				},
+			},
+		},
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_" + strings.ReplaceAll(resultType, "-", "_"),
+			"summary":     "Receive " + resultType,
+			"message": map[string]interface{}{
+				"name": resultType,
+				"payload": map[string]interface{}{
+					"type":       "object",
+					"properties": recvProps,
+					"required":   recvRequired,
+				},
+			},
+		},
+	}
+}
+
+// ---------------------------------------------------------------------------
 // Output 3: asyncapi.json
 // ---------------------------------------------------------------------------
 
-func buildAsyncAPI(routes []routeInfo) map[string]interface{} {
+func buildAsyncAPI(routes []routeInfo, wsOnly []wsChannelDef) map[string]interface{} {
 	channels := make(map[string]interface{})
 
 	// Deduplicate by message type
@@ -1452,8 +1672,21 @@ func buildAsyncAPI(routes []routeInfo) map[string]interface{} {
 	// Add event channels
 	channels["events/chat"] = buildChatEventChannel()
 	channels["events/roll"] = buildRollEventChannel()
+	channels["events/hooks"] = buildHookEventChannel()
+	channels["events/combat"] = buildCombatEventChannel()
+	channels["events/actor"] = buildActorEventChannel()
+	channels["events/scene"] = buildSceneEventChannel()
 	channels["control/subscribe"] = buildSubscribeControlChannel()
 	channels["control/unsubscribe"] = buildUnsubscribeControlChannel()
+	channels["control/ping"] = buildPingChannel()
+	channels["session/interactive-start"] = buildInteractiveSessionStartChannel()
+	channels["session/interactive-input"] = buildInteractiveInputChannel()
+	channels["session/interactive-end"] = buildInteractiveSessionEndChannel()
+
+	// WS-only channels parsed from @ws-* doc comments in ws/ handler files
+	for _, ch := range wsOnly {
+		channels["ws/"+ch.MsgType] = buildWSOnlyChannel(ch)
+	}
 
 	return map[string]interface{}{
 		"asyncapi": "2.6.0",
@@ -1553,9 +1786,11 @@ func buildRollEventChannel() map[string]interface{} {
 	}
 }
 
+var allEventChannels = []string{"chat-events", "roll-events", "hooks", "combat-events", "actor-events", "scene-events"}
+
 func buildSubscribeControlChannel() map[string]interface{} {
 	return map[string]interface{}{
-		"description": "Subscribe to event channels",
+		"description": "Subscribe to event channels. Filters vary by channel.",
 		"publish": map[string]interface{}{
 			"operationId": "subscribe",
 			"summary":     "Subscribe to an event channel",
@@ -1565,8 +1800,21 @@ func buildSubscribeControlChannel() map[string]interface{} {
 					"type": "object",
 					"properties": map[string]interface{}{
 						"type":      map[string]interface{}{"type": "string", "const": "subscribe"},
-						"channel":   map[string]interface{}{"type": "string", "enum": []string{"chat-events", "roll-events"}},
+						"channel":   map[string]interface{}{"type": "string", "enum": allEventChannels, "description": "Event channel to subscribe to"},
 						"requestId": map[string]interface{}{"type": "string"},
+						"filters": map[string]interface{}{
+							"type":        "object",
+							"description": "Optional filters (chat-events: speaker, type, whisperOnly, userId; hooks: hookFilters; actor-events: actorUuid; scene-events: sceneId)",
+							"properties": map[string]interface{}{
+								"speaker":     map[string]interface{}{"type": "string", "description": "Filter chat events by speaker alias"},
+								"type":        map[string]interface{}{"type": "number", "description": "Filter chat events by message type"},
+								"whisperOnly": map[string]interface{}{"type": "boolean", "description": "Only receive whispered chat messages"},
+								"userId":      map[string]interface{}{"type": "string", "description": "Filter by Foundry user ID or username"},
+								"hookFilters": map[string]interface{}{"type": "array", "items": map[string]string{"type": "string"}, "description": "Filter hooks channel to specific hook names (empty = all)"},
+								"actorUuid":   map[string]interface{}{"type": "string", "description": "Filter actor-events to a specific actor UUID"},
+								"sceneId":     map[string]interface{}{"type": "string", "description": "Filter scene-events to a specific scene ID"},
+							},
+						},
 					},
 					"required": []string{"type", "channel"},
 				},
@@ -1587,10 +1835,238 @@ func buildUnsubscribeControlChannel() map[string]interface{} {
 					"type": "object",
 					"properties": map[string]interface{}{
 						"type":      map[string]interface{}{"type": "string", "const": "unsubscribe"},
-						"channel":   map[string]interface{}{"type": "string", "enum": []string{"chat-events", "roll-events"}, "description": "Omit to unsubscribe from all channels"},
+						"channel":   map[string]interface{}{"type": "string", "enum": allEventChannels, "description": "Omit to unsubscribe from all channels"},
 						"requestId": map[string]interface{}{"type": "string"},
 					},
 					"required": []string{"type"},
+				},
+			},
+		},
+	}
+}
+
+func buildHookEventChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "Generic Foundry hook events. Subscribe with { type: \"subscribe\", channel: \"hooks\" }. Use hookFilters to limit to specific hooks.",
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_hook_event",
+			"summary":     "Receive Foundry hook events",
+			"message": map[string]interface{}{
+				"name": "hook-event",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type": map[string]interface{}{"type": "string", "const": "hook-event"},
+						"hook": map[string]interface{}{"type": "string", "description": "Hook name (e.g. updateActor, createItem)"},
+						"data": map[string]interface{}{"type": "object", "description": "Hook event data"},
+					},
+					"required": []string{"type", "hook"},
+				},
+			},
+		},
+	}
+}
+
+func buildCombatEventChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "Combat/encounter events from Foundry. Subscribe with { type: \"subscribe\", channel: \"combat-events\" }.",
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_combat_event",
+			"summary":     "Receive combat events",
+			"message": map[string]interface{}{
+				"name": "combat-event",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":        map[string]interface{}{"type": "string", "const": "combat-event"},
+						"event":       map[string]interface{}{"type": "string", "description": "Combat event type (e.g. combat-start, combat-turn, combat-round, combat-end)"},
+						"data":        map[string]interface{}{"type": "object", "description": "Combat event data"},
+						"encounterId": map[string]interface{}{"type": "string", "description": "Encounter ID"},
+					},
+					"required": []string{"type", "event"},
+				},
+			},
+		},
+	}
+}
+
+func buildActorEventChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "Actor update events from Foundry. Subscribe with { type: \"subscribe\", channel: \"actor-events\" }. Optionally filter by actorUuid.",
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_actor_event",
+			"summary":     "Receive actor events",
+			"message": map[string]interface{}{
+				"name": "actor-event",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "actor-event"},
+						"event":     map[string]interface{}{"type": "string", "description": "Actor event type (e.g. actor-update, actor-create, actor-delete)"},
+						"data":      map[string]interface{}{"type": "object", "description": "Actor event data"},
+						"actorUuid": map[string]interface{}{"type": "string", "description": "UUID of the affected actor"},
+					},
+					"required": []string{"type", "event"},
+				},
+			},
+		},
+	}
+}
+
+func buildSceneEventChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "Scene events from Foundry. Subscribe with { type: \"subscribe\", channel: \"scene-events\" }. Optionally filter by sceneId.",
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_scene_event",
+			"summary":     "Receive scene events",
+			"message": map[string]interface{}{
+				"name": "scene-event",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":    map[string]interface{}{"type": "string", "const": "scene-event"},
+						"event":   map[string]interface{}{"type": "string", "description": "Scene event type (e.g. scene-update, scene-activate)"},
+						"data":    map[string]interface{}{"type": "object", "description": "Scene event data"},
+						"sceneId": map[string]interface{}{"type": "string", "description": "ID of the affected scene"},
+					},
+					"required": []string{"type", "event"},
+				},
+			},
+		},
+	}
+}
+
+func buildPingChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "Application-level ping/pong for keepalive",
+		"publish": map[string]interface{}{
+			"operationId": "send_ping",
+			"summary":     "Send ping",
+			"message": map[string]interface{}{
+				"name": "ping",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "ping"},
+						"requestId": map[string]interface{}{"type": "string"},
+					},
+					"required": []string{"type"},
+				},
+			},
+		},
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_pong",
+			"summary":     "Receive pong",
+			"message": map[string]interface{}{
+				"name": "pong",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "pong"},
+						"requestId": map[string]interface{}{"type": "string"},
+					},
+					"required": []string{"type"},
+				},
+			},
+		},
+	}
+}
+
+func buildInteractiveSessionStartChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "Start an interactive session with a Foundry entity (e.g. character sheet). The session allows sending input and receiving real-time updates.",
+		"publish": map[string]interface{}{
+			"operationId": "send_interactive_session_start",
+			"summary":     "Start interactive session",
+			"message": map[string]interface{}{
+				"name": "interactive-session-start",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "interactive-session-start"},
+						"requestId": map[string]interface{}{"type": "string"},
+						"uuid":      map[string]interface{}{"type": "string", "description": "UUID of the Foundry document to interact with"},
+					},
+					"required": []string{"type", "requestId", "uuid"},
+				},
+			},
+		},
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_interactive_session_start_result",
+			"summary":     "Receive interactive session start confirmation",
+			"message": map[string]interface{}{
+				"name": "interactive-session-start-result",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "interactive-session-start-result"},
+						"requestId": map[string]interface{}{"type": "string"},
+						"sessionId": map[string]interface{}{"type": "string"},
+						"error":     map[string]interface{}{"type": "string"},
+					},
+					"required": []string{"type", "requestId"},
+				},
+			},
+		},
+	}
+}
+
+func buildInteractiveInputChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "Send input to an active interactive session",
+		"publish": map[string]interface{}{
+			"operationId": "send_interactive_input",
+			"summary":     "Send input to interactive session",
+			"message": map[string]interface{}{
+				"name": "interactive-input",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "interactive-input"},
+						"requestId": map[string]interface{}{"type": "string"},
+						"sessionId": map[string]interface{}{"type": "string", "description": "Session ID from interactive-session-start response"},
+						"action":    map[string]interface{}{"type": "string", "description": "Action to perform"},
+						"data":      map[string]interface{}{"type": "object", "description": "Action-specific data"},
+					},
+					"required": []string{"type", "requestId", "sessionId", "action"},
+				},
+			},
+		},
+	}
+}
+
+func buildInteractiveSessionEndChannel() map[string]interface{} {
+	return map[string]interface{}{
+		"description": "End an active interactive session",
+		"publish": map[string]interface{}{
+			"operationId": "send_interactive_session_end",
+			"summary":     "End interactive session",
+			"message": map[string]interface{}{
+				"name": "interactive-session-end",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "interactive-session-end"},
+						"requestId": map[string]interface{}{"type": "string"},
+						"sessionId": map[string]interface{}{"type": "string", "description": "Session ID to terminate"},
+					},
+					"required": []string{"type", "requestId", "sessionId"},
+				},
+			},
+		},
+		"subscribe": map[string]interface{}{
+			"operationId": "receive_interactive_session_end_result",
+			"summary":     "Receive interactive session end confirmation",
+			"message": map[string]interface{}{
+				"name": "interactive-session-end-result",
+				"payload": map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"type":      map[string]interface{}{"type": "string", "const": "interactive-session-end-result"},
+						"requestId": map[string]interface{}{"type": "string"},
+						"error":     map[string]interface{}{"type": "string"},
+					},
+					"required": []string{"type", "requestId"},
 				},
 			},
 		},
@@ -1737,7 +2213,7 @@ func buildAuthRoutes() []routeInfo {
 			Optional: []paramDef{
 				{Name: "scopedClientId", Type: "string", From: []string{"body"}, Description: "Lock to specific Foundry client ID"},
 				{Name: "scopedUserId", Type: "string", From: []string{"body"}, Description: "Lock to specific Foundry user ID"},
-				{Name: "dailyLimit", Type: "string", From: []string{"body"}, Description: "Per-key daily request cap"},
+				{Name: "monthlyLimit", Type: "string", From: []string{"body"}, Description: "Per-key monthly request cap"},
 				{Name: "expiresAt", Type: "string", From: []string{"body"}, Description: "Expiry timestamp (ISO 8601)"},
 				{Name: "foundryUrl", Type: "string", From: []string{"body"}, Description: "Foundry instance URL for headless sessions"},
 				{Name: "foundryUsername", Type: "string", From: []string{"body"}, Description: "Foundry login username"},
@@ -1783,7 +2259,7 @@ func tagToFilename(tag string) string {
 	return string(r)
 }
 
-func generateMarkdown(routes []routeInfo, outDir string) {
+func generateMarkdown(routes []routeInfo, wsOnly []wsChannelDef, outDir string) {
 	// Group routes by tag
 	tagRoutes := make(map[string][]routeInfo)
 	var tagOrder []string
@@ -1810,10 +2286,27 @@ func generateMarkdown(routes []routeInfo, outDir string) {
 
 		var buf strings.Builder
 
+		// Check if any routes in this tag are SSE
+		hasSSE := false
+		hasNonSSE := false
+		for _, r := range rts {
+			if r.IsSSE {
+				hasSSE = true
+			} else {
+				hasNonSSE = true
+			}
+		}
+
 		// Frontmatter + imports
 		buf.WriteString("---\ntag: " + strings.ToLower(tag) + "\n---\n")
 		buf.WriteString("import Tabs from '@theme/Tabs';\nimport TabItem from '@theme/TabItem';\n\n\n")
-		buf.WriteString("import ApiTester from '@site/src/components/ApiTester';\n\n")
+		if hasNonSSE {
+			buf.WriteString("import ApiTester from '@site/src/components/ApiTester';\n")
+		}
+		if hasSSE {
+			buf.WriteString("import SseTester from '@site/src/components/SseTester';\n")
+		}
+		buf.WriteString("\n")
 		buf.WriteString("# " + tag + "\n")
 
 		for idx, r := range rts {
@@ -1860,11 +2353,8 @@ func generateMarkdown(routes []routeInfo, outDir string) {
 				buf.WriteString(fmt.Sprintf("**%s** - %s\n", retType, retDesc))
 			}
 
-			// Try It Out (ApiTester component)
+			// Try It Out (ApiTester or SseTester component)
 			buf.WriteString("\n### Try It Out\n\n")
-			buf.WriteString("<ApiTester\n")
-			buf.WriteString(fmt.Sprintf("  method=\"%s\"\n", r.Method))
-			buf.WriteString(fmt.Sprintf("  path=\"%s\"\n", chiPathToExpress(r.Path)))
 			var paramObjs []string
 			for _, p := range allParams {
 				source := ""
@@ -1875,8 +2365,18 @@ func generateMarkdown(routes []routeInfo, outDir string) {
 					`{"name":"%s","type":"%s","required":%v,"source":"%s"}`,
 					p.Name, p.Type, p.Required, source))
 			}
-			buf.WriteString(fmt.Sprintf("  parameters={[%s]}\n", strings.Join(paramObjs, ",")))
-			buf.WriteString("/>\n")
+			if r.IsSSE {
+				buf.WriteString("<SseTester\n")
+				buf.WriteString(fmt.Sprintf("  path=\"%s\"\n", chiPathToExpress(r.Path)))
+				buf.WriteString(fmt.Sprintf("  parameters={[%s]}\n", strings.Join(paramObjs, ",")))
+				buf.WriteString("/>\n")
+			} else {
+				buf.WriteString("<ApiTester\n")
+				buf.WriteString(fmt.Sprintf("  method=\"%s\"\n", r.Method))
+				buf.WriteString(fmt.Sprintf("  path=\"%s\"\n", chiPathToExpress(r.Path)))
+				buf.WriteString(fmt.Sprintf("  parameters={[%s]}\n", strings.Join(paramObjs, ",")))
+				buf.WriteString("/>\n")
+			}
 
 			// Separator between endpoints (not after last)
 			if idx < len(rts)-1 {
@@ -1894,15 +2394,18 @@ func generateMarkdown(routes []routeInfo, outDir string) {
 	}
 
 	// Generate websocket.md
-	generateWebSocketMarkdown(routes, outDir)
+	generateWebSocketMarkdown(routes, wsOnly, outDir)
 }
 
-func generateWebSocketMarkdown(routes []routeInfo, outDir string) {
+func generateWebSocketMarkdown(routes []routeInfo, wsOnly []wsChannelDef, outDir string) {
 	var buf strings.Builder
 
 	buf.WriteString(`---
 tag: WebSocket
 ---
+
+import WsTester from '@site/src/components/WsTester';
+import WsMessageTester, { WsConnectionBar } from '@site/src/components/WsMessageTester';
 
 # WebSocket API
 
@@ -1910,13 +2413,24 @@ The WebSocket API provides bidirectional communication with Foundry VTT through 
 
 ## Connection
 
-Connect to the WebSocket endpoint with your API key and target Foundry client ID:
+Connect to ` + "`/ws/api`" + ` and authenticate with the **first message** after the socket opens.
 
 ` + "```" + `
-ws://<host>/ws/api?token=<apiKey>&clientId=<clientId>
+ws://<host>/ws/api?clientId=<clientId>
 ` + "```" + `
 
-On successful connection, you will receive a ` + "`connected`" + ` message listing all supported message types and event channels.
+After the WebSocket opens, send your auth payload as the first message:
+
+` + "```json" + `
+{
+  "type": "auth",
+  "token": "YOUR_SCOPED_API_KEY"
+}
+` + "```" + `
+
+The relay responds with ` + "`{ \"type\": \"auth-success\" }`" + ` on success, or closes the connection with code ` + "`4002`" + ` on failure.
+
+` + "`clientId`" + ` is auto-resolved when omitted: if your scoped key is bound to one client it is used automatically; if multiple clients are connected, you must specify which one.
 
 ## Message Format
 
@@ -1966,44 +2480,119 @@ To unsubscribe:
 }
 ` + "```" + `
 
-## Supported Message Types
+## Try It Out
 
-| Type | Description | Required Params |
-|------|-------------|-----------------|
+Use the connection bar below to connect once — all message testers on this page share the same connection.
+
+<WsConnectionBar />
+
+---
+
 `)
 
-	// Collect WS message types from routes
-	seen := make(map[string]bool)
-	for _, r := range routes {
-		if r.MsgType == "" || r.IsSSE {
-			continue
-		}
-		if seen[r.MsgType] {
-			continue
-		}
-		seen[r.MsgType] = true
+	// -------------------------------------------------------------------------
+	// Build a deduplicated, tag-ordered list of WS message entries.
+	// -------------------------------------------------------------------------
 
-		desc := r.Summary
-		if r.Description != "" {
-			desc += " " + r.Description
-		}
-
-		var reqNames []string
-		for _, p := range r.Required {
-			if p.Name != "clientId" {
-				reqNames = append(reqNames, "`"+p.Name+"`")
-			}
-		}
-		reqStr := strings.Join(reqNames, ", ")
-		if reqStr == "" {
-			reqStr = "\u2014"
-		}
-
-		buf.WriteString(fmt.Sprintf("| `%s` | %s | %s |\n", r.MsgType, desc, reqStr))
+	// tagOrder defines the display sequence for groups.
+	tagOrder := []string{
+		"Entity", "Structure", "Encounter", "Roll", "Chat", "Effects",
+		"Scene", "Canvas", "Playlist", "Macro", "Utility", "DnD5e", "User", "Session",
 	}
 
-	buf.WriteString(`
-## AsyncAPI Spec
+	// Collect unique routes (by MsgType, first occurrence wins).
+	type wsEntry struct {
+		MsgType     string
+		ResultType  string
+		Summary     string
+		Description string
+		Note        string
+		Tag         string
+		Params      []paramDef // required + optional (excluding clientId)
+	}
+
+	seenMsg := make(map[string]bool)
+	tagEntries := make(map[string][]wsEntry)
+
+	for _, r := range routes {
+		if r.MsgType == "" || r.IsSSE || seenMsg[r.MsgType] {
+			continue
+		}
+		seenMsg[r.MsgType] = true
+
+		tag := r.Tag
+		if tag == "" {
+			tag = "Utility"
+		}
+
+		var params []paramDef
+		for _, p := range r.Required {
+			if p.Name != "clientId" {
+				params = append(params, p)
+			}
+		}
+		for _, p := range r.Optional {
+			if p.Name != "clientId" {
+				params = append(params, p)
+			}
+		}
+
+		tagEntries[tag] = append(tagEntries[tag], wsEntry{
+			MsgType:     r.MsgType,
+			ResultType:  r.MsgType + "-result",
+			Summary:     r.Summary,
+			Description: r.Description,
+			Tag:         tag,
+			Params:      params,
+		})
+	}
+
+	// Emit each tag group in order.
+	emittedTags := make(map[string]bool)
+	for _, tag := range tagOrder {
+		entries := tagEntries[tag]
+		if len(entries) == 0 {
+			continue
+		}
+		emittedTags[tag] = true
+		buf.WriteString(fmt.Sprintf("## %s\n\n", tag))
+		for _, e := range entries {
+			writeWSEntry(&buf, e.MsgType, e.ResultType, e.Summary, e.Description, e.Note, e.Params)
+		}
+	}
+
+	// Emit any tags not in tagOrder (catch-all).
+	for tag, entries := range tagEntries {
+		if emittedTags[tag] {
+			continue
+		}
+		buf.WriteString(fmt.Sprintf("## %s\n\n", tag))
+		for _, e := range entries {
+			writeWSEntry(&buf, e.MsgType, e.ResultType, e.Summary, e.Description, e.Note, e.Params)
+		}
+	}
+
+	// WS-only types (e.g. remote-request).
+	if len(wsOnly) > 0 {
+		buf.WriteString("## Cross-World Operations\n\n")
+		for _, ch := range wsOnly {
+			var params []paramDef
+			for _, f := range ch.Send {
+				if f.Name == "requestId" {
+					continue
+				}
+				params = append(params, paramDef{
+					Name:        f.Name,
+					Type:        f.Type,
+					Required:    f.Required,
+					Description: f.Description,
+				})
+			}
+			writeWSEntry(&buf, ch.MsgType, ch.ResultType, ch.Summary, ch.Description, ch.Note, params)
+		}
+	}
+
+	buf.WriteString(`## AsyncAPI Spec
 
 The full AsyncAPI specification is available at ` + "`/asyncapi.json`" + `.
 `)
@@ -2014,6 +2603,61 @@ The full AsyncAPI specification is available at ` + "`/asyncapi.json`" + `.
 		return
 	}
 	fmt.Printf("  Wrote %s\n", wsPath)
+}
+
+// writeWSEntry emits a ### section with param table and WsMessageTester for one WS message type.
+func writeWSEntry(buf *strings.Builder, msgType, resultType, summary, description, note string, params []paramDef) {
+	buf.WriteString(fmt.Sprintf("### `%s`\n\n", msgType))
+
+	if summary != "" {
+		buf.WriteString(summary)
+		buf.WriteString("\n\n")
+	}
+	if note != "" {
+		buf.WriteString(fmt.Sprintf(":::note\n%s\n:::\n\n", note))
+	}
+	if description != "" {
+		buf.WriteString(description)
+		buf.WriteString("\n\n")
+	}
+
+	if len(params) > 0 {
+		buf.WriteString("| Parameter | Type | Required | Description |\n")
+		buf.WriteString("|-----------|------|----------|-------------|\n")
+		for _, p := range params {
+			req := "no"
+			if p.Required {
+				req = "**yes**"
+			}
+			desc := p.Description
+			if desc == "" {
+				desc = "\u2014"
+			}
+			buf.WriteString(fmt.Sprintf("| `%s` | %s | %s | %s |\n", p.Name, openAPIType(p.Type), req, desc))
+		}
+		buf.WriteString("\n")
+	}
+
+	// Serialize parameters as a JSON array for the JSX prop.
+	buf.WriteString(fmt.Sprintf("<WsMessageTester messageType=%q", msgType))
+	if resultType != "" && resultType != msgType+"-result" {
+		buf.WriteString(fmt.Sprintf(" resultType=%q", resultType))
+	}
+	if len(params) > 0 {
+		buf.WriteString(" parameters={[")
+		for i, p := range params {
+			if i > 0 {
+				buf.WriteString(",")
+			}
+			desc := p.Description
+			buf.WriteString(fmt.Sprintf(
+				`{"name":%q,"type":%q,"required":%v,"description":%q}`,
+				p.Name, openAPIType(p.Type), p.Required, desc,
+			))
+		}
+		buf.WriteString("]}")
+	}
+	buf.WriteString(" />\n\n---\n\n")
 }
 
 // ---------------------------------------------------------------------------

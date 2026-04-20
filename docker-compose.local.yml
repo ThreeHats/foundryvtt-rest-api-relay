@@ -1,0 +1,26 @@
+# Self-hosted deployment using SQLite.
+# No billing, no request limits by default.
+#
+# Quick start:
+#   1. Copy .env.example to .env and fill in your secrets
+#   2. docker compose -f docker-compose.local.yml up -d
+#
+services:
+  relay:
+    build:
+      context: .
+      dockerfile: go-relay/Dockerfile
+    container_name: foundryvtt-rest-api-relay
+    env_file: .env
+    environment:
+      - PORT=3010
+      - DB_TYPE=sqlite
+      - APP_ENV=production
+      - MONTHLY_REQUEST_LIMIT=0
+      - WEBSOCKET_PING_INTERVAL_MS=20000
+      - CLIENT_CLEANUP_INTERVAL_MS=15000
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "3010:3010"
+    restart: unless-stopped

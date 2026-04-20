@@ -48,9 +48,12 @@ primary_region = 'ord'
   destination = "/data"
   
 [env]
-  NODE_ENV = "staging"
-  ENABLE_REDIS = "true"
-  REDIS_CLIENT_EXPIRY = "14400"  # 4 hours in seconds
+  APP_ENV = "production"
+  ADMIN_SECURE_COOKIES = "true"
   DB_TYPE = "postgres"
+  MONTHLY_REQUEST_LIMIT = "5000"
+  REDIS_ENABLED = "true"
+  REDIS_CLIENT_EXPIRY = "14400"  # 4 hours in seconds
+  ADMIN_INTERNAL_PORT = "9091"   # enables the internal listener; Fly scrapes /metrics from here
   APP_NAME = "foundryvtt-rest-api-relay-staging"
   DISABLE_REGISTRATION = "true"  # Prevent public signups on staging

@@ -1,5 +1,6 @@
 ---
-sidebar_position: 6
+title: Permission Filtering
+sidebar_position: 7
 ---
 
 # Permission Filtering
@@ -11,14 +12,29 @@ All API endpoints support an optional `userId` parameter that scopes requests to
 Pass `userId` as a query parameter or in the request body:
 
 ```
-GET /api/entity/get?clientId=abc&uuid=Actor.xyz&userId=playerUserId
+GET /entity/get?clientId=fvtt_3a9f1c2e4b7d8e0f&uuid=Actor.xyz&userId=playerUserId
 ```
 
 The module resolves the user and checks Foundry's built-in document permission system before returning data or performing operations.
 
+## Auto-injection via Scoped API Keys
+
+Both `clientId` and `userId` can be bound to a scoped API key so callers never need to pass them explicitly:
+
+- **Client scoping** — a key bound to one or more `clientIds` auto-resolves `clientId` on every request. A single-client key always targets that world; no `clientId` parameter needed.
+- **User scoping** — a key can carry a `scopedUserId` (global, applied to every client) or per-client user IDs. When set, the relay injects `userId` into the request after `clientId` resolves. Callers send no `userId` at all.
+
+This is the recommended approach for player-facing integrations: create a key scoped to the target world and the player's Foundry user ID. The integration never deals with `clientId` or `userId` bookkeeping.
+
+```bash
+# Key is scoped to fvtt_3a9f1c2e4b7d8e0f and userId=playerOne — no params needed
+curl "https://your-relay/entity/get?uuid=Actor.xyz" \
+  -H "x-api-key: PLAYER_SCOPED_KEY"
+```
+
 ## User Resolution
 
-The `userId` parameter accepts either:
+The `userId` parameter (whether passed explicitly or injected by the key) accepts either:
 
 1. **Foundry User ID** (tried first) - e.g., `userId=abc123def456`
 2. **Username** (fallback, case-insensitive) - e.g., `userId=PlayerOne`

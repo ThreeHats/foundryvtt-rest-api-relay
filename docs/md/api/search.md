@@ -13,15 +13,18 @@ import ApiTester from '@site/src/components/ApiTester';
 
 Search entities
 
-This endpoint allows searching for entities in the Foundry world based on a query string. Requires Quick Insert module to be installed and enabled.
+This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
 
 ### Parameters
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|-------------|
-| query | string | ✓ | query | Search query string |
 | clientId | string |  | query | Client ID for the Foundry world |
-| filter | string |  | query | Filter to apply (simple: filter="Actor", property-based: filter="key:value,key2:value2") |
+| query | string |  | query | Search query string (omit to browse all entities matching filter) |
+| filter | string |  | query | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
+| excludeCompendiums | boolean |  | query | Exclude compendium entries from results (default: false — compendiums are included by default) |
+| limit | number |  | query | Maximum number of results to return (default: 200, max: 500) |
+| minified | boolean |  | query | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
 | userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 ### Returns
@@ -33,7 +36,7 @@ This endpoint allows searching for entities in the Foundry world based on a quer
 <ApiTester
   method="GET"
   path="/search"
-  parameters={[{"name":"query","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"filter","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"query","type":"string","required":false,"source":"query"},{"name":"filter","type":"string","required":false,"source":"query"},{"name":"excludeCompendiums","type":"boolean","required":false,"source":"query"},{"name":"limit","type":"number","required":false,"source":"query"},{"name":"minified","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
 ### Code Examples
@@ -45,9 +48,9 @@ This endpoint allows searching for entities in the Foundry world based on a quer
 const baseUrl = 'http://localhost:3010';
 const path = '/search';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-  query: 'test-',
-  filter: 'documentType:Item'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  filter: 'documentType:Actor',
+  excludeCompendiums: 'true'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -66,7 +69,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/search?clientId=foundry-testing-r6bXhB7k9cXa3cif&query=test-&filter=documentType%3AItem' \
+curl -X GET 'http://localhost:3010/search?clientId=fvtt_099ad17ea199e7e3&filter=documentType%3AActor&excludeCompendiums=true' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -79,9 +82,9 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/search'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
-    'query': 'test-',
-    'filter': 'documentType:Item'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'filter': 'documentType:Actor',
+    'excludeCompendiums': 'true'
 }
 url = f'{base_url}{path}'
 
@@ -106,9 +109,9 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/search';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
-    query: 'test-',
-    filter: 'documentType:Item'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    filter: 'documentType:Actor',
+    excludeCompendiums: 'true'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -142,10 +145,10 @@ import axios from 'axios';
   🔤/search🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
-  🔤query=test-🔤 ➡️ query
-  🔤filter=documentType:Item🔤 ➡️ filter
-  🔤?🧲clientId🧲&🧲query🧲&🧲filter🧲🔤 ➡️ queryString
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤filter=documentType:Actor🔤 ➡️ filter
+  🔤excludeCompendiums=true🔤 ➡️ excludeCompendiums
+  🔤?🧲clientId🧲&🧲filter🧲&🧲excludeCompendiums🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
   🔤GET /search🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
@@ -173,33 +176,53 @@ import axios from 'axios';
 ```json
 {
   "type": "search-result",
-  "requestId": "search_1775068876994",
-  "query": "test-",
-  "filter": "documentType:Item",
+  "requestId": "search_1776657969438",
+  "filter": "documentType:Actor",
   "results": [
     {
-      "documentType": "Item",
-      "id": "blRaC6QACL9AyxUo",
-      "name": "test-studded leather armor +3",
-      "subType": "equipment",
-      "uuid": "Item.blRaC6QACL9AyxUo",
-      "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
-      "journalLink": "@UUID[Item.blRaC6QACL9AyxUo]{test-studded leather armor +3}",
-      "tagline": "Items Directory",
-      "formattedMatch": "<strong>test-</strong>studded leather armor +3",
-      "resultType": "EntitySearchItem"
+      "documentType": "Actor",
+      "folder": null,
+      "id": "XJ53lfbhXlqQZCbd",
+      "name": "Player Character",
+      "package": null,
+      "packageName": null,
+      "subType": "character",
+      "uuid": "Actor.XJ53lfbhXlqQZCbd",
+      "icon": "icons/svg/mystery-man.svg",
+      "journalLink": "@UUID[Actor.XJ53lfbhXlqQZCbd]{Player Character}",
+      "tagline": "Actors Directory",
+      "formattedMatch": "Player Character",
+      "resultType": "WorldEntity"
     },
     {
-      "documentType": "Item",
-      "id": "SmQPN89fWqiOUeZ4",
-      "name": "test-studded leather armor +3",
-      "subType": "equipment",
-      "uuid": "Item.SmQPN89fWqiOUeZ4",
-      "icon": "<i class=\"fas fa-suitcase entity-icon\"></i>",
-      "journalLink": "@UUID[Item.SmQPN89fWqiOUeZ4]{test-studded leather armor +3}",
-      "tagline": "Items Directory",
-      "formattedMatch": "<strong>test-</strong>studded leather armor +3",
-      "resultType": "EntitySearchItem"
+      "documentType": "Actor",
+      "folder": null,
+      "id": "w5STPCwE3YTDztRk",
+      "name": "test-perrin (halfling monk)",
+      "package": null,
+      "packageName": null,
+      "subType": "character",
+      "uuid": "Actor.w5STPCwE3YTDztRk",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "journalLink": "@UUID[Actor.w5STPCwE3YTDztRk]{test-perrin (halfling monk)}",
+      "tagline": "Actors Directory",
+      "formattedMatch": "test-perrin (halfling monk)",
+      "resultType": "WorldEntity"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "id": "q9uWyfdPwTlzbpxb",
+      "name": "Updated Test Actor",
+      "package": null,
+      "packageName": null,
+      "subType": "character",
+      "uuid": "Actor.q9uWyfdPwTlzbpxb",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "journalLink": "@UUID[Actor.q9uWyfdPwTlzbpxb]{Updated Test Actor}",
+      "tagline": "Actors Directory",
+      "formattedMatch": "Updated Test Actor",
+      "resultType": "WorldEntity"
     }
   ]
 }

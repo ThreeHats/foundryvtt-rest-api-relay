@@ -275,7 +275,7 @@ services:
     # ports:
     #   - "3010:3010"
     environment:
-      - NODE_ENV=production
+      - APP_ENV=production
       - PORT=3010
     volumes:
       - ./data/relay:/app/data
