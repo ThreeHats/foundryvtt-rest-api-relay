@@ -64,9 +64,9 @@ jobs:
           git checkout main
           git pull origin main
 
-          # Update package.json
+          # Update version in all relevant files
           jq --arg v "$VERSION" '.version = $v' package.json > package.tmp.json && mv package.tmp.json package.json
-          # Update Go server version
+          jq --arg v "$VERSION" '.version = $v' frontend/package.json > frontend/package.tmp.json && mv frontend/package.tmp.json frontend/package.json
           sed -i "s/const version = .*/const version = \"$VERSION\"/" go-relay/cmd/server/main.go
 
           # Configure git
@@ -74,7 +74,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           # Commit and push changes only if something actually changed
-          git add package.json go-relay/cmd/server/main.go
+          git add package.json frontend/package.json go-relay/cmd/server/main.go
           if git diff --cached --quiet; then
             echo "Version already up to date, skipping commit"
           else
