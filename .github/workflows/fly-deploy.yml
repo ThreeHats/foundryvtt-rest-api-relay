@@ -73,10 +73,14 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          # Commit and push changes
+          # Commit and push changes only if something actually changed
           git add package.json go-relay/cmd/server/main.go
-          git commit -m "bump version to $VERSION [skip ci]"
-          git push origin main
+          if git diff --cached --quiet; then
+            echo "Version already up to date, skipping commit"
+          else
+            git commit -m "bump version to $VERSION [skip ci]"
+            git push origin main
+          fi
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
