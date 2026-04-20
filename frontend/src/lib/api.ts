@@ -121,6 +121,19 @@ export async function resetPassword(token: string, password: string) {
   return handleResponse<{ message: string }>(res);
 }
 
+export async function verifyEmail(token: string) {
+  const res = await fetch(`/auth/verify?token=${encodeURIComponent(token)}`);
+  return handleResponse<{ message: string; emailVerified: boolean }>(res);
+}
+
+export async function resendVerificationEmail() {
+  const res = await fetch('/auth/resend-verification', {
+    method: 'POST',
+    headers: authHeaders(),
+  });
+  return handleResponse<{ message: string }>(res);
+}
+
 export async function exportData() {
   const res = await fetch('/auth/export-data', { headers: authHeaders() });
   return handleResponse<Record<string, unknown>>(res);

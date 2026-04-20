@@ -49,15 +49,16 @@
     loading = false;
 
     if (result.ok) {
-      message = 'Account created successfully!';
-      messageType = 'success';
-
-      // Extract the one-time master API key for the modal display BEFORE
-      // saving the user. The plaintext key is intentionally NOT in the
-      // persistent UserData — saveUser() strips it defensively.
       const fullKey = result.data.apiKey ?? '';
       const { apiKey: _omit, ...userData } = result.data;
       saveUser(userData);
+
+      if (result.data.emailVerified === false) {
+        message = 'Account created! Check your email for a verification link before using the API.';
+      } else {
+        message = 'Account created successfully!';
+      }
+      messageType = 'success';
 
       // Show one-time key modal — onSuccess() is called when user dismisses
       oneTimeKey = fullKey;

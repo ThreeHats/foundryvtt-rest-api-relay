@@ -1,13 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { user, isLoggedIn, clearUser } from '../lib/auth';
+  import { user, isLoggedIn, clearUser, updateUser } from '../lib/auth';
   import { logout as apiLogout } from '../lib/api';
-  import { validateResetToken } from '../lib/api';
+  import { validateResetToken, verifyEmail } from '../lib/api';
   import { theme, toggleTheme, initTheme } from '../lib/theme';
   import { billingEnabled, headlessEnabled, loadServerConfig } from '../lib/config';
   import AuthForm from './auth/AuthForm.svelte';
   import ForgotPasswordForm from './auth/ForgotPasswordForm.svelte';
   import ResetPasswordForm from './auth/ResetPasswordForm.svelte';
+  import EmailVerificationBanner from './auth/EmailVerificationBanner.svelte';
   import Dashboard from './dashboard/Dashboard.svelte';
   import ApiKeysPage from './api-keys/ApiKeysPage.svelte';
   import ConnectionsPage from './connections/ConnectionsPage.svelte';
@@ -29,6 +30,8 @@
   let approveCode = $state<string | null>(null);
   let pairCode = $state<string | null>(null);
   let mobileMenuOpen = $state(false);
+  let verifyMessage = $state('');
+  let verifyError = $state('');
 
   onMount(() => {
     loadServerConfig();
@@ -36,6 +39,7 @@
 
     const params = new URLSearchParams(window.location.search);
     const token = params.get('reset-token');
+    const verifyToken = params.get('token');
 
     if (token) {
       validateResetToken(token).then((result) => {
@@ -47,6 +51,19 @@
           authView = 'auth';
         }
         window.history.replaceState({}, document.title, window.location.pathname);
+      });
+    }
+
+    // Handle email verification link: /verify?token=xxx
+    if (window.location.pathname === '/verify' && verifyToken) {
+      verifyEmail(verifyToken).then((result) => {
+        if (result.ok) {
+          verifyMessage = 'Email verified successfully! You can now use all features.';
+          updateUser({ emailVerified: true });
+        } else {
+          verifyError = result.error || 'Verification failed. The link may have expired.';
+        }
+        window.history.replaceState({}, document.title, '/');
       });
     }
 
@@ -234,6 +251,15 @@
   </nav>
 
   <div class="main-content">
+    {#if $isLoggedIn && $user?.emailVerified === false}
+      <EmailVerificationBanner />
+    {/if}
+    {#if verifyMessage}
+      <div class="alert alert-success verify-notice">{verifyMessage}</div>
+    {/if}
+    {#if verifyError}
+      <div class="alert alert-error verify-notice">{verifyError}</div>
+    {/if}
     <div class="content-area">
       {#if $isLoggedIn}
         {#if appView === 'dashboard'}
@@ -275,3 +301,10 @@
 </div>
 
 {/if}
+
+<style>
+  .verify-notice {
+    margin: 1rem 1.5rem 0;
+    border-radius: var(--radius-sm, 4px);
+  }
+</style>

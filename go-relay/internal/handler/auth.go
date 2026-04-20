@@ -293,17 +293,22 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 
 	// POST /auth/resend-verification
 	r.With(middleware.AuthRateLimiter.Middleware).Post("/resend-verification", func(w http.ResponseWriter, r *http.Request) {
-		apiKey := r.Header.Get("x-api-key")
-		if apiKey == "" {
-			apiKey = r.Header.Get("X-API-Key")
-		}
-		if apiKey == "" {
-			helpers.WriteError(w, http.StatusUnauthorized, "API key is required")
+		header := r.Header.Get("Authorization")
+		const prefix = "Bearer "
+		if len(header) <= len(prefix) || header[:len(prefix)] != prefix {
+			helpers.WriteError(w, http.StatusUnauthorized, "Bearer token required")
 			return
 		}
+		rawToken := header[len(prefix):]
+		hash := model.HashSessionToken(rawToken)
 
 		ctx := r.Context()
-		user, err := db.UserStore().FindByAPIKey(ctx, apiKey)
+		session, err := db.SessionStore().FindByTokenHash(ctx, hash)
+		if err != nil || session == nil {
+			helpers.WriteError(w, http.StatusUnauthorized, "Invalid session")
+			return
+		}
+		user, err := db.UserStore().FindByID(ctx, session.UserID)
 		if err != nil || user == nil {
 			helpers.WriteError(w, http.StatusNotFound, "User not found")
 			return
@@ -326,8 +331,8 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 			helpers.WriteError(w, http.StatusInternalServerError, "Failed to resend verification")
 			return
 		}
-		rawToken := hex.EncodeToString(tokenBytes)
-		hashSum := sha256.Sum256([]byte(rawToken))
+		newVerifyToken := hex.EncodeToString(tokenBytes)
+		hashSum := sha256.Sum256([]byte(newVerifyToken))
 		tokenHash := hex.EncodeToString(hashSum[:])
 
 		user.VerificationTokenHash = sql.NullString{String: tokenHash, Valid: true}
@@ -340,7 +345,7 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 			return
 		}
 
-		service.SendVerificationEmail(cfg, user.Email, rawToken)
+		service.SendVerificationEmail(cfg, user.Email, newVerifyToken)
 
 		log.Info().Int64("userId", user.ID).Msg("Verification email resent")
 		helpers.WriteJSON(w, http.StatusOK, map[string]string{"message": "Verification email sent"})

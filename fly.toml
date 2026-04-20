@@ -65,5 +65,5 @@ primary_region = 'ord'
   REDIS_ENABLED = "true"
   REDIS_CLIENT_EXPIRY = "14400"  # 4 hours in seconds
   ADMIN_INTERNAL_PORT = "9091"   # enables the internal listener; Fly scrapes /metrics from here
-  ADMIN_ALLOWED_IPS = "fdaa::/16"  # restrict admin panel to Fly private network only
+  ADMIN_ALLOWED_IPS = "fdaa::/16,172.16.0.0/12"  # Fly IPv6 private network + internal IPv4 range
   ALLOW_HEADLESS = "false"       # sorry, no headless sessions on the public relay

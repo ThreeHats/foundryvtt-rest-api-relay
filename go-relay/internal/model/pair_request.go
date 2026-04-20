@@ -84,10 +84,6 @@ func (s *SQLPairRequestStore) FindByCode(ctx context.Context, code string) (*Pai
 
 func (s *SQLPairRequestStore) Create(ctx context.Context, req *PairRequest) error {
 	now := time.Now()
-	upgradeInt := 0
-	if req.UpgradeOnly {
-		upgradeInt = 1
-	}
 	query := fmt.Sprintf(
 		`INSERT INTO %s (code, %s, %s, %s, %s, %s, %s, %s, %s, %s, status, %s, %s)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
@@ -104,7 +100,7 @@ func (s *SQLPairRequestStore) Create(ctx context.Context, req *PairRequest) erro
 		return s.DB.QueryRowContext(ctx, query,
 			req.Code, req.WorldID, req.WorldTitle,
 			req.SystemID, req.SystemTitle, req.SystemVersion, req.FoundryVersion,
-			req.RequestedRemoteScopes, req.RequestedTargetClients, upgradeInt,
+			req.RequestedRemoteScopes, req.RequestedTargetClients, req.UpgradeOnly,
 			req.Status, req.ExpiresAt, now,
 		).Scan(&req.ID)
 	}
@@ -112,7 +108,7 @@ func (s *SQLPairRequestStore) Create(ctx context.Context, req *PairRequest) erro
 	result, err := s.DB.ExecContext(ctx, query,
 		req.Code, req.WorldID, req.WorldTitle,
 		req.SystemID, req.SystemTitle, req.SystemVersion, req.FoundryVersion,
-		req.RequestedRemoteScopes, req.RequestedTargetClients, upgradeInt,
+		req.RequestedRemoteScopes, req.RequestedTargetClients, req.UpgradeOnly,
 		req.Status, req.ExpiresAt, now)
 	if err != nil {
 		return err

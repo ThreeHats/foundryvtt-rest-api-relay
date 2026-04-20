@@ -541,6 +541,10 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 	// v3.0: purge unknown-world rows and enforce UNIQUE(userId, worldId).
 	addWorldIdUniqueConstraint(ctx, db.sqlDB, "sqlite")
 
+	// v3.1: grandfather existing accounts — mark all unverified users as verified
+	// since email verification was introduced after these accounts were created.
+	backfillEmailVerified(ctx, db.sqlDB, "sqlite")
+
 	return nil
 }
 
@@ -740,6 +744,39 @@ func fixNullScopesInApiKeys(ctx context.Context, sqlDB *sqlx.DB, dbType string) 
 	if n, _ := result.RowsAffected(); n > 0 {
 		log.Info().Int64("count", n).Msg("Fixed NULL scopes in ApiKeys")
 	}
+}
+
+// backfillEmailVerified grandfathers all existing users as email-verified.
+// Email verification was introduced in v3.1 but pre-existing accounts had
+// emailVerified=false from Sequelize's default. This runs once at startup.
+func backfillEmailVerified(ctx context.Context, sqlDB *sqlx.DB, dbType string) {
+	const migrationName = "backfill_email_verified_v3_1"
+	smTable := "SchemaMigrations"
+	usersTable := "Users"
+	if dbType != "sqlite" {
+		smTable = `"SchemaMigrations"`
+		usersTable = `"Users"`
+	}
+
+	var count int
+	_ = sqlDB.GetContext(ctx, &count, fmt.Sprintf(`SELECT COUNT(*) FROM %s WHERE name = $1`, smTable), migrationName)
+	if count > 0 {
+		return
+	}
+
+	result, err := sqlDB.ExecContext(ctx, fmt.Sprintf(
+		`UPDATE %s SET "emailVerified" = 1 WHERE "emailVerified" = 0 OR "emailVerified" IS NULL`, usersTable))
+	if dbType != "sqlite" {
+		result, err = sqlDB.ExecContext(ctx, fmt.Sprintf(
+			`UPDATE %s SET "emailVerified" = TRUE WHERE "emailVerified" IS NOT TRUE`, usersTable))
+	}
+	if err != nil {
+		log.Warn().Err(err).Msg("backfillEmailVerified: failed to update users")
+	} else if n, _ := result.RowsAffected(); n > 0 {
+		log.Info().Int64("count", n).Msg("Grandfathered pre-v3.1 accounts as email-verified")
+	}
+
+	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`INSERT INTO %s (name) VALUES ($1)`, smTable), migrationName)
 }
 
 // addWorldIdUniqueConstraint is the v3.0 migration that:
@@ -1105,6 +1142,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS "remoteScopes" TEXT DEFAULT ''`,
 		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS "remoteRequestsPerHour" INTEGER DEFAULT 0`,
 		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS source VARCHAR(20) DEFAULT 'dashboard'`,
+		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS "clientId" VARCHAR(255) DEFAULT ''`,
 		// Pairing code can be bound to an existing clientId for "add browser" flows
 		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "clientId" VARCHAR(255)`,
 		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "allowedTargetClients" TEXT DEFAULT ''`,
@@ -1370,6 +1408,10 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 
 	// v3.0: purge unknown-world rows and enforce UNIQUE(userId, worldId).
 	addWorldIdUniqueConstraint(ctx, db.sqlDB, "postgres")
+
+	// v3.1: grandfather existing accounts — mark all unverified users as verified
+	// since email verification was introduced after these accounts were created.
+	backfillEmailVerified(ctx, db.sqlDB, "postgres")
 
 	return nil
 }
