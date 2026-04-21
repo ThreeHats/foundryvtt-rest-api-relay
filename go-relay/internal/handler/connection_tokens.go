@@ -404,7 +404,7 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 			"relayUrl": relayURL,
 		})
 
-		log.Info().Int64("userId", pairingCode.UserID).Str("clientId", clientID).Str("worldId", body.WorldID).Msg("Pairing completed")
+		log.Info().Int64("userId", pairingCode.UserID).Str("clientId", clientID).Str("worldId", body.WorldID).Int64("tokenId", connToken.ID).Str("tokenHashPrefix", tokenHash[:8]+"…").Msg("Pairing completed")
 	})
 
 	// GET /auth/remote-request-logs — View cross-world audit log (authenticated, master key only)

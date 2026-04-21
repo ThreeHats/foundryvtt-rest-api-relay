@@ -779,6 +779,73 @@ func backfillEmailVerified(ctx context.Context, sqlDB *sqlx.DB, dbType string) {
 	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`INSERT INTO %s (name) VALUES ($1)`, smTable), migrationName)
 }
 
+// backfillUserAPIKeyHashes generates a fresh master API key hash for any Users row
+// whose apiKeyHash is NULL. This happens for Sequelize-era accounts where the
+// plaintext apiKey column was dropped before its SHA-256 hash was stored.
+// Without apiKeyHash, WebSocket connection-token validation always fails because
+// the user lookup returns an empty identifier.
+//
+// The generated key is random — the user never knew it and doesn't need to. It
+// exists only so the relay can use apiKeyHash as a stable per-account identifier
+// in ClientManager and Redis. If the user later needs to use their master API key
+// directly, they can regenerate it from the dashboard (which shows it once).
+func backfillUserAPIKeyHashes(ctx context.Context, sqlDB *sqlx.DB, dbType string) {
+	const migrationName = "backfill_user_api_key_hashes_v3_1"
+	smTable := "SchemaMigrations"
+	usersTable := "Users"
+	if dbType != "sqlite" {
+		smTable = `"SchemaMigrations"`
+		usersTable = `"Users"`
+	}
+
+	var count int
+	_ = sqlDB.GetContext(ctx, &count, fmt.Sprintf(`SELECT COUNT(*) FROM %s WHERE name = $1`, smTable), migrationName)
+	if count > 0 {
+		return
+	}
+
+	// Find all users with no apiKeyHash.
+	rows, err := sqlDB.QueryContext(ctx, fmt.Sprintf(`SELECT id FROM %s WHERE "apiKeyHash" IS NULL OR "apiKeyHash" = ''`, usersTable))
+	if err != nil {
+		log.Warn().Err(err).Msg("backfillUserAPIKeyHashes: failed to query users")
+		return
+	}
+	defer rows.Close()
+
+	var ids []int64
+	for rows.Next() {
+		var id int64
+		if err := rows.Scan(&id); err == nil {
+			ids = append(ids, id)
+		}
+	}
+	_ = rows.Close()
+
+	for _, id := range ids {
+		// GenerateAPIKey returns 64 random hex chars (32 bytes via crypto/rand).
+		rawKey, err := model.GenerateAPIKey()
+		if err != nil {
+			log.Warn().Err(err).Int64("userId", id).Msg("backfillUserAPIKeyHashes: failed to generate key")
+			continue
+		}
+		sum := sha256.Sum256([]byte(rawKey))
+		hash := hex.EncodeToString(sum[:])
+		if _, err := sqlDB.ExecContext(ctx,
+			fmt.Sprintf(`UPDATE %s SET "apiKeyHash" = $1, "apiKeyRotationRequired" = TRUE WHERE id = $2`, usersTable),
+			hash, id,
+		); err != nil {
+			log.Warn().Err(err).Int64("userId", id).Msg("backfillUserAPIKeyHashes: failed to update user")
+		} else {
+			log.Info().Int64("userId", id).Msg("backfillUserAPIKeyHashes: generated apiKeyHash for user")
+		}
+	}
+
+	if len(ids) > 0 {
+		log.Info().Int("count", len(ids)).Msg("backfillUserAPIKeyHashes: populated missing apiKeyHash values")
+	}
+	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`INSERT INTO %s (name) VALUES ($1)`, smTable), migrationName)
+}
+
 // addWorldIdUniqueConstraint is the v3.0 migration that:
 //  1. Deletes all KnownClients rows with NULL worldId (unknown-world orphans from v2.x)
 //  2. Creates a UNIQUE index on (userId, worldId) so each world can only have one row per user
@@ -1143,6 +1210,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS "remoteRequestsPerHour" INTEGER DEFAULT 0`,
 		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS source VARCHAR(20) DEFAULT 'dashboard'`,
 		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS "clientId" VARCHAR(255) DEFAULT ''`,
+		`ALTER TABLE "ConnectionTokens" ADD COLUMN IF NOT EXISTS "lastUsedAt" TIMESTAMPTZ`,
 		// Pairing code can be bound to an existing clientId for "add browser" flows
 		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "clientId" VARCHAR(255)`,
 		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "allowedTargetClients" TEXT DEFAULT ''`,
@@ -1412,6 +1480,10 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 	// v3.1: grandfather existing accounts — mark all unverified users as verified
 	// since email verification was introduced after these accounts were created.
 	backfillEmailVerified(ctx, db.sqlDB, "postgres")
+
+	// v3.1: generate apiKeyHash for Sequelize-era accounts that had their
+	// plaintext apiKey column dropped before the hash was computed.
+	backfillUserAPIKeyHashes(ctx, db.sqlDB, "postgres")
 
 	return nil
 }

@@ -108,7 +108,12 @@ func MakeWSValidateConnectionToken(db *database.DB) func(token string) (string, 
 
 		ctx := context.Background()
 		ct, err := db.ConnectionTokenStore().FindByTokenHash(ctx, tokenHash)
-		if err != nil || ct == nil {
+		if err != nil {
+			log.Warn().Err(err).Str("hash", tokenHash[:8]+"…").Msg("Connection token lookup DB error")
+			return "", "", "", 0, fmt.Errorf("invalid connection token")
+		}
+		if ct == nil {
+			log.Warn().Str("hash", tokenHash[:8]+"…").Msg("Connection token not found in DB")
 			return "", "", "", 0, fmt.Errorf("invalid connection token")
 		}
 

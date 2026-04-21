@@ -226,7 +226,7 @@ func (s *SQLKnownClientStore) Upsert(ctx context.Context, client *KnownClient) e
 	return s.DB.QueryRowContext(ctx, query,
 		client.UserID, client.ClientID, client.WorldID, client.WorldTitle,
 		client.SystemID, client.SystemTitle, client.SystemVersion,
-		client.FoundryVersion, client.CustomName, client.IsOnline,
+		client.FoundryVersion, client.CustomName, bool(client.IsOnline),
 		now, now,
 	).Scan(&client.ID)
 }
@@ -321,13 +321,9 @@ func (s *SQLKnownClientStore) SetCredentialID(ctx context.Context, id int64, cre
 
 func (s *SQLKnownClientStore) SetAutoStartOnRemoteRequest(ctx context.Context, id int64, enabled bool) error {
 	now := NewSQLiteTime(time.Now())
-	val := 0
-	if enabled {
-		val = 1
-	}
 	query := fmt.Sprintf(`UPDATE %s SET %s = $1, %s = $2 WHERE id = $3`,
 		s.tableName(), s.col("auto_start_on_remote_request"), s.col("updated_at"))
-	_, err := s.DB.ExecContext(ctx, query, val, now, id)
+	_, err := s.DB.ExecContext(ctx, query, enabled, now, id)
 	return err
 }
 

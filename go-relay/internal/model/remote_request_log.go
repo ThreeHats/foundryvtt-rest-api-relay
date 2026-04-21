@@ -70,7 +70,7 @@ func (s *SQLRemoteRequestLogStore) Create(ctx context.Context, l *RemoteRequestL
 		query += " RETURNING id"
 		return s.DB.QueryRowContext(ctx, query,
 			l.UserID, l.SourceClientID, l.SourceTokenID, l.TargetClientID,
-			l.Action, l.Success, l.ErrorMessage, l.SourceIP, now,
+			l.Action, bool(l.Success), l.ErrorMessage, l.SourceIP, now,
 		).Scan(&l.ID)
 	}
 

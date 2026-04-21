@@ -729,7 +729,7 @@ func (s *Server) setupRouter() *chi.Mux {
 		ValidateConnectionToken:  service.MakeWSValidateConnectionToken(s.db),
 		ValidateHeadless: func(clientID, token string) (bool, error) {
 			if s.Headless == nil {
-				return false, nil
+				return true, nil
 			}
 			return s.Headless.ValidateHeadlessSession(clientID, token)
 		},
