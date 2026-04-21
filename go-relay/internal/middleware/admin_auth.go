@@ -231,6 +231,7 @@ func RequireAdmin(db *database.DB, cfg *AdminAuthConfig) func(http.Handler) http
 				}
 			}
 
+			backfillAccessLog(r, user.ID, "")
 			rCtx := context.WithValue(r.Context(), AdminContextKey, user)
 			next.ServeHTTP(w, r.WithContext(rCtx))
 		})

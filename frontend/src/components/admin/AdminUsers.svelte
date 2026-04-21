@@ -70,6 +70,10 @@
     modalLabel = 'Force Rotation';
     modal = { open: true, action: async () => { await adminApi.flagUserRotation(id); await load(); } };
   }
+  async function verifyEmail(id: number) {
+    await adminApi.updateUser(id, { emailVerified: true });
+    await load();
+  }
   function del(id: number) {
     modalTitle = 'Delete user'; modalMsg = 'Permanently delete this user? This cannot be undone.'; modalLabel = 'Delete';
     modal = { open: true, action: async () => { await adminApi.deleteUser(id); await load(); } };
@@ -132,6 +136,7 @@
           <th>Email</th>
           <th>Role</th>
           <th>Status</th>
+          <th>Verified</th>
           <th>Rotation</th>
           <th>Subscription</th>
           <th>Today</th>
@@ -147,6 +152,7 @@
             <td>{u.email}</td>
             <td>{u.role}</td>
             <td>{u.disabled ? 'Disabled' : 'Active'}</td>
+            <td>{#if u.emailVerified}Yes{:else}<span class="unverified-badge">No</span>{/if}</td>
             <td>{#if u.apiKeyRotationRequired}<span class="rotation-badge" title="User must regenerate their master key">⚠ Required</span>{:else}—{/if}</td>
             <td>{u.subscriptionStatus}</td>
             <td>{u.requestsToday}</td>
@@ -157,6 +163,7 @@
               {:else}
                 <button onclick={() => disable(u.id)}>Disable</button>
               {/if}
+              {#if !u.emailVerified}<button onclick={() => verifyEmail(u.id)}>Verify Email</button>{/if}
               <button onclick={() => rotate(u.id)}>Rotate Key</button>
               {#if !u.apiKeyRotationRequired}
                 <button onclick={() => flagRotation(u.id)}>Flag Rotation</button>
@@ -185,6 +192,7 @@
   th { background: var(--color-bg-elevated); font-weight: 600; }
   tr.disabled td { opacity: 0.5; }
   .rotation-badge { color: var(--color-warning, #f59e0b); font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+  .unverified-badge { color: var(--color-error, #e53935); font-size: 0.75rem; font-weight: 600; }
   tr.selected td { background: color-mix(in srgb, var(--color-primary, #4f46e5) 6%, transparent); }
   button { margin-right: 0.25rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; }
   button.danger { background: var(--color-error, #e53935); color: white; border: none; }

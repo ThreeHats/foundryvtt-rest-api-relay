@@ -1345,6 +1345,9 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		{"ApiKeys", "dailyLimit", "monthlyLimit"},
 		{"ApiKeys", "requestsToday", "requestsThisMonth"},
 		{"ApiKeys", "lastRequestDate", "lastResetDate"},
+		{"ApiKeys", "monthly_limit", "monthlyLimit"},
+		{"ApiKeys", "requests_this_month", "requestsThisMonth"},
+		{"ApiKeys", "last_reset_date", "lastResetDate"},
 		{"ApiKeys", "expires_at", "expiresAt"},
 		{"ApiKeys", "created_at", "createdAt"},
 		{"ApiKeys", "updated_at", "updatedAt"},
@@ -1448,6 +1451,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		{"KeyRequests", "callback_url", "callbackUrl"},
 		{"KeyRequests", "suggested_daily_limit", "suggestedDailyLimit"},
 		{"KeyRequests", "suggestedDailyLimit", "suggestedMonthlyLimit"},
+		{"KeyRequests", "suggested_monthly_limit", "suggestedMonthlyLimit"},
 		{"KeyRequests", "suggested_expiry", "suggestedExpiry"},
 		{"KeyRequests", "approved_key_id", "approvedKeyId"},
 		{"KeyRequests", "approved_by_id", "approvedById"},
@@ -1465,7 +1469,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 	}
 	for _, r := range renames {
 		_, _ = db.sqlDB.ExecContext(ctx, fmt.Sprintf(
-			`ALTER TABLE "%s" RENAME COLUMN %s TO "%s"`, r.table, r.from, r.to))
+			`ALTER TABLE "%s" RENAME COLUMN "%s" TO "%s"`, r.table, r.from, r.to))
 	}
 
 	// Backfill keyHash for scoped API keys that pre-date the hash migration.

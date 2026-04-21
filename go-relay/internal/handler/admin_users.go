@@ -127,6 +127,10 @@ func AdminUsersRouter(db *database.DB) chi.Router {
 			user.MaxHeadlessSessions = sql.NullInt64{Int64: int64(v), Valid: true}
 			changed = true
 		}
+		if v, ok := body["emailVerified"].(bool); ok {
+			user.EmailVerified = v
+			changed = true
+		}
 		if !changed {
 			helpers.WriteError(w, http.StatusBadRequest, "No supported fields to update")
 			return

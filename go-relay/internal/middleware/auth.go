@@ -100,6 +100,7 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 			// Dashboard requests use this path; programmatic API users use
 			// x-api-key.
 			if user, ok := tryBearerAuth(r, db); ok {
+				backfillAccessLog(r, user.ID, "")
 				if user.Disabled {
 					helpers.WriteError(w, http.StatusForbidden, "Account disabled")
 					return
@@ -117,7 +118,6 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 					MasterAPIKey:       user.APIKeyHash.String,
 					SubscriptionStatus: user.GetSubscriptionStatus(),
 				}
-				backfillAccessLog(r, user.ID, "")
 				rCtx := context.WithValue(r.Context(), helpers.RequestContextKey, reqCtx)
 				next.ServeHTTP(w, r.WithContext(rCtx))
 				return
