@@ -183,7 +183,7 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 								"worldId":     c.WorldID.String,
 								"worldTitle":  c.WorldTitle.String,
 								"customName":  c.CustomName.String,
-								"isOnline":    manager.GetClient(c.ClientID) != nil,
+								"isOnline":    manager.IsClientOnlineAnywhere(r.Context(), c.ClientID),
 							})
 						}
 					}

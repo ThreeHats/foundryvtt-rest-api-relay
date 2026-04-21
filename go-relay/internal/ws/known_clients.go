@@ -74,7 +74,7 @@ func RegisterKnownClientsHandler(cfg KnownClientsConfig) {
 		// Build response list, augmenting each record with live online status
 		clientList := make([]map[string]interface{}, 0, len(knownClients))
 		for _, kc := range knownClients {
-			isOnline := cfg.Manager.GetClient(kc.ClientID) != nil
+			isOnline := cfg.Manager.IsClientOnlineAnywhere(ctx, kc.ClientID)
 
 			worldTitle := ""
 			if kc.WorldTitle.Valid {

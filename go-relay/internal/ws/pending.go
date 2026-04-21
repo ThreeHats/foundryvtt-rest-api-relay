@@ -68,6 +68,7 @@ type PendingRequest struct {
 	DarkMode   bool
 	InitScale  *float64
 	Timestamp  time.Time
+	MaxAge     time.Duration // 0 = use the global cleanup default
 
 	// For HTTP responses
 	Writer  http.ResponseWriter
@@ -176,10 +177,14 @@ func (p *PendingRequests) ResolveRaw(id string, statusCode int, raw []byte) {
 // with ctx.Done) and avoids any theoretical panic if a send races the close.
 func (p *PendingRequests) CleanupStale(maxAge time.Duration) {
 	p.mu.Lock()
-	cutoff := time.Now().Add(-maxAge)
+	now := time.Now()
 	var stale []*PendingRequest
 	for id, req := range p.requests {
-		if req.Timestamp.Before(cutoff) {
+		age := maxAge
+		if req.MaxAge > 0 {
+			age = req.MaxAge
+		}
+		if req.Timestamp.Before(now.Add(-age)) {
 			stale = append(stale, req)
 			delete(p.requests, id)
 		}

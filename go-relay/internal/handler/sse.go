@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -26,6 +27,16 @@ func sseSubscribeHandler(w http.ResponseWriter, r *http.Request, mgr *ws.ClientM
 		helpers.WriteError(w, http.StatusNotFound, "Invalid client ID")
 		return
 	}
+
+	// Wrap the request context with a cancellable context so CloseForClientID
+	// can terminate all SSE connections for this client when the Foundry module
+	// disconnects (important for multi-instance: ensures SSE clients reconnect
+	// to whichever instance the module lands on after a reconnect).
+	ctx, cancel := context.WithCancel(r.Context())
+	defer cancel()
+	unregister := sseMgr.RegisterSSECancel(clientID, cancel)
+	defer unregister()
+	r = r.WithContext(ctx)
 
 	// Ownership check: the requesting API key must own this client.
 	// This prevents one user from subscribing to another user's real-time events.

@@ -32,6 +32,10 @@ type ClientManager struct {
 	// OnClientRemoved is called when a client disconnects. Set by server after init.
 	// Receives clientID and the API key the client was registered under.
 	OnClientRemoved func(clientID, apiKey string)
+	// OnSSEClose is called when a Foundry client disconnects so SSE connections
+	// for that clientID are terminated, forcing SSE clients to reconnect to
+	// whichever instance the module lands on next. Set by server after init.
+	OnSSEClose func(clientID string)
 	// OnClientConnected is called when a new Foundry client connects. Set by server after init.
 	OnClientConnected func(clientID, apiKey string, info ClientInfo)
 	// OnDuplicateConnectionRejected is called when an incoming WS connection
@@ -54,7 +58,7 @@ const disconnectChannel = "relay:disconnect"
 // disconnectCmd is the payload format for disconnect broadcasts.
 // Exactly one of ClientID / ConnectionTokenID / APIKey should be set.
 type disconnectCmd struct {
-	Kind              string `json:"kind"` // "client" | "token" | "apikey"
+	Kind              string `json:"kind"` // "client" | "token" | "apikey" | "sse-close"
 	ClientID          string `json:"clientId,omitempty"`
 	ConnectionTokenID int64  `json:"tokenId,omitempty"`
 	APIKey            string `json:"apiKey,omitempty"`
@@ -237,6 +241,19 @@ func (m *ClientManager) RemoveClient(id string) {
 		}
 	}
 	m.mu.Unlock()
+
+	// Close SSE connections on this instance and signal peer instances to do the same.
+	// This ensures SSE clients reconnect to the instance the module lands on next.
+	if m.OnSSEClose != nil {
+		m.OnSSEClose(id)
+	}
+	if m.redis != nil && m.redis.IsConnected() {
+		ctx := context.Background()
+		cmd := disconnectCmd{Kind: "sse-close", ClientID: id, Origin: m.instanceID}
+		if payload, err := json.Marshal(cmd); err == nil {
+			m.redis.SafePublish(ctx, disconnectChannel, string(payload))
+		}
+	}
 
 	// Clean up Redis
 	if m.redis != nil && m.redis.IsConnected() {
@@ -512,6 +529,10 @@ func (m *ClientManager) handleDisconnectCommand(payload string) {
 		if n > 0 {
 			log.Info().Int("count", n).Msg("Acted on api-key disconnect broadcast")
 		}
+	case "sse-close":
+		if cmd.ClientID != "" && m.OnSSEClose != nil {
+			m.OnSSEClose(cmd.ClientID)
+		}
 	default:
 		log.Warn().Str("kind", cmd.Kind).Msg("Unknown disconnect command kind")
 	}
@@ -529,6 +550,36 @@ func (m *ClientManager) GetClientInstanceID(ctx context.Context, id string) (str
 		return "", nil
 	}
 	return m.redis.SafeGet(ctx, fmt.Sprintf("client:%s:instance", id))
+}
+
+// IsClientOnlineAnywhere returns true if the client is connected to any relay
+// instance — checks local memory first, then falls back to Redis.
+func (m *ClientManager) IsClientOnlineAnywhere(ctx context.Context, id string) bool {
+	if m.GetClient(id) != nil {
+		return true
+	}
+	if m.redis == nil || !m.redis.IsConnected() {
+		return false
+	}
+	v, _ := m.redis.SafeGet(ctx, fmt.Sprintf("client:%s:instance", id))
+	return v != ""
+}
+
+// GetClientRemoteInstance returns the instance ID of the instance hosting the
+// client, or "" if the client is local or not connected anywhere.
+// Used by the remote-request handler to forward actions cross-instance.
+func (m *ClientManager) GetClientRemoteInstance(ctx context.Context, id string) string {
+	if m.GetClient(id) != nil {
+		return "" // local — no forwarding needed
+	}
+	if m.redis == nil || !m.redis.IsConnected() {
+		return ""
+	}
+	instanceID, _ := m.redis.SafeGet(ctx, fmt.Sprintf("client:%s:instance", id))
+	if instanceID == m.instanceID {
+		return "" // stale Redis entry pointing at this instance
+	}
+	return instanceID
 }
 
 // GetInstanceForAPIKey checks Redis for which instance serves an API key.

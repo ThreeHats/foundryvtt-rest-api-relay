@@ -68,8 +68,11 @@ type RemoteRequestConfig struct {
 	Manager  *ClientManager
 	Pending  *PendingRequests
 	DB       *database.DB
-	Headless HeadlessAutoStarter // may be nil if headless is disabled
+	Headless HeadlessAutoStarter           // may be nil if headless is disabled
 	Batcher  RemoteRequestBatcherInterface // may be nil; falls back to no notification
+	// ForwardToInstance proxies an action to a client on a different relay instance.
+	// Nil on single-instance deployments or when Redis is unavailable.
+	ForwardToInstance func(ctx context.Context, instanceID, targetClientID, action string, payload map[string]interface{}) (map[string]interface{}, error)
 }
 
 // RegisterRemoteRequestHandler installs the WS message handler for the
@@ -267,6 +270,31 @@ func handleRemoteRequest(cfg RemoteRequestConfig, source *Client, data map[strin
 	// Find or auto-start the target client.
 	target := cfg.Manager.GetClient(targetClientID)
 	if target == nil {
+		// Check if the target is online on a different relay instance.
+		if remoteInstance := cfg.Manager.GetClientRemoteInstance(ctx, targetClientID); remoteInstance != "" && cfg.ForwardToInstance != nil {
+			log.Info().
+				Str("sourceClient", source.ID()).
+				Str("targetClient", targetClientID).
+				Str("remoteInstance", remoteInstance).
+				Msg("Forwarding remote-request to peer instance")
+			fwdCtx, fwdCancel := context.WithTimeout(context.Background(), 60*time.Second)
+			result, err := cfg.ForwardToInstance(fwdCtx, remoteInstance, targetClientID, action, payload)
+			fwdCancel()
+			if err != nil {
+				respond(false, fmt.Sprintf("cross-instance forward failed: %s", err), nil)
+				finishLog(false, "cross-instance forward failed")
+			} else {
+				if errMsg, ok := result["error"].(string); ok && errMsg != "" {
+					respond(false, errMsg, nil)
+					finishLog(false, errMsg)
+				} else {
+					respond(true, "", result)
+					finishLog(true, "")
+				}
+			}
+			return
+		}
+
 		if !autoStart {
 			respond(false, "target offline; set autoStartIfOffline:true to start a headless session", nil)
 			finishLog(false, "target offline")
@@ -316,6 +344,7 @@ func handleRemoteRequest(cfg RemoteRequestConfig, source *Client, data map[strin
 		Type:       action,
 		ClientID:   target.ID(),
 		Timestamp:  time.Now(),
+		MaxAge:     90 * time.Second,
 	})
 
 	// Build the action message: just the payload + type + requestId. Anything

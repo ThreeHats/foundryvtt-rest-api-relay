@@ -1,9 +1,11 @@
 package helpers
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"sync"
+	"sync/atomic"
 )
 
 const MaxSSEConnectionsPerClient = 10
@@ -100,6 +102,11 @@ type SSEManager struct {
 	actorSSE        map[string][]*ActorSSEConnection    // clientID -> connections
 	sceneSSE        map[string][]*SceneSSEConnection    // clientID -> connections
 
+	// cancelMu protects sseCancel. cancelSeq is a monotonic ID generator.
+	cancelMu  sync.Mutex
+	cancelSeq uint64
+	sseCancel map[string]map[uint64]context.CancelFunc // clientID -> {id -> cancel}
+
 	// OnSubscriberCountChanged is called (outside the lock) whenever the total
 	// subscriber count for a channel+client changes. Used to notify the Foundry
 	// module to enable or disable event hooks on demand.
@@ -116,6 +123,42 @@ func NewSSEManager() *SSEManager {
 		combatSSE:  make(map[string][]*CombatSSEConnection),
 		actorSSE:   make(map[string][]*ActorSSEConnection),
 		sceneSSE:   make(map[string][]*SceneSSEConnection),
+		sseCancel:  make(map[string]map[uint64]context.CancelFunc),
+	}
+}
+
+// RegisterSSECancel registers a cancel function for an SSE connection and returns
+// an unregister func the caller must call on connection close to avoid leaking memory.
+func (m *SSEManager) RegisterSSECancel(clientID string, cancel context.CancelFunc) func() {
+	id := atomic.AddUint64(&m.cancelSeq, 1)
+	m.cancelMu.Lock()
+	if m.sseCancel[clientID] == nil {
+		m.sseCancel[clientID] = make(map[uint64]context.CancelFunc)
+	}
+	m.sseCancel[clientID][id] = cancel
+	m.cancelMu.Unlock()
+	return func() {
+		m.cancelMu.Lock()
+		if m.sseCancel[clientID] != nil {
+			delete(m.sseCancel[clientID], id)
+			if len(m.sseCancel[clientID]) == 0 {
+				delete(m.sseCancel, clientID)
+			}
+		}
+		m.cancelMu.Unlock()
+	}
+}
+
+// CloseForClientID cancels all active SSE connections for the given clientID.
+// Used when the Foundry module disconnects so SSE clients reconnect to the
+// instance the module lands on next.
+func (m *SSEManager) CloseForClientID(clientID string) {
+	m.cancelMu.Lock()
+	fns := m.sseCancel[clientID]
+	delete(m.sseCancel, clientID)
+	m.cancelMu.Unlock()
+	for _, fn := range fns {
+		fn()
 	}
 }
 

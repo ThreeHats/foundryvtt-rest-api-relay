@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"database/sql"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net"
@@ -203,6 +204,12 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 		}()
 	}
 
+	// Close SSE connections on this instance when a Foundry module disconnects.
+	// The manager also publishes an "sse-close" Redis broadcast so peer instances
+	// do the same. This ensures SSE clients reconnect to whichever instance the
+	// module lands on next, preventing stale subscriptions from silently dropping events.
+	s.ClientManager.OnSSEClose = s.SSEManager.CloseForClientID
+
 	// Track when a Foundry client connects
 	s.ClientManager.OnClientConnected = func(clientID, apiKey string, metadata ws.ClientInfo) {
 		go func() {
@@ -387,12 +394,56 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 	remoteRequestBatcher := service.NewRemoteRequestBatcher(s.Dispatcher, 5*time.Minute)
 	s.RemoteRequestBatcher = remoteRequestBatcher
 
+	var forwardToInstance func(ctx context.Context, instanceID, targetClientID, action string, payload map[string]interface{}) (map[string]interface{}, error)
+	if s.redis != nil && s.redis.IsConnected() && s.cfg.AppName != "" {
+		appName := s.cfg.AppName
+		internalPort := s.cfg.FlyInternalPort
+		if internalPort == "" {
+			internalPort = "3010"
+		}
+		fwdClient := &http.Client{Timeout: 65 * time.Second}
+		forwardToInstance = func(ctx context.Context, instanceID, targetClientID, action string, payload map[string]interface{}) (map[string]interface{}, error) {
+			url := fmt.Sprintf("http://%s.vm.%s.internal:%s/internal/forward-action", instanceID, appName, internalPort)
+			bodyBytes, err := json.Marshal(map[string]interface{}{
+				"targetClientId": targetClientID,
+				"action":         action,
+				"payload":        payload,
+			})
+			if err != nil {
+				return nil, err
+			}
+			req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(bodyBytes))
+			if err != nil {
+				return nil, err
+			}
+			req.Header.Set("Content-Type", "application/json")
+			resp, err := fwdClient.Do(req)
+			if err != nil {
+				return nil, err
+			}
+			defer resp.Body.Close()
+			var result struct {
+				Success bool                   `json:"success"`
+				Data    map[string]interface{} `json:"data"`
+				Error   string                 `json:"error"`
+			}
+			if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+				return nil, fmt.Errorf("decode forward response: %w", err)
+			}
+			if !result.Success {
+				return nil, fmt.Errorf("%s", result.Error)
+			}
+			return result.Data, nil
+		}
+	}
+
 	ws.RegisterRemoteRequestHandler(ws.RemoteRequestConfig{
-		Manager:  s.ClientManager,
-		Pending:  s.PendingReqs,
-		DB:       s.db,
-		Headless: headlessAutoStarter,
-		Batcher:  remoteRequestBatcher,
+		Manager:           s.ClientManager,
+		Pending:           s.PendingReqs,
+		DB:                s.db,
+		Headless:          headlessAutoStarter,
+		Batcher:           remoteRequestBatcher,
+		ForwardToInstance: forwardToInstance,
 	})
 
 	// Known-clients: lets a connected Foundry module query all worlds on its
@@ -660,6 +711,10 @@ func (s *Server) setupRouter() *chi.Mux {
 
 	// Health endpoint
 	r.Get("/api/health", s.healthHandler)
+
+	// Internal cross-instance forwarding — only reachable on Fly.io private network.
+	// Used by handleRemoteRequest to proxy actions to the instance holding the target client.
+	r.Post("/internal/forward-action", handler.InternalForwardActionHandler(s.ClientManager, s.PendingReqs))
 
 	// Active-connection probe — public, rate-limited, returns only a boolean.
 	// Used by the Foundry module's init wizard to detect "is another GM

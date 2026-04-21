@@ -132,8 +132,14 @@ func Load() *Config {
 		FrontendURL:         getEnv("FRONTEND_URL", "https://foundryrestapi.com"),
 
 		FlyAllocID:      getEnv("FLY_ALLOC_ID", "local"),
-		FlyInternalPort: getEnv("FLY_INTERNAL_PORT", ""),
-		AppName:         getEnv("APP_NAME", ""),
+		FlyInternalPort: getEnv("FLY_INTERNAL_PORT", "3010"),
+		// APP_NAME overrides FLY_APP_NAME; Fly.io sets FLY_APP_NAME automatically.
+		AppName: func() string {
+			if v := getEnv("APP_NAME", ""); v != "" {
+				return v
+			}
+			return getEnv("FLY_APP_NAME", "")
+		}(),
 
 		ChromePath:              getEnv("PUPPETEER_EXECUTABLE_PATH", ""),
 		LogLevel:                getEnv("LOG_LEVEL", "info"),
