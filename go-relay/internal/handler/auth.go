@@ -225,9 +225,28 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 
 	// GET /auth/verify
 	r.Get("/verify", func(w http.ResponseWriter, r *http.Request) {
+		writeVerifyPage := func(status int, title, heading, body string, isError bool) {
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			w.WriteHeader(status)
+			color := "#4CAF50"
+			if isError {
+				color = "#e74c3c"
+			}
+			fmt.Fprintf(w, `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>%s</title>
+<style>body{font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#1a1a2e}
+.card{background:#fff;border-radius:8px;padding:40px;max-width:420px;width:90%%;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+h2{color:%s;margin-top:0}p{color:#555;line-height:1.5}
+a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#fff;text-decoration:none;border-radius:4px}</style>
+</head>
+<body><div class="card"><h2>%s</h2><p>%s</p><a href="/">Go to App</a></div></body>
+</html>`, title, color, color, heading, body)
+		}
+
 		rawToken := r.URL.Query().Get("token")
 		if rawToken == "" {
-			helpers.WriteError(w, http.StatusBadRequest, "Verification token is required")
+			writeVerifyPage(http.StatusBadRequest, "Verification Failed", "Verification Failed", "No verification token was provided.", true)
 			return
 		}
 
@@ -236,17 +255,14 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 
 		ctx := r.Context()
 
-		// Find user by verification token hash
-		var user *model.User
-
 		users := db.UserStore()
 		sqlStore, ok := users.(*model.SQLUserStore)
 		if !ok {
-			helpers.WriteError(w, http.StatusInternalServerError, "Verification failed")
+			writeVerifyPage(http.StatusInternalServerError, "Verification Failed", "Something Went Wrong", "Please try again later.", true)
 			return
 		}
 
-		user = &model.User{}
+		user := &model.User{}
 		col := func(name string) string { return model.Col(sqlStore.DBType, name) }
 		tableName := `"Users"`
 		if sqlStore.DBType == "sqlite" {
@@ -255,40 +271,32 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 		query := fmt.Sprintf("SELECT * FROM %s WHERE %s = $1", tableName, col("verification_token_hash"))
 		err := sqlStore.DB.GetContext(ctx, user, query, tokenHash)
 		if err != nil {
-			helpers.WriteError(w, http.StatusBadRequest, "Invalid or expired verification token")
+			writeVerifyPage(http.StatusBadRequest, "Verification Failed", "Invalid or Expired Link", "This verification link is invalid or has already been used.", true)
 			return
 		}
 
-		// Check expiry
 		if user.VerificationTokenExpiresAt != nil && user.VerificationTokenExpiresAt.Valid &&
 			time.Now().After(user.VerificationTokenExpiresAt.Time) {
-			helpers.WriteError(w, http.StatusBadRequest, "Verification token has expired")
+			writeVerifyPage(http.StatusBadRequest, "Verification Failed", "Link Expired", "This verification link has expired. Please request a new one.", true)
 			return
 		}
 
 		if user.EmailVerified {
-			helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{
-				"message":       "Email already verified",
-				"emailVerified": true,
-			})
+			writeVerifyPage(http.StatusOK, "Already Verified", "Already Verified", "Your email address has already been verified.", false)
 			return
 		}
 
-		// Mark as verified and clear token
 		user.EmailVerified = true
 		user.VerificationTokenHash = sql.NullString{}
 		user.VerificationTokenExpiresAt = nil
 		if err := db.UserStore().Update(ctx, user); err != nil {
 			log.Error().Err(err).Int64("userId", user.ID).Msg("Failed to verify email")
-			helpers.WriteError(w, http.StatusInternalServerError, "Verification failed")
+			writeVerifyPage(http.StatusInternalServerError, "Verification Failed", "Something Went Wrong", "Please try again later.", true)
 			return
 		}
 
 		log.Info().Int64("userId", user.ID).Msg("Email verified successfully")
-		helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{
-			"message":       "Email verified successfully",
-			"emailVerified": true,
-		})
+		writeVerifyPage(http.StatusOK, "Email Verified", "Email Verified!", "Your email address has been verified. You can now use your account.", false)
 	})
 
 	// POST /auth/resend-verification

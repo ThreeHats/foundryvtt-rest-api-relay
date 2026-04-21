@@ -23,7 +23,7 @@ func extractEmailAddress(from string) string {
 
 // SendVerificationEmail sends an email verification email, or logs the URL if SMTP is not configured.
 func SendVerificationEmail(cfg *config.Config, to, verifyToken string) {
-	verifyURL := fmt.Sprintf("%s/verify?token=%s", cfg.FrontendURL, verifyToken)
+	verifyURL := fmt.Sprintf("%s/auth/verify?token=%s", cfg.FrontendURL, verifyToken)
 
 	if cfg.SMTPHost == "" {
 		log.Info().Str("email", to).Str("verifyURL", verifyURL).Msg("Email verification (SMTP not configured)")
