@@ -123,6 +123,10 @@ type KnownClientStore interface {
 	FindByWorldIDCrossUser(ctx context.Context, worldID string, excludeUserID int64) (*KnownClient, error)
 	SetOnline(ctx context.Context, userID int64, clientID string) error
 	SetOffline(ctx context.Context, userID int64, clientID string) error
+	// ResetAllOnline marks every known client as offline. Called at startup
+	// on single-instance deployments to clear stale flags left by a crash or
+	// unclean shutdown. Not safe to call on a running multi-instance cluster.
+	ResetAllOnline(ctx context.Context) error
 	SetAutoStartOnRemoteRequest(ctx context.Context, id int64, enabled bool) error
 	SetCredentialID(ctx context.Context, id int64, credentialID sql.NullInt64) error
 	SetCrossWorldSettings(ctx context.Context, id int64, allowedTargetClients, remoteScopes sql.NullString, remoteRequestsPerHour int) error
@@ -152,18 +156,19 @@ func (s *SQLKnownClientStore) Upsert(ctx context.Context, client *KnownClient) e
 	if s.DBType == "sqlite" {
 		// $1=user_id  $2=client_id  $3=world_id  $4=world_title  $5=system_id  $6=system_title
 		// $7=system_version  $8=foundry_version  $9=custom_name  $10=is_online
-		// $11=created_at  $12=updated_at
-		query := fmt.Sprintf(`INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+		// $11=created_at  $12=updated_at  $13=last_seen_at
+		query := fmt.Sprintf(`INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
 			ON CONFLICT(%s, %s) DO UPDATE SET
 				%s=excluded.%s, %s=excluded.%s, %s=excluded.%s,
 				%s=excluded.%s, %s=excluded.%s, %s=excluded.%s,
-				%s=excluded.%s, %s=excluded.%s, %s=excluded.%s`,
+				%s=excluded.%s, %s=excluded.%s, %s=excluded.%s,
+				%s=excluded.%s`,
 			s.tableName(),
 			s.col("user_id"), s.col("client_id"), s.col("world_id"), s.col("world_title"),
 			s.col("system_id"), s.col("system_title"), s.col("system_version"),
 			s.col("foundry_version"), s.col("custom_name"), s.col("is_online"),
-			s.col("created_at"), s.col("updated_at"),
+			s.col("created_at"), s.col("updated_at"), s.col("last_seen_at"),
 			// conflict columns
 			s.col("user_id"), s.col("client_id"),
 			// update set — use excluded.<col> for everything to keep parameter binding clean
@@ -175,13 +180,14 @@ func (s *SQLKnownClientStore) Upsert(ctx context.Context, client *KnownClient) e
 			s.col("foundry_version"), s.col("foundry_version"),
 			s.col("custom_name"), s.col("custom_name"),
 			s.col("is_online"), s.col("is_online"),
-			s.col("updated_at"), s.col("updated_at"))
+			s.col("updated_at"), s.col("updated_at"),
+			s.col("last_seen_at"), s.col("last_seen_at"))
 
 		result, err := s.DB.ExecContext(ctx, query,
 			client.UserID, client.ClientID, client.WorldID, client.WorldTitle,
 			client.SystemID, client.SystemTitle, client.SystemVersion,
 			client.FoundryVersion, client.CustomName, client.IsOnline,
-			now, now)
+			now, now, now)
 		if err != nil {
 			return err
 		}
@@ -198,18 +204,18 @@ func (s *SQLKnownClientStore) Upsert(ctx context.Context, client *KnownClient) e
 	}
 
 	// PostgreSQL
-	query := fmt.Sprintf(`INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+	query := fmt.Sprintf(`INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
 		ON CONFLICT (%s, %s) DO UPDATE SET
 			%s=EXCLUDED.%s, %s=EXCLUDED.%s, %s=EXCLUDED.%s,
 			%s=EXCLUDED.%s, %s=EXCLUDED.%s, %s=EXCLUDED.%s,
-			%s=EXCLUDED.%s, %s=EXCLUDED.%s, %s=$12
+			%s=EXCLUDED.%s, %s=EXCLUDED.%s, %s=$12, %s=$13
 		RETURNING id`,
 		s.tableName(),
 		s.col("user_id"), s.col("client_id"), s.col("world_id"), s.col("world_title"),
 		s.col("system_id"), s.col("system_title"), s.col("system_version"),
 		s.col("foundry_version"), s.col("custom_name"), s.col("is_online"),
-		s.col("created_at"), s.col("updated_at"),
+		s.col("created_at"), s.col("updated_at"), s.col("last_seen_at"),
 		// conflict columns
 		s.col("user_id"), s.col("client_id"),
 		// update set
@@ -221,13 +227,13 @@ func (s *SQLKnownClientStore) Upsert(ctx context.Context, client *KnownClient) e
 		s.col("foundry_version"), s.col("foundry_version"),
 		s.col("custom_name"), s.col("custom_name"),
 		s.col("is_online"), s.col("is_online"),
-		s.col("updated_at"))
+		s.col("updated_at"), s.col("last_seen_at"))
 
 	return s.DB.QueryRowContext(ctx, query,
 		client.UserID, client.ClientID, client.WorldID, client.WorldTitle,
 		client.SystemID, client.SystemTitle, client.SystemVersion,
 		client.FoundryVersion, client.CustomName, bool(client.IsOnline),
-		now, now,
+		now, now, now,
 	).Scan(&client.ID)
 }
 
@@ -308,6 +314,11 @@ func (s *SQLKnownClientStore) SetOffline(ctx context.Context, userID int64, clie
 		s.tableName(), s.col("is_online"), s.col("last_seen_at"), s.col("updated_at"),
 		s.col("user_id"), s.col("client_id"))
 	_, err := s.DB.ExecContext(ctx, query, now, now, userID, clientID)
+	return err
+}
+
+func (s *SQLKnownClientStore) ResetAllOnline(ctx context.Context) error {
+	_, err := s.DB.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET %s = 0`, s.tableName(), s.col("is_online")))
 	return err
 }
 

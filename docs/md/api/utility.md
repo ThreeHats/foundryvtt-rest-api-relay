@@ -187,12 +187,12 @@ import axios from 'axios';
 ```json
 {
   "type": "select-result",
-  "requestId": "select_1776657990079",
+  "requestId": "select_1777909299074",
   "success": true,
   "count": 1,
   "message": "1 entities selected",
   "selected": [
-    "Scene.r36nfimJGHYGUGQX.Token.Q9y6lc2dPYs2WRQT"
+    "Scene.p5lAI5vNiA5ncl9B.Token.ebSQCS3wIuQT63xH"
   ]
 }
 ```
@@ -354,12 +354,12 @@ import axios from 'axios';
 ```json
 {
   "type": "selected-result",
-  "requestId": "selected_1776657990085",
+  "requestId": "selected_1777909299078",
   "success": true,
   "selected": [
     {
-      "tokenUuid": "Scene.r36nfimJGHYGUGQX.Token.Q9y6lc2dPYs2WRQT",
-      "actorUuid": "Scene.r36nfimJGHYGUGQX.Token.Q9y6lc2dPYs2WRQT.Actor.q9uWyfdPwTlzbpxb"
+      "tokenUuid": "Scene.p5lAI5vNiA5ncl9B.Token.ebSQCS3wIuQT63xH",
+      "actorUuid": "Scene.p5lAI5vNiA5ncl9B.Token.ebSQCS3wIuQT63xH.Actor.XbLqdbLds9Ybm89t"
     }
   ]
 }
@@ -522,7 +522,7 @@ import axios from 'axios';
 ```json
 {
   "type": "players-result",
-  "requestId": "players_1776657990090",
+  "requestId": "players_1777909299082",
   "users": [
     {
       "id": "5ypAoBvOiyjDKiaZ",
@@ -543,12 +543,30 @@ import axios from 'axios';
       "avatar": "icons/svg/mystery-man.svg"
     },
     {
+      "id": "XQP35eYL5dUPscgE",
+      "name": "s2s-test-2",
+      "role": 1,
+      "isGM": false,
+      "active": false,
+      "color": "#a0cc28",
+      "avatar": "icons/svg/mystery-man.svg"
+    },
+    {
       "id": "JLfKTeTgCDpAdDfw",
       "name": "some-cool-guy",
       "role": 1,
       "isGM": false,
       "active": false,
       "color": "#6328cc",
+      "avatar": "icons/svg/mystery-man.svg"
+    },
+    {
+      "id": "NIY9RLVBVRZgBH66",
+      "name": "test",
+      "role": 1,
+      "isGM": false,
+      "active": false,
+      "color": "#cc6328",
       "avatar": "icons/svg/mystery-man.svg"
     }
   ]
@@ -712,7 +730,7 @@ import axios from 'axios';
 ```json
 {
   "type": "world-info-result",
-  "requestId": "world-info_1776657990130",
+  "requestId": "world-info_1777909299107",
   "data": {
     "world": {
       "id": "testing",
@@ -1046,7 +1064,7 @@ import axios from 'axios';
       {
         "id": "foundry-rest-api",
         "title": "Foundry REST API",
-        "version": "3.0.0",
+        "version": "3.0.2",
         "active": true
       },
       {
@@ -1622,6 +1640,15 @@ import axios from 'axios';
         "avatar": "icons/svg/mystery-man.svg"
       },
       {
+        "id": "XQP35eYL5dUPscgE",
+        "name": "s2s-test-2",
+        "role": 1,
+        "isGM": false,
+        "active": false,
+        "color": "#a0cc28",
+        "avatar": "icons/svg/mystery-man.svg"
+      },
+      {
         "id": "JLfKTeTgCDpAdDfw",
         "name": "some-cool-guy",
         "role": 1,
@@ -1629,13 +1656,202 @@ import axios from 'axios';
         "active": false,
         "color": "#6328cc",
         "avatar": "icons/svg/mystery-man.svg"
+      },
+      {
+        "id": "NIY9RLVBVRZgBH66",
+        "name": "test",
+        "role": 1,
+        "isGM": false,
+        "active": false,
+        "color": "#cc6328",
+        "avatar": "icons/svg/mystery-man.svg"
       }
     ],
     "activeScene": {
-      "id": "r36nfimJGHYGUGQX",
+      "id": "p5lAI5vNiA5ncl9B",
       "name": "test-scene-updated"
     }
   }
+}
+```
+
+
+---
+
+## POST /execute-js
+
+Execute JavaScript
+
+Executes a JavaScript script in the Foundry VTT client.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| clientId | string |  | query | Client ID for the Foundry world |
+| script | string |  | body | JavaScript script to execute |
+| userId | string |  | query, body | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+### Returns
+
+**object** - The result of the executed script
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/execute-js"
+  parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"script","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/execute-js';
+const params = {
+  clientId: 'fvtt_099ad17ea199e7e3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "script": "const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/execute-js?clientId=fvtt_099ad17ea199e7e3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"script":"const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/execute-js'
+params = {
+    'clientId': 'fvtt_099ad17ea199e7e3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "script": "const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/execute-js';
+  const params = {
+    clientId: 'fvtt_099ad17ea199e7e3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "script": "const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/execute-js🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"script":"const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /execute-js🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 104❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "execute-js-result",
+  "requestId": "execute-js_1777909299084",
+  "success": true,
+  "result": "ws://localhost:3010/relay"
 }
 ```
 

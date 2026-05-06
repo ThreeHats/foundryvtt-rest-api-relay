@@ -9,6 +9,7 @@ import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 import { TEST_ORDER } from '../tests/helpers/testSequencer';
+import { startResourceMonitor, readTestStats, printResourceReport } from './resourceMonitor';
 
 /** Recursively find all test files under a directory, indexed by basename */
 function indexTestFiles(dir: string): Map<string, string> {
@@ -47,6 +48,8 @@ async function runAllTestsInOrder(): Promise<void> {
   // Path to custom sequencer (use TS file - Jest will handle via ts-jest)
   const sequencerPath = path.resolve(__dirname, '../tests/helpers/testSequencer.ts');
   
+  const monitor = startResourceMonitor();
+
   return new Promise((resolve, reject) => {
     // Run Jest with custom sequencer to enforce test order
     const jestProcess = spawn('jest', [
@@ -60,17 +63,21 @@ async function runAllTestsInOrder(): Promise<void> {
     });
 
     jestProcess.on('close', (code) => {
+      const report = monitor.stop();
+      const testStats = readTestStats();
       console.log('\n' + '─'.repeat(60));
+      printResourceReport(report, testStats);
       if (code !== 0) {
-        console.log(`\n❌ Tests failed with exit code ${code}\n`);
+        console.log(`❌ Tests failed with exit code ${code}\n`);
         reject(new Error(`Tests failed with exit code ${code}`));
       } else {
-        console.log('\n✨ All tests completed successfully!\n');
+        console.log('✨ All tests completed successfully!\n');
         resolve();
       }
     });
 
     jestProcess.on('error', (error) => {
+      monitor.stop();
       console.error('Error running Jest:', error);
       reject(error);
     });

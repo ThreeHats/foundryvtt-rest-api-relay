@@ -152,4 +152,4 @@ See [WebSocket API](./websocket) for the full connection flow and message refere
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `CREDENTIALS_ENCRYPTION_KEY` | (required for credential storage) | 32-byte key for AES-256-GCM, hex or base64 encoded |
-| `MAX_HEADLESS_SESSIONS` | `1` | Default max concurrent headless sessions per paid user |
+| `MAX_HEADLESS_SESSIONS` | `0` | Default max concurrent headless sessions. `0` means no limit |

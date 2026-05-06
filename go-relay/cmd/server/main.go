@@ -40,15 +40,25 @@ func main() {
 	// Load configuration
 	cfg := config.Load()
 
-	// Validate required configuration (fails fast on misconfiguration)
-	if err := cfg.Validate(); err != nil {
-		log.Fatal().Err(err).Msg("Invalid configuration")
+	// Setup logging before EnsureSecrets so startup warnings are formatted correctly.
+	setupLogging(cfg.LogLevel)
+
+	// Auto-generate secrets if not provided via environment variables.
+	// Generated keys are persisted to <dataDir>/.secrets.env so they survive restarts.
+	secrets, err := cfg.EnsureSecrets(cfg.DataDir)
+	if err != nil {
+		log.Fatal().Err(err).Msg("Failed to initialize secrets")
+	}
+	if secrets.GeneratedEncryptionKey {
+		log.Warn().Str("file", secrets.SecretsFilePath).
+			Msg("CREDENTIALS_ENCRYPTION_KEY was auto-generated and saved — if this file is lost, users will need to re-enter their stored Foundry credentials")
+	}
+	if secrets.GeneratedJWTSecret {
+		log.Warn().Str("file", secrets.SecretsFilePath).
+			Msg("ADMIN_JWT_SECRET was auto-generated and saved")
 	}
 
 	middleware.SetAuthCacheTTL(time.Duration(cfg.AuthCacheTTLSeconds) * time.Second)
-
-	// Setup logging
-	setupLogging(cfg.LogLevel)
 
 	log.Info().Str("version", version).Msg("Starting FoundryVTT REST API Relay")
 
@@ -88,6 +98,15 @@ func main() {
 			log.Warn().Err(err).Msg("Failed to initialize Redis, continuing without it")
 		} else {
 			defer redisClient.Close()
+		}
+	}
+
+	// Single-instance only: reset stale isOnline flags left by a crash or
+	// unclean shutdown. Skipped in multi-instance mode (Redis configured)
+	// because other running instances may have legitimately-connected clients.
+	if redisClient == nil {
+		if err := db.KnownClientStore().ResetAllOnline(context.Background()); err != nil {
+			log.Warn().Err(err).Msg("Failed to reset stale online flags")
 		}
 	}
 

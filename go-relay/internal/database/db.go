@@ -36,12 +36,10 @@ func New(cfg *config.Config) (*DB, error) {
 		log.Info().Msg("Using SQLite database")
 		dbPath := os.Getenv("SQLITE_PATH")
 		if dbPath == "" {
-			// Project root data/ directory (go-relay runs from go-relay/, so ../data/)
-			dataDir := filepath.Join("..", "data")
-			if err := os.MkdirAll(dataDir, 0755); err != nil {
+			if err := os.MkdirAll(cfg.DataDir, 0755); err != nil {
 				return nil, fmt.Errorf("create data dir: %w", err)
 			}
-			dbPath = filepath.Join(dataDir, "relay.db")
+			dbPath = filepath.Join(cfg.DataDir, "relay.db")
 		}
 		log.Info().Str("path", dbPath).Msg("SQLite database path")
 

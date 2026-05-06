@@ -200,6 +200,7 @@ func searchGet() helpers.APIRouteConfig {
 			{Name: "excludeCompendiums", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeBoolean, Description: "Exclude compendium entries from results (default: false — compendiums are included by default)"},
 			{Name: "limit", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeNumber, Description: "Maximum number of results to return (default: 200, max: 500)"},
 			{Name: "minified", From: []helpers.ParamSource{helpers.FromQuery}, Type: helpers.TypeBoolean, Description: "Return minimal fields only — uuid, id, name, img, documentType (default: false)"},
+			{Name: "ownedByUserId", From: []helpers.ParamSource{helpers.FromQuery}, Description: "Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},
 			userIDParam(),
 		},
 		ValidateParams: func(params helpers.Params, r *http.Request) (map[string]interface{}, bool) {
@@ -701,15 +702,15 @@ func switchScene() helpers.APIRouteConfig {
 var validDocTypes = map[string]string{
 	"tokens": "Token", "tiles": "Tile", "drawings": "Drawing",
 	"lights": "AmbientLight", "sounds": "AmbientSound", "notes": "Note",
-	"templates": "MeasuredTemplate", "walls": "Wall",
+	"templates": "MeasuredTemplate", "walls": "Wall", "regions": "Region",
 }
 
 func validateDocType(params helpers.Params, r *http.Request) (map[string]interface{}, bool) {
 	dt := params.GetString("documentType")
 	if _, ok := validDocTypes[dt]; !ok {
 		return map[string]interface{}{
-			"error":      "Invalid documentType. Must be one of: tokens, tiles, drawings, lights, sounds, notes, templates, walls",
-			"validTypes": []string{"tokens", "tiles", "drawings", "lights", "sounds", "notes", "templates", "walls"},
+			"error":      "Invalid documentType. Must be one of: tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions",
+			"validTypes": []string{"tokens", "tiles", "drawings", "lights", "sounds", "notes", "templates", "walls", "regions"},
 		}, true
 	}
 	return nil, false
@@ -725,7 +726,7 @@ func addClassName(params helpers.Params, r *http.Request) map[string]interface{}
 	return result
 }
 
-var dtParam = helpers.ParamDef{Name: "documentType", From: []helpers.ParamSource{helpers.FromParams}, Type: helpers.TypeString, Required: true, Description: "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"}
+var dtParam = helpers.ParamDef{Name: "documentType", From: []helpers.ParamSource{helpers.FromParams}, Type: helpers.TypeString, Required: true, Description: "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)"}
 
 // Get canvas embedded documents
 //
@@ -1123,7 +1124,7 @@ func clientsHandler(mgr *ws.ClientManager, cfg *config.Config, db *database.DB) 
 								SystemVersion:  kc.SystemVersion.String,
 								CustomName:     kc.CustomName.String,
 							},
-							IsOnline: false,
+							IsOnline: mgr.IsClientOnlineAnywhere(r.Context(), kc.ClientID),
 						})
 					}
 				}

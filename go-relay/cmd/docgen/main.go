@@ -208,12 +208,19 @@ func parseRoutes(src string) []rawRoute {
 		routes = append(routes, rawRoute{method: strings.ToUpper(m[1]), path: m[2], handlerFunc: m[3]})
 	}
 
+	// Pattern: r.Post("/path", helpers.CreateAPIRoute(mgr, pending, funcName(...)))
+	// Parameterized config functions like macroExecute, executeJsPost.
+	reCreateAPIRoute := regexp.MustCompile(`r\.(Get|Post|Put|Delete)\("([^"]+)",\s*helpers\.CreateAPIRoute\(mgr,\s*pending,\s*(\w+)\(`)
+	for _, m := range reCreateAPIRoute.FindAllStringSubmatch(src, -1) {
+		routes = append(routes, rawRoute{method: strings.ToUpper(m[1]), path: m[2], handlerFunc: m[3]})
+	}
+
 	// Pattern: r.Get("/path", handlerFunc(mgr, pending)) or handlerFunc(mgr, pending, ...)
 	// Manual handlers like sheetGetHandler, uploadHandler, sessionHandshakeHandler, etc.
 	reManual := regexp.MustCompile(`r\.(Get|Post|Put|Delete)\("([^"]+)",\s*(\w+)\(`)
 	for _, m := range reManual.FindAllStringSubmatch(src, -1) {
 		funcName := m[3]
-		if funcName == "h" {
+		if funcName == "h" || funcName == "helpers" {
 			continue // already handled above
 		}
 		routes = append(routes, rawRoute{method: strings.ToUpper(m[1]), path: m[2], handlerFunc: funcName})
@@ -284,8 +291,8 @@ func parseConfigFunctions(src string, extraHelpers ...map[string]paramDef) map[s
 			continue
 		}
 
-		// Extract function name
-		re := regexp.MustCompile(`func (\w+)\(\)\s*helpers\.APIRouteConfig`)
+		// Extract function name — matches both zero-param and parameterized functions
+		re := regexp.MustCompile(`func (\w+)\([^)]*\)\s*helpers\.APIRouteConfig`)
 		m := re.FindStringSubmatch(line)
 		if m == nil {
 			continue

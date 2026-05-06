@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net"
 	"strconv"
 	"sync"
 	"time"
@@ -83,22 +84,44 @@ func NewClientManager(redis *config.RedisClient, instanceID string) *ClientManag
 func (m *ClientManager) AddClient(conn *websocket.Conn, id, token, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName string) (*Client, error) {
 	m.mu.Lock()
 
-	// Reject duplicate connections
+	// Handle duplicate connections: evict if same IP (reconnect after network drop),
+	// reject if different IP (possible concurrent connection from another machine).
 	if existing, exists := m.clients[id]; exists {
-		existingIP := existing.IPAddress() // capture before unlock
-		m.mu.Unlock()
+		existingIP := existing.IPAddress()
 		newIP := ""
 		if conn.RemoteAddr() != nil {
 			newIP = conn.RemoteAddr().String()
 		}
-		log.Warn().Str("clientId", id).Str("newIp", newIP).Str("existingIp", existingIP).Msg("Client already exists, rejecting connection")
-		conn.WriteMessage(websocket.CloseMessage,
-			websocket.FormatCloseMessage(4004, "Client ID already connected"))
-		conn.Close()
-		if m.OnDuplicateConnectionRejected != nil {
-			go m.OnDuplicateConnectionRejected(id, token, newIP, existingIP)
+		existingHost, _, _ := net.SplitHostPort(existingIP)
+		newHost, _, _ := net.SplitHostPort(newIP)
+		if existingHost != "" && newHost != "" && existingHost == newHost {
+			// Same IP — stale connection from a network drop. Evict it so the
+			// reconnect succeeds immediately without waiting for cleanup.
+			log.Info().Str("clientId", id).Str("ip", newIP).Msg("Evicting stale connection, accepting reconnect from same IP")
+			delete(m.clients, id)
+			if group, ok := m.tokenGroups[token]; ok {
+				delete(group, id)
+				if len(group) == 0 {
+					delete(m.tokenGroups, token)
+				}
+			}
+			go func() {
+				existing.conn.WriteMessage(websocket.CloseMessage,
+					websocket.FormatCloseMessage(1000, "Replaced by reconnect"))
+				existing.conn.Close()
+			}()
+			// Fall through to register the new connection below.
+		} else {
+			m.mu.Unlock()
+			log.Warn().Str("clientId", id).Str("newIp", newIP).Str("existingIp", existingIP).Msg("Client already exists, rejecting connection")
+			conn.WriteMessage(websocket.CloseMessage,
+				websocket.FormatCloseMessage(4004, "Client ID already connected"))
+			conn.Close()
+			if m.OnDuplicateConnectionRejected != nil {
+				go m.OnDuplicateConnectionRejected(id, token, newIP, existingIP)
+			}
+			return nil, fmt.Errorf("duplicate client ID: %s", id)
 		}
-		return nil, fmt.Errorf("duplicate client ID: %s", id)
 	}
 
 	client := NewClient(conn, id, token, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName)
@@ -270,6 +293,61 @@ func (m *ClientManager) RemoveClient(id string) {
 		}
 	}
 
+	log.Info().
+		Str("clientId", id).
+		Str("worldId", client.WorldID()).
+		Str("foundryVersion", client.FoundryVersion()).
+		Str("systemId", client.SystemID()).
+		Msg("Client disconnected")
+	metrics.WSConnectionsActive.Dec()
+}
+
+// RemoveClientIfMatch removes the client only if the registered *Client pointer
+// matches expected. This prevents the evict-and-replace race where the old
+// connection's deferred cleanup goroutine would otherwise remove the freshly
+// registered replacement client.
+func (m *ClientManager) RemoveClientIfMatch(id string, expected *Client) {
+	m.mu.Lock()
+	client, exists := m.clients[id]
+	if !exists || client != expected {
+		m.mu.Unlock()
+		return
+	}
+	token := client.APIKey()
+	if m.OnClientRemoved != nil {
+		m.OnClientRemoved(id, token)
+	}
+	delete(m.clients, id)
+	if group, ok := m.tokenGroups[token]; ok {
+		delete(group, id)
+		if len(group) == 0 {
+			delete(m.tokenGroups, token)
+		}
+	}
+	m.mu.Unlock()
+
+	if m.OnSSEClose != nil {
+		m.OnSSEClose(id)
+	}
+	if m.redis != nil && m.redis.IsConnected() {
+		ctx := context.Background()
+		cmd := disconnectCmd{Kind: "sse-close", ClientID: id, Origin: m.instanceID}
+		if payload, err := json.Marshal(cmd); err == nil {
+			m.redis.SafePublish(ctx, disconnectChannel, string(payload))
+		}
+	}
+	if m.redis != nil && m.redis.IsConnected() {
+		ctx := context.Background()
+		m.redis.SafeDel(ctx, fmt.Sprintf("client:%s:instance", id))
+		m.redis.SafeDel(ctx, fmt.Sprintf("client:%s:apikey", id))
+		m.redis.SafeDel(ctx, fmt.Sprintf("client:%s:connectionTokenId", id))
+		m.redis.SafeSRem(ctx, fmt.Sprintf("apikey:%s:clients", token), id)
+		remaining, _ := m.redis.SafeSCard(ctx, fmt.Sprintf("apikey:%s:clients", token))
+		if remaining == 0 {
+			m.redis.SafeDel(ctx, fmt.Sprintf("apikey:%s:instance", token))
+			m.redis.SafeDel(ctx, fmt.Sprintf("apikey:%s:clients", token))
+		}
+	}
 	log.Info().
 		Str("clientId", id).
 		Str("worldId", client.WorldID()).
@@ -656,6 +734,8 @@ func (m *ClientManager) CountConnectedClients() int {
 }
 
 // UpdateClientLastSeen updates a client's last seen timestamp and refreshes Redis TTLs.
+// Called from the pong handler (every ping interval) to keep cross-instance routing
+// keys alive. All EXPIRE calls are batched in a single pipeline round-trip.
 func (m *ClientManager) UpdateClientLastSeen(id string) {
 	m.mu.RLock()
 	client, exists := m.clients[id]
@@ -670,10 +750,16 @@ func (m *ClientManager) UpdateClientLastSeen(id string) {
 	if m.redis != nil && m.redis.IsConnected() {
 		ctx := context.Background()
 		token := client.APIKey()
-		m.redis.SafeExpire(ctx, fmt.Sprintf("client:%s:instance", id), clientExpiry)
-		m.redis.SafeExpire(ctx, fmt.Sprintf("client:%s:apikey", id), clientExpiry)
-		m.redis.SafeExpire(ctx, fmt.Sprintf("apikey:%s:clients", token), clientExpiry)
-		m.redis.SafeExpire(ctx, fmt.Sprintf("apikey:%s:instance", token), clientExpiry)
+		pipe := m.redis.Pipeline()
+		if pipe != nil {
+			pipe.Expire(ctx, fmt.Sprintf("client:%s:instance", id), clientExpiry)
+			pipe.Expire(ctx, fmt.Sprintf("client:%s:apikey", id), clientExpiry)
+			pipe.Expire(ctx, fmt.Sprintf("apikey:%s:clients", token), clientExpiry)
+			pipe.Expire(ctx, fmt.Sprintf("apikey:%s:instance", token), clientExpiry)
+			if _, err := pipe.Exec(ctx); err != nil {
+				log.Warn().Err(err).Str("clientId", id).Msg("Redis TTL refresh pipeline failed")
+			}
+		}
 	}
 }
 

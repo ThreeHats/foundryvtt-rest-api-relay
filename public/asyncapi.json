@@ -1382,7 +1382,7 @@
                 "type": "object"
               },
               "documentType": {
-                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
                 "type": "string"
               },
               "requestId": {
@@ -1929,7 +1929,7 @@
                 "type": "string"
               },
               "documentType": {
-                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
                 "type": "string"
               },
               "requestId": {
@@ -2599,6 +2599,76 @@
         "summary": "Receive equip-item response"
       }
     },
+    "request/execute-js": {
+      "description": "Execute JavaScript",
+      "publish": {
+        "message": {
+          "name": "execute-js",
+          "payload": {
+            "properties": {
+              "requestId": {
+                "description": "Unique request ID for correlation",
+                "type": "string"
+              },
+              "script": {
+                "description": "JavaScript script to execute",
+                "type": "string"
+              },
+              "type": {
+                "const": "execute-js",
+                "description": "Message type",
+                "type": "string"
+              },
+              "userId": {
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ],
+            "type": "object"
+          },
+          "summary": "Execute JavaScript"
+        },
+        "operationId": "send_execute-js",
+        "summary": "Send execute-js request"
+      },
+      "subscribe": {
+        "message": {
+          "name": "execute-js-result",
+          "payload": {
+            "properties": {
+              "clientId": {
+                "description": "Foundry client ID",
+                "type": "string"
+              },
+              "error": {
+                "description": "Error message if request failed",
+                "type": "string"
+              },
+              "requestId": {
+                "description": "Echoed request ID",
+                "type": "string"
+              },
+              "type": {
+                "const": "execute-js-result",
+                "description": "Response message type",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ],
+            "type": "object"
+          }
+        },
+        "operationId": "receive_execute-js_result",
+        "summary": "Receive execute-js response"
+      }
+    },
     "request/file-system": {
       "description": "Get file system structure",
       "publish": {
@@ -2765,7 +2835,7 @@
                 "type": "string"
               },
               "documentType": {
-                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
                 "type": "string"
               },
               "requestId": {
@@ -3938,6 +4008,81 @@
         "summary": "Receive long-rest response"
       }
     },
+    "request/macro-execute": {
+      "description": "Execute a macro by UUID",
+      "publish": {
+        "message": {
+          "name": "macro-execute",
+          "payload": {
+            "properties": {
+              "args": {
+                "description": "Optional arguments to pass to the macro execution",
+                "type": "object"
+              },
+              "requestId": {
+                "description": "Unique request ID for correlation",
+                "type": "string"
+              },
+              "type": {
+                "const": "macro-execute",
+                "description": "Message type",
+                "type": "string"
+              },
+              "userId": {
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                "type": "string"
+              },
+              "uuid": {
+                "description": "UUID of the macro to execute",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "uuid"
+            ],
+            "type": "object"
+          },
+          "summary": "Execute a macro by UUID"
+        },
+        "operationId": "send_macro-execute",
+        "summary": "Send macro-execute request"
+      },
+      "subscribe": {
+        "message": {
+          "name": "macro-execute-result",
+          "payload": {
+            "properties": {
+              "clientId": {
+                "description": "Foundry client ID",
+                "type": "string"
+              },
+              "error": {
+                "description": "Error message if request failed",
+                "type": "string"
+              },
+              "requestId": {
+                "description": "Echoed request ID",
+                "type": "string"
+              },
+              "type": {
+                "const": "macro-execute-result",
+                "description": "Response message type",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ],
+            "type": "object"
+          }
+        },
+        "operationId": "receive_macro-execute_result",
+        "summary": "Receive macro-execute response"
+      }
+    },
     "request/macros": {
       "description": "Get all macros",
       "publish": {
@@ -4104,6 +4249,87 @@
         },
         "operationId": "receive_measure-distance_result",
         "summary": "Receive measure-distance response"
+      }
+    },
+    "request/modify-currency": {
+      "description": "Modify currency balance for a single actor (delta-based, not a transfer between actors)",
+      "publish": {
+        "message": {
+          "name": "modify-currency",
+          "payload": {
+            "properties": {
+              "actorUuid": {
+                "description": "UUID of the actor",
+                "type": "string"
+              },
+              "amount": {
+                "description": "Amount to add (positive) or remove (negative)",
+                "type": "number"
+              },
+              "currency": {
+                "description": "Currency denomination to modify (pp, gp, ep, sp, cp)",
+                "type": "string"
+              },
+              "requestId": {
+                "description": "Unique request ID for correlation",
+                "type": "string"
+              },
+              "type": {
+                "const": "modify-currency",
+                "description": "Message type",
+                "type": "string"
+              },
+              "userId": {
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid",
+              "currency",
+              "amount"
+            ],
+            "type": "object"
+          },
+          "summary": "Modify currency balance for a single actor (delta-based, not a transfer between actors)"
+        },
+        "operationId": "send_modify-currency",
+        "summary": "Send modify-currency request"
+      },
+      "subscribe": {
+        "message": {
+          "name": "modify-currency-result",
+          "payload": {
+            "properties": {
+              "clientId": {
+                "description": "Foundry client ID",
+                "type": "string"
+              },
+              "error": {
+                "description": "Error message if request failed",
+                "type": "string"
+              },
+              "requestId": {
+                "description": "Echoed request ID",
+                "type": "string"
+              },
+              "type": {
+                "const": "modify-currency-result",
+                "description": "Response message type",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ],
+            "type": "object"
+          }
+        },
+        "operationId": "receive_modify-currency_result",
+        "summary": "Receive modify-currency response"
       }
     },
     "request/modify-experience": {
@@ -4967,6 +5193,87 @@
         "summary": "Receive playlist-volume response"
       }
     },
+    "request/prepare-spell": {
+      "description": "Prepare or unprepare a spell for an actor",
+      "publish": {
+        "message": {
+          "name": "prepare-spell",
+          "payload": {
+            "properties": {
+              "actorUuid": {
+                "description": "UUID of the actor",
+                "type": "string"
+              },
+              "prepared": {
+                "description": "True to prepare the spell, false to unprepare it",
+                "type": "boolean"
+              },
+              "requestId": {
+                "description": "Unique request ID for correlation",
+                "type": "string"
+              },
+              "spellName": {
+                "description": "Name of the spell to prepare or unprepare",
+                "type": "string"
+              },
+              "type": {
+                "const": "prepare-spell",
+                "description": "Message type",
+                "type": "string"
+              },
+              "userId": {
+                "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId",
+              "actorUuid",
+              "spellName",
+              "prepared"
+            ],
+            "type": "object"
+          },
+          "summary": "Prepare or unprepare a spell for an actor"
+        },
+        "operationId": "send_prepare-spell",
+        "summary": "Send prepare-spell request"
+      },
+      "subscribe": {
+        "message": {
+          "name": "prepare-spell-result",
+          "payload": {
+            "properties": {
+              "clientId": {
+                "description": "Foundry client ID",
+                "type": "string"
+              },
+              "error": {
+                "description": "Error message if request failed",
+                "type": "string"
+              },
+              "requestId": {
+                "description": "Echoed request ID",
+                "type": "string"
+              },
+              "type": {
+                "const": "prepare-spell-result",
+                "description": "Response message type",
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "requestId"
+            ],
+            "type": "object"
+          }
+        },
+        "operationId": "receive_prepare-spell_result",
+        "summary": "Receive prepare-spell response"
+      }
+    },
     "request/remove": {
       "description": "Remove an item from an entity",
       "publish": {
@@ -5463,6 +5770,10 @@
               "minified": {
                 "description": "Return minimal fields only — uuid, id, name, img, documentType (default: false)",
                 "type": "boolean"
+              },
+              "ownedByUserId": {
+                "description": "Filter results to only documents the specified Foundry user (ID or username) has Owner permission on",
+                "type": "string"
               },
               "query": {
                 "description": "Search query string (omit to browse all entities matching filter)",
@@ -6359,7 +6670,7 @@
                 "type": "string"
               },
               "documentType": {
-                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+                "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
                 "type": "string"
               },
               "requestId": {

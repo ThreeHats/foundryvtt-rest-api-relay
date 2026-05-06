@@ -1186,7 +1186,7 @@
         "operationId": "delete_canvas_documentType",
         "parameters": [
           {
-            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
             "in": "path",
             "name": "documentType",
             "required": true,
@@ -1301,7 +1301,7 @@
         "operationId": "get_canvas_documentType",
         "parameters": [
           {
-            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
             "in": "path",
             "name": "documentType",
             "required": true,
@@ -1401,7 +1401,7 @@
         "operationId": "post_canvas_documentType",
         "parameters": [
           {
-            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
             "in": "path",
             "name": "documentType",
             "required": true,
@@ -1518,7 +1518,7 @@
         "operationId": "put_canvas_documentType",
         "parameters": [
           {
-            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)",
+            "description": "Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)",
             "in": "path",
             "name": "documentType",
             "required": true,
@@ -4309,6 +4309,140 @@
         ]
       }
     },
+    "/dnd5e/modify-currency": {
+      "post": {
+        "operationId": "post_dnd5e_modify_currency",
+        "parameters": [
+          {
+            "description": "UUID of the actor",
+            "in": "query",
+            "name": "actorUuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Currency denomination to modify (pp, gp, ep, sp, cp)",
+            "in": "query",
+            "name": "currency",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Amount to add (positive) or remove (negative)",
+            "in": "query",
+            "name": "amount",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "actorUuid": {
+                    "description": "UUID of the actor",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "description": "Amount to add (positive) or remove (negative)",
+                    "type": "number"
+                  },
+                  "currency": {
+                    "description": "Currency denomination to modify (pp, gp, ep, sp, cp)",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "actorUuid",
+                  "currency",
+                  "amount"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Result of the currency modification"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Modify currency balance for a single actor (delta-based, not a transfer between actors)",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
     "/dnd5e/modify-experience": {
       "post": {
         "operationId": "post_dnd5e_modify_experience",
@@ -4582,6 +4716,140 @@
           }
         },
         "summary": "Modify the charges for a specific item owned by an actor",
+        "tags": [
+          "Dnd5e"
+        ]
+      }
+    },
+    "/dnd5e/prepare-spell": {
+      "post": {
+        "operationId": "post_dnd5e_prepare_spell",
+        "parameters": [
+          {
+            "description": "UUID of the actor",
+            "in": "query",
+            "name": "actorUuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Name of the spell to prepare or unprepare",
+            "in": "query",
+            "name": "spellName",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "True to prepare the spell, false to unprepare it",
+            "in": "query",
+            "name": "prepared",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "actorUuid": {
+                    "description": "UUID of the actor",
+                    "type": "string"
+                  },
+                  "prepared": {
+                    "description": "True to prepare the spell, false to unprepare it",
+                    "type": "boolean"
+                  },
+                  "spellName": {
+                    "description": "Name of the spell to prepare or unprepare",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "actorUuid",
+                  "spellName",
+                  "prepared"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Result of the prepare spell operation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Prepare or unprepare a spell for an actor",
         "tags": [
           "Dnd5e"
         ]
@@ -6567,6 +6835,100 @@
         ]
       }
     },
+    "/execute-js": {
+      "post": {
+        "operationId": "post_execute_js",
+        "parameters": [
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "script": {
+                    "description": "JavaScript script to execute",
+                    "type": "string"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "The result of the executed script"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Execute JavaScript",
+        "tags": [
+          "Utility"
+        ]
+      }
+    },
     "/file-system": {
       "get": {
         "operationId": "get_file_system",
@@ -7594,6 +7956,109 @@
         "summary": "Get the last roll",
         "tags": [
           "Roll"
+        ]
+      }
+    },
+    "/macro/{uuid}/execute": {
+      "post": {
+        "operationId": "post_macro_uuid_execute",
+        "parameters": [
+          {
+            "description": "UUID of the macro to execute",
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID for the Foundry world",
+            "in": "query",
+            "name": "clientId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "args": {
+                    "description": "Optional arguments to pass to the macro execution",
+                    "type": "object"
+                  },
+                  "userId": {
+                    "description": "Foundry user ID or username to scope permissions (omit for GM-level access)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Result of the macro execution"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          }
+        },
+        "summary": "Execute a macro by UUID",
+        "tags": [
+          "Macro"
         ]
       }
     },
@@ -10403,6 +10868,15 @@
             "required": false,
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "description": "Filter results to only documents the specified Foundry user (ID or username) has Owner permission on",
+            "in": "query",
+            "name": "ownedByUserId",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           },
           {

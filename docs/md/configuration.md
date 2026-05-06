@@ -137,7 +137,7 @@ Headless sessions use Chromium to automate Foundry logins.
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `ALLOW_HEADLESS` | `true` | Set to `false` to completely disable headless session creation. **Note:** headless sessions are disabled on the public hosted relay — self-host to use this feature |
-| `MAX_HEADLESS_SESSIONS` | `1` | Max concurrent headless browser sessions per instance. When Redis is configured, this cap is enforced globally across all relay instances |
+| `MAX_HEADLESS_SESSIONS` | `0` | Max concurrent headless browser sessions per instance. `0` means no limit. When Redis is configured, this cap is enforced globally across all relay instances |
 | `HEADLESS_SESSION_TIMEOUT` | `600` | Seconds of inactivity before a headless session is automatically stopped. Set to `0` to never time out due to inactivity |
 | `MAX_INTERACTIVE_SESSIONS_PER_KEY` | `3` | Max interactive sheet sessions per scoped API key |
 | `PUPPETEER_EXECUTABLE_PATH` | auto-detected | Path to Chrome/Chromium executable |
@@ -148,7 +148,7 @@ Headless sessions use Chromium to automate Foundry logins.
 | `CHROME_WINDOW_WIDTH` | `1280` | Headless browser viewport width in pixels |
 | `CHROME_WINDOW_HEIGHT` | `800` | Headless browser viewport height in pixels. Must be ≥768 (Foundry minimum). Also affects canvas/entity screenshot resolution |
 | `CHROME_ENABLE_SHM` | `false` | Allow Chrome to use `/dev/shm` for IPC. Enable when the host/container has ≥256 MB of shared memory (`--shm-size=256m` in Docker) |
-| `CHROME_GPU_MODE` | `auto` | Chrome rendering backend. `auto` detects the best available option. `gpu` = Ozone headless + ANGLE GL (real GPU via Mesa/DRI on Linux — no display server, no windows). `xvfb` = Mesa software rendering via Xvfb. `swiftshader` = software WebGL bundled in Chrome (always works, used as fallback). |
+| `CHROME_GPU_MODE` | `auto` | Chrome rendering backend. `auto` detects the best available option. `nvidia` = NVIDIA hardware acceleration via ANGLE Vulkan + native Vulkan ICD (requires nvidia-container-toolkit). `gpu` = Intel/AMD GPU via Mesa/DRI (Ozone headless + ANGLE GL — no display server required). `xvfb` = Mesa software rendering via Xvfb. `swiftshader` = software WebGL bundled in Chrome (always works, used as fallback). See [GPU acceleration in Docker](#gpu-acceleration-in-docker) below. |
 
 ---
 
@@ -230,3 +230,99 @@ Start it with:
 ```bash
 docker compose -f docker-compose.local.yml up -d
 ```
+
+## GPU Acceleration in Docker
+
+Headless sessions support GPU hardware acceleration for canvas-heavy operations (screenshots, encounter maps, sheet rendering). GPU mode is auto-detected — no configuration needed beyond exposing the device.
+
+:::info Host OS support
+- **Linux (Docker Engine)** — full GPU support for Intel, AMD, and NVIDIA.
+- **Linux (Docker Desktop)** — GPU passthrough is **not supported**. Docker Desktop on Linux runs containers inside a LinuxKit VM that cannot access the host GPU. Use [Docker Engine (CE)](https://docs.docker.com/engine/install/) for GPU support on Linux.
+- **Windows** — NVIDIA GPU supported via Docker Desktop with the WSL2 backend (see [Windows setup](#windows-wsl2) below). Intel/AMD via DRI is unreliable in WSL2.
+- **Mac** — GPU passthrough is not available. Docker on Mac runs containers inside a Linux VM with no access to Metal or the host GPU. The relay falls back to SwiftShader automatically.
+:::
+
+### Intel / AMD (Linux)
+
+Expose the DRI device to the container. The relay's entrypoint script automatically resolves the host render group GID so no `group_add` is needed.
+
+```yaml
+services:
+  relay:
+    # ... your existing config ...
+    devices:
+      - /dev/dri:/dev/dri
+    shm_size: "256m"
+    environment:
+      - CHROME_ENABLE_SHM=true
+```
+
+### NVIDIA (Linux)
+
+First, install [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) on the host.
+
+Two configuration options — pick the one that fits your setup:
+
+#### Option A — Default runtime (recommended)
+
+Configure nvidia as the default Docker runtime, then use environment variables to expose the GPU:
+
+```bash
+sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
+sudo systemctl restart docker
+```
+
+The relay image already sets `NVIDIA_VISIBLE_DEVICES=all` and `NVIDIA_DRIVER_CAPABILITIES=graphics,utility` via `ENV` in the Dockerfile — no compose variables required. Just enable shared memory:
+
+```yaml
+services:
+  relay:
+    # ... your existing config ...
+    shm_size: "256m"
+    environment:
+      - CHROME_ENABLE_SHM=true
+```
+
+`CHROME_GPU_MODE=auto` (default) detects the NVIDIA GPU automatically. Chrome uses ANGLE Vulkan with the native NVIDIA Vulkan ICD for hardware-accelerated WebGL.
+
+#### Option B — CDI (no default runtime change)
+
+Generate a CDI spec and expose the device directly — no `default-runtime` change required:
+
+```bash
+sudo mkdir -p /etc/cdi
+sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+sudo systemctl restart docker
+```
+
+Add to the relay service:
+
+```yaml
+services:
+  relay:
+    # ... your existing config ...
+    devices:
+      - "nvidia.com/gpu=all"
+    shm_size: "256m"
+    environment:
+      - CHROME_ENABLE_SHM=true
+```
+
+`CHROME_GPU_MODE=auto` detects the GPU automatically once it is exposed — no additional relay configuration needed.
+
+### Windows (WSL2)
+
+Docker Desktop on Windows uses a WSL2 backend that supports NVIDIA GPU passthrough. The compose configuration is identical to Linux — the toolkit runs inside WSL2.
+
+**One-time setup:**
+1. Install an NVIDIA driver on Windows (version 471.11 or later). The WSL2 GPU driver is bundled — do not install a separate CUDA driver inside WSL2.
+2. Inside your WSL2 distribution, install nvidia-container-toolkit following the [Linux instructions](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).
+3. Restart Docker Desktop.
+
+After that, run the same two `nvidia-ctk` + `restart docker` commands as Linux above inside WSL2, and use the same compose environment block.
+
+Intel/AMD GPU passthrough via `/dev/dri` is not reliably supported in WSL2 and is not recommended.
+
+### Fallback Behavior
+
+If GPU initialization fails, the relay automatically falls back to SwiftShader (software WebGL). No intervention required — the server logs will show which mode was selected at startup.

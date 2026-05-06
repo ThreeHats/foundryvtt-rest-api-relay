@@ -23,12 +23,12 @@ function authHeaders(): Record<string, string> {
   return token ? { 'Authorization': `Bearer ${token}` } : {};
 }
 
-async function handleResponse<T>(response: Response): Promise<{ ok: true; data: T } | { ok: false; error: string }> {
+async function handleResponse<T>(response: Response): Promise<{ ok: true; data: T } | { ok: false; error: string; status: number }> {
   const data = await response.json().catch(() => ({ error: 'Failed to parse response' }));
   if (response.ok) {
     return { ok: true, data: data as T };
   }
-  return { ok: false, error: data.error || `Request failed (${response.status})` };
+  return { ok: false, error: data.error || `Request failed (${response.status})`, status: response.status };
 }
 
 // ==================== Auth ====================

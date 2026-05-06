@@ -11,6 +11,7 @@
   import type { KnownClient, KnownClientToken, ConnectionToken, Credential, ConnectionLog, KnownClientNotificationSettings } from '../../lib/types';
   import ConfirmModal from '../ui/ConfirmModal.svelte';
   import { headlessEnabled } from '../../lib/config';
+  import { clearUser } from '../../lib/auth';
 
   // ── Data ──────────────────────────────────────────────────────────────────
   let clients     = $state<KnownClient[]>([]);
@@ -80,9 +81,8 @@
   let selectedTokenIds = $state(new Set<number>());
 
   function toggleTokenSelect(id: number) {
-    const next = new Set(selectedTokenIds);
-    if (next.has(id)) next.delete(id); else next.add(id);
-    selectedTokenIds = next;
+    if (selectedTokenIds.has(id)) selectedTokenIds.delete(id);
+    else selectedTokenIds.add(id);
   }
 
   function handleBulkDeleteTokens() {
@@ -93,7 +93,7 @@
       'Delete all',
       async () => {
         await Promise.all([...selectedTokenIds].map(id => deleteConnectionToken(id)));
-        selectedTokenIds = new Set();
+        selectedTokenIds.clear();
         await Promise.all([loadTokens(), loadClients()]);
       },
     );
@@ -103,9 +103,8 @@
   let expandedInactive = $state(new Set<number>());
 
   function toggleInactive(clientId: number) {
-    const next = new Set(expandedInactive);
-    if (next.has(clientId)) next.delete(clientId); else next.add(clientId);
-    expandedInactive = next;
+    if (expandedInactive.has(clientId)) expandedInactive.delete(clientId);
+    else expandedInactive.add(clientId);
   }
 
   // ── World notification settings (per-world, lazy-loaded) ─────────────────
@@ -116,56 +115,44 @@
   let worldNotifMsg      = $state(new Map<number, { text: string; type: 'success' | 'error' }>());
 
   async function toggleWorldNotif(id: number) {
-    const next = new Set(worldNotifOpen);
-    if (next.has(id)) {
-      next.delete(id);
+    if (worldNotifOpen.has(id)) {
+      worldNotifOpen.delete(id);
     } else {
-      next.add(id);
+      worldNotifOpen.add(id);
       if (!worldNotifSettings.has(id)) {
         const r = await fetchWorldNotificationSettings(id);
-        if (r.ok) {
-          const m = new Map(worldNotifSettings);
-          m.set(id, r.data);
-          worldNotifSettings = m;
-        }
+        if (r.ok) worldNotifSettings.set(id, r.data);
       }
     }
-    worldNotifOpen = next;
   }
 
   function updateWorldNotifField<K extends keyof KnownClientNotificationSettings>(id: number, field: K, value: KnownClientNotificationSettings[K]) {
     const current = worldNotifSettings.get(id);
     if (!current) return;
-    const m = new Map(worldNotifSettings);
-    m.set(id, { ...current, [field]: value });
-    worldNotifSettings = m;
+    worldNotifSettings.set(id, { ...current, [field]: value });
   }
 
   async function saveWorldNotif(id: number) {
     const ns = worldNotifSettings.get(id);
     if (!ns) return;
-    const saving = new Set(worldNotifSaving); saving.add(id); worldNotifSaving = saving;
+    worldNotifSaving.add(id);
     const r = await updateWorldNotificationSettings(id, ns);
-    const done = new Set(worldNotifSaving); done.delete(id); worldNotifSaving = done;
-    const msgs = new Map(worldNotifMsg);
+    worldNotifSaving.delete(id);
     if (r.ok) {
-      const m = new Map(worldNotifSettings); m.set(id, r.data); worldNotifSettings = m;
-      msgs.set(id, { text: 'Saved.', type: 'success' });
+      worldNotifSettings.set(id, r.data);
+      worldNotifMsg.set(id, { text: 'Saved.', type: 'success' });
     } else {
-      msgs.set(id, { text: r.error, type: 'error' });
+      worldNotifMsg.set(id, { text: r.error, type: 'error' });
     }
-    worldNotifMsg = msgs;
-    setTimeout(() => { const m = new Map(worldNotifMsg); m.delete(id); worldNotifMsg = m; }, 3000);
+    setTimeout(() => { worldNotifMsg.delete(id); }, 3000);
   }
 
   async function sendWorldNotifTest(id: number) {
-    const testing = new Set(worldNotifTesting); testing.add(id); worldNotifTesting = testing;
+    worldNotifTesting.add(id);
     const r = await testWorldNotification(id);
-    const done = new Set(worldNotifTesting); done.delete(id); worldNotifTesting = done;
-    const msgs = new Map(worldNotifMsg);
-    msgs.set(id, r.ok ? { text: 'Test sent!', type: 'success' } : { text: r.error, type: 'error' });
-    worldNotifMsg = msgs;
-    setTimeout(() => { const m = new Map(worldNotifMsg); m.delete(id); worldNotifMsg = m; }, 3000);
+    worldNotifTesting.delete(id);
+    worldNotifMsg.set(id, r.ok ? { text: 'Test sent!', type: 'success' } : { text: r.error, type: 'error' });
+    setTimeout(() => { worldNotifMsg.delete(id); }, 3000);
   }
 
   // ── Token IP allowlist modal ──────────────────────────────────────────────
@@ -229,6 +216,15 @@
     'execute-js',
   ];
 
+  function stopRefresh() {
+    if (refreshInterval) { clearInterval(refreshInterval); refreshInterval = null; }
+  }
+
+  function handleUnauth() {
+    stopRefresh();
+    clearUser();
+  }
+
   onMount(() => {
     loadAll();
     refreshInterval = setInterval(() => {
@@ -238,7 +234,7 @@
     return () => {
       if (countdownInterval) clearInterval(countdownInterval);
       if (pollInterval) clearInterval(pollInterval);
-      if (refreshInterval) clearInterval(refreshInterval);
+      stopRefresh();
     };
   });
 
@@ -252,11 +248,13 @@
 
   async function loadClients() {
     const r = await fetchKnownClients();
+    if (!r.ok && r.status === 401) { handleUnauth(); return; }
     if (r.ok) clients = r.data.clients || [];
   }
 
   async function loadTokens() {
     const r = await fetchConnectionTokens();
+    if (!r.ok && r.status === 401) { handleUnauth(); return; }
     if (r.ok) tokens = r.data.tokens || [];
   }
 
@@ -518,6 +516,35 @@
   {/if}
 </div>
 
+{#snippet tokenRow(token: KnownClientToken, activeTokenId: number)}
+  <div class="token-row" class:token-row-active={token.id === activeTokenId} class:token-row-selected={selectedTokenIds.has(token.id)}>
+    <div class="token-info">
+      <input type="checkbox" class="token-checkbox" checked={selectedTokenIds.has(token.id)} onchange={() => toggleTokenSelect(token.id)} />
+      <span class="token-status-dot" class:token-dot-online={token.id === activeTokenId} title={token.id === activeTokenId ? 'Connected' : 'Not connected'}></span>
+      {#if editingTokenId === token.id}
+        <input class="token-name-input" bind:value={editingTokenName}
+          onkeydown={(e) => { if (e.key === 'Enter') saveTokenName(token.id); if (e.key === 'Escape') cancelEditToken(); }}
+          autofocus />
+        <button class="btn btn-xs btn-primary" onclick={() => saveTokenName(token.id)}>✓</button>
+        <button class="btn btn-xs btn-secondary" onclick={cancelEditToken}>✗</button>
+      {:else}
+        <span class="token-name-text" onclick={() => startEditToken(token)} title="Click to rename">{token.name}</span>
+      {/if}
+      {#if token.source === 'headless'}
+        <span class="badge badge-disabled" style="font-size: 0.65rem;">headless</span>
+      {/if}
+      {#if token.allowedIps}
+        <span class="badge badge-disabled" style="font-size: 0.65rem;" title="IP allowlist: {token.allowedIps}">🔒 IP restricted</span>
+      {/if}
+      <span class="text-muted" style="font-size: 0.7rem;">Last used: {token.lastUsedAt ? new Date(token.lastUsedAt).toLocaleString() : 'Never'}</span>
+    </div>
+    <div class="token-actions">
+      <button class="btn btn-sm btn-secondary" onclick={() => openIPModal(token)}>IP Allowlist</button>
+      <button class="btn btn-sm btn-danger" onclick={() => handleDeleteToken(token)}>Delete</button>
+    </div>
+  </div>
+{/snippet}
+
 <!-- ── Worlds ────────────────────────────────────────────────────────────── -->
 <div class="card">
   <div class="card-header">
@@ -665,37 +692,8 @@
 
         <!-- Browsers for this world -->
 
-        {#snippet tokenRow(token: KnownClientToken)}
-          <div class="token-row" class:token-row-active={token.id === client.activeTokenId} class:token-row-selected={selectedTokenIds.has(token.id)}>
-            <div class="token-info">
-              <input type="checkbox" class="token-checkbox" checked={selectedTokenIds.has(token.id)} onchange={() => toggleTokenSelect(token.id)} />
-              <span class="token-status-dot" class:token-dot-online={token.id === client.activeTokenId} title={token.id === client.activeTokenId ? 'Connected' : 'Not connected'}></span>
-              {#if editingTokenId === token.id}
-                <input class="token-name-input" bind:value={editingTokenName}
-                  onkeydown={(e) => { if (e.key === 'Enter') saveTokenName(token.id); if (e.key === 'Escape') cancelEditToken(); }}
-                  autofocus />
-                <button class="btn btn-xs btn-primary" onclick={() => saveTokenName(token.id)}>✓</button>
-                <button class="btn btn-xs btn-secondary" onclick={cancelEditToken}>✗</button>
-              {:else}
-                <span class="token-name-text" onclick={() => startEditToken(token)} title="Click to rename">{token.name}</span>
-              {/if}
-              {#if token.source === 'headless'}
-                <span class="badge badge-disabled" style="font-size: 0.65rem;">headless</span>
-              {/if}
-              {#if token.allowedIps}
-                <span class="badge badge-disabled" style="font-size: 0.65rem;" title="IP allowlist: {token.allowedIps}">🔒 IP restricted</span>
-              {/if}
-              <span class="text-muted" style="font-size: 0.7rem;">Last used: {token.lastUsedAt ? new Date(token.lastUsedAt).toLocaleString() : 'Never'}</span>
-            </div>
-            <div class="token-actions">
-              <button class="btn btn-sm btn-secondary" onclick={() => openIPModal(token)}>IP Allowlist</button>
-              <button class="btn btn-sm btn-danger" onclick={() => handleDeleteToken(token)}>Delete</button>
-            </div>
-          </div>
-        {/snippet}
-
         {#each activeTokens as token (token.id)}
-          {@render tokenRow(token)}
+          {@render tokenRow(token, client.activeTokenId)}
         {/each}
 
         {#if inactiveTokens.length > 0}
@@ -705,7 +703,7 @@
           </button>
           {#if expandedInactive.has(client.id)}
             {#each inactiveTokens as token (token.id)}
-              {@render tokenRow(token)}
+              {@render tokenRow(token, client.activeTokenId)}
             {/each}
           {/if}
         {/if}

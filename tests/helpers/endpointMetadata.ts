@@ -160,7 +160,7 @@ export function dummyParamValue(name: string, type: string): any {
     case 'amount': return 1;
     case 'data': return { name: 'test' };
     case 'details': return ['resources'];
-    case 'currency': return { gp: 1 };
+    case 'currency': return type === 'object' ? { gp: 1 } : 'gp';
     case 'statusId': return 'poisoned';
     case 'documentId': return 'fakeDoc123';
     case 'hooks': return 'updateActor';

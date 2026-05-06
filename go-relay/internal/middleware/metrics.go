@@ -155,13 +155,16 @@ func MetricsMiddleware(next http.Handler) http.Handler {
 		// like /auth/connection-tokens every 10 s are pure noise at Info level.
 		// API key callers (keyPrefix set) stay at Info so their reads remain visible.
 		isDashboardRead := r.Method == "GET" && rec.status < 400 && logFields.KeyPrefix == ""
+		// Anonymous 401 GETs (stale-session polls, no userId resolved) are also noise —
+		// downgrade to Debug so they don't flood Warn logs.
+		isAnonPollFail := r.Method == "GET" && rec.status == 401 && logFields.UserID == 0 && logFields.KeyPrefix == ""
 
 		logEvent := log.Info()
 		if rec.status >= 500 {
 			logEvent = log.Error()
-		} else if rec.status >= 400 {
+		} else if rec.status >= 400 && !isAnonPollFail {
 			logEvent = log.Warn()
-		} else if isDashboardRead {
+		} else if isDashboardRead || isAnonPollFail {
 			logEvent = log.Debug()
 		}
 		logEvent = logEvent.
