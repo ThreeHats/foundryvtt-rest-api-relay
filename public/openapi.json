@@ -14,7 +14,7 @@
       "name": "MIT"
     },
     "title": "FoundryVTT REST API",
-    "version": "2.2.1"
+    "version": "3.1.2"
   },
   "openapi": "3.0.3",
   "paths": {
