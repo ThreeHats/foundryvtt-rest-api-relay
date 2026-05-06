@@ -71,7 +71,7 @@ jobs:
           sed -i "s/const apiVersion = .*/const apiVersion = \"$VERSION\"/" go-relay/cmd/docgen/main.go
 
           # Regenerate OpenAPI / AsyncAPI / api-docs JSON with the new version
-          go run ./go-relay/cmd/docgen/
+          cd go-relay && go run ./cmd/docgen/ && cd ..
 
           # Configure git
           git config --global user.name 'github-actions[bot]'
