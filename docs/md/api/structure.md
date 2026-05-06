@@ -180,12 +180,12 @@ import axios from 'axios';
 ```json
 {
   "type": "structure-result",
-  "requestId": "structure_1776657969188",
+  "requestId": "structure_1777909266002",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "eUklCVX5EirKdGao",
-        "uuid": "Folder.eUklCVX5EirKdGao",
+        "id": "3P4WbnOwVSy9z0ww",
+        "uuid": "Folder.3P4WbnOwVSy9z0ww",
         "type": "Scene"
       }
     },
@@ -301,18 +301,18 @@ import axios from 'axios';
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "createdTime": 1776529787190,
-            "modifiedTime": 1776596230732,
-            "lastModifiedBy": "5ypAoBvOiyjDKiaZ",
+            "modifiedTime": 1776821577409,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
             "exportSource": null
           }
         },
         {
-          "_id": "fWuYVDZAnXQiKXM5",
+          "_id": "OoTPjYkL2GjuQ2a7",
           "name": "test",
           "active": false,
-          "navigation": true,
+          "navigation": false,
           "navOrder": 0,
           "navName": "",
           "background": {
@@ -330,7 +330,7 @@ import axios from 'axios';
           },
           "foreground": null,
           "foregroundElevation": 20,
-          "thumb": "worlds/testing/assets/scenes/fWuYVDZAnXQiKXM5-thumb.webp",
+          "thumb": "worlds/5e-tables/assets/scenes/OoTPjYkL2GjuQ2a7-thumb.webp",
           "width": 2221,
           "height": 2962,
           "padding": 0.25,
@@ -343,6 +343,648 @@ import axios from 'axios';
           "grid": {
             "type": 1,
             "size": 74,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [
+            {
+              "_id": "7us1TaI1NwwGdqLs",
+              "author": "5ypAoBvOiyjDKiaZ",
+              "shape": {
+                "type": "r",
+                "width": 287,
+                "height": 342,
+                "radius": null,
+                "points": []
+              },
+              "x": 1942.5,
+              "y": 1581.75,
+              "elevation": 0,
+              "sort": 0,
+              "rotation": 0,
+              "bezierFactor": 0.5,
+              "fillType": 0,
+              "fillColor": "#ffffff",
+              "fillAlpha": 0.5,
+              "strokeWidth": 8,
+              "strokeColor": "#ffffff",
+              "strokeAlpha": 1,
+              "texture": null,
+              "fontFamily": "Signika",
+              "fontSize": 48,
+              "textColor": "#ffffff",
+              "textAlpha": 1,
+              "hidden": false,
+              "locked": false,
+              "interface": false,
+              "flags": {}
+            },
+            {
+              "_id": "nrcBVMkwWw8XPcBj",
+              "author": "5ypAoBvOiyjDKiaZ",
+              "shape": {
+                "type": "r",
+                "width": 518,
+                "height": 583,
+                "radius": null,
+                "points": []
+              },
+              "x": 1359.75,
+              "y": 2025.75,
+              "elevation": 0,
+              "sort": 1,
+              "rotation": 0,
+              "bezierFactor": 0.5,
+              "fillType": 0,
+              "fillColor": "#ffffff",
+              "fillAlpha": 0.5,
+              "strokeWidth": 8,
+              "strokeColor": "#ffffff",
+              "strokeAlpha": 1,
+              "texture": null,
+              "fontFamily": "Signika",
+              "fontSize": 48,
+              "textColor": "#ffffff",
+              "textAlpha": 1,
+              "hidden": false,
+              "locked": false,
+              "interface": false,
+              "flags": {}
+            }
+          ],
+          "tokens": [
+            {
+              "_id": "ek1v2zxBxkZEftca",
+              "name": "Perrin",
+              "displayName": 30,
+              "actorId": "xSst5kAigAZw6wDr",
+              "actorLink": true,
+              "delta": null,
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 0.8,
+                "scaleY": 0.8,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 1480,
+              "y": 1554,
+              "elevation": 0,
+              "sort": 0,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": 1,
+              "displayBars": 40,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": "attributes.ac.value"
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 1,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": true,
+                "range": 5,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [
+                {
+                  "id": "lightPerception",
+                  "enabled": true,
+                  "range": null
+                },
+                {
+                  "id": "basicSight",
+                  "enabled": true,
+                  "range": 5
+                }
+              ],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            }
+          ],
+          "lights": [
+            {
+              "_id": "RFgXdhctPXhpSyOM",
+              "x": 1628,
+              "y": 1443,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 24.04,
+                "color": null,
+                "coloration": 1,
+                "dim": 48.09,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "notes": [
+            {
+              "_id": "YqzoO6yW51CQtt0k",
+              "entryId": "u7byD1yDxgtzqeT4",
+              "pageId": null,
+              "x": 1665,
+              "y": 2109,
+              "elevation": 0,
+              "sort": 0,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "text": "jhgcfkjhgcv",
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            }
+          ],
+          "sounds": [
+            {
+              "_id": "kWlgWosbxU3tbSj0",
+              "x": 1147,
+              "y": 2405,
+              "elevation": 0,
+              "radius": 48.02,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "type": "",
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            }
+          ],
+          "regions": [
+            {
+              "_id": "PaZoZJk6XppvofiN",
+              "name": "Region",
+              "color": "#2893cc",
+              "shapes": [
+                {
+                  "type": "rectangle",
+                  "hole": false,
+                  "x": 1433.75,
+                  "y": 2016.5,
+                  "width": 582.75,
+                  "height": 407,
+                  "rotation": 0
+                },
+                {
+                  "type": "rectangle",
+                  "hole": false,
+                  "x": 1757.5,
+                  "y": 2358.75,
+                  "width": 471.75,
+                  "height": 786.25,
+                  "rotation": 0
+                },
+                {
+                  "type": "ellipse",
+                  "hole": false,
+                  "x": 1729.75,
+                  "y": 1877.75,
+                  "radiusX": 296,
+                  "radiusY": 74,
+                  "rotation": 0
+                }
+              ],
+              "elevation": {
+                "bottom": null,
+                "top": null
+              },
+              "behaviors": [],
+              "visibility": 0,
+              "locked": false,
+              "flags": {}
+            }
+          ],
+          "templates": [
+            {
+              "_id": "iJq4Fzo3Kvln5zVP",
+              "author": "5ypAoBvOiyjDKiaZ",
+              "t": "cone",
+              "x": 1332,
+              "y": 2886,
+              "elevation": 0,
+              "sort": 0,
+              "distance": 77.86205751198719,
+              "direction": 275.5275401516562,
+              "angle": 53.13,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#28cca2",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "tiles": [
+            {
+              "_id": "b0cYOogM1zPL9NFc",
+              "texture": {
+                "src": null,
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "fill",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "width": 222,
+              "height": 333,
+              "x": 1628,
+              "y": 1369,
+              "elevation": 0,
+              "sort": 0,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "locked": false,
+              "restrictions": {
+                "light": false,
+                "weather": false
+              },
+              "occlusion": {
+                "mode": 0,
+                "alpha": 0
+              },
+              "video": {
+                "loop": true,
+                "autoplay": true,
+                "volume": 0
+              },
+              "flags": {}
+            }
+          ],
+          "walls": [
+            {
+              "_id": "LSziSUTponH836zp",
+              "c": [
+                1286,
+                1674,
+                1656,
+                2581
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "QICTFX7JLm3W8PLs",
+              "c": [
+                1970,
+                1711,
+                2017,
+                2840
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "dOBYPT8ja94pUuFV",
+              "c": [
+                1230,
+                2701,
+                2424,
+                1452
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "wo7Vxm6QrHhI7ySh",
+              "c": [
+                1822,
+                1434,
+                2479,
+                2951
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "qhAnrbcpLw5UCnJN",
+              "c": [
+                1989,
+                1591,
+                1203,
+                3016
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "1wlEJl7SD94Ia2iY",
+              "c": [
+                1277,
+                1721,
+                2387,
+                2035
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            }
+          ],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "5ypAoBvOiyjDKiaZ": 3,
+            "default": 0,
+            "lmPGreUzUZ4YxH6D": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1777176992560,
+            "modifiedTime": 1777176992560,
+            "lastModifiedBy": "5ypAoBvOiyjDKiaZ",
+            "compendiumSource": null,
+            "duplicateSource": "Scene.Fpu0odizNnNnjlLI",
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "7iYl9ExwMdFm9POw",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
             "style": "solidLines",
             "thickness": 1,
             "color": "#000000",
@@ -411,15 +1053,15 @@ import axios from 'axios';
           "sort": 0,
           "ownership": {
             "default": 0,
-            "5ypAoBvOiyjDKiaZ": 3
+            "r6bXhB7k9cXa3cif": 3
           },
           "flags": {},
           "_stats": {
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1776596215113,
-            "modifiedTime": 1776657957952,
+            "createdTime": 1776824906803,
+            "modifiedTime": 1776824911917,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -427,7 +1069,1534 @@ import axios from 'axios';
           }
         },
         {
-          "_id": "r36nfimJGHYGUGQX",
+          "_id": "aQADc2ek0f7ls9af",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [
+            {
+              "_id": "91dY5wnZ9pbcxcC0",
+              "name": "Unknown",
+              "displayName": 0,
+              "actorId": "5bW7ahcfLR0uMb9j",
+              "actorLink": false,
+              "delta": {
+                "_id": "xhCuAiQoswAzsnqY",
+                "system": {},
+                "items": [],
+                "effects": [
+                  {
+                    "_id": "dnd5edead0000000",
+                    "name": "Dead",
+                    "img": "systems/dnd5e/icons/svg/statuses/dead.svg",
+                    "type": "base",
+                    "system": {},
+                    "changes": [],
+                    "disabled": false,
+                    "duration": {
+                      "startTime": 6,
+                      "combat": null
+                    },
+                    "description": "",
+                    "origin": null,
+                    "tint": "#ffffff",
+                    "transfer": false,
+                    "statuses": [
+                      "dead"
+                    ],
+                    "sort": 0,
+                    "flags": {},
+                    "_stats": {
+                      "coreVersion": "13.348",
+                      "systemId": "dnd5e",
+                      "systemVersion": "5.0.4",
+                      "createdTime": 1776821644329,
+                      "modifiedTime": 1776821644329,
+                      "lastModifiedBy": "r6bXhB7k9cXa3cif",
+                      "compendiumSource": null,
+                      "duplicateSource": null,
+                      "exportSource": null
+                    }
+                  }
+                ],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 200,
+              "y": 200,
+              "elevation": 0,
+              "sort": 0,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "a0alpONow8ppf7jZ",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "TaWAifIKUZ3FSfEj",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "9H8zRN6jFYAKi4St",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "RbCCqngEl6EST2GA",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 2,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            }
+          ],
+          "lights": [
+            {
+              "_id": "CklyB5sLeOrqXnyD",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "FtC2kpWU6Y3S6wJT",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "notes": [
+            {
+              "_id": "tRvHXdBSGlfd6egB",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            },
+            {
+              "_id": "DEnQNeArk9YJJAV1",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            }
+          ],
+          "sounds": [
+            {
+              "_id": "g9pHEMy9gBHQht4C",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            },
+            {
+              "_id": "pss5T9PLXgbQ6y7y",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            }
+          ],
+          "regions": [],
+          "templates": [
+            {
+              "_id": "zJcVWgT5pyfWTaw8",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "mi0HgNMBHlwdmnO3",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776821602279,
+            "modifiedTime": 1776824906859,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "pxk3rKsNgpwB6bG5",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776821577383,
+            "modifiedTime": 1776821602303,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "vCLJOw0STWGphIWU",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "navName": "",
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": true,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [
+            {
+              "_id": "TNEsC0gFgz1Nc9pg",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "781VTntlraAbO7C3",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 300,
+              "y": 400,
+              "elevation": 0,
+              "sort": 0,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 323.13010235415595,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "Yi9FWJpDX5TPvXK3",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "8Wwm8EDsy6y1C9aG",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 400,
+              "y": 300,
+              "elevation": 0,
+              "sort": 1,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 306.86989764584405,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": true,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [
+                {
+                  "id": "lightPerception",
+                  "enabled": true,
+                  "range": null
+                },
+                {
+                  "id": "basicSight",
+                  "enabled": true,
+                  "range": 0
+                }
+              ],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 0,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "KV0Ua6gg79bZ456e",
+              "name": "Perrin",
+              "displayName": 30,
+              "actorId": "xSst5kAigAZw6wDr",
+              "actorLink": true,
+              "delta": null,
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 0.8,
+                "scaleY": 0.8,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 300,
+              "y": 500,
+              "elevation": 0,
+              "sort": 2,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": 1,
+              "displayBars": 40,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": "attributes.ac.value"
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 1,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": true,
+                "range": 5,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [
+                {
+                  "id": "lightPerception",
+                  "enabled": true,
+                  "range": null
+                },
+                {
+                  "id": "basicSight",
+                  "enabled": true,
+                  "range": 5
+                }
+              ],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            }
+          ],
+          "lights": [
+            {
+              "_id": "xhnUaDHq5geiaMpN",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "alXpkL3wPgo5ilnE",
+              "x": 400,
+              "y": 400,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 5,
+                "color": "#ff0000",
+                "coloration": 1,
+                "dim": 5,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "notes": [
+            {
+              "_id": "u4cgxPOUlNFG8nuo",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            },
+            {
+              "_id": "wlwDtURPMkAE0FzQ",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            }
+          ],
+          "sounds": [
+            {
+              "_id": "shSUwiJBdTy6CeeY",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            },
+            {
+              "_id": "eVHjE3FcVX13yc31",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            }
+          ],
+          "regions": [],
+          "templates": [
+            {
+              "_id": "G1UnpWqP0sPpMJ5W",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "u3ECicH2osxWg3EL",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "tiles": [],
+          "walls": [
+            {
+              "_id": "LDpSlXWcYlP7hudR",
+              "c": [
+                650,
+                338,
+                413,
+                613
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            }
+          ],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776824911885,
+            "modifiedTime": 1777909249390,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "p5lAI5vNiA5ncl9B",
           "name": "test-scene-updated",
           "active": true,
           "navigation": true,
@@ -513,13 +2682,13 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "Q9y6lc2dPYs2WRQT",
+              "_id": "ebSQCS3wIuQT63xH",
               "name": "Updated Test Actor",
               "displayName": 0,
-              "actorId": "q9uWyfdPwTlzbpxb",
+              "actorId": "XbLqdbLds9Ybm89t",
               "actorLink": false,
               "delta": {
-                "_id": "M9QfeUpBFOJcH6HB",
+                "_id": "TEmQooS0gP3bQOcb",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -4356,8 +6525,8 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1776657957926,
-            "modifiedTime": 1776657957952,
+            "createdTime": 1777909249364,
+            "modifiedTime": 1777909249390,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -4530,10 +6699,10 @@ import axios from 'axios';
 ```json
 {
   "type": "get-folder-result",
-  "requestId": "get-folder_1776657969208",
+  "requestId": "get-folder_1777909266016",
   "data": {
-    "id": "eUklCVX5EirKdGao",
-    "uuid": "Folder.eUklCVX5EirKdGao",
+    "id": "3P4WbnOwVSy9z0ww",
+    "uuid": "Folder.3P4WbnOwVSy9z0ww",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -4708,10 +6877,10 @@ import axios from 'axios';
 ```json
 {
   "type": "create-folder-result",
-  "requestId": "create-folder_1776657969176",
+  "requestId": "create-folder_1777909265995",
   "data": {
-    "id": "eUklCVX5EirKdGao",
-    "uuid": "Folder.eUklCVX5EirKdGao",
+    "id": "3P4WbnOwVSy9z0ww",
+    "uuid": "Folder.3P4WbnOwVSy9z0ww",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -4757,7 +6926,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  folderId: 'eUklCVX5EirKdGao'
+  folderId: '3P4WbnOwVSy9z0ww'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4776,7 +6945,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=fvtt_099ad17ea199e7e3&folderId=eUklCVX5EirKdGao' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=fvtt_099ad17ea199e7e3&folderId=3P4WbnOwVSy9z0ww' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -4790,7 +6959,7 @@ base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'folderId': 'eUklCVX5EirKdGao'
+    'folderId': '3P4WbnOwVSy9z0ww'
 }
 url = f'{base_url}{path}'
 
@@ -4816,7 +6985,7 @@ import axios from 'axios';
   const path = '/delete-folder';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    folderId: 'eUklCVX5EirKdGao'
+    folderId: '3P4WbnOwVSy9z0ww'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4851,7 +7020,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤folderId=eUklCVX5EirKdGao🔤 ➡️ folderId
+  🔤folderId=3P4WbnOwVSy9z0ww🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -4880,10 +7049,10 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-folder-result",
-  "requestId": "delete-folder_1776657969211",
+  "requestId": "delete-folder_1777909266018",
   "data": {
     "deleted": true,
-    "folderId": "eUklCVX5EirKdGao",
+    "folderId": "3P4WbnOwVSy9z0ww",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }

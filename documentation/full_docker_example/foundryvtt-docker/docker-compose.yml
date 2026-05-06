@@ -98,7 +98,7 @@ services:
     image: threehats/foundryvtt-rest-api-relay:latest
     container_name: foundryrelay
     restart: "always"
-    mem_limit: 256m
+    mem_limit: 2g  # each headless Chrome session uses ~300-500MB; increase for more concurrent sessions
     hostname: foundryrelay
     # Port is exposed via the SWAG reverse proxy above — no direct port binding needed.
     # ports:
@@ -110,5 +110,36 @@ services:
       # Set ADMIN_EMAIL and ADMIN_PASSWORD to secure your admin dashboard.
       # - ADMIN_EMAIL=admin@example.com
       # - ADMIN_PASSWORD=changeme
+    # ── GPU acceleration ─────────────────────────────────────────────────────
+    # Requires Docker Engine (CE) on Linux. Docker Desktop does not support
+    # NVIDIA or DRI GPU passthrough.
+    #
+    # Intel / AMD — expose the DRI device (render group resolved automatically):
+    # devices:
+    #   - /dev/dri:/dev/dri
+    # shm_size: "1g"
+    # environment:
+    #   - CHROME_ENABLE_SHM=true
+    #
+    # NVIDIA — Option A (recommended): set nvidia as the default Docker runtime:
+    #   sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
+    #   sudo systemctl restart docker
+    # Then uncomment:
+    # shm_size: "1g"
+    # environment:
+    #   - CHROME_ENABLE_SHM=true
+    #   - NVIDIA_VISIBLE_DEVICES=all
+    #   - NVIDIA_DRIVER_CAPABILITIES=graphics,utility
+    #
+    # NVIDIA — Option B: CDI (no default runtime change needed):
+    #   sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+    #   sudo systemctl restart docker
+    # Then uncomment:
+    # devices:
+    #   - "nvidia.com/gpu=all"
+    # shm_size: "1g"
+    # environment:
+    #   - CHROME_ENABLE_SHM=true
+    # ─────────────────────────────────────────────────────────────────────────
     volumes:
       - ./data/relay:/app/data

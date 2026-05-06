@@ -298,7 +298,7 @@ func startRelayClient(manager *ClientManager, cfg *RelayConfig, conn *websocket.
 	// Set up ping/pong — extend read deadline on each pong so a stalled
 	// connection is detected within 2× the ping interval.
 	conn.SetPongHandler(func(appData string) error {
-		client.UpdateLastSeen()
+		manager.UpdateClientLastSeen(id)
 		conn.SetReadDeadline(time.Now().Add(2 * cfg.PingInterval))
 		return nil
 	})
@@ -326,7 +326,7 @@ func startRelayClient(manager *ClientManager, cfg *RelayConfig, conn *websocket.
 	// Read pump goroutine
 	go func() {
 		defer func() {
-			manager.RemoveClient(id)
+			manager.RemoveClientIfMatch(id, client)
 			conn.Close()
 		}()
 

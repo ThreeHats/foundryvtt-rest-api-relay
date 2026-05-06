@@ -76,12 +76,12 @@ func AdminRouter(deps *AdminDeps) chi.Router {
 }
 
 // buildAdminAuthConfig produces an AdminAuthConfig from the loaded config.
-// ADMIN_JWT_SECRET is required for all backends — Validate() enforces this before we get here.
+// ADMIN_JWT_SECRET is guaranteed non-empty by EnsureSecrets() before we get here.
 func buildAdminAuthConfig(cfg *config.Config) *appmw.AdminAuthConfig {
 	secret := cfg.AdminJWTSecret
 	if secret == "" {
-		// Validate() should have caught this — last-resort guard.
-		log.Fatal().Msg("ADMIN_JWT_SECRET is required — generate one with: openssl rand -base64 32")
+		// EnsureSecrets() should have caught this — last-resort guard.
+		log.Fatal().Msg("ADMIN_JWT_SECRET is empty — this should never happen after EnsureSecrets()")
 	}
 	maxHrs := cfg.AdminSessionMaxHours
 	if maxHrs <= 0 {

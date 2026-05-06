@@ -35,15 +35,13 @@ services:
       context: .
       dockerfile: go-relay/Dockerfile
     container_name: foundryvtt-rest-api-relay
-    env_file: .env
+    env_file:
+      - path: .env
+        required: false
     environment:
-      - PORT=3010
       - DB_TYPE=postgres
       - DATABASE_URL=postgres://postgres:postgres@db:5432/foundryvtt_relay
       - APP_ENV=production
-      - MONTHLY_REQUEST_LIMIT=0
-      - WEBSOCKET_PING_INTERVAL_MS=20000
-      - CLIENT_CLEANUP_INTERVAL_MS=15000
       # - REDIS_URL=redis://redis:6379  # uncomment if using the redis service below,
       #                                 # or set to your managed Redis URL in .env
     volumes:
@@ -54,6 +52,28 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+    # ── GPU acceleration ─────────────────────────────────────────────────────
+    # Requires Docker Engine (CE) on Linux. Docker Desktop does not support
+    # NVIDIA or DRI GPU passthrough.
+    #
+    # Intel / AMD — expose the DRI device (render group resolved automatically):
+    # devices:
+    #   - /dev/dri:/dev/dri
+    #
+    # NVIDIA — Option A (recommended): set nvidia as the default Docker runtime:
+    #   sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
+    #   sudo systemctl restart docker
+    # The image sets NVIDIA_VISIBLE_DEVICES=all and
+    # NVIDIA_DRIVER_CAPABILITIES=graphics,utility in ENV so the NVIDIA runtime
+    # injects the graphics stack automatically — no extra compose config needed.
+    #
+    # NVIDIA — Option B: CDI (no default runtime change needed):
+    #   sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+    #   sudo systemctl restart docker
+    # Then uncomment:
+    # devices:
+    #   - "nvidia.com/gpu=all"
+    # ─────────────────────────────────────────────────────────────────────────
 
   # redis:
   #   image: redis:7-alpine

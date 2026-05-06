@@ -1,6 +1,9 @@
 package config
 
 import (
+	"crypto/rand"
+	"encoding/base64"
+	"encoding/hex"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -73,7 +76,7 @@ type Config struct {
 	ChromeWindowWidth       int    // headless viewport width
 	ChromeWindowHeight      int    // headless viewport height (≥768 for Foundry)
 	ChromeEnableSHM         bool   // allow Chrome to use /dev/shm (needs ≥256MB shm)
-	ChromeGPUMode           string // rendering backend: auto|gpu|xvfb|swiftshader
+	ChromeGPUMode           string // rendering backend: auto|gpu|xvfb|swiftshader|nvidia
 
 	// Admin dashboard
 	AdminJWTSecret             string
@@ -107,7 +110,7 @@ func Load() *Config {
 
 		MonthlyRequestLimit:          getEnvIntWithFallback("MONTHLY_REQUEST_LIMIT", "FREE_API_REQUESTS_LIMIT", 0),
 		AllowHeadless:                getEnvBool("ALLOW_HEADLESS", true),
-		MaxHeadlessSessions:          getEnvInt("MAX_HEADLESS_SESSIONS", 1),
+		MaxHeadlessSessions:          getEnvInt("MAX_HEADLESS_SESSIONS", 0),
 		MaxInteractiveSessionsPerKey: getEnvInt("MAX_INTERACTIVE_SESSIONS_PER_KEY", 3),
 		HeadlessInactiveTimeoutSecs:  getEnvIntWithFallback("HEADLESS_SESSION_TIMEOUT", "HEADLESS_INACTIVE_TIMEOUT", 600),
 		MaxJSONBodySizeMB:            getEnvInt("MAX_JSON_BODY_SIZE_MB", 250),
@@ -178,18 +181,119 @@ func Load() *Config {
 	return cfg
 }
 
-// Validate checks that required configuration is present and returns an error if not.
-// Call this after Load() to fail fast on misconfiguration.
-func (c *Config) Validate() error {
-	// Credentials encryption is required for all database backends.
+// SecretsResult reports which secrets were auto-generated on this startup.
+type SecretsResult struct {
+	GeneratedEncryptionKey bool
+	GeneratedJWTSecret     bool
+	SecretsFilePath        string
+}
+
+// EnsureSecrets guarantees CREDENTIALS_ENCRYPTION_KEY and ADMIN_JWT_SECRET are set.
+// Priority: environment variable > persisted file > auto-generated.
+//
+// Auto-generated keys are written to <dataDir>/.secrets.env (mode 0600) so they
+// survive container restarts. CREDENTIALS_ENCRYPTION_KEY must remain stable —
+// rotating it makes all stored Foundry credentials permanently unreadable.
+func (c *Config) EnsureSecrets(dataDir string) (*SecretsResult, error) {
+	secretsFile := filepath.Join(dataDir, ".secrets.env")
+	result := &SecretsResult{SecretsFilePath: secretsFile}
+
+	persisted, err := loadSecretsFile(secretsFile)
+	if err != nil {
+		return nil, fmt.Errorf("read secrets file: %w", err)
+	}
+
+	needsWrite := false
+
 	if c.CredentialsEncryptionKey == "" {
-		return fmt.Errorf("CREDENTIALS_ENCRYPTION_KEY must be set — generate one with: openssl rand -hex 32")
+		if v := persisted["CREDENTIALS_ENCRYPTION_KEY"]; v != "" {
+			c.CredentialsEncryptionKey = v
+		} else {
+			key, err := generateHexKey(32)
+			if err != nil {
+				return nil, fmt.Errorf("generate CREDENTIALS_ENCRYPTION_KEY: %w", err)
+			}
+			c.CredentialsEncryptionKey = key
+			persisted["CREDENTIALS_ENCRYPTION_KEY"] = key
+			result.GeneratedEncryptionKey = true
+			needsWrite = true
+		}
 	}
-	// Admin JWT secret is required for all backends — auto-generation is not supported.
+
 	if c.AdminJWTSecret == "" {
-		return fmt.Errorf("ADMIN_JWT_SECRET must be set — generate one with: openssl rand -base64 32")
+		if v := persisted["ADMIN_JWT_SECRET"]; v != "" {
+			c.AdminJWTSecret = v
+		} else {
+			secret, err := generateBase64Key(32)
+			if err != nil {
+				return nil, fmt.Errorf("generate ADMIN_JWT_SECRET: %w", err)
+			}
+			c.AdminJWTSecret = secret
+			persisted["ADMIN_JWT_SECRET"] = secret
+			result.GeneratedJWTSecret = true
+			needsWrite = true
+		}
 	}
-	return nil
+
+	if needsWrite {
+		if err := os.MkdirAll(dataDir, 0700); err != nil {
+			return nil, fmt.Errorf("create data directory: %w", err)
+		}
+		if err := writeSecretsFile(secretsFile, persisted); err != nil {
+			return nil, fmt.Errorf("write secrets file: %w", err)
+		}
+	}
+
+	return result, nil
+}
+
+func loadSecretsFile(path string) (map[string]string, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return map[string]string{}, nil
+		}
+		return nil, err
+	}
+	result := map[string]string{}
+	for _, line := range strings.Split(string(data), "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		if k, v, ok := strings.Cut(line, "="); ok {
+			result[k] = v
+		}
+	}
+	return result, nil
+}
+
+func writeSecretsFile(path string, secrets map[string]string) error {
+	var sb strings.Builder
+	sb.WriteString("# Auto-generated secrets — do not edit or delete.\n")
+	sb.WriteString("# If CREDENTIALS_ENCRYPTION_KEY is lost, users will need to re-enter their stored Foundry credentials.\n")
+	for _, k := range []string{"CREDENTIALS_ENCRYPTION_KEY", "ADMIN_JWT_SECRET"} {
+		if v, ok := secrets[k]; ok {
+			fmt.Fprintf(&sb, "%s=%s\n", k, v)
+		}
+	}
+	return os.WriteFile(path, []byte(sb.String()), 0600)
+}
+
+func generateHexKey(n int) (string, error) {
+	b := make([]byte, n)
+	if _, err := rand.Read(b); err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(b), nil
+}
+
+func generateBase64Key(n int) (string, error) {
+	b := make([]byte, n)
+	if _, err := rand.Read(b); err != nil {
+		return "", err
+	}
+	return base64.StdEncoding.EncodeToString(b), nil
 }
 
 // configForLog is an alias used to print Config without triggering the String() method recursively.

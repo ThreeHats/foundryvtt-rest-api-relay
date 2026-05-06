@@ -40,8 +40,11 @@ const (
 )
 
 // webGLSpoof is injected via Page.addScriptToEvaluateOnNewDocument before Foundry
-// loads. It overrides WebGL renderer strings so that Foundry's hardware-acceleration
-// check passes even when Chrome is using SwiftShader or a Mesa software renderer.
+// loads. It handles two cases:
+//  1. Real WebGL context exists (SwiftShader/Mesa) — overrides renderer strings so
+//     Foundry's hardware-acceleration check doesn't see "SwiftShader"/"llvmpipe".
+//  2. WebGL context is null (unavailable in this container) — returns a full stub
+//     context so PIXI.js doesn't crash before the login form renders.
 // Foundry checks gl.RENDERER (0x1F01), gl.VENDOR (0x1F00), and the
 // WEBGL_debug_renderer_info unmasked values (0x9246 / 0x9245) for known software
 // renderer substrings ("SwiftShader", "llvmpipe", "softpipe", etc.).
@@ -49,18 +52,92 @@ const webGLSpoof = `
 	(function() {
 		const origGetContext = HTMLCanvasElement.prototype.getContext;
 		HTMLCanvasElement.prototype.getContext = function(type, attrs) {
-			const ctx = origGetContext.call(this, type, attrs);
-			if (ctx && (type === 'webgl' || type === 'webgl2')) {
-				const origGetParam = ctx.getParameter.bind(ctx);
-				ctx.getParameter = function(param) {
-					switch (param) {
-						case 0x9246: return 'ANGLE (Intel, Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0, D3D11-27.20.100.8681)'; // UNMASKED_RENDERER_WEBGL
-						case 0x9245: return 'Google Inc. (Intel)';                          // UNMASKED_VENDOR_WEBGL
-						case 0x1F01: return 'ANGLE (Intel, Intel(R) UHD Graphics 620)';    // RENDERER
-						case 0x1F00: return 'Intel';                                        // VENDOR
+			var ctx = origGetContext.call(this, type, attrs);
+			if (type === 'webgl' || type === 'webgl2') {
+				if (!ctx) {
+					ctx = {
+						canvas: this,
+						drawingBufferWidth: this.width || 1280,
+						drawingBufferHeight: this.height || 720,
+						getParameter: function(p) {
+							switch (p) {
+								case 0x9246: return 'ANGLE (Intel, Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0, D3D11-27.20.100.8681)';
+								case 0x9245: return 'Google Inc. (Intel)';
+								case 0x1F01: return 'ANGLE (Intel, Intel(R) UHD Graphics 620)';
+								case 0x1F00: return 'Intel';
+								case 0x8B8C: return 16; // MAX_VERTEX_ATTRIBS
+								case 0x8869: return 16; // MAX_VERTEX_UNIFORM_VECTORS
+								case 0x8872: return 16; // MAX_TEXTURE_IMAGE_UNITS
+								case 0x8B8D: return 16; // MAX_FRAGMENT_UNIFORM_VECTORS
+							}
+							return null;
+						},
+						getExtension: function() { return null; },
+						getShaderPrecisionFormat: function() { return { rangeMin: 127, rangeMax: 127, precision: 23 }; },
+						getSupportedExtensions: function() { return []; },
+						createShader: function() { return {}; },
+						shaderSource: function() {}, compileShader: function() {},
+						getShaderParameter: function() { return true; },
+						getShaderInfoLog: function() { return ''; },
+						createProgram: function() { return {}; },
+						attachShader: function() {}, linkProgram: function() {},
+						getProgramParameter: function() { return true; },
+						getProgramInfoLog: function() { return ''; },
+						useProgram: function() {},
+						getAttribLocation: function() { return 0; },
+						getUniformLocation: function() { return {}; },
+						uniform1f: function() {}, uniform2f: function() {}, uniform3f: function() {}, uniform4f: function() {},
+						uniform1i: function() {}, uniform2i: function() {}, uniform3i: function() {}, uniform4i: function() {},
+						uniformMatrix2fv: function() {}, uniformMatrix3fv: function() {}, uniformMatrix4fv: function() {},
+						bindBuffer: function() {}, bufferData: function() {}, bufferSubData: function() {},
+						enableVertexAttribArray: function() {}, disableVertexAttribArray: function() {},
+						vertexAttribPointer: function() {},
+						drawArrays: function() {}, drawElements: function() {},
+						enable: function() {}, disable: function() {}, blendFunc: function() {},
+						clearColor: function() {}, clear: function() {},
+						viewport: function() {}, scissor: function() {},
+						createTexture: function() { return {}; }, deleteTexture: function() {},
+						bindTexture: function() {}, texImage2D: function() {},
+						texParameteri: function() {}, pixelStorei: function() {},
+						createFramebuffer: function() { return {}; }, bindFramebuffer: function() {},
+						framebufferTexture2D: function() {},
+						checkFramebufferStatus: function() { return 0x8CD5; }, // FRAMEBUFFER_COMPLETE
+						readPixels: function() {}, getError: function() { return 0; },
+						activeTexture: function() {}, generateMipmap: function() {},
+						createBuffer: function() { return {}; }, deleteBuffer: function() {},
+						createRenderbuffer: function() { return {}; }, bindRenderbuffer: function() {},
+						renderbufferStorage: function() {}, framebufferRenderbuffer: function() {},
+						deleteFramebuffer: function() {}, deleteRenderbuffer: function() {},
+						deleteShader: function() {}, deleteProgram: function() {},
+						depthMask: function() {}, depthFunc: function() {}, cullFace: function() {},
+						stencilFunc: function() {}, stencilOp: function() {}, colorMask: function() {},
+						lineWidth: function() {}, polygonOffset: function() {},
+						isContextLost: function() { return false; },
+					};
+					if (type === 'webgl2') {
+						ctx.UNSIGNED_INT_24_8 = 0x84FA;
+						ctx.READ_FRAMEBUFFER = 0x8CA8;
+						ctx.DRAW_FRAMEBUFFER = 0x8CA9;
+						ctx.DEPTH_COMPONENT24 = 0x81A6;
+						ctx.DEPTH_STENCIL = 0x84F9;
+						ctx.blitFramebuffer = function() {};
+						ctx.renderbufferStorageMultisample = function() {};
+						ctx.bindVertexArray = function() {};
+						ctx.createVertexArray = function() { return {}; };
+						ctx.deleteVertexArray = function() {};
 					}
-					return origGetParam(param);
-				};
+				} else {
+					const origGetParam = ctx.getParameter.bind(ctx);
+					ctx.getParameter = function(param) {
+						switch (param) {
+							case 0x9246: return 'ANGLE (Intel, Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0, D3D11-27.20.100.8681)'; // UNMASKED_RENDERER_WEBGL
+							case 0x9245: return 'Google Inc. (Intel)';                          // UNMASKED_VENDOR_WEBGL
+							case 0x1F01: return 'ANGLE (Intel, Intel(R) UHD Graphics 620)';    // RENDERER
+							case 0x1F00: return 'Intel';                                        // VENDOR
+						}
+						return origGetParam(param);
+					};
+				}
 			}
 			return ctx;
 		};
@@ -296,7 +373,7 @@ func startXvfb(width, height int) (string, *exec.Cmd, error) {
 		if _, err := os.Stat(fmt.Sprintf("/tmp/.X11-unix/X%d", display)); err == nil {
 			continue // already in use
 		}
-		screenArg := fmt.Sprintf("%dx%dx16", width, height) // 16-bit: less memory, faster blit
+		screenArg := fmt.Sprintf("%dx%dx24", width, height) // 24-bit required for OpenGL/GLX contexts
 		cmd := exec.Command("Xvfb", displayStr, "-screen", "0", screenArg, "-ac", "-nolisten", "tcp", "-dpi", "96")
 		if err := cmd.Start(); err != nil {
 			continue
@@ -320,6 +397,22 @@ func startXvfb(width, height int) (string, *exec.Cmd, error) {
 	return "", nil, fmt.Errorf("could not find available display for Xvfb")
 }
 
+// findNvidiaVulkanICD returns the path to NVIDIA's Vulkan ICD JSON file.
+// When set as VK_ICD_FILENAMES, the Vulkan loader uses NVIDIA's GPU exclusively,
+// avoiding Mesa software devices (llvmpipe, etc.) that appear in the default ICD scan.
+// Returns "" if not found.
+func findNvidiaVulkanICD() string {
+	for _, p := range []string{
+		"/etc/vulkan/icd.d/nvidia_icd.json",
+		"/usr/share/vulkan/icd.d/nvidia_icd.json",
+	} {
+		if _, err := os.Stat(p); err == nil {
+			return p
+		}
+	}
+	return ""
+}
+
 // hasDRIAccess returns true if at least one DRI render node (/dev/dri/renderD*)
 // exists and is readable by the current process.
 func hasDRIAccess() bool {
@@ -333,15 +426,31 @@ func hasDRIAccess() bool {
 	return false
 }
 
+// hasNvidiaAccess returns true if nvidia-container-toolkit has exposed an NVIDIA
+// GPU to this container. /dev/nvidiactl is only present when the toolkit has
+// made GPU access available.
+func hasNvidiaAccess() bool {
+	_, err := os.Stat("/dev/nvidiactl")
+	return err == nil
+}
+
 // resolveRenderMode returns the effective render mode for ensureBrowser.
 // When configured to "auto" it detects the best available option:
 //
-//	gpu        if /dev/dri/renderD* is readable (Ozone headless + ANGLE GL)
-//	xvfb       if the Xvfb binary is in PATH
+//	nvidia       if /dev/nvidiactl is present (NVIDIA via nvidia-container-toolkit)
+//	gpu          if /dev/dri/renderD* is readable (Intel/AMD via Ozone headless + ANGLE GL)
+//	xvfb         if the Xvfb binary is in PATH
 //	swiftshader  always available as final fallback
+//
+// NVIDIA is checked before DRI because modern NVIDIA drivers also expose
+// /dev/dri/renderD* nodes (NVIDIA DRM); Mesa cannot drive these, so a
+// DRI-first check would cause GPU mode to fail and fall through to SwiftShader.
 func resolveRenderMode(configured string) string {
 	if configured != "" && configured != "auto" {
 		return configured
+	}
+	if goruntime.GOOS == "linux" && hasNvidiaAccess() {
+		return "nvidia"
 	}
 	if goruntime.GOOS == "linux" && hasDRIAccess() {
 		return "gpu"
@@ -426,6 +535,39 @@ func (m *HeadlessManager) startBrowserWithMode(mode string) error {
 	opts := m.buildBaseOpts()
 
 	switch mode {
+	case "nvidia":
+		// ANGLE Vulkan + native system Vulkan ICD for hardware NVIDIA rendering.
+		//
+		// --use-angle=vulkan: ANGLE uses Vulkan as its rendering backend.
+		// --use-vulkan=native: Chrome uses the system Vulkan loader (libvulkan.so.1)
+		//   instead of its bundled SwiftShader Vulkan (libvk_swiftshader.so).
+		// --ozone-platform=headless: surfaceless EGL mode; no X11 display needed.
+		//
+		// The system Vulkan loader reads NVIDIA's ICD (nvidia_icd.json which
+		// resolves to libGLX_nvidia.so.0 exporting vk_icdGetInstanceProcAddr).
+		// VK_ICD_FILENAMES restricts the Vulkan loader to the NVIDIA ICD so Mesa
+		// software devices (llvmpipe, etc.) are not enumerated alongside it.
+		//
+		// Requires: NVIDIA_DRIVER_CAPABILITIES=graphics (set in Dockerfile ENV)
+		// so libGLX_nvidia.so.0 exports vk_icdGetInstanceProcAddr.
+		if icd := findNvidiaVulkanICD(); icd != "" {
+			os.Setenv("VK_ICD_FILENAMES", icd)
+		}
+		opts = append(opts,
+			chromedp.Headless,
+			chromedp.Flag("ozone-platform", "headless"),
+			chromedp.Flag("use-gl", "angle"),
+			chromedp.Flag("use-angle", "vulkan"),
+			chromedp.Flag("use-vulkan", "native"),
+			chromedp.Flag("ignore-gpu-blocklist", true),
+			chromedp.Flag("enable-gpu-rasterization", true),
+			chromedp.Flag("enable-oop-rasterization", true),
+			chromedp.Flag("enable-webgl", true),
+			chromedp.Flag("enable-zero-copy", true),
+		)
+		log.Info().Str("vk_icd", os.Getenv("VK_ICD_FILENAMES")).
+			Msg("NVIDIA GPU mode: ANGLE Vulkan + native Vulkan ICD (hardware NVIDIA rendering)")
+
 	case "gpu":
 		// Ozone headless + ANGLE GL: real GPU via Mesa/DRI without a display server.
 		// --ozone-platform=headless switches Chrome's graphics stack to EGL
@@ -613,7 +755,7 @@ func (m *HeadlessManager) LaunchSession(apiKey, foundryURL, username, password, 
 	}
 	m.mu.Unlock()
 
-	if count >= m.maxSessions {
+	if m.maxSessions > 0 && count >= m.maxSessions {
 		if alerts.Track("headless_limit", 3, 10*time.Minute, 1*time.Hour) {
 			alerts.Fire(alerts.Event{
 				Type:     alerts.TypeHeadlessSessionFlood,
@@ -801,7 +943,7 @@ func (m *HeadlessManager) checkGlobalSessionCap() error {
 	}
 	ctx := context.Background()
 	globalCount, _ := m.redis.SafeSCard(ctx, "headless:global_sessions")
-	if int(globalCount) >= m.maxSessions {
+	if m.maxSessions > 0 && int(globalCount) >= m.maxSessions {
 		return fmt.Errorf("maximum headless sessions (%d) reached globally across all relay instances", m.maxSessions)
 	}
 	return nil
@@ -1041,7 +1183,7 @@ func (m *HeadlessManager) launchHeadlessWithSeededToken(ctx context.Context, opt
 	}
 	m.mu.Unlock()
 
-	if count >= m.maxSessions {
+	if m.maxSessions > 0 && count >= m.maxSessions {
 		if alerts.Track("headless_limit", 3, 10*time.Minute, 1*time.Hour) {
 			alerts.Fire(alerts.Event{
 				Type:     alerts.TypeHeadlessSessionFlood,
@@ -1418,24 +1560,36 @@ func waitForAnySelector(ctx context.Context, selectors []string) error {
 	}
 }
 
-// detectPage checks whether we're on the world list, login page, or game canvas.
+// detectPage waits for one of the known page states to appear and returns
+// which one won. Times out after 15 seconds and returns "unknown".
+// Polling avoids a race where the world list is rendered by JavaScript after
+// the initial HTML load (observed in Foundry v14+).
 func detectPage(ctx context.Context) string {
-	checkCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	checkCtx, cancel := context.WithTimeout(ctx, 15*time.Second)
 	defer cancel()
 
-	var result string
-	err := chromedp.Run(checkCtx, chromedp.Evaluate(`
-		(function() {
-			if (document.querySelector('input[name="password"]')) return 'login';
-			if (document.querySelector('li.package.world')) return 'worldList';
-			if (document.querySelector('#ui-left, #sidebar, #game')) return 'game';
-			return 'unknown';
-		})()
-	`, &result))
-	if err != nil {
-		return "unknown"
+	ticker := time.NewTicker(300 * time.Millisecond)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-checkCtx.Done():
+			return "unknown"
+		case <-ticker.C:
+			var result string
+			err := chromedp.Run(checkCtx, chromedp.Evaluate(`
+				(function() {
+					if (document.querySelector('input[name="password"]')) return 'login';
+					if (document.querySelector('li.package.world')) return 'worldList';
+					if (document.querySelector('#ui-left, #sidebar, #game')) return 'game';
+					return 'unknown';
+				})()
+			`, &result))
+			if err == nil && result != "unknown" {
+				return result
+			}
+		}
 	}
-	return result
 }
 
 func selectWorld(ctx context.Context, worldName string) error {

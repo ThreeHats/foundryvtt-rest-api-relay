@@ -747,12 +747,12 @@ Get canvas embedded documents
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | `sceneId` | string | no | Scene ID to query (defaults to the active scene) |
 | `documentId` | string | no | Specific document ID to retrieve |
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
-<WsMessageTester messageType="get-canvas-documents" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID to query (defaults to the active scene)"},{"name":"documentId","type":"string","required":false,"description":"Specific document ID to retrieve"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+<WsMessageTester messageType="get-canvas-documents" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID to query (defaults to the active scene)"},{"name":"documentId","type":"string","required":false,"description":"Specific document ID to retrieve"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
@@ -785,12 +785,12 @@ Create canvas embedded document(s)
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | `data` | object | **yes** | Document data object or array of objects to create |
 | `sceneId` | string | no | Scene ID to create in (defaults to the active scene) |
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
-<WsMessageTester messageType="create-canvas-document" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"},{"name":"data","type":"object","required":true,"description":"Document data object or array of objects to create"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID to create in (defaults to the active scene)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+<WsMessageTester messageType="create-canvas-document" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)"},{"name":"data","type":"object","required":true,"description":"Document data object or array of objects to create"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID to create in (defaults to the active scene)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
@@ -800,13 +800,13 @@ Update a canvas embedded document
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | `documentId` | string | **yes** | ID of the document to update |
 | `data` | object | **yes** | Object containing the fields to update |
 | `sceneId` | string | no | Scene ID containing the document (defaults to the active scene) |
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
-<WsMessageTester messageType="update-canvas-document" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"},{"name":"documentId","type":"string","required":true,"description":"ID of the document to update"},{"name":"data","type":"object","required":true,"description":"Object containing the fields to update"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID containing the document (defaults to the active scene)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+<WsMessageTester messageType="update-canvas-document" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)"},{"name":"documentId","type":"string","required":true,"description":"ID of the document to update"},{"name":"data","type":"object","required":true,"description":"Object containing the fields to update"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID containing the document (defaults to the active scene)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
@@ -816,12 +816,12 @@ Delete a canvas embedded document
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| `documentType` | string | **yes** | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | `documentId` | string | **yes** | ID of the document to delete |
 | `sceneId` | string | no | Scene ID containing the document (defaults to the active scene) |
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
-<WsMessageTester messageType="delete-canvas-document" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls)"},{"name":"documentId","type":"string","required":true,"description":"ID of the document to delete"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID containing the document (defaults to the active scene)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+<WsMessageTester messageType="delete-canvas-document" parameters={[{"name":"documentType","type":"string","required":true,"description":"Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions)"},{"name":"documentId","type":"string","required":true,"description":"ID of the document to delete"},{"name":"sceneId","type":"string","required":false,"description":"Scene ID containing the document (defaults to the active scene)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
@@ -962,6 +962,22 @@ Retrieves a list of all macros available in the Foundry world.
 
 ---
 
+### `macro-execute`
+
+Execute a macro by UUID
+
+Executes a specific macro in the Foundry world by its UUID.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `uuid` | string | **yes** | UUID of the macro to execute |
+| `args` | object | no | Optional arguments to pass to the macro execution |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="macro-execute" parameters={[{"name":"uuid","type":"string","required":true,"description":"UUID of the macro to execute"},{"name":"args","type":"object","required":false,"description":"Optional arguments to pass to the macro execution"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
 ## Utility
 
 ### `select`
@@ -1035,6 +1051,21 @@ Returns a single object with world name, game system, Foundry version, all modul
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 <WsMessageTester messageType="play-sound" parameters={[{"name":"src","type":"string","required":true,"description":"Path to the audio file (e.g., \"sounds/effect.mp3\")"},{"name":"volume","type":"number","required":false,"description":"Volume from 0.0 to 1.0 (default: 0.5)"},{"name":"loop","type":"boolean","required":false,"description":"Whether to loop the sound (default: false)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
+### `execute-js`
+
+Execute JavaScript
+
+Executes a JavaScript script in the Foundry VTT client.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `script` | string | no | JavaScript script to execute |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="execute-js" parameters={[{"name":"script","type":"string","required":false,"description":"JavaScript script to execute"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
@@ -1167,9 +1198,10 @@ This endpoint allows searching for entities in the Foundry world based on a quer
 | `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
 | `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
 | `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
+| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
-<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
@@ -1448,6 +1480,40 @@ Moves currency from one actor to another. Validates that the source actor has su
 
 ---
 
+### `modify-currency`
+
+Modify currency balance for a single actor (delta-based, not a transfer between actors)
+
+Adds or removes currency from an actor's wallet. Use a negative amount to remove currency.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `actorUuid` | string | **yes** | UUID of the actor |
+| `currency` | string | **yes** | Currency denomination to modify (pp, gp, ep, sp, cp) |
+| `amount` | number | **yes** | Amount to add (positive) or remove (negative) |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="modify-currency" parameters={[{"name":"actorUuid","type":"string","required":true,"description":"UUID of the actor"},{"name":"currency","type":"string","required":true,"description":"Currency denomination to modify (pp, gp, ep, sp, cp)"},{"name":"amount","type":"number","required":true,"description":"Amount to add (positive) or remove (negative)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
+### `prepare-spell`
+
+Prepare or unprepare a spell for an actor
+
+Toggles a spell's prepared state. Only applicable to spellcaster classes that prepare spells.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `actorUuid` | string | **yes** | UUID of the actor |
+| `spellName` | string | **yes** | Name of the spell to prepare or unprepare |
+| `prepared` | boolean | **yes** | True to prepare the spell, false to unprepare it |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="prepare-spell" parameters={[{"name":"actorUuid","type":"string","required":true,"description":"UUID of the actor"},{"name":"spellName","type":"string","required":true,"description":"Name of the spell to prepare or unprepare"},{"name":"prepared","type":"boolean","required":true,"description":"True to prepare the spell, false to unprepare it"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
 ### `use-ability`
 
 Use an ability
@@ -1646,97 +1712,187 @@ ws.on('message', (raw: string) => {
 {
   "clientId": "fvtt_099ad17ea199e7e3",
   "query": "test",
-  "requestId": "test_1776657997410_tmbzni",
+  "requestId": "test_1777909308142_09dimx",
   "results": [
     {
       "documentType": "Scene",
       "folder": null,
       "formattedMatch": "<strong>test</strong>",
-      "icon": "worlds/testing/assets/scenes/fWuYVDZAnXQiKXM5-thumb.webp",
-      "id": "fWuYVDZAnXQiKXM5",
-      "journalLink": "@UUID[Scene.fWuYVDZAnXQiKXM5]{test}",
+      "icon": "worlds/5e-tables/assets/scenes/OoTPjYkL2GjuQ2a7-thumb.webp",
+      "id": "OoTPjYkL2GjuQ2a7",
+      "journalLink": "@UUID[Scene.OoTPjYkL2GjuQ2a7]{test}",
       "name": "test",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.fWuYVDZAnXQiKXM5"
+      "uuid": "Scene.OoTPjYkL2GjuQ2a7"
     },
     {
       "documentType": "JournalEntry",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-journalentry",
       "icon": "",
-      "id": "t4YBhtHLJvfzUxLy",
-      "journalLink": "@UUID[JournalEntry.t4YBhtHLJvfzUxLy]{test-journalentry}",
+      "id": "u7byD1yDxgtzqeT4",
+      "journalLink": "@UUID[JournalEntry.u7byD1yDxgtzqeT4]{test-journalentry}",
       "name": "test-journalentry",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Journal Directory",
-      "uuid": "JournalEntry.t4YBhtHLJvfzUxLy"
+      "uuid": "JournalEntry.u7byD1yDxgtzqeT4"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-journalentry",
+      "icon": "",
+      "id": "o4ysByiRvg2ZwpuM",
+      "journalLink": "@UUID[JournalEntry.o4ysByiRvg2ZwpuM]{test-journalentry}",
+      "name": "test-journalentry",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Journal Directory",
+      "uuid": "JournalEntry.o4ysByiRvg2ZwpuM"
     },
     {
       "documentType": "Macro",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-macro",
       "icon": "icons/svg/dice-target.svg",
-      "id": "AkcLmoRwvkrPvjyA",
-      "journalLink": "@UUID[Macro.AkcLmoRwvkrPvjyA]{test-macro}",
+      "id": "BZmzcTiPJm3brbfb",
+      "journalLink": "@UUID[Macro.BZmzcTiPJm3brbfb]{test-macro}",
       "name": "test-macro",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "script",
       "tagline": "Macros Directory",
-      "uuid": "Macro.AkcLmoRwvkrPvjyA"
+      "uuid": "Macro.BZmzcTiPJm3brbfb"
+    },
+    {
+      "documentType": "Macro",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-macro",
+      "icon": "icons/svg/dice-target.svg",
+      "id": "siNrSnz0tl7zocTl",
+      "journalLink": "@UUID[Macro.siNrSnz0tl7zocTl]{test-macro}",
+      "name": "test-macro",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "script",
+      "tagline": "Macros Directory",
+      "uuid": "Macro.siNrSnz0tl7zocTl"
     },
     {
       "documentType": "Actor",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-perrin (halfling monk)",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "w5STPCwE3YTDztRk",
-      "journalLink": "@UUID[Actor.w5STPCwE3YTDztRk]{test-perrin (halfling monk)}",
+      "id": "vBWcS3mghXp35fZ3",
+      "journalLink": "@UUID[Actor.vBWcS3mghXp35fZ3]{test-perrin (halfling monk)}",
       "name": "test-perrin (halfling monk)",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.w5STPCwE3YTDztRk"
+      "uuid": "Actor.vBWcS3mghXp35fZ3"
     },
     {
       "documentType": "Scene",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "r36nfimJGHYGUGQX",
-      "journalLink": "@UUID[Scene.r36nfimJGHYGUGQX]{test-scene-updated}",
+      "id": "7iYl9ExwMdFm9POw",
+      "journalLink": "@UUID[Scene.7iYl9ExwMdFm9POw]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.r36nfimJGHYGUGQX"
+      "uuid": "Scene.7iYl9ExwMdFm9POw"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "aQADc2ek0f7ls9af",
+      "journalLink": "@UUID[Scene.aQADc2ek0f7ls9af]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.aQADc2ek0f7ls9af"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "pxk3rKsNgpwB6bG5",
+      "journalLink": "@UUID[Scene.pxk3rKsNgpwB6bG5]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.pxk3rKsNgpwB6bG5"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "vCLJOw0STWGphIWU",
+      "journalLink": "@UUID[Scene.vCLJOw0STWGphIWU]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.vCLJOw0STWGphIWU"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "p5lAI5vNiA5ncl9B",
+      "journalLink": "@UUID[Scene.p5lAI5vNiA5ncl9B]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.p5lAI5vNiA5ncl9B"
     },
     {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-studded leather armor +3",
       "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
-      "id": "0rkF7xi8VrKkFvzZ",
-      "journalLink": "@UUID[Item.0rkF7xi8VrKkFvzZ]{test-studded leather armor +3}",
+      "id": "R5y35KnJ48o60Xuj",
+      "journalLink": "@UUID[Item.R5y35KnJ48o60Xuj]{test-studded leather armor +3}",
       "name": "test-studded leather armor +3",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "equipment",
       "tagline": "Items Directory",
-      "uuid": "Item.0rkF7xi8VrKkFvzZ"
+      "uuid": "Item.R5y35KnJ48o60Xuj"
     },
     {
       "documentType": "JournalEntry",
@@ -1758,15 +1914,30 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "Updated <strong>Test</strong> Actor",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "q9uWyfdPwTlzbpxb",
-      "journalLink": "@UUID[Actor.q9uWyfdPwTlzbpxb]{Updated Test Actor}",
+      "id": "5ZBRNoFE1H2iGDQy",
+      "journalLink": "@UUID[Actor.5ZBRNoFE1H2iGDQy]{Updated Test Actor}",
       "name": "Updated Test Actor",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.q9uWyfdPwTlzbpxb"
+      "uuid": "Actor.5ZBRNoFE1H2iGDQy"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "Updated <strong>Test</strong> Actor",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "id": "XbLqdbLds9Ybm89t",
+      "journalLink": "@UUID[Actor.XbLqdbLds9Ybm89t]{Updated Test Actor}",
+      "name": "Updated Test Actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "character",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.XbLqdbLds9Ybm89t"
     },
     {
       "documentType": "Item",
@@ -4347,7 +4518,7 @@ ws.on('message', (raw: string) => {
         "content": "WS chat-event test",
         "flags": {},
         "flavor": "",
-        "id": "xbxNmfQ3A2PZOl4s",
+        "id": "PVOj1FN6CcBcND9F",
         "isRoll": false,
         "rolls": [],
         "speaker": {
@@ -4355,9 +4526,9 @@ ws.on('message', (raw: string) => {
           "scene": null,
           "token": null
         },
-        "timestamp": 1776657997470,
+        "timestamp": 1777909308197,
         "type": "base",
-        "uuid": "ChatMessage.xbxNmfQ3A2PZOl4s",
+        "uuid": "ChatMessage.PVOj1FN6CcBcND9F",
         "whisper": []
       },
       "eventType": "create"
@@ -4466,24 +4637,24 @@ ws.on('message', (raw: string) => {
           "results": [
             {
               "active": true,
-              "result": 6
+              "result": 4
             }
           ]
         }
       ],
       "flavor": "WS roll-event test",
       "formula": "1d6",
-      "id": "1ba7afBjJTiWWgUB",
+      "id": "i3vQjo6xGMz6u8ha",
       "isCritical": false,
       "isFumble": false,
-      "messageId": "1ba7afBjJTiWWgUB",
-      "rollTotal": 6,
+      "messageId": "i3vQjo6xGMz6u8ha",
+      "rollTotal": 4,
       "speaker": {
         "actor": null,
         "scene": null,
         "token": null
       },
-      "timestamp": 1776657997490,
+      "timestamp": 1777909308216,
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"

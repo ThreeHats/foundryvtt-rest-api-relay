@@ -23,6 +23,7 @@ test-results
 # Build artifacts
 docs/build
 docs/.docusaurus
+frontend/.astro
 
 # Git
 .git/

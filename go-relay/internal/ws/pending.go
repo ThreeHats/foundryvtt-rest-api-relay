@@ -42,6 +42,7 @@ var PendingRequestTypes = map[string]bool{
 	"world-info": true,
 	"get-concentration": true, "break-concentration": true, "concentration-save": true,
 	"equip-item": true, "attune-item": true, "transfer-currency": true,
+	"modify-currency": true, "prepare-spell": true,
 	"scene-screenshot": true, "scene-raw-image": true,
 	"get-users": true, "get-user": true, "create-user": true,
 	"update-user": true, "delete-user": true,

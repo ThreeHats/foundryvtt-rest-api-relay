@@ -163,7 +163,7 @@ import axios from 'axios';
 ```json
 {
   "type": "get-users-result",
-  "requestId": "get-users_1776657998667",
+  "requestId": "get-users_1777909310711",
   "data": [
     {
       "id": "5ypAoBvOiyjDKiaZ",
@@ -186,12 +186,32 @@ import axios from 'axios';
       "character": null
     },
     {
+      "id": "XQP35eYL5dUPscgE",
+      "name": "s2s-test-2",
+      "role": 1,
+      "isGM": false,
+      "active": false,
+      "color": "#a0cc28",
+      "avatar": "icons/svg/mystery-man.svg",
+      "character": null
+    },
+    {
       "id": "JLfKTeTgCDpAdDfw",
       "name": "some-cool-guy",
       "role": 1,
       "isGM": false,
       "active": false,
       "color": "#6328cc",
+      "avatar": "icons/svg/mystery-man.svg",
+      "character": null
+    },
+    {
+      "id": "NIY9RLVBVRZgBH66",
+      "name": "test",
+      "role": 1,
+      "isGM": false,
+      "active": false,
+      "color": "#cc6328",
       "avatar": "icons/svg/mystery-man.svg",
       "character": null
     }
@@ -239,7 +259,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  id: 'cpUI52NlPcovB61k'
+  id: 'PQgIeHvPoxyAHI5o'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -258,7 +278,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=cpUI52NlPcovB61k' \
+curl -X GET 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=PQgIeHvPoxyAHI5o' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -272,7 +292,7 @@ base_url = 'http://localhost:3010'
 path = '/user'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'id': 'cpUI52NlPcovB61k'
+    'id': 'PQgIeHvPoxyAHI5o'
 }
 url = f'{base_url}{path}'
 
@@ -298,7 +318,7 @@ import axios from 'axios';
   const path = '/user';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    id: 'cpUI52NlPcovB61k'
+    id: 'PQgIeHvPoxyAHI5o'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -333,7 +353,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤id=cpUI52NlPcovB61k🔤 ➡️ id
+  🔤id=PQgIeHvPoxyAHI5o🔤 ➡️ id
   🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -362,14 +382,14 @@ import axios from 'axios';
 ```json
 {
   "type": "get-user-result",
-  "requestId": "get-user_1776657998677",
+  "requestId": "get-user_1777909310720",
   "data": {
-    "id": "cpUI52NlPcovB61k",
+    "id": "PQgIeHvPoxyAHI5o",
     "name": "test-api-user",
     "role": 1,
     "isGM": false,
     "active": false,
-    "color": "#64cc28",
+    "color": "#287dcc",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -558,14 +578,14 @@ import axios from 'axios';
 ```json
 {
   "type": "create-user-result",
-  "requestId": "create-user_1776657998670",
+  "requestId": "create-user_1777909310714",
   "data": {
-    "id": "cpUI52NlPcovB61k",
+    "id": "PQgIeHvPoxyAHI5o",
     "name": "test-api-user",
     "role": 1,
     "isGM": false,
     "active": false,
-    "color": "#64cc28",
+    "color": "#287dcc",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -624,7 +644,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "id": "cpUI52NlPcovB61k",
+      "id": "PQgIeHvPoxyAHI5o",
       "data": {
         "role": 2
       }
@@ -641,7 +661,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"id":"cpUI52NlPcovB61k","data":{"role":2}}'
+  -d '{"id":"PQgIeHvPoxyAHI5o","data":{"role":2}}'
 ```
 
 </TabItem>
@@ -664,7 +684,7 @@ response = requests.put(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "id": "cpUI52NlPcovB61k",
+      "id": "PQgIeHvPoxyAHI5o",
       "data": {
         "role": 2
       }
@@ -697,7 +717,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "id": "cpUI52NlPcovB61k",
+        "id": "PQgIeHvPoxyAHI5o",
         "data": {
           "role": 2
         }
@@ -729,7 +749,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"id":"cpUI52NlPcovB61k","data":{"role":2}}🔤 ➡️ body
+  🔤{"id":"PQgIeHvPoxyAHI5o","data":{"role":2}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -757,14 +777,14 @@ import axios from 'axios';
 ```json
 {
   "type": "update-user-result",
-  "requestId": "update-user_1776657998681",
+  "requestId": "update-user_1777909310723",
   "data": {
-    "id": "cpUI52NlPcovB61k",
+    "id": "PQgIeHvPoxyAHI5o",
     "name": "test-api-user",
     "role": 2,
     "isGM": false,
     "active": false,
-    "color": "#64cc28",
+    "color": "#287dcc",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -811,7 +831,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  id: 'cpUI52NlPcovB61k'
+  id: 'PQgIeHvPoxyAHI5o'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -830,7 +850,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=cpUI52NlPcovB61k' \
+curl -X DELETE 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=PQgIeHvPoxyAHI5o' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -844,7 +864,7 @@ base_url = 'http://localhost:3010'
 path = '/user'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'id': 'cpUI52NlPcovB61k'
+    'id': 'PQgIeHvPoxyAHI5o'
 }
 url = f'{base_url}{path}'
 
@@ -870,7 +890,7 @@ import axios from 'axios';
   const path = '/user';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    id: 'cpUI52NlPcovB61k'
+    id: 'PQgIeHvPoxyAHI5o'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -905,7 +925,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤id=cpUI52NlPcovB61k🔤 ➡️ id
+  🔤id=PQgIeHvPoxyAHI5o🔤 ➡️ id
   🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -934,7 +954,7 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-user-result",
-  "requestId": "delete-user_1776657998687",
+  "requestId": "delete-user_1777909310728",
   "success": true
 }
 ```

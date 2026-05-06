@@ -17,7 +17,7 @@ Get canvas embedded documents
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|-------------|
-| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID to query (defaults to the active scene) |
 | documentId | string |  | query | Specific document ID to retrieve |
@@ -164,21 +164,21 @@ import axios from 'axios';
 ```json
 {
   "type": "get-canvas-documents-result",
-  "requestId": "get-canvas-documents_1776657968305",
-  "sceneId": "r36nfimJGHYGUGQX",
+  "requestId": "get-canvas-documents_1777909264857",
+  "sceneId": "p5lAI5vNiA5ncl9B",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "q9uWyfdPwTlzbpxb",
+      "actorId": "XbLqdbLds9Ybm89t",
       "x": 400,
       "y": 400,
       "shape": 4,
-      "_id": "8Lfd4UUpEHRLgJxN",
+      "_id": "mFwrEQB7sc6wLsE7",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "wYyxb2CmXi5SOn8z",
+        "_id": "nWw3RFo7r27rmX3k",
         "system": {},
         "items": [],
         "effects": [],
@@ -328,7 +328,7 @@ Create canvas embedded document(s)
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|-------------|
-| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | data | object | ✓ | body | Document data object or array of objects to create |
 | clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | body, query | Scene ID to create in (defaults to the active scene) |
@@ -370,7 +370,7 @@ const response = await fetch(url, {
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "q9uWyfdPwTlzbpxb"
+        "actorId": "XbLqdbLds9Ybm89t"
       }
     })
 });
@@ -385,7 +385,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"data":{"x":400,"y":400,"actorId":"q9uWyfdPwTlzbpxb"}}'
+  -d '{"data":{"x":400,"y":400,"actorId":"XbLqdbLds9Ybm89t"}}'
 ```
 
 </TabItem>
@@ -412,7 +412,7 @@ response = requests.post(
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "q9uWyfdPwTlzbpxb"
+        "actorId": "XbLqdbLds9Ybm89t"
       }
     }
 )
@@ -446,7 +446,7 @@ import axios from 'axios';
         "data": {
           "x": 400,
           "y": 400,
-          "actorId": "q9uWyfdPwTlzbpxb"
+          "actorId": "XbLqdbLds9Ybm89t"
         }
       }
   });
@@ -476,7 +476,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"data":{"x":400,"y":400,"actorId":"q9uWyfdPwTlzbpxb"}}🔤 ➡️ body
+  🔤{"data":{"x":400,"y":400,"actorId":"XbLqdbLds9Ybm89t"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 55❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -504,21 +504,21 @@ import axios from 'axios';
 ```json
 {
   "type": "create-canvas-document-result",
-  "requestId": "create-canvas-document_1776657968217",
-  "sceneId": "r36nfimJGHYGUGQX",
+  "requestId": "create-canvas-document_1777909264758",
+  "sceneId": "p5lAI5vNiA5ncl9B",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "q9uWyfdPwTlzbpxb",
+      "actorId": "XbLqdbLds9Ybm89t",
       "x": 400,
       "y": 400,
       "shape": 4,
-      "_id": "8Lfd4UUpEHRLgJxN",
+      "_id": "mFwrEQB7sc6wLsE7",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "wYyxb2CmXi5SOn8z",
+        "_id": "nWw3RFo7r27rmX3k",
         "system": {},
         "items": [],
         "effects": [],
@@ -632,7 +632,7 @@ Update a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|-------------|
-| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | documentId | string | ✓ | body, query | ID of the document to update |
 | data | object | ✓ | body | Object containing the fields to update |
 | clientId | string |  | query | Client ID for the Foundry world |
@@ -672,7 +672,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "8Lfd4UUpEHRLgJxN",
+      "documentId": "mFwrEQB7sc6wLsE7",
       "data": {
         "x": 450,
         "y": 450
@@ -690,7 +690,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"8Lfd4UUpEHRLgJxN","data":{"x":450,"y":450}}'
+  -d '{"documentId":"mFwrEQB7sc6wLsE7","data":{"x":450,"y":450}}'
 ```
 
 </TabItem>
@@ -714,7 +714,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "8Lfd4UUpEHRLgJxN",
+      "documentId": "mFwrEQB7sc6wLsE7",
       "data": {
         "x": 450,
         "y": 450
@@ -748,7 +748,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "8Lfd4UUpEHRLgJxN",
+        "documentId": "mFwrEQB7sc6wLsE7",
         "data": {
           "x": 450,
           "y": 450
@@ -781,7 +781,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"8Lfd4UUpEHRLgJxN","data":{"x":450,"y":450}}🔤 ➡️ body
+  🔤{"documentId":"mFwrEQB7sc6wLsE7","data":{"x":450,"y":450}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -809,21 +809,21 @@ import axios from 'axios';
 ```json
 {
   "type": "update-canvas-document-result",
-  "requestId": "update-canvas-document_1776657968312",
-  "sceneId": "r36nfimJGHYGUGQX",
+  "requestId": "update-canvas-document_1777909264861",
+  "sceneId": "p5lAI5vNiA5ncl9B",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "q9uWyfdPwTlzbpxb",
+      "actorId": "XbLqdbLds9Ybm89t",
       "x": 450,
       "y": 450,
       "shape": 4,
-      "_id": "8Lfd4UUpEHRLgJxN",
+      "_id": "mFwrEQB7sc6wLsE7",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "wYyxb2CmXi5SOn8z",
+        "_id": "nWw3RFo7r27rmX3k",
         "system": {},
         "items": [],
         "effects": [],
@@ -937,7 +937,7 @@ Delete a canvas embedded document
 
 | Name | Type | Required | Source | Description |
 |------|------|----------|--------|-------------|
-| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls) |
+| documentType | string | ✓ | params | Type of canvas document (tokens, tiles, drawings, lights, sounds, notes, templates, walls, regions) |
 | documentId | string | ✓ | query | ID of the document to delete |
 | clientId | string |  | query | Client ID for the Foundry world |
 | sceneId | string |  | query | Scene ID containing the document (defaults to the active scene) |
@@ -965,7 +965,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  documentId: '8Lfd4UUpEHRLgJxN'
+  documentId: 'mFwrEQB7sc6wLsE7'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -984,7 +984,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3&documentId=8Lfd4UUpEHRLgJxN' \
+curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3&documentId=mFwrEQB7sc6wLsE7' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -998,7 +998,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'documentId': '8Lfd4UUpEHRLgJxN'
+    'documentId': 'mFwrEQB7sc6wLsE7'
 }
 url = f'{base_url}{path}'
 
@@ -1024,7 +1024,7 @@ import axios from 'axios';
   const path = '/canvas/tokens';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    documentId: '8Lfd4UUpEHRLgJxN'
+    documentId: 'mFwrEQB7sc6wLsE7'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1059,7 +1059,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤documentId=8Lfd4UUpEHRLgJxN🔤 ➡️ documentId
+  🔤documentId=mFwrEQB7sc6wLsE7🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1088,8 +1088,8 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-canvas-document-result",
-  "requestId": "delete-canvas-document_1776657968349",
-  "sceneId": "r36nfimJGHYGUGQX",
+  "requestId": "delete-canvas-document_1777909264889",
+  "sceneId": "p5lAI5vNiA5ncl9B",
   "documentType": "tokens",
   "success": true
 }

@@ -58,7 +58,7 @@ Subscription-related UI (plan badges, upgrade buttons) is automatically **hidden
 :::info Headless sessions
 Headless browser sessions (automated GM login via Chromium) are **enabled by default** on self-hosted instances (`ALLOW_HEADLESS=true`). Key tuning variables:
 - `HEADLESS_SESSION_TIMEOUT` — inactivity timeout in seconds before a session is stopped (default: `600`). Set to `0` to never time out.
-- `MAX_HEADLESS_SESSIONS` — max concurrent headless sessions (default: `1`).
+- `MAX_HEADLESS_SESSIONS` — max concurrent headless sessions (default: `0` = no limit).
 - `PUPPETEER_EXECUTABLE_PATH` — path to Chrome/Chromium if not auto-detected.
 
 See [Server Configuration](./configuration) for the full list of variables.

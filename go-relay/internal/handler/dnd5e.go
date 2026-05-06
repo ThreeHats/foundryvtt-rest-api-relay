@@ -282,5 +282,41 @@ func Dnd5eRouter(mgr *ws.ClientManager, pending *ws.PendingRequests) chi.Router 
 		},
 	}))
 
+	// Modify currency balance for a single actor (delta-based, not a transfer between actors)
+	//
+	// Adds or removes currency from an actor's wallet. Use a negative amount to remove currency.
+	// @tag Dnd5e
+	// @returns Result of the currency modification
+	r.Post("/modify-currency", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type: "modify-currency",
+		RequiredParams: []helpers.ParamDef{
+			actorUuid,
+			{Name: "currency", From: bq, Type: helpers.TypeString, Required: true, Description: "Currency denomination to modify (pp, gp, ep, sp, cp)"},
+			{Name: "amount", From: bq, Type: helpers.TypeNumber, Required: true, Description: "Amount to add (positive) or remove (negative)"},
+		},
+		OptionalParams: []helpers.ParamDef{
+			clientIDParam(),
+			userIDParam(),
+		},
+	}))
+
+	// Prepare or unprepare a spell for an actor
+	//
+	// Toggles a spell's prepared state. Only applicable to spellcaster classes that prepare spells.
+	// @tag Dnd5e
+	// @returns Result of the prepare spell operation
+	r.Post("/prepare-spell", helpers.CreateAPIRoute(mgr, pending, helpers.APIRouteConfig{
+		Type: "prepare-spell",
+		RequiredParams: []helpers.ParamDef{
+			actorUuid,
+			{Name: "spellName", From: bq, Type: helpers.TypeString, Required: true, Description: "Name of the spell to prepare or unprepare"},
+			{Name: "prepared", From: bq, Type: helpers.TypeBoolean, Required: true, Description: "True to prepare the spell, false to unprepare it"},
+		},
+		OptionalParams: []helpers.ParamDef{
+			clientIDParam(),
+			userIDParam(),
+		},
+	}))
+
 	return r
 }

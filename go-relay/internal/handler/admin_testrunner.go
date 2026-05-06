@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -119,28 +120,68 @@ var testRunRegistry = struct {
 // operationMutex ensures only one operation (test run or doc generation) runs at a time.
 var operationMutex sync.Mutex
 
-// curatedEnvKeys is the whitelist of .env.test keys exposed via the admin env editor.
-var curatedEnvKeys = []string{
+// staticEnvKeys is the non-version-specific portion of the .env.test whitelist.
+var staticEnvKeys = []string{
 	"TEST_BASE_URL",
 	"TEST_API_KEY",
 	"TEST_FOUNDRY_VERSIONS",
-	"FOUNDRY_V12_URL",
-	"FOUNDRY_V13_URL",
-	"FOUNDRY_V12_WORLD",
-	"FOUNDRY_V13_WORLD",
 	"TEST_DEFAULT_WORLD",
 	"USE_EXISTING_SESSION",
-	"TEST_CLIENT_ID_V12",
-	"TEST_CLIENT_ID_V13",
 	"FOUNDRY_USERNAME",
 	"FOUNDRY_PASSWORD",
 	"TEST_USER_EMAIL",
 	"TEST_USER_PASSWORD",
 	"TEST_ADMIN_EMAIL",
 	"TEST_ADMIN_PASSWORD",
-	"TEST_PLAYER_USER_ID_V12",
-	"TEST_PLAYER_USER_ID_V13",
 	"CAPTURE_BROWSER_CONSOLE",
+}
+
+// expandedEnvKeys returns the full whitelist for the given TEST_FOUNDRY_VERSIONS value.
+// For each version token (e.g. "12", "13", "14") it appends the four per-version
+// variables: FOUNDRY_V{N}_URL, FOUNDRY_V{N}_WORLD, TEST_CLIENT_ID_V{N}, TEST_PLAYER_USER_ID_V{N}.
+func expandedEnvKeys(testFoundryVersions string) []string {
+	keys := make([]string, len(staticEnvKeys))
+	copy(keys, staticEnvKeys)
+	for _, v := range strings.Split(testFoundryVersions, ",") {
+		v = strings.TrimSpace(v)
+		if v == "" {
+			continue
+		}
+		keys = append(keys,
+			"FOUNDRY_V"+v+"_URL",
+			"FOUNDRY_V"+v+"_WORLD",
+			"TEST_CLIENT_ID_V"+v,
+			"TEST_PLAYER_USER_ID_V"+v,
+		)
+	}
+	return keys
+}
+
+// versionKeyRE matches any version-specific env key (FOUNDRY_V12_URL, TEST_CLIENT_ID_V13, etc.)
+// and captures the version number.
+var versionKeyRE = regexp.MustCompile(`^(?:FOUNDRY_V(\d+)_(?:URL|WORLD)|TEST_(?:CLIENT_ID|PLAYER_USER_ID)_V(\d+))$`)
+
+// versionsInFile returns all version numbers (e.g. "12", "13") referenced by any
+// version-specific key present in parsed, regardless of TEST_FOUNDRY_VERSIONS.
+func versionsInFile(parsed map[string]string) []string {
+	seen := map[string]bool{}
+	for key := range parsed {
+		m := versionKeyRE.FindStringSubmatch(key)
+		if m == nil {
+			continue
+		}
+		v := m[1]
+		if v == "" {
+			v = m[2]
+		}
+		seen[v] = true
+	}
+	versions := make([]string, 0, len(seen))
+	for v := range seen {
+		versions = append(versions, v)
+	}
+	sort.Strings(versions)
+	return versions
 }
 
 // AdminTestRunnerRouter exposes endpoints to trigger, stream, and cancel process runs,
@@ -294,7 +335,10 @@ func AdminTestRunnerRouter(db *database.DB, cfg *config.Config) chi.Router {
 		helpers.WriteJSON(w, http.StatusOK, map[string]string{"message": "Cancellation requested"})
 	})
 
-	// GET /admin/api/tests/env — return curated .env.test values
+	// GET /admin/api/tests/env — return curated .env.test values.
+	// Returns static keys + version-specific keys for ALL versions referenced in
+	// the file (not just those listed in TEST_FOUNDRY_VERSIONS), so the frontend
+	// can pre-populate fields when the user adds a previously-configured version.
 	r.Get("/env", func(w http.ResponseWriter, req *http.Request) {
 		root, err := projectRoot()
 		if err != nil {
@@ -302,8 +346,32 @@ func AdminTestRunnerRouter(db *database.DB, cfg *config.Config) chi.Router {
 			return
 		}
 		parsed := parseDotEnv(filepath.Join(root, ".env.test"))
-		result := make(map[string]string, len(curatedEnvKeys))
-		for _, key := range curatedEnvKeys {
+
+		// Start with static keys + keys for the currently configured versions.
+		keys := expandedEnvKeys(parsed["TEST_FOUNDRY_VERSIONS"])
+
+		// Also include version-specific keys for any other version found in the file
+		// (e.g. a version was removed from TEST_FOUNDRY_VERSIONS but its URL keys remain).
+		keySet := make(map[string]bool, len(keys))
+		for _, k := range keys {
+			keySet[k] = true
+		}
+		for _, v := range versionsInFile(parsed) {
+			for _, k := range []string{
+				"FOUNDRY_V" + v + "_URL",
+				"FOUNDRY_V" + v + "_WORLD",
+				"TEST_CLIENT_ID_V" + v,
+				"TEST_PLAYER_USER_ID_V" + v,
+			} {
+				if !keySet[k] {
+					keys = append(keys, k)
+					keySet[k] = true
+				}
+			}
+		}
+
+		result := make(map[string]string, len(keys))
+		for _, key := range keys {
 			result[key] = parsed[key]
 		}
 		helpers.WriteJSON(w, http.StatusOK, result)
@@ -316,9 +384,10 @@ func AdminTestRunnerRouter(db *database.DB, cfg *config.Config) chi.Router {
 			helpers.WriteError(w, http.StatusBadRequest, "Invalid JSON")
 			return
 		}
-		// Whitelist: only write keys in curatedEnvKeys
+		// Whitelist: only write keys in the expanded set (static + version-specific)
+		keys := expandedEnvKeys(body["TEST_FOUNDRY_VERSIONS"])
 		updates := make(map[string]string)
-		for _, key := range curatedEnvKeys {
+		for _, key := range keys {
 			if val, ok := body[key]; ok {
 				updates[key] = val
 			}
@@ -328,7 +397,7 @@ func AdminTestRunnerRouter(db *database.DB, cfg *config.Config) chi.Router {
 			helpers.WriteError(w, http.StatusInternalServerError, err.Error())
 			return
 		}
-		if err := writeDotEnvKeys(filepath.Join(root, ".env.test"), updates); err != nil {
+		if err := writeDotEnvKeys(filepath.Join(root, ".env.test"), keys, updates); err != nil {
 			helpers.WriteError(w, http.StatusInternalServerError, "Failed to write .env.test: "+err.Error())
 			return
 		}
@@ -371,7 +440,11 @@ func TestReportHandler(w http.ResponseWriter, r *http.Request) {
 
 // projectRoot returns the monorepo root (the directory that contains tests/).
 // When the server runs from go-relay/, the root is the parent directory.
+// PROJECT_ROOT env var overrides auto-detection (useful in Docker).
 func projectRoot() (string, error) {
+	if root := os.Getenv("PROJECT_ROOT"); root != "" {
+		return root, nil
+	}
 	cwd, _ := os.Getwd()
 	parent := filepath.Dir(cwd)
 	if _, err := os.Stat(filepath.Join(parent, "tests")); err == nil {
@@ -528,8 +601,9 @@ func parseDotEnv(path string) map[string]string {
 
 // writeDotEnvKeys updates specific key=value pairs in a dotenv file, preserving
 // all other lines (comments, blank lines, unrelated keys). Keys not already
-// present as uncommented lines are appended at the end of the file.
-func writeDotEnvKeys(path string, updates map[string]string) error {
+// present as uncommented lines are appended at the end of the file in the
+// order given by orderedKeys.
+func writeDotEnvKeys(path string, orderedKeys []string, updates map[string]string) error {
 	// Read existing content, or start empty
 	var lines []string
 	if data, err := os.ReadFile(path); err == nil {
@@ -560,7 +634,7 @@ func writeDotEnvKeys(path string, updates map[string]string) error {
 
 	// Append any keys that weren't found in the existing file
 	var toAppend []string
-	for _, key := range curatedEnvKeys { // iterate in stable order
+	for _, key := range orderedKeys { // iterate in stable order
 		if updates[key] != "" || written[key] {
 			if !written[key] {
 				toAppend = append(toAppend, key+"="+updates[key])

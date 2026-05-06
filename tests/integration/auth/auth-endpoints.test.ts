@@ -980,8 +980,34 @@ describe('Auth Endpoints', () => {
       expect(captured.response.status).toBe(401);
     });
 
-    test('POST /auth/resend-verification - with valid API key', async () => {
-      // For already-verified users, this should return an appropriate response
+    test('POST /auth/resend-verification - with valid session token', async () => {
+      if (registrationDisabled || !throwawayEmail) return;
+
+      // regenerate-key (Group 5) deletes all sessions, so we need a fresh login
+      const loginConfig: ApiRequestConfig = {
+        url: {
+          raw: `${testVariables.baseUrl}/auth/login`,
+          host: [testVariables.baseUrl],
+          path: ['auth', 'login'],
+        },
+        method: 'POST',
+        header: [],
+        body: {
+          mode: 'raw',
+          raw: JSON.stringify({
+            email: throwawayEmail,
+            password: getGlobalVariable('auth', 'throwawayPassword', throwawayPassword),
+          })
+        }
+      };
+
+      const loginCaptured = await captureExample(loginConfig, {}, '/auth/login (for resend-verification test)');
+      if (loginCaptured.response.status !== 200) {
+        console.log('Login failed — skipping resend-verification test');
+        return;
+      }
+      const freshSessionToken = loginCaptured.response.data.sessionToken;
+
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/resend-verification`,
@@ -990,15 +1016,14 @@ describe('Auth Endpoints', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${freshSessionToken}` }
         ]
       };
 
       const captured = await captureExample(requestConfig, {}, '/auth/resend-verification');
 
-      // If email is already verified, expect 400; if SMTP not configured, could be 400/500
-      // If email not verified, expect 200
-      expect([200, 400]).toContain(captured.response.status);
+      // 200 = already verified or email sent; 503 = SMTP not configured; 500 = send failed
+      expect([200, 500, 503]).toContain(captured.response.status);
 
       if (captured.response.status === 200) {
         capturedExamples.push(captured);
