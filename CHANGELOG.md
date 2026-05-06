@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.1] - 2026-05-06
+
+- Updated deploy workflow version bump step to update docgen version number
+
 ## [3.1.0] - 2026-05-04
 
 ### Added
