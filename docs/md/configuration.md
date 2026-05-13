@@ -233,7 +233,7 @@ docker compose -f docker-compose.local.yml up -d
 
 ## GPU Acceleration in Docker
 
-Headless sessions support GPU hardware acceleration for canvas-heavy operations (screenshots, encounter maps, sheet rendering). GPU mode is auto-detected — no configuration needed beyond exposing the device.
+GPU acceleration significantly speeds up all headless browser operations and reduces CPU load. Foundry's renderer (Pixi.js) is heavily GPU-dependent — without hardware acceleration it runs on the CPU, which is expensive. GPU mode is auto-detected — no configuration needed beyond exposing the device.
 
 :::info Host OS support
 - **Linux (Docker Engine)** — full GPU support for Intel, AMD, and NVIDIA.
