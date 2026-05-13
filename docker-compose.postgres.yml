@@ -69,6 +69,16 @@ services:
     # NVIDIA_DRIVER_CAPABILITIES=graphics,utility in ENV so the NVIDIA runtime
     # injects the graphics stack automatically — no extra compose config needed.
     #
+    # Requires nvidia-container-toolkit >= ~1.14. Some distros (Pop!_OS, Ubuntu)
+    # ship older versions that fail with modern drivers (560+). If you see
+    # "nvidia-container-runtime did not terminate successfully: exit status 2",
+    # upgrade all four toolkit packages from the NVIDIA repo at once:
+    #   sudo apt-get install \
+    #     nvidia-container-toolkit=1.19.0-1 \
+    #     nvidia-container-toolkit-base=1.19.0-1 \
+    #     libnvidia-container-tools=1.19.0-1 \
+    #     libnvidia-container1=1.19.0-1
+    #
     # NVIDIA — Option B: CDI (no default runtime change needed):
     #   sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
     #   sudo systemctl restart docker

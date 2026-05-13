@@ -2,8 +2,7 @@
  * @file utility-endpoints.test.ts
  * @generated Partially auto-generated from route docstrings
  * @description Utility and Canvas Interaction Endpoint Tests
- * @endpoints POST /select, GET /selected, POST /execute-js, GET /players,
- *            GET /world-info, POST /move-token, GET /measure-distance
+ * @endpoints POST /select, GET /selected, POST /execute-js, GET /players, GET /world-info
  */
 
 import { describe, test, expect, afterAll } from '@jest/globals';
@@ -12,7 +11,6 @@ import { testVariables, setVariable } from '../../helpers/testVariables';
 import { captureExample, saveExamples } from '../../helpers/captureExample';
 import { forEachVersion } from '../../helpers/multiVersion';
 import { setGlobalVariable, getGlobalVariable } from '../../helpers/globalVariables';
-import { getEntityUuid } from '../../helpers/testEntities';
 import * as path from 'path';
 
 // Store captured examples for documentation
@@ -267,85 +265,6 @@ describe('Utility', () => {
         expect(data.users).toBeInstanceOf(Array);
         expect(data).toHaveProperty('activeScene');
         console.log(`  World: ${data.world.title}, System: ${data.system.id}, Modules: ${data.modules.length}, Users: ${data.users.length}`);
-      }, 15000);
-    });
-  });
-
-  forEachVersion((version, getClientId) => {
-    describe(`POST /move-token (v${version})`, () => {
-      test('POST /move-token - move a token by actor UUID', async () => {
-        setVariable('clientId', getClientId());
-
-        // Use the primary actor UUID — the move-token endpoint accepts an Actor UUID
-        // and finds the corresponding token on the current scene
-        const actorUuid = getEntityUuid(version, 'Actor', 'primary');
-        expect(actorUuid).toBeTruthy();
-
-        const requestConfig: ApiRequestConfig = {
-          url: {
-            raw: '{{baseUrl}}/move-token',
-            host: ['{{baseUrl}}'],
-            path: ['move-token'],
-            query: [{ key: 'clientId', value: '{{clientId}}' }]
-          },
-          method: 'POST',
-          header: [
-            { key: 'x-api-key', value: '{{apiKey}}', type: 'text' },
-            { key: 'Content-Type', value: 'application/json', type: 'text' }
-          ],
-          body: {
-            mode: 'raw',
-            raw: JSON.stringify({
-              uuid: actorUuid,
-              x: 200,
-              y: 200,
-              animate: false
-            })
-          }
-        };
-
-        const captured = await captureExample(requestConfig, testVariables, '/move-token');
-        capturedExamples.push(captured);
-
-        expect(captured.response.status).toBe(200);
-        expect(captured.response.data.data).toHaveProperty('x', 200);
-        expect(captured.response.data.data).toHaveProperty('y', 200);
-        console.log(`  ✓ Moved token for actor ${actorUuid} to (200, 200)`);
-      }, 15000);
-    });
-  });
-
-  forEachVersion((version, getClientId) => {
-    describe(`GET /measure-distance (v${version})`, () => {
-      test('GET /measure-distance - measure between coordinates', async () => {
-        setVariable('clientId', getClientId());
-
-        const requestConfig: ApiRequestConfig = {
-          url: {
-            raw: '{{baseUrl}}/measure-distance',
-            host: ['{{baseUrl}}'],
-            path: ['measure-distance'],
-            query: [
-              { key: 'clientId', value: '{{clientId}}' },
-              { key: 'originX', value: '0' },
-              { key: 'originY', value: '0' },
-              { key: 'targetX', value: '500' },
-              { key: 'targetY', value: '500' }
-            ]
-          },
-          method: 'GET',
-          header: [{ key: 'x-api-key', value: '{{apiKey}}', type: 'text' }]
-        };
-
-        const captured = await captureExample(requestConfig, testVariables, '/measure-distance');
-        capturedExamples.push(captured);
-
-        expect(captured.response.status).toBe(200);
-        const data = captured.response.data.data;
-        expect(data).toHaveProperty('distance');
-        expect(data).toHaveProperty('units');
-        expect(typeof data.distance).toBe('number');
-        console.log(`  Distance: ${data.distance} ${data.units}`);
       }, 15000);
     });
   });

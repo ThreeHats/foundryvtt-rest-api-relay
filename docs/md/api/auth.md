@@ -50,7 +50,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "auth-test-1777909246511@example.com",
+      "email": "auth-test-1777996573182@example.com",
       "password": "TestPassword1"
     })
 });
@@ -64,7 +64,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/register' \
   -H "Content-Type: application/json" \
-  -d '{"email":"auth-test-1777909246511@example.com","password":"TestPassword1"}'
+  -d '{"email":"auth-test-1777996573182@example.com","password":"TestPassword1"}'
 ```
 
 </TabItem>
@@ -80,7 +80,7 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "auth-test-1777909246511@example.com",
+      "email": "auth-test-1777996573182@example.com",
       "password": "TestPassword1"
     }
 )
@@ -106,7 +106,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "auth-test-1777909246511@example.com",
+        "email": "auth-test-1777996573182@example.com",
         "password": "TestPassword1"
       }
   });
@@ -132,10 +132,10 @@ import axios from 'axios';
   🔤/auth/register🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"auth-test-1777909246511@example.com","password":"TestPassword1"}🔤 ➡️ body
+  🔤{"email":"auth-test-1777996573182@example.com","password":"TestPassword1"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/register HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1777909246511@example.com","password":"TestPassword1"}🔤 ➡️ request
+  🔤POST /auth/register HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1777996573182@example.com","password":"TestPassword1"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -160,11 +160,11 @@ import axios from 'axios';
 ```json
 {
   "apiKey": "your-api-key-here",
-  "createdAt": "2026-05-04T15:40:46Z",
-  "email": "auth-test-1777909246511@example.com",
+  "createdAt": "2026-05-05T15:56:13Z",
+  "email": "auth-test-1777996573182@example.com",
   "emailVerified": true,
-  "id": 531,
-  "sessionExpiresAt": "2026-06-03T15:40:46Z",
+  "id": 655,
+  "sessionExpiresAt": "2026-06-04T15:56:13Z",
   "sessionToken": "your-api-key-here",
   "subscriptionStatus": "free"
 }
@@ -214,7 +214,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "relay-test-1777909230261@example.com",
+      "email": "relay-test-1777996557188@example.com",
       "password": "TestPassword123!"
     })
 });
@@ -228,7 +228,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/login' \
   -H "Content-Type: application/json" \
-  -d '{"email":"relay-test-1777909230261@example.com","password":"TestPassword123!"}'
+  -d '{"email":"relay-test-1777996557188@example.com","password":"TestPassword123!"}'
 ```
 
 </TabItem>
@@ -244,7 +244,7 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "relay-test-1777909230261@example.com",
+      "email": "relay-test-1777996557188@example.com",
       "password": "TestPassword123!"
     }
 )
@@ -270,7 +270,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "relay-test-1777909230261@example.com",
+        "email": "relay-test-1777996557188@example.com",
         "password": "TestPassword123!"
       }
   });
@@ -296,10 +296,10 @@ import axios from 'axios';
   🔤/auth/login🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"relay-test-1777909230261@example.com","password":"TestPassword123!"}🔤 ➡️ body
+  🔤{"email":"relay-test-1777996557188@example.com","password":"TestPassword123!"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/login HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 78❌r❌n❌r❌n{"email":"relay-test-1777909230261@example.com","password":"TestPassword123!"}🔤 ➡️ request
+  🔤POST /auth/login HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 78❌r❌n❌r❌n{"email":"relay-test-1777996557188@example.com","password":"TestPassword123!"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -324,13 +324,13 @@ import axios from 'axios';
 ```json
 {
   "apiKeyRotationRequired": false,
-  "createdAt": "2026-05-04T15:40:30Z",
-  "email": "relay-test-1777909230261@example.com",
+  "createdAt": "2026-05-05T15:55:57Z",
+  "email": "relay-test-1777996557188@example.com",
   "emailVerified": true,
-  "id": 530,
-  "requestsThisMonth": 420,
+  "id": 654,
+  "requestsThisMonth": 426,
   "role": "user",
-  "sessionExpiresAt": "2026-06-03T15:40:46Z",
+  "sessionExpiresAt": "2026-06-04T15:56:13Z",
   "sessionToken": "your-api-key-here"
 }
 ```
@@ -379,7 +379,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "auth-test-1777909246511@example.com",
+      "email": "auth-test-1777996573182@example.com",
       "password": "TestPassword1"
     })
 });
@@ -393,7 +393,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/regenerate-key' \
   -H "Content-Type: application/json" \
-  -d '{"email":"auth-test-1777909246511@example.com","password":"TestPassword1"}'
+  -d '{"email":"auth-test-1777996573182@example.com","password":"TestPassword1"}'
 ```
 
 </TabItem>
@@ -409,7 +409,7 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "auth-test-1777909246511@example.com",
+      "email": "auth-test-1777996573182@example.com",
       "password": "TestPassword1"
     }
 )
@@ -435,7 +435,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "auth-test-1777909246511@example.com",
+        "email": "auth-test-1777996573182@example.com",
         "password": "TestPassword1"
       }
   });
@@ -461,10 +461,10 @@ import axios from 'axios';
   🔤/auth/regenerate-key🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"auth-test-1777909246511@example.com","password":"TestPassword1"}🔤 ➡️ body
+  🔤{"email":"auth-test-1777996573182@example.com","password":"TestPassword1"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/regenerate-key HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1777909246511@example.com","password":"TestPassword1"}🔤 ➡️ request
+  🔤POST /auth/regenerate-key HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{"email":"auth-test-1777996573182@example.com","password":"TestPassword1"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -626,9 +626,9 @@ import axios from 'axios';
 ```json
 {
   "apiKeyRotationRequired": false,
-  "email": "auth-test-1777909246511@example.com",
+  "email": "auth-test-1777996573182@example.com",
   "emailVerified": true,
-  "id": 531,
+  "id": 655,
   "limits": {
     "monthlyLimit": 1000000,
     "unlimitedMonthly": false
@@ -775,7 +775,7 @@ import axios from 'axios';
   "apiAccess": {
     "hasMasterKey": true
   },
-  "exportDate": "2026-05-04T15:40:47Z",
+  "exportDate": "2026-05-05T15:56:13Z",
   "scopedKeys": [],
   "subscription": {
     "status": "free",
@@ -783,14 +783,14 @@ import axios from 'axios';
     "subscriptionId": ""
   },
   "usage": {
-    "requestsThisMonth": 420,
-    "requestsToday": 420
+    "requestsThisMonth": 426,
+    "requestsToday": 426
   },
   "user": {
-    "createdAt": "2026-05-04T15:40:30Z",
-    "email": "relay-test-1777909230261@example.com",
-    "id": 530,
-    "updatedAt": "2026-05-04T15:40:46Z"
+    "createdAt": "2026-05-05T15:55:57Z",
+    "email": "relay-test-1777996557188@example.com",
+    "id": 654,
+    "updatedAt": "2026-05-05T15:56:13Z"
   }
 }
 ```
@@ -840,7 +840,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "confirmEmail": "auth-test-1777909246511@example.com",
+      "confirmEmail": "auth-test-1777996573182@example.com",
       "password": "TestPassword1"
     })
 });
@@ -855,7 +855,7 @@ console.log(data);
 curl -X DELETE 'http://localhost:3010/auth/account' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"confirmEmail":"auth-test-1777909246511@example.com","password":"TestPassword1"}'
+  -d '{"confirmEmail":"auth-test-1777996573182@example.com","password":"TestPassword1"}'
 ```
 
 </TabItem>
@@ -874,7 +874,7 @@ response = requests.delete(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "confirmEmail": "auth-test-1777909246511@example.com",
+      "confirmEmail": "auth-test-1777996573182@example.com",
       "password": "TestPassword1"
     }
 )
@@ -901,7 +901,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "confirmEmail": "auth-test-1777909246511@example.com",
+        "confirmEmail": "auth-test-1777996573182@example.com",
         "password": "TestPassword1"
       }
   });
@@ -927,10 +927,10 @@ import axios from 'axios';
   🔤/auth/account🔤 ➡️ path
 
   💭 Request body
-  🔤{"confirmEmail":"auth-test-1777909246511@example.com","password":"TestPassword1"}🔤 ➡️ body
+  🔤{"confirmEmail":"auth-test-1777996573182@example.com","password":"TestPassword1"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤DELETE /auth/account HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 81❌r❌n❌r❌n{"confirmEmail":"auth-test-1777909246511@example.com","password":"TestPassword1"}🔤 ➡️ request
+  🔤DELETE /auth/account HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 81❌r❌n❌r❌n{"confirmEmail":"auth-test-1777996573182@example.com","password":"TestPassword1"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -1165,7 +1165,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "email": "auth-test-1777909246511@example.com"
+      "email": "auth-test-1777996573182@example.com"
     })
 });
 const data = await response.json();
@@ -1178,7 +1178,7 @@ console.log(data);
 ```bash
 curl -X POST 'http://localhost:3010/auth/forgot-password' \
   -H "Content-Type: application/json" \
-  -d '{"email":"auth-test-1777909246511@example.com"}'
+  -d '{"email":"auth-test-1777996573182@example.com"}'
 ```
 
 </TabItem>
@@ -1194,7 +1194,7 @@ url = f'{base_url}{path}'
 response = requests.post(
     url,
     json={
-      "email": "auth-test-1777909246511@example.com"
+      "email": "auth-test-1777996573182@example.com"
     }
 )
 data = response.json()
@@ -1219,7 +1219,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "email": "auth-test-1777909246511@example.com"
+        "email": "auth-test-1777996573182@example.com"
       }
   });
   const data = response.data;
@@ -1244,10 +1244,10 @@ import axios from 'axios';
   🔤/auth/forgot-password🔤 ➡️ path
 
   💭 Request body
-  🔤{"email":"auth-test-1777909246511@example.com"}🔤 ➡️ body
+  🔤{"email":"auth-test-1777996573182@example.com"}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /auth/forgot-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 47❌r❌n❌r❌n{"email":"auth-test-1777909246511@example.com"}🔤 ➡️ request
+  🔤POST /auth/forgot-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 47❌r❌n❌r❌n{"email":"auth-test-1777996573182@example.com"}🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -1505,10 +1505,10 @@ import axios from 'axios';
 
 ```json
 {
-  "createdAt": "2026-05-04T15:41:45Z",
+  "createdAt": "2026-05-05T15:57:12Z",
   "enabled": true,
   "expiresAt": null,
-  "id": 2821,
+  "id": 3641,
   "key": "your-api-key-here",
   "monthlyLimit": 500,
   "name": "Test Scoped Key",
@@ -1658,12 +1658,12 @@ import axios from 'axios';
 {
   "keys": [
     {
-      "createdAt": "2026-05-04T15:41:45Z",
+      "createdAt": "2026-05-05T15:57:12Z",
       "enabled": true,
       "expiresAt": null,
-      "id": 2821,
+      "id": 3641,
       "isExpired": false,
-      "key": "9034d795...",
+      "key": "c5f2b96b...",
       "monthlyLimit": 500,
       "name": "Test Scoped Key",
       "requestsThisMonth": 0,
@@ -1675,7 +1675,7 @@ import axios from 'axios';
         "entity:read",
         "structure:read"
       ],
-      "updatedAt": "2026-05-04T15:41:45Z"
+      "updatedAt": "2026-05-05T15:57:12Z"
     }
   ]
 }
@@ -1715,7 +1715,7 @@ Permanently deletes a scoped key.
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/auth/api-keys/2821';
+const path = '/auth/api-keys/3641';
 const url = `${baseUrl}${path}`;
 
 const response = await fetch(url, {
@@ -1732,7 +1732,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/auth/api-keys/2821' \
+curl -X DELETE 'http://localhost:3010/auth/api-keys/3641' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1743,7 +1743,7 @@ curl -X DELETE 'http://localhost:3010/auth/api-keys/2821' \
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/auth/api-keys/2821'
+path = '/auth/api-keys/3641'
 url = f'{base_url}{path}'
 
 response = requests.delete(
@@ -1764,7 +1764,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/auth/api-keys/2821';
+  const path = '/auth/api-keys/3641';
   const url = `${baseUrl}${path}`;
 
   const response = await axios({
@@ -1793,10 +1793,10 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/auth/api-keys/2821🔤 ➡️ path
+  🔤/auth/api-keys/3641🔤 ➡️ path
 
   💭 Build HTTP request
-  🔤DELETE /auth/api-keys/2821 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+  🔤DELETE /auth/api-keys/3641 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket

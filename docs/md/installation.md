@@ -61,6 +61,20 @@ Using Docker and Docker Compose is the simplest way to get the relay server runn
     See [Server Configuration](./configuration) for the full list of variables.
     :::
 
+    :::info GPU acceleration (NVIDIA)
+    The image is pre-configured for NVIDIA GPU acceleration (better headless Chrome performance). To enable it, set the NVIDIA runtime as the Docker default and restart Docker — see the comments in `docker-compose.local.yml` for the exact commands.
+
+    **Toolkit version:** this requires `nvidia-container-toolkit` >= ~1.14. Some distros (Pop!_OS, Ubuntu) ship older versions via their own package repos. If you see `nvidia-container-runtime did not terminate successfully: exit status 2` when starting the container, upgrade all four toolkit packages from the NVIDIA repo at once:
+    ```bash
+    sudo apt-get install \
+      nvidia-container-toolkit=1.19.0-1 \
+      nvidia-container-toolkit-base=1.19.0-1 \
+      libnvidia-container-tools=1.19.0-1 \
+      libnvidia-container1=1.19.0-1
+    sudo systemctl restart docker
+    ```
+    :::
+
 2.  **Start the server:**
     ```bash
     docker compose -f docker-compose.local.yml up -d

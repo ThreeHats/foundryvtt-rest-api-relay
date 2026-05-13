@@ -45,7 +45,7 @@ Retrieves a list of up to 20 recent rolls made in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/rolls';
 const params = {
-  clientId: 'fvtt_099ad17ea199e7e3',
+  clientId: 'fvtt_71dbc81bd608978a',
   limit: '20'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -65,7 +65,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_099ad17ea199e7e3&limit=20' \
+curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_71dbc81bd608978a&limit=20' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -78,7 +78,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/rolls'
 params = {
-    'clientId': 'fvtt_099ad17ea199e7e3',
+    'clientId': 'fvtt_71dbc81bd608978a',
     'limit': '20'
 }
 url = f'{base_url}{path}'
@@ -104,7 +104,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/rolls';
   const params = {
-    clientId: 'fvtt_099ad17ea199e7e3',
+    clientId: 'fvtt_71dbc81bd608978a',
     limit: '20'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -139,7 +139,7 @@ import axios from 'axios';
   🔤/rolls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
   🔤limit=20🔤 ➡️ limit
   🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString
 
@@ -169,34 +169,34 @@ import axios from 'axios';
 ```json
 {
   "type": "rolls-result",
-  "requestId": "rolls_1777909266944",
+  "requestId": "rolls_1777996593617",
   "data": [
     {
-      "id": "manual_1777909266440_gzlwafhplah",
-      "messageId": "manual_1777909266440_gzlwafhplah",
+      "id": "manual_1777996593113_pn83we5nke",
+      "messageId": "manual_1777996593113_pn83we5nke",
       "user": null,
       "speaker": {},
       "flavor": "Test Roll",
-      "rollTotal": 10,
+      "rollTotal": 12,
       "formula": "2d20kh",
       "isCritical": false,
-      "isFumble": false,
+      "isFumble": true,
       "dice": [
         {
           "faces": 20,
           "results": [
             {
-              "result": 10,
-              "active": false
+              "result": 12,
+              "active": true
             },
             {
-              "result": 10,
-              "active": true
+              "result": 1,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1777909266440
+      "timestamp": 1777996593113
     }
   ]
 }
@@ -239,7 +239,7 @@ Retrieves the most recent roll made in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/lastroll';
 const params = {
-  clientId: 'fvtt_099ad17ea199e7e3'
+  clientId: 'fvtt_71dbc81bd608978a'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -258,7 +258,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_099ad17ea199e7e3' \
+curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_71dbc81bd608978a' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -271,7 +271,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/lastroll'
 params = {
-    'clientId': 'fvtt_099ad17ea199e7e3'
+    'clientId': 'fvtt_71dbc81bd608978a'
 }
 url = f'{base_url}{path}'
 
@@ -296,7 +296,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/lastroll';
   const params = {
-    clientId: 'fvtt_099ad17ea199e7e3'
+    clientId: 'fvtt_71dbc81bd608978a'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -330,7 +330,7 @@ import axios from 'axios';
   🔤/lastroll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -359,33 +359,33 @@ import axios from 'axios';
 ```json
 {
   "type": "last-roll-result",
-  "requestId": "last-roll_1777909266947",
+  "requestId": "last-roll_1777996593619",
   "data": {
-    "id": "manual_1777909266440_gzlwafhplah",
-    "messageId": "manual_1777909266440_gzlwafhplah",
+    "id": "manual_1777996593113_pn83we5nke",
+    "messageId": "manual_1777996593113_pn83we5nke",
     "user": null,
     "speaker": {},
     "flavor": "Test Roll",
-    "rollTotal": 10,
+    "rollTotal": 12,
     "formula": "2d20kh",
     "isCritical": false,
-    "isFumble": false,
+    "isFumble": true,
     "dice": [
       {
         "faces": 20,
         "results": [
           {
-            "result": 10,
-            "active": false
+            "result": 12,
+            "active": true
           },
           {
-            "result": 10,
-            "active": true
+            "result": 1,
+            "active": false
           }
         ]
       }
     ],
-    "timestamp": 1777909266440
+    "timestamp": 1777996593113
   }
 }
 ```
@@ -432,7 +432,7 @@ Executes a roll with the specified formula.
 const baseUrl = 'http://localhost:3010';
 const path = '/roll';
 const params = {
-  clientId: 'fvtt_099ad17ea199e7e3'
+  clientId: 'fvtt_71dbc81bd608978a'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -457,7 +457,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/roll?clientId=fvtt_099ad17ea199e7e3' \
+curl -X POST 'http://localhost:3010/roll?clientId=fvtt_71dbc81bd608978a' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"formula":"2d20kh","flavor":"Test Roll","createChatMessage":true}'
@@ -472,7 +472,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/roll'
 params = {
-    'clientId': 'fvtt_099ad17ea199e7e3'
+    'clientId': 'fvtt_71dbc81bd608978a'
 }
 url = f'{base_url}{path}'
 
@@ -502,7 +502,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/roll';
   const params = {
-    clientId: 'fvtt_099ad17ea199e7e3'
+    clientId: 'fvtt_71dbc81bd608978a'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -542,7 +542,7 @@ import axios from 'axios';
   🔤/roll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -574,32 +574,32 @@ import axios from 'axios';
 ```json
 {
   "type": "roll-result",
-  "requestId": "roll_1777909266433",
+  "requestId": "roll_1777996593107",
   "success": true,
   "data": {
-    "id": "manual_1777909266440_gzlwafhplah",
+    "id": "manual_1777996593113_pn83we5nke",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 10,
+      "total": 12,
       "isCritical": false,
-      "isFumble": false,
+      "isFumble": true,
       "dice": [
         {
           "faces": 20,
           "results": [
             {
-              "result": 10,
-              "active": false
+              "result": 12,
+              "active": true
             },
             {
-              "result": 10,
-              "active": true
+              "result": 1,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1777909266440
+      "timestamp": 1777996593113
     }
   }
 }
@@ -805,7 +805,7 @@ Just don't 😂
 {
   "event": "connected",
   "data": {
-    "clientId": "fvtt_099ad17ea199e7e3"
+    "clientId": "fvtt_71dbc81bd608978a"
   }
 }
 ```
