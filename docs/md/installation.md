@@ -6,152 +6,116 @@ sidebar_position: 2
 
 # Installation
 
-There are two primary ways to install the FoundryVTT REST API Relay server: using Docker (recommended for ease of use and deployment) or manually.
+## Docker (Recommended)
 
-## Recommended: Docker Installation
+**Prerequisites:** [Docker Engine](https://docs.docker.com/engine/install/) + [Docker Compose](https://docs.docker.com/compose/install/linux/) (Linux) or [Docker Desktop](https://docs.docker.com/get-started/get-docker/) (Windows/Mac).
 
-Using Docker and Docker Compose is the simplest way to get the relay server running. Docker pulls the pre-built image automatically.
+Three commands to get started:
 
-1.  **Download the compose file:**
-    ```bash
-    mkdir -p foundry-relay && cd foundry-relay
-    curl -O https://raw.githubusercontent.com/ThreeHats/foundryvtt-rest-api-relay/main/docker-compose.local.yml
-    ```
+```bash
+mkdir foundry-relay && cd foundry-relay
+curl -O https://raw.githubusercontent.com/ThreeHats/foundryvtt-rest-api-relay/main/docker-compose.local.yml
+docker compose -f docker-compose.local.yml up -d
+```
 
-    Or create your own minimal compose file:
-    ```yaml
-    services:
-      relay:
-        # For production stability, pin to a specific version tag instead of 'latest'
-        # See available tags at: https://github.com/ThreeHats/foundryvtt-rest-api-relay/tags
-        image: threehats/foundryvtt-rest-api-relay:latest
-        container_name: foundryvtt-rest-api-relay
-        ports:
-          - "3010:3010"
-        environment:
-          - APP_ENV=production
-          - DB_TYPE=sqlite
-        volumes:
-          - ./data:/app/data
-        restart: unless-stopped
-    ```
+That's it. The relay is now running at `http://localhost:3010`.
 
-    :::tip Version Pinning for Production
-    For production deployments, replace `latest` with a specific version tag (e.g., `threehats/foundryvtt-rest-api-relay:3.0.0`) to avoid unexpected breaking changes from updates.
-    :::
+Open it in your browser, click **Sign Up**, and create your account. **Your master API key is shown exactly once** — copy it into a password manager before dismissing the dialog.
 
-    :::info Request limits
-    The Docker image has **no request limits by default** (`MONTHLY_REQUEST_LIMIT=0` — unlimited). If you want to enforce a monthly quota on your self-hosted users, add it to your compose file's `environment` section:
-    ```yaml
-    - MONTHLY_REQUEST_LIMIT=5000
-    ```
-    Paid subscribers (Stripe `active` status) are always unlimited regardless of this value.
-    :::
+---
 
-    :::info Billing / subscription UI
-    Subscription-related UI (plan badges, upgrade buttons) is automatically **hidden** when `STRIPE_SECRET_KEY` is not set. Self-hosted deployments show a clean dashboard with no billing elements.
-    :::
+## Optional Configuration
 
-    :::info Headless sessions
-    Headless browser sessions (automated GM login via Chromium) are **enabled by default** on self-hosted instances. Key tuning variables:
-    - `HEADLESS_SESSION_TIMEOUT` — inactivity timeout in seconds before a session is stopped (default: `600`). Set to `0` to never time out.
-    - `MAX_HEADLESS_SESSIONS` — max concurrent headless sessions (default: `0` = no limit).
-    - `PUPPETEER_EXECUTABLE_PATH` — path to Chrome/Chromium if not auto-detected.
+To configure SMTP, rate limits, or other settings, grab the example config and edit it before starting:
 
-    See [Server Configuration](./configuration) for the full list of variables.
-    :::
+```bash
+curl -O https://raw.githubusercontent.com/ThreeHats/foundryvtt-rest-api-relay/main/.env.example
+cp .env.example .env
+# edit .env, then:
+docker compose -f docker-compose.local.yml up -d
+```
 
-    :::info GPU acceleration (NVIDIA)
-    The image is pre-configured for NVIDIA GPU acceleration (better headless Chrome performance). To enable it, set the NVIDIA runtime as the Docker default and restart Docker — see the comments in `docker-compose.local.yml` for the exact commands.
+See [Server Configuration](./configuration) for the full list of environment variables.
 
-    **Toolkit version:** this requires `nvidia-container-toolkit` >= ~1.14. Some distros (Pop!_OS, Ubuntu) ship older versions via their own package repos. If you see `nvidia-container-runtime did not terminate successfully: exit status 2` when starting the container, upgrade all four toolkit packages from the NVIDIA repo at once:
-    ```bash
-    sudo apt-get install \
-      nvidia-container-toolkit=1.19.0-1 \
-      nvidia-container-toolkit-base=1.19.0-1 \
-      libnvidia-container-tools=1.19.0-1 \
-      libnvidia-container1=1.19.0-1
-    sudo systemctl restart docker
-    ```
-    :::
+---
 
-2.  **Start the server:**
-    ```bash
-    docker compose -f docker-compose.local.yml up -d
-    ```
-    This pulls the latest Docker image and starts the relay server in the background. The server will be available at `http://localhost:3010`.
+## GPU Acceleration (Optional)
 
-3.  **Create Your Account:**
-    The default Docker setup uses an SQLite database for persistence, stored in the `data` directory.
-    - Open `http://localhost:3010` in your browser.
-    - Click **Sign Up** and create an account.
-    - **Your master API key will be displayed exactly once** in a one-time modal after registration. Copy it and save it in a password manager. Never share this key with anyone, and do not create applications using this key.
-    - The dashboard never displays the master key again. For routine HTTP API calls, create a **scoped API key** with narrow scopes via the API Keys page. See [Authentication](./authentication) for the full credential model.
+GPU acceleration improves headless Chrome performance for screenshots, sheet rendering, and canvas-heavy operations. The relay auto-detects the best available option once the device is exposed.
 
-4.  **Stopping the server:**
-    ```bash
-    docker compose -f docker-compose.local.yml down
-    ```
+- **NVIDIA (Linux):** install `nvidia-container-toolkit`, set it as the default Docker runtime, and restart Docker. No compose changes needed — the image already requests the right capabilities. See [GPU Acceleration in Docker](./configuration#gpu-acceleration-in-docker) for the full setup. Note: use Docker Engine CE, not Docker Desktop — Docker Desktop on Linux runs in a VM and can't pass through the GPU.
+- **Intel / AMD (Linux):** expose `/dev/dri` in your compose file — see the commented-out example in `docker-compose.local.yml`.
+- **Windows (Docker Desktop + WSL2):** NVIDIA passthrough works — follow the Linux steps inside WSL2.
+- **Mac:** no GPU passthrough available; the relay falls back to software rendering automatically and still works.
 
-4.  **Updating the server:**
--   **[Updating the docker image](./update-docker-image):** Commands to update your docker image.
+:::note NVIDIA toolkit version
+Requires `nvidia-container-toolkit` >= ~1.14. Some distros (Pop!_OS, Ubuntu) ship older versions. If you see `nvidia-container-runtime did not terminate successfully: exit status 2`, upgrade from the NVIDIA repo:
+```bash
+sudo apt-get install \
+  nvidia-container-toolkit=1.19.0-1 \
+  nvidia-container-toolkit-base=1.19.0-1 \
+  libnvidia-container-tools=1.19.0-1 \
+  libnvidia-container1=1.19.0-1
+sudo systemctl restart docker
+```
+:::
 
-### Using PostgreSQL
-If you prefer to use PostgreSQL for your database, you can use the provided `docker-compose.postgres.yml` file. See the [PostgreSQL Setup Guide](/postgres-setup) for more details.
+---
 
-### Relay + Foundry + duckDNS
-For an in depth guide for a full setup using duckDNS see [Relay + App + DNS Example](/relay-app-duckdns-example)
+## Stopping and Updating
 
-## Manual Installation
+```bash
+# Stop
+docker compose -f docker-compose.local.yml down
 
-If you prefer not to use Docker, you can build and run the Go server directly.
+# Update to latest image
+docker compose -f docker-compose.local.yml pull
+docker compose -f docker-compose.local.yml up -d
+```
 
-1.  **Prerequisites:**
-    - Go 1.22 or later
-    - Node.js v18+ and pnpm (only needed for frontend build and tests)
-    - Chromium/Chrome (only needed for headless session features)
+See [Updating the Docker Image](./update-docker-image) for more detail.
 
-2.  **Clone the repository:**
+---
+
+## Other Setup Options
+
+- **PostgreSQL** — for a more production-ready database backend: [PostgreSQL Setup Guide](./postgres-setup)
+- **HTTPS + reverse proxy** — to expose the relay on the internet: [Relay + App + DNS Example](./relay-app-duckdns-example)
+- **Fly.io / cloud deployment** — managed cloud without the public relay: see [Server Configuration](./configuration)
+
+---
+
+## Accessing the Relay From Other Devices on Your LAN
+
+The relay binds to `0.0.0.0` by default, so it's reachable from any device on your local network. The startup logs print every reachable URL:
+
+```
+INF Local URL url=http://localhost:3010
+INF LAN URL (reachable from other devices on your network) url=http://192.168.1.42:3010
+```
+
+When configuring the Foundry module, point it at the LAN IP (`http://192.168.1.42:3010`), not `localhost`, unless Foundry is on the same machine as the relay.
+
+If it doesn't work: check your host firewall has port `3010` open, and that your compose file publishes `3010:3010`.
+
+---
+
+## Manual Installation (No Docker)
+
+1. **Prerequisites:** Go 1.22+, Node.js v18+ and pnpm (for frontend build and tests), Chromium/Chrome (for headless sessions)
+
+2. **Clone and run:**
     ```bash
     git clone https://github.com/ThreeHats/foundryvtt-rest-api-relay.git
     cd foundryvtt-rest-api-relay
+    pnpm run local:sqlite
     ```
 
-3.  **Build and run the Go server:**
+    Or build the binary directly:
     ```bash
-    # Start relay with SQLite (persists to data/relay.db)
-    pnpm run local:sqlite
-
-    # Or build the binary directly
     cd go-relay
     go build -o relay ./cmd/server/
     DB_TYPE=sqlite PORT=3010 ./relay
     ```
 
-4.  **Build the frontend (optional):**
-    ```bash
-    pnpm run frontend:build
-    ```
-
 The server will be running at `http://localhost:3010`.
-
-## Accessing the Relay From Other Devices on Your LAN
-
-The relay binds to all network interfaces (`0.0.0.0`) by default, so a self-hosted instance is automatically reachable from other devices on the same local network - phones, tablets, another PC, your Foundry host, etc. On startup, the server logs every LAN URL it can be reached at, e.g.:
-
-```
-INF Server listening on all interfaces (0.0.0.0) port=3010
-INF Local URL url=http://localhost:3010
-INF LAN URL (reachable from other devices on your network) url=http://192.168.1.42:3010
-```
-
-To use it from another device, just hit `http://<that-ip>:3010` instead of `localhost`.
-
-A few things to check if it doesn't work:
-
-- **Host firewall** — make sure inbound TCP on port `3010` is allowed (ufw, firewalld, Windows Defender Firewall, etc.).
-- **Docker** — the example `docker-compose.local.yml` publishes `3010:3010`, which is all you need. If you're running with `docker run`, include `-p 3010:3010`.
-- **Foundry module** — when configuring the FoundryVTT REST API module, point its relay URL at the LAN IP (`http://192.168.1.42:3010`), not `localhost`, unless Foundry is running on the exact same machine as the relay.
-- **CORS** — already permissive (`*`), so browser-based clients on other LAN devices work without extra config.
-
-If you only want the relay reachable on the local machine (e.g., you're exposing it via a reverse proxy and don't want it directly bound to the LAN), bind Docker's port mapping to loopback only: `127.0.0.1:3010:3010`.

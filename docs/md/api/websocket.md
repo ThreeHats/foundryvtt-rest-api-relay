@@ -1151,35 +1151,25 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
 
 ---
 
-## FileSystem
+## Search
 
-### `file-system`
+### `search`
 
-Get file system structure
+Search entities
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `path` | string | no | The path to retrieve (relative to source) |
-| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
-| `recursive` | boolean | no | Whether to recursively list all subdirectories |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="file-system" parameters={[{"name":"path","type":"string","required":false,"description":"The path to retrieve (relative to source)"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"recursive","type":"boolean","required":false,"description":"Whether to recursively list all subdirectories"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
-### `download-file`
-
-Download a file from Foundry's file system
+This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `path` | string | no | The full path to the file to download |
-| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
-| `format` | string | no | The format to return the file in (binary, base64) |
+| `query` | string | no | Search query string (omit to browse all entities matching filter) |
+| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
+| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
+| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
+| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
+| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
-<WsMessageTester messageType="download-file" parameters={[{"name":"path","type":"string","required":false,"description":"The full path to the file to download"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"format","type":"string","required":false,"description":"The format to return the file in (binary, base64)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
@@ -1568,25 +1558,35 @@ Uses a specific item for an actor, optionally targeting another entity
 
 ---
 
-## Search
+## FileSystem
 
-### `search`
+### `file-system`
 
-Search entities
-
-This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
+Get file system structure
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `query` | string | no | Search query string (omit to browse all entities matching filter) |
-| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
-| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
-| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
-| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
-| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
+| `path` | string | no | The path to retrieve (relative to source) |
+| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
+| `recursive` | boolean | no | Whether to recursively list all subdirectories |
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
-<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+<WsMessageTester messageType="file-system" parameters={[{"name":"path","type":"string","required":false,"description":"The path to retrieve (relative to source)"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"recursive","type":"boolean","required":false,"description":"Whether to recursively list all subdirectories"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
+### `download-file`
+
+Download a file from Foundry's file system
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | no | The full path to the file to download |
+| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
+| `format` | string | no | The format to return the file in (binary, base64) |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="download-file" parameters={[{"name":"path","type":"string","required":false,"description":"The full path to the file to download"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"format","type":"string","required":false,"description":"The format to return the file in (binary, base64)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 
