@@ -10,65 +10,62 @@ There are two primary ways to install the FoundryVTT REST API Relay server: usin
 
 ## Recommended: Docker Installation
 
-Using Docker and Docker Compose is the simplest way to get the relay server running.
+Using Docker and Docker Compose is the simplest way to get the relay server running. Docker pulls the pre-built image automatically.
 
-1.  **Clone the repository:**
+1.  **Download the compose file:**
     ```bash
-    git clone https://github.com/JustAnotherIdea/foundryvtt-rest-api-relay.git
-    cd foundryvtt-rest-api-relay
+    mkdir -p foundry-relay && cd foundry-relay
+    curl -O https://raw.githubusercontent.com/ThreeHats/foundryvtt-rest-api-relay/main/docker-compose.local.yml
     ```
 
-Instead of cloning the repository, you can also download the `docker-compose.local.yml` file from the repo and use that directly.
+    Or create your own minimal compose file:
+    ```yaml
+    services:
+      relay:
+        # For production stability, pin to a specific version tag instead of 'latest'
+        # See available tags at: https://github.com/ThreeHats/foundryvtt-rest-api-relay/tags
+        image: threehats/foundryvtt-rest-api-relay:latest
+        container_name: foundryvtt-rest-api-relay
+        ports:
+          - "3010:3010"
+        environment:
+          - APP_ENV=production
+          - DB_TYPE=sqlite
+        volumes:
+          - ./data:/app/data
+        restart: unless-stopped
+    ```
 
-Or create your own compose file using the image:
-```yaml
-services:
-  relay:
-    # For production stability, pin to a specific version tag instead of 'latest'
-    # See available tags at: https://github.com/ThreeHats/foundryvtt-rest-api-relay/tags
-    image: threehats/foundryvtt-rest-api-relay:latest
-    container_name: foundryvtt-rest-api-relay
-    ports:
-      - "3010:3010"
-    environment:
-      - APP_ENV=production
-      - PORT=3010
-      - DB_TYPE=sqlite
-    volumes:
-      - ./data:/app/data
-    restart: unless-stopped
-```
+    :::tip Version Pinning for Production
+    For production deployments, replace `latest` with a specific version tag (e.g., `threehats/foundryvtt-rest-api-relay:3.0.0`) to avoid unexpected breaking changes from updates.
+    :::
 
-:::tip Version Pinning for Production
-For production deployments, replace `latest` with a specific version tag (e.g., `threehats/foundryvtt-rest-api-relay:3.0.0`) to avoid unexpected breaking changes from updates.
-:::
+    :::info Request limits
+    The Docker image has **no request limits by default** (`MONTHLY_REQUEST_LIMIT=0` — unlimited). If you want to enforce a monthly quota on your self-hosted users, add it to your compose file's `environment` section:
+    ```yaml
+    - MONTHLY_REQUEST_LIMIT=5000
+    ```
+    Paid subscribers (Stripe `active` status) are always unlimited regardless of this value.
+    :::
 
-:::info Request limits
-The Docker image has **no request limits by default** (`MONTHLY_REQUEST_LIMIT=0` — unlimited). If you want to enforce a monthly quota on your self-hosted users, add it to your compose file's `environment` section:
-```yaml
-- MONTHLY_REQUEST_LIMIT=5000
-```
-Paid subscribers (Stripe `active` status) are always unlimited regardless of this value.
-:::
+    :::info Billing / subscription UI
+    Subscription-related UI (plan badges, upgrade buttons) is automatically **hidden** when `STRIPE_SECRET_KEY` is not set. Self-hosted deployments show a clean dashboard with no billing elements.
+    :::
 
-:::info Billing / subscription UI
-Subscription-related UI (plan badges, upgrade buttons) is automatically **hidden** when `STRIPE_SECRET_KEY` is not set. Self-hosted deployments show a clean dashboard with no billing elements.
-:::
+    :::info Headless sessions
+    Headless browser sessions (automated GM login via Chromium) are **enabled by default** on self-hosted instances. Key tuning variables:
+    - `HEADLESS_SESSION_TIMEOUT` — inactivity timeout in seconds before a session is stopped (default: `600`). Set to `0` to never time out.
+    - `MAX_HEADLESS_SESSIONS` — max concurrent headless sessions (default: `0` = no limit).
+    - `PUPPETEER_EXECUTABLE_PATH` — path to Chrome/Chromium if not auto-detected.
 
-:::info Headless sessions
-Headless browser sessions (automated GM login via Chromium) are **enabled by default** on self-hosted instances (`ALLOW_HEADLESS=true`). Key tuning variables:
-- `HEADLESS_SESSION_TIMEOUT` — inactivity timeout in seconds before a session is stopped (default: `600`). Set to `0` to never time out.
-- `MAX_HEADLESS_SESSIONS` — max concurrent headless sessions (default: `0` = no limit).
-- `PUPPETEER_EXECUTABLE_PATH` — path to Chrome/Chromium if not auto-detected.
-
-See [Server Configuration](./configuration) for the full list of variables.
-:::
+    See [Server Configuration](./configuration) for the full list of variables.
+    :::
 
 2.  **Start the server:**
     ```bash
     docker compose -f docker-compose.local.yml up -d
     ```
-    This will pull the latest Docker image and start the relay server in the background. The server will be available at `http://localhost:3010`.
+    This pulls the latest Docker image and starts the relay server in the background. The server will be available at `http://localhost:3010`.
 
 3.  **Create Your Account:**
     The default Docker setup uses an SQLite database for persistence, stored in the `data` directory.
@@ -139,7 +136,7 @@ To use it from another device, just hit `http://<that-ip>:3010` instead of `loca
 A few things to check if it doesn't work:
 
 - **Host firewall** — make sure inbound TCP on port `3010` is allowed (ufw, firewalld, Windows Defender Firewall, etc.).
-- **Docker** — the example `docker-compose.local.yml` already publishes `3010:3010`, which is all you need. If you're running with `docker run`, include `-p 3010:3010`.
+- **Docker** — the example `docker-compose.local.yml` publishes `3010:3010`, which is all you need. If you're running with `docker run`, include `-p 3010:3010`.
 - **Foundry module** — when configuring the FoundryVTT REST API module, point its relay URL at the LAN IP (`http://192.168.1.42:3010`), not `localhost`, unless Foundry is running on the exact same machine as the relay.
 - **CORS** — already permissive (`*`), so browser-based clients on other LAN devices work without extra config.
 

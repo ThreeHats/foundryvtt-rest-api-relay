@@ -12,9 +12,7 @@
 #
 services:
   relay:
-    build:
-      context: .
-      dockerfile: go-relay/Dockerfile
+    image: threehats/foundryvtt-rest-api-relay:latest
     container_name: foundryvtt-rest-api-relay
     env_file:
       - path: .env
@@ -22,11 +20,10 @@ services:
     environment:
       - DB_TYPE=sqlite
       - APP_ENV=production
-      - PROJECT_ROOT=/workspace
     volumes:
-      - .:/workspace
       - ./data:/app/data
-    network_mode: host
+    ports:
+      - "3010:3010"
     shm_size: "1g"
     restart: unless-stopped
     # ── GPU acceleration ─────────────────────────────────────────────────────

@@ -844,6 +844,11 @@ func (s *Server) setupRouter() *chi.Mux {
 		r.Handle("/_astro/*", cacheControl("public, max-age=31536000, immutable", http.StripPrefix("/_astro/", http.FileServer(http.Dir(d)))))
 	}
 
+	// Dev test page for sheet screenshot + interactive sessions
+	if p := findStaticFile(baseDir, "public/sheet-test.html"); p != "" {
+		r.Get("/sheet-test", handler.ServeStaticPage(p))
+	}
+
 	// Astro frontend pages
 	r.Get("/privacy", handler.ServeStaticPage(
 		filepath.Join(baseDir, "public-dist/privacy/index.html"),
