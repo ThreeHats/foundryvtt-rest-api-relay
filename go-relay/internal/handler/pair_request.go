@@ -157,6 +157,16 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 		// Authenticated routes — require a valid session token
 		r.Group(func(r chi.Router) {
 			r.Use(middleware.AuthMiddleware(db, nil))
+			r.Use(func(next http.Handler) http.Handler {
+				return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					reqCtx := helpers.GetRequestContext(r)
+					if reqCtx == nil || !reqCtx.IsSessionAuth {
+						helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+						return
+					}
+					next.ServeHTTP(w, r)
+				})
+			})
 
 			// GET /auth/pair-request/{code} — Fetch details for the approval page.
 			// Also returns all known clients so the UI can render target world checkboxes.
@@ -209,10 +219,6 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 			// POST /auth/pair-request/{code}/approve
 			r.Post("/{code}/approve", func(w http.ResponseWriter, r *http.Request) {
 				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || reqCtx.ScopedKey != nil {
-					helpers.WriteError(w, http.StatusForbidden, "Use your master API key to approve pair requests.")
-					return
-				}
 				user, ok := reqCtx.User.(*model.User)
 				if !ok || user == nil {
 					helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -328,11 +334,6 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 
 			// POST /auth/pair-request/{code}/deny
 			r.Post("/{code}/deny", func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || reqCtx.ScopedKey != nil {
-					helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-					return
-				}
 				code := chi.URLParam(r, "code")
 				pairReq, err := db.PairRequestStore().FindByCode(r.Context(), code)
 				if err != nil || pairReq == nil {

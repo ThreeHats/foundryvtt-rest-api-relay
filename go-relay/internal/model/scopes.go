@@ -63,7 +63,7 @@ var DefaultScopes = []string{
 	ScopeDnd5e,
 }
 
-// AllScopes is the exhaustive set of every scope (for master keys and explicit opt-in).
+// AllScopes is the exhaustive set of every scope (used for fully-scoped API keys and explicit opt-in).
 var AllScopes = []string{
 	ScopeEntityRead, ScopeEntityWrite,
 	ScopeRollRead, ScopeRollExecute,

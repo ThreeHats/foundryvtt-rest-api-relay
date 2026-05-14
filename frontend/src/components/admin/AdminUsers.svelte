@@ -66,7 +66,7 @@
   }
   function flagRotation(id: number) {
     modalTitle = 'Force key rotation';
-    modalMsg = 'This user will be blocked from all API calls until they log in to the dashboard and regenerate their master key. Continue?';
+    modalMsg = 'This user will need to log in to the dashboard and regenerate their relay key before their Foundry module can reconnect. Continue?';
     modalLabel = 'Force Rotation';
     modal = { open: true, action: async () => { await adminApi.flagUserRotation(id); await load(); } };
   }
@@ -153,7 +153,7 @@
             <td>{u.role}</td>
             <td>{u.disabled ? 'Disabled' : 'Active'}</td>
             <td>{#if u.emailVerified}Yes{:else}<span class="unverified-badge">No</span>{/if}</td>
-            <td>{#if u.apiKeyRotationRequired}<span class="rotation-badge" title="User must regenerate their master key">⚠ Required</span>{:else}—{/if}</td>
+            <td>{#if u.apiKeyRotationRequired}<span class="rotation-badge" title="User must regenerate their relay key">⚠ Required</span>{:else}—{/if}</td>
             <td>{u.subscriptionStatus}</td>
             <td>{u.requestsToday}</td>
             <td>{u.requestsThisMonth}</td>

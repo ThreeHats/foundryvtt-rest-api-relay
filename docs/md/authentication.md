@@ -14,46 +14,27 @@ The Foundry REST API uses **four distinct credential types**, each with a differ
 |---|---|---|
 | An external app (Discord bot, Obsidian plugin, script) | **Scoped API key** | `x-api-key: <scoped-key>` header |
 | The Foundry REST API module | **Connection token** | First WebSocket message after connect |
-| Testing the API by hand | **Scoped API key** with broad scopes (not the master key) | `x-api-key: <scoped-key>` header |
+| Testing the API by hand | **Scoped API key** with the scopes you need | `x-api-key: <scoped-key>` header |
 
 ## The three credentials
 
 | Credential | What it auths | Where it lives | How to get one |
 |---|---|---|---|
-| **Master API key** | Account-level recovery / programmatic root access | Your password manager (one-time display only) | Registration or regeneration |
+| **Dashboard session** | Dashboard access | Browser (managed automatically) | Email + password login |
 | **Connection token** | One Foundry browser's WebSocket relay connection | The Foundry browser's client-scope localStorage (per-device) | 6-char pairing code from dashboard |
 | **Scoped API key** | External integrations calling HTTP endpoints | The integration's secrets store | Created in the dashboard |
 
 ---
 
-## Master API key
+## Account access
 
-The most sensitive credential. Stored in the relay database as a SHA-256 hash only - the relay cannot recover the plaintext.
+Your account is protected by **email + password**. When you log in, the dashboard mints a short-lived session token stored in your browser — you never handle it directly. All dashboard operations run under this session.
 
-**Shown exactly once**, in a one-time modal at registration and at rotation. After the modal is dismissed, the dashboard never displays it again.
+There is no "master API key" to copy, store, or protect. Your password is your account credential.
 
-### Getting your master API key
+### If your password is compromised
 
-1. **Sign up** at the relay's web interface.
-2. After registering, a modal shows your master API key.
-3. **Copy it now** - save it in a password manager. You will never see it again.
-4. Confirm you've saved it and dismiss the modal.
-
-### Rules
-
-- **NEVER paste it into code, config files, environment variables, or messaging apps.**
-- **NEVER share it with anyone or any application.**
-- **DO put it in a password manager.**
-- For testing the API: create a scoped key with the scopes you need, use it, revoke it when done.
-- For programmatic admin operations: treat each use like a recovery code - pull from password manager, use, put away.
-
-### If you lose it
-
-Regenerate from the dashboard using email + password. **Rotation is destructive**: it deletes all scoped keys, connection tokens, and active sessions. Every Foundry browser will need to re-pair.
-
-### If it leaks
-
-Rotate immediately. The rotation flow purges everything - scoped keys, tokens, sessions - and you start fresh.
+Change it immediately from the dashboard. You can also trigger a **full credential reset** using the **Reset Credentials** button at the bottom of the dashboard, which invalidates all scoped keys, connection tokens, and active sessions at once. Every Foundry browser will need to re-pair.
 
 ---
 
@@ -203,8 +184,6 @@ curl -X GET http://localhost:3010/structure \
   -H "x-api-key: YOUR_SCOPED_KEY_HERE"
 ```
 
-The master API key works in the same header for emergency programmatic access, but you should never need it for routine calls. If you're reaching for the master key to make API calls, create a scoped key instead.
-
 ---
 
 ## Unauthenticated endpoints
@@ -235,8 +214,8 @@ This rule is what makes the storage model work. Because connection tokens are th
 
 Beyond the credential model, the relay applies these defenses:
 
-- **SHA-256 hashing of all secrets at rest** - master API keys, session tokens, connection tokens, password reset tokens. A database leak exposes no usable credential.
-- **Force rotation flag** - a user's master key can be flagged from the admin panel, blocking all their API access until they log in and regenerate their key. The flag clears automatically on successful rotation.
+- **SHA-256 hashing of all secrets at rest** - session tokens, scoped API keys, connection tokens, password reset tokens. A database leak exposes no usable credential.
+- **Force reset flag** - an account can be flagged from the admin panel. Until the user logs in and completes a credential reset, all scoped keys and sessions are blocked. The flag clears automatically on successful reset.
 - **Connection notifications** - every WebSocket connect, disconnect, metadata-mismatch, and rejected duplicate-connection event fires through the unified notification dispatcher (Discord webhook + email).
 - **Per-token IP allowlist** - connection tokens can be restricted to specific IPs/CIDRs, configurable per browser pairing from the dashboard's Connection Tokens page. Comma-separated; accepts individual IPs and CIDR ranges. Leave blank for unrestricted.
 - **Scope enforcement** - scoped API keys are gated per-endpoint by scope strings; the same vocabulary gates cross-world `remote-request` operations.
@@ -248,8 +227,8 @@ Beyond the credential model, the relay applies these defenses:
 
 ## Security warnings
 
-- **NEVER paste your master API key into code, environment variables, or public chat.** It is the highest-privilege credential in the system.
+- **Use a strong, unique password.** Your password is your account credential — protect it like any other sensitive login.
 - **For testing the API**, create a "personal-test" scoped key with the scopes you need, use it, then delete it.
-- **Foundry modules NEVER hold HTTP API credentials.** If a module asks you to paste an API key into its settings, that's a security smell - it should use a connection token via the cross-world tunnel instead.
-- **Rotate the master key immediately if you suspect it leaked.** Rotation purges everything: scoped keys, connection tokens, sessions.
-- **Run behind HTTPS in production.** Use `wss://` for the WebSocket relay URL - `ws://` to a non-localhost host sends the connection token unencrypted and triggers a warning in the Foundry module.
+- **Foundry modules NEVER hold HTTP API credentials.** If a module asks you to paste an API key into its settings, that's a security smell — it should use a connection token via the cross-world tunnel instead.
+- **If you suspect your account is compromised**, use the **Reset Credentials** button at the bottom of the dashboard immediately. It purges all scoped keys, connection tokens, and sessions.
+- **Run behind HTTPS in production.** Use `wss://` for the WebSocket relay URL — `ws://` to a non-localhost host sends the connection token unencrypted and triggers a warning in the Foundry module.

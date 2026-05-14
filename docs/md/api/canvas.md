@@ -13,6 +13,8 @@ import ApiTester from '@site/src/components/ApiTester';
 
 Get canvas embedded documents
 
+**Required scope:** `canvas:read`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -44,7 +46,7 @@ Get canvas embedded documents
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -63,7 +65,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/canvas/tokens?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -76,7 +78,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -101,7 +103,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -135,7 +137,7 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -164,27 +166,26 @@ import axios from 'axios';
 ```json
 {
   "type": "get-canvas-documents-result",
-  "requestId": "get-canvas-documents_1777996591565",
-  "sceneId": "iI8vL6F5ett88LXH",
+  "requestId": "get-canvas-documents_1778789869113",
+  "sceneId": "Jz0KV1jlNI0jdQp0",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "sMD3o6zej6ckQkpo",
+      "actorId": "gHjoe9z270YfSCno",
       "x": 400,
       "y": 400,
-      "_id": "fPVbRrzEleY88MDH",
+      "shape": 4,
+      "_id": "iDko10KbxBQWexo9",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "Uta7DgvnRjkWubic",
+        "_id": "PwMWGIEZLMdulZVT",
         "system": {},
         "items": [],
         "effects": [],
         "flags": {}
       },
-      "appendNumber": false,
-      "prependAdjective": false,
       "width": 1,
       "height": 1,
       "texture": {
@@ -200,7 +201,6 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "hexagonalShape": 0,
       "elevation": 0,
       "sort": 0,
       "locked": false,
@@ -268,6 +268,14 @@ import axios from 'axios';
           "texture": null
         }
       },
+      "turnMarker": {
+        "mode": 1,
+        "animation": null,
+        "src": null,
+        "disposition": false
+      },
+      "movementAction": null,
+      "_movementHistory": [],
       "_regions": [],
       "flags": {}
     }
@@ -283,6 +291,8 @@ import axios from 'axios';
 Measure the distance between two points or tokens
 
 Calculates the distance between two positions on the canvas, respecting the grid type and measurement rules. Points can be specified as coordinates or by referencing tokens by UUID or name.
+
+**Required scope:** `canvas:read`
 
 ### Parameters
 
@@ -321,7 +331,7 @@ Calculates the distance between two positions on the canvas, respecting the grid
 const baseUrl = 'http://localhost:3010';
 const path = '/measure-distance';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+  clientId: 'fvtt_099ad17ea199e7e3',
   originX: '0',
   originY: '0',
   targetX: '500',
@@ -344,7 +354,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/measure-distance?clientId=foundry-testing-r6bXhB7k9cXa3cif&originX=0&originY=0&targetX=500&targetY=500' \
+curl -X GET 'http://localhost:3010/measure-distance?clientId=fvtt_099ad17ea199e7e3&originX=0&originY=0&targetX=500&targetY=500' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -357,7 +367,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/measure-distance'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'originX': '0',
     'originY': '0',
     'targetX': '500',
@@ -386,7 +396,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/measure-distance';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',
+    clientId: 'fvtt_099ad17ea199e7e3',
     originX: '0',
     originY: '0',
     targetX: '500',
@@ -424,7 +434,7 @@ import axios from 'axios';
   🔤/measure-distance🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤originX=0🔤 ➡️ originX
   🔤originY=0🔤 ➡️ originY
   🔤targetX=500🔤 ➡️ targetX
@@ -457,7 +467,7 @@ import axios from 'axios';
 ```json
 {
   "type": "measure-distance-result",
-  "requestId": "measure-distance_1775271900614",
+  "requestId": "measure-distance_1778789869444",
   "data": {
     "distance": 25,
     "units": "ft",
@@ -469,7 +479,7 @@ import axios from 'axios';
       "x": 500,
       "y": 500
     },
-    "sceneId": "SkiuhdnphDtg3E9Q"
+    "sceneId": "Jz0KV1jlNI0jdQp0"
   }
 }
 ```
@@ -480,6 +490,8 @@ import axios from 'axios';
 ## POST /canvas/:documentType
 
 Create canvas embedded document(s)
+
+**Required scope:** `canvas:write`
 
 ### Parameters
 
@@ -512,7 +524,7 @@ Create canvas embedded document(s)
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -527,7 +539,7 @@ const response = await fetch(url, {
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "sMD3o6zej6ckQkpo"
+        "actorId": "gHjoe9z270YfSCno"
       }
     })
 });
@@ -539,10 +551,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/canvas/tokens?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"data":{"x":400,"y":400,"actorId":"sMD3o6zej6ckQkpo"}}'
+  -d '{"data":{"x":400,"y":400,"actorId":"gHjoe9z270YfSCno"}}'
 ```
 
 </TabItem>
@@ -554,7 +566,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -569,7 +581,7 @@ response = requests.post(
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "sMD3o6zej6ckQkpo"
+        "actorId": "gHjoe9z270YfSCno"
       }
     }
 )
@@ -587,7 +599,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -603,7 +615,7 @@ import axios from 'axios';
         "data": {
           "x": 400,
           "y": 400,
-          "actorId": "sMD3o6zej6ckQkpo"
+          "actorId": "gHjoe9z270YfSCno"
         }
       }
   });
@@ -629,11 +641,11 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"data":{"x":400,"y":400,"actorId":"sMD3o6zej6ckQkpo"}}🔤 ➡️ body
+  🔤{"data":{"x":400,"y":400,"actorId":"gHjoe9z270YfSCno"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 55❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -661,27 +673,26 @@ import axios from 'axios';
 ```json
 {
   "type": "create-canvas-document-result",
-  "requestId": "create-canvas-document_1777996591475",
-  "sceneId": "iI8vL6F5ett88LXH",
+  "requestId": "create-canvas-document_1778789869026",
+  "sceneId": "Jz0KV1jlNI0jdQp0",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "sMD3o6zej6ckQkpo",
+      "actorId": "gHjoe9z270YfSCno",
       "x": 400,
       "y": 400,
-      "_id": "fPVbRrzEleY88MDH",
+      "shape": 4,
+      "_id": "iDko10KbxBQWexo9",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "Uta7DgvnRjkWubic",
+        "_id": "PwMWGIEZLMdulZVT",
         "system": {},
         "items": [],
         "effects": [],
         "flags": {}
       },
-      "appendNumber": false,
-      "prependAdjective": false,
       "width": 1,
       "height": 1,
       "texture": {
@@ -697,7 +708,6 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "hexagonalShape": 0,
       "elevation": 0,
       "sort": 0,
       "locked": false,
@@ -765,6 +775,14 @@ import axios from 'axios';
           "texture": null
         }
       },
+      "turnMarker": {
+        "mode": 1,
+        "animation": null,
+        "src": null,
+        "disposition": false
+      },
+      "movementAction": null,
+      "_movementHistory": [],
       "_regions": [],
       "flags": {}
     }
@@ -778,6 +796,8 @@ import axios from 'axios';
 ## PUT /canvas/:documentType
 
 Update a canvas embedded document
+
+**Required scope:** `canvas:write`
 
 ### Parameters
 
@@ -811,7 +831,7 @@ Update a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -823,7 +843,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "fPVbRrzEleY88MDH",
+      "documentId": "iDko10KbxBQWexo9",
       "data": {
         "x": 450,
         "y": 450
@@ -838,10 +858,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=fvtt_71dbc81bd608978a' \
+curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"fPVbRrzEleY88MDH","data":{"x":450,"y":450}}'
+  -d '{"documentId":"iDko10KbxBQWexo9","data":{"x":450,"y":450}}'
 ```
 
 </TabItem>
@@ -853,7 +873,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -865,7 +885,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "fPVbRrzEleY88MDH",
+      "documentId": "iDko10KbxBQWexo9",
       "data": {
         "x": 450,
         "y": 450
@@ -886,7 +906,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -899,7 +919,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "fPVbRrzEleY88MDH",
+        "documentId": "iDko10KbxBQWexo9",
         "data": {
           "x": 450,
           "y": 450
@@ -928,11 +948,11 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"fPVbRrzEleY88MDH","data":{"x":450,"y":450}}🔤 ➡️ body
+  🔤{"documentId":"iDko10KbxBQWexo9","data":{"x":450,"y":450}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -960,27 +980,26 @@ import axios from 'axios';
 ```json
 {
   "type": "update-canvas-document-result",
-  "requestId": "update-canvas-document_1777996591571",
-  "sceneId": "iI8vL6F5ett88LXH",
+  "requestId": "update-canvas-document_1778789869122",
+  "sceneId": "Jz0KV1jlNI0jdQp0",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "sMD3o6zej6ckQkpo",
+      "actorId": "gHjoe9z270YfSCno",
       "x": 450,
       "y": 450,
-      "_id": "fPVbRrzEleY88MDH",
+      "shape": 4,
+      "_id": "iDko10KbxBQWexo9",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "Uta7DgvnRjkWubic",
+        "_id": "PwMWGIEZLMdulZVT",
         "system": {},
         "items": [],
         "effects": [],
         "flags": {}
       },
-      "appendNumber": false,
-      "prependAdjective": false,
       "width": 1,
       "height": 1,
       "texture": {
@@ -996,7 +1015,6 @@ import axios from 'axios';
         "tint": "#ffffff",
         "alphaThreshold": 0.75
       },
-      "hexagonalShape": 0,
       "elevation": 0,
       "sort": 0,
       "locked": false,
@@ -1064,6 +1082,14 @@ import axios from 'axios';
           "texture": null
         }
       },
+      "turnMarker": {
+        "mode": 1,
+        "animation": null,
+        "src": null,
+        "disposition": false
+      },
+      "movementAction": null,
+      "_movementHistory": [],
       "_regions": [],
       "flags": {}
     }
@@ -1077,6 +1103,8 @@ import axios from 'axios';
 ## DELETE /canvas/:documentType
 
 Delete a canvas embedded document
+
+**Required scope:** `canvas:write`
 
 ### Parameters
 
@@ -1109,8 +1137,8 @@ Delete a canvas embedded document
 const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
-  documentId: 'fPVbRrzEleY88MDH'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  documentId: 'iDko10KbxBQWexo9'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1129,7 +1157,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=fvtt_71dbc81bd608978a&documentId=fPVbRrzEleY88MDH' \
+curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3&documentId=iDko10KbxBQWexo9' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1142,8 +1170,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
-    'documentId': 'fPVbRrzEleY88MDH'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'documentId': 'iDko10KbxBQWexo9'
 }
 url = f'{base_url}{path}'
 
@@ -1168,8 +1196,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/canvas/tokens';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
-    documentId: 'fPVbRrzEleY88MDH'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    documentId: 'iDko10KbxBQWexo9'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1203,8 +1231,8 @@ import axios from 'axios';
   🔤/canvas/tokens🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
-  🔤documentId=fPVbRrzEleY88MDH🔤 ➡️ documentId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤documentId=iDko10KbxBQWexo9🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1233,8 +1261,8 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-canvas-document-result",
-  "requestId": "delete-canvas-document_1777996591587",
-  "sceneId": "iI8vL6F5ett88LXH",
+  "requestId": "delete-canvas-document_1778789869152",
+  "sceneId": "Jz0KV1jlNI0jdQp0",
   "documentType": "tokens",
   "success": true
 }
@@ -1248,6 +1276,8 @@ import axios from 'axios';
 Move a token to specific coordinates
 
 Moves a token on the canvas to the specified x,y position, optionally animating through waypoints. Token can be identified by UUID or name.
+
+**Required scope:** `canvas:write`
 
 ### Parameters
 
@@ -1284,7 +1314,7 @@ Moves a token on the canvas to the specified x,y position, optionally animating 
 const baseUrl = 'http://localhost:3010';
 const path = '/move-token';
 const params = {
-  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1296,9 +1326,9 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "name": "Test Token",
-      "x": 500,
-      "y": 500,
+      "uuid": "Actor.gHjoe9z270YfSCno",
+      "x": 200,
+      "y": 200,
       "animate": false
     })
 });
@@ -1310,10 +1340,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/move-token?clientId=foundry-testing-r6bXhB7k9cXa3cif' \
+curl -X POST 'http://localhost:3010/move-token?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"name":"Test Token","x":500,"y":500,"animate":false}'
+  -d '{"uuid":"Actor.gHjoe9z270YfSCno","x":200,"y":200,"animate":false}'
 ```
 
 </TabItem>
@@ -1325,7 +1355,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/move-token'
 params = {
-    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -1337,9 +1367,9 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "name": "Test Token",
-      "x": 500,
-      "y": 500,
+      "uuid": "Actor.gHjoe9z270YfSCno",
+      "x": 200,
+      "y": 200,
       "animate": False
     }
 )
@@ -1357,7 +1387,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/move-token';
   const params = {
-    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1370,9 +1400,9 @@ import axios from 'axios';
     },
     url,
     data: {
-        "name": "Test Token",
-        "x": 500,
-        "y": 500,
+        "uuid": "Actor.gHjoe9z270YfSCno",
+        "x": 200,
+        "y": 200,
         "animate": false
       }
   });
@@ -1398,14 +1428,14 @@ import axios from 'axios';
   🔤/move-token🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"name":"Test Token","x":500,"y":500,"animate":false}🔤 ➡️ body
+  🔤{"uuid":"Actor.gHjoe9z270YfSCno","x":200,"y":200,"animate":false}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /move-token🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 53❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+  🔤POST /move-token🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 65❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -1425,13 +1455,19 @@ import axios from 'axios';
 
 #### Response
 
-**Status:** 400
+**Status:** 200
 
 ```json
 {
   "type": "move-token-result",
-  "requestId": "move-token_1775271900392",
-  "error": "Token not found: Test Token"
+  "requestId": "move-token_1778789869421",
+  "data": {
+    "tokenUuid": "Scene.Jz0KV1jlNI0jdQp0.Token.3p929HcEgSapCezZ",
+    "name": "Updated Test Actor",
+    "x": 200,
+    "y": 200,
+    "sceneId": "Jz0KV1jlNI0jdQp0"
+  }
 }
 ```
 

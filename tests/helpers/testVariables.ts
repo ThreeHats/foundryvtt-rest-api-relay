@@ -8,13 +8,14 @@ import * as path from 'path';
 
 // Read credentials written by register-account.test.ts (ephemeral account mode).
 // Returns empty strings if the file doesn't exist yet (first test file to load this module).
-function readRegisteredAccount(): { apiKey: string; email: string; password: string } {
+function readRegisteredAccount(): { apiKey: string; sessionToken: string; email: string; password: string } {
   try {
     const file = path.join(__dirname, '../.global-vars.json');
     if (fs.existsSync(file)) {
       const store = JSON.parse(fs.readFileSync(file, 'utf8'));
       return {
         apiKey: store?.account?.apiKey || '',
+        sessionToken: store?.account?.sessionToken || '',
         email: store?.account?.email || '',
         password: store?.account?.password || '',
       };
@@ -22,7 +23,7 @@ function readRegisteredAccount(): { apiKey: string; email: string; password: str
   } catch {
     // File doesn't exist or is unreadable — fall through to env vars / defaults
   }
-  return { apiKey: '', email: '', password: '' };
+  return { apiKey: '', sessionToken: '', email: '', password: '' };
 }
 
 const registeredAccount = readRegisteredAccount();
@@ -37,6 +38,7 @@ const preProvisioned = !!process.env.TEST_API_KEY;
 export const testVariables = {
   baseUrl: process.env.TEST_BASE_URL || 'http://localhost:3010',
   apiKey: process.env.TEST_API_KEY || registeredAccount.apiKey || 'test-api-key',
+  sessionToken: registeredAccount.sessionToken || '',
 
   // These will be set during test execution
   clientId: '', // Set from global session

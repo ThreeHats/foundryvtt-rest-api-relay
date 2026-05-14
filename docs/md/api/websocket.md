@@ -1151,28 +1151,6 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
 
 ---
 
-## Search
-
-### `search`
-
-Search entities
-
-This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `query` | string | no | Search query string (omit to browse all entities matching filter) |
-| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
-| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
-| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
-| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
-| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
 ## Dnd5e
 
 ### `get-actor-details`
@@ -1558,6 +1536,28 @@ Uses a specific item for an actor, optionally targeting another entity
 
 ---
 
+## Search
+
+### `search`
+
+Search entities
+
+This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | no | Search query string (omit to browse all entities matching filter) |
+| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
+| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
+| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
+| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
+| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
 ## FileSystem
 
 ### `file-system`
@@ -1710,429 +1710,399 @@ ws.on('message', (raw: string) => {
 
 ```json
 {
-  "clientId": "fvtt_71dbc81bd608978a",
+  "clientId": "fvtt_099ad17ea199e7e3",
   "query": "test",
-  "requestId": "test_1777996635044_klhd56",
+  "requestId": "test_1778789885658_q2klm1",
   "results": [
     {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "2xFy4d19bDsP08Aw",
+      "journalLink": "@UUID[Scene.2xFy4d19bDsP08Aw]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.2xFy4d19bDsP08Aw"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "HJ3cGhzRV8h0KqHp",
+      "journalLink": "@UUID[Scene.HJ3cGhzRV8h0KqHp]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.HJ3cGhzRV8h0KqHp"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "worlds/5e-tables/assets/scenes/OoTPjYkL2GjuQ2a7-thumb.webp",
+      "id": "OoTPjYkL2GjuQ2a7",
+      "journalLink": "@UUID[Scene.OoTPjYkL2GjuQ2a7]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.OoTPjYkL2GjuQ2a7"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "uisZmFzI2Tjh1xSA",
+      "journalLink": "@UUID[Scene.uisZmFzI2Tjh1xSA]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.uisZmFzI2Tjh1xSA"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "azpFAQYHh0s3yHML",
+      "journalLink": "@UUID[Scene.azpFAQYHh0s3yHML]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.azpFAQYHh0s3yHML"
+    },
+    {
       "documentType": "JournalEntry",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-journalentry",
       "icon": "",
-      "id": "6L9nsr6SCiFbQ5qf",
-      "journalLink": "@UUID[JournalEntry.6L9nsr6SCiFbQ5qf]{test-journalentry}",
+      "id": "bI32Xc8iaHbaAGsm",
+      "journalLink": "@UUID[JournalEntry.bI32Xc8iaHbaAGsm]{test-journalentry}",
       "name": "test-journalentry",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Journal Directory",
-      "uuid": "JournalEntry.6L9nsr6SCiFbQ5qf"
+      "uuid": "JournalEntry.bI32Xc8iaHbaAGsm"
     },
     {
       "documentType": "JournalEntry",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-journalentry",
       "icon": "",
-      "id": "Dd7MaRISA62i1lTe",
-      "journalLink": "@UUID[JournalEntry.Dd7MaRISA62i1lTe]{test-journalentry}",
+      "id": "u7byD1yDxgtzqeT4",
+      "journalLink": "@UUID[JournalEntry.u7byD1yDxgtzqeT4]{test-journalentry}",
       "name": "test-journalentry",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Journal Directory",
-      "uuid": "JournalEntry.Dd7MaRISA62i1lTe"
+      "uuid": "JournalEntry.u7byD1yDxgtzqeT4"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-journalentry",
+      "icon": "",
+      "id": "IBOue8Wue7z6fHN0",
+      "journalLink": "@UUID[JournalEntry.IBOue8Wue7z6fHN0]{test-journalentry}",
+      "name": "test-journalentry",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Journal Directory",
+      "uuid": "JournalEntry.IBOue8Wue7z6fHN0"
     },
     {
       "documentType": "Macro",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-macro",
       "icon": "icons/svg/dice-target.svg",
-      "id": "bRLMIJXvTs22CRK0",
-      "journalLink": "@UUID[Macro.bRLMIJXvTs22CRK0]{test-macro}",
+      "id": "BZmzcTiPJm3brbfb",
+      "journalLink": "@UUID[Macro.BZmzcTiPJm3brbfb]{test-macro}",
       "name": "test-macro",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "script",
       "tagline": "Macros Directory",
-      "uuid": "Macro.bRLMIJXvTs22CRK0"
+      "uuid": "Macro.BZmzcTiPJm3brbfb"
     },
     {
       "documentType": "Macro",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-macro",
       "icon": "icons/svg/dice-target.svg",
-      "id": "QsVroAGCs54xe5aX",
-      "journalLink": "@UUID[Macro.QsVroAGCs54xe5aX]{test-macro}",
+      "id": "CruvJo43Zk2SK7Yl",
+      "journalLink": "@UUID[Macro.CruvJo43Zk2SK7Yl]{test-macro}",
       "name": "test-macro",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "script",
       "tagline": "Macros Directory",
-      "uuid": "Macro.QsVroAGCs54xe5aX"
+      "uuid": "Macro.CruvJo43Zk2SK7Yl"
+    },
+    {
+      "documentType": "Macro",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-macro",
+      "icon": "icons/svg/dice-target.svg",
+      "id": "gz1JZKVhw7tS4NLi",
+      "journalLink": "@UUID[Macro.gz1JZKVhw7tS4NLi]{test-macro}",
+      "name": "test-macro",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "script",
+      "tagline": "Macros Directory",
+      "uuid": "Macro.gz1JZKVhw7tS4NLi"
     },
     {
       "documentType": "Actor",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-perrin (halfling monk)",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "4f57kTea0R0ZTOta",
-      "journalLink": "@UUID[Actor.4f57kTea0R0ZTOta]{test-perrin (halfling monk)}",
+      "id": "JVytcYCAvCrKJ3bB",
+      "journalLink": "@UUID[Actor.JVytcYCAvCrKJ3bB]{test-perrin (halfling monk)}",
       "name": "test-perrin (halfling monk)",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.4f57kTea0R0ZTOta"
+      "uuid": "Actor.JVytcYCAvCrKJ3bB"
     },
     {
       "documentType": "Actor",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-perrin (halfling monk)",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "Nr1kY13FmjUZCHjw",
-      "journalLink": "@UUID[Actor.Nr1kY13FmjUZCHjw]{test-perrin (halfling monk)}",
+      "id": "VVwNwxGSnT6OiYcP",
+      "journalLink": "@UUID[Actor.VVwNwxGSnT6OiYcP]{test-perrin (halfling monk)}",
       "name": "test-perrin (halfling monk)",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.Nr1kY13FmjUZCHjw"
+      "uuid": "Actor.VVwNwxGSnT6OiYcP"
     },
     {
       "documentType": "Scene",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "D7u4piOGW6MssTg2",
-      "journalLink": "@UUID[Scene.D7u4piOGW6MssTg2]{test-scene-updated}",
+      "id": "7iYl9ExwMdFm9POw",
+      "journalLink": "@UUID[Scene.7iYl9ExwMdFm9POw]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.D7u4piOGW6MssTg2"
+      "uuid": "Scene.7iYl9ExwMdFm9POw"
     },
     {
       "documentType": "Scene",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "HaoRAKtpNwkQnXch",
-      "journalLink": "@UUID[Scene.HaoRAKtpNwkQnXch]{test-scene-updated}",
+      "id": "aQADc2ek0f7ls9af",
+      "journalLink": "@UUID[Scene.aQADc2ek0f7ls9af]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.HaoRAKtpNwkQnXch"
+      "uuid": "Scene.aQADc2ek0f7ls9af"
     },
     {
       "documentType": "Scene",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "ZRzmXcZ7N3aq4DlC",
-      "journalLink": "@UUID[Scene.ZRzmXcZ7N3aq4DlC]{test-scene-updated}",
+      "id": "cDiBNArUBdiC76Xd",
+      "journalLink": "@UUID[Scene.cDiBNArUBdiC76Xd]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.ZRzmXcZ7N3aq4DlC"
+      "uuid": "Scene.cDiBNArUBdiC76Xd"
     },
     {
       "documentType": "Scene",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "lIawgFuWnlgFq8e8",
-      "journalLink": "@UUID[Scene.lIawgFuWnlgFq8e8]{test-scene-updated}",
+      "id": "oAo1nnXqH58UK6h4",
+      "journalLink": "@UUID[Scene.oAo1nnXqH58UK6h4]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.lIawgFuWnlgFq8e8"
+      "uuid": "Scene.oAo1nnXqH58UK6h4"
     },
     {
       "documentType": "Scene",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "iI8vL6F5ett88LXH",
-      "journalLink": "@UUID[Scene.iI8vL6F5ett88LXH]{test-scene-updated}",
+      "id": "pxk3rKsNgpwB6bG5",
+      "journalLink": "@UUID[Scene.pxk3rKsNgpwB6bG5]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.iI8vL6F5ett88LXH"
+      "uuid": "Scene.pxk3rKsNgpwB6bG5"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "vCLJOw0STWGphIWU",
+      "journalLink": "@UUID[Scene.vCLJOw0STWGphIWU]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.vCLJOw0STWGphIWU"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "Jz0KV1jlNI0jdQp0",
+      "journalLink": "@UUID[Scene.Jz0KV1jlNI0jdQp0]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.Jz0KV1jlNI0jdQp0"
     },
     {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-studded leather armor +3",
       "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
-      "id": "0yfwl3fLPgpM3oqy",
-      "journalLink": "@UUID[Item.0yfwl3fLPgpM3oqy]{test-studded leather armor +3}",
+      "id": "noW73mGKIUgkrZvf",
+      "journalLink": "@UUID[Item.noW73mGKIUgkrZvf]{test-studded leather armor +3}",
       "name": "test-studded leather armor +3",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "equipment",
       "tagline": "Items Directory",
-      "uuid": "Item.0yfwl3fLPgpM3oqy"
+      "uuid": "Item.noW73mGKIUgkrZvf"
     },
     {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "<strong>test</strong>-studded leather armor +3",
       "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
-      "id": "riycTsbnnthAcLGC",
-      "journalLink": "@UUID[Item.riycTsbnnthAcLGC]{test-studded leather armor +3}",
+      "id": "PKPTCIGV6jL9tJvq",
+      "journalLink": "@UUID[Item.PKPTCIGV6jL9tJvq]{test-studded leather armor +3}",
       "name": "test-studded leather armor +3",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "equipment",
       "tagline": "Items Directory",
-      "uuid": "Item.riycTsbnnthAcLGC"
+      "uuid": "Item.PKPTCIGV6jL9tJvq"
     },
     {
-      "documentType": "Actor",
+      "documentType": "JournalEntry",
       "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "2midVQ1laJFMrN4D",
-      "journalLink": "@UUID[Actor.2midVQ1laJFMrN4D]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.2midVQ1laJFMrN4D"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "IGDNKF9amHdCQYGX",
-      "journalLink": "@UUID[Actor.IGDNKF9amHdCQYGX]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.IGDNKF9amHdCQYGX"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "Q8f1DRjKZJmtZNvD",
-      "journalLink": "@UUID[Actor.Q8f1DRjKZJmtZNvD]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.Q8f1DRjKZJmtZNvD"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "V162ZiBjzf489Ekz",
-      "journalLink": "@UUID[Actor.V162ZiBjzf489Ekz]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.V162ZiBjzf489Ekz"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "Xp4mNa6B0fBeKAAF",
-      "journalLink": "@UUID[Actor.Xp4mNa6B0fBeKAAF]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.Xp4mNa6B0fBeKAAF"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "ZTJRxZIdnhFQalD0",
-      "journalLink": "@UUID[Actor.ZTJRxZIdnhFQalD0]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.ZTJRxZIdnhFQalD0"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "dKQ5TvZ1ySmZ5zC1",
-      "journalLink": "@UUID[Actor.dKQ5TvZ1ySmZ5zC1]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.dKQ5TvZ1ySmZ5zC1"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "haaLIgOLEYGT0nqK",
-      "journalLink": "@UUID[Actor.haaLIgOLEYGT0nqK]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.haaLIgOLEYGT0nqK"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "iOn5ZWzR0Hv1gN06",
-      "journalLink": "@UUID[Actor.iOn5ZWzR0Hv1gN06]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.iOn5ZWzR0Hv1gN06"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "liCyZwJ5BRnryiXU",
-      "journalLink": "@UUID[Actor.liCyZwJ5BRnryiXU]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.liCyZwJ5BRnryiXU"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "mNMNalBcWKhoQ8QE",
-      "journalLink": "@UUID[Actor.mNMNalBcWKhoQ8QE]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.mNMNalBcWKhoQ8QE"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "wZR5R8cIs1dUpKC7",
-      "journalLink": "@UUID[Actor.wZR5R8cIs1dUpKC7]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.wZR5R8cIs1dUpKC7"
-    },
-    {
-      "documentType": "Actor",
-      "folder": null,
-      "formattedMatch": "hook-<strong>test</strong>-actor",
-      "icon": "icons/svg/mystery-man.svg",
-      "id": "ywz3tLzEpjMCdXhK",
-      "journalLink": "@UUID[Actor.ywz3tLzEpjMCdXhK]{hook-test-actor}",
-      "name": "hook-test-actor",
-      "package": null,
-      "packageName": null,
-      "resultType": "WorldEntity",
-      "subType": "base",
-      "tagline": "Actors Directory",
-      "uuid": "Actor.ywz3tLzEpjMCdXhK"
+      "formattedMatch": "D20 <strong>Test</strong>s",
+      "icon": "",
+      "id": "phbD20Tests00000",
+      "journalLink": "@UUID[Compendium.dnd5e.content24.JournalEntry.phbD20Tests00000]{D20 Tests}",
+      "name": "D20 Tests",
+      "package": "dnd5e.content24",
+      "packageName": "Rules",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules",
+      "uuid": "Compendium.dnd5e.content24.JournalEntry.phbD20Tests00000"
     },
     {
       "documentType": "Actor",
       "folder": null,
       "formattedMatch": "Updated <strong>Test</strong> Actor",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "yqVY0l6AY0HDtq7Z",
-      "journalLink": "@UUID[Actor.yqVY0l6AY0HDtq7Z]{Updated Test Actor}",
+      "id": "5ZBRNoFE1H2iGDQy",
+      "journalLink": "@UUID[Actor.5ZBRNoFE1H2iGDQy]{Updated Test Actor}",
       "name": "Updated Test Actor",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.yqVY0l6AY0HDtq7Z"
+      "uuid": "Actor.5ZBRNoFE1H2iGDQy"
     },
     {
       "documentType": "Actor",
       "folder": null,
       "formattedMatch": "Updated <strong>Test</strong> Actor",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "sMD3o6zej6ckQkpo",
-      "journalLink": "@UUID[Actor.sMD3o6zej6ckQkpo]{Updated Test Actor}",
+      "id": "gtRH6ZKlyzPYdvmW",
+      "journalLink": "@UUID[Actor.gtRH6ZKlyzPYdvmW]{Updated Test Actor}",
       "name": "Updated Test Actor",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.sMD3o6zej6ckQkpo"
+      "uuid": "Actor.gtRH6ZKlyzPYdvmW"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "Updated <strong>Test</strong> Actor",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "id": "gHjoe9z270YfSCno",
+      "journalLink": "@UUID[Actor.gHjoe9z270YfSCno]{Updated Test Actor}",
+      "name": "Updated Test Actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "character",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.gHjoe9z270YfSCno"
     },
     {
       "documentType": "Item",
@@ -2180,6 +2150,51 @@ ws.on('message', (raw: string) => {
       "uuid": "Compendium.dnd5e.items.Item.LDuqUcosOK8Bf76S"
     },
     {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Amulet of the Planes Destination",
+      "icon": "icons/equipment/neck/amulet-carved-stone-purple.webp",
+      "id": "dmgAmuletOfThePl",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.dmgAmuletOfThePl]{Amulet of the Planes Destination}",
+      "name": "Amulet of the Planes Destination",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.dmgAmuletOfThePl"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Animated Object Catalysts",
+      "icon": "icons/commodities/treasure/stone-cracked-lightning-blue.webp",
+      "id": "mmAnimatedObject",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.mmAnimatedObject]{Animated Object Catalysts}",
+      "name": "Animated Object Catalysts",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.mmAnimatedObject"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "Animated Rug of Smothering",
+      "icon": "systems/dnd5e/tokens/construct/RugOfSmothering.webp",
+      "id": "mmAnimatedRugOfS",
+      "journalLink": "@UUID[Compendium.dnd5e.actors24.Actor.mmAnimatedRugOfS]{Animated Rug of Smothering}",
+      "name": "Animated Rug of Smothering",
+      "package": "dnd5e.actors24",
+      "packageName": "Actors",
+      "resultType": "CompendiumEntity",
+      "subType": "npc",
+      "tagline": "Actors",
+      "uuid": "Compendium.dnd5e.actors24.Actor.mmAnimatedRugOfS"
+    },
+    {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "Belt of Fire Giant Strength",
@@ -2193,6 +2208,51 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.bq9YKwEHLQ7p7ric"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Belt of Giant Strength (frost)",
+      "icon": "icons/equipment/waist/belt-buckle-gold-blue.webp",
+      "id": "dmgfroBeltofGian",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgfroBeltofGian]{Belt of Giant Strength (frost)}",
+      "name": "Belt of Giant Strength (frost)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgfroBeltofGian"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Belt of Giant Strength (stone)",
+      "icon": "icons/equipment/waist/belt-armored-steel.webp",
+      "id": "dmgstoBeltofGian",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgstoBeltofGian]{Belt of Giant Strength (stone)}",
+      "name": "Belt of Giant Strength (stone)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgstoBeltofGian"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Belt of Giant Strength (storm)",
+      "icon": "icons/equipment/waist/belt-thick-gemmed-gold-blue.webp",
+      "id": "dmgstmBeltofGian",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgstmBeltofGian]{Belt of Giant Strength (storm)}",
+      "name": "Belt of Giant Strength (storm)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgstmBeltofGian"
     },
     {
       "documentType": "Item",
@@ -2212,6 +2272,66 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Blessed Strikes: Divine Strike",
+      "icon": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+      "id": "phbDivineStrike0",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbDivineStrike0]{Blessed Strikes: Divine Strike}",
+      "name": "Blessed Strikes: Divine Strike",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbDivineStrike0"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Blessed Strikes: Potent Spellcasting",
+      "icon": "icons/magic/life/cross-yellow-green.webp",
+      "id": "phbClcPotentSpel",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbClcPotentSpel]{Blessed Strikes: Potent Spellcasting}",
+      "name": "Blessed Strikes: Potent Spellcasting",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbClcPotentSpel"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Boon of the Night Spirit",
+      "icon": "icons/magic/unholy/silhouette-robe-evil-power.webp",
+      "id": "phbBoonoftheNigh",
+      "journalLink": "@UUID[Compendium.dnd5e.feats24.Item.phbBoonoftheNigh]{Boon of the Night Spirit}",
+      "name": "Boon of the Night Spirit",
+      "package": "dnd5e.feats24",
+      "packageName": "Feats",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Feats",
+      "uuid": "Compendium.dnd5e.feats24.Item.phbBoonoftheNigh"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Boon of Truesight",
+      "icon": "icons/creatures/eyes/humanoid-single-blind.webp",
+      "id": "phbBoonofTruesig",
+      "journalLink": "@UUID[Compendium.dnd5e.feats24.Item.phbBoonofTruesig]{Boon of Truesight}",
+      "name": "Boon of Truesight",
+      "package": "dnd5e.feats24",
+      "packageName": "Feats",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Feats",
+      "uuid": "Compendium.dnd5e.feats24.Item.phbBoonofTruesig"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Breastplate Armor of Resistance",
       "icon": "icons/equipment/chest/breastplate-collared-steel-grey.webp",
       "id": "lccm5AjIk91aIHbi",
@@ -2223,6 +2343,21 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.lccm5AjIk91aIHbi"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Candle of Invocation: Outer Plane Destination",
+      "icon": "icons/sundries/lights/candle-lit-yellow.webp",
+      "id": "dmgCandleOfInvoc",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.dmgCandleOfInvoc]{Candle of Invocation: Outer Plane Destination}",
+      "name": "Candle of Invocation: Outer Plane Destination",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.dmgCandleOfInvoc"
     },
     {
       "documentType": "Item",
@@ -2242,6 +2377,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Carpenter's Tools",
+      "icon": "icons/tools/hand/saw-steel-grey.webp",
+      "id": "phbtulCarpenters",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbtulCarpenters]{Carpenter's Tools}",
+      "name": "Carpenter's Tools",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbtulCarpenters"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Cartographer's Tools",
       "icon": "icons/tools/navigation/map-chart-tan.webp",
       "id": "fC0lFK8P4RuhpfaU",
@@ -2253,6 +2403,21 @@ ws.on('message', (raw: string) => {
       "subType": "tool",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.fC0lFK8P4RuhpfaU"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Cartographer's Tools",
+      "icon": "icons/tools/navigation/map-chart-tan.webp",
+      "id": "phbtulCartograph",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbtulCartograph]{Cartographer's Tools}",
+      "name": "Cartographer's Tools",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbtulCartograph"
     },
     {
       "documentType": "Item",
@@ -2347,6 +2512,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Clothes, Traveler's",
+      "icon": "icons/equipment/chest/shirt-collared-yellow.webp",
+      "id": "phbagClothesTrav",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbagClothesTrav]{Clothes, Traveler's}",
+      "name": "Clothes, Traveler's",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbagClothesTrav"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Create or Destroy Water",
       "icon": "icons/magic/air/wind-swirl-purple-blue.webp",
       "id": "a3XtAO5n2GrqiAh5",
@@ -2358,6 +2538,21 @@ ws.on('message', (raw: string) => {
       "subType": "spell",
       "tagline": "Spells (SRD)",
       "uuid": "Compendium.dnd5e.spells.Item.a3XtAO5n2GrqiAh5"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Create or Destroy Water",
+      "icon": "icons/magic/water/water-hand.webp",
+      "id": "phbsplCreateorDe",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplCreateorDe]{Create or Destroy Water}",
+      "name": "Create or Destroy Water",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplCreateorDe"
     },
     {
       "documentType": "Item",
@@ -2392,6 +2587,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Decanter of Endless Water",
+      "icon": "icons/consumables/potions/potion-flask-corked-blue.webp",
+      "id": "dmgDecanterOfEnd",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgDecanterOfEnd]{Decanter of Endless Water}",
+      "name": "Decanter of Endless Water",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgDecanterOfEnd"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Dominate Beast",
       "icon": "icons/magic/air/air-burst-spiral-large-teal-green.webp",
       "id": "LrPvWHBPmiMQQsKB",
@@ -2407,6 +2617,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Dominate Beast",
+      "icon": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+      "id": "phbsplDominateBe",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplDominateBe]{Dominate Beast}",
+      "name": "Dominate Beast",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplDominateBe"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Dominate Monster",
       "icon": "icons/magic/air/air-burst-spiral-large-pink.webp",
       "id": "eEpy1ONlXumKS1mp",
@@ -2418,6 +2643,36 @@ ws.on('message', (raw: string) => {
       "subType": "spell",
       "tagline": "Spells (SRD)",
       "uuid": "Compendium.dnd5e.spells.Item.eEpy1ONlXumKS1mp"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Dominate Monster",
+      "icon": "icons/magic/control/hypnosis-mesmerism-watch.webp",
+      "id": "phbsplDominateMo",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplDominateMo]{Dominate Monster}",
+      "name": "Dominate Monster",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplDominateMo"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Elemental Fury: Potent Spellcasting",
+      "icon": "icons/magic/nature/leaf-rune-glow-green.webp",
+      "id": "phbFuryPotentSpe",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbFuryPotentSpe]{Elemental Fury: Potent Spellcasting}",
+      "name": "Elemental Fury: Potent Spellcasting",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbFuryPotentSpe"
     },
     {
       "documentType": "Item",
@@ -2467,6 +2722,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Feather Token (Swan Boat)",
+      "icon": "icons/commodities/materials/feather-blue-grey.webp",
+      "id": "dmgSwanBoatQuaal",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgSwanBoatQuaal]{Feather Token (Swan Boat)}",
+      "name": "Feather Token (Swan Boat)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgSwanBoatQuaal"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Feather Token Swan Boat",
       "icon": "icons/commodities/materials/feather-blue-grey.webp",
       "id": "UgnUJhu0tW1tLt7g",
@@ -2508,6 +2778,21 @@ ws.on('message', (raw: string) => {
       "subType": "weapon",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.Z9FBwEoMi6daDGRj"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Giant Ancestry",
+      "icon": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
+      "id": "phbsptGiantAnces",
+      "journalLink": "@UUID[Compendium.dnd5e.origins24.Item.phbsptGiantAnces]{Giant Ancestry}",
+      "name": "Giant Ancestry",
+      "package": "dnd5e.origins24",
+      "packageName": "Character Origins",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Origins",
+      "uuid": "Compendium.dnd5e.origins24.Item.phbsptGiantAnces"
     },
     {
       "documentType": "Item",
@@ -2557,6 +2842,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Greater Invisibility",
+      "icon": "icons/creatures/magical/spirit-undead-ghost-blue.webp",
+      "id": "phbsplGreaterInv",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplGreaterInv]{Greater Invisibility}",
+      "name": "Greater Invisibility",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplGreaterInv"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Greater Restoration",
       "icon": "icons/magic/life/heart-cross-strong-flame-blue.webp",
       "id": "WzvJ7G3cqvIubsLk",
@@ -2568,6 +2868,21 @@ ws.on('message', (raw: string) => {
       "subType": "spell",
       "tagline": "Spells (SRD)",
       "uuid": "Compendium.dnd5e.spells.Item.WzvJ7G3cqvIubsLk"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Greater Restoration",
+      "icon": "icons/magic/life/heart-hand-gold-green-light.webp",
+      "id": "phbsplGreaterRes",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplGreaterRes]{Greater Restoration}",
+      "name": "Greater Restoration",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplGreaterRes"
     },
     {
       "documentType": "Item",
@@ -2600,6 +2915,21 @@ ws.on('message', (raw: string) => {
       "uuid": "Compendium.dnd5e.items.Item.lN1VbnGFo3HNZXNb"
     },
     {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "How to Use a Monster",
+      "icon": "",
+      "id": "mmMonsterManual1",
+      "journalLink": "@UUID[Compendium.dnd5e.content24.JournalEntry.mmMonsterManual1]{How to Use a Monster}",
+      "name": "How to Use a Monster",
+      "package": "dnd5e.content24",
+      "packageName": "Rules",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules",
+      "uuid": "Compendium.dnd5e.content24.JournalEntry.mmMonsterManual1"
+    },
+    {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "Innate Spellcasting",
@@ -2613,6 +2943,21 @@ ws.on('message', (raw: string) => {
       "subType": "feat",
       "tagline": "Monster Features (SRD)",
       "uuid": "Compendium.dnd5e.monsterfeatures.Item.hkmTEk6klT6QL4K4"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Investment of the Chain Master",
+      "icon": "icons/magic/control/debuff-chains-orb-movement-blue.webp",
+      "id": "phbinvInvestment",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbinvInvestment]{Investment of the Chain Master}",
+      "name": "Investment of the Chain Master",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbinvInvestment"
     },
     {
       "documentType": "Item",
@@ -2632,6 +2977,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Ioun Stone of Absorption",
+      "icon": "icons/commodities/gems/gem-rough-ball-purple.webp",
+      "id": "dmgAbsorptionIou",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgAbsorptionIou]{Ioun Stone of Absorption}",
+      "name": "Ioun Stone of Absorption",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgAbsorptionIou"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Ioun Stone of Greater Absorption",
       "icon": "icons/commodities/stone/ore-pile-green.webp",
       "id": "7FEcfqz1piPHN1tV",
@@ -2643,6 +3003,21 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.7FEcfqz1piPHN1tV"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Greater Absorption",
+      "icon": "icons/commodities/stone/ore-pile-green.webp",
+      "id": "dmgGreaterAbsorp",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgGreaterAbsorp]{Ioun Stone of Greater Absorption}",
+      "name": "Ioun Stone of Greater Absorption",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgGreaterAbsorp"
     },
     {
       "documentType": "Item",
@@ -2662,6 +3037,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Ioun Stone of Insight",
+      "icon": "icons/commodities/stone/ore-pile-teal.webp",
+      "id": "dmgInsightIounSt",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgInsightIounSt]{Ioun Stone of Insight}",
+      "name": "Ioun Stone of Insight",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgInsightIounSt"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Ioun Stone of Mastery",
       "icon": "icons/commodities/gems/gem-rough-cushion-green.webp",
       "id": "nk2MH16KcZmKp7FQ",
@@ -2673,6 +3063,21 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.nk2MH16KcZmKp7FQ"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Mastery",
+      "icon": "icons/commodities/gems/gem-rough-cushion-green.webp",
+      "id": "dmgMasteryIounSt",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgMasteryIounSt]{Ioun Stone of Mastery}",
+      "name": "Ioun Stone of Mastery",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgMasteryIounSt"
     },
     {
       "documentType": "Item",
@@ -2692,6 +3097,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Ioun Stone of Strength",
+      "icon": "icons/commodities/gems/gem-rough-cushion-blue.webp",
+      "id": "dmgStrengthIounS",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgStrengthIounS]{Ioun Stone of Strength}",
+      "name": "Ioun Stone of Strength",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgStrengthIounS"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Ioun Stone of Sustenance",
       "icon": "icons/commodities/stone/geode-raw-brown.webp",
       "id": "6MDTnMG4Hcw7qZsy",
@@ -2703,6 +3123,21 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.6MDTnMG4Hcw7qZsy"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Sustenance",
+      "icon": "icons/commodities/stone/geode-raw-brown.webp",
+      "id": "dmgSustenanceIou",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgSustenanceIou]{Ioun Stone of Sustenance}",
+      "name": "Ioun Stone of Sustenance",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgSustenanceIou"
     },
     {
       "documentType": "Item",
@@ -2737,6 +3172,36 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Leatherworker's Tools",
+      "icon": "icons/commodities/leather/leather-buckle-steel-tan.webp",
+      "id": "phbtulLeatherwor",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbtulLeatherwor]{Leatherworker's Tools}",
+      "name": "Leatherworker's Tools",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbtulLeatherwor"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Lessons of the First Ones",
+      "icon": "icons/creatures/magical/humanoid-giant-forest-blue.webp",
+      "id": "phbinvLessonsoft",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbinvLessonsoft]{Lessons of the First Ones}",
+      "name": "Lessons of the First Ones",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbinvLessonsoft"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Light Sensitivity",
       "icon": "icons/magic/time/day-night-sunset-sunrise.webp",
       "id": "2l557y06401lwsqs",
@@ -2767,6 +3232,36 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Locate Animals or Plants",
+      "icon": "icons/magic/nature/leaf-juggle-humanoid-green.webp",
+      "id": "phbsplLocateAnim",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplLocateAnim]{Locate Animals or Plants}",
+      "name": "Locate Animals or Plants",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplLocateAnim"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "Magic Item Lists",
+      "icon": "",
+      "id": "dmgMagicItemList",
+      "journalLink": "@UUID[Compendium.dnd5e.content24.JournalEntry.dmgMagicItemList]{Magic Item Lists}",
+      "name": "Magic Item Lists",
+      "package": "dnd5e.content24",
+      "packageName": "Rules",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules",
+      "uuid": "Compendium.dnd5e.content24.JournalEntry.dmgMagicItemList"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Mantle of Spell Resistance",
       "icon": "icons/equipment/back/cape-layered-violet-white-swirl.webp",
       "id": "oxzUb5j1TMsccGW4",
@@ -2778,6 +3273,36 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.oxzUb5j1TMsccGW4"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Mantle of Spell Resistance",
+      "icon": "icons/equipment/back/cape-layered-violet-white-swirl.webp",
+      "id": "dmgMantleOfSpell",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgMantleOfSpell]{Mantle of Spell Resistance}",
+      "name": "Mantle of Spell Resistance",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgMantleOfSpell"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Manual of Golems: Type, Time, and Cost",
+      "icon": "icons/sundries/books/book-eye-purple.webp",
+      "id": "dmgManualOfGolem",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.dmgManualOfGolem]{Manual of Golems: Type, Time, and Cost}",
+      "name": "Manual of Golems: Type, Time, and Cost",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.dmgManualOfGolem"
     },
     {
       "documentType": "Item",
@@ -2795,6 +3320,21 @@ ws.on('message', (raw: string) => {
       "uuid": "Compendium.dnd5e.items.Item.CcTGZzQHejxEVLK1"
     },
     {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "Monsters A to Z",
+      "icon": "",
+      "id": "mmMonstersAtoZ00",
+      "journalLink": "@UUID[Compendium.dnd5e.content24.JournalEntry.mmMonstersAtoZ00]{Monsters A to Z}",
+      "name": "Monsters A to Z",
+      "package": "dnd5e.content24",
+      "packageName": "Rules",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules",
+      "uuid": "Compendium.dnd5e.content24.JournalEntry.mmMonstersAtoZ00"
+    },
+    {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "Nature's Sanctuary",
@@ -2808,6 +3348,21 @@ ws.on('message', (raw: string) => {
       "subType": "feat",
       "tagline": "Class & Subclass Features (SRD)",
       "uuid": "Compendium.dnd5e.classfeatures.Item.EuX1kJNIw1F68yus"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Nature's Sanctuary",
+      "icon": "icons/magic/nature/vines-thorned-curled-glow-green.webp",
+      "id": "phbdrdNaturesSan",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbdrdNaturesSan]{Nature's Sanctuary}",
+      "name": "Nature's Sanctuary",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbdrdNaturesSan"
     },
     {
       "documentType": "Item",
@@ -2838,6 +3393,21 @@ ws.on('message', (raw: string) => {
       "subType": "weapon",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.2Lkub0qIwucWEfp3"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "Otherworldly Steed",
+      "icon": "",
+      "id": "phbmobOtherworld",
+      "journalLink": "@UUID[Compendium.dnd5e.actors24.Actor.phbmobOtherworld]{Otherworldly Steed}",
+      "name": "Otherworldly Steed",
+      "package": "dnd5e.actors24",
+      "packageName": "Actors",
+      "resultType": "CompendiumEntity",
+      "subType": "npc",
+      "tagline": "Actors",
+      "uuid": "Compendium.dnd5e.actors24.Actor.phbmobOtherworld"
     },
     {
       "documentType": "Item",
@@ -2932,6 +3502,51 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Potion of Giant Strength (Frost)",
+      "icon": "icons/consumables/potions/bottle-round-corked-blue.webp",
+      "id": "dmgFrostPotionOf",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgFrostPotionOf]{Potion of Giant Strength (Frost)}",
+      "name": "Potion of Giant Strength (Frost)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgFrostPotionOf"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Giant Strength (Stone)",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-green.webp",
+      "id": "dmgStonePotionOf",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgStonePotionOf]{Potion of Giant Strength (Stone)}",
+      "name": "Potion of Giant Strength (Stone)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgStonePotionOf"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Giant Strength (Storm)",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-labeled-blue.webp",
+      "id": "dmgStormPotionOf",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgStormPotionOf]{Potion of Giant Strength (Storm)}",
+      "name": "Potion of Giant Strength (Storm)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgStormPotionOf"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Potion of Lightning Resistance",
       "icon": "icons/consumables/potions/bottle-round-corked-yellow.webp",
       "id": "8MPnSrvEeZhPhtTi",
@@ -3022,6 +3637,36 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Potion of Resistance",
+      "icon": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
+      "id": "dmgPotionOfResis",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgPotionOfResis]{Potion of Resistance}",
+      "name": "Potion of Resistance",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgPotionOfResis"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Potion of Resistance Type",
+      "icon": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
+      "id": "dmgPotionOfResis",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.dmgPotionOfResis]{Potion of Resistance Type}",
+      "name": "Potion of Resistance Type",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.dmgPotionOfResis"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Potion of Stone Giant Strength",
       "icon": "icons/consumables/potions/bottle-bulb-corked-green.webp",
       "id": "4ZiJsDTRA1GgcWKP",
@@ -3067,6 +3712,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Potter's Tools",
+      "icon": "icons/containers/kitchenware/vase-bottle-brown.webp",
+      "id": "phbtulPottersToo",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbtulPottersToo]{Potter's Tools}",
+      "name": "Potter's Tools",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbtulPottersToo"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Private Sanctum",
       "icon": "icons/magic/defensive/shield-barrier-flaming-diamond-orange.webp",
       "id": "NJgxf7pmSsBArIG7",
@@ -3082,6 +3742,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Private Sanctum",
+      "icon": "icons/environment/wilderness/cave-entrance-dwarven-hill.webp",
+      "id": "phbPrivateSanctu",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbPrivateSanctu]{Private Sanctum}",
+      "name": "Private Sanctum",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbPrivateSanctu"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Quarterstaff",
       "icon": "icons/weapons/staves/staff-simple.webp",
       "id": "g2dWN7PQiMRYWzyk",
@@ -3093,6 +3768,21 @@ ws.on('message', (raw: string) => {
       "subType": "weapon",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.g2dWN7PQiMRYWzyk"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Quarterstaff",
+      "icon": "icons/weapons/staves/staff-simple.webp",
+      "id": "phbwepQuartersta",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbwepQuartersta]{Quarterstaff}",
+      "name": "Quarterstaff",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbwepQuartersta"
     },
     {
       "documentType": "Item",
@@ -3142,8 +3832,38 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Quarterstaff of the Acrobat",
+      "icon": "icons/weapons/staves/staff-simple-wrapped.webp",
+      "id": "dmgQuarterstaffO",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgQuarterstaffO]{Quarterstaff of the Acrobat}",
+      "name": "Quarterstaff of the Acrobat",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgQuarterstaffO"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Relentless Hunter",
+      "icon": "icons/skills/wounds/injury-pain-body-orange.webp",
+      "id": "phbrgrRelentless",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbrgrRelentless]{Relentless Hunter}",
+      "name": "Relentless Hunter",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbrgrRelentless"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Ring of Lightning Resistance",
-      "icon": "icons/equipment/finger/ring-cabochon-gold-orange.webp",
+      "icon": "icons/equipment/finger/ring-cabochon-engraved-gold-orange.webp",
       "id": "XJ8CG4UvLELCmOi2",
       "journalLink": "@UUID[Compendium.dnd5e.items.Item.XJ8CG4UvLELCmOi2]{Ring of Lightning Resistance}",
       "name": "Ring of Lightning Resistance",
@@ -3158,7 +3878,7 @@ ws.on('message', (raw: string) => {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "Ring of Necrotic Resistance",
-      "icon": "icons/equipment/finger/ring-band-engraved-scrolls-silver.webp",
+      "icon": "icons/equipment/finger/ring-faceted-grey.webp",
       "id": "qMGkmzfLHfXd7DiJ",
       "journalLink": "@UUID[Compendium.dnd5e.items.Item.qMGkmzfLHfXd7DiJ]{Ring of Necrotic Resistance}",
       "name": "Ring of Necrotic Resistance",
@@ -3173,7 +3893,7 @@ ws.on('message', (raw: string) => {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "Ring of Radiant Resistance",
-      "icon": "icons/equipment/finger/ring-inlay-red.webp",
+      "icon": "icons/equipment/finger/ring-cabochon-thin-gold-orange.webp",
       "id": "IrC5LPbWNxlAQoK7",
       "journalLink": "@UUID[Compendium.dnd5e.items.Item.IrC5LPbWNxlAQoK7]{Ring of Radiant Resistance}",
       "name": "Ring of Radiant Resistance",
@@ -3183,6 +3903,21 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.IrC5LPbWNxlAQoK7"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Ring of Resistance: Damage Type and Gemstone",
+      "icon": "icons/equipment/finger/ring-ball-silver.webp",
+      "id": "dmgRingOfResista",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.dmgRingOfResista]{Ring of Resistance: Damage Type and Gemstone}",
+      "name": "Ring of Resistance: Damage Type and Gemstone",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.dmgRingOfResista"
     },
     {
       "documentType": "Item",
@@ -3228,6 +3963,36 @@ ws.on('message', (raw: string) => {
       "subType": "spell",
       "tagline": "Spells (SRD)",
       "uuid": "Compendium.dnd5e.spells.Item.8sgwRh8NUNkn9Vi0"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Secret Chest",
+      "icon": "icons/containers/chest/chest-simple-box-gold-brown.webp",
+      "id": "phbsplLeomundsSe",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplLeomundsSe]{Secret Chest}",
+      "name": "Secret Chest",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplLeomundsSe"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "Secret Chest",
+      "icon": "icons/containers/chest/chest-simple-box-gold-brown.webp",
+      "id": "phbsplSecretChes",
+      "journalLink": "@UUID[Compendium.dnd5e.actors24.Actor.phbsplSecretChes]{Secret Chest}",
+      "name": "Secret Chest",
+      "package": "dnd5e.actors24",
+      "packageName": "Actors",
+      "resultType": "CompendiumEntity",
+      "subType": "npc",
+      "tagline": "Actors",
+      "uuid": "Compendium.dnd5e.actors24.Actor.phbsplSecretChes"
     },
     {
       "documentType": "RollTable",
@@ -3290,6 +4055,21 @@ ws.on('message', (raw: string) => {
       "uuid": "Compendium.dnd5e.monsterfeatures.Item.59DUUDZet1J4PIlA"
     },
     {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Sphere of Annihilation Interaction Results",
+      "icon": "icons/magic/unholy/orb-glowing-purple.webp",
+      "id": "dmgSphereOfAnnih",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.dmgSphereOfAnnih]{Sphere of Annihilation Interaction Results}",
+      "name": "Sphere of Annihilation Interaction Results",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.dmgSphereOfAnnih"
+    },
+    {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "Splint Armor of Resistance",
@@ -3320,6 +4100,21 @@ ws.on('message', (raw: string) => {
       "uuid": "Compendium.dnd5e.monsterfeatures.Item.4N7S29kDROQ932pG"
     },
     {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Stirge Roosts",
+      "icon": "icons/environment/settlement/city-night.webp",
+      "id": "mmStirgeRoosts00",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.mmStirgeRoosts00]{Stirge Roosts}",
+      "name": "Stirge Roosts",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.mmStirgeRoosts00"
+    },
+    {
       "documentType": "Item",
       "folder": null,
       "formattedMatch": "Stone of Good Luck (Luckstone)",
@@ -3333,6 +4128,21 @@ ws.on('message', (raw: string) => {
       "subType": "equipment",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.296Zgo9RhltWShE1"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Stone of Good Luck (Luckstone)",
+      "icon": "icons/commodities/gems/gem-rough-rectangle-red.webp",
+      "id": "dmgStoneOfGoodLu",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgStoneOfGoodLu]{Stone of Good Luck (Luckstone)}",
+      "name": "Stone of Good Luck (Luckstone)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgStoneOfGoodLu"
     },
     {
       "documentType": "Item",
@@ -3382,6 +4192,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Thieves' Cant",
+      "icon": "icons/sundries/documents/document-symbol-eye.webp",
+      "id": "phbrgeThievesCan",
+      "journalLink": "@UUID[Compendium.dnd5e.classes24.Item.phbrgeThievesCan]{Thieves' Cant}",
+      "name": "Thieves' Cant",
+      "package": "dnd5e.classes24",
+      "packageName": "Character Classes",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Character Classes",
+      "uuid": "Compendium.dnd5e.classes24.Item.phbrgeThievesCan"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Thieves' Tools",
       "icon": "icons/tools/hand/lockpicks-steel-grey.webp",
       "id": "woWZ1sO5IUVGzo58",
@@ -3393,6 +4218,36 @@ ws.on('message', (raw: string) => {
       "subType": "tool",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.woWZ1sO5IUVGzo58"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Thieves' Tools",
+      "icon": "icons/tools/hand/lockpicks-steel-grey.webp",
+      "id": "phbtulThievesToo",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbtulThievesToo]{Thieves' Tools}",
+      "name": "Thieves' Tools",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbtulThievesToo"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Thunderous Greatclub",
+      "icon": "icons/weapons/clubs/club-spiked-glowing.webp",
+      "id": "dmgThunderousGre",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgThunderousGre]{Thunderous Greatclub}",
+      "name": "Thunderous Greatclub",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgThunderousGre"
     },
     {
       "documentType": "Item",
@@ -3412,6 +4267,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Time Stop",
+      "icon": "icons/magic/time/hourglass-yellow-green.webp",
+      "id": "phbsplTimeStop00",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplTimeStop00]{Time Stop}",
+      "name": "Time Stop",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplTimeStop00"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Tinker's Tools",
       "icon": "icons/commodities/cloth/thread-spindle-white-needle.webp",
       "id": "0d08g1i5WXnNrCNA",
@@ -3427,6 +4297,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Tinker's Tools",
+      "icon": "icons/commodities/cloth/thread-spindle-white-needle.webp",
+      "id": "phbtulTinkersToo",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.phbtulTinkersToo]{Tinker's Tools}",
+      "name": "Tinker's Tools",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.phbtulTinkersToo"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "Tome of Understanding",
       "icon": "icons/sundries/books/book-turquoise-moon.webp",
       "id": "WnKWD1FuAFUE7f4v",
@@ -3438,6 +4323,21 @@ ws.on('message', (raw: string) => {
       "subType": "consumable",
       "tagline": "Items (SRD)",
       "uuid": "Compendium.dnd5e.items.Item.WnKWD1FuAFUE7f4v"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Tome of Understanding",
+      "icon": "icons/sundries/books/book-turquoise-moon.webp",
+      "id": "dmgTomeOfUnderst",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgTomeOfUnderst]{Tome of Understanding}",
+      "name": "Tome of Understanding",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgTomeOfUnderst"
     },
     {
       "documentType": "Item",
@@ -3487,6 +4387,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "Tree Stride",
+      "icon": "icons/magic/nature/tree-spirit-blue.webp",
+      "id": "phbsplTreeStride",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplTreeStride]{Tree Stride}",
+      "name": "Tree Stride",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplTreeStride"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "True Resurrection",
       "icon": "icons/magic/life/heart-cross-strong-flame-blue.webp",
       "id": "qLeEXZDbW5y4bmLY",
@@ -3502,6 +4417,21 @@ ws.on('message', (raw: string) => {
     {
       "documentType": "Item",
       "folder": null,
+      "formattedMatch": "True Resurrection",
+      "icon": "icons/magic/life/ankh-gold-blue.webp",
+      "id": "phbsplTrueResurr",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplTrueResurr]{True Resurrection}",
+      "name": "True Resurrection",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplTrueResurr"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
       "formattedMatch": "True Strike",
       "icon": "icons/magic/fire/dagger-rune-enchant-blue-gray.webp",
       "id": "mGGlcLdggHwcL7MG",
@@ -3513,6 +4443,21 @@ ws.on('message', (raw: string) => {
       "subType": "spell",
       "tagline": "Spells (SRD)",
       "uuid": "Compendium.dnd5e.spells.Item.mGGlcLdggHwcL7MG"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "True Strike",
+      "icon": "icons/magic/unholy/hand-weapon-glow-black-green.webp",
+      "id": "phbsplTrueStrike",
+      "journalLink": "@UUID[Compendium.dnd5e.spells24.Item.phbsplTrueStrike]{True Strike}",
+      "name": "True Strike",
+      "package": "dnd5e.spells24",
+      "packageName": "Spells",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells",
+      "uuid": "Compendium.dnd5e.spells24.Item.phbsplTrueStrike"
     },
     {
       "documentType": "Item",
@@ -3588,6 +4533,51 @@ ws.on('message', (raw: string) => {
       "subType": "feat",
       "tagline": "Monster Features (SRD)",
       "uuid": "Compendium.dnd5e.monsterfeatures.Item.5V7SCABXvIbnk2Zn"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Water, fresh (Pint)",
+      "icon": "icons/magic/water/water-drop-swirl-blue.webp",
+      "id": "dmgspWaterfresh0",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgspWaterfresh0]{Water, fresh (Pint)}",
+      "name": "Water, fresh (Pint)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgspWaterfresh0"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Water, salt (Pint)",
+      "icon": "icons/sundries/survival/waterskin-leather-brown.webp",
+      "id": "dmgspWatersalt00",
+      "journalLink": "@UUID[Compendium.dnd5e.equipment24.Item.dmgspWatersalt00]{Water, salt (Pint)}",
+      "name": "Water, salt (Pint)",
+      "package": "dnd5e.equipment24",
+      "packageName": "Equipment",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Equipment",
+      "uuid": "Compendium.dnd5e.equipment24.Item.dmgspWatersalt00"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Wraith Manifestations",
+      "icon": "icons/magic/death/skull-energy-light-purple.webp",
+      "id": "mmWraithManifest",
+      "journalLink": "@UUID[Compendium.dnd5e.tables24.RollTable.mmWraithManifest]{Wraith Manifestations}",
+      "name": "Wraith Manifestations",
+      "package": "dnd5e.tables24",
+      "packageName": "Roll Tables",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Roll Tables",
+      "uuid": "Compendium.dnd5e.tables24.RollTable.mmWraithManifest"
     }
   ],
   "type": "search-result"
@@ -3687,13 +4677,13 @@ ws.on('message', (raw: string) => {
     "data": {
       "data": {
         "author": {
-          "id": "fCfNJPT9Atc26yyv",
+          "id": "r6bXhB7k9cXa3cif",
           "name": "tester"
         },
         "content": "WS chat-event test",
         "flags": {},
         "flavor": "",
-        "id": "bvlKwvIqG2KiAIDU",
+        "id": "jihYvXPiJb0V9IDb",
         "isRoll": false,
         "rolls": [],
         "speaker": {
@@ -3701,9 +4691,9 @@ ws.on('message', (raw: string) => {
           "scene": null,
           "token": null
         },
-        "timestamp": 1777996635094,
+        "timestamp": 1778789885720,
         "type": "base",
-        "uuid": "ChatMessage.bvlKwvIqG2KiAIDU",
+        "uuid": "ChatMessage.jihYvXPiJb0V9IDb",
         "whisper": []
       },
       "eventType": "create"
@@ -3819,19 +4809,19 @@ ws.on('message', (raw: string) => {
       ],
       "flavor": "WS roll-event test",
       "formula": "1d6",
-      "id": "JYflnKCSHy5lfT9e",
+      "id": "6eZiLkXok7LQuMRL",
       "isCritical": false,
       "isFumble": false,
-      "messageId": "JYflnKCSHy5lfT9e",
+      "messageId": "6eZiLkXok7LQuMRL",
       "rollTotal": 1,
       "speaker": {
         "actor": null,
         "scene": null,
         "token": null
       },
-      "timestamp": 1777996635109,
+      "timestamp": 1778789885741,
       "user": {
-        "id": "fCfNJPT9Atc26yyv",
+        "id": "r6bXhB7k9cXa3cif",
         "name": "tester"
       }
     },

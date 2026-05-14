@@ -15,6 +15,8 @@ Get all active effects on an actor or token
 
 Returns the collection of ActiveEffect documents currently applied to the specified actor or token.
 
+**Required scope:** `effects:read`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -44,8 +46,8 @@ Returns the collection of ActiveEffect documents currently applied to the specif
 const baseUrl = 'http://localhost:3010';
 const path = '/effects';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
-  uuid: 'Actor.sMD3o6zej6ckQkpo'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  uuid: 'Actor.gHjoe9z270YfSCno'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -64,7 +66,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/effects?clientId=fvtt_71dbc81bd608978a&uuid=Actor.sMD3o6zej6ckQkpo' \
+curl -X GET 'http://localhost:3010/effects?clientId=fvtt_099ad17ea199e7e3&uuid=Actor.gHjoe9z270YfSCno' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -77,8 +79,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/effects'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
-    'uuid': 'Actor.sMD3o6zej6ckQkpo'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'uuid': 'Actor.gHjoe9z270YfSCno'
 }
 url = f'{base_url}{path}'
 
@@ -103,8 +105,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/effects';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
-    uuid: 'Actor.sMD3o6zej6ckQkpo'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    uuid: 'Actor.gHjoe9z270YfSCno'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -138,8 +140,8 @@ import axios from 'axios';
   🔤/effects🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
-  🔤uuid=Actor.sMD3o6zej6ckQkpo🔤 ➡️ uuid
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤uuid=Actor.gHjoe9z270YfSCno🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -168,9 +170,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-effects-result",
-  "requestId": "get-effects_1777996637927",
+  "requestId": "get-effects_1778789886935",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
+    "uuid": "Actor.gHjoe9z270YfSCno",
     "effects": []
   }
 }
@@ -184,6 +186,8 @@ import axios from 'axios';
 List all available status effects
 
 Returns all status effects defined by the game system's configuration. Useful for discovering valid statusId values for the add/remove effect endpoints.
+
+**Required scope:** `effects:read`
 
 ### Parameters
 
@@ -213,7 +217,7 @@ Returns all status effects defined by the game system's configuration. Useful fo
 const baseUrl = 'http://localhost:3010';
 const path = '/effects/list';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -232,7 +236,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/effects/list?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/effects/list?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -245,7 +249,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/effects/list'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -270,7 +274,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/effects/list';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -304,7 +308,7 @@ import axios from 'axios';
   🔤/effects/list🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -333,7 +337,7 @@ import axios from 'axios';
 ```json
 {
   "type": "get-status-effects-result",
-  "requestId": "get-status-effects_1777996637923",
+  "requestId": "get-status-effects_1778789886929",
   "data": {
     "effects": [
       {
@@ -565,6 +569,8 @@ Add an active effect to an actor or token
 
 Adds a status condition (by statusId) or a custom ActiveEffect (via effectData) to the specified actor or token.
 
+**Required scope:** `effects:write`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -596,7 +602,7 @@ Adds a status condition (by statusId) or a custom ActiveEffect (via effectData) 
 const baseUrl = 'http://localhost:3010';
 const path = '/effects';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -608,7 +614,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "uuid": "Actor.sMD3o6zej6ckQkpo",
+      "uuid": "Actor.gHjoe9z270YfSCno",
       "effectData": {
         "name": "Test Effect",
         "icon": "icons/svg/aura.svg",
@@ -624,10 +630,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/effects?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/effects?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"uuid":"Actor.sMD3o6zej6ckQkpo","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}'
+  -d '{"uuid":"Actor.gHjoe9z270YfSCno","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}'
 ```
 
 </TabItem>
@@ -639,7 +645,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/effects'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -651,7 +657,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "uuid": "Actor.sMD3o6zej6ckQkpo",
+      "uuid": "Actor.gHjoe9z270YfSCno",
       "effectData": {
         "name": "Test Effect",
         "icon": "icons/svg/aura.svg",
@@ -673,7 +679,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/effects';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -686,7 +692,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "uuid": "Actor.sMD3o6zej6ckQkpo",
+        "uuid": "Actor.gHjoe9z270YfSCno",
         "effectData": {
           "name": "Test Effect",
           "icon": "icons/svg/aura.svg",
@@ -716,11 +722,11 @@ import axios from 'axios';
   🔤/effects🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"uuid":"Actor.sMD3o6zej6ckQkpo","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}🔤 ➡️ body
+  🔤{"uuid":"Actor.gHjoe9z270YfSCno","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 110❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -748,12 +754,12 @@ import axios from 'axios';
 ```json
 {
   "type": "add-effect-result",
-  "requestId": "add-effect_1777996637929",
+  "requestId": "add-effect_1778789886937",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
+    "uuid": "Actor.gHjoe9z270YfSCno",
     "effect": {
-      "id": "NAXgxPVyFAZcOdbP",
-      "uuid": "Actor.sMD3o6zej6ckQkpo.ActiveEffect.NAXgxPVyFAZcOdbP",
+      "id": "xDQG0ZoZ5QiKEMhe",
+      "uuid": "Actor.gHjoe9z270YfSCno.ActiveEffect.xDQG0ZoZ5QiKEMhe",
       "name": "Test Effect",
       "icon": "icons/svg/aura.svg",
       "statuses": []
@@ -770,6 +776,8 @@ import axios from 'axios';
 Remove an active effect from an actor or token
 
 Removes an effect by its document ID (effectId) or by status condition identifier (statusId).
+
+**Required scope:** `effects:write`
 
 ### Parameters
 
@@ -802,7 +810,7 @@ Removes an effect by its document ID (effectId) or by status condition identifie
 const baseUrl = 'http://localhost:3010';
 const path = '/effects';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -814,8 +822,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "uuid": "Actor.sMD3o6zej6ckQkpo",
-      "effectId": "NAXgxPVyFAZcOdbP"
+      "uuid": "Actor.gHjoe9z270YfSCno",
+      "effectId": "xDQG0ZoZ5QiKEMhe"
     })
 });
 const data = await response.json();
@@ -826,10 +834,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/effects?clientId=fvtt_71dbc81bd608978a' \
+curl -X DELETE 'http://localhost:3010/effects?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"uuid":"Actor.sMD3o6zej6ckQkpo","effectId":"NAXgxPVyFAZcOdbP"}'
+  -d '{"uuid":"Actor.gHjoe9z270YfSCno","effectId":"xDQG0ZoZ5QiKEMhe"}'
 ```
 
 </TabItem>
@@ -841,7 +849,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/effects'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -853,8 +861,8 @@ response = requests.delete(
         'Content-Type': 'application/json'
     },
     json={
-      "uuid": "Actor.sMD3o6zej6ckQkpo",
-      "effectId": "NAXgxPVyFAZcOdbP"
+      "uuid": "Actor.gHjoe9z270YfSCno",
+      "effectId": "xDQG0ZoZ5QiKEMhe"
     }
 )
 data = response.json()
@@ -871,7 +879,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/effects';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -884,8 +892,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "uuid": "Actor.sMD3o6zej6ckQkpo",
-        "effectId": "NAXgxPVyFAZcOdbP"
+        "uuid": "Actor.gHjoe9z270YfSCno",
+        "effectId": "xDQG0ZoZ5QiKEMhe"
       }
   });
   const data = response.data;
@@ -910,11 +918,11 @@ import axios from 'axios';
   🔤/effects🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"uuid":"Actor.sMD3o6zej6ckQkpo","effectId":"NAXgxPVyFAZcOdbP"}🔤 ➡️ body
+  🔤{"uuid":"Actor.gHjoe9z270YfSCno","effectId":"xDQG0ZoZ5QiKEMhe"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤DELETE /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 63❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -942,10 +950,10 @@ import axios from 'axios';
 ```json
 {
   "type": "remove-effect-result",
-  "requestId": "remove-effect_1777996638013",
+  "requestId": "remove-effect_1778789887005",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
-    "removedEffectId": "NAXgxPVyFAZcOdbP"
+    "uuid": "Actor.gHjoe9z270YfSCno",
+    "removedEffectId": "xDQG0ZoZ5QiKEMhe"
   }
 }
 ```

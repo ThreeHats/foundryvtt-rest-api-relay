@@ -196,7 +196,7 @@ This is fully relay-managed. The source module doesn't need to know how to start
 A connection token with cross-world capability is more sensitive than a normal connection token, but its blast radius is still bounded:
 
 - **What it can do**: invoke the explicitly-granted scopes against the explicitly-granted target clients. Nothing else.
-- **What it cannot do**: be used as an HTTP API key, modify other tokens, regenerate the master key, or access any clients not in its `allowedTargetClients` list.
+- **What it cannot do**: be used as an HTTP API key, modify other tokens, regenerate the relay key, or access any clients not in its `allowedTargetClients` list.
 - **Where it lives**: the same place as a normal connection token - client-scope localStorage in the browser the user paired. Players cannot read it.
 - **If it leaks**: revoke the specific connection token from the dashboard. The relay's broadcast-disconnect machinery propagates the revocation across all relay instances and immediately closes any sessions using that token.
 - **Audit trail**: every cross-world `remote-request` is logged in `RemoteRequestLogs` (`GET /auth/remote-request-logs` from the dashboard) with source token, target client, action, source IP, and outcome.

@@ -15,7 +15,7 @@ This guide will walk you through retrieving a list of connected Foundry VTT worl
 1. **Relay Server is running.** (See [Installation](./installation))
 2. **Foundry VTT is running** with a world loaded.
 3. **The `foundryvtt-rest-api` module is installed, enabled, and paired with the relay** via the Connection menu — see [Foundry Module Setup](./foundry-module). Pairing is per-browser; the connection token lives in localStorage and is never broadcast to other Foundry users.
-4. **You have a scoped API key** for HTTP calls. Create one in the dashboard's **API Keys** page with `clients:read` scope (and any other scopes you'll use). **Do not use your master API key for routine API calls** — that's the recovery credential, not an everyday-use key.
+4. **You have a scoped API key** for HTTP calls. Create one in the dashboard's **API Keys** page with `clients:read` scope (and any other scopes you'll use).
 
 When the module connects successfully, you'll see a log message in the Foundry VTT console (F12) and the world appears in the dashboard's Connected Clients list.
 

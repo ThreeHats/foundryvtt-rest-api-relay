@@ -3,10 +3,8 @@ import { sessionToken } from './auth';
 import type { AuthResponse, UserData, ScopedKey, ConnectedClient, Player, ConnectionToken, KnownClient, KnownUser, Credential, NotificationSettings, ApiKeyNotificationSettings, KnownClientNotificationSettings, ConnectionLog, KeyRequestDetails, PairRequestDetails, RemoteRequestLog, ActivityEvent } from './types';
 
 // Dashboard requests authenticate via Authorization: Bearer <session-token>.
-// The plaintext master API key is NEVER held by the frontend after the
-// one-time registration / regeneration modal — it lives only in the user's
-// password manager. The session token is a separate, revocable credential
-// minted by /auth/login (or /auth/register) and used for everything else.
+// The session token is minted by /auth/login (or /auth/register) and used
+// for everything else on the dashboard.
 function getHeaders(includeAuth = true): Record<string, string> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -40,9 +38,6 @@ export async function register(email: string, password: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-  // Returns AuthResponse: includes the one-time `apiKey` field that the
-  // SignUpForm extracts for the modal display, plus the persistent
-  // sessionToken used for ongoing dashboard auth.
   return handleResponse<AuthResponse>(res);
 }
 
@@ -53,8 +48,6 @@ export async function login(email: string, password: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-  // Login returns sessionToken but NOT apiKey — the master key is never
-  // re-displayed after the registration / regeneration modal.
   return handleResponse<UserData>(res);
 }
 

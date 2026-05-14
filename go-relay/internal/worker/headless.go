@@ -1059,7 +1059,7 @@ func (m *HeadlessManager) AutoStartForKnownClient(ctx context.Context, userID in
 		return "", fmt.Errorf("user %d not found", userID)
 	}
 	if !user.APIKeyHash.Valid || user.APIKeyHash.String == "" {
-		return "", fmt.Errorf("user %d has no apiKeyHash (must regenerate master key)", userID)
+		return "", fmt.Errorf("user %d has no apiKeyHash (must regenerate relay key)", userID)
 	}
 	accountIdentifier := user.APIKeyHash.String
 

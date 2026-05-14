@@ -13,6 +13,8 @@ import ApiTester from '@site/src/components/ApiTester';
 
 Create a handshake token for secure authentication
 
+**Required scope:** `session:manage`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -39,6 +41,8 @@ Create a handshake token for secure authentication
 ## POST /start-session
 
 Start a headless Foundry session using puppeteer
+
+**Required scope:** `session:manage`
 
 ### Parameters
 
@@ -252,8 +256,8 @@ Just don't 😂
 
 ```json
 {
-  "clientId": "fvtt_71dbc81bd608978a",
-  "sessionId": "da5c55b6-258d-41c8-b634-8bc37b59f635",
+  "clientId": "fvtt_099ad17ea199e7e3",
+  "sessionId": "d107d803-5ba1-444e-a548-adb388caa03a",
   "success": true
 }
 ```
@@ -264,6 +268,8 @@ Just don't 😂
 ## DELETE /end-session
 
 Stop a headless Foundry session
+
+**Required scope:** `session:manage`
 
 ### Parameters
 
@@ -293,7 +299,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: 'da5c55b6-258d-41c8-b634-8bc37b59f635'
+  sessionId: 'd107d803-5ba1-444e-a548-adb388caa03a'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -312,7 +318,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=da5c55b6-258d-41c8-b634-8bc37b59f635' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=d107d803-5ba1-444e-a548-adb388caa03a' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -325,7 +331,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': 'da5c55b6-258d-41c8-b634-8bc37b59f635'
+    'sessionId': 'd107d803-5ba1-444e-a548-adb388caa03a'
 }
 url = f'{base_url}{path}'
 
@@ -350,7 +356,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: 'da5c55b6-258d-41c8-b634-8bc37b59f635'
+    sessionId: 'd107d803-5ba1-444e-a548-adb388caa03a'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -384,7 +390,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=da5c55b6-258d-41c8-b634-8bc37b59f635🔤 ➡️ sessionId
+  🔤sessionId=d107d803-5ba1-444e-a548-adb388caa03a🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -423,6 +429,8 @@ import axios from 'axios';
 ## GET /session
 
 Get all active headless Foundry sessions
+
+**Required scope:** `session:manage`
 
 ### Parameters
 
@@ -556,19 +564,19 @@ import axios from 'axios';
 {
   "activeSessions": [
     {
-      "clientId": "fvtt_71dbc81bd608978a",
-      "foundryUrl": "http://localhost:30012",
-      "foundryVersion": "12.331",
-      "lastActivity": 1777996561365,
-      "sessionId": "da5c55b6-258d-41c8-b634-8bc37b59f635",
-      "startedAt": 1777996561365,
+      "clientId": "fvtt_099ad17ea199e7e3",
+      "foundryUrl": "http://localhost:30013",
+      "foundryVersion": "13.348",
+      "lastActivity": 1778789857401,
+      "sessionId": "d107d803-5ba1-444e-a548-adb388caa03a",
+      "startedAt": 1778789857401,
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
-      "systemVersion": "4.3.8",
+      "systemVersion": "5.0.4",
       "username": "tester",
-      "worldId": "rest-api",
-      "worldName": "rest-api",
-      "worldTitle": "rest-api"
+      "worldId": "testing",
+      "worldName": "testing",
+      "worldTitle": "testing"
     }
   ]
 }

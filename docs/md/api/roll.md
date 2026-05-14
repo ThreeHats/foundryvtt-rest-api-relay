@@ -16,6 +16,8 @@ Get recent rolls
 
 Retrieves a list of up to 20 recent rolls made in the Foundry world.
 
+**Required scope:** `roll:read`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -45,7 +47,7 @@ Retrieves a list of up to 20 recent rolls made in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/rolls';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
+  clientId: 'fvtt_099ad17ea199e7e3',
   limit: '20'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -65,7 +67,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_71dbc81bd608978a&limit=20' \
+curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_099ad17ea199e7e3&limit=20' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -78,7 +80,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/rolls'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'limit': '20'
 }
 url = f'{base_url}{path}'
@@ -104,7 +106,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/rolls';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
+    clientId: 'fvtt_099ad17ea199e7e3',
     limit: '20'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -139,7 +141,7 @@ import axios from 'axios';
   🔤/rolls🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤limit=20🔤 ➡️ limit
   🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString
 
@@ -169,16 +171,43 @@ import axios from 'axios';
 ```json
 {
   "type": "rolls-result",
-  "requestId": "rolls_1777996593617",
+  "requestId": "rolls_1778789870469",
   "data": [
     {
-      "id": "manual_1777996593113_pn83we5nke",
-      "messageId": "manual_1777996593113_pn83we5nke",
+      "id": "manual_1778789869964_ajyjaer8vyn",
+      "messageId": "manual_1778789869964_ajyjaer8vyn",
       "user": null,
       "speaker": {},
       "flavor": "Test Roll",
-      "rollTotal": 12,
+      "rollTotal": 14,
       "formula": "2d20kh",
+      "isCritical": false,
+      "isFumble": false,
+      "dice": [
+        {
+          "faces": 20,
+          "results": [
+            {
+              "result": 10,
+              "active": false
+            },
+            {
+              "result": 14,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "timestamp": 1778789869965
+    },
+    {
+      "id": "manual_1778789859262_sjuejbtun28",
+      "messageId": null,
+      "user": null,
+      "speaker": {},
+      "flavor": "",
+      "rollTotal": 1,
+      "formula": "1d20",
       "isCritical": false,
       "isFumble": true,
       "dice": [
@@ -186,17 +215,13 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 12,
-              "active": true
-            },
-            {
               "result": 1,
-              "active": false
+              "active": true
             }
           ]
         }
       ],
-      "timestamp": 1777996593113
+      "timestamp": 1778789859262
     }
   ]
 }
@@ -210,6 +235,8 @@ import axios from 'axios';
 Get the last roll
 
 Retrieves the most recent roll made in the Foundry world.
+
+**Required scope:** `roll:read`
 
 ### Parameters
 
@@ -239,7 +266,7 @@ Retrieves the most recent roll made in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/lastroll';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -258,7 +285,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -271,7 +298,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/lastroll'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -296,7 +323,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/lastroll';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -330,7 +357,7 @@ import axios from 'axios';
   🔤/lastroll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -359,33 +386,33 @@ import axios from 'axios';
 ```json
 {
   "type": "last-roll-result",
-  "requestId": "last-roll_1777996593619",
+  "requestId": "last-roll_1778789870472",
   "data": {
-    "id": "manual_1777996593113_pn83we5nke",
-    "messageId": "manual_1777996593113_pn83we5nke",
+    "id": "manual_1778789869964_ajyjaer8vyn",
+    "messageId": "manual_1778789869964_ajyjaer8vyn",
     "user": null,
     "speaker": {},
     "flavor": "Test Roll",
-    "rollTotal": 12,
+    "rollTotal": 14,
     "formula": "2d20kh",
     "isCritical": false,
-    "isFumble": true,
+    "isFumble": false,
     "dice": [
       {
         "faces": 20,
         "results": [
           {
-            "result": 12,
-            "active": true
+            "result": 10,
+            "active": false
           },
           {
-            "result": 1,
-            "active": false
+            "result": 14,
+            "active": true
           }
         ]
       }
     ],
-    "timestamp": 1777996593113
+    "timestamp": 1778789869965
   }
 }
 ```
@@ -398,6 +425,8 @@ import axios from 'axios';
 Make a roll
 
 Executes a roll with the specified formula.
+
+**Required scope:** `roll:execute`
 
 ### Parameters
 
@@ -432,7 +461,7 @@ Executes a roll with the specified formula.
 const baseUrl = 'http://localhost:3010';
 const path = '/roll';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -457,7 +486,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/roll?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/roll?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"formula":"2d20kh","flavor":"Test Roll","createChatMessage":true}'
@@ -472,7 +501,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/roll'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -502,7 +531,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/roll';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -542,7 +571,7 @@ import axios from 'axios';
   🔤/roll🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -574,32 +603,32 @@ import axios from 'axios';
 ```json
 {
   "type": "roll-result",
-  "requestId": "roll_1777996593107",
+  "requestId": "roll_1778789869958",
   "success": true,
   "data": {
-    "id": "manual_1777996593113_pn83we5nke",
+    "id": "manual_1778789869964_ajyjaer8vyn",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 12,
+      "total": 14,
       "isCritical": false,
-      "isFumble": true,
+      "isFumble": false,
       "dice": [
         {
           "faces": 20,
           "results": [
             {
-              "result": 12,
-              "active": true
+              "result": 10,
+              "active": false
             },
             {
-              "result": 1,
-              "active": false
+              "result": 14,
+              "active": true
             }
           ]
         }
       ],
-      "timestamp": 1777996593113
+      "timestamp": 1778789869965
     }
   }
 }
@@ -613,6 +642,8 @@ import axios from 'axios';
 Subscribe to real-time roll events via Server-Sent Events (SSE)
 
 Opens a persistent SSE connection that streams roll events as they occur.
+
+**Required scope:** `events:subscribe`
 
 ### Parameters
 
@@ -805,7 +836,7 @@ Just don't 😂
 {
   "event": "connected",
   "data": {
-    "clientId": "fvtt_71dbc81bd608978a"
+    "clientId": "fvtt_099ad17ea199e7e3"
   }
 }
 ```

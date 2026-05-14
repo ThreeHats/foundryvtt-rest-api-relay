@@ -1,10 +1,6 @@
 export interface UserData {
   id: number;
   email: string;
-  // The dashboard authenticates via `sessionToken` (Authorization: Bearer).
-  // The master API key is shown ONCE at registration / regeneration in a
-  // one-time modal and never persisted to the user store. The frontend
-  // never has access to the master key after that initial display.
   sessionToken: string;
   sessionExpiresAt?: string;
   emailVerified?: boolean;
@@ -20,11 +16,7 @@ export interface UserData {
 }
 
 // AuthResponse is the shape returned by /auth/register and /auth/login.
-// It includes the session token (for ongoing dashboard auth) and — only on
-// register/regenerate — the plaintext apiKey for the one-time display modal.
-export interface AuthResponse extends UserData {
-  apiKey?: string; // present only on register / regenerate-key responses
-}
+export interface AuthResponse extends UserData {}
 
 // --- Admin dashboard types ---
 

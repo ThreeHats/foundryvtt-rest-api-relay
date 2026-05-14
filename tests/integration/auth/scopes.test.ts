@@ -5,15 +5,16 @@
  *   GET /api/get, POST /api/create, POST /api/execute-js
  */
 
-import { describe, test, expect, afterAll } from '@jest/globals';
+import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { ApiRequestConfig, makeRequest, replaceVariables } from '../../helpers/apiRequest';
 import { testVariables } from '../../helpers/testVariables';
 import { forEachVersion } from '../../helpers/multiVersion';
 
-const masterApiKey = testVariables.apiKey;
-
 // Track keys created for cleanup
 const keysToCleanup: string[] = [];
+
+// Session token for key management (populated in beforeAll)
+let sessionToken = '';
 
 /** Helper to create a scoped key with specific scopes */
 async function createScopedKey(name: string, scopes?: string[], scopedClientIds?: string[]): Promise<{ id: string; key: string; scopes: string[] }> {
@@ -32,7 +33,7 @@ async function createScopedKey(name: string, scopes?: string[], scopedClientIds?
       path: ['auth', 'api-keys'],
     },
     method: 'POST',
-    header: [{ key: 'x-api-key', value: masterApiKey }],
+    header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
     body: { mode: 'raw', raw: JSON.stringify(body) },
   };
 
@@ -55,7 +56,7 @@ async function deleteScopedKey(id: string) {
       path: ['auth', 'api-keys', id],
     },
     method: 'DELETE',
-    header: [{ key: 'x-api-key', value: masterApiKey }],
+    header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
   };
   await makeRequest(config);
 }
@@ -82,6 +83,23 @@ async function apiRequest(method: string, endpoint: string, apiKey: string, quer
 }
 
 describe('Action Scopes', () => {
+
+  beforeAll(async () => {
+    if (testVariables.sessionToken) {
+      sessionToken = testVariables.sessionToken;
+      return;
+    }
+    const loginResponse = await makeRequest({
+      url: { raw: `${testVariables.baseUrl}/auth/login`, host: [testVariables.baseUrl], path: ['auth', 'login'] },
+      method: 'POST',
+      header: [],
+      body: { mode: 'raw', raw: JSON.stringify({ email: testVariables.userEmail, password: testVariables.userPassword }) },
+    });
+    if (loginResponse.status !== 200) {
+      throw new Error(`Failed to get session token for scopes tests: ${loginResponse.status}`);
+    }
+    sessionToken = loginResponse.data.sessionToken as string;
+  });
 
   forEachVersion((version, getClientId) => {
     describe(`[v${version}] Scope Enforcement`, () => {
@@ -131,12 +149,6 @@ describe('Action Scopes', () => {
         expect(response.status).not.toBe(403);
       });
 
-      test('master key has full access regardless of scopes', async () => {
-        const response = await apiRequest('POST', '/execute-js', masterApiKey, undefined, {
-          code: 'return 1+1',
-        });
-        expect(response.status).not.toBe(403);
-      });
     });
 
     describe(`[v${version}] Scope Defaults and CRUD`, () => {
@@ -148,7 +160,7 @@ describe('Action Scopes', () => {
             path: ['auth', 'api-keys'],
           },
           method: 'POST',
-          header: [{ key: 'x-api-key', value: masterApiKey }],
+          header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
           body: { mode: 'raw', raw: JSON.stringify({ name: 'no-scopes-test' }) },
         };
         const response = await makeRequest(config);
@@ -172,7 +184,7 @@ describe('Action Scopes', () => {
             path: ['auth', 'api-keys'],
           },
           method: 'POST',
-          header: [{ key: 'x-api-key', value: masterApiKey }],
+          header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
           body: { mode: 'raw', raw: JSON.stringify(body) },
         };
         const response = await makeRequest(config);
@@ -191,7 +203,7 @@ describe('Action Scopes', () => {
             path: ['auth', 'api-keys', key.id],
           },
           method: 'PATCH',
-          header: [{ key: 'x-api-key', value: masterApiKey }],
+          header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
           body: { mode: 'raw', raw: JSON.stringify({ scopes: newScopes }) },
         };
 
@@ -208,7 +220,7 @@ describe('Action Scopes', () => {
             path: ['auth', 'api-keys'],
           },
           method: 'GET',
-          header: [{ key: 'x-api-key', value: masterApiKey }],
+          header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
         };
 
         const response = await makeRequest(config);
@@ -221,11 +233,8 @@ describe('Action Scopes', () => {
         expect(keyWithScopes).toBeDefined();
       });
 
-      test('existing key with empty scopes has full access (backward compat)', async () => {
-        // The master key itself has no scopes set — it should have full access
-        // This is implicitly tested by the master key test above, but let's verify
-        // the endpoint behavior directly
-        const response = await apiRequest('GET', '/world-info', masterApiKey, { clientId: getClientId() });
+      test('fully-scoped key can access world-info', async () => {
+        const response = await apiRequest('GET', '/world-info', testVariables.apiKey, { clientId: getClientId() });
         expect(response.status).toBe(200);
       });
     });
@@ -286,7 +295,7 @@ describe('Multi-Client Scoping', () => {
             path: ['auth', 'api-keys'],
           },
           method: 'POST',
-          header: [{ key: 'x-api-key', value: masterApiKey }],
+          header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
           body: { mode: 'raw', raw: JSON.stringify(body) },
         };
         const response = await makeRequest(config);

@@ -17,15 +17,15 @@ const capturedExamples: any[] = [];
 // Read throwaway user credentials from global variables (set by auth-endpoints.test.ts)
 const throwawayEmail = getGlobalVariable('auth', 'throwawayEmail', '');
 const throwawayPassword = getGlobalVariable('auth', 'throwawayPassword', '');
-const throwawayApiKey = getGlobalVariable('auth', 'throwawayApiKey', '');
+const throwawaySessionToken = getGlobalVariable('auth', 'throwawaySessionToken', '');
 
 // Read main test account credentials (set by register-account.test.ts in ephemeral mode)
 const mainAccountRegistered = getGlobalVariable('account', 'registered', false);
 const mainAccountEmail = getGlobalVariable('account', 'email', '');
 const mainAccountPassword = getGlobalVariable('account', 'password', '');
-const mainAccountApiKey = getGlobalVariable('account', 'apiKey', '');
+const mainAccountSessionToken = getGlobalVariable('account', 'sessionToken', '');
 
-const hasThrowawayUser = throwawayEmail !== '' && throwawayApiKey !== '';
+const hasThrowawayUser = throwawayEmail !== '' && throwawayPassword !== '' && throwawaySessionToken !== '';
 const describeOrSkip = hasThrowawayUser ? describe : describe.skip;
 
 describeOrSkip('Auth Cleanup — Account Deletion', () => {
@@ -46,7 +46,7 @@ describeOrSkip('Auth Cleanup — Account Deletion', () => {
       },
       method: 'DELETE',
       header: [
-        { key: 'x-api-key', value: throwawayApiKey }
+        { key: 'Authorization', value: `Bearer ${throwawaySessionToken}` }
       ],
       body: {
         mode: 'raw',
@@ -70,7 +70,7 @@ describeOrSkip('Auth Cleanup — Account Deletion', () => {
       },
       method: 'DELETE',
       header: [
-        { key: 'x-api-key', value: throwawayApiKey }
+        { key: 'Authorization', value: `Bearer ${throwawaySessionToken}` }
       ],
       body: {
         mode: 'raw',
@@ -94,7 +94,7 @@ describeOrSkip('Auth Cleanup — Account Deletion', () => {
       },
       method: 'DELETE',
       header: [
-        { key: 'x-api-key', value: throwawayApiKey }
+        { key: 'Authorization', value: `Bearer ${throwawaySessionToken}` }
       ],
       body: {
         mode: 'raw',
@@ -149,7 +149,7 @@ describeMainCleanup('Auth Cleanup — Main Test Account Deletion', () => {
         path: ['auth', 'account'],
       },
       method: 'DELETE',
-      header: [{ key: 'x-api-key', value: mainAccountApiKey }],
+      header: [{ key: 'Authorization', value: `Bearer ${mainAccountSessionToken}` }],
       body: {
         mode: 'raw',
         raw: JSON.stringify({

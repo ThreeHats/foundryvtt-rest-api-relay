@@ -37,10 +37,11 @@ type APIRouteConfig struct {
 
 // RequestContext holds auth context set by middleware.
 type RequestContext struct {
-	User           interface{} // *model.User
-	MasterAPIKey   string
-	ScopedKey      *ScopedKeyInfo
+	User               interface{} // *model.User
+	MasterAPIKey       string
+	ScopedKey          *ScopedKeyInfo
 	SubscriptionStatus string
+	IsSessionAuth      bool // true when authenticated via Bearer session token
 }
 
 // ScopedKeyInfo holds scoped key details from auth middleware.

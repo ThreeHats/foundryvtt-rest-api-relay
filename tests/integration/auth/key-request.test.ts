@@ -25,7 +25,7 @@ function authConfig(method: string, urlPath: string, body?: any): ApiRequestConf
       path: urlPath.split('/').filter(Boolean),
     },
     method: method as any,
-    header: [{ key: 'x-api-key', value: '{{apiKey}}' }],
+    header: [{ key: 'Authorization', value: 'Bearer {{sessionToken}}' }],
     body: body ? { mode: 'raw', raw: JSON.stringify(body) } : undefined,
   };
 }
@@ -91,8 +91,7 @@ describe('Device Flow', () => {
 
     expect(captured.response.status).toBe(200);
     expect(captured.response.data).toHaveProperty('status', 'pending');
-
-    capturedExamples.push(captured);
+    // Not pushed to capturedExamples — the approved response is more useful for docs
   });
 
   test('GET /auth/key-request/:code returns details (authenticated)', async () => {

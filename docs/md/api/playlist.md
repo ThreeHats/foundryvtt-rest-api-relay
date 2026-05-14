@@ -15,6 +15,8 @@ Get all playlists
 
 Returns all playlists in the world with their tracks/sounds, including playing status, mode, and volume information.
 
+**Required scope:** `playlist:control`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -43,7 +45,7 @@ Returns all playlists in the world with their tracks/sounds, including playing s
 const baseUrl = 'http://localhost:3010';
 const path = '/playlists';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -62,7 +64,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/playlists?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/playlists?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -75,7 +77,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/playlists'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -100,7 +102,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/playlists';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -134,7 +136,7 @@ import axios from 'axios';
   🔤/playlists🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -163,27 +165,25 @@ import axios from 'axios';
 ```json
 {
   "type": "get-playlists-result",
-  "requestId": "get-playlists_1777996633352",
+  "requestId": "get-playlists_1778789884749",
   "data": {
     "playlists": [
       {
-        "id": "4rHH3HfViodSCRL5",
+        "id": "1p6vhfAxMPqIqV2K",
         "name": "test-rest-api-playlist",
         "description": "",
         "playing": false,
         "mode": 0,
-        "fade": null,
         "folder": null,
         "sorting": "a",
         "sounds": [
           {
-            "id": "ez5CVTxB8viPHFvV",
+            "id": "zKcpX0cXgpbEqgEf",
             "name": "test-sound",
             "path": "sounds/dice.wav",
             "playing": false,
             "volume": 0.5,
-            "repeat": false,
-            "fade": null
+            "repeat": false
           }
         ]
       }
@@ -200,6 +200,8 @@ import axios from 'axios';
 Play a playlist or specific sound
 
 Starts playback of an entire playlist or a specific sound within it. The playlist can be identified by ID or name. Optionally specify a specific sound/track to play within the playlist.
+
+**Required scope:** `playlist:control`
 
 ### Parameters
 
@@ -233,7 +235,7 @@ Starts playback of an entire playlist or a specific sound within it. The playlis
 const baseUrl = 'http://localhost:3010';
 const path = '/playlist/play';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -256,7 +258,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/playlist/play?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/playlist/play?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"playlistName":"test-rest-api-playlist"}'
@@ -271,7 +273,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/playlist/play'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -300,7 +302,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/playlist/play';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -338,7 +340,7 @@ import axios from 'axios';
   🔤/playlist/play🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -370,26 +372,24 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-play-result",
-  "requestId": "playlist-play_1777996633356",
+  "requestId": "playlist-play_1778789884755",
   "data": {
     "playlist": {
-      "id": "4rHH3HfViodSCRL5",
+      "id": "1p6vhfAxMPqIqV2K",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": true,
       "mode": 0,
-      "fade": null,
       "folder": null,
       "sorting": "a",
       "sounds": [
         {
-          "id": "ez5CVTxB8viPHFvV",
+          "id": "zKcpX0cXgpbEqgEf",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": true,
           "volume": 0.5,
-          "repeat": false,
-          "fade": null
+          "repeat": false
         }
       ]
     }
@@ -405,6 +405,8 @@ import axios from 'axios';
 Stop a playlist
 
 Stops playback of the specified playlist.
+
+**Required scope:** `playlist:control`
 
 ### Parameters
 
@@ -436,7 +438,7 @@ Stops playback of the specified playlist.
 const baseUrl = 'http://localhost:3010';
 const path = '/playlist/stop';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -459,7 +461,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/playlist/stop?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/playlist/stop?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"playlistName":"test-rest-api-playlist"}'
@@ -474,7 +476,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/playlist/stop'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -503,7 +505,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/playlist/stop';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -541,7 +543,7 @@ import axios from 'axios';
   🔤/playlist/stop🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -573,26 +575,24 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-stop-result",
-  "requestId": "playlist-stop_1777996633366",
+  "requestId": "playlist-stop_1778789884768",
   "data": {
     "playlist": {
-      "id": "4rHH3HfViodSCRL5",
+      "id": "1p6vhfAxMPqIqV2K",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": false,
       "mode": 0,
-      "fade": null,
       "folder": null,
       "sorting": "a",
       "sounds": [
         {
-          "id": "ez5CVTxB8viPHFvV",
+          "id": "zKcpX0cXgpbEqgEf",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": false,
           "volume": 0.5,
-          "repeat": false,
-          "fade": null
+          "repeat": false
         }
       ]
     }
@@ -608,6 +608,8 @@ import axios from 'axios';
 Skip to next track in a playlist
 
 Advances to the next sound/track in the specified playlist.
+
+**Required scope:** `playlist:control`
 
 ### Parameters
 
@@ -639,7 +641,7 @@ Advances to the next sound/track in the specified playlist.
 const baseUrl = 'http://localhost:3010';
 const path = '/playlist/next';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -662,7 +664,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/playlist/next?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/playlist/next?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"playlistName":"test-rest-api-playlist"}'
@@ -677,7 +679,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/playlist/next'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -706,7 +708,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/playlist/next';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -744,7 +746,7 @@ import axios from 'axios';
   🔤/playlist/next🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -776,26 +778,24 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-next-result",
-  "requestId": "playlist-next_1777996633361",
+  "requestId": "playlist-next_1778789884761",
   "data": {
     "playlist": {
-      "id": "4rHH3HfViodSCRL5",
+      "id": "1p6vhfAxMPqIqV2K",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": true,
       "mode": 0,
-      "fade": null,
       "folder": null,
       "sorting": "a",
       "sounds": [
         {
-          "id": "ez5CVTxB8viPHFvV",
+          "id": "zKcpX0cXgpbEqgEf",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": true,
           "volume": 0.5,
-          "repeat": false,
-          "fade": null
+          "repeat": false
         }
       ]
     }
@@ -811,6 +811,8 @@ import axios from 'axios';
 Set volume for a playlist or specific sound
 
 Adjusts the volume of an entire playlist or a specific sound within it. Volume is specified as a float between 0 (silent) and 1 (full volume).
+
+**Required scope:** `playlist:control`
 
 ### Parameters
 
@@ -845,7 +847,7 @@ Adjusts the volume of an entire playlist or a specific sound within it. Volume i
 const baseUrl = 'http://localhost:3010';
 const path = '/playlist/volume';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -869,7 +871,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/playlist/volume?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/playlist/volume?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"playlistName":"test-rest-api-playlist","volume":0.75}'
@@ -884,7 +886,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/playlist/volume'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -914,7 +916,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/playlist/volume';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -953,7 +955,7 @@ import axios from 'axios';
   🔤/playlist/volume🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -985,26 +987,24 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-volume-result",
-  "requestId": "playlist-volume_1777996633364",
+  "requestId": "playlist-volume_1778789884767",
   "data": {
     "playlist": {
-      "id": "4rHH3HfViodSCRL5",
+      "id": "1p6vhfAxMPqIqV2K",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": true,
       "mode": 0,
-      "fade": null,
       "folder": null,
       "sorting": "a",
       "sounds": [
         {
-          "id": "ez5CVTxB8viPHFvV",
+          "id": "zKcpX0cXgpbEqgEf",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": true,
           "volume": 0.5,
-          "repeat": false,
-          "fade": null
+          "repeat": false
         }
       ]
     }
@@ -1020,6 +1020,8 @@ import axios from 'axios';
 Play a one-shot sound effect
 
 Triggers playback of an audio file by its path. Useful for sound effects, ambient sounds, or any audio that should play once without being part of a playlist. Stop a playing sound Stops playback of a currently playing sound by its source path. If no src is provided, stops all currently playing sounds.
+
+**Required scope:** `playlist:control`
 
 ### Parameters
 
@@ -1050,7 +1052,7 @@ Triggers playback of an audio file by its path. Useful for sound effects, ambien
 const baseUrl = 'http://localhost:3010';
 const path = '/stop-sound';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1073,7 +1075,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/stop-sound?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/stop-sound?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"src":"sounds/dice.wav"}'
@@ -1088,7 +1090,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/stop-sound'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -1117,7 +1119,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/stop-sound';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1155,7 +1157,7 @@ import axios from 'axios';
   🔤/stop-sound🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1187,7 +1189,7 @@ import axios from 'axios';
 ```json
 {
   "type": "stop-sound-result",
-  "requestId": "stop-sound_1777996633372",
+  "requestId": "stop-sound_1778789884775",
   "data": {
     "stopped": 0,
     "src": "sounds/dice.wav"

@@ -73,18 +73,6 @@
   </div>
 </div>
 
-<div class="card">
-  <ChangePasswordForm />
-</div>
-
-<div class="card">
-  <ApiKeyDisplay />
-</div>
-
-<div class="card">
-  <DataPrivacyActions {onAccountDeleted} />
-</div>
-
 <!-- Connected Worlds -->
 <div class="card">
   <div class="card-header">
@@ -160,7 +148,23 @@
   -H "x-api-key: YOUR_API_KEY"</code></pre>
 </div>
 
+<div class="card">
+  <ChangePasswordForm />
+</div>
+
+<div class="card">
+  <DataPrivacyActions {onAccountDeleted} />
+</div>
+
+<div class="card card-danger">
+  <ApiKeyDisplay />
+</div>
+
 <style>
+  .card-danger {
+    border-color: var(--color-danger, #e74c3c);
+  }
+
   .account-header {
     display: flex;
     align-items: center;

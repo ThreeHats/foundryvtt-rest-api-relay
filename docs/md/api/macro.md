@@ -15,6 +15,8 @@ Get all macros
 
 Retrieves a list of all macros available in the Foundry world.
 
+**Required scope:** `macro:list`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -43,7 +45,7 @@ Retrieves a list of all macros available in the Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/macros';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -62,7 +64,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/macros?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/macros?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -75,7 +77,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/macros'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -100,7 +102,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/macros';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -134,7 +136,7 @@ import axios from 'axios';
   🔤/macros🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -163,11 +165,11 @@ import axios from 'axios';
 ```json
 {
   "type": "macros-result",
-  "requestId": "macros_1777996626130",
+  "requestId": "macros_1778789881036",
   "macros": [
     {
-      "uuid": "Macro.bRLMIJXvTs22CRK0",
-      "id": "bRLMIJXvTs22CRK0",
+      "uuid": "Macro.BZmzcTiPJm3brbfb",
+      "id": "BZmzcTiPJm3brbfb",
       "name": "test-macro",
       "type": "script",
       "author": "tester",
@@ -177,8 +179,19 @@ import axios from 'axios';
       "canExecute": true
     },
     {
-      "uuid": "Macro.vMGQmIwYBNK6DiJx",
-      "id": "vMGQmIwYBNK6DiJx",
+      "uuid": "Macro.CruvJo43Zk2SK7Yl",
+      "id": "CruvJo43Zk2SK7Yl",
+      "name": "test-macro",
+      "type": "script",
+      "author": "tester",
+      "command": "// Example macro that uses parameters\nfunction myMacro(args) {\n  const targetName = args.targetName || \"Target\";\n  const damage = args.damage || 0;\n  const effect = args.effect || \"none\";\n  \n  // Use the parameters\n  console.log(`Attacking ${targetName} for ${damage} ${effect} damage`);\n  \n  // Return a value (can be any data type)\n  return {\n    success: true,\n    damageDealt: damage,\n    target: targetName\n  };\n}\n\n// Don't forget to return the result of your function\nreturn myMacro(args);",
+      "img": "icons/svg/dice-target.svg",
+      "scope": "global",
+      "canExecute": true
+    },
+    {
+      "uuid": "Macro.j7NHQIWtXA4AG8Jt",
+      "id": "j7NHQIWtXA4AG8Jt",
       "name": "Nuke",
       "type": "script",
       "author": "Gamemaster",
@@ -188,8 +201,8 @@ import axios from 'axios';
       "canExecute": true
     },
     {
-      "uuid": "Macro.QsVroAGCs54xe5aX",
-      "id": "QsVroAGCs54xe5aX",
+      "uuid": "Macro.gz1JZKVhw7tS4NLi",
+      "id": "gz1JZKVhw7tS4NLi",
       "name": "test-macro",
       "type": "script",
       "author": "tester",
@@ -210,6 +223,8 @@ import axios from 'axios';
 Execute a macro by UUID
 
 Executes a specific macro in the Foundry world by its UUID.
+
+**Required scope:** `macro:execute`
 
 ### Parameters
 
@@ -239,9 +254,9 @@ Executes a specific macro in the Foundry world by its UUID.
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/macro/Macro.QsVroAGCs54xe5aX/execute';
+const path = '/macro/Macro.gz1JZKVhw7tS4NLi/execute';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -268,7 +283,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/macro/Macro.QsVroAGCs54xe5aX/execute?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/macro/Macro.gz1JZKVhw7tS4NLi/execute?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}'
@@ -281,9 +296,9 @@ curl -X POST 'http://localhost:3010/macro/Macro.QsVroAGCs54xe5aX/execute?clientI
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/macro/Macro.QsVroAGCs54xe5aX/execute'
+path = '/macro/Macro.gz1JZKVhw7tS4NLi/execute'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -313,9 +328,9 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/macro/Macro.QsVroAGCs54xe5aX/execute';
+  const path = '/macro/Macro.gz1JZKVhw7tS4NLi/execute';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -354,17 +369,17 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/macro/Macro.QsVroAGCs54xe5aX/execute🔤 ➡️ path
+  🔤/macro/Macro.gz1JZKVhw7tS4NLi/execute🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
   🔤{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /macro/Macro.QsVroAGCs54xe5aX/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+  🔤POST /macro/Macro.gz1JZKVhw7tS4NLi/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -389,8 +404,8 @@ import axios from 'axios';
 ```json
 {
   "type": "macro-execute-result",
-  "requestId": "macro-execute_1777996626133",
-  "uuid": "Macro.QsVroAGCs54xe5aX",
+  "requestId": "macro-execute_1778789881039",
+  "uuid": "Macro.gz1JZKVhw7tS4NLi",
   "success": true,
   "result": {
     "success": true,

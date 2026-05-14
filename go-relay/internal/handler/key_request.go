@@ -201,6 +201,16 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 		// Authenticated routes for approval
 		r.Group(func(r chi.Router) {
 			r.Use(middleware.AuthMiddleware(db, nil))
+			r.Use(func(next http.Handler) http.Handler {
+				return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					reqCtx := helpers.GetRequestContext(r)
+					if reqCtx == nil || !reqCtx.IsSessionAuth {
+						helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+						return
+					}
+					next.ServeHTTP(w, r)
+				})
+			})
 
 			// GET /auth/key-request/:code — Get details for approval page
 			r.Get("/{code}", func(w http.ResponseWriter, r *http.Request) {
@@ -229,11 +239,6 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 			// POST /auth/key-request/:code/approve — Approve with selected scopes/clients
 			r.Post("/{code}/approve", func(w http.ResponseWriter, r *http.Request) {
 				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || reqCtx.ScopedKey != nil {
-					helpers.WriteError(w, http.StatusForbidden, "Use your master API key to approve key requests.")
-					return
-				}
-
 				user, ok := reqCtx.User.(*model.User)
 				if !ok || user == nil {
 					helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -356,12 +361,6 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 
 			// POST /auth/key-request/:code/deny
 			r.Post("/{code}/deny", func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || reqCtx.ScopedKey != nil {
-					helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-					return
-				}
-
 				code := chi.URLParam(r, "code")
 				keyReq, err := db.KeyRequestStore().FindByCode(r.Context(), code)
 				if err != nil || keyReq == nil {

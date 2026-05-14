@@ -244,180 +244,56 @@
         ]
       }
     },
-    "/auth/account": {
-      "delete": {
-        "operationId": "delete_auth_account",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "confirmEmail": {
-                    "description": "The user's email address (must match account email)",
-                    "type": "string"
-                  },
-                  "password": {
-                    "description": "The user's password for verification",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "confirmEmail",
-                  "password"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Confirmation of deletion"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Delete user account",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/api-keys": {
-      "get": {
-        "operationId": "get_auth_api_keys",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Array of scoped API keys"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "List all scoped API keys",
-        "tags": [
-          "Auth"
-        ]
-      },
+    "/auth/key-request": {
       "post": {
-        "operationId": "post_auth_api_keys",
+        "operationId": "post_auth_key_request",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "properties": {
-                  "expiresAt": {
-                    "description": "Expiry timestamp (ISO 8601)",
+                  "appDescription": {
+                    "description": "Short description of what the application does",
                     "type": "string"
                   },
-                  "foundryPassword": {
-                    "description": "Foundry login password (encrypted at rest)",
+                  "appName": {
+                    "description": "Name of the application requesting access",
                     "type": "string"
                   },
-                  "foundryUrl": {
-                    "description": "Foundry instance URL for headless sessions",
+                  "appUrl": {
+                    "description": "Homepage or docs URL for the application",
                     "type": "string"
                   },
-                  "foundryUsername": {
-                    "description": "Foundry login username",
+                  "callbackUrl": {
+                    "description": "URL to redirect to after approval (web flow)",
                     "type": "string"
                   },
-                  "monthlyLimit": {
-                    "description": "Per-key monthly request cap",
+                  "clientIds": {
+                    "description": "Foundry client IDs to restrict the key to",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "scopes": {
+                    "description": "List of permission scopes the key requires",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "suggestedExpiry": {
+                    "description": "Suggested expiry date ISO 8601 (user may override)",
                     "type": "string"
                   },
-                  "name": {
-                    "description": "Friendly name for the key",
-                    "type": "string"
-                  },
-                  "scopedClientId": {
-                    "description": "Lock to specific Foundry client ID",
-                    "type": "string"
-                  },
-                  "scopedUserId": {
-                    "description": "Lock to specific Foundry user ID",
-                    "type": "string"
+                  "suggestedMonthlyLimit": {
+                    "description": "Suggested per-key monthly request cap (user may override)",
+                    "type": "number"
                   }
                 },
                 "required": [
-                  "name"
+                  "appName",
+                  "scopes"
                 ],
                 "type": "object"
               }
@@ -433,7 +309,7 @@
                 }
               }
             },
-            "description": "New scoped API key details"
+            "description": "`code`, `approvalUrl`, `expiresIn`, `expiresAt`"
           },
           "400": {
             "content": {
@@ -470,20 +346,20 @@
             "description": "Unauthorized - invalid or missing API key"
           }
         },
-        "summary": "Create a new scoped API key",
+        "summary": "Request a scoped API key",
         "tags": [
           "Auth"
         ]
       }
     },
-    "/auth/api-keys/{id}": {
-      "delete": {
-        "operationId": "delete_auth_api_keys_id",
+    "/auth/key-request/{code}/status": {
+      "get": {
+        "operationId": "get_auth_key_request_code_status",
         "parameters": [
           {
-            "description": "The scoped key ID",
+            "description": "The code returned by POST /auth/key-request",
             "in": "path",
-            "name": "id",
+            "name": "code",
             "required": true,
             "schema": {
               "type": "string"
@@ -499,7 +375,7 @@
                 }
               }
             },
-            "description": "Success message"
+            "description": "`status` (`pending` | `approved` | `denied` | `expired`), `key` (when approved)"
           },
           "400": {
             "content": {
@@ -536,646 +412,7 @@
             "description": "Unauthorized - invalid or missing API key"
           }
         },
-        "summary": "Delete a scoped API key",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/change-password": {
-      "post": {
-        "operationId": "post_auth_change_password",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "currentPassword": {
-                    "description": "The user's current password",
-                    "type": "string"
-                  },
-                  "newPassword": {
-                    "description": "The new password (min 8 chars, must include uppercase, lowercase, and number)",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "currentPassword",
-                  "newPassword"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Success message"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Change password while logged in",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/export-data": {
-      "get": {
-        "operationId": "get_auth_export_data",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Complete user data export"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Export user data",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/forgot-password": {
-      "post": {
-        "operationId": "post_auth_forgot_password",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "email": {
-                    "description": "The email address associated with the account",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "email"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Generic success message"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Request a password reset",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/login": {
-      "post": {
-        "operationId": "post_auth_login",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "email": {
-                    "description": "The user's email address",
-                    "type": "string"
-                  },
-                  "password": {
-                    "description": "The user's password",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "email",
-                  "password"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "User object with API key"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Log in with email and password",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/regenerate-key": {
-      "post": {
-        "operationId": "post_auth_regenerate_key",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "email": {
-                    "description": "The user's email address",
-                    "type": "string"
-                  },
-                  "password": {
-                    "description": "The user's password",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "email",
-                  "password"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "New API key"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Regenerate API key",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/register": {
-      "post": {
-        "operationId": "post_auth_register",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "email": {
-                    "description": "The user's email address",
-                    "type": "string"
-                  },
-                  "password": {
-                    "description": "The user's password (min 8 chars, must include uppercase, lowercase, and number)",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "email",
-                  "password"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "User object with API key"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Register a new user account",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/reset-password": {
-      "post": {
-        "operationId": "post_auth_reset_password",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "password": {
-                    "description": "The new password (min 8 chars, must include uppercase, lowercase, and number)",
-                    "type": "string"
-                  },
-                  "token": {
-                    "description": "The password reset token from the email",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "token",
-                  "password"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Success message"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Reset password with token",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/user-data": {
-      "get": {
-        "operationId": "get_auth_user_data",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "User data object"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Get user data",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/validate-reset-token/{token}": {
-      "get": {
-        "operationId": "get_auth_validate_reset_token_token",
-        "parameters": [
-          {
-            "description": "The password reset token to validate",
-            "in": "path",
-            "name": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Token validity status"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Client ID is required",
-                  "howToUse": "Add ?clientId=yourClientId to your request"
-                },
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Bad request - missing or invalid parameters"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Unauthorized - invalid or missing API key"
-          }
-        },
-        "summary": "Validate a password reset token",
+        "summary": "Poll key request status",
         "tags": [
           "Auth"
         ]

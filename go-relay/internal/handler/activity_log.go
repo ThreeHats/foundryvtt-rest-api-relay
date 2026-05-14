@@ -21,13 +21,8 @@ func ActivityRouter(db *database.DB) chi.Router {
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		reqCtx := helpers.GetRequestContext(r)
-		if reqCtx == nil || reqCtx.User == nil {
-			helpers.WriteError(w, http.StatusUnauthorized, "Unauthorized")
-			return
-		}
-		// Scoped keys cannot access logs — require master key or session.
-		if reqCtx.ScopedKey != nil {
-			helpers.WriteError(w, http.StatusForbidden, "Scoped keys cannot access the activity log")
+		if reqCtx == nil || !reqCtx.IsSessionAuth {
+			helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
 			return
 		}
 

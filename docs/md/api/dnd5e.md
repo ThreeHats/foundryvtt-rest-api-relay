@@ -15,6 +15,8 @@ Get detailed information for a specific D&D 5e actor
 
 Retrieves comprehensive details about an actor including stats, inventory, spells, features, and other character information based on the requested details array.
 
+**Required scope:** `dnd5e`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -45,8 +47,8 @@ Retrieves comprehensive details about an actor including stats, inventory, spell
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/get-actor-details';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
-  actorUuid: 'Actor.sMD3o6zej6ckQkpo',
+  clientId: 'fvtt_099ad17ea199e7e3',
+  actorUuid: 'Actor.gHjoe9z270YfSCno',
   details: '["resources","items","features","spells"]'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -66,7 +68,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=fvtt_71dbc81bd608978a&actorUuid=Actor.sMD3o6zej6ckQkpo&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
+curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.gHjoe9z270YfSCno&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -79,8 +81,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/get-actor-details'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
-    'actorUuid': 'Actor.sMD3o6zej6ckQkpo',
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'actorUuid': 'Actor.gHjoe9z270YfSCno',
     'details': '["resources","items","features","spells"]'
 }
 url = f'{base_url}{path}'
@@ -106,8 +108,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/get-actor-details';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
-    actorUuid: 'Actor.sMD3o6zej6ckQkpo',
+    clientId: 'fvtt_099ad17ea199e7e3',
+    actorUuid: 'Actor.gHjoe9z270YfSCno',
     details: '["resources","items","features","spells"]'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -142,8 +144,8 @@ import axios from 'axios';
   🔤/dnd5e/get-actor-details🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
-  🔤actorUuid=Actor.sMD3o6zej6ckQkpo🔤 ➡️ actorUuid
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤actorUuid=Actor.gHjoe9z270YfSCno🔤 ➡️ actorUuid
   🔤details=["resources","items","features","spells"]🔤 ➡️ details
   🔤?🧲clientId🧲&🧲actorUuid🧲&🧲details🧲🔤 ➡️ queryString
 
@@ -173,9 +175,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-actor-details-result",
-  "requestId": "get-actor-details_1777996638881",
+  "requestId": "get-actor-details_1778789887530",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
+    "uuid": "Actor.gHjoe9z270YfSCno",
     "resources": {
       "primary": {
         "value": null,
@@ -207,11 +209,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "changes": [],
@@ -283,7 +284,8 @@ import axios from 'axios';
                 }
               ],
               "range": {
-                "override": false
+                "override": false,
+                "units": "self"
               },
               "save": {
                 "ability": [
@@ -374,20 +376,21 @@ import axios from 'axios';
         "sort": 0,
         "ownership": {
           "default": 0,
-          "fCfNJPT9Atc26yyv": 3
+          "r6bXhB7k9cXa3cif": 3
         },
         "flags": {},
         "_stats": {
           "compendiumSource": null,
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": 1777996638681,
-          "modifiedTime": 1777996638681,
-          "lastModifiedBy": "fCfNJPT9Atc26yyv"
+          "systemVersion": "5.0.4",
+          "createdTime": 1778789887344,
+          "modifiedTime": 1778789887344,
+          "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "VZKFqhZFM0J2qwH8"
+        "_id": "f1rI2peZOad3wbbB"
       }
     ],
     "items": [
@@ -396,11 +399,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -454,11 +456,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -512,11 +513,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -563,7 +563,7 @@ import axios from 'axios';
                 "concentration": false,
                 "override": false,
                 "special": "",
-                "units": "",
+                "units": "inst",
                 "value": ""
               },
               "effects": [],
@@ -670,11 +670,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -765,7 +764,7 @@ import axios from 'axios';
               "range": {
                 "override": false,
                 "special": "",
-                "units": ""
+                "units": "self"
               },
               "sort": 0,
               "target": {
@@ -865,11 +864,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -923,11 +921,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -983,7 +980,7 @@ import axios from 'axios';
                 "concentration": false,
                 "override": false,
                 "special": "",
-                "units": "",
+                "units": "inst",
                 "value": ""
               },
               "effects": [],
@@ -1127,11 +1124,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -1168,14 +1164,14 @@ import axios from 'axios';
                 "concentration": false,
                 "override": false,
                 "special": "",
-                "units": "",
+                "units": "inst",
                 "value": ""
               },
               "effects": [],
               "range": {
                 "override": false,
                 "special": "",
-                "units": ""
+                "units": "self"
               },
               "roll": {
                 "formula": "",
@@ -1278,11 +1274,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -1329,7 +1324,7 @@ import axios from 'axios';
                 "concentration": false,
                 "override": false,
                 "special": "",
-                "units": "",
+                "units": "inst",
                 "value": ""
               },
               "effects": [],
@@ -1436,11 +1431,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -1494,11 +1488,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -1714,11 +1707,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -1765,7 +1757,7 @@ import axios from 'axios';
                 "concentration": false,
                 "override": false,
                 "special": "",
-                "units": "",
+                "units": "inst",
                 "value": ""
               },
               "effects": [],
@@ -1873,11 +1865,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2039,11 +2030,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2134,11 +2124,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2175,14 +2164,14 @@ import axios from 'axios';
                 "concentration": false,
                 "override": false,
                 "special": "",
-                "units": "",
+                "units": "inst",
                 "value": ""
               },
               "effects": [],
               "range": {
                 "override": false,
                 "special": "",
-                "units": ""
+                "units": "self"
               },
               "roll": {
                 "formula": "",
@@ -2285,11 +2274,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2343,11 +2331,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2403,7 +2390,7 @@ import axios from 'axios';
                 "concentration": false,
                 "override": false,
                 "special": "",
-                "units": "",
+                "units": "inst",
                 "value": ""
               },
               "effects": [],
@@ -2687,20 +2674,21 @@ import axios from 'axios';
         "sort": 0,
         "ownership": {
           "default": 0,
-          "fCfNJPT9Atc26yyv": 3
+          "r6bXhB7k9cXa3cif": 3
         },
         "flags": {},
         "_stats": {
           "compendiumSource": null,
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": 1777996638803,
-          "modifiedTime": 1777996638803,
-          "lastModifiedBy": "fCfNJPT9Atc26yyv"
+          "systemVersion": "5.0.4",
+          "createdTime": 1778789887468,
+          "modifiedTime": 1778789887468,
+          "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "QbVUDRdSXfBHM0Yf"
+        "_id": "T7vArmQELWX85SUN"
       }
     ],
     "features": [
@@ -2709,11 +2697,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": null,
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2749,11 +2736,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2777,7 +2763,6 @@ import axios from 'axios';
         "system": {
           "activities": {},
           "advancement": [],
-          "cover": null,
           "crewed": false,
           "description": {
             "chat": "",
@@ -2816,11 +2801,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2844,7 +2828,6 @@ import axios from 'axios';
         "system": {
           "activities": {},
           "advancement": [],
-          "cover": null,
           "crewed": false,
           "description": {
             "chat": "",
@@ -2883,11 +2866,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2911,7 +2893,6 @@ import axios from 'axios';
         "system": {
           "activities": {},
           "advancement": [],
-          "cover": null,
           "crewed": false,
           "description": {
             "chat": "",
@@ -2950,11 +2931,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -2978,7 +2958,6 @@ import axios from 'axios';
         "system": {
           "activities": {},
           "advancement": [],
-          "cover": null,
           "crewed": false,
           "description": {
             "chat": "",
@@ -3017,11 +2996,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -3819,11 +3797,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [
@@ -3832,11 +3809,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "changes": [
@@ -3886,7 +3862,6 @@ import axios from 'axios';
         "system": {
           "activities": {},
           "advancement": [],
-          "cover": null,
           "crewed": false,
           "description": {
             "chat": "",
@@ -3925,11 +3900,10 @@ import axios from 'axios';
         "_stats": {
           "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": null,
-          "modifiedTime": null,
+          "systemVersion": "5.0.4",
           "lastModifiedBy": null
         },
         "effects": [],
@@ -3949,7 +3923,6 @@ import axios from 'axios';
         "system": {
           "activities": {},
           "advancement": [],
-          "cover": null,
           "crewed": false,
           "description": {
             "chat": "",
@@ -3997,6 +3970,8 @@ Modify the charges for a specific item owned by an actor
 
 Increases or decreases the charges/uses of an item in an actor's inventory. Useful for consumable items like potions, scrolls, or charged magic items.
 
+**Required scope:** `dnd5e`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -4029,7 +4004,7 @@ Increases or decreases the charges/uses of an item in an actor's inventory. Usef
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/modify-item-charges';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4041,7 +4016,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "itemName": "Waterskin",
       "amount": -1
     })
@@ -4054,10 +4029,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/modify-item-charges?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/modify-item-charges?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","itemName":"Waterskin","amount":-1}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Waterskin","amount":-1}'
 ```
 
 </TabItem>
@@ -4069,7 +4044,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/modify-item-charges'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -4081,7 +4056,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "itemName": "Waterskin",
       "amount": -1
     }
@@ -4100,7 +4075,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/modify-item-charges';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4113,7 +4088,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "itemName": "Waterskin",
         "amount": -1
       }
@@ -4140,11 +4115,11 @@ import axios from 'axios';
   🔤/dnd5e/modify-item-charges🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","itemName":"Waterskin","amount":-1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Waterskin","amount":-1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-item-charges🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4172,9 +4147,9 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-item-charges-result",
-  "requestId": "modify-item-charges_1777996639047",
+  "requestId": "modify-item-charges_1778789887680",
   "data": {
-    "itemUuid": "Actor.sMD3o6zej6ckQkpo.Item.5skKSSB4ShHbKoc8",
+    "itemUuid": "Actor.gHjoe9z270YfSCno.Item.5skKSSB4ShHbKoc8",
     "oldCharges": 4,
     "newCharges": 3
   }
@@ -4189,6 +4164,8 @@ import axios from 'axios';
 Perform a short rest for an actor
 
 Triggers the D&D 5e short rest workflow including hit dice recovery, class feature resets, and HP recovery.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -4222,7 +4199,7 @@ Triggers the D&D 5e short rest workflow including hit dice recovery, class featu
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/short-rest';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -4234,7 +4211,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+      "actorUuid": "Actor.gHjoe9z270YfSCno"
     })
 });
 const data = await response.json();
@@ -4245,10 +4222,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/short-rest?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/short-rest?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno"}'
 ```
 
 </TabItem>
@@ -4260,7 +4237,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/short-rest'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -4272,7 +4249,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+      "actorUuid": "Actor.gHjoe9z270YfSCno"
     }
 )
 data = response.json()
@@ -4289,7 +4266,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/short-rest';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -4302,7 +4279,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+        "actorUuid": "Actor.gHjoe9z270YfSCno"
       }
   });
   const data = response.data;
@@ -4327,11 +4304,11 @@ import axios from 'axios';
   🔤/dnd5e/short-rest🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/short-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4359,9 +4336,9 @@ import axios from 'axios';
 ```json
 {
   "type": "short-rest-result",
-  "requestId": "short-rest_1777996639508",
+  "requestId": "short-rest_1778789888154",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "result": {
       "type": "short",
       "deltas": {
@@ -4369,8 +4346,15 @@ import axios from 'axios';
         "hitDice": 0
       },
       "updateData": {
-        "system.spells.pact.value": 0,
-        "_id": "sMD3o6zej6ckQkpo"
+        "system": {
+          "spells": {
+            "pact": {
+              "value": 0
+            }
+          }
+        },
+        "_id": "gHjoe9z270YfSCno",
+        "type": "character"
       },
       "updateItems": [],
       "newDay": false,
@@ -4389,13 +4373,8 @@ import axios from 'axios';
             "changes": [],
             "disabled": false,
             "duration": {
-              "startTime": 0,
-              "seconds": null,
-              "combat": null,
-              "rounds": null,
-              "turns": null,
-              "startRound": null,
-              "startTurn": null
+              "startTime": 6,
+              "combat": null
             },
             "description": "",
             "origin": null,
@@ -4406,12 +4385,13 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777996639382,
-              "modifiedTime": 1777996639382,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "createdTime": 1778789888028,
+              "modifiedTime": 1778789888028,
+              "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
         ],
@@ -4422,11 +4402,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -4462,11 +4441,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -4630,11 +4608,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -4658,7 +4635,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -4697,11 +4673,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -4725,7 +4700,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -4764,11 +4738,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -4792,7 +4765,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -4831,11 +4803,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -4859,7 +4830,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -4898,11 +4868,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -5700,11 +5669,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [
@@ -5713,11 +5681,10 @@ import axios from 'axios';
                 "_stats": {
                   "compendiumSource": null,
                   "duplicateSource": null,
-                  "coreVersion": "12.331",
+                  "exportSource": null,
+                  "coreVersion": "13.348",
                   "systemId": "dnd5e",
-                  "systemVersion": "4.3.8",
-                  "createdTime": null,
-                  "modifiedTime": null,
+                  "systemVersion": "5.0.4",
                   "lastModifiedBy": null
                 },
                 "changes": [
@@ -5767,7 +5734,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -5806,11 +5772,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -5830,7 +5795,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -5869,11 +5833,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -5927,11 +5890,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -5985,12 +5947,12 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": 1777996639137,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "lastModifiedBy": "r6bXhB7k9cXa3cif",
+              "modifiedTime": 1778789887758
             },
             "effects": [],
             "flags": {
@@ -6044,7 +6006,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -6151,11 +6113,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -6246,7 +6207,7 @@ import axios from 'axios';
                   "range": {
                     "override": false,
                     "special": "",
-                    "units": ""
+                    "units": "self"
                   },
                   "sort": 0,
                   "target": {
@@ -6346,11 +6307,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -6404,11 +6364,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -6464,7 +6423,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -6608,11 +6567,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -6649,14 +6607,14 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
                   "range": {
                     "override": false,
                     "special": "",
-                    "units": ""
+                    "units": "self"
                   },
                   "roll": {
                     "formula": "",
@@ -6759,11 +6717,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -6810,7 +6767,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -6917,11 +6874,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -6937,10 +6893,8 @@ import axios from 'axios';
               "attuned": false,
               "attunement": "",
               "capacity": {
-                "count": null,
                 "volume": {
-                  "units": "cubicFoot",
-                  "value": null
+                  "units": "cubicFoot"
                 },
                 "weight": {
                   "units": "lb",
@@ -6992,11 +6946,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7050,11 +7003,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7270,11 +7222,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7290,10 +7241,8 @@ import axios from 'axios';
               "attuned": false,
               "attunement": "",
               "capacity": {
-                "count": null,
                 "volume": {
-                  "units": "cubicFoot",
-                  "value": null
+                  "units": "cubicFoot"
                 },
                 "weight": {
                   "units": "lb",
@@ -7345,11 +7294,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7396,7 +7344,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -7504,11 +7452,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7670,11 +7617,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7765,11 +7711,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7806,14 +7751,14 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
                   "range": {
                     "override": false,
                     "special": "",
-                    "units": ""
+                    "units": "self"
                   },
                   "roll": {
                     "formula": "",
@@ -7916,11 +7861,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -7974,11 +7918,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -8034,7 +7977,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -8179,11 +8122,10 @@ import axios from 'axios';
                 "_stats": {
                   "compendiumSource": null,
                   "duplicateSource": null,
-                  "coreVersion": "12.331",
+                  "exportSource": null,
+                  "coreVersion": "13.348",
                   "systemId": "dnd5e",
-                  "systemVersion": "4.3.8",
-                  "createdTime": null,
-                  "modifiedTime": null,
+                  "systemVersion": "5.0.4",
                   "lastModifiedBy": null
                 },
                 "changes": [],
@@ -8255,7 +8197,8 @@ import axios from 'axios';
                     }
                   ],
                   "range": {
-                    "override": false
+                    "override": false,
+                    "units": "self"
                   },
                   "save": {
                     "ability": [
@@ -8346,20 +8289,21 @@ import axios from 'axios';
             "sort": 0,
             "ownership": {
               "default": 0,
-              "fCfNJPT9Atc26yyv": 3
+              "r6bXhB7k9cXa3cif": 3
             },
             "flags": {},
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777996638681,
-              "modifiedTime": 1777996638681,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "createdTime": 1778789887344,
+              "modifiedTime": 1778789887344,
+              "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "VZKFqhZFM0J2qwH8"
+            "_id": "f1rI2peZOad3wbbB"
           },
           {
             "effects": [],
@@ -8507,20 +8451,21 @@ import axios from 'axios';
             "sort": 0,
             "ownership": {
               "default": 0,
-              "fCfNJPT9Atc26yyv": 3
+              "r6bXhB7k9cXa3cif": 3
             },
             "flags": {},
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777996638803,
-              "modifiedTime": 1777996638803,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "createdTime": 1778789887468,
+              "modifiedTime": 1778789887468,
+              "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "QbVUDRdSXfBHM0Yf"
+            "_id": "T7vArmQELWX85SUN"
           }
         ],
         "name": "Updated Test Actor",
@@ -8540,7 +8485,6 @@ import axios from 'axios';
           "disposition": 1,
           "flags": {},
           "height": 1,
-          "hexagonalShape": 0,
           "light": {
             "alpha": 1,
             "angle": 360,
@@ -8567,6 +8511,7 @@ import axios from 'axios';
             "shadows": 0
           },
           "lockRotation": false,
+          "movementAction": null,
           "name": "Perrin",
           "occludable": {
             "radius": 0
@@ -8609,6 +8554,12 @@ import axios from 'axios';
             "scaleY": 0.8,
             "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
             "tint": "#ffffff"
+          },
+          "turnMarker": {
+            "animation": null,
+            "disposition": false,
+            "mode": 1,
+            "src": null
           },
           "width": 1
         },
@@ -8807,9 +8758,7 @@ import axios from 'axios';
               }
             },
             "inspiration": false,
-            "loyalty": {
-              "value": null
-            },
+            "loyalty": {},
             "movement": {
               "burrow": 0,
               "climb": 0,
@@ -8873,7 +8822,7 @@ import axios from 'axios';
             "background": "q4tr1vTU8RxtU1UZ",
             "biography": {
               "public": "",
-              "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p>\n        <em>\n          Token artwork by\n          <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.\n        </em>\n      </p>"
+              "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>"
             },
             "bond": "",
             "eyes": "",
@@ -9302,18 +9251,19 @@ import axios from 'axios';
         "sort": 0,
         "ownership": {
           "default": 0,
-          "fCfNJPT9Atc26yyv": 3
+          "r6bXhB7k9cXa3cif": 3
         },
         "flags": {},
         "_stats": {
           "compendiumSource": null,
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": 1777996569568,
-          "modifiedTime": 1777996639444,
-          "lastModifiedBy": "fCfNJPT9Atc26yyv"
+          "systemVersion": "5.0.4",
+          "createdTime": 1778789858019,
+          "modifiedTime": 1778789888090,
+          "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
       },
@@ -9333,6 +9283,8 @@ import axios from 'axios';
 Perform a long rest for an actor
 
 Triggers the D&D 5e long rest workflow including full HP recovery, spell slot restoration, hit dice recovery, and feature resets.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -9365,7 +9317,7 @@ Triggers the D&D 5e long rest workflow including full HP recovery, spell slot re
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/long-rest';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -9377,7 +9329,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "newDay": true
     })
 });
@@ -9389,10 +9341,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/long-rest?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/long-rest?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","newDay":true}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","newDay":true}'
 ```
 
 </TabItem>
@@ -9404,7 +9356,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/long-rest'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -9416,7 +9368,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "newDay": True
     }
 )
@@ -9434,7 +9386,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/long-rest';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -9447,7 +9399,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "newDay": true
       }
   });
@@ -9473,11 +9425,11 @@ import axios from 'axios';
   🔤/dnd5e/long-rest🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","newDay":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","newDay":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/long-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -9505,9 +9457,9 @@ import axios from 'axios';
 ```json
 {
   "type": "long-rest-result",
-  "requestId": "long-rest_1777996639543",
+  "requestId": "long-rest_1778789888193",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "result": {
       "type": "long",
       "deltas": {
@@ -9515,18 +9467,51 @@ import axios from 'axios';
         "hitDice": 0
       },
       "updateData": {
-        "system.attributes.hp.value": 9,
-        "system.spells.pact.value": 0,
-        "system.spells.spell1.value": 0,
-        "system.spells.spell2.value": 0,
-        "system.spells.spell3.value": 0,
-        "system.spells.spell4.value": 0,
-        "system.spells.spell5.value": 0,
-        "system.spells.spell6.value": 0,
-        "system.spells.spell7.value": 0,
-        "system.spells.spell8.value": 0,
-        "system.spells.spell9.value": 0,
-        "_id": "sMD3o6zej6ckQkpo"
+        "system": {
+          "attributes": {
+            "hp": {
+              "value": 9
+            },
+            "death": {
+              "success": 0,
+              "failure": 0
+            }
+          },
+          "spells": {
+            "pact": {
+              "value": 0
+            },
+            "spell1": {
+              "value": 0
+            },
+            "spell2": {
+              "value": 0
+            },
+            "spell3": {
+              "value": 0
+            },
+            "spell4": {
+              "value": 0
+            },
+            "spell5": {
+              "value": 0
+            },
+            "spell6": {
+              "value": 0
+            },
+            "spell7": {
+              "value": 0
+            },
+            "spell8": {
+              "value": 0
+            },
+            "spell9": {
+              "value": 0
+            }
+          }
+        },
+        "_id": "gHjoe9z270YfSCno",
+        "type": "character"
       },
       "updateItems": [],
       "newDay": true,
@@ -9545,13 +9530,8 @@ import axios from 'axios';
             "changes": [],
             "disabled": false,
             "duration": {
-              "startTime": 0,
-              "seconds": null,
-              "combat": null,
-              "rounds": null,
-              "turns": null,
-              "startRound": null,
-              "startTurn": null
+              "startTime": 6,
+              "combat": null
             },
             "description": "",
             "origin": null,
@@ -9562,12 +9542,13 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777996639382,
-              "modifiedTime": 1777996639382,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "createdTime": 1778789888028,
+              "modifiedTime": 1778789888028,
+              "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
         ],
@@ -9578,11 +9559,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -9618,11 +9598,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -9786,11 +9765,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -9814,7 +9792,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -9853,11 +9830,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -9881,7 +9857,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -9920,11 +9895,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -9948,7 +9922,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -9987,11 +9960,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -10015,7 +9987,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -10054,11 +10025,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -10856,11 +10826,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [
@@ -10869,11 +10838,10 @@ import axios from 'axios';
                 "_stats": {
                   "compendiumSource": null,
                   "duplicateSource": null,
-                  "coreVersion": "12.331",
+                  "exportSource": null,
+                  "coreVersion": "13.348",
                   "systemId": "dnd5e",
-                  "systemVersion": "4.3.8",
-                  "createdTime": null,
-                  "modifiedTime": null,
+                  "systemVersion": "5.0.4",
                   "lastModifiedBy": null
                 },
                 "changes": [
@@ -10923,7 +10891,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -10962,11 +10929,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -10986,7 +10952,6 @@ import axios from 'axios';
             "system": {
               "activities": {},
               "advancement": [],
-              "cover": null,
               "crewed": false,
               "description": {
                 "chat": "",
@@ -11025,11 +10990,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -11083,11 +11047,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -11141,12 +11104,12 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": 1777996639137,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "lastModifiedBy": "r6bXhB7k9cXa3cif",
+              "modifiedTime": 1778789887758
             },
             "effects": [],
             "flags": {
@@ -11200,7 +11163,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -11307,11 +11270,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -11402,7 +11364,7 @@ import axios from 'axios';
                   "range": {
                     "override": false,
                     "special": "",
-                    "units": ""
+                    "units": "self"
                   },
                   "sort": 0,
                   "target": {
@@ -11502,11 +11464,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -11560,11 +11521,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -11620,7 +11580,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -11764,11 +11724,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -11805,14 +11764,14 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
                   "range": {
                     "override": false,
                     "special": "",
-                    "units": ""
+                    "units": "self"
                   },
                   "roll": {
                     "formula": "",
@@ -11915,11 +11874,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -11966,7 +11924,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -12073,11 +12031,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12093,10 +12050,8 @@ import axios from 'axios';
               "attuned": false,
               "attunement": "",
               "capacity": {
-                "count": null,
                 "volume": {
-                  "units": "cubicFoot",
-                  "value": null
+                  "units": "cubicFoot"
                 },
                 "weight": {
                   "units": "lb",
@@ -12148,11 +12103,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12206,11 +12160,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12426,11 +12379,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12446,10 +12398,8 @@ import axios from 'axios';
               "attuned": false,
               "attunement": "",
               "capacity": {
-                "count": null,
                 "volume": {
-                  "units": "cubicFoot",
-                  "value": null
+                  "units": "cubicFoot"
                 },
                 "weight": {
                   "units": "lb",
@@ -12501,11 +12451,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12552,7 +12501,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -12660,11 +12609,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12826,11 +12774,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12921,11 +12868,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -12962,14 +12908,14 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
                   "range": {
                     "override": false,
                     "special": "",
-                    "units": ""
+                    "units": "self"
                   },
                   "roll": {
                     "formula": "",
@@ -13072,11 +13018,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -13130,11 +13075,10 @@ import axios from 'axios';
             "_stats": {
               "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": null,
-              "modifiedTime": null,
+              "systemVersion": "5.0.4",
               "lastModifiedBy": null
             },
             "effects": [],
@@ -13190,7 +13134,7 @@ import axios from 'axios';
                     "concentration": false,
                     "override": false,
                     "special": "",
-                    "units": "",
+                    "units": "inst",
                     "value": ""
                   },
                   "effects": [],
@@ -13335,11 +13279,10 @@ import axios from 'axios';
                 "_stats": {
                   "compendiumSource": null,
                   "duplicateSource": null,
-                  "coreVersion": "12.331",
+                  "exportSource": null,
+                  "coreVersion": "13.348",
                   "systemId": "dnd5e",
-                  "systemVersion": "4.3.8",
-                  "createdTime": null,
-                  "modifiedTime": null,
+                  "systemVersion": "5.0.4",
                   "lastModifiedBy": null
                 },
                 "changes": [],
@@ -13411,7 +13354,8 @@ import axios from 'axios';
                     }
                   ],
                   "range": {
-                    "override": false
+                    "override": false,
+                    "units": "self"
                   },
                   "save": {
                     "ability": [
@@ -13502,20 +13446,21 @@ import axios from 'axios';
             "sort": 0,
             "ownership": {
               "default": 0,
-              "fCfNJPT9Atc26yyv": 3
+              "r6bXhB7k9cXa3cif": 3
             },
             "flags": {},
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777996638681,
-              "modifiedTime": 1777996638681,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "createdTime": 1778789887344,
+              "modifiedTime": 1778789887344,
+              "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "VZKFqhZFM0J2qwH8"
+            "_id": "f1rI2peZOad3wbbB"
           },
           {
             "effects": [],
@@ -13663,20 +13608,21 @@ import axios from 'axios';
             "sort": 0,
             "ownership": {
               "default": 0,
-              "fCfNJPT9Atc26yyv": 3
+              "r6bXhB7k9cXa3cif": 3
             },
             "flags": {},
             "_stats": {
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
+              "exportSource": null,
+              "coreVersion": "13.348",
               "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777996638803,
-              "modifiedTime": 1777996638803,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "systemVersion": "5.0.4",
+              "createdTime": 1778789887468,
+              "modifiedTime": 1778789887468,
+              "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "QbVUDRdSXfBHM0Yf"
+            "_id": "T7vArmQELWX85SUN"
           }
         ],
         "name": "Updated Test Actor",
@@ -13696,7 +13642,6 @@ import axios from 'axios';
           "disposition": 1,
           "flags": {},
           "height": 1,
-          "hexagonalShape": 0,
           "light": {
             "alpha": 1,
             "angle": 360,
@@ -13723,6 +13668,7 @@ import axios from 'axios';
             "shadows": 0
           },
           "lockRotation": false,
+          "movementAction": null,
           "name": "Perrin",
           "occludable": {
             "radius": 0
@@ -13765,6 +13711,12 @@ import axios from 'axios';
             "scaleY": 0.8,
             "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
             "tint": "#ffffff"
+          },
+          "turnMarker": {
+            "animation": null,
+            "disposition": false,
+            "mode": 1,
+            "src": null
           },
           "width": 1
         },
@@ -13963,9 +13915,7 @@ import axios from 'axios';
               }
             },
             "inspiration": false,
-            "loyalty": {
-              "value": null
-            },
+            "loyalty": {},
             "movement": {
               "burrow": 0,
               "climb": 0,
@@ -14029,7 +13979,7 @@ import axios from 'axios';
             "background": "q4tr1vTU8RxtU1UZ",
             "biography": {
               "public": "",
-              "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p>\n        <em>\n          Token artwork by\n          <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.\n        </em>\n      </p>"
+              "value": "<p>A devoted student of his local monastery, Perrin has been tasked with bringing balance to the surrounding lands.</p><p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>"
             },
             "bond": "",
             "eyes": "",
@@ -14458,18 +14408,19 @@ import axios from 'axios';
         "sort": 0,
         "ownership": {
           "default": 0,
-          "fCfNJPT9Atc26yyv": 3
+          "r6bXhB7k9cXa3cif": 3
         },
         "flags": {},
         "_stats": {
           "compendiumSource": null,
           "duplicateSource": null,
-          "coreVersion": "12.331",
+          "exportSource": null,
+          "coreVersion": "13.348",
           "systemId": "dnd5e",
-          "systemVersion": "4.3.8",
-          "createdTime": 1777996569568,
-          "modifiedTime": 1777996639444,
-          "lastModifiedBy": "fCfNJPT9Atc26yyv"
+          "systemVersion": "5.0.4",
+          "createdTime": 1778789858019,
+          "modifiedTime": 1778789888090,
+          "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
       },
@@ -14489,6 +14440,8 @@ import axios from 'axios';
 Roll a skill check for an actor
 
 Rolls a D&D 5e skill check with all applicable modifiers including proficiency, expertise, Jack of All Trades, and conditional bonuses.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -14524,7 +14477,7 @@ Rolls a D&D 5e skill check with all applicable modifiers including proficiency, 
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/skill-check';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -14536,7 +14489,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "skill": "prc"
     })
 });
@@ -14548,10 +14501,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/skill-check?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/skill-check?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","skill":"prc"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","skill":"prc"}'
 ```
 
 </TabItem>
@@ -14563,7 +14516,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/skill-check'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -14575,7 +14528,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "skill": "prc"
     }
 )
@@ -14593,7 +14546,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/skill-check';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -14606,7 +14559,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "skill": "prc"
       }
   });
@@ -14632,11 +14585,11 @@ import axios from 'axios';
   🔤/dnd5e/skill-check🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","skill":"prc"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","skill":"prc"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/skill-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -14664,13 +14617,13 @@ import axios from 'axios';
 ```json
 {
   "type": "skill-check-result",
-  "requestId": "skill-check_1777996639246",
+  "requestId": "skill-check_1778789887871",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "skill": "prc",
-    "total": 7,
+    "total": 17,
     "formula": "1d20 + 2",
-    "result": "5 + 2"
+    "result": "15 + 2"
   }
 }
 ```
@@ -14683,6 +14636,8 @@ import axios from 'axios';
 Roll an ability saving throw for an actor
 
 Rolls a D&D 5e ability saving throw with all applicable modifiers.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -14718,7 +14673,7 @@ Rolls a D&D 5e ability saving throw with all applicable modifiers.
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/ability-save';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -14730,7 +14685,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "ability": "dex"
     })
 });
@@ -14742,10 +14697,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/ability-save?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/ability-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","ability":"dex"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"dex"}'
 ```
 
 </TabItem>
@@ -14757,7 +14712,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/ability-save'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -14769,7 +14724,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "ability": "dex"
     }
 )
@@ -14787,7 +14742,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/ability-save';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -14800,7 +14755,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "ability": "dex"
       }
   });
@@ -14826,11 +14781,11 @@ import axios from 'axios';
   🔤/dnd5e/ability-save🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","ability":"dex"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"dex"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -14858,13 +14813,13 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-save-result",
-  "requestId": "ability-save_1777996639264",
+  "requestId": "ability-save_1778789887899",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "ability": "dex",
-    "total": 12,
+    "total": 19,
     "formula": "1d20 + 3 + 2 + 0",
-    "result": "7 + 3 + 2 + 0"
+    "result": "14 + 3 + 2 + 0"
   }
 }
 ```
@@ -14877,6 +14832,8 @@ import axios from 'axios';
 Roll an ability check for an actor
 
 Rolls a D&D 5e ability check (raw ability test, not a skill check) with all applicable modifiers.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -14912,7 +14869,7 @@ Rolls a D&D 5e ability check (raw ability test, not a skill check) with all appl
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/ability-check';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -14924,7 +14881,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "ability": "str"
     })
 });
@@ -14936,10 +14893,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/ability-check?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/ability-check?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","ability":"str"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"str"}'
 ```
 
 </TabItem>
@@ -14951,7 +14908,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/ability-check'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -14963,7 +14920,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "ability": "str"
     }
 )
@@ -14981,7 +14938,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/ability-check';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -14994,7 +14951,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "ability": "str"
       }
   });
@@ -15020,11 +14977,11 @@ import axios from 'axios';
   🔤/dnd5e/ability-check🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","ability":"str"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"str"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15052,13 +15009,13 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-check-result",
-  "requestId": "ability-check_1777996639275",
+  "requestId": "ability-check_1778789887911",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "ability": "str",
-    "total": 5,
+    "total": 10,
     "formula": "1d20 - 1",
-    "result": "6 - 1"
+    "result": "11 - 1"
   }
 }
 ```
@@ -15071,6 +15028,8 @@ import axios from 'axios';
 Roll a death saving throw for an actor
 
 Rolls a D&D 5e death saving throw, handling DC 10 CON save, three successes/failures tracking, nat 20 healing, and nat 1 double failure.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -15103,7 +15062,7 @@ Rolls a D&D 5e death saving throw, handling DC 10 CON save, three successes/fail
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/death-save';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15115,7 +15074,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+      "actorUuid": "Actor.gHjoe9z270YfSCno"
     })
 });
 const data = await response.json();
@@ -15126,10 +15085,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/death-save?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/death-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno"}'
 ```
 
 </TabItem>
@@ -15141,7 +15100,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/death-save'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15153,7 +15112,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+      "actorUuid": "Actor.gHjoe9z270YfSCno"
     }
 )
 data = response.json()
@@ -15170,7 +15129,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/death-save';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15183,7 +15142,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+        "actorUuid": "Actor.gHjoe9z270YfSCno"
       }
   });
   const data = response.data;
@@ -15208,11 +15167,11 @@ import axios from 'axios';
   🔤/dnd5e/death-save🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/death-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15240,12 +15199,12 @@ import axios from 'axios';
 ```json
 {
   "type": "death-save-result",
-  "requestId": "death-save_1777996639378",
+  "requestId": "death-save_1778789888022",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
-    "total": 17,
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "total": 11,
     "formula": "1d20",
-    "result": "17",
+    "result": "11",
     "deathSaves": {
       "success": 1,
       "failure": 0
@@ -15262,6 +15221,8 @@ import axios from 'axios';
 Modify the experience points for a specific actor
 
 Adds or removes experience points from an actor.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -15294,7 +15255,7 @@ Adds or removes experience points from an actor.
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/modify-experience';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15306,7 +15267,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "amount": 100
     })
 });
@@ -15318,10 +15279,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/modify-experience?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/modify-experience?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","amount":100}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","amount":100}'
 ```
 
 </TabItem>
@@ -15333,7 +15294,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/modify-experience'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15345,7 +15306,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "amount": 100
     }
 )
@@ -15363,7 +15324,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/modify-experience';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15376,7 +15337,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "amount": 100
       }
   });
@@ -15402,11 +15363,11 @@ import axios from 'axios';
   🔤/dnd5e/modify-experience🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","amount":100}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","amount":100}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-experience🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 51❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15434,9 +15395,9 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-experience-result",
-  "requestId": "modify-experience_1777996638892",
+  "requestId": "modify-experience_1778789887539",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "oldXp": 0,
     "newXp": 100
   }
@@ -15451,6 +15412,8 @@ import axios from 'axios';
 Check if an actor is concentrating on a spell
 
 Returns whether the actor currently has a concentration effect active, and if so, what spell they are concentrating on.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -15482,8 +15445,8 @@ Returns whether the actor currently has a concentration effect active, and if so
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/concentration';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
-  actorUuid: 'Actor.sMD3o6zej6ckQkpo'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  actorUuid: 'Actor.gHjoe9z270YfSCno'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15502,7 +15465,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/dnd5e/concentration?clientId=fvtt_71dbc81bd608978a&actorUuid=Actor.sMD3o6zej6ckQkpo' \
+curl -X GET 'http://localhost:3010/dnd5e/concentration?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.gHjoe9z270YfSCno' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -15515,8 +15478,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/concentration'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
-    'actorUuid': 'Actor.sMD3o6zej6ckQkpo'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'actorUuid': 'Actor.gHjoe9z270YfSCno'
 }
 url = f'{base_url}{path}'
 
@@ -15541,8 +15504,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/concentration';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
-    actorUuid: 'Actor.sMD3o6zej6ckQkpo'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    actorUuid: 'Actor.gHjoe9z270YfSCno'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15576,8 +15539,8 @@ import axios from 'axios';
   🔤/dnd5e/concentration🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
-  🔤actorUuid=Actor.sMD3o6zej6ckQkpo🔤 ➡️ actorUuid
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤actorUuid=Actor.gHjoe9z270YfSCno🔤 ➡️ actorUuid
   🔤?🧲clientId🧲&🧲actorUuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -15606,9 +15569,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-concentration-result",
-  "requestId": "get-concentration_1777996639697",
+  "requestId": "get-concentration_1778789888357",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "isConcentrating": false,
     "effect": null,
     "spell": null
@@ -15624,6 +15587,8 @@ import axios from 'axios';
 Break an actor's concentration
 
 Removes the concentration effect from the actor, ending any spell that requires concentration.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -15655,7 +15620,7 @@ Removes the concentration effect from the actor, ending any spell that requires 
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/break-concentration';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15667,7 +15632,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+      "actorUuid": "Actor.gHjoe9z270YfSCno"
     })
 });
 const data = await response.json();
@@ -15678,10 +15643,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/break-concentration?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/break-concentration?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno"}'
 ```
 
 </TabItem>
@@ -15693,7 +15658,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/break-concentration'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15704,7 +15669,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+      "actorUuid": "Actor.gHjoe9z270YfSCno"
     }
 )
 data = response.json()
@@ -15721,7 +15686,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/break-concentration';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15734,7 +15699,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo"
+        "actorUuid": "Actor.gHjoe9z270YfSCno"
       }
   });
   const data = response.data;
@@ -15759,11 +15724,11 @@ import axios from 'axios';
   🔤/dnd5e/break-concentration🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/break-concentration🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15791,11 +15756,11 @@ import axios from 'axios';
 ```json
 {
   "type": "break-concentration-result",
-  "requestId": "break-concentration_1777996639771",
+  "requestId": "break-concentration_1778789888565",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "broken": true,
-    "removedEffectId": "i9HdMccsu31c55zx"
+    "removedEffectId": "cHLIrJYI0LFITL2j"
   }
 }
 ```
@@ -15808,6 +15773,8 @@ import axios from 'axios';
 Roll a concentration saving throw
 
 Rolls a Constitution saving throw to maintain concentration after taking damage. The DC is calculated as max(10, floor(damage/2)). Returns the roll result and whether concentration was maintained or broken.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -15844,7 +15811,7 @@ Rolls a Constitution saving throw to maintain concentration after taking damage.
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/concentration-save';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15856,7 +15823,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "damage": 15
     })
 });
@@ -15868,10 +15835,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/concentration-save?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/concentration-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","damage":15}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","damage":15}'
 ```
 
 </TabItem>
@@ -15883,7 +15850,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/concentration-save'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -15894,7 +15861,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "damage": 15
     }
 )
@@ -15912,7 +15879,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/concentration-save';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15925,7 +15892,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "damage": 15
       }
   });
@@ -15951,11 +15918,11 @@ import axios from 'axios';
   🔤/dnd5e/concentration-save🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","damage":15}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","damage":15}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/concentration-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15983,14 +15950,14 @@ import axios from 'axios';
 ```json
 {
   "type": "concentration-save-result",
-  "requestId": "concentration-save_1777996639763",
+  "requestId": "concentration-save_1778789888428",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
     "dc": 10,
-    "total": 20,
+    "total": 6,
     "formula": "1d20 + 1",
-    "result": "19 + 1",
-    "maintained": true
+    "result": "5 + 1",
+    "maintained": false
   }
 }
 ```
@@ -16003,6 +15970,8 @@ import axios from 'axios';
 Equip or unequip an item
 
 Changes the equipped status of an item in an actor's inventory.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -16037,7 +16006,7 @@ Changes the equipped status of an item in an actor's inventory.
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/equip-item';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -16049,7 +16018,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "itemName": "Dart",
       "equipped": true
     })
@@ -16062,10 +16031,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/equip-item?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/equip-item?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","itemName":"Dart","equipped":true}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","equipped":true}'
 ```
 
 </TabItem>
@@ -16077,7 +16046,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/equip-item'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -16088,7 +16057,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "itemName": "Dart",
       "equipped": True
     }
@@ -16107,7 +16076,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/equip-item';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -16120,7 +16089,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "itemName": "Dart",
         "equipped": true
       }
@@ -16147,11 +16116,11 @@ import axios from 'axios';
   🔤/dnd5e/equip-item🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","itemName":"Dart","equipped":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","equipped":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/equip-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 72❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16179,10 +16148,10 @@ import axios from 'axios';
 ```json
 {
   "type": "equip-item-result",
-  "requestId": "equip-item_1777996639838",
+  "requestId": "equip-item_1778789888637",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
-    "itemUuid": "Actor.sMD3o6zej6ckQkpo.Item.WeKJI3gPUAU52WAX",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "itemUuid": "Actor.gHjoe9z270YfSCno.Item.WeKJI3gPUAU52WAX",
     "itemName": "Dart",
     "equipped": true
   }
@@ -16197,6 +16166,8 @@ import axios from 'axios';
 Attune or unattune an item
 
 Changes the attunement status of a magic item in an actor's inventory.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -16231,7 +16202,7 @@ Changes the attunement status of a magic item in an actor's inventory.
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/attune-item';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -16243,7 +16214,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "itemName": "Dart",
       "attuned": true
     })
@@ -16256,10 +16227,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/attune-item?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/attune-item?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","itemName":"Dart","attuned":true}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","attuned":true}'
 ```
 
 </TabItem>
@@ -16271,7 +16242,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/attune-item'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -16282,7 +16253,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "itemName": "Dart",
       "attuned": True
     }
@@ -16301,7 +16272,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/attune-item';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -16314,7 +16285,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "itemName": "Dart",
         "attuned": true
       }
@@ -16341,11 +16312,11 @@ import axios from 'axios';
   🔤/dnd5e/attune-item🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","itemName":"Dart","attuned":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","attuned":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/attune-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 71❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16373,10 +16344,10 @@ import axios from 'axios';
 ```json
 {
   "type": "attune-item-result",
-  "requestId": "attune-item_1777996639840",
+  "requestId": "attune-item_1778789888640",
   "data": {
-    "actorUuid": "Actor.sMD3o6zej6ckQkpo",
-    "itemUuid": "Actor.sMD3o6zej6ckQkpo.Item.WeKJI3gPUAU52WAX",
+    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "itemUuid": "Actor.gHjoe9z270YfSCno.Item.WeKJI3gPUAU52WAX",
     "itemName": "Dart",
     "attuned": true
   }
@@ -16391,6 +16362,8 @@ import axios from 'axios';
 Transfer currency between actors
 
 Moves currency from one actor to another. Validates that the source actor has sufficient funds before transferring.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -16425,7 +16398,7 @@ Moves currency from one actor to another. Validates that the source actor has su
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/transfer-currency';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -16437,8 +16410,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sourceActorUuid": "Actor.sMD3o6zej6ckQkpo",
-      "targetActorUuid": "Actor.Nr1kY13FmjUZCHjw",
+      "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
+      "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
       "currency": {
         "gp": 1
       }
@@ -16452,10 +16425,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/transfer-currency?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/transfer-currency?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sourceActorUuid":"Actor.sMD3o6zej6ckQkpo","targetActorUuid":"Actor.Nr1kY13FmjUZCHjw","currency":{"gp":1}}'
+  -d '{"sourceActorUuid":"Actor.gHjoe9z270YfSCno","targetActorUuid":"Actor.VVwNwxGSnT6OiYcP","currency":{"gp":1}}'
 ```
 
 </TabItem>
@@ -16467,7 +16440,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/transfer-currency'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -16478,8 +16451,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sourceActorUuid": "Actor.sMD3o6zej6ckQkpo",
-      "targetActorUuid": "Actor.Nr1kY13FmjUZCHjw",
+      "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
+      "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
       "currency": {
         "gp": 1
       }
@@ -16499,7 +16472,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/transfer-currency';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -16512,8 +16485,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sourceActorUuid": "Actor.sMD3o6zej6ckQkpo",
-        "targetActorUuid": "Actor.Nr1kY13FmjUZCHjw",
+        "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
+        "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
         "currency": {
           "gp": 1
         }
@@ -16541,11 +16514,11 @@ import axios from 'axios';
   🔤/dnd5e/transfer-currency🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sourceActorUuid":"Actor.sMD3o6zej6ckQkpo","targetActorUuid":"Actor.Nr1kY13FmjUZCHjw","currency":{"gp":1}}🔤 ➡️ body
+  🔤{"sourceActorUuid":"Actor.gHjoe9z270YfSCno","targetActorUuid":"Actor.VVwNwxGSnT6OiYcP","currency":{"gp":1}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/transfer-currency🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 107❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16573,10 +16546,10 @@ import axios from 'axios';
 ```json
 {
   "type": "transfer-currency-result",
-  "requestId": "transfer-currency_1777996639915",
+  "requestId": "transfer-currency_1778789888704",
   "data": {
-    "sourceActorUuid": "Actor.sMD3o6zej6ckQkpo",
-    "targetActorUuid": "Actor.Nr1kY13FmjUZCHjw",
+    "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
+    "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
     "transferred": {
       "gp": 1
     },
@@ -16606,6 +16579,8 @@ import axios from 'axios';
 Modify currency balance for a single actor (delta-based, not a transfer between actors)
 
 Adds or removes currency from an actor's wallet. Use a negative amount to remove currency.
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -16637,6 +16612,8 @@ Prepare or unprepare a spell for an actor
 
 Toggles a spell's prepared state. Only applicable to spellcaster classes that prepare spells.
 
+**Required scope:** `dnd5e`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -16666,6 +16643,8 @@ Toggles a spell's prepared state. Only applicable to spellcaster classes that pr
 Use an ability
 
 Activates a specific ability for an actor, optionally targeting another entity
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -16700,7 +16679,7 @@ Activates a specific ability for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-ability';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -16712,7 +16691,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "Hammer"
     })
 });
@@ -16724,10 +16703,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -16739,7 +16718,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-ability'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -16751,7 +16730,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "Hammer"
     }
 )
@@ -16769,7 +16748,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-ability';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -16782,7 +16761,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "abilityName": "Hammer"
       }
   });
@@ -16808,11 +16787,11 @@ import axios from 'axios';
   🔤/dnd5e/use-ability🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-ability🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16840,11 +16819,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-ability-result",
-  "requestId": "use-ability_1777996639241",
+  "requestId": "use-ability_1778789887860",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
+    "uuid": "Actor.gHjoe9z270YfSCno",
     "ability": "Hammer",
-    "result": "rdKrtE8LhKwZcye9"
+    "result": "N6v1qlVVxD9v0RMb"
   }
 }
 ```
@@ -16857,6 +16836,8 @@ import axios from 'axios';
 Use a feature
 
 Activates a specific feature for an actor, optionally targeting another entity
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -16891,7 +16872,7 @@ Activates a specific feature for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-feature';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -16903,7 +16884,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "Priest"
     })
 });
@@ -16915,10 +16896,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"Priest"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Priest"}'
 ```
 
 </TabItem>
@@ -16930,7 +16911,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-feature'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -16942,7 +16923,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "Priest"
     }
 )
@@ -16960,7 +16941,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-feature';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -16973,7 +16954,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "abilityName": "Priest"
       }
   });
@@ -16999,11 +16980,11 @@ import axios from 'axios';
   🔤/dnd5e/use-feature🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"Priest"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Priest"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-feature🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -17031,11 +17012,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-feature-result",
-  "requestId": "use-feature_1777996639224",
+  "requestId": "use-feature_1778789887832",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
+    "uuid": "Actor.gHjoe9z270YfSCno",
     "ability": "Priest",
-    "result": "RrFcUb7bnMRW82I1"
+    "result": "vgRwieNmkvpMVK3r"
   }
 }
 ```
@@ -17048,6 +17029,8 @@ import axios from 'axios';
 Use a spell
 
 Casts a specific spell for an actor, optionally targeting another entity
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -17082,7 +17065,7 @@ Casts a specific spell for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-spell';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -17094,7 +17077,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "test-polymorph"
     })
 });
@@ -17106,10 +17089,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"test-polymorph"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"test-polymorph"}'
 ```
 
 </TabItem>
@@ -17121,7 +17104,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-spell'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -17133,7 +17116,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "test-polymorph"
     }
 )
@@ -17151,7 +17134,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-spell';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -17164,7 +17147,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "abilityName": "test-polymorph"
       }
   });
@@ -17190,11 +17173,11 @@ import axios from 'axios';
   🔤/dnd5e/use-spell🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"test-polymorph"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"test-polymorph"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-spell🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -17222,9 +17205,9 @@ import axios from 'axios';
 ```json
 {
   "type": "use-spell-result",
-  "requestId": "use-spell_1777996639230",
+  "requestId": "use-spell_1778789887846",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
+    "uuid": "Actor.gHjoe9z270YfSCno",
     "ability": "test-polymorph",
     "result": null
   }
@@ -17239,6 +17222,8 @@ import axios from 'axios';
 Use an item
 
 Uses a specific item for an actor, optionally targeting another entity
+
+**Required scope:** `dnd5e`
 
 ### Parameters
 
@@ -17273,7 +17258,7 @@ Uses a specific item for an actor, optionally targeting another entity
 const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/use-item';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -17285,7 +17270,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "Hammer"
     })
 });
@@ -17297,10 +17282,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -17312,7 +17297,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/dnd5e/use-item'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -17324,7 +17309,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+      "actorUuid": "Actor.gHjoe9z270YfSCno",
       "abilityName": "Hammer"
     }
 )
@@ -17342,7 +17327,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/dnd5e/use-item';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -17355,7 +17340,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.sMD3o6zej6ckQkpo",
+        "actorUuid": "Actor.gHjoe9z270YfSCno",
         "abilityName": "Hammer"
       }
   });
@@ -17381,11 +17366,11 @@ import axios from 'axios';
   🔤/dnd5e/use-item🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.sMD3o6zej6ckQkpo","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -17413,11 +17398,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-item-result",
-  "requestId": "use-item_1777996639208",
+  "requestId": "use-item_1778789887816",
   "data": {
-    "uuid": "Actor.sMD3o6zej6ckQkpo",
+    "uuid": "Actor.gHjoe9z270YfSCno",
     "ability": "Hammer",
-    "result": "W4AUcF63End5ITZA"
+    "result": "rjDUmrTT5tquQest"
   }
 }
 ```

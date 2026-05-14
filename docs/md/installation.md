@@ -20,7 +20,7 @@ docker compose -f docker-compose.local.yml up -d
 
 That's it. The relay is now running at `http://localhost:3010`.
 
-Open it in your browser, click **Sign Up**, and create your account. **Your master API key is shown exactly once** — copy it into a password manager before dismissing the dialog.
+Open it in your browser, click **Sign Up**, and create your account. **Your relay key is shown exactly once** after registration — copy it into a password manager before dismissing the dialog. Then create a scoped API key from the dashboard's **API Keys** tab for all integrations.
 
 ---
 

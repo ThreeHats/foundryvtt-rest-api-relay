@@ -15,6 +15,8 @@ Select token(s)
 
 Selects one or more tokens in the Foundry VTT client.
 
+**Required scope:** `entity:read`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -48,7 +50,7 @@ Selects one or more tokens in the Foundry VTT client.
 const baseUrl = 'http://localhost:3010';
 const path = '/select';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -72,7 +74,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/select?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/select?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"all":true,"overwrite":true}'
@@ -87,7 +89,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/select'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -116,7 +118,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/select';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -155,7 +157,7 @@ import axios from 'axios';
   🔤/select🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -187,12 +189,12 @@ import axios from 'axios';
 ```json
 {
   "type": "select-result",
-  "requestId": "select_1777996626330",
+  "requestId": "select_1778789881206",
   "success": true,
   "count": 1,
   "message": "1 entities selected",
   "selected": [
-    "Scene.iI8vL6F5ett88LXH.Token.tYjgFFD4Zgjy7nZM"
+    "Scene.Jz0KV1jlNI0jdQp0.Token.3p929HcEgSapCezZ"
   ]
 }
 ```
@@ -205,6 +207,8 @@ import axios from 'axios';
 Get selected token(s)
 
 Retrieves the currently selected token(s) in the Foundry VTT client.
+
+**Required scope:** `entity:read`
 
 ### Parameters
 
@@ -234,7 +238,7 @@ Retrieves the currently selected token(s) in the Foundry VTT client.
 const baseUrl = 'http://localhost:3010';
 const path = '/selected';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -253,7 +257,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/selected?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/selected?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -266,7 +270,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/selected'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -291,7 +295,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/selected';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -325,7 +329,7 @@ import axios from 'axios';
   🔤/selected🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -354,12 +358,12 @@ import axios from 'axios';
 ```json
 {
   "type": "selected-result",
-  "requestId": "selected_1777996626333",
+  "requestId": "selected_1778789881210",
   "success": true,
   "selected": [
     {
-      "tokenUuid": "Scene.iI8vL6F5ett88LXH.Token.tYjgFFD4Zgjy7nZM",
-      "actorUuid": "Scene.iI8vL6F5ett88LXH.Token.tYjgFFD4Zgjy7nZM.Actor.sMD3o6zej6ckQkpo"
+      "tokenUuid": "Scene.Jz0KV1jlNI0jdQp0.Token.3p929HcEgSapCezZ",
+      "actorUuid": "Scene.Jz0KV1jlNI0jdQp0.Token.3p929HcEgSapCezZ.Actor.gHjoe9z270YfSCno"
     }
   ]
 }
@@ -373,6 +377,8 @@ import axios from 'axios';
 Get players/users
 
 Retrieves a list of all users configured in the Foundry VTT world. Useful for discovering valid userId values for permission-scoped API calls.
+
+**Required scope:** `entity:read`
 
 ### Parameters
 
@@ -402,7 +408,7 @@ Retrieves a list of all users configured in the Foundry VTT world. Useful for di
 const baseUrl = 'http://localhost:3010';
 const path = '/players';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -421,7 +427,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/players?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/players?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -434,7 +440,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/players'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -459,7 +465,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/players';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -493,7 +499,7 @@ import axios from 'axios';
   🔤/players🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -522,42 +528,51 @@ import axios from 'axios';
 ```json
 {
   "type": "players-result",
-  "requestId": "players_1777996626347",
+  "requestId": "players_1778789881212",
   "users": [
     {
-      "id": "vXdyKYLgpmko3kHx",
+      "id": "5ypAoBvOiyjDKiaZ",
       "name": "Gamemaster",
       "role": 4,
       "isGM": true,
       "active": false,
-      "color": "#becc28",
+      "color": "#28cca2",
       "avatar": "icons/svg/mystery-man.svg"
     },
     {
-      "id": "fCfNJPT9Atc26yyv",
+      "id": "r6bXhB7k9cXa3cif",
       "name": "tester",
       "role": 4,
       "isGM": true,
       "active": true,
-      "color": "#cc28b5",
+      "color": "#cc2829",
       "avatar": "icons/svg/mystery-man.svg"
     },
     {
-      "id": "mCIKww86Dh7ogc9v",
-      "name": "Player1",
+      "id": "XQP35eYL5dUPscgE",
+      "name": "s2s-test-2",
       "role": 1,
       "isGM": false,
       "active": false,
-      "color": "#cc8128",
+      "color": "#a0cc28",
       "avatar": "icons/svg/mystery-man.svg"
     },
     {
-      "id": "0NqudQfTbKOdSgxB",
+      "id": "JLfKTeTgCDpAdDfw",
+      "name": "some-cool-guy",
+      "role": 1,
+      "isGM": false,
+      "active": false,
+      "color": "#6328cc",
+      "avatar": "icons/svg/mystery-man.svg"
+    },
+    {
+      "id": "NIY9RLVBVRZgBH66",
       "name": "test",
       "role": 1,
       "isGM": false,
       "active": false,
-      "color": "#283dcc",
+      "color": "#cc6328",
       "avatar": "icons/svg/mystery-man.svg"
     }
   ]
@@ -572,6 +587,8 @@ import axios from 'axios';
 Get comprehensive world information
 
 Returns a single object with world name, game system, Foundry version, all modules (with active status), all users (with online status), and the active scene. Useful for API clients to discover the world state.
+
+**Required scope:** `world:info`
 
 ### Parameters
 
@@ -601,7 +618,7 @@ Returns a single object with world name, game system, Foundry version, all modul
 const baseUrl = 'http://localhost:3010';
 const path = '/world-info';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -620,7 +637,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/world-info?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/world-info?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -633,7 +650,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/world-info'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -658,7 +675,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/world-info';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -692,7 +709,7 @@ import axios from 'axios';
   🔤/world-info🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -721,19 +738,49 @@ import axios from 'axios';
 ```json
 {
   "type": "world-info-result",
-  "requestId": "world-info_1777996626372",
+  "requestId": "world-info_1778789881221",
   "data": {
     "world": {
-      "id": "rest-api",
-      "title": "rest-api"
+      "id": "testing",
+      "title": "testing"
     },
     "system": {
       "id": "dnd5e",
       "title": "Dungeons & Dragons Fifth Edition",
-      "version": "4.3.8"
+      "version": "5.0.4"
     },
-    "foundryVersion": "12.331",
+    "foundryVersion": "13.348",
     "modules": [
+      {
+        "id": "5e-world-currency",
+        "title": "World Currency for D&D 5e",
+        "version": "4.0.6",
+        "active": false
+      },
+      {
+        "id": "ATL",
+        "title": "Active Token Effects",
+        "version": "v0.8.1",
+        "active": false
+      },
+      {
+        "id": "ActiveAuras",
+        "title": "Active Auras",
+        "version": "0.12.3",
+        "active": false
+      },
+      {
+        "id": "LockView",
+        "title": "Lock View",
+        "version": "2.0.1",
+        "active": false
+      },
+      {
+        "id": "Rideable",
+        "title": "Rideable",
+        "version": "4.0.7",
+        "active": false
+      },
       {
         "id": "_CodeMirror",
         "title": "CodeMirror",
@@ -741,111 +788,285 @@ import axios from 'axios';
         "active": false
       },
       {
-        "id": "about-face",
-        "title": "About Face",
-        "version": "3.26.5",
+        "id": "alternative-rotation",
+        "title": "Alternative Rotation",
+        "version": "2.3.1",
         "active": false
       },
       {
-        "id": "aedifs-token-sounds",
-        "title": "Sound of Token",
-        "version": "2.1.0",
+        "id": "always-hp",
+        "title": "Always HP",
+        "version": "13.02",
+        "active": false
+      },
+      {
+        "id": "arbron-hp-bar",
+        "title": "Arbron’s Improved HP Bar",
+        "version": "2.2.7",
+        "active": false
+      },
+      {
+        "id": "arms-reach",
+        "title": "Arms Reach",
+        "version": "13.0.1",
+        "active": false
+      },
+      {
+        "id": "autoanimations",
+        "title": "Automated Animations",
+        "version": "6.2.3",
+        "active": false
+      },
+      {
+        "id": "backgroundless-pins",
+        "title": "Backgroundless Pins",
+        "version": "3.0.0",
+        "active": false
+      },
+      {
+        "id": "baileywiki-cabal-dungeon",
+        "title": "Baileywiki Cabal Dungeon",
+        "version": "0.3.3",
+        "active": false
+      },
+      {
+        "id": "baileywiki-city-district-01",
+        "title": "Baileywiki Modular City - District 01",
+        "version": "0.3.5",
+        "active": false
+      },
+      {
+        "id": "baileywiki-city-district-02-docks",
+        "title": "Baileywiki Modular City - District 02: Docks",
+        "version": "0.3.1",
+        "active": false
+      },
+      {
+        "id": "baileywiki-city-district-03-temples",
+        "title": "Baileywiki Modular City - District 03: Temples",
+        "version": "0.3.0",
+        "active": false
+      },
+      {
+        "id": "baileywiki-city-district-04-ruins-and-slums",
+        "title": "Baileywiki Modular City - District 04: Ruins and Slums",
+        "version": "0.3.1",
+        "active": false
+      },
+      {
+        "id": "baileywiki-city-district-05-affluent",
+        "title": "Baileywiki Modular City - District 05: Affluent",
+        "version": "0.3.0",
+        "active": false
+      },
+      {
+        "id": "baileywiki-maps-premium",
+        "title": "Baileywiki Maps Premium",
+        "version": "0.6.1",
+        "active": false
+      },
+      {
+        "id": "baileywiki-maps-premium-towns",
+        "title": "Baileywiki Maps Towns",
+        "version": "0.6.12",
+        "active": false
+      },
+      {
+        "id": "baileywiki-nuts-and-bolts",
+        "title": "Baileywiki Nuts and Bolts",
+        "version": "0.4.1",
         "active": false
       },
       {
         "id": "barbrawl",
         "title": "Bar Brawl",
-        "version": "1.8.9",
+        "version": "1.8.12",
         "active": false
       },
       {
-        "id": "barbrawl-profiles",
-        "title": "Bar Brawl Profiles",
-        "version": "1.0.0",
+        "id": "betterroofs",
+        "title": "Better Roofs",
+        "version": "3.0.0",
         "active": false
       },
       {
-        "id": "boss-splash",
-        "title": "Boss Splash Screen",
-        "version": "1.1.11",
+        "id": "boss-loot-assets-premium",
+        "title": "BLFX Assets & Animation Editor Premium",
+        "version": "2.7.2",
+        "active": false
+      },
+      {
+        "id": "caydens-dice",
+        "title": "Cayden's Dice",
+        "version": "1.1.3",
+        "active": false
+      },
+      {
+        "id": "character-actions-list-5e",
+        "title": "Character Actions List dnd5e",
+        "version": "7.1.1",
+        "active": false
+      },
+      {
+        "id": "chat-media",
+        "title": "Chat Media",
+        "version": "13.0.1",
+        "active": false
+      },
+      {
+        "id": "cleaner-sheet-title-bar",
+        "title": "Cleaner sheet title bar",
+        "version": "1.5.5",
+        "active": false
+      },
+      {
+        "id": "color-picker",
+        "title": "Color Picker",
+        "version": "1.7",
         "active": false
       },
       {
         "id": "colorsettings",
         "title": "lib - Color Settings",
-        "version": "3.0.3",
-        "active": false
-      },
-      {
-        "id": "combat-enhancements",
-        "title": "Combat Enhancements",
-        "version": "1.2.4",
+        "version": "3.0.4",
         "active": false
       },
       {
         "id": "combat-tracker-dock",
         "title": "Carousel Combat Tracker",
-        "version": "3.1.8",
+        "version": "4.0.2",
         "active": false
       },
       {
-        "id": "combatbooster",
-        "title": "Combat Booster: Turn Marker, Recent Actions and more",
-        "version": "4.0.4",
+        "id": "combatready",
+        "title": "Combat Ready!",
+        "version": "5.0.2",
         "active": false
       },
       {
-        "id": "condition-lab-triggler",
-        "title": "Condition Lab & Triggler",
-        "version": "2.0.1",
+        "id": "compact-scene-navigation",
+        "title": "Compact Scene Navigation",
+        "version": "1.0.2",
+        "active": false
+      },
+      {
+        "id": "cosmic-dice",
+        "title": "Cosmic Dice",
+        "version": "1.2.2",
+        "active": false
+      },
+      {
+        "id": "custom-css",
+        "title": "Custom CSS",
+        "version": "2.4.3",
         "active": false
       },
       {
         "id": "dae",
         "title": "Dynamic effects using Active Effects (DAE)",
-        "version": "12.0.29",
+        "version": "13.0.11",
+        "active": false
+      },
+      {
+        "id": "dark-mode-5e",
+        "title": "Zeta's Dark Mode for DnD 5th Edition",
+        "version": "2.3.5",
         "active": false
       },
       {
         "id": "dd-import",
         "title": "Universal Battlemap Importer",
-        "version": "4.0.0",
-        "active": true
+        "version": "5.0.0",
+        "active": false
       },
       {
-        "id": "df-architect",
-        "title": "DF Architect",
-        "version": "5.0.0",
+        "id": "dfreds-convenient-effects",
+        "title": "DFreds Convenient Effects",
+        "version": "8.1.1",
         "active": false
       },
       {
         "id": "dice-calculator",
         "title": "Dice Tray",
-        "version": "2.27",
+        "version": "3.4.6",
         "active": false
       },
       {
         "id": "dice-so-nice",
         "title": "Dice So Nice!",
-        "version": "5.1.8",
+        "version": "5.2.0",
+        "active": false
+      },
+      {
+        "id": "dnd-randomizer",
+        "title": "Stochastic, Fantastic! - Random Encounter Generator",
+        "version": "1.0.67",
+        "active": false
+      },
+      {
+        "id": "dnd5e-animations",
+        "title": "D&D5e Animations",
+        "version": "3.1.1",
+        "active": false
+      },
+      {
+        "id": "dnd5e-character-monitor",
+        "title": "D&D5e Character Monitor",
+        "version": "2.1.0",
+        "active": false
+      },
+      {
+        "id": "drag-ruler",
+        "title": "Drag Ruler",
+        "version": "1.13.7",
+        "active": false
+      },
+      {
+        "id": "dungeon-draw",
+        "title": "Dungeon Draw",
+        "version": "4.0.0",
+        "active": false
+      },
+      {
+        "id": "elevation-drag-ruler",
+        "title": "DnD5e Drag Ruler Integration",
+        "version": "1.11.0",
+        "active": false
+      },
+      {
+        "id": "enhancedcombathud",
+        "title": "Argon - Combat HUD (CORE)",
+        "version": "4.0.7",
+        "active": false
+      },
+      {
+        "id": "enhancedcombathud-dnd5e",
+        "title": "Argon - Combat HUD (DND5E)",
+        "version": "5.0.1",
+        "active": false
+      },
+      {
+        "id": "filepicker-plus",
+        "title": "Filepicker Plus",
+        "version": "5.0.5",
         "active": false
       },
       {
         "id": "find-the-culprit",
         "title": "Find the Culprit",
-        "version": "3.1.2",
+        "version": "3.2.2",
+        "active": false
+      },
+      {
+        "id": "forien-ammo-swapper",
+        "title": "Forien's Ammo Swapper",
+        "version": "0.4.1",
         "active": false
       },
       {
         "id": "forien-copy-environment",
         "title": "Forien's Copy Environment",
-        "version": "v2.2.4",
-        "active": false
-      },
-      {
-        "id": "foundry-module-bundle-m93mw9jstj6rag9m88g",
-        "title": "Foundry Module Bundle",
-        "version": "1.0.0",
+        "version": "v3.0.0",
         "active": false
       },
       {
@@ -858,102 +1079,432 @@ import axios from 'axios';
         "id": "foundry-server-to-server",
         "title": "Server-to-Server Transfer",
         "version": "0.1.0",
+        "active": true
+      },
+      {
+        "id": "foundry-tables-to-items",
+        "title": "Foundry Tables to Items",
+        "version": "1.0.0",
+        "active": true
+      },
+      {
+        "id": "foundry-taskbar",
+        "title": "Taskbar",
+        "version": "5.0.5",
         "active": false
       },
       {
-        "id": "fxmaster",
-        "title": "FXMaster",
-        "version": "4.1.0",
+        "id": "foundry-vtt-content-parser",
+        "title": "Foundry VTT Content Parser",
+        "version": "0.2.50",
         "active": false
       },
       {
-        "id": "illandril-token-hud-scale",
-        "title": "Illandril's Token HUD scaler",
-        "version": "3.0.0",
+        "id": "foundry_community_tables",
+        "title": "Foundry Community Tables",
+        "version": "13.0",
         "active": false
       },
       {
-        "id": "image-hover",
-        "title": "Image Hover",
-        "version": "3.0.5",
+        "id": "foundryvtt-simple-calendar",
+        "title": "Simple Calendar",
+        "version": "2.4.18",
         "active": false
       },
       {
-        "id": "just-popcorn-initiative",
-        "title": "Just - Popcorn Initiative",
-        "version": "1.1.0",
+        "id": "fvtt-paper-doll-ui",
+        "title": "Paper Doll",
+        "version": "2.0.1",
+        "active": false
+      },
+      {
+        "id": "gatherer",
+        "title": "Gatherer",
+        "version": "4.0.2",
+        "active": false
+      },
+      {
+        "id": "give-item",
+        "title": "Give item to another player",
+        "version": "2.1.1",
+        "active": false
+      },
+      {
+        "id": "gm-notes",
+        "title": "GM Notes",
+        "version": "10.5",
+        "active": false
+      },
+      {
+        "id": "gm-vision",
+        "title": "GM Vision",
+        "version": "2.0.2",
+        "active": false
+      },
+      {
+        "id": "group-initiative",
+        "title": "Group Initiative",
+        "version": "2.1.7",
+        "active": false
+      },
+      {
+        "id": "hexplorer",
+        "title": "Hexplorer",
+        "version": "2.0.4",
+        "active": false
+      },
+      {
+        "id": "image-context",
+        "title": "Image Context",
+        "version": "3.1.3",
+        "active": false
+      },
+      {
+        "id": "item-piles",
+        "title": "Item Piles",
+        "version": "3.2.20",
+        "active": false
+      },
+      {
+        "id": "itemacro",
+        "title": "Item Macro",
+        "version": "3.0.1",
+        "active": false
+      },
+      {
+        "id": "jb2a_patreon",
+        "title": "JB2A - Patreon Complete Collection",
+        "version": "0.8.1",
+        "active": false
+      },
+      {
+        "id": "journal-icon-numbers",
+        "title": "Automatic Journal Icon Numbers",
+        "version": "v1.10.0",
+        "active": false
+      },
+      {
+        "id": "legend-lore",
+        "title": "Legend Lore",
+        "version": "v1.0.2",
+        "active": false
+      },
+      {
+        "id": "levels",
+        "title": "Levels",
+        "version": "6.0.16",
+        "active": false
+      },
+      {
+        "id": "levelsautocover",
+        "title": "AutoCover - Automatic Cover Calculator",
+        "version": "3.0.2",
+        "active": false
+      },
+      {
+        "id": "lib-dfreds-ui-extender",
+        "title": "Lib: DFreds UI Extender",
+        "version": "2.1.2",
+        "active": false
+      },
+      {
+        "id": "lib-find-the-path-12",
+        "title": "Library - Find the Path",
+        "version": "2.0.5",
         "active": false
       },
       {
         "id": "lib-wrapper",
         "title": "libWrapper",
-        "version": "1.13.2.0",
+        "version": "1.13.3.0",
+        "active": false
+      },
+      {
+        "id": "limits",
+        "title": "Limits",
+        "version": "2.0.5",
+        "active": false
+      },
+      {
+        "id": "lootsheet-simple",
+        "title": "Loot Sheet NPC 5e (Simple Version)",
+        "version": "13.504.1",
+        "active": false
+      },
+      {
+        "id": "lordudice",
+        "title": "Lordu's Custom Dice for Dice So Nice",
+        "version": "0.41",
+        "active": false
+      },
+      {
+        "id": "macro-wheel",
+        "title": "Macro Wheel",
+        "version": "3.0.0",
+        "active": false
+      },
+      {
+        "id": "magicitems",
+        "title": "Magic Items",
+        "version": "5.0.0-beta.2",
+        "active": false
+      },
+      {
+        "id": "mastercrafted",
+        "title": "Mastercrafted - Crafting Manager",
+        "version": "4.0.5",
         "active": false
       },
       {
         "id": "midi-qol",
         "title": "Midi QOL",
-        "version": "12.4.64",
+        "version": "13.0.15",
         "active": false
       },
       {
-        "id": "monks-little-details",
-        "title": "Monk's Little Details",
+        "id": "mkah-compendium-importer",
+        "title": "Mana's Compendium Importer",
+        "version": "3.0.1",
+        "active": false
+      },
+      {
+        "id": "mmm",
+        "title": "Maxwell's Manual of Malicious Maladies",
+        "version": "5.0.1",
+        "active": false
+      },
+      {
+        "id": "mob-attack-tool",
+        "title": "Mob Attack Tool",
+        "version": "0.13.0",
+        "active": false
+      },
+      {
+        "id": "module-credits",
+        "title": "Module Management+",
+        "version": "2.2.3",
+        "active": false
+      },
+      {
+        "id": "monks-active-tiles",
+        "title": "Monk's Active Tile Triggers",
+        "version": "13.05",
+        "active": false
+      },
+      {
+        "id": "monks-bloodsplats",
+        "title": "Monk's Bloodsplats",
+        "version": "13.01",
+        "active": false
+      },
+      {
+        "id": "monks-combat-marker",
+        "title": "Monk's Combat Marker",
+        "version": "12.01",
+        "active": false
+      },
+      {
+        "id": "monks-enhanced-journal",
+        "title": "Monk's Enhanced Journal",
+        "version": "12.02",
+        "active": false
+      },
+      {
+        "id": "monks-player-settings",
+        "title": "Monk's Player Settings",
+        "version": "12.01",
+        "active": false
+      },
+      {
+        "id": "monks-tokenbar",
+        "title": "Monk's TokenBar",
         "version": "12.04",
         "active": false
       },
       {
-        "id": "pings",
-        "title": "Pings",
-        "version": "1.4.2",
+        "id": "monks-wall-enhancement",
+        "title": "Monk's Wall Enhancement",
+        "version": "13.02",
         "active": false
       },
       {
-        "id": "playerListStatus",
-        "title": "Playerlist Status - Lib for View status on Playerlist",
-        "version": "3.1.3",
+        "id": "mookAI-12",
+        "title": "mookAI - An AI for your mooks",
+        "version": "1.0.5",
         "active": false
       },
       {
-        "id": "playerStatus",
-        "title": "Player Status",
-        "version": "3.1.4",
+        "id": "moulinette",
+        "title": "Moulinette Media Search",
+        "version": "1.8.3",
+        "active": false
+      },
+      {
+        "id": "moulinette-soundboards",
+        "title": "Soundboard & Soundpad (by Moulinette)",
+        "version": "1.2.3",
+        "active": false
+      },
+      {
+        "id": "multi-token-edit",
+        "title": "Baileywiki Mass Edit",
+        "version": "2.1.1",
+        "active": false
+      },
+      {
+        "id": "multiface-tiles",
+        "title": "Multiface Tiles",
+        "version": "13.002",
+        "active": false
+      },
+      {
+        "id": "multiple-document-selection",
+        "title": "Multiple Document Selection",
+        "version": "13.02",
+        "active": false
+      },
+      {
+        "id": "neutro-dice-theme-bitd",
+        "title": "Blades in the Dark theme for Dice So Nice",
+        "version": "1.1.0",
+        "active": false
+      },
+      {
+        "id": "party-monitor-dock",
+        "title": "Party HUD",
+        "version": "3.0.1",
+        "active": false
+      },
+      {
+        "id": "patrol",
+        "title": "Patrol",
+        "version": "3.0.2",
+        "active": false
+      },
+      {
+        "id": "pdf-pager",
+        "title": "PDF Pager",
+        "version": "13.0.1",
+        "active": false
+      },
+      {
+        "id": "permission_viewer",
+        "title": "Ownership Viewer",
+        "version": "13.1",
+        "active": true
+      },
+      {
+        "id": "plutonium",
+        "title": "Plutonium",
+        "version": "3.11.0-noble-prerelease-25-36",
+        "active": false
+      },
+      {
+        "id": "poi-teleport",
+        "title": "Point of Interest Teleporter, by Beneos",
+        "version": "13.0.0",
+        "active": false
+      },
+      {
+        "id": "potion-crafting-and-gathering",
+        "title": "Potion Crafting & Gathering",
+        "version": "2.0.0",
+        "active": false
+      },
+      {
+        "id": "psfx",
+        "title": "PSFX - Peri's Sound Effects",
+        "version": "0.4.0",
+        "active": false
+      },
+      {
+        "id": "puzzle-locks",
+        "title": "Puzzle Locks",
+        "version": "3.0.3",
         "active": false
       },
       {
         "id": "quick-insert",
         "title": "Quick Insert - Search Widget",
         "version": "3.6.0",
-        "active": true
-      },
-      {
-        "id": "rounded-measurement-templates",
-        "title": "Rounded Measurement Templates",
-        "version": "1.0.0",
         "active": false
       },
       {
-        "id": "settings-extender",
-        "title": "Settings Extender",
-        "version": "1.2.3",
+        "id": "region-attacher",
+        "title": "Region Attacher",
+        "version": "1.9.1",
         "active": false
       },
       {
-        "id": "sidebar-resizer",
-        "title": "Sidebar and Windows Resizer",
-        "version": "0.8.0",
+        "id": "remote-highlight-ui",
+        "title": "Remote Highlight UI",
+        "version": "2.3.0",
+        "active": false
+      },
+      {
+        "id": "rest-recovery",
+        "title": "Rest Recovery for 5E",
+        "version": "5.0.0",
+        "active": false
+      },
+      {
+        "id": "ripper-premium-dice",
+        "title": "Wave Dice - TheRipper93 Premium Dice (Supporter)",
+        "version": "2.0.0",
+        "active": false
+      },
+      {
+        "id": "ripper-premium-dice-ea",
+        "title": "Animated Dice Pack - TheRipper93 Premium Dice (Early Access)",
+        "version": "2.0.0",
+        "active": false
+      },
+      {
+        "id": "routinglib",
+        "title": "routinglib",
+        "version": "1.1.0",
+        "active": false
+      },
+      {
+        "id": "scene-packer",
+        "title": "Library: Scene Packer",
+        "version": "2.8.9",
+        "active": false
+      },
+      {
+        "id": "sequencer",
+        "title": "Sequencer",
+        "version": "3.6.9",
+        "active": false
+      },
+      {
+        "id": "simbuls-athenaeum",
+        "title": "Simbul's Athenaeum",
+        "version": "1.1.0",
+        "active": false
+      },
+      {
+        "id": "simbuls-creature-aide",
+        "title": "Simbul's Creature Aide",
+        "version": "1.2.1",
+        "active": false
+      },
+      {
+        "id": "simple-quest",
+        "title": "Simple Quest",
+        "version": "3.0.11",
         "active": false
       },
       {
         "id": "smarttarget",
         "title": "Smart Target",
-        "version": "2.0.0",
+        "version": "3.0.1",
         "active": false
       },
       {
         "id": "socketlib",
         "title": "socketlib",
-        "version": "1.1.2",
+        "version": "v1.1.3",
         "active": false
       },
       {
@@ -963,112 +1514,169 @@ import axios from 'axios';
         "active": false
       },
       {
-        "id": "sorted-status-effects",
-        "title": "Sorted Status Effects",
-        "version": "#{VERSION}#",
-        "active": false
-      },
-      {
-        "id": "splatter",
-        "title": "Splatter",
-        "version": "4.0.5",
-        "active": false
-      },
-      {
         "id": "spotlight-omnisearch",
         "title": "Spotlight Omnisearch",
-        "version": "2.0.7",
+        "version": "3.0.1",
         "active": false
       },
       {
-        "id": "statuscounter",
-        "title": "Status Icon Counters",
-        "version": "3.0.2",
+        "id": "stealthy",
+        "title": "Stealthy",
+        "version": "13.0.1",
         "active": false
       },
       {
-        "id": "token-aura-ring",
-        "title": "Token Aura Ring",
-        "version": "2.8.1",
+        "id": "table-safety",
+        "title": "Table Safety",
+        "version": "1.3.2",
         "active": false
       },
       {
-        "id": "token-ease",
-        "title": "Token Ease",
-        "version": "1.3.0",
+        "id": "tagger",
+        "title": "Tagger",
+        "version": "1.5.3",
         "active": false
       },
       {
-        "id": "token-mold",
-        "title": "Token Mold",
-        "version": "2.22.3",
+        "id": "theripper-premium-hub",
+        "title": "TheRipper93's Module Hub",
+        "version": "5.0.6",
         "active": false
       },
       {
-        "id": "token-tooltip-alt",
-        "title": "Token Tooltip Alt",
-        "version": "3.3.4",
+        "id": "tidbits",
+        "title": "Tidbits",
+        "version": "3.0.5",
         "active": false
       },
       {
-        "id": "token-variants",
-        "title": "Token Variant Art",
-        "version": "5.1.6",
+        "id": "tile-scroll",
+        "title": "Tile Scroll",
+        "version": "4.0.0",
+        "active": false
+      },
+      {
+        "id": "times-up",
+        "title": "Times Up",
+        "version": "13.1.0",
+        "active": false
+      },
+      {
+        "id": "token-frames",
+        "title": "Token Frames",
+        "version": "1.7.0",
+        "active": false
+      },
+      {
+        "id": "token-hud-wildcard",
+        "title": "Token HUD Wildcard",
+        "version": "3.3.0",
+        "active": false
+      },
+      {
+        "id": "torch",
+        "title": "Torch",
+        "version": "3.1.0",
+        "active": false
+      },
+      {
+        "id": "trinium-chat-buttons",
+        "title": "Trinium Chat Buttons",
+        "version": "v2.0.2",
+        "active": false
+      },
+      {
+        "id": "trs-foundryvtt-dice-set",
+        "title": "Foundry VTT Anniversary Dice Set by The Rollsmith",
+        "version": "1.0.1",
+        "active": false
+      },
+      {
+        "id": "vision-5e",
+        "title": "Vision 5e",
+        "version": "3.0.6",
         "active": false
       },
       {
         "id": "visual-active-effects",
         "title": "Visual Active Effects",
-        "version": "12.1.5",
+        "version": "13.0.3",
         "active": false
       },
       {
-        "id": "what-the-flag",
-        "title": "WTF: What the Flag?",
-        "version": "1.0.5",
+        "id": "vtta-tokenizer",
+        "title": "Tokenizer",
+        "version": "4.5.6",
+        "active": false
+      },
+      {
+        "id": "wall-height",
+        "title": "Wall Height",
+        "version": "7.0.8",
+        "active": false
+      },
+      {
+        "id": "world-setting-sync",
+        "title": "World Setting Sync",
+        "version": "2.0.0",
+        "active": false
+      },
+      {
+        "id": "zoom-pan-options",
+        "title": "Zoom/Pan Options",
+        "version": "2.0.1",
         "active": false
       }
     ],
     "users": [
       {
-        "id": "vXdyKYLgpmko3kHx",
+        "id": "5ypAoBvOiyjDKiaZ",
         "name": "Gamemaster",
         "role": 4,
         "isGM": true,
         "active": false,
-        "color": "#becc28",
+        "color": "#28cca2",
         "avatar": "icons/svg/mystery-man.svg"
       },
       {
-        "id": "fCfNJPT9Atc26yyv",
+        "id": "r6bXhB7k9cXa3cif",
         "name": "tester",
         "role": 4,
         "isGM": true,
         "active": true,
-        "color": "#cc28b5",
+        "color": "#cc2829",
         "avatar": "icons/svg/mystery-man.svg"
       },
       {
-        "id": "mCIKww86Dh7ogc9v",
-        "name": "Player1",
+        "id": "XQP35eYL5dUPscgE",
+        "name": "s2s-test-2",
         "role": 1,
         "isGM": false,
         "active": false,
-        "color": "#cc8128",
+        "color": "#a0cc28",
         "avatar": "icons/svg/mystery-man.svg"
       },
       {
-        "id": "0NqudQfTbKOdSgxB",
+        "id": "JLfKTeTgCDpAdDfw",
+        "name": "some-cool-guy",
+        "role": 1,
+        "isGM": false,
+        "active": false,
+        "color": "#6328cc",
+        "avatar": "icons/svg/mystery-man.svg"
+      },
+      {
+        "id": "NIY9RLVBVRZgBH66",
         "name": "test",
         "role": 1,
         "isGM": false,
         "active": false,
-        "color": "#283dcc",
+        "color": "#cc6328",
         "avatar": "icons/svg/mystery-man.svg"
       }
     ],
     "activeScene": {
-      "id": "iI8vL6F5ett88LXH",
+      "id": "Jz0KV1jlNI0jdQp0",
       "name": "test-scene-updated"
     }
   }
@@ -1083,6 +1691,8 @@ import axios from 'axios';
 Execute JavaScript
 
 Executes a JavaScript script in the Foundry VTT client.
+
+**Required scope:** `execute-js`
 
 ### Parameters
 
@@ -1113,7 +1723,7 @@ Executes a JavaScript script in the Foundry VTT client.
 const baseUrl = 'http://localhost:3010';
 const path = '/execute-js';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1136,7 +1746,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/execute-js?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/execute-js?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"script":"const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"}'
@@ -1151,7 +1761,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/execute-js'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -1179,7 +1789,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/execute-js';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1217,7 +1827,7 @@ import axios from 'axios';
   🔤/execute-js🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1249,7 +1859,7 @@ import axios from 'axios';
 ```json
 {
   "type": "execute-js-result",
-  "requestId": "execute-js_1777996626348",
+  "requestId": "execute-js_1778789881218",
   "success": true,
   "result": "ws://localhost:3010/relay"
 }

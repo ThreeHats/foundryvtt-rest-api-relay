@@ -22,7 +22,7 @@ function authConfig(method: string, urlPath: string, body?: any): ApiRequestConf
       path: urlPath.split('/').filter(Boolean),
     },
     method: method as any,
-    header: [{ key: 'x-api-key', value: '{{apiKey}}' }],
+    header: [{ key: 'Authorization', value: 'Bearer {{sessionToken}}' }],
     body: body ? { mode: 'raw', raw: JSON.stringify(body) } : undefined,
   };
 }

@@ -7,8 +7,8 @@
  *   GET /api/subscriptions/status, POST /api/subscriptions/create-checkout-session
  */
 
-import { describe, test, expect, afterAll } from '@jest/globals';
-import { ApiRequestConfig } from '../../helpers/apiRequest';
+import { describe, test, expect, afterAll, beforeAll } from '@jest/globals';
+import { ApiRequestConfig, makeRequest } from '../../helpers/apiRequest';
 import { testVariables } from '../../helpers/testVariables';
 import { captureExample, saveExamples } from '../../helpers/captureExample';
 import { setGlobalVariable, getGlobalVariable } from '../../helpers/globalVariables';
@@ -19,14 +19,14 @@ const capturedExamples: any[] = [];
 
 // Throwaway user for register/delete tests
 const throwawayEmail = `auth-test-${Date.now()}@example.com`;
-const throwawayPassword = 'TestPassword1';
+let throwawayPassword = 'TestPassword1';
 let throwawayApiKey = '';
 let throwawaySessionToken = '';
 
 // Existing test user credentials
 const userEmail = testVariables.userEmail;
 const userPassword = testVariables.userPassword;
-const masterApiKey = testVariables.apiKey;
+const scopedApiKey = testVariables.apiKey;
 
 // Whether we have test user credentials configured
 const hasUserCredentials = userEmail !== '' && userPassword !== '';
@@ -78,14 +78,31 @@ describe('Auth Endpoints', () => {
       expect(captured.response.status).toBe(201);
       expect(captured.response.data).toHaveProperty('id');
       expect(captured.response.data).toHaveProperty('email', throwawayEmail);
-      expect(captured.response.data).toHaveProperty('apiKey');
+      expect(captured.response.data).not.toHaveProperty('apiKey');
       expect(captured.response.data).toHaveProperty('subscriptionStatus', 'free');
       expect(captured.response.data).toHaveProperty('sessionToken');
       expect(captured.response.data).toHaveProperty('emailVerified');
 
-      // Store for cleanup and session tests
-      throwawayApiKey = captured.response.data.apiKey;
       throwawaySessionToken = captured.response.data.sessionToken;
+
+      // Get the initial master key via regenerate-key so subsequent tests can verify key rotation
+      const regenResponse = await makeRequest({
+        url: { raw: `${testVariables.baseUrl}/auth/regenerate-key`, host: [testVariables.baseUrl], path: ['auth', 'regenerate-key'] },
+        method: 'POST',
+        header: [],
+        body: { mode: 'raw', raw: JSON.stringify({ email: throwawayEmail, password: throwawayPassword }) },
+      });
+      throwawayApiKey = regenResponse.data.apiKey ?? '';
+
+      // regenerate-key invalidates all sessions — log in again to get a fresh one
+      const loginResponse = await makeRequest({
+        url: { raw: `${testVariables.baseUrl}/auth/login`, host: [testVariables.baseUrl], path: ['auth', 'login'] },
+        method: 'POST',
+        header: [],
+        body: { mode: 'raw', raw: JSON.stringify({ email: throwawayEmail, password: throwawayPassword }) },
+      });
+      throwawaySessionToken = loginResponse.data.sessionToken ?? throwawaySessionToken;
+
       setGlobalVariable('auth', 'throwawayEmail', throwawayEmail);
       setGlobalVariable('auth', 'throwawayPassword', throwawayPassword);
       setGlobalVariable('auth', 'throwawayApiKey', throwawayApiKey);
@@ -361,7 +378,10 @@ describe('Auth Endpoints', () => {
   });
 
   describe('/auth/export-data', () => {
-    test('GET /auth/export-data - with valid API key', async () => {
+    test('GET /auth/export-data - with valid session token', async () => {
+      // Requires a registered throwaway account for this test run
+      if (!throwawaySessionToken) return;
+
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/export-data`,
@@ -370,7 +390,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'GET',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${throwawaySessionToken}` }
         ]
       };
 
@@ -408,6 +428,19 @@ describe('Auth Endpoints', () => {
 
   describeChangePassword('/auth/change-password', () => {
     const newPassword = 'ChangedPassword2';
+    let changePasswordSessionToken = '';
+
+    beforeAll(async () => {
+      const loginResponse = await makeRequest({
+        url: { raw: `${testVariables.baseUrl}/auth/login`, host: [testVariables.baseUrl], path: ['auth', 'login'] },
+        method: 'POST',
+        header: [],
+        body: { mode: 'raw', raw: JSON.stringify({ email: userEmail, password: userPassword }) },
+      });
+      if (loginResponse.status === 200) {
+        changePasswordSessionToken = loginResponse.data.sessionToken as string;
+      }
+    });
 
     test('POST /auth/change-password - change password', async () => {
       const requestConfig: ApiRequestConfig = {
@@ -418,7 +451,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${changePasswordSessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -459,6 +492,15 @@ describe('Auth Endpoints', () => {
     });
 
     test('POST /auth/change-password - restore original password', async () => {
+      // Re-login since the password changed — old session may have been invalidated
+      const reLoginResponse = await makeRequest({
+        url: { raw: `${testVariables.baseUrl}/auth/login`, host: [testVariables.baseUrl], path: ['auth', 'login'] },
+        method: 'POST',
+        header: [],
+        body: { mode: 'raw', raw: JSON.stringify({ email: userEmail, password: newPassword }) },
+      });
+      const restoreSessionToken = reLoginResponse.status === 200 ? (reLoginResponse.data.sessionToken as string) : changePasswordSessionToken;
+
       const requestConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/change-password`,
@@ -467,7 +509,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${restoreSessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -491,7 +533,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${changePasswordSessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -515,7 +557,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${changePasswordSessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -561,12 +603,11 @@ describe('Auth Endpoints', () => {
       expect(captured.response.data.apiKey).not.toBe(throwawayApiKey);
 
       // Update stored key for subsequent tests
-      const oldKey = throwawayApiKey;
       throwawayApiKey = captured.response.data.apiKey;
       setGlobalVariable('auth', 'throwawayApiKey', throwawayApiKey);
 
-      // Verify old key no longer works (export-data uses x-api-key auth)
-      const verifyConfig: ApiRequestConfig = {
+      // Verify old session is now invalid — regen-key deletes all sessions
+      const verifyOldSession: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/export-data`,
           host: [testVariables.baseUrl],
@@ -574,13 +615,23 @@ describe('Auth Endpoints', () => {
         },
         method: 'GET',
         header: [
-          { key: 'x-api-key', value: oldKey }
+          { key: 'Authorization', value: `Bearer ${throwawaySessionToken}` }
         ]
       };
-      const verifyOld = await captureExample(verifyConfig, {}, '/auth/export-data (old key)');
-      expect(verifyOld.response.status).toBe(404);
+      const verifyOld = await captureExample(verifyOldSession, {}, '/auth/export-data (old session)');
+      expect(verifyOld.response.status).toBe(401);
 
-      // Verify new key works
+      // Re-login to get a fresh session token after key rotation
+      const reloginRes = await makeRequest({
+        url: { raw: `${testVariables.baseUrl}/auth/login`, host: [testVariables.baseUrl], path: ['auth', 'login'] },
+        method: 'POST',
+        header: [],
+        body: { mode: 'raw', raw: JSON.stringify({ email: throwawayEmail, password: throwawayPassword }) },
+      });
+      throwawaySessionToken = reloginRes.data?.sessionToken ?? throwawaySessionToken;
+      setGlobalVariable('auth', 'throwawaySessionToken', throwawaySessionToken);
+
+      // Verify new session works
       const verifyNewConfig: ApiRequestConfig = {
         url: {
           raw: `${testVariables.baseUrl}/auth/export-data`,
@@ -589,10 +640,10 @@ describe('Auth Endpoints', () => {
         },
         method: 'GET',
         header: [
-          { key: 'x-api-key', value: throwawayApiKey }
+          { key: 'Authorization', value: `Bearer ${throwawaySessionToken}` }
         ]
       };
-      const verifyNew = await captureExample(verifyNewConfig, {}, '/auth/export-data (new key)');
+      const verifyNew = await captureExample(verifyNewConfig, {}, '/auth/export-data (new session)');
       expect(verifyNew.response.status).toBe(200);
     });
 
@@ -822,7 +873,8 @@ describe('Auth Endpoints', () => {
       expect(captured.response.status).toBe(200);
       expect(captured.response.data).toHaveProperty('message');
 
-      // Update throwaway password for cleanup tests
+      // Update throwaway password for this file and cleanup tests
+      throwawayPassword = newResetPassword;
       setGlobalVariable('auth', 'throwawayPassword', newResetPassword);
     });
 
@@ -1044,7 +1096,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'GET',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'x-api-key', value: scopedApiKey }
         ]
       };
 
@@ -1067,7 +1119,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'x-api-key', value: scopedApiKey }
         ]
       };
 
@@ -1092,7 +1144,7 @@ describe('Auth Endpoints', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'x-api-key', value: scopedApiKey }
         ]
       };
 

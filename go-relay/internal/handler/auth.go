@@ -76,6 +76,32 @@ func bodyStr(body map[string]interface{}, key string) string {
 	return v
 }
 
+// lookupUserByAuth authenticates a request using a Bearer session token
+// (Authorization: Bearer <token>). Returns nil and writes a 401 if no valid
+// Bearer token is present.
+func lookupUserByAuth(w http.ResponseWriter, r *http.Request, db *database.DB) *model.User {
+	ctx := r.Context()
+
+	if auth := r.Header.Get("Authorization"); strings.HasPrefix(auth, "Bearer ") {
+		rawToken := strings.TrimPrefix(auth, "Bearer ")
+		hash := model.HashSessionToken(rawToken)
+		session, err := db.SessionStore().FindByTokenHash(ctx, hash)
+		if err != nil || session == nil {
+			helpers.WriteError(w, http.StatusUnauthorized, "Invalid or expired session")
+			return nil
+		}
+		user, err := db.UserStore().FindByID(ctx, session.UserID)
+		if err != nil || user == nil {
+			helpers.WriteError(w, http.StatusUnauthorized, "User not found")
+			return nil
+		}
+		return user
+	}
+
+	helpers.WriteError(w, http.StatusUnauthorized, "Session required")
+	return nil
+}
+
 // AuthRouter creates the auth route group.
 func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) chi.Router {
 	r := chi.NewRouter()
@@ -206,11 +232,9 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 		}
 		_ = db.SessionStore().Create(ctx, session)
 
-		// Auth endpoints intentionally return apiKey — use unsanitized
 		resp := map[string]interface{}{
 			"id":                 user.ID,
 			"email":              user.Email,
-			"apiKey":             user.APIKey, // ONE-TIME — never returned again
 			"emailVerified":      user.EmailVerified,
 			"createdAt":          user.CreatedAt,
 			"subscriptionStatus": "free",
@@ -220,7 +244,7 @@ func AuthRouter(db *database.DB, cfg *config.Config, manager *ws.ClientManager) 
 		if rawVerifyToken != "" {
 			resp["verificationToken"] = rawVerifyToken
 		}
-		helpers.WriteJSONUnsanitized(w, http.StatusCreated, resp)
+		helpers.WriteJSON(w, http.StatusCreated, resp)
 	})
 
 	// GET /auth/verify
@@ -751,12 +775,8 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 
 	// POST /auth/change-password
 	r.With(middleware.AccountManagementRateLimiter.Middleware).Post("/change-password", func(w http.ResponseWriter, r *http.Request) {
-		apiKey := r.Header.Get("x-api-key")
-		if apiKey == "" {
-			apiKey = r.Header.Get("X-API-Key")
-		}
-		if apiKey == "" {
-			helpers.WriteError(w, http.StatusUnauthorized, "API key is required")
+		user := lookupUserByAuth(w, r, db)
+		if user == nil {
 			return
 		}
 
@@ -774,11 +794,6 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 		}
 
 		ctx := r.Context()
-		user, err := db.UserStore().FindByAPIKey(ctx, apiKey)
-		if err != nil || user == nil {
-			helpers.WriteError(w, http.StatusNotFound, "User not found")
-			return
-		}
 
 		if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(currentPassword)); err != nil {
 			helpers.WriteError(w, http.StatusUnauthorized, "Current password is incorrect")
@@ -806,21 +821,12 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 
 	// GET /auth/export-data
 	r.With(middleware.AccountManagementRateLimiter.Middleware).Get("/export-data", func(w http.ResponseWriter, r *http.Request) {
-		apiKey := r.Header.Get("x-api-key")
-		if apiKey == "" {
-			apiKey = r.Header.Get("X-API-Key")
-		}
-		if apiKey == "" {
-			helpers.WriteError(w, http.StatusUnauthorized, "API key is required")
+		user := lookupUserByAuth(w, r, db)
+		if user == nil {
 			return
 		}
 
 		ctx := r.Context()
-		user, err := db.UserStore().FindByAPIKey(ctx, apiKey)
-		if err != nil || user == nil {
-			helpers.WriteError(w, http.StatusNotFound, "User not found")
-			return
-		}
 
 		keys, _ := db.ApiKeyStore().FindAllByUser(ctx, user.ID)
 		var scopedKeysExport []map[string]interface{}
@@ -862,12 +868,8 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 
 	// DELETE /auth/account
 	r.With(middleware.AccountManagementRateLimiter.Middleware).Delete("/account", func(w http.ResponseWriter, r *http.Request) {
-		apiKey := r.Header.Get("x-api-key")
-		if apiKey == "" {
-			apiKey = r.Header.Get("X-API-Key")
-		}
-		if apiKey == "" {
-			helpers.WriteError(w, http.StatusUnauthorized, "API key is required")
+		user := lookupUserByAuth(w, r, db)
+		if user == nil {
 			return
 		}
 
@@ -880,11 +882,6 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 		password := bodyStr(body, "password")
 
 		ctx := r.Context()
-		user, err := db.UserStore().FindByAPIKey(ctx, apiKey)
-		if err != nil || user == nil {
-			helpers.WriteError(w, http.StatusNotFound, "User not found")
-			return
-		}
 
 		if confirmEmail == "" || confirmEmail != user.Email {
 			helpers.WriteJSON(w, http.StatusBadRequest, map[string]string{
@@ -975,18 +972,23 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 	// World pair request routes (device-flow pairing)
 	RegisterPairRequestRoutes(r, db, cfg, manager)
 
-	// Scoped API Key CRUD — requires auth middleware
+	// Scoped API Key CRUD — requires dashboard session (not API key)
 	r.Route("/api-keys", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "API key management requires dashboard login.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		// POST /auth/api-keys
 		r.Post("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Scoped keys cannot create other scoped keys. Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1115,11 +1117,6 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 		// GET /auth/api-keys
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key to manage scoped keys.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1166,11 +1163,6 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 		// PATCH /auth/api-keys/{id}
 		r.Patch("/{id}", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key to manage scoped keys.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1308,11 +1300,6 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 		// DELETE /auth/api-keys/{id}
 		r.Delete("/{id}", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key to manage scoped keys.")
-				return
-			}
-
 			keyID, err := strconv.ParseInt(chi.URLParam(r, "id"), 10, 64)
 			if err != nil {
 				helpers.WriteError(w, http.StatusBadRequest, "Invalid key ID")
@@ -1343,11 +1330,6 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 		// POST /auth/api-keys/{id}/regenerate
 		r.Post("/{id}/regenerate", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key to manage scoped keys.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")

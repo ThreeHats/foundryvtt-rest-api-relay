@@ -86,19 +86,18 @@ func InvalidateCachedAuthForUser(userID int64) {
 	authCacheMu.Unlock()
 }
 
-// AuthMiddleware validates API keys (master + scoped) and sets request context.
+// AuthMiddleware validates API keys (scoped) and session tokens and sets request context.
 //
-// Security note: Master API keys are stored as SHA-256 hashes in Users.apiKeyHash
-// (UserStore.FindByAPIKey hashes the input before lookup). Connection tokens are
-// stored as SHA-256 hashes in ConnectionTokens.tokenHash. Scoped API keys are
-// stored as SHA-256 hashes in ApiKeys.keyHash (ApiKeyStore.FindByKey hashes the
-// input). The plaintext key is never stored at rest after the initial create/return.
+// Security note: Connection tokens are stored as SHA-256 hashes in
+// ConnectionTokens.tokenHash. Scoped API keys are stored as SHA-256 hashes in
+// ApiKeys.keyHash (ApiKeyStore.FindByKey hashes the input). The plaintext key
+// is never stored at rest after the initial create/return.
 func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Try session-token auth first (Authorization: Bearer <token>).
-			// Dashboard requests use this path; programmatic API users use
-			// x-api-key.
+			// Dashboard and management routes use this path; API calls use
+			// x-api-key with a scoped key.
 			if user, ok := tryBearerAuth(r, db); ok {
 				backfillAccessLog(r, user.ID, "")
 				if user.Disabled {
@@ -110,13 +109,14 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 					return
 				}
 				if user.APIKeyRotationRequired {
-					helpers.WriteError(w, http.StatusForbidden, "Your API key must be rotated for security. Please log in to the dashboard and regenerate your master API key.")
+					helpers.WriteError(w, http.StatusForbidden, "Your relay key must be rotated for security. Please log in to the dashboard and regenerate your relay key.")
 					return
 				}
 				reqCtx := &helpers.RequestContext{
 					User:               user,
 					MasterAPIKey:       user.APIKeyHash.String,
 					SubscriptionStatus: user.GetSubscriptionStatus(),
+					IsSessionAuth:      true,
 				}
 				rCtx := context.WithValue(r.Context(), helpers.RequestContextKey, reqCtx)
 				next.ServeHTTP(w, r.WithContext(rCtx))
@@ -171,20 +171,11 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 				}
 
 				if cached.user != nil && cached.user.APIKeyRotationRequired {
-					helpers.WriteError(w, http.StatusForbidden, "Your API key must be rotated for security. Please log in to the dashboard and regenerate your master API key.")
+					helpers.WriteError(w, http.StatusForbidden, "Your relay key must be rotated for security. Please log in to the dashboard and regenerate your relay key.")
 					return
 				}
 
-				if cached.user != nil && cached.scopedKey == nil {
-					reqCtx := &helpers.RequestContext{
-						User: cached.user, MasterAPIKey: matchKey,
-						SubscriptionStatus: cached.user.GetSubscriptionStatus(),
-					}
-					backfillAccessLog(r, cached.user.ID, keyPrefix(apiKey))
-					rCtx := context.WithValue(r.Context(), helpers.RequestContextKey, reqCtx)
-					next.ServeHTTP(w, r.WithContext(rCtx))
-					return
-				} else if cached.scopedKey != nil && cached.user != nil {
+				if cached.scopedKey != nil && cached.user != nil {
 					kp := keyPrefix(cached.scopedKey.Key)
 					reqCtx := &helpers.RequestContext{
 						User: cached.user, MasterAPIKey: matchKey,
@@ -209,60 +200,7 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 				}
 			}
 
-			// 1. Try master key lookup
-			user, err := db.UserStore().FindByAPIKey(ctx, apiKey)
-			if err != nil {
-				log.Error().Err(err).Str("method", r.Method).Str("path", r.URL.Path).Msg("Auth error during user lookup")
-				helpers.WriteError(w, http.StatusInternalServerError, "Authentication error")
-				return
-			}
-
-			if user != nil {
-				// Check email verification
-				if !user.EmailVerified {
-					helpers.WriteError(w, http.StatusForbidden, "Please verify your email address before using the API.")
-					return
-				}
-
-				if user.Disabled {
-					helpers.WriteError(w, http.StatusForbidden, "Account disabled")
-					return
-				}
-
-				if user.APIKeyRotationRequired {
-					helpers.WriteError(w, http.StatusForbidden, "Your API key must be rotated for security. Please log in to the dashboard and regenerate your master API key.")
-					return
-				}
-
-				// Master key auth — clients are registered in ClientManager
-				// under the user's apiKeyHash (the per-account identifier).
-				masterIdentifier := user.APIKeyHash.String
-				clientID := r.URL.Query().Get("clientId")
-				if clientID != "" {
-					client := manager.GetClient(clientID)
-					if client == nil {
-						helpers.WriteError(w, http.StatusNotFound, "Invalid client ID")
-						return
-					}
-					if client.APIKey() != masterIdentifier {
-						helpers.WriteError(w, http.StatusUnauthorized, "Invalid API key for this client ID")
-						return
-					}
-				}
-
-				setCachedAuth(apiKey, user, nil) // Cache master key lookup
-				reqCtx := &helpers.RequestContext{
-					User:               user,
-					MasterAPIKey:       masterIdentifier,
-					SubscriptionStatus: user.GetSubscriptionStatus(),
-				}
-				backfillAccessLog(r, user.ID, keyPrefix(apiKey))
-				rCtx := context.WithValue(r.Context(), helpers.RequestContextKey, reqCtx)
-				next.ServeHTTP(w, r.WithContext(rCtx))
-				return
-			}
-
-			// 2. Try scoped API key lookup
+			// 1. Try scoped API key lookup
 			scopedKey, err := db.ApiKeyStore().FindByKey(ctx, apiKey)
 			if err != nil {
 				log.Error().Err(err).Str("method", r.Method).Str("path", r.URL.Path).Msg("Auth error during scoped key lookup")
@@ -310,7 +248,7 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 			}
 
 			if parentUser.APIKeyRotationRequired {
-				helpers.WriteError(w, http.StatusForbidden, "Account requires master API key rotation. Please log in to the dashboard and regenerate the master API key.")
+				helpers.WriteError(w, http.StatusForbidden, "Account requires relay key rotation. Please log in to the dashboard and regenerate your relay key.")
 				return
 			}
 

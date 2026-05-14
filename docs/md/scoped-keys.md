@@ -6,9 +6,9 @@ sidebar_position: 6
 
 # Scoped API Keys
 
-Scoped API keys let you create restricted sub-keys under your master API key. Each scoped key can be locked to a specific Foundry client, user, daily request limit, and a set of action scopes.
+Scoped API keys are the credential you use for every HTTP integration with the relay. Each scoped key can be locked to a specific Foundry client, user, monthly request limit, and a set of action scopes.
 
-**Use scoped keys for any HTTP integration with the relay.** They're the right credential for Discord bots, custom apps, scripts, Obsidian plugins - anything that calls the relay's REST API. The master API key should never be used for routine HTTP calls; reach for it only for emergency programmatic root access.
+**Use scoped keys for any HTTP integration with the relay.** They're the right credential for Discord bots, custom apps, scripts, Obsidian plugins — anything that calls the relay's REST API.
 
 ## When to use scoped keys
 
@@ -21,7 +21,7 @@ Scoped API keys let you create restricted sub-keys under your master API key. Ea
 
 - **Don't put a scoped key inside a Foundry module.** That's not what scoped keys are for. Foundry modules use connection tokens (WS-only, per-browser) - see [Building Cross-World Foundry Modules](./cross-world-modules) for the cross-world tunnel pattern.
 - **Don't reuse the same scoped key across multiple integrations.** Each integration should have its own key. When you decommission one, revoke that key without affecting the others.
-- **Don't store a scoped key in a public repo or pass it around in chat.** They're secrets, just lower-blast-radius secrets than the master key.
+- **Don't store a scoped key in a public repo or pass it around in chat.** They're secrets — treat them like a password.
 
 ## Creating a Scoped Key
 
@@ -39,23 +39,6 @@ See [Authentication & Security Model - Requesting a key from your integration](.
 4. Fill in the form (only Name is required)
 5. Copy the full key when it's displayed - it won't be shown again
 
-### Via API (master key)
-
-```bash
-curl -X POST https://your-relay.com/auth/api-keys \
-  -H "x-api-key: YOUR_MASTER_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Discord Bot",
-    "scopedClientId": "foundry-abc123",
-    "scopedUserId": "PlayerOne",
-    "monthlyLimit": 500,
-    "expiresAt": "2026-12-31T00:00:00Z"
-  }'
-```
-
-The response includes the full `key` value - save it immediately.
-
 ## Scope Enforcement
 
 Scoped keys enforce restrictions server-side. The caller **cannot override** scoped values.
@@ -72,7 +55,7 @@ Scoped keys enforce restrictions server-side. The caller **cannot override** sco
 When `clientId` is omitted from a request:
 
 1. If the key has a `scopedClientId`, that value is used automatically
-2. Otherwise, the API checks how many Foundry clients are connected under the master key
+2. Otherwise, the API checks how many Foundry clients are connected for the account
 3. If exactly one client is connected, it's used automatically
 4. If zero clients → 404 error
 5. If multiple clients → 400 error listing available clients
@@ -81,21 +64,7 @@ This means most scoped keys don't need to specify `clientId` at all.
 
 ## Stored Credentials
 
-Scoped keys can store encrypted Foundry login credentials for headless sessions:
-
-```bash
-curl -X POST https://your-relay.com/auth/api-keys \
-  -H "x-api-key: YOUR_MASTER_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Auto-Session Key",
-    "foundryUrl": "https://my-foundry.com",
-    "foundryUsername": "Gamemaster",
-    "foundryPassword": "secret123"
-  }'
-```
-
-Passwords are encrypted with AES-256-GCM at rest. The server must have `CREDENTIALS_ENCRYPTION_KEY` configured.
+Scoped keys can store encrypted Foundry login credentials for headless sessions. Set `foundryUrl`, `foundryUsername`, and `foundryPassword` when creating or editing a key in the dashboard. Passwords are encrypted with AES-256-GCM at rest — the server must have `CREDENTIALS_ENCRYPTION_KEY` configured.
 
 With stored credentials, starting a headless session requires only:
 
@@ -110,29 +79,20 @@ No handshake or encrypted password needed.
 
 Scoped keys have two layers of rate limiting:
 
-1. **User-level limits** - all requests (master + scoped keys) count against the parent user's daily and monthly quotas
+1. **User-level limits** - all requests count against the parent user's daily and monthly quotas
 2. **Per-key limits** - if `dailyLimit` is set, the key has its own daily counter that resets at midnight UTC
 
 Both limits must pass for a request to succeed.
 
 ## Managing Scoped Keys
 
-The **API Keys** page in the dashboard is the intended place to manage scoped keys. From there you can see all keys, their usage counters, enabled/disabled state, expiry, and scopes — and rename, toggle, or delete any of them with a click.
-
-If you need to automate key management (CI pipelines, provisioning scripts), the same operations are available via the API using your master key:
-
-| Operation | Endpoint |
-|-----------|----------|
-| List keys | `GET /auth/api-keys` |
-| Update a key | `PATCH /auth/api-keys/:id` |
-| Enable / disable | `PATCH /auth/api-keys/:id` with `{ "enabled": false }` |
-| Delete a key | `DELETE /auth/api-keys/:id` |
+The **API Keys** page in the dashboard is where you manage scoped keys. From there you can see all keys, their usage counters, enabled/disabled state, expiry, and scopes — and rename, toggle, or delete any of them with a click.
 
 ## Cascade Behaviors
 
-- **Master key regeneration** (`POST /auth/regenerate-key`): deletes all scoped keys, deletes all connection tokens (Foundry modules need to re-pair), invalidates all dashboard sessions across every device, and force-disconnects every active WebSocket. Rotation is a panic button - be sure before you trigger it.
-- **Account deletion** (`DELETE /auth/account`): deletes all scoped keys, all connection tokens, all credentials, all known clients, all logs.
-- **Data export** (`GET /auth/export-data`): includes scoped key metadata (not key values, credentials, or session tokens).
+- **Full credential reset** (**Reset Credentials** button at the bottom of the dashboard): deletes all scoped keys, all connection tokens, and invalidates all dashboard sessions across every device. Every Foundry browser will need to re-pair. This is a panic button — use it only if you suspect a breach.
+- **Account deletion**: deletes all scoped keys, all connection tokens, all credentials, all known clients, all logs.
+- **Data export**: includes scoped key metadata (not key values, credentials, or session tokens).
 
 ## WebSocket connections
 

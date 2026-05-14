@@ -5,7 +5,7 @@
  *   DELETE /auth/api-keys/:id
  */
 
-import { describe, test, expect, afterAll } from '@jest/globals';
+import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { ApiRequestConfig, makeRequest } from '../../helpers/apiRequest';
 import { testVariables, setVariable } from '../../helpers/testVariables';
 import { captureExample, appendExamples } from '../../helpers/captureExample';
@@ -20,13 +20,41 @@ let scopedKeyId = '';
 let scopedKeyToken = '';
 let routingKeyId = '';
 let routingKeyToken = '';
+let sessionToken = '';
 
 // Safety-net: track all created key IDs so we can delete any that the test flow missed
 const createdKeyIds: string[] = [];
 
-const masterApiKey = testVariables.apiKey;
-
 describe('Scoped API Keys', () => {
+  beforeAll(async () => {
+    // Get a session token for key management operations.
+    // In ephemeral mode testVariables.sessionToken is set from registration.
+    // In pre-provisioned mode we login with TEST_USER_EMAIL/PASSWORD.
+    if (testVariables.sessionToken) {
+      sessionToken = testVariables.sessionToken;
+      return;
+    }
+
+    const loginResponse = await makeRequest({
+      url: {
+        raw: `${testVariables.baseUrl}/auth/login`,
+        host: [testVariables.baseUrl],
+        path: ['auth', 'login'],
+      },
+      method: 'POST',
+      header: [],
+      body: {
+        mode: 'raw',
+        raw: JSON.stringify({ email: testVariables.userEmail, password: testVariables.userPassword }),
+      },
+    });
+
+    if (loginResponse.status !== 200) {
+      throw new Error(`Failed to get session token for key management tests: ${loginResponse.status}`);
+    }
+    sessionToken = loginResponse.data.sessionToken as string;
+  });
+
   afterAll(async () => {
     const outputPath = path.join(__dirname, '../../../docs/examples/auth-examples.json');
     appendExamples(capturedExamples, outputPath);
@@ -34,11 +62,11 @@ describe('Scoped API Keys', () => {
 
     // Best-effort cleanup: delete any keys not already removed by the test flow
     for (const id of createdKeyIds) {
-      if (id) {
+      if (id && sessionToken) {
         await makeRequest({
           url: { raw: `${testVariables.baseUrl}/auth/api-keys/${id}`, host: [testVariables.baseUrl], path: ['auth', 'api-keys', id] },
           method: 'DELETE',
-          header: [{ key: 'x-api-key', value: masterApiKey }],
+          header: [{ key: 'Authorization', value: `Bearer ${sessionToken}` }],
         }).catch(() => {});
       }
     }
@@ -56,7 +84,7 @@ describe('Scoped API Keys', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${sessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -91,7 +119,7 @@ describe('Scoped API Keys', () => {
         },
         method: 'POST',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${sessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -113,7 +141,7 @@ describe('Scoped API Keys', () => {
         },
         method: 'GET',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${sessionToken}` }
         ]
       };
 
@@ -143,7 +171,7 @@ describe('Scoped API Keys', () => {
         },
         method: 'PATCH',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${sessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -170,7 +198,7 @@ describe('Scoped API Keys', () => {
         },
         method: 'PATCH',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${sessionToken}` }
         ],
         body: {
           mode: 'raw',
@@ -182,7 +210,7 @@ describe('Scoped API Keys', () => {
       expect(captured.response.status).toBe(404);
     });
 
-    test('POST /auth/api-keys - scoped key cannot create other keys', async () => {
+    test('POST /auth/api-keys - scoped key cannot manage keys', async () => {
       expect(scopedKeyToken).toBeTruthy();
 
       const requestConfig: ApiRequestConfig = {
@@ -201,8 +229,8 @@ describe('Scoped API Keys', () => {
         }
       };
 
-      const captured = await captureExample(requestConfig, {}, '/auth/api-keys (scoped key forbidden)');
-      expect(captured.response.status).toBe(403);
+      const captured = await captureExample(requestConfig, {}, '/auth/api-keys (non-session forbidden)');
+      expect(captured.response.status).toBe(401);
       expect(captured.response.data).toHaveProperty('error');
     });
 
@@ -221,8 +249,8 @@ describe('Scoped API Keys', () => {
         ]
       };
 
-      const captured = await captureExample(requestConfig, {}, '/auth/api-keys (scoped key forbidden)');
-      expect(captured.response.status).toBe(403);
+      const captured = await captureExample(requestConfig, {}, '/auth/api-keys (non-session forbidden)');
+      expect(captured.response.status).toBe(401);
     });
 
     test('DELETE /auth/api-keys/:id - delete scoped key', async () => {
@@ -236,7 +264,7 @@ describe('Scoped API Keys', () => {
         },
         method: 'DELETE',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${sessionToken}` }
         ]
       };
 
@@ -256,7 +284,7 @@ describe('Scoped API Keys', () => {
         },
         method: 'DELETE',
         header: [
-          { key: 'x-api-key', value: masterApiKey }
+          { key: 'Authorization', value: `Bearer ${sessionToken}` }
         ]
       };
 
@@ -282,7 +310,7 @@ describe('Scoped API Keys', () => {
             },
             method: 'POST',
             header: [
-              { key: 'x-api-key', value: masterApiKey }
+              { key: 'Authorization', value: `Bearer ${sessionToken}` }
             ],
             body: {
               mode: 'raw',
@@ -340,7 +368,7 @@ describe('Scoped API Keys', () => {
             },
             method: 'DELETE',
             header: [
-              { key: 'x-api-key', value: masterApiKey }
+              { key: 'Authorization', value: `Bearer ${sessionToken}` }
             ]
           };
 

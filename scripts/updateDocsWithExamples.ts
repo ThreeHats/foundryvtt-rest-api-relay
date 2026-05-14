@@ -259,6 +259,11 @@ async function main() {
 
   console.log(`Found ${exampleFiles.length} example files`);
 
+  // Map example file base names to doc file names when they differ
+  const docFileOverrides: Record<string, string> = {
+    'key-request': 'auth',
+  };
+
   for (const file of exampleFiles) {
     const examplesPath = path.join(examplesDir, file);
     const examples: CapturedExample[] = JSON.parse(fs.readFileSync(examplesPath, 'utf8'));
@@ -267,12 +272,13 @@ async function main() {
     // e.g., roll-endpoints-examples.json -> roll.md
     // e.g., roll-examples.json -> roll.md
     const baseName = file.replace('-endpoints-examples.json', '').replace('-examples.json', '');
-    const mdPath = path.join(docsDir, `${baseName}.md`);
+    const docName = docFileOverrides[baseName] ?? baseName;
+    const mdPath = path.join(docsDir, `${docName}.md`);
 
-    console.log(`Processing ${file} (${examples.length} examples) -> ${baseName}.md`);
-    
+    console.log(`Processing ${file} (${examples.length} examples) -> ${docName}.md`);
+
     if (!fs.existsSync(mdPath)) {
-      console.warn(`  Warning: ${baseName}.md not found, skipping`);
+      console.warn(`  Warning: ${docName}.md not found, skipping`);
       continue;
     }
     

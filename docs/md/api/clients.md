@@ -15,6 +15,8 @@ Get all connected clients for the authenticated API key
 
 Returns a list of all currently connected Foundry VTT clients associated with the provided API key, including their connection details and world information.
 
+**Required scope:** `clients:read`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -147,53 +149,22 @@ import axios from 'axios';
 {
   "clients": [
     {
-      "clientId": "fvtt_71dbc81bd608978a",
-      "instanceId": "local",
-      "lastSeen": 1777996561009,
-      "connectedSince": 1777996561007,
-      "worldId": "rest-api",
-      "worldTitle": "rest-api",
-      "foundryVersion": "12.331",
-      "systemId": "dnd5e",
-      "systemTitle": "Dungeons & Dragons Fifth Edition",
-      "systemVersion": "4.3.8",
-      "customName": "my-cool-server",
-      "ipAddress": "[::1]:32850",
-      "tokenName": "headless session 2026-05-05 15:55",
-      "isOnline": true
-    },
-    {
       "clientId": "fvtt_099ad17ea199e7e3",
       "instanceId": "local",
-      "lastSeen": 1777996566542,
-      "connectedSince": 1777996565043,
+      "lastSeen": 1778789856924,
+      "connectedSince": 1778789856923,
       "worldId": "testing",
       "worldTitle": "testing",
       "foundryVersion": "13.348",
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
       "systemVersion": "5.0.4",
-      "ipAddress": "[::1]:32858",
-      "tokenName": "headless session 2026-05-05 15:56",
-      "isOnline": true
-    },
-    {
-      "clientId": "fvtt_20b2e79d7d679516",
-      "instanceId": "local",
-      "lastSeen": 1777996568785,
-      "connectedSince": 1777996568785,
-      "worldId": "5e",
-      "worldTitle": "5e",
-      "foundryVersion": "14.360",
-      "systemId": "dnd5e",
-      "systemTitle": "Dungeons & Dragons Fifth Edition",
-      "systemVersion": "5.3.1",
-      "ipAddress": "[::1]:37180",
-      "tokenName": "headless session 2026-05-05 15:56",
+      "ipAddress": "[::1]:56872",
+      "tokenName": "headless session 2026-05-14 15:17",
       "isOnline": true
     }
   ],
-  "total": 3
+  "total": 1
 }
 ```
 

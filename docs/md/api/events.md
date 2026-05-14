@@ -15,6 +15,8 @@ Subscribe to real-time events via Server-Sent Events (SSE)
 
 Opens a persistent SSE connection for the specified event type. Supported event types: hooks (all Foundry hooks), combat, actor, scene.
 
+**Required scope:** `events:subscribe`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -43,6 +45,8 @@ Opens a persistent SSE connection for the specified event type. Supported event 
 Subscribe to real-time events via Server-Sent Events (SSE)
 
 Opens a persistent SSE connection for the specified event type. Supported event types: hooks (all Foundry hooks), combat, actor, scene.
+
+**Required scope:** `events:subscribe`
 
 ### Parameters
 
@@ -73,6 +77,8 @@ Subscribe to real-time events via Server-Sent Events (SSE)
 
 Opens a persistent SSE connection for the specified event type. Supported event types: hooks (all Foundry hooks), combat, actor, scene.
 
+**Required scope:** `events:subscribe`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -101,6 +107,8 @@ Opens a persistent SSE connection for the specified event type. Supported event 
 Subscribe to real-time events via Server-Sent Events (SSE)
 
 Opens a persistent SSE connection for the specified event type. Supported event types: hooks (all Foundry hooks), combat, actor, scene.
+
+**Required scope:** `events:subscribe`
 
 ### Parameters
 

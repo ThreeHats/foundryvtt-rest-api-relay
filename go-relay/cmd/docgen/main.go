@@ -31,23 +31,36 @@ const apiVersion = "3.1.5"
 type paramDef struct {
 	Name        string
 	Type        string   // "string", "number", "boolean", "array", "object"
+	ItemType    string   // element type when Type == "array", e.g. "string"
 	From        []string // "query", "body", "params"
 	Required    bool
 	Description string
 }
 
+func buildProp(p paramDef) map[string]interface{} {
+	prop := map[string]interface{}{"type": openAPIType(p.Type)}
+	if p.Type == "array" && p.ItemType != "" {
+		prop["items"] = map[string]interface{}{"type": p.ItemType}
+	}
+	if p.Description != "" {
+		prop["description"] = p.Description
+	}
+	return prop
+}
+
 type routeInfo struct {
-	Method      string
-	Path        string
-	Summary     string // first line of doc comment
-	Description string // subsequent lines of doc comment
-	Tag         string
-	Returns     string
-	MsgType     string // WebSocket message type (from APIRouteConfig.Type)
-	Required    []paramDef
-	Optional    []paramDef
-	IsSSE       bool
-	IsManual    bool // not built with CreateAPIRoute/h()
+	Method        string
+	Path          string
+	Summary       string // first line of doc comment
+	Description   string // subsequent lines of doc comment
+	Tag           string
+	Returns       string
+	MsgType       string // WebSocket message type (from APIRouteConfig.Type)
+	Required      []paramDef
+	Optional      []paramDef
+	IsSSE         bool
+	IsManual      bool   // not built with CreateAPIRoute/h()
+	RequiredScope string // scope constant value, e.g. "entity:read"
 }
 
 // ---------------------------------------------------------------------------
@@ -74,6 +87,11 @@ func main() {
 	playlistSrc := mustRead(filepath.Join(handlerDir, "playlist.go"))
 	sceneImageSrc := mustRead(filepath.Join(handlerDir, "scene_image.go"))
 	userSrc := mustRead(filepath.Join(handlerDir, "user.go"))
+	scopesSrc := mustRead(filepath.Join(baseDir, "internal", "model", "scopes.go"))
+
+	// Build handler func name -> required scope map from routes.go scope groups
+	scopeConstMap := parseScopeConstants(scopesSrc)
+	handlerScope := parseHandlerScopes(routesSrc, scopeConstMap)
 
 	// Build function-name -> parsed config map from entity.go + playlist.go + user.go
 	// entity.go defines shared helper param functions (clientIDParam, userIDParam, etc.)
@@ -128,33 +146,39 @@ func main() {
 		if rt.handlerFunc == "contentsDeprecated" {
 			// Include the deprecated route with a deprecation notice
 			allRoutes = append(allRoutes, routeInfo{
-				Method:      rt.method,
-				Path:        rt.path,
-				Summary:     "This route is deprecated",
-				Description: "Use /structure with the path query parameter instead.",
-				Tag:         "Structure",
-				Returns:     "Error message directing to use /structure endpoint",
-				IsManual:    true,
+				Method:        rt.method,
+				Path:          rt.path,
+				Summary:       "This route is deprecated",
+				Description:   "Use /structure with the path query parameter instead.",
+				Tag:           "Structure",
+				Returns:       "Error message directing to use /structure endpoint",
+				IsManual:      true,
+				RequiredScope: handlerScope["contentsDeprecated"],
 			})
 			continue
 		}
 		if cfg, ok := configFuncs[rt.handlerFunc]; ok {
 			ri := routeInfo{
-				Method:      rt.method,
-				Path:        rt.path,
-				Summary:     cfg.summary,
-				Description: cfg.description,
-				Tag:         cfg.tag,
-				Returns:     cfg.returns,
-				MsgType:     cfg.msgType,
-				Required:    cfg.required,
-				Optional:    cfg.optional,
+				Method:        rt.method,
+				Path:          rt.path,
+				Summary:       cfg.summary,
+				Description:   cfg.description,
+				Tag:           cfg.tag,
+				Returns:       cfg.returns,
+				MsgType:       cfg.msgType,
+				Required:      cfg.required,
+				Optional:      cfg.optional,
+				RequiredScope: handlerScope[rt.handlerFunc],
 			}
 			allRoutes = append(allRoutes, ri)
 		} else if manual, ok := manualMap[rt.handlerFunc]; ok {
 			manual.Method = rt.method
 			manual.Path = rt.path
 			manual.IsManual = true
+			// Prefer scope from routes.go group middleware; fall back to @scope annotation
+			if s := handlerScope[rt.handlerFunc]; s != "" {
+				manual.RequiredScope = s
+			}
 			allRoutes = append(allRoutes, *manual)
 		}
 	}
@@ -162,6 +186,9 @@ func main() {
 	// Add dnd5e routes with /dnd5e prefix
 	for _, ri := range dnd5eRoutes {
 		ri.Path = "/dnd5e" + ri.Path
+		if ri.RequiredScope == "" {
+			ri.RequiredScope = "dnd5e"
+		}
 		allRoutes = append(allRoutes, ri)
 	}
 
@@ -249,6 +276,88 @@ func parseRoutes(src string) []rawRoute {
 	return routes
 }
 
+// parseScopeConstants extracts scope constant names and values from scopes.go source.
+// Returns a map of const identifier name (e.g. "ScopeEntityRead") to scope value (e.g. "entity:read").
+func parseScopeConstants(src string) map[string]string {
+	result := make(map[string]string)
+	re := regexp.MustCompile(`(\w+)\s*=\s*"([^"]+)"`)
+	for _, m := range re.FindAllStringSubmatch(src, -1) {
+		result[m[1]] = m[2]
+	}
+	return result
+}
+
+// parseHandlerScopes reads routes.go source and returns a map from handler function name
+// to its required scope string, inferred from r.Use(scope(model.ScopeXxx)) group middleware.
+func parseHandlerScopes(routesSrc string, scopeConstMap map[string]string) map[string]string {
+	result := make(map[string]string)
+
+	reScope := regexp.MustCompile(`r\.Use\(scope\(model\.(\w+)\)\)`)
+	reHFunc := regexp.MustCompile(`\bh\(mgr,\s*pending,\s*(\w+)\)`)
+	reCreateAPI := regexp.MustCompile(`helpers\.CreateAPIRoute\(mgr,\s*pending,\s*(\w+)\(`)
+	reManualFunc := regexp.MustCompile(`r\.(Get|Post|Put|Delete)\("[^"]+",\s*(\w+)\(`)
+	reDirect := regexp.MustCompile(`r\.(Get|Post|Put|Delete)\("[^"]+",\s*(\w+)\)`)
+
+	lines := strings.Split(routesSrc, "\n")
+	currentScope := ""
+	depth := 0
+	scopeDepth := -1
+
+	for _, line := range lines {
+		// Update brace depth first; clear scope when we exit the group it was set in.
+		for _, ch := range line {
+			if ch == '{' {
+				depth++
+			} else if ch == '}' {
+				depth--
+				if scopeDepth >= 0 && depth < scopeDepth {
+					currentScope = ""
+					scopeDepth = -1
+				}
+			}
+		}
+
+		// Detect scope middleware
+		if m := reScope.FindStringSubmatch(line); m != nil {
+			if val, ok := scopeConstMap[m[1]]; ok {
+				currentScope = val
+				scopeDepth = depth
+			}
+		}
+
+		if currentScope == "" {
+			continue
+		}
+
+		// h(mgr, pending, funcName)
+		if m := reHFunc.FindStringSubmatch(line); m != nil {
+			result[m[1]] = currentScope
+		}
+		// helpers.CreateAPIRoute(mgr, pending, funcName(
+		if m := reCreateAPI.FindStringSubmatch(line); m != nil {
+			result[m[1]] = currentScope
+		}
+		// r.Method("/path", manualFunc(
+		if m := reManualFunc.FindStringSubmatch(line); m != nil {
+			fn := m[2]
+			if fn != "h" && fn != "helpers" {
+				result[fn] = currentScope
+			}
+		}
+		// r.Method("/path", directRef)
+		if m := reDirect.FindStringSubmatch(line); m != nil {
+			fn := m[2]
+			if fn != "h" && fn != "helpers" {
+				if _, exists := result[fn]; !exists {
+					result[fn] = currentScope
+				}
+			}
+		}
+	}
+
+	return result
+}
+
 // ---------------------------------------------------------------------------
 // Config function parser (entity.go) — funcs that return helpers.APIRouteConfig
 // ---------------------------------------------------------------------------
@@ -300,7 +409,7 @@ func parseConfigFunctions(src string, extraHelpers ...map[string]paramDef) map[s
 		funcName := m[1]
 
 		// Look backwards for doc comment
-		summary, desc, tag, returns := extractDocComment(lines, i)
+		summary, desc, tag, returns, _ := extractDocComment(lines, i)
 
 		// Extract the function body
 		bodyStart := i
@@ -321,7 +430,7 @@ func parseConfigFunctions(src string, extraHelpers ...map[string]paramDef) map[s
 
 // extractDocComment reads the comment block above line index i.
 // Go doc comments must be contiguous with the declaration (no blank lines).
-func extractDocComment(lines []string, i int) (summary, desc, tag, returns string) {
+func extractDocComment(lines []string, i int) (summary, desc, tag, returns, scope string) {
 	var commentLines []string
 	for j := i - 1; j >= 0; j-- {
 		trimmed := strings.TrimSpace(lines[j])
@@ -343,6 +452,10 @@ func extractDocComment(lines []string, i int) (summary, desc, tag, returns strin
 		}
 		if strings.HasPrefix(text, "@returns ") {
 			returns = strings.TrimPrefix(text, "@returns ")
+			continue
+		}
+		if strings.HasPrefix(text, "@scope ") {
+			scope = strings.TrimPrefix(text, "@scope ")
 			continue
 		}
 		if strings.HasPrefix(text, "@param ") {
@@ -796,7 +909,7 @@ func parseDnd5eRoutes(src string) []routeInfo {
 		path := m[2]
 
 		// Extract doc comment above this line
-		summary, desc, tag, returns := extractDocComment(lines, i)
+		summary, desc, tag, returns, _ := extractDocComment(lines, i)
 
 		// Extract the config body
 		bodyStart := i
@@ -921,7 +1034,7 @@ func parseManualHandlers(src string) []manualHandler {
 		funcName := m[1]
 
 		// Extract doc comment
-		summary, desc, tag, returns := extractDocComment(lines, i)
+		summary, desc, tag, returns, scope := extractDocComment(lines, i)
 		if tag == "" {
 			continue // no doc comment, skip
 		}
@@ -934,14 +1047,15 @@ func parseManualHandlers(src string) []manualHandler {
 		handlers = append(handlers, manualHandler{
 			funcName: funcName,
 			info: routeInfo{
-				Summary:     summary,
-				Description: desc,
-				Tag:         tag,
-				Returns:     returns,
-				Required:    required,
-				Optional:    optional,
-				IsSSE:       isSSE,
-				IsManual:    true,
+				Summary:       summary,
+				Description:   desc,
+				Tag:           tag,
+				Returns:       returns,
+				Required:      required,
+				Optional:      optional,
+				IsSSE:         isSSE,
+				IsManual:      true,
+				RequiredScope: scope,
 			},
 		})
 	}
@@ -1253,11 +1367,7 @@ func buildOpenAPIPaths(routes []routeInfo) map[string]interface{} {
 				if !hasBody {
 					continue
 				}
-				prop := map[string]interface{}{"type": openAPIType(p.Type)}
-				if p.Description != "" {
-					prop["description"] = p.Description
-				}
-				bodyProps[p.Name] = prop
+				bodyProps[p.Name] = buildProp(p)
 				if p.Required {
 					requiredProps = append(requiredProps, p.Name)
 				}
@@ -1611,13 +1721,7 @@ func buildAsyncAPI(routes []routeInfo, wsOnly []wsChannelDef) map[string]interfa
 			if p.Name == "clientId" {
 				continue // clientId is part of the WS connection, not the message
 			}
-			prop := map[string]interface{}{
-				"type": openAPIType(p.Type),
-			}
-			if p.Description != "" {
-				prop["description"] = p.Description
-			}
-			props[p.Name] = prop
+			props[p.Name] = buildProp(p)
 			if p.Required {
 				requiredFields = append(requiredFields, p.Name)
 			}
@@ -2088,164 +2192,35 @@ func buildAuthRoutes() []routeInfo {
 	return []routeInfo{
 		{
 			Method:      "POST",
-			Path:        "/auth/register",
-			Summary:     "Register a new user account",
-			Description: "Creates a new user with the provided email and password. Returns the new user's API key.",
+			Path:        "/auth/key-request",
+			Summary:     "Request a scoped API key",
+			Description: "Initiates the device-flow key request. The response contains an `approvalUrl` the user must visit to review and approve the requested scopes. Poll `GET /auth/key-request/{code}/status` until `status` is `approved` or `denied`.",
 			Tag:         "Auth",
-			Returns:     "User object with API key",
+			Returns:     "`code`, `approvalUrl`, `expiresIn`, `expiresAt`",
 			IsManual:    true,
 			Required: []paramDef{
-				{Name: "email", Type: "string", From: []string{"body"}, Required: true, Description: "The user's email address"},
-				{Name: "password", Type: "string", From: []string{"body"}, Required: true, Description: "The user's password (min 8 chars, must include uppercase, lowercase, and number)"},
-			},
-		},
-		{
-			Method:      "POST",
-			Path:        "/auth/login",
-			Summary:     "Log in with email and password",
-			Description: "Authenticates a user and returns their account details including API key.",
-			Tag:         "Auth",
-			Returns:     "User object with API key",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "email", Type: "string", From: []string{"body"}, Required: true, Description: "The user's email address"},
-				{Name: "password", Type: "string", From: []string{"body"}, Required: true, Description: "The user's password"},
-			},
-		},
-		{
-			Method:      "POST",
-			Path:        "/auth/regenerate-key",
-			Summary:     "Regenerate API key",
-			Description: "Generates a new API key for the authenticated user. The old key is invalidated.",
-			Tag:         "Auth",
-			Returns:     "New API key",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "email", Type: "string", From: []string{"body"}, Required: true, Description: "The user's email address"},
-				{Name: "password", Type: "string", From: []string{"body"}, Required: true, Description: "The user's password"},
-			},
-		},
-		{
-			Method:      "GET",
-			Path:        "/auth/user-data",
-			Summary:     "Get user data",
-			Description: "Retrieves the authenticated user's account details including usage statistics and subscription status.",
-			Tag:         "Auth",
-			Returns:     "User data object",
-			IsManual:    true,
-		},
-		{
-			Method:      "GET",
-			Path:        "/auth/export-data",
-			Summary:     "Export user data",
-			Description: "Exports all stored user data for GDPR data portability compliance.",
-			Tag:         "Auth",
-			Returns:     "Complete user data export",
-			IsManual:    true,
-		},
-		{
-			Method:      "DELETE",
-			Path:        "/auth/account",
-			Summary:     "Delete user account",
-			Description: "Permanently deletes the user's account and all associated data.",
-			Tag:         "Auth",
-			Returns:     "Confirmation of deletion",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "confirmEmail", Type: "string", From: []string{"body"}, Required: true, Description: "The user's email address (must match account email)"},
-				{Name: "password", Type: "string", From: []string{"body"}, Required: true, Description: "The user's password for verification"},
-			},
-		},
-		{
-			Method:      "POST",
-			Path:        "/auth/change-password",
-			Summary:     "Change password while logged in",
-			Description: "Allows an authenticated user to change their password.",
-			Tag:         "Auth",
-			Returns:     "Success message",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "currentPassword", Type: "string", From: []string{"body"}, Required: true, Description: "The user's current password"},
-				{Name: "newPassword", Type: "string", From: []string{"body"}, Required: true, Description: "The new password (min 8 chars, must include uppercase, lowercase, and number)"},
-			},
-		},
-		{
-			Method:      "POST",
-			Path:        "/auth/forgot-password",
-			Summary:     "Request a password reset",
-			Description: "Sends a password reset email if the account exists.",
-			Tag:         "Auth",
-			Returns:     "Generic success message",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "email", Type: "string", From: []string{"body"}, Required: true, Description: "The email address associated with the account"},
-			},
-		},
-		{
-			Method:      "POST",
-			Path:        "/auth/reset-password",
-			Summary:     "Reset password with token",
-			Description: "Resets the user's password using a valid reset token.",
-			Tag:         "Auth",
-			Returns:     "Success message",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "token", Type: "string", From: []string{"body"}, Required: true, Description: "The password reset token from the email"},
-				{Name: "password", Type: "string", From: []string{"body"}, Required: true, Description: "The new password (min 8 chars, must include uppercase, lowercase, and number)"},
-			},
-		},
-		{
-			Method:      "GET",
-			Path:        "/auth/validate-reset-token/{token}",
-			Summary:     "Validate a password reset token",
-			Description: "Checks whether a password reset token is still valid before showing the reset form.",
-			Tag:         "Auth",
-			Returns:     "Token validity status",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "token", Type: "string", From: []string{"params"}, Required: true, Description: "The password reset token to validate"},
-			},
-		},
-		{
-			Method:      "POST",
-			Path:        "/auth/api-keys",
-			Summary:     "Create a new scoped API key",
-			Description: "Creates a sub-key under the authenticated user's master key with optional restrictions.",
-			Tag:         "Auth",
-			Returns:     "New scoped API key details",
-			IsManual:    true,
-			Required: []paramDef{
-				{Name: "name", Type: "string", From: []string{"body"}, Required: true, Description: "Friendly name for the key"},
+				{Name: "appName", Type: "string", From: []string{"body"}, Required: true, Description: "Name of the application requesting access"},
+				{Name: "scopes", Type: "array", ItemType: "string", From: []string{"body"}, Required: true, Description: "List of permission scopes the key requires"},
 			},
 			Optional: []paramDef{
-				{Name: "scopedClientId", Type: "string", From: []string{"body"}, Description: "Lock to specific Foundry client ID"},
-				{Name: "scopedUserId", Type: "string", From: []string{"body"}, Description: "Lock to specific Foundry user ID"},
-				{Name: "monthlyLimit", Type: "string", From: []string{"body"}, Description: "Per-key monthly request cap"},
-				{Name: "expiresAt", Type: "string", From: []string{"body"}, Description: "Expiry timestamp (ISO 8601)"},
-				{Name: "foundryUrl", Type: "string", From: []string{"body"}, Description: "Foundry instance URL for headless sessions"},
-				{Name: "foundryUsername", Type: "string", From: []string{"body"}, Description: "Foundry login username"},
-				{Name: "foundryPassword", Type: "string", From: []string{"body"}, Description: "Foundry login password (encrypted at rest)"},
+				{Name: "appDescription", Type: "string", From: []string{"body"}, Description: "Short description of what the application does"},
+				{Name: "appUrl", Type: "string", From: []string{"body"}, Description: "Homepage or docs URL for the application"},
+				{Name: "callbackUrl", Type: "string", From: []string{"body"}, Description: "URL to redirect to after approval (web flow)"},
+				{Name: "clientIds", Type: "array", ItemType: "string", From: []string{"body"}, Description: "Foundry client IDs to restrict the key to"},
+				{Name: "suggestedMonthlyLimit", Type: "number", From: []string{"body"}, Description: "Suggested per-key monthly request cap (user may override)"},
+				{Name: "suggestedExpiry", Type: "string", From: []string{"body"}, Description: "Suggested expiry date ISO 8601 (user may override)"},
 			},
 		},
 		{
 			Method:      "GET",
-			Path:        "/auth/api-keys",
-			Summary:     "List all scoped API keys",
-			Description: "Returns all scoped keys for the authenticated user.",
+			Path:        "/auth/key-request/{code}/status",
+			Summary:     "Poll key request status",
+			Description: "Returns the current status of a pending key request. When `status` is `approved`, the response includes the newly created `key`. Once the key has been retrieved, the code is invalidated.",
 			Tag:         "Auth",
-			Returns:     "Array of scoped API keys",
-			IsManual:    true,
-		},
-		{
-			Method:      "DELETE",
-			Path:        "/auth/api-keys/{id}",
-			Summary:     "Delete a scoped API key",
-			Description: "Permanently deletes a scoped key.",
-			Tag:         "Auth",
-			Returns:     "Success message",
+			Returns:     "`status` (`pending` | `approved` | `denied` | `expired`), `key` (when approved)",
 			IsManual:    true,
 			Required: []paramDef{
-				{Name: "id", Type: "string", From: []string{"params"}, Required: true, Description: "The scoped key ID"},
+				{Name: "code", Type: "string", From: []string{"params"}, Required: true, Description: "The code returned by POST /auth/key-request"},
 			},
 		},
 	}
@@ -2325,6 +2300,11 @@ func generateMarkdown(routes []routeInfo, wsOnly []wsChannelDef, outDir string) 
 			}
 			if r.Description != "" {
 				buf.WriteString("\n" + r.Description + "\n")
+			}
+
+			// Required scope
+			if r.RequiredScope != "" {
+				buf.WriteString(fmt.Sprintf("\n**Required scope:** `%s`\n", r.RequiredScope))
 			}
 
 			// Parameters

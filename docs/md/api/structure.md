@@ -15,6 +15,8 @@ Get the structure of the Foundry world
 
 Retrieves the folder and compendium structure for the specified Foundry world.
 
+**Required scope:** `structure:read`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -48,7 +50,7 @@ Retrieves the folder and compendium structure for the specified Foundry world.
 const baseUrl = 'http://localhost:3010';
 const path = '/structure';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
+  clientId: 'fvtt_099ad17ea199e7e3',
   includeEntityData: 'true',
   recursive: 'true',
   types: 'Scene'
@@ -70,7 +72,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/structure?clientId=fvtt_71dbc81bd608978a&includeEntityData=true&recursive=true&types=Scene' \
+curl -X GET 'http://localhost:3010/structure?clientId=fvtt_099ad17ea199e7e3&includeEntityData=true&recursive=true&types=Scene' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -83,7 +85,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/structure'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'includeEntityData': 'true',
     'recursive': 'true',
     'types': 'Scene'
@@ -111,7 +113,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/structure';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
+    clientId: 'fvtt_099ad17ea199e7e3',
     includeEntityData: 'true',
     recursive: 'true',
     types: 'Scene'
@@ -148,7 +150,7 @@ import axios from 'axios';
   🔤/structure🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤includeEntityData=true🔤 ➡️ includeEntityData
   🔤recursive=true🔤 ➡️ recursive
   🔤types=Scene🔤 ➡️ types
@@ -180,24 +182,23 @@ import axios from 'axios';
 ```json
 {
   "type": "structure-result",
-  "requestId": "structure_1777996592681",
+  "requestId": "structure_1778789869599",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "plIDyBz9tHtxtNMr",
-        "uuid": "Folder.plIDyBz9tHtxtNMr",
+        "id": "4aeUZrNXScJCGtf6",
+        "uuid": "Folder.4aeUZrNXScJCGtf6",
         "type": "Scene"
       }
     },
     "entities": {
       "scenes": [
         {
-          "_id": "VMgXWxqpyTg9YMLM",
+          "_id": "i01IgzYFzGddbTtP",
           "name": "Scene",
           "active": false,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
           "background": {
             "src": null,
             "anchorX": 0,
@@ -220,7 +221,7 @@ import axios from 'axios';
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
           },
           "backgroundColor": "#999999",
           "grid": {
@@ -294,27 +295,27 @@ import axios from 'axios';
           "sort": 0,
           "ownership": {
             "default": 0,
-            "vXdyKYLgpmko3kHx": 3
+            "5ypAoBvOiyjDKiaZ": 3
           },
           "flags": {},
           "_stats": {
-            "coreVersion": "12.331",
+            "coreVersion": "13.348",
             "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1776389540499,
-            "modifiedTime": 1776658014961,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776529787190,
+            "modifiedTime": 1776821577409,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
-            "duplicateSource": null
+            "duplicateSource": null,
+            "exportSource": null
           }
         },
         {
-          "_id": "D7u4piOGW6MssTg2",
-          "name": "test-scene-updated",
+          "_id": "2xFy4d19bDsP08Aw",
+          "name": "test",
           "active": false,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
           "background": {
             "src": null,
             "anchorX": 0,
@@ -331,13 +332,13 @@ import axios from 'axios';
           "foreground": null,
           "foregroundElevation": 20,
           "thumb": null,
-          "width": 1000,
-          "height": 1000,
+          "width": 4000,
+          "height": 3000,
           "padding": 0.25,
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
           },
           "backgroundColor": "#999999",
           "grid": {
@@ -411,27 +412,904 @@ import axios from 'axios';
           "sort": 0,
           "ownership": {
             "default": 0,
-            "fCfNJPT9Atc26yyv": 3
+            "r6bXhB7k9cXa3cif": 3
           },
           "flags": {},
           "_stats": {
-            "coreVersion": "12.331",
+            "coreVersion": "13.348",
             "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1776821582437,
-            "modifiedTime": 1776821582466,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv",
+            "systemVersion": "5.0.4",
+            "createdTime": 1778789514438,
+            "modifiedTime": 1778789514438,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
-            "duplicateSource": null
+            "duplicateSource": null,
+            "exportSource": null
           }
         },
         {
-          "_id": "HaoRAKtpNwkQnXch",
+          "_id": "HJ3cGhzRV8h0KqHp",
+          "name": "test",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 4000,
+          "height": 3000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1778787172506,
+            "modifiedTime": 1778787172506,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "OoTPjYkL2GjuQ2a7",
+          "name": "test",
+          "active": false,
+          "navigation": false,
+          "navOrder": 0,
+          "navName": "",
+          "background": {
+            "src": "flooded-cave-test.webp",
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": "worlds/5e-tables/assets/scenes/OoTPjYkL2GjuQ2a7-thumb.webp",
+          "width": 2221,
+          "height": 2962,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 74,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [
+            {
+              "_id": "7us1TaI1NwwGdqLs",
+              "author": "5ypAoBvOiyjDKiaZ",
+              "shape": {
+                "type": "r",
+                "width": 287,
+                "height": 342,
+                "radius": null,
+                "points": []
+              },
+              "x": 1942.5,
+              "y": 1581.75,
+              "elevation": 0,
+              "sort": 0,
+              "rotation": 0,
+              "bezierFactor": 0.5,
+              "fillType": 0,
+              "fillColor": "#ffffff",
+              "fillAlpha": 0.5,
+              "strokeWidth": 8,
+              "strokeColor": "#ffffff",
+              "strokeAlpha": 1,
+              "texture": null,
+              "fontFamily": "Signika",
+              "fontSize": 48,
+              "textColor": "#ffffff",
+              "textAlpha": 1,
+              "hidden": false,
+              "locked": false,
+              "interface": false,
+              "flags": {}
+            },
+            {
+              "_id": "nrcBVMkwWw8XPcBj",
+              "author": "5ypAoBvOiyjDKiaZ",
+              "shape": {
+                "type": "r",
+                "width": 518,
+                "height": 583,
+                "radius": null,
+                "points": []
+              },
+              "x": 1359.75,
+              "y": 2025.75,
+              "elevation": 0,
+              "sort": 1,
+              "rotation": 0,
+              "bezierFactor": 0.5,
+              "fillType": 0,
+              "fillColor": "#ffffff",
+              "fillAlpha": 0.5,
+              "strokeWidth": 8,
+              "strokeColor": "#ffffff",
+              "strokeAlpha": 1,
+              "texture": null,
+              "fontFamily": "Signika",
+              "fontSize": 48,
+              "textColor": "#ffffff",
+              "textAlpha": 1,
+              "hidden": false,
+              "locked": false,
+              "interface": false,
+              "flags": {}
+            }
+          ],
+          "tokens": [
+            {
+              "_id": "ek1v2zxBxkZEftca",
+              "name": "Perrin",
+              "displayName": 30,
+              "actorId": "xSst5kAigAZw6wDr",
+              "actorLink": true,
+              "delta": null,
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 0.8,
+                "scaleY": 0.8,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 1480,
+              "y": 1554,
+              "elevation": 0,
+              "sort": 0,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": 1,
+              "displayBars": 40,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": "attributes.ac.value"
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 1,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": true,
+                "range": 5,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [
+                {
+                  "id": "lightPerception",
+                  "enabled": true,
+                  "range": null
+                },
+                {
+                  "id": "basicSight",
+                  "enabled": true,
+                  "range": 5
+                }
+              ],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            }
+          ],
+          "lights": [
+            {
+              "_id": "RFgXdhctPXhpSyOM",
+              "x": 1628,
+              "y": 1443,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 24.04,
+                "color": null,
+                "coloration": 1,
+                "dim": 48.09,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "notes": [
+            {
+              "_id": "YqzoO6yW51CQtt0k",
+              "entryId": "u7byD1yDxgtzqeT4",
+              "pageId": null,
+              "x": 1665,
+              "y": 2109,
+              "elevation": 0,
+              "sort": 0,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "text": "jhgcfkjhgcv",
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            }
+          ],
+          "sounds": [
+            {
+              "_id": "kWlgWosbxU3tbSj0",
+              "x": 1147,
+              "y": 2405,
+              "elevation": 0,
+              "radius": 48.02,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "type": "",
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            }
+          ],
+          "regions": [
+            {
+              "_id": "PaZoZJk6XppvofiN",
+              "name": "Region",
+              "color": "#2893cc",
+              "shapes": [
+                {
+                  "type": "rectangle",
+                  "hole": false,
+                  "x": 1433.75,
+                  "y": 2016.5,
+                  "width": 582.75,
+                  "height": 407,
+                  "rotation": 0
+                },
+                {
+                  "type": "rectangle",
+                  "hole": false,
+                  "x": 1757.5,
+                  "y": 2358.75,
+                  "width": 471.75,
+                  "height": 786.25,
+                  "rotation": 0
+                },
+                {
+                  "type": "ellipse",
+                  "hole": false,
+                  "x": 1729.75,
+                  "y": 1877.75,
+                  "radiusX": 296,
+                  "radiusY": 74,
+                  "rotation": 0
+                }
+              ],
+              "elevation": {
+                "bottom": null,
+                "top": null
+              },
+              "behaviors": [],
+              "visibility": 0,
+              "locked": false,
+              "flags": {}
+            }
+          ],
+          "templates": [
+            {
+              "_id": "iJq4Fzo3Kvln5zVP",
+              "author": "5ypAoBvOiyjDKiaZ",
+              "t": "cone",
+              "x": 1332,
+              "y": 2886,
+              "elevation": 0,
+              "sort": 0,
+              "distance": 77.86205751198719,
+              "direction": 275.5275401516562,
+              "angle": 53.13,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#28cca2",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "tiles": [
+            {
+              "_id": "b0cYOogM1zPL9NFc",
+              "texture": {
+                "src": null,
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "fill",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "width": 222,
+              "height": 333,
+              "x": 1628,
+              "y": 1369,
+              "elevation": 0,
+              "sort": 0,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "locked": false,
+              "restrictions": {
+                "light": false,
+                "weather": false
+              },
+              "occlusion": {
+                "mode": 0,
+                "alpha": 0
+              },
+              "video": {
+                "loop": true,
+                "autoplay": true,
+                "volume": 0
+              },
+              "flags": {}
+            }
+          ],
+          "walls": [
+            {
+              "_id": "LSziSUTponH836zp",
+              "c": [
+                1286,
+                1674,
+                1656,
+                2581
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "QICTFX7JLm3W8PLs",
+              "c": [
+                1970,
+                1711,
+                2017,
+                2840
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "dOBYPT8ja94pUuFV",
+              "c": [
+                1230,
+                2701,
+                2424,
+                1452
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "wo7Vxm6QrHhI7ySh",
+              "c": [
+                1822,
+                1434,
+                2479,
+                2951
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "qhAnrbcpLw5UCnJN",
+              "c": [
+                1989,
+                1591,
+                1203,
+                3016
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            },
+            {
+              "_id": "1wlEJl7SD94Ia2iY",
+              "c": [
+                1277,
+                1721,
+                2387,
+                2035
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            }
+          ],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "5ypAoBvOiyjDKiaZ": 3,
+            "default": 0,
+            "lmPGreUzUZ4YxH6D": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1777176992560,
+            "modifiedTime": 1777176992560,
+            "lastModifiedBy": "5ypAoBvOiyjDKiaZ",
+            "compendiumSource": null,
+            "duplicateSource": "Scene.Fpu0odizNnNnjlLI",
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "uisZmFzI2Tjh1xSA",
+          "name": "test",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 4000,
+          "height": 3000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1778718765802,
+            "modifiedTime": 1778718765802,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "7iYl9ExwMdFm9POw",
           "name": "test-scene-updated",
           "active": false,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
           "background": {
             "src": null,
             "anchorX": 0,
@@ -454,7 +1332,124 @@ import axios from 'axios';
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776824906803,
+            "modifiedTime": 1776824911917,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "aQADc2ek0f7ls9af",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
           },
           "backgroundColor": "#999999",
           "grid": {
@@ -513,13 +1508,714 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "EJ7NaSEFIDogkU8j",
-              "name": "Updated Test Actor",
+              "_id": "91dY5wnZ9pbcxcC0",
+              "name": "Unknown",
               "displayName": 0,
-              "actorId": "yqVY0l6AY0HDtq7Z",
+              "actorId": "5bW7ahcfLR0uMb9j",
               "actorLink": false,
               "delta": {
-                "_id": "Q6cPdjRdovxSVeqq",
+                "_id": "xhCuAiQoswAzsnqY",
+                "system": {},
+                "items": [],
+                "effects": [
+                  {
+                    "_id": "dnd5edead0000000",
+                    "name": "Dead",
+                    "img": "systems/dnd5e/icons/svg/statuses/dead.svg",
+                    "type": "base",
+                    "system": {},
+                    "changes": [],
+                    "disabled": false,
+                    "duration": {
+                      "startTime": 6,
+                      "combat": null
+                    },
+                    "description": "",
+                    "origin": null,
+                    "tint": "#ffffff",
+                    "transfer": false,
+                    "statuses": [
+                      "dead"
+                    ],
+                    "sort": 0,
+                    "flags": {},
+                    "_stats": {
+                      "coreVersion": "13.348",
+                      "systemId": "dnd5e",
+                      "systemVersion": "5.0.4",
+                      "createdTime": 1776821644329,
+                      "modifiedTime": 1776821644329,
+                      "lastModifiedBy": "r6bXhB7k9cXa3cif",
+                      "compendiumSource": null,
+                      "duplicateSource": null,
+                      "exportSource": null
+                    }
+                  }
+                ],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 200,
+              "y": 200,
+              "elevation": 0,
+              "sort": 0,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "a0alpONow8ppf7jZ",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "TaWAifIKUZ3FSfEj",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "9H8zRN6jFYAKi4St",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "RbCCqngEl6EST2GA",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 2,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            }
+          ],
+          "lights": [
+            {
+              "_id": "CklyB5sLeOrqXnyD",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "FtC2kpWU6Y3S6wJT",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "notes": [
+            {
+              "_id": "tRvHXdBSGlfd6egB",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            },
+            {
+              "_id": "DEnQNeArk9YJJAV1",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            }
+          ],
+          "sounds": [
+            {
+              "_id": "g9pHEMy9gBHQht4C",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            },
+            {
+              "_id": "pss5T9PLXgbQ6y7y",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            }
+          ],
+          "regions": [],
+          "templates": [
+            {
+              "_id": "zJcVWgT5pyfWTaw8",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "mi0HgNMBHlwdmnO3",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776821602279,
+            "modifiedTime": 1776824906859,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "cDiBNArUBdiC76Xd",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [
+            {
+              "_id": "34oGFTyXvbLYWpWZ",
+              "name": "Updated Test Actor",
+              "displayName": 0,
+              "actorId": "gtRH6ZKlyzPYdvmW",
+              "actorLink": false,
+              "delta": {
+                "_id": "rEXYan5oaapT93Rm",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -553,14 +2249,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": null,
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -721,14 +2416,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -757,7 +2451,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -788,14 +2481,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -824,7 +2516,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -855,14 +2546,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -891,7 +2581,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -922,14 +2611,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -958,7 +2646,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -989,14 +2676,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -1791,14 +3477,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -1827,7 +3512,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -1874,14 +3558,13 @@ import axios from 'axios';
                         "sort": 0,
                         "flags": {},
                         "_stats": {
-                          "coreVersion": "12.331",
+                          "coreVersion": "13.348",
                           "systemId": "dnd5e",
-                          "systemVersion": "4.3.8",
-                          "createdTime": null,
-                          "modifiedTime": null,
+                          "systemVersion": "5.0.4",
                           "lastModifiedBy": null,
                           "compendiumSource": null,
-                          "duplicateSource": null
+                          "duplicateSource": null,
+                          "exportSource": null
                         }
                       }
                     ],
@@ -1897,14 +3580,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -1933,7 +3615,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -1960,14 +3641,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2018,14 +3698,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2076,14 +3755,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2126,7 +3804,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -2205,10 +3883,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "food",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -2224,7 +3898,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "food",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -2234,14 +3912,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2328,7 +4005,7 @@ import axios from 'axios';
                           "range": {
                             "override": false,
                             "special": "",
-                            "units": ""
+                            "units": "self"
                           },
                           "sort": 0,
                           "target": {
@@ -2394,10 +4071,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "trinket",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -2419,7 +4092,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "trinket",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -2429,14 +4106,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2487,14 +4163,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2546,7 +4221,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -2627,10 +4302,6 @@ import axios from 'axios';
                         "max": 0,
                         "value": 0
                       },
-                      "type": {
-                        "value": "simpleR",
-                        "baseItem": "dart"
-                      },
                       "ammunition": {},
                       "armor": {
                         "value": 10
@@ -2681,6 +4352,10 @@ import axios from 'axios';
                         "long": 60,
                         "reach": null,
                         "units": "ft"
+                      },
+                      "type": {
+                        "value": "simpleR",
+                        "baseItem": "dart"
                       }
                     },
                     "effects": [],
@@ -2691,14 +4366,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2731,14 +4405,14 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
                           "range": {
                             "override": false,
                             "special": "",
-                            "units": ""
+                            "units": "self"
                           },
                           "roll": {
                             "formula": "",
@@ -2821,18 +4495,18 @@ import axios from 'axios';
                         "conditions": "",
                         "value": null
                       },
-                      "type": {
-                        "value": "clothing",
-                        "baseItem": ""
-                      },
                       "armor": {
                         "value": 0,
                         "magicalBonus": null,
                         "dex": null
                       },
+                      "proficient": null,
                       "properties": [],
                       "strength": null,
-                      "proficient": null
+                      "type": {
+                        "value": "clothing",
+                        "baseItem": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -2842,14 +4516,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -2892,7 +4565,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -2971,10 +4644,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "food",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -2990,7 +4659,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "food",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -3000,14 +4673,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3055,9 +4727,7 @@ import axios from 'axios';
                         "cp": 0
                       },
                       "capacity": {
-                        "count": null,
                         "volume": {
-                          "value": null,
                           "units": "cubicFoot"
                         },
                         "weight": {
@@ -3075,14 +4745,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3133,14 +4802,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3275,10 +4943,6 @@ import axios from 'axios';
                         "max": 0,
                         "value": 0
                       },
-                      "type": {
-                        "value": "simpleM",
-                        "baseItem": ""
-                      },
                       "ammunition": {},
                       "armor": {
                         "value": 10
@@ -3328,6 +4992,10 @@ import axios from 'axios';
                         "long": null,
                         "reach": 5,
                         "units": "ft"
+                      },
+                      "type": {
+                        "value": "simpleM",
+                        "baseItem": ""
                       }
                     },
                     "effects": [],
@@ -3353,14 +5021,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3408,9 +5075,7 @@ import axios from 'axios';
                         "cp": 0
                       },
                       "capacity": {
-                        "count": null,
                         "volume": {
-                          "value": null,
                           "units": "cubicFoot"
                         },
                         "weight": {
@@ -3428,14 +5093,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3478,7 +5142,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -3558,10 +5222,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "trinket",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -3577,7 +5237,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "trinket",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -3587,14 +5251,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3717,10 +5380,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "trinket",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -3736,7 +5395,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "trinket",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -3753,14 +5416,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3818,20 +5480,20 @@ import axios from 'axios';
                         "conditions": "",
                         "value": null
                       },
-                      "type": {
-                        "value": "trinket",
-                        "baseItem": ""
-                      },
                       "armor": {
                         "value": 0,
                         "magicalBonus": null,
                         "dex": null
                       },
+                      "proficient": null,
                       "properties": [
                         "foc"
                       ],
                       "strength": null,
-                      "proficient": null
+                      "type": {
+                        "value": "trinket",
+                        "baseItem": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -3848,14 +5510,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -3888,14 +5549,14 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
                           "range": {
                             "override": false,
                             "special": "",
-                            "units": ""
+                            "units": "self"
                           },
                           "roll": {
                             "formula": "",
@@ -3978,18 +5639,18 @@ import axios from 'axios';
                         "conditions": "",
                         "value": null
                       },
-                      "type": {
-                        "value": "clothing",
-                        "baseItem": ""
-                      },
                       "armor": {
                         "value": 0,
                         "magicalBonus": null,
                         "dex": null
                       },
+                      "proficient": null,
                       "properties": [],
                       "strength": null,
-                      "proficient": null
+                      "type": {
+                        "value": "clothing",
+                        "baseItem": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -3999,14 +5660,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -4057,14 +5717,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -4116,7 +5775,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -4197,10 +5856,6 @@ import axios from 'axios';
                         "max": 0,
                         "value": 0
                       },
-                      "type": {
-                        "value": "martialM",
-                        "baseItem": "shortsword"
-                      },
                       "ammunition": {},
                       "armor": {
                         "value": 10
@@ -4250,6 +5905,10 @@ import axios from 'axios';
                         "long": null,
                         "reach": 5,
                         "units": "ft"
+                      },
+                      "type": {
+                        "value": "martialM",
+                        "baseItem": "shortsword"
                       }
                     },
                     "effects": [],
@@ -4260,22 +5919,19 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   }
                 ],
                 "effects": [],
                 "flags": {}
               },
-              "appendNumber": false,
-              "prependAdjective": false,
               "width": 1,
               "height": 1,
               "texture": {
@@ -4291,7 +5947,7 @@ import axios from 'axios';
                 "tint": "#ffffff",
                 "alphaThreshold": 0.75
               },
-              "hexagonalShape": 0,
+              "shape": 4,
               "x": 200,
               "y": 200,
               "elevation": 0,
@@ -4361,6 +6017,14 @@ import axios from 'axios';
                   "texture": null
                 }
               },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
               "_regions": [],
               "flags": {}
             }
@@ -4381,27 +6045,27 @@ import axios from 'axios';
           "sort": 0,
           "ownership": {
             "default": 0,
-            "fCfNJPT9Atc26yyv": 3
+            "r6bXhB7k9cXa3cif": 3
           },
           "flags": {},
           "_stats": {
-            "coreVersion": "12.331",
+            "coreVersion": "13.348",
             "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1777968649352,
-            "modifiedTime": 1777968649385,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv",
+            "systemVersion": "5.0.4",
+            "createdTime": 1777968644264,
+            "modifiedTime": 1777969049386,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
-            "duplicateSource": null
+            "duplicateSource": null,
+            "exportSource": null
           }
         },
         {
-          "_id": "ZRzmXcZ7N3aq4DlC",
+          "_id": "oAo1nnXqH58UK6h4",
           "name": "test-scene-updated",
           "active": false,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
           "background": {
             "src": null,
             "anchorX": 0,
@@ -4424,7 +6088,7 @@ import axios from 'axios';
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
           },
           "backgroundColor": "#999999",
           "grid": {
@@ -4483,20 +6147,18 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "fbTeCei84Xuju067",
+              "_id": "zwTXwUu0iIZZF8WF",
               "name": "Unknown",
               "displayName": 0,
-              "actorId": "qo1N8GSsTt6zpDrl",
+              "actorId": "S2YDx7AJKBzunIei",
               "actorLink": false,
               "delta": {
-                "_id": "LjgztE7JoG5WWAW5",
+                "_id": "Us5thMXbAeLCYjPV",
                 "system": {},
                 "items": [],
                 "effects": [],
                 "flags": {}
               },
-              "appendNumber": false,
-              "prependAdjective": false,
               "width": 1,
               "height": 1,
               "texture": {
@@ -4512,228 +6174,7 @@ import axios from 'axios';
                 "tint": "#ffffff",
                 "alphaThreshold": 0.75
               },
-              "hexagonalShape": 0,
-              "x": 200,
-              "y": 200,
-              "elevation": 0,
-              "sort": 0,
-              "locked": false,
-              "lockRotation": false,
-              "rotation": 0,
-              "alpha": 1,
-              "hidden": false,
-              "disposition": -1,
-              "displayBars": 0,
-              "bar1": {
-                "attribute": "attributes.hp"
-              },
-              "bar2": {
-                "attribute": null
-              },
-              "light": {
-                "negative": false,
-                "priority": 0,
-                "alpha": 0.5,
-                "angle": 360,
-                "bright": 0,
-                "color": null,
-                "coloration": 1,
-                "dim": 0,
-                "attenuation": 0.5,
-                "luminosity": 0.5,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "animation": {
-                  "type": null,
-                  "speed": 5,
-                  "intensity": 5,
-                  "reverse": false
-                },
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "sight": {
-                "enabled": false,
-                "range": 0,
-                "angle": 360,
-                "visionMode": "basic",
-                "color": null,
-                "attenuation": 0.1,
-                "brightness": 0,
-                "saturation": 0,
-                "contrast": 0
-              },
-              "detectionModes": [],
-              "occludable": {
-                "radius": 0
-              },
-              "ring": {
-                "enabled": false,
-                "colors": {
-                  "ring": null,
-                  "background": null
-                },
-                "effects": 1,
-                "subject": {
-                  "scale": 1,
-                  "texture": null
-                }
-              },
-              "_regions": [],
-              "flags": {}
-            }
-          ],
-          "lights": [],
-          "notes": [],
-          "sounds": [],
-          "regions": [],
-          "templates": [],
-          "tiles": [],
-          "walls": [],
-          "playlist": null,
-          "playlistSound": null,
-          "journal": null,
-          "journalEntryPage": null,
-          "weather": "",
-          "folder": null,
-          "sort": 0,
-          "ownership": {
-            "default": 0,
-            "fCfNJPT9Atc26yyv": 3
-          },
-          "flags": {},
-          "_stats": {
-            "coreVersion": "12.331",
-            "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1776821607325,
-            "modifiedTime": 1777909328299,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv",
-            "compendiumSource": null,
-            "duplicateSource": null
-          }
-        },
-        {
-          "_id": "lIawgFuWnlgFq8e8",
-          "name": "test-scene-updated",
-          "active": false,
-          "navigation": true,
-          "navOrder": 0,
-          "navName": "",
-          "background": {
-            "src": null,
-            "anchorX": 0,
-            "anchorY": 0,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "fill",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0
-          },
-          "foreground": null,
-          "foregroundElevation": 20,
-          "thumb": null,
-          "width": 1000,
-          "height": 1000,
-          "padding": 0.25,
-          "initial": {
-            "x": null,
-            "y": null,
-            "scale": 0.5
-          },
-          "backgroundColor": "#999999",
-          "grid": {
-            "type": 1,
-            "size": 100,
-            "style": "solidLines",
-            "thickness": 1,
-            "color": "#000000",
-            "alpha": 0.2,
-            "distance": 5,
-            "units": "ft"
-          },
-          "tokenVision": true,
-          "fog": {
-            "exploration": true,
-            "overlay": null,
-            "colors": {
-              "explored": null,
-              "unexplored": null
-            }
-          },
-          "environment": {
-            "darknessLevel": 0,
-            "darknessLock": false,
-            "globalLight": {
-              "enabled": false,
-              "alpha": 0.5,
-              "bright": false,
-              "color": null,
-              "coloration": 1,
-              "luminosity": 0,
-              "saturation": 0,
-              "contrast": 0,
-              "shadows": 0,
-              "darkness": {
-                "min": 0,
-                "max": 1
-              }
-            },
-            "cycle": true,
-            "base": {
-              "hue": 0,
-              "intensity": 0,
-              "luminosity": 0,
-              "saturation": 0,
-              "shadows": 0
-            },
-            "dark": {
-              "hue": 0.7138888888888889,
-              "intensity": 0,
-              "luminosity": -0.25,
-              "saturation": 0,
-              "shadows": 0
-            }
-          },
-          "drawings": [],
-          "tokens": [
-            {
-              "_id": "Ls5jpphy0xa9ujJn",
-              "name": "Unknown",
-              "displayName": 0,
-              "actorId": "KymJLHN2fza60IFj",
-              "actorLink": false,
-              "delta": {
-                "_id": "z3kMyzO4HBCQLJA7",
-                "system": {},
-                "items": [],
-                "effects": [],
-                "flags": {}
-              },
-              "appendNumber": false,
-              "prependAdjective": false,
-              "width": 1,
-              "height": 1,
-              "texture": {
-                "src": "icons/svg/mystery-man.svg",
-                "anchorX": 0.5,
-                "anchorY": 0.5,
-                "offsetX": 0,
-                "offsetY": 0,
-                "fit": "contain",
-                "scaleX": 1,
-                "scaleY": 1,
-                "rotation": 0,
-                "tint": "#ffffff",
-                "alphaThreshold": 0.75
-              },
-              "hexagonalShape": 0,
+              "shape": 4,
               "x": 500,
               "y": 500,
               "elevation": 0,
@@ -4803,10 +6244,1011 @@ import axios from 'axios';
                   "texture": null
                 }
               },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "Q8A3HTBqwpyBxvbp",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "h4CZd8cuYlKo1MAt",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "ATkbFAc89hrONO8B",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "9dHverB9J6UHsFcR",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 2,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "vW4JKDTKqJl8IW86",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "biM8UCEgO5XehwU4",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 3,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "VcWUEgg6Dz7Qsc5k",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "F8clfJsmAzhh3ham",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 4,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
               "_regions": [],
               "flags": {}
             }
           ],
+          "lights": [
+            {
+              "_id": "ksek5ZGBvTrNTFSv",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "maVuHwDHxlQRa6NE",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "W06Gn1gfv4IvVcB1",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "zAhaHEXY69R4NGh0",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "notes": [
+            {
+              "_id": "ZZ8pNbwlgVTtB28D",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            },
+            {
+              "_id": "XWtVQHaBAU1uPTad",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            },
+            {
+              "_id": "tGDTJBwnTEo4jjAR",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 2,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            },
+            {
+              "_id": "cnWzGlH8TL8oUcHU",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 3,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            }
+          ],
+          "sounds": [
+            {
+              "_id": "bxBAcwTer3xfSAp2",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            },
+            {
+              "_id": "0NToDzSgufk4Behe",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            },
+            {
+              "_id": "L8PuvwXnTRbsk0Hj",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            },
+            {
+              "_id": "yhT82OhqXpa4g5Eb",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            }
+          ],
+          "regions": [],
+          "templates": [
+            {
+              "_id": "KdDmzBOrUjGyfhqO",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "zwDtmrEQsz7Ai3QB",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "YHgZ7qQu1N8DPiWP",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 2,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "JnttWgf26eS62zMU",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 3,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1777969049357,
+            "modifiedTime": 1778789863827,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "pxk3rKsNgpwB6bG5",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
           "lights": [],
           "notes": [],
           "sounds": [],
@@ -4823,27 +7265,853 @@ import axios from 'axios';
           "sort": 0,
           "ownership": {
             "default": 0,
-            "fCfNJPT9Atc26yyv": 3
+            "r6bXhB7k9cXa3cif": 3
           },
           "flags": {},
           "_stats": {
-            "coreVersion": "12.331",
+            "coreVersion": "13.348",
             "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1777969044290,
-            "modifiedTime": 1777987736402,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776821577383,
+            "modifiedTime": 1776821602303,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
-            "duplicateSource": null
+            "duplicateSource": null,
+            "exportSource": null
           }
         },
         {
-          "_id": "iI8vL6F5ett88LXH",
+          "_id": "vCLJOw0STWGphIWU",
+          "name": "test-scene-updated",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "navName": "",
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 1000,
+          "height": 1000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": true,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [
+            {
+              "_id": "TNEsC0gFgz1Nc9pg",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "781VTntlraAbO7C3",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 300,
+              "y": 400,
+              "elevation": 0,
+              "sort": 0,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 323.13010235415595,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "Yi9FWJpDX5TPvXK3",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "8Wwm8EDsy6y1C9aG",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 400,
+              "y": 300,
+              "elevation": 0,
+              "sort": 1,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 306.86989764584405,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": true,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [
+                {
+                  "id": "lightPerception",
+                  "enabled": true,
+                  "range": null
+                },
+                {
+                  "id": "basicSight",
+                  "enabled": true,
+                  "range": 0
+                }
+              ],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 0,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            },
+            {
+              "_id": "KV0Ua6gg79bZ456e",
+              "name": "Perrin",
+              "displayName": 30,
+              "actorId": "xSst5kAigAZw6wDr",
+              "actorLink": true,
+              "delta": null,
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 0.8,
+                "scaleY": 0.8,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 300,
+              "y": 500,
+              "elevation": 0,
+              "sort": 2,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": 1,
+              "displayBars": 40,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": "attributes.ac.value"
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 1,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": true,
+                "range": 5,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [
+                {
+                  "id": "lightPerception",
+                  "enabled": true,
+                  "range": null
+                },
+                {
+                  "id": "basicSight",
+                  "enabled": true,
+                  "range": 5
+                }
+              ],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
+            }
+          ],
+          "lights": [
+            {
+              "_id": "xhnUaDHq5geiaMpN",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "alXpkL3wPgo5ilnE",
+              "x": 400,
+              "y": 400,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 5,
+                "color": "#ff0000",
+                "coloration": 1,
+                "dim": 5,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "notes": [
+            {
+              "_id": "u4cgxPOUlNFG8nuo",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            },
+            {
+              "_id": "wlwDtURPMkAE0FzQ",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
+            }
+          ],
+          "sounds": [
+            {
+              "_id": "shSUwiJBdTy6CeeY",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            },
+            {
+              "_id": "eVHjE3FcVX13yc31",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
+            }
+          ],
+          "regions": [],
+          "templates": [
+            {
+              "_id": "G1UnpWqP0sPpMJ5W",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 0,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            },
+            {
+              "_id": "u3ECicH2osxWg3EL",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 1,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
+            }
+          ],
+          "tiles": [],
+          "walls": [
+            {
+              "_id": "LDpSlXWcYlP7hudR",
+              "c": [
+                650,
+                338,
+                413,
+                613
+              ],
+              "light": 20,
+              "move": 20,
+              "sight": 20,
+              "sound": 20,
+              "dir": 0,
+              "door": 0,
+              "ds": 0,
+              "threshold": {
+                "light": null,
+                "sight": null,
+                "sound": null,
+                "attenuation": false
+              },
+              "animation": null,
+              "flags": {}
+            }
+          ],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1776824911885,
+            "modifiedTime": 1777968644307,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "azpFAQYHh0s3yHML",
+          "name": "test",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 4000,
+          "height": 3000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1778789859370,
+            "modifiedTime": 1778789859370,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "Jz0KV1jlNI0jdQp0",
           "name": "test-scene-updated",
           "active": true,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
           "background": {
             "src": null,
             "anchorX": 0,
@@ -4866,7 +8134,7 @@ import axios from 'axios';
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
           },
           "backgroundColor": "#999999",
           "grid": {
@@ -4925,13 +8193,13 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "tYjgFFD4Zgjy7nZM",
+              "_id": "3p929HcEgSapCezZ",
               "name": "Updated Test Actor",
               "displayName": 0,
-              "actorId": "sMD3o6zej6ckQkpo",
+              "actorId": "gHjoe9z270YfSCno",
               "actorLink": false,
               "delta": {
-                "_id": "JBQsvyQkaRskKHjE",
+                "_id": "jELEvk1BsQ9ydbxd",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -4965,14 +8233,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": null,
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -5133,14 +8400,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.ZgYBjYYfiUstQD6f",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -5169,7 +8435,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -5200,14 +8465,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.LOMdcNAGWh5xpfm4",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -5236,7 +8500,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -5267,14 +8530,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.7Yoo9hG0hfPSmBoC",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -5303,7 +8565,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -5334,14 +8595,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.PqxZgcJzp1VVgP8t",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -5370,7 +8630,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -5401,14 +8660,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.races.Item.GWPjKFeIthBBeCFJ",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6203,14 +9461,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.classes.Item.6VoZrWxhOEKGYhnq",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6239,7 +9496,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -6286,14 +9542,13 @@ import axios from 'axios';
                         "sort": 0,
                         "flags": {},
                         "_stats": {
-                          "coreVersion": "12.331",
+                          "coreVersion": "13.348",
                           "systemId": "dnd5e",
-                          "systemVersion": "4.3.8",
-                          "createdTime": null,
-                          "modifiedTime": null,
+                          "systemVersion": "5.0.4",
                           "lastModifiedBy": null,
                           "compendiumSource": null,
-                          "duplicateSource": null
+                          "duplicateSource": null,
+                          "exportSource": null
                         }
                       }
                     ],
@@ -6309,14 +9564,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.classfeatures.Item.UAvV7N7T4zJhxdfI",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6345,7 +9599,6 @@ import axios from 'axios';
                         "rules": "2014"
                       },
                       "advancement": [],
-                      "cover": null,
                       "crewed": false,
                       "enchant": {},
                       "prerequisites": {
@@ -6372,14 +9625,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.classfeatures.Item.l50hjTxO2r0iecKw",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6430,14 +9682,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.14pNRT4sZy9rgvhb",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6488,14 +9739,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.1FSubnBpSTDmVaYV",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6538,7 +9788,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -6617,10 +9867,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "food",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -6636,7 +9882,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "food",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -6646,14 +9896,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.1L5wkmbw0fmNAr38",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6740,7 +9989,7 @@ import axios from 'axios';
                           "range": {
                             "override": false,
                             "special": "",
-                            "units": ""
+                            "units": "self"
                           },
                           "sort": 0,
                           "target": {
@@ -6806,10 +10055,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "trinket",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -6831,7 +10076,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "trinket",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -6841,14 +10090,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.29ZLE8PERtFVD3QU",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6899,14 +10147,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.3b0RvGi0TnTYpIxn",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -6958,7 +10205,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -7039,10 +10286,6 @@ import axios from 'axios';
                         "max": 0,
                         "value": 0
                       },
-                      "type": {
-                        "value": "simpleR",
-                        "baseItem": "dart"
-                      },
                       "ammunition": {},
                       "armor": {
                         "value": 10
@@ -7093,6 +10336,10 @@ import axios from 'axios';
                         "long": 60,
                         "reach": null,
                         "units": "ft"
+                      },
+                      "type": {
+                        "value": "simpleR",
+                        "baseItem": "dart"
                       }
                     },
                     "effects": [],
@@ -7103,14 +10350,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.3rCO8MTIdPGSW6IJ",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -7143,14 +10389,14 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
                           "range": {
                             "override": false,
                             "special": "",
-                            "units": ""
+                            "units": "self"
                           },
                           "roll": {
                             "formula": "",
@@ -7233,18 +10479,18 @@ import axios from 'axios';
                         "conditions": "",
                         "value": null
                       },
-                      "type": {
-                        "value": "clothing",
-                        "baseItem": ""
-                      },
                       "armor": {
                         "value": 0,
                         "magicalBonus": null,
                         "dex": null
                       },
+                      "proficient": null,
                       "properties": [],
                       "strength": null,
-                      "proficient": null
+                      "type": {
+                        "value": "clothing",
+                        "baseItem": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -7254,14 +10500,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.8RXjiddJ6VGyE7vB",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -7304,7 +10549,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -7383,10 +10628,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "food",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -7402,7 +10643,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "food",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -7412,14 +10657,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.8d95YV1jHcxPygJ9",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -7467,9 +10711,7 @@ import axios from 'axios';
                         "cp": 0
                       },
                       "capacity": {
-                        "count": null,
                         "volume": {
-                          "value": null,
                           "units": "cubicFoot"
                         },
                         "weight": {
@@ -7487,14 +10729,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.9bWTRRDym06PzSAf",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -7545,14 +10786,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.AkyQyonZMVcvOrXU",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -7687,10 +10927,6 @@ import axios from 'axios';
                         "max": 0,
                         "value": 0
                       },
-                      "type": {
-                        "value": "simpleM",
-                        "baseItem": ""
-                      },
                       "ammunition": {},
                       "armor": {
                         "value": 10
@@ -7740,6 +10976,10 @@ import axios from 'axios';
                         "long": null,
                         "reach": 5,
                         "units": "ft"
+                      },
+                      "type": {
+                        "value": "simpleM",
+                        "baseItem": ""
                       }
                     },
                     "effects": [],
@@ -7765,14 +11005,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.GsuvwoekKZatfKwF",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -7820,9 +11059,7 @@ import axios from 'axios';
                         "cp": 0
                       },
                       "capacity": {
-                        "count": null,
                         "volume": {
-                          "value": null,
                           "units": "cubicFoot"
                         },
                         "weight": {
@@ -7840,14 +11077,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.H8YCd689ezlD26aT",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -7890,7 +11126,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -7970,10 +11206,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "trinket",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -7989,7 +11221,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "trinket",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -7999,14 +11235,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.P31t6tGgt9aLAdYt",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -8129,10 +11364,6 @@ import axios from 'axios';
                       "attunement": "",
                       "attuned": false,
                       "equipped": false,
-                      "type": {
-                        "value": "trinket",
-                        "subtype": ""
-                      },
                       "damage": {
                         "base": {
                           "number": null,
@@ -8148,7 +11379,11 @@ import axios from 'axios';
                         "replace": false
                       },
                       "magicalBonus": null,
-                      "properties": []
+                      "properties": [],
+                      "type": {
+                        "value": "trinket",
+                        "subtype": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -8165,14 +11400,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.QXmaarJ4X8P0C1HV",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -8230,20 +11464,20 @@ import axios from 'axios';
                         "conditions": "",
                         "value": null
                       },
-                      "type": {
-                        "value": "trinket",
-                        "baseItem": ""
-                      },
                       "armor": {
                         "value": 0,
                         "magicalBonus": null,
                         "dex": null
                       },
+                      "proficient": null,
                       "properties": [
                         "foc"
                       ],
                       "strength": null,
-                      "proficient": null
+                      "type": {
+                        "value": "trinket",
+                        "baseItem": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -8260,14 +11494,13 @@ import axios from 'axios';
                       }
                     },
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.gP1URGq3kVIIFHJ7",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -8300,14 +11533,14 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
                           "range": {
                             "override": false,
                             "special": "",
-                            "units": ""
+                            "units": "self"
                           },
                           "roll": {
                             "formula": "",
@@ -8390,18 +11623,18 @@ import axios from 'axios';
                         "conditions": "",
                         "value": null
                       },
-                      "type": {
-                        "value": "clothing",
-                        "baseItem": ""
-                      },
                       "armor": {
                         "value": 0,
                         "magicalBonus": null,
                         "dex": null
                       },
+                      "proficient": null,
                       "properties": [],
                       "strength": null,
-                      "proficient": null
+                      "type": {
+                        "value": "clothing",
+                        "baseItem": ""
+                      }
                     },
                     "effects": [],
                     "folder": null,
@@ -8411,14 +11644,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.irtqrzaUCeshmTZp",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -8469,14 +11701,13 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.odV5cq2HSLSCH69k",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   },
                   {
@@ -8528,7 +11759,7 @@ import axios from 'axios';
                             "concentration": false,
                             "override": false,
                             "special": "",
-                            "units": "",
+                            "units": "inst",
                             "value": ""
                           },
                           "effects": [],
@@ -8609,10 +11840,6 @@ import axios from 'axios';
                         "max": 0,
                         "value": 0
                       },
-                      "type": {
-                        "value": "martialM",
-                        "baseItem": "shortsword"
-                      },
                       "ammunition": {},
                       "armor": {
                         "value": 10
@@ -8662,6 +11889,10 @@ import axios from 'axios';
                         "long": null,
                         "reach": 5,
                         "units": "ft"
+                      },
+                      "type": {
+                        "value": "martialM",
+                        "baseItem": "shortsword"
                       }
                     },
                     "effects": [],
@@ -8672,22 +11903,19 @@ import axios from 'axios';
                     },
                     "flags": {},
                     "_stats": {
-                      "coreVersion": "12.331",
+                      "coreVersion": "13.348",
                       "systemId": "dnd5e",
-                      "systemVersion": "4.3.8",
-                      "createdTime": null,
-                      "modifiedTime": null,
+                      "systemVersion": "5.0.4",
                       "lastModifiedBy": null,
                       "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
-                      "duplicateSource": null
+                      "duplicateSource": null,
+                      "exportSource": null
                     }
                   }
                 ],
                 "effects": [],
                 "flags": {}
               },
-              "appendNumber": false,
-              "prependAdjective": false,
               "width": 1,
               "height": 1,
               "texture": {
@@ -8703,9 +11931,9 @@ import axios from 'axios';
                 "tint": "#ffffff",
                 "alphaThreshold": 0.75
               },
-              "hexagonalShape": 0,
-              "x": 500,
-              "y": 500,
+              "shape": 4,
+              "x": 200,
+              "y": 200,
               "elevation": 0,
               "sort": 0,
               "locked": false,
@@ -8773,6 +12001,14 @@ import axios from 'axios';
                   "texture": null
                 }
               },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
               "_regions": [],
               "flags": {}
             }
@@ -8793,18 +12029,19 @@ import axios from 'axios';
           "sort": 0,
           "ownership": {
             "default": 0,
-            "fCfNJPT9Atc26yyv": 3
+            "r6bXhB7k9cXa3cif": 3
           },
           "flags": {},
           "_stats": {
-            "coreVersion": "12.331",
+            "coreVersion": "13.348",
             "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1777996576119,
-            "modifiedTime": 1777996576145,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv",
+            "systemVersion": "5.0.4",
+            "createdTime": 1778789863792,
+            "modifiedTime": 1778789863827,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
-            "duplicateSource": null
+            "duplicateSource": null,
+            "exportSource": null
           }
         }
       ]
@@ -8819,6 +12056,8 @@ import axios from 'axios';
 ## GET /get-folder
 
 Get a specific folder by name
+
+**Required scope:** `structure:read`
 
 ### Parameters
 
@@ -8849,7 +12088,7 @@ Get a specific folder by name
 const baseUrl = 'http://localhost:3010';
 const path = '/get-folder';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
+  clientId: 'fvtt_099ad17ea199e7e3',
   name: 'test-folder'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -8869,7 +12108,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/get-folder?clientId=fvtt_71dbc81bd608978a&name=test-folder' \
+curl -X GET 'http://localhost:3010/get-folder?clientId=fvtt_099ad17ea199e7e3&name=test-folder' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -8882,7 +12121,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/get-folder'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'name': 'test-folder'
 }
 url = f'{base_url}{path}'
@@ -8908,7 +12147,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/get-folder';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
+    clientId: 'fvtt_099ad17ea199e7e3',
     name: 'test-folder'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -8943,7 +12182,7 @@ import axios from 'axios';
   🔤/get-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤name=test-folder🔤 ➡️ name
   🔤?🧲clientId🧲&🧲name🧲🔤 ➡️ queryString
 
@@ -8973,10 +12212,10 @@ import axios from 'axios';
 ```json
 {
   "type": "get-folder-result",
-  "requestId": "get-folder_1777996592699",
+  "requestId": "get-folder_1778789869623",
   "data": {
-    "id": "plIDyBz9tHtxtNMr",
-    "uuid": "Folder.plIDyBz9tHtxtNMr",
+    "id": "4aeUZrNXScJCGtf6",
+    "uuid": "Folder.4aeUZrNXScJCGtf6",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -8991,6 +12230,8 @@ import axios from 'axios';
 ## POST /create-folder
 
 Create a new folder
+
+**Required scope:** `structure:write`
 
 ### Parameters
 
@@ -9023,7 +12264,7 @@ Create a new folder
 const baseUrl = 'http://localhost:3010';
 const path = '/create-folder';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
+  clientId: 'fvtt_099ad17ea199e7e3',
   name: 'test-folder',
   folderType: 'Scene'
 };
@@ -9044,7 +12285,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/create-folder?clientId=fvtt_71dbc81bd608978a&name=test-folder&folderType=Scene' \
+curl -X POST 'http://localhost:3010/create-folder?clientId=fvtt_099ad17ea199e7e3&name=test-folder&folderType=Scene' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -9057,7 +12298,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/create-folder'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
+    'clientId': 'fvtt_099ad17ea199e7e3',
     'name': 'test-folder',
     'folderType': 'Scene'
 }
@@ -9084,7 +12325,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/create-folder';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
+    clientId: 'fvtt_099ad17ea199e7e3',
     name: 'test-folder',
     folderType: 'Scene'
   };
@@ -9120,7 +12361,7 @@ import axios from 'axios';
   🔤/create-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤name=test-folder🔤 ➡️ name
   🔤folderType=Scene🔤 ➡️ folderType
   🔤?🧲clientId🧲&🧲name🧲&🧲folderType🧲🔤 ➡️ queryString
@@ -9151,10 +12392,10 @@ import axios from 'axios';
 ```json
 {
   "type": "create-folder-result",
-  "requestId": "create-folder_1777996592676",
+  "requestId": "create-folder_1778789869593",
   "data": {
-    "id": "plIDyBz9tHtxtNMr",
-    "uuid": "Folder.plIDyBz9tHtxtNMr",
+    "id": "4aeUZrNXScJCGtf6",
+    "uuid": "Folder.4aeUZrNXScJCGtf6",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -9168,6 +12409,8 @@ import axios from 'axios';
 ## DELETE /delete-folder
 
 Delete a folder
+
+**Required scope:** `structure:write`
 
 ### Parameters
 
@@ -9199,8 +12442,8 @@ Delete a folder
 const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
-  folderId: 'plIDyBz9tHtxtNMr'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  folderId: '4aeUZrNXScJCGtf6'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -9219,7 +12462,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=fvtt_71dbc81bd608978a&folderId=plIDyBz9tHtxtNMr' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=fvtt_099ad17ea199e7e3&folderId=4aeUZrNXScJCGtf6' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -9232,8 +12475,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
-    'folderId': 'plIDyBz9tHtxtNMr'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'folderId': '4aeUZrNXScJCGtf6'
 }
 url = f'{base_url}{path}'
 
@@ -9258,8 +12501,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/delete-folder';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
-    folderId: 'plIDyBz9tHtxtNMr'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    folderId: '4aeUZrNXScJCGtf6'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -9293,8 +12536,8 @@ import axios from 'axios';
   🔤/delete-folder🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
-  🔤folderId=plIDyBz9tHtxtNMr🔤 ➡️ folderId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤folderId=4aeUZrNXScJCGtf6🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -9323,10 +12566,10 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-folder-result",
-  "requestId": "delete-folder_1777996592701",
+  "requestId": "delete-folder_1778789869625",
   "data": {
     "deleted": true,
-    "folderId": "plIDyBz9tHtxtNMr",
+    "folderId": "4aeUZrNXScJCGtf6",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }
@@ -9341,6 +12584,8 @@ import axios from 'axios';
 This route is deprecated
 
 Use /structure with the path query parameter instead.
+
+**Required scope:** `structure:read`
 
 ### Returns
 

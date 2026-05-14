@@ -15,6 +15,8 @@ List all Foundry users
 
 Retrieves a list of all users configured in the Foundry VTT world, including their roles and online status. This is a GM-only operation.
 
+**Required scope:** `user:read`
+
 ### Parameters
 
 | Name | Type | Required | Source | Description |
@@ -43,7 +45,7 @@ Retrieves a list of all users configured in the Foundry VTT world, including the
 const baseUrl = 'http://localhost:3010';
 const path = '/users';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -62,7 +64,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/users?clientId=fvtt_71dbc81bd608978a' \
+curl -X GET 'http://localhost:3010/users?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -75,7 +77,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/users'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -100,7 +102,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/users';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -134,7 +136,7 @@ import axios from 'axios';
   🔤/users🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -163,45 +165,55 @@ import axios from 'axios';
 ```json
 {
   "type": "get-users-result",
-  "requestId": "get-users_1777996637723",
+  "requestId": "get-users_1778789886704",
   "data": [
     {
-      "id": "vXdyKYLgpmko3kHx",
+      "id": "5ypAoBvOiyjDKiaZ",
       "name": "Gamemaster",
       "role": 4,
       "isGM": true,
       "active": false,
-      "color": "#becc28",
+      "color": "#28cca2",
       "avatar": "icons/svg/mystery-man.svg",
       "character": null
     },
     {
-      "id": "fCfNJPT9Atc26yyv",
+      "id": "r6bXhB7k9cXa3cif",
       "name": "tester",
       "role": 4,
       "isGM": true,
       "active": true,
-      "color": "#cc28b5",
+      "color": "#cc2829",
       "avatar": "icons/svg/mystery-man.svg",
       "character": null
     },
     {
-      "id": "mCIKww86Dh7ogc9v",
-      "name": "Player1",
+      "id": "XQP35eYL5dUPscgE",
+      "name": "s2s-test-2",
       "role": 1,
       "isGM": false,
       "active": false,
-      "color": "#cc8128",
+      "color": "#a0cc28",
       "avatar": "icons/svg/mystery-man.svg",
       "character": null
     },
     {
-      "id": "0NqudQfTbKOdSgxB",
+      "id": "JLfKTeTgCDpAdDfw",
+      "name": "some-cool-guy",
+      "role": 1,
+      "isGM": false,
+      "active": false,
+      "color": "#6328cc",
+      "avatar": "icons/svg/mystery-man.svg",
+      "character": null
+    },
+    {
+      "id": "NIY9RLVBVRZgBH66",
       "name": "test",
       "role": 1,
       "isGM": false,
       "active": false,
-      "color": "#283dcc",
+      "color": "#cc6328",
       "avatar": "icons/svg/mystery-man.svg",
       "character": null
     }
@@ -217,6 +229,8 @@ import axios from 'axios';
 Get a single Foundry user
 
 Retrieves a single user by their ID or name. This is a GM-only operation.
+
+**Required scope:** `user:read`
 
 ### Parameters
 
@@ -248,8 +262,8 @@ Retrieves a single user by their ID or name. This is a GM-only operation.
 const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
-  id: 'IdWksa8j8izitNyD'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  id: '9OmDgjvpHM0FHjXy'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -268,7 +282,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/user?clientId=fvtt_71dbc81bd608978a&id=IdWksa8j8izitNyD' \
+curl -X GET 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=9OmDgjvpHM0FHjXy' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -281,8 +295,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/user'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
-    'id': 'IdWksa8j8izitNyD'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'id': '9OmDgjvpHM0FHjXy'
 }
 url = f'{base_url}{path}'
 
@@ -307,8 +321,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/user';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
-    id: 'IdWksa8j8izitNyD'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    id: '9OmDgjvpHM0FHjXy'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -342,8 +356,8 @@ import axios from 'axios';
   🔤/user🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
-  🔤id=IdWksa8j8izitNyD🔤 ➡️ id
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤id=9OmDgjvpHM0FHjXy🔤 ➡️ id
   🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -372,14 +386,14 @@ import axios from 'axios';
 ```json
 {
   "type": "get-user-result",
-  "requestId": "get-user_1777996637733",
+  "requestId": "get-user_1778789886733",
   "data": {
-    "id": "IdWksa8j8izitNyD",
+    "id": "9OmDgjvpHM0FHjXy",
     "name": "test-api-user",
     "role": 1,
     "isGM": false,
     "active": false,
-    "color": "#cc5f28",
+    "color": "#cc288b",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -394,6 +408,8 @@ import axios from 'axios';
 Create a new Foundry user
 
 Creates a new user in the Foundry VTT world with the specified name, role, and optional password. This is a GM-only operation.
+
+**Required scope:** `user:write`
 
 ### Parameters
 
@@ -426,7 +442,7 @@ Creates a new user in the Foundry VTT world with the specified name, role, and o
 const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -451,7 +467,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/user?clientId=fvtt_71dbc81bd608978a' \
+curl -X POST 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"name":"test-api-user","role":1,"password":"testpassword123"}'
@@ -466,7 +482,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/user'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -496,7 +512,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/user';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -536,7 +552,7 @@ import axios from 'axios';
   🔤/user🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -568,14 +584,14 @@ import axios from 'axios';
 ```json
 {
   "type": "create-user-result",
-  "requestId": "create-user_1777996637725",
+  "requestId": "create-user_1778789886719",
   "data": {
-    "id": "IdWksa8j8izitNyD",
+    "id": "9OmDgjvpHM0FHjXy",
     "name": "test-api-user",
     "role": 1,
     "isGM": false,
     "active": false,
-    "color": "#cc5f28",
+    "color": "#cc288b",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -590,6 +606,8 @@ import axios from 'axios';
 Update an existing Foundry user
 
 Updates fields on an existing user. Identify the user by id or name, then pass the fields to update in the data object. Cannot demote the last GM user. This is a GM-only operation.
+
+**Required scope:** `user:write`
 
 ### Parameters
 
@@ -622,7 +640,7 @@ Updates fields on an existing user. Identify the user by id or name, then pass t
 const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a'
+  clientId: 'fvtt_099ad17ea199e7e3'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -634,7 +652,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "id": "IdWksa8j8izitNyD",
+      "id": "9OmDgjvpHM0FHjXy",
       "data": {
         "role": 2
       }
@@ -648,10 +666,10 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X PUT 'http://localhost:3010/user?clientId=fvtt_71dbc81bd608978a' \
+curl -X PUT 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"id":"IdWksa8j8izitNyD","data":{"role":2}}'
+  -d '{"id":"9OmDgjvpHM0FHjXy","data":{"role":2}}'
 ```
 
 </TabItem>
@@ -663,7 +681,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/user'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a'
+    'clientId': 'fvtt_099ad17ea199e7e3'
 }
 url = f'{base_url}{path}'
 
@@ -674,7 +692,7 @@ response = requests.put(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "id": "IdWksa8j8izitNyD",
+      "id": "9OmDgjvpHM0FHjXy",
       "data": {
         "role": 2
       }
@@ -694,7 +712,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/user';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a'
+    clientId: 'fvtt_099ad17ea199e7e3'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -707,7 +725,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "id": "IdWksa8j8izitNyD",
+        "id": "9OmDgjvpHM0FHjXy",
         "data": {
           "role": 2
         }
@@ -735,11 +753,11 @@ import axios from 'axios';
   🔤/user🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"id":"IdWksa8j8izitNyD","data":{"role":2}}🔤 ➡️ body
+  🔤{"id":"9OmDgjvpHM0FHjXy","data":{"role":2}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -767,14 +785,14 @@ import axios from 'axios';
 ```json
 {
   "type": "update-user-result",
-  "requestId": "update-user_1777996637736",
+  "requestId": "update-user_1778789886746",
   "data": {
-    "id": "IdWksa8j8izitNyD",
+    "id": "9OmDgjvpHM0FHjXy",
     "name": "test-api-user",
     "role": 2,
     "isGM": false,
     "active": false,
-    "color": "#cc5f28",
+    "color": "#cc288b",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -789,6 +807,8 @@ import axios from 'axios';
 Delete a Foundry user
 
 Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or the last GM user. This is a GM-only operation.
+
+**Required scope:** `user:write`
 
 ### Parameters
 
@@ -820,8 +840,8 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
 const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
-  clientId: 'fvtt_71dbc81bd608978a',
-  id: 'IdWksa8j8izitNyD'
+  clientId: 'fvtt_099ad17ea199e7e3',
+  id: '9OmDgjvpHM0FHjXy'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -840,7 +860,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/user?clientId=fvtt_71dbc81bd608978a&id=IdWksa8j8izitNyD' \
+curl -X DELETE 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=9OmDgjvpHM0FHjXy' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -853,8 +873,8 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/user'
 params = {
-    'clientId': 'fvtt_71dbc81bd608978a',
-    'id': 'IdWksa8j8izitNyD'
+    'clientId': 'fvtt_099ad17ea199e7e3',
+    'id': '9OmDgjvpHM0FHjXy'
 }
 url = f'{base_url}{path}'
 
@@ -879,8 +899,8 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/user';
   const params = {
-    clientId: 'fvtt_71dbc81bd608978a',
-    id: 'IdWksa8j8izitNyD'
+    clientId: 'fvtt_099ad17ea199e7e3',
+    id: '9OmDgjvpHM0FHjXy'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -914,8 +934,8 @@ import axios from 'axios';
   🔤/user🔤 ➡️ path
 
   💭 Query parameters
-  🔤clientId=fvtt_71dbc81bd608978a🔤 ➡️ clientId
-  🔤id=IdWksa8j8izitNyD🔤 ➡️ id
+  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
+  🔤id=9OmDgjvpHM0FHjXy🔤 ➡️ id
   🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -944,7 +964,7 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-user-result",
-  "requestId": "delete-user_1777996637742",
+  "requestId": "delete-user_1778789886760",
   "success": true
 }
 ```

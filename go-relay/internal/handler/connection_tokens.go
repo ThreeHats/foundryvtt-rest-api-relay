@@ -31,9 +31,19 @@ import (
 // force-disconnect any active WebSocket clients that authenticated using the
 // revoked token.
 func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Config, manager *ws.ClientManager) {
-	// Authenticated routes (require master API key)
+	// Authenticated routes (require dashboard session)
 	r.Route("/connection-tokens", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		// POST /auth/connection-tokens — Generate a pairing code.
 		// Body (optional):
@@ -47,11 +57,6 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 		//   "user:write") the resulting token holds for those operations.
 		r.Post("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key to manage connection tokens.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -109,11 +114,6 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 		// GET /auth/connection-tokens — List active tokens
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -176,10 +176,6 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 		// PATCH /auth/connection-tokens/:id — edit permissions without re-pairing
 		r.Patch("/{id}", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -242,12 +238,6 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 
 		// DELETE /auth/connection-tokens/:id — Revoke a token AND force-disconnect any active client
 		r.Delete("/{id}", func(w http.ResponseWriter, r *http.Request) {
-			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			tokenID, err := strconv.ParseInt(chi.URLParam(r, "id"), 10, 64)
 			if err != nil {
 				helpers.WriteError(w, http.StatusBadRequest, "Invalid token ID")
@@ -407,16 +397,22 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 		log.Info().Int64("userId", pairingCode.UserID).Str("clientId", clientID).Str("worldId", body.WorldID).Int64("tokenId", connToken.ID).Str("tokenHashPrefix", tokenHash[:8]+"…").Msg("Pairing completed")
 	})
 
-	// GET /auth/remote-request-logs — View cross-world audit log (authenticated, master key only)
+	// GET /auth/remote-request-logs — View cross-world audit log (session required)
 	r.Route("/remote-request-logs", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -465,17 +461,22 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 		})
 	})
 
-	// GET /auth/connection-logs — View connection audit log (authenticated)
+	// GET /auth/connection-logs — View connection audit log (session required)
 	r.Route("/connection-logs", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -665,15 +666,20 @@ func buildRelayWSURL(r *http.Request, frontendURL string) string {
 func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config, manager *ws.ClientManager) {
 	r.Route("/credentials", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		// POST /auth/credentials — Create credential set
 		r.Post("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -733,11 +739,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// GET /auth/credentials — List credentials (never returns passwords)
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -771,11 +772,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// PATCH /auth/credentials/:id — Update credential
 		r.Patch("/{id}", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -842,11 +838,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// DELETE /auth/credentials/:id
 		r.Delete("/{id}", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -881,16 +872,21 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 	// Known Clients routes
 	r.Route("/known-clients", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		// GET /auth/known-clients — List all known clients with online/offline status,
 		// their connection tokens, and which token is currently active.
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1001,10 +997,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// Body: { "credentialId": <number|null> }
 		r.Patch("/{id}/credential", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1053,10 +1045,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// These settings apply to all browsers (connection tokens) paired to this world.
 		r.Patch("/{id}", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1129,10 +1117,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// currently offline).
 		r.Patch("/{id}/auto-start", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1171,11 +1155,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// deletes the row from the KnownClients table.
 		r.Delete("/{id}", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1239,15 +1218,20 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 	// Notification Settings routes
 	r.Route("/notification-settings", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		// GET /auth/notification-settings
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil {
-				helpers.WriteError(w, http.StatusUnauthorized, "Authentication required")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1300,11 +1284,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// PUT /auth/notification-settings
 		r.Put("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil {
-				helpers.WriteError(w, http.StatusUnauthorized, "Authentication required")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1385,11 +1364,6 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 		// body fields are empty or the body is absent.
 		r.Post("/test", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil {
-				helpers.WriteError(w, http.StatusUnauthorized, "Authentication required")
-				return
-			}
-
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1452,14 +1426,20 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 	// POST   /auth/api-keys/:id/notification-settings/test
 	r.Route("/api-keys/{id}/notification-settings", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		// Helper to look up the key + verify ownership
 		lookupKey := func(w http.ResponseWriter, r *http.Request) (*model.User, *model.ApiKey, bool) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return nil, nil, false
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1609,13 +1589,19 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 	// GET /auth/known-clients/{id}/users — stored Foundry users for this world
 	r.Route("/known-clients/{id}/users", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")
@@ -1647,13 +1633,19 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 	// POST   /auth/known-clients/{id}/notification-settings/test
 	r.Route("/known-clients/{id}/notification-settings", func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware(db, nil))
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx == nil || !reqCtx.IsSessionAuth {
+					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		lookupWorld := func(w http.ResponseWriter, r *http.Request) (*model.User, *model.KnownClient, bool) {
 			reqCtx := helpers.GetRequestContext(r)
-			if reqCtx == nil || reqCtx.ScopedKey != nil {
-				helpers.WriteError(w, http.StatusForbidden, "Use your master API key.")
-				return nil, nil, false
-			}
 			user, ok := reqCtx.User.(*model.User)
 			if !ok || user == nil {
 				helpers.WriteError(w, http.StatusUnauthorized, "Invalid user")

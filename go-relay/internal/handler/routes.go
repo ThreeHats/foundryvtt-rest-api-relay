@@ -23,6 +23,16 @@ func RegisterAPIRoutes(r chi.Router, mgr *ws.ClientManager, pending *ws.PendingR
 		r.Use(authMw)
 		r.Use(appmw.APIKeyRateLimiter.APIKeyMiddleware)
 		r.Use(usageMw)
+		r.Use(func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				reqCtx := helpers.GetRequestContext(r)
+				if reqCtx != nil && reqCtx.ScopedKey == nil {
+					helpers.WriteError(w, http.StatusUnauthorized, "A scoped API key is required for API calls. Create one from your dashboard.")
+					return
+				}
+				next.ServeHTTP(w, r)
+			})
+		})
 
 		// Entity read
 		r.Group(func(r chi.Router) {
