@@ -107,8 +107,8 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 			})
 		})
 
-		// GET /auth/key-request/:code/status — Poll for device flow (NO AUTH, RATE LIMITED)
-		r.With(middleware.KeyRequestRateLimiter.Middleware).Get("/{code}/status", func(w http.ResponseWriter, r *http.Request) {
+		// GET /auth/key-request/:code/status — Poll for device flow (NO AUTH, NO RATE LIMIT)
+		r.Get("/{code}/status", func(w http.ResponseWriter, r *http.Request) {
 			code := chi.URLParam(r, "code")
 			ctx := r.Context()
 
