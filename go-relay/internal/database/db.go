@@ -589,8 +589,8 @@ func cleanupCorruptedKnownClients(ctx context.Context, sqlDB *sqlx.DB, dbType st
 		}
 	}
 
-	// Also reset isOnline=0 on remaining rows in case any stuck "online" through restart
-	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET "isOnline" = 0`, knownClientsTable))
+	// Also reset isOnline=FALSE on remaining rows in case any stuck "online" through restart
+	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET "isOnline" = FALSE`, knownClientsTable))
 
 	// Mark migration as applied
 	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`INSERT INTO %s (name) VALUES ($1)`, tableName), migrationName)
@@ -925,7 +925,7 @@ func forceRotationIfNeeded(ctx context.Context, sqlDB *sqlx.DB, dbType string) {
 	} else {
 		usersTable = `"Users"`
 	}
-	result, err := sqlDB.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET "apiKeyRotationRequired" = 1`, usersTable))
+	result, err := sqlDB.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET "apiKeyRotationRequired" = TRUE`, usersTable))
 	if err != nil {
 		log.Warn().Err(err).Msg("Failed to apply force_master_key_rotation migration (this is OK on first install)")
 		// Still mark as applied to avoid retry loops on fresh installs where the column doesn't exist yet
@@ -944,19 +944,19 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			id SERIAL PRIMARY KEY,
 			email VARCHAR(255) NOT NULL UNIQUE,
 			password VARCHAR(255) NOT NULL,
-			api_key_hash VARCHAR(64) NOT NULL UNIQUE,
-			requests_this_month INTEGER DEFAULT 0,
-			requests_today INTEGER DEFAULT 0,
-			last_request_date DATE,
-			stripe_customer_id VARCHAR(255),
-			subscription_status VARCHAR(50) DEFAULT 'free',
-			subscription_id VARCHAR(255),
-			subscription_ends_at TIMESTAMPTZ,
-			max_headless_sessions INTEGER,
+			"apiKeyHash" VARCHAR(64) NOT NULL UNIQUE,
+			"requestsThisMonth" INTEGER DEFAULT 0,
+			"requestsToday" INTEGER DEFAULT 0,
+			"lastRequestDate" DATE,
+			"stripeCustomerId" VARCHAR(255),
+			"subscriptionStatus" VARCHAR(50) DEFAULT 'free',
+			"subscriptionId" VARCHAR(255),
+			"subscriptionEndsAt" TIMESTAMPTZ,
+			"maxHeadlessSessions" INTEGER,
 			role VARCHAR(20) DEFAULT 'user',
 			disabled BOOLEAN DEFAULT FALSE,
-			created_at TIMESTAMPTZ DEFAULT NOW(),
-			updated_at TIMESTAMPTZ DEFAULT NOW()
+			"createdAt" TIMESTAMPTZ DEFAULT NOW(),
+			"updatedAt" TIMESTAMPTZ DEFAULT NOW()
 		)`,
 		`CREATE TABLE IF NOT EXISTS "PasswordResetTokens" (
 			id SERIAL PRIMARY KEY,
@@ -993,11 +993,11 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			token_hash VARCHAR(255) NOT NULL UNIQUE,
 			name VARCHAR(255) DEFAULT '',
 			allowed_ips TEXT DEFAULT '',
-			allowed_target_clients TEXT DEFAULT '',
-			remote_scopes TEXT DEFAULT '',
-			remote_requests_per_hour INTEGER DEFAULT 0,
+			"allowedTargetClients" TEXT DEFAULT '',
+			"remoteScopes" TEXT DEFAULT '',
+			"remoteRequestsPerHour" INTEGER DEFAULT 0,
 			source VARCHAR(20) DEFAULT 'dashboard',
-			last_used_at TIMESTAMPTZ,
+			"lastUsedAt" TIMESTAMPTZ,
 			created_at TIMESTAMPTZ DEFAULT NOW(),
 			updated_at TIMESTAMPTZ DEFAULT NOW()
 		)`,
@@ -1005,9 +1005,9 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			id SERIAL PRIMARY KEY,
 			user_id INTEGER NOT NULL,
 			code VARCHAR(32) NOT NULL UNIQUE,
-			client_id VARCHAR(255),
-			allowed_target_clients TEXT DEFAULT '',
-			remote_scopes TEXT DEFAULT '',
+			"clientId" VARCHAR(255),
+			"allowedTargetClients" TEXT DEFAULT '',
+			"remoteScopes" TEXT DEFAULT '',
 			expires_at TIMESTAMPTZ NOT NULL,
 			used BOOLEAN DEFAULT FALSE,
 			created_at TIMESTAMPTZ DEFAULT NOW()
@@ -1016,7 +1016,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			id SERIAL PRIMARY KEY,
 			user_id INTEGER NOT NULL,
 			client_id VARCHAR(255) NOT NULL,
-			token_name VARCHAR(255),
+			"tokenName" VARCHAR(255),
 			ip_address VARCHAR(255),
 			user_agent TEXT,
 			world_id VARCHAR(255),
@@ -1053,11 +1053,11 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			custom_name VARCHAR(255),
 			last_seen_at TIMESTAMPTZ,
 			is_online BOOLEAN DEFAULT FALSE,
-			auto_start_on_remote_request BOOLEAN DEFAULT FALSE,
-			credential_id INTEGER,
-			allowed_target_clients TEXT DEFAULT '',
-			remote_scopes TEXT DEFAULT '',
-			remote_requests_per_hour INTEGER DEFAULT 0,
+			"autoStartOnRemoteRequest" BOOLEAN DEFAULT FALSE,
+			"credentialId" INTEGER,
+			"allowedTargetClients" TEXT DEFAULT '',
+			"remoteScopes" TEXT DEFAULT '',
+			"remoteRequestsPerHour" INTEGER DEFAULT 0,
 			created_at TIMESTAMPTZ DEFAULT NOW(),
 			updated_at TIMESTAMPTZ DEFAULT NOW(),
 			UNIQUE(user_id, client_id)
@@ -1322,6 +1322,24 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		`ALTER TABLE "ApiKeys" DROP COLUMN IF EXISTS "credentialId"`,
 		// Per-client user scoping: JSON map of clientId → userId
 		`ALTER TABLE "ApiKeys" ADD COLUMN IF NOT EXISTS "scopedUserIds" TEXT`,
+		// Drop snake_case orphan columns left behind by earlier migrations that added
+		// camelCase duplicates via ALTER TABLE before the rename could run. Safe to
+		// re-run — IF EXISTS means they no-op once the column is gone.
+		`ALTER TABLE "Users" DROP COLUMN IF EXISTS api_key_hash`,
+		`ALTER TABLE "Users" DROP COLUMN IF EXISTS max_headless_sessions`,
+		`ALTER TABLE "ConnectionTokens" DROP COLUMN IF EXISTS allowed_target_clients`,
+		`ALTER TABLE "ConnectionTokens" DROP COLUMN IF EXISTS remote_scopes`,
+		`ALTER TABLE "ConnectionTokens" DROP COLUMN IF EXISTS remote_requests_per_hour`,
+		`ALTER TABLE "ConnectionTokens" DROP COLUMN IF EXISTS last_used_at`,
+		`ALTER TABLE "ConnectionLogs" DROP COLUMN IF EXISTS token_name`,
+		`ALTER TABLE "KnownClients" DROP COLUMN IF EXISTS auto_start_on_remote_request`,
+		`ALTER TABLE "KnownClients" DROP COLUMN IF EXISTS credential_id`,
+		`ALTER TABLE "KnownClients" DROP COLUMN IF EXISTS allowed_target_clients`,
+		`ALTER TABLE "KnownClients" DROP COLUMN IF EXISTS remote_scopes`,
+		`ALTER TABLE "KnownClients" DROP COLUMN IF EXISTS remote_requests_per_hour`,
+		`ALTER TABLE "PairingCodes" DROP COLUMN IF EXISTS client_id`,
+		`ALTER TABLE "PairingCodes" DROP COLUMN IF EXISTS allowed_target_clients`,
+		`ALTER TABLE "PairingCodes" DROP COLUMN IF EXISTS remote_scopes`,
 	}
 	for _, m := range alterMigrations {
 		_, _ = db.sqlDB.ExecContext(ctx, m) // Idempotent: errors expected if column already exists
@@ -1408,8 +1426,18 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		{"KnownClients", "credential_id", "credentialId"},
 		{"KnownClients", "created_at", "createdAt"},
 		{"KnownClients", "updated_at", "updatedAt"},
-		// Users table — apiKeyHash column needs renaming if it was ever created via Sequelize
+		// Users table — rename all snake_case columns created by the initial migration
 		{"Users", "api_key_hash", "apiKeyHash"},
+		{"Users", "requests_this_month", "requestsThisMonth"},
+		{"Users", "requests_today", "requestsToday"},
+		{"Users", "last_request_date", "lastRequestDate"},
+		{"Users", "stripe_customer_id", "stripeCustomerId"},
+		{"Users", "subscription_status", "subscriptionStatus"},
+		{"Users", "subscription_id", "subscriptionId"},
+		{"Users", "subscription_ends_at", "subscriptionEndsAt"},
+		{"Users", "max_headless_sessions", "maxHeadlessSessions"},
+		{"Users", "created_at", "createdAt"},
+		{"Users", "updated_at", "updatedAt"},
 		// Sessions table (Postgres might create with snake_case if Sequelize ever touches it)
 		{"Sessions", "user_id", "userId"},
 		{"Sessions", "token_hash", "tokenHash"},

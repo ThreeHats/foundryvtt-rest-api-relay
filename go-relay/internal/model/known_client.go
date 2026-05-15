@@ -318,7 +318,7 @@ func (s *SQLKnownClientStore) SetOffline(ctx context.Context, userID int64, clie
 }
 
 func (s *SQLKnownClientStore) ResetAllOnline(ctx context.Context) error {
-	_, err := s.DB.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET %s = 0`, s.tableName(), s.col("is_online")))
+	_, err := s.DB.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET %s = $1`, s.tableName(), s.col("is_online")), false)
 	return err
 }
 
