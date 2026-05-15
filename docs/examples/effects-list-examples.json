@@ -1,0 +1,247 @@
+[
+  {
+    "endpoint": "/effects/list",
+    "method": "GET",
+    "description": "/effects/list",
+    "request": {
+      "url": "http://localhost:3010/effects/list",
+      "method": "GET",
+      "headers": {
+        "x-api-key": "702fc3316ac88039ff83024cf3d44cb4"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "get-status-effects-result",
+        "requestId": "get-status-effects_1775271944554",
+        "data": {
+          "effects": [
+            {
+              "id": "dead",
+              "name": "Dead",
+              "icon": "systems/dnd5e/icons/svg/statuses/dead.svg"
+            },
+            {
+              "id": "coverHalf",
+              "name": "Half Cover",
+              "icon": "systems/dnd5e/icons/svg/statuses/cover-half.svg"
+            },
+            {
+              "id": "coverThreeQuarters",
+              "name": "Three-Quarters Cover",
+              "icon": "systems/dnd5e/icons/svg/statuses/cover-three-quarters.svg"
+            },
+            {
+              "id": "coverTotal",
+              "name": "Total Cover",
+              "icon": "systems/dnd5e/icons/svg/statuses/cover-total.svg"
+            },
+            {
+              "id": "bleeding",
+              "name": "Bleeding",
+              "icon": "systems/dnd5e/icons/svg/statuses/bleeding.svg"
+            },
+            {
+              "id": "blinded",
+              "name": "Blinded",
+              "icon": "systems/dnd5e/icons/svg/statuses/blinded.svg"
+            },
+            {
+              "id": "burning",
+              "name": "Burning",
+              "icon": "systems/dnd5e/icons/svg/statuses/burning.svg"
+            },
+            {
+              "id": "burrowing",
+              "name": "Burrowing",
+              "icon": "systems/dnd5e/icons/svg/statuses/burrowing.svg"
+            },
+            {
+              "id": "charmed",
+              "name": "Charmed",
+              "icon": "systems/dnd5e/icons/svg/statuses/charmed.svg"
+            },
+            {
+              "id": "concentrating",
+              "name": "Concentrating",
+              "icon": "systems/dnd5e/icons/svg/statuses/concentrating.svg"
+            },
+            {
+              "id": "cursed",
+              "name": "Cursed",
+              "icon": "systems/dnd5e/icons/svg/statuses/cursed.svg"
+            },
+            {
+              "id": "deafened",
+              "name": "Deafened",
+              "icon": "systems/dnd5e/icons/svg/statuses/deafened.svg"
+            },
+            {
+              "id": "dehydration",
+              "name": "Dehydration",
+              "icon": "systems/dnd5e/icons/svg/statuses/dehydration.svg"
+            },
+            {
+              "id": "diseased",
+              "name": "Diseased",
+              "icon": "systems/dnd5e/icons/svg/statuses/diseased.svg"
+            },
+            {
+              "id": "dodging",
+              "name": "Dodging",
+              "icon": "systems/dnd5e/icons/svg/statuses/dodging.svg"
+            },
+            {
+              "id": "encumbered",
+              "name": "Encumbered",
+              "icon": "systems/dnd5e/icons/svg/statuses/encumbered.svg"
+            },
+            {
+              "id": "ethereal",
+              "name": "Ethereal",
+              "icon": "systems/dnd5e/icons/svg/statuses/ethereal.svg"
+            },
+            {
+              "id": "exceedingCarryingCapacity",
+              "name": "Exceeding Carrying Capacity",
+              "icon": "systems/dnd5e/icons/svg/statuses/exceeding-carrying-capacity.svg"
+            },
+            {
+              "id": "exhaustion",
+              "name": "Exhaustion",
+              "icon": "systems/dnd5e/icons/svg/statuses/exhaustion.svg"
+            },
+            {
+              "id": "falling",
+              "name": "Falling",
+              "icon": "systems/dnd5e/icons/svg/statuses/falling.svg"
+            },
+            {
+              "id": "flying",
+              "name": "Flying",
+              "icon": "systems/dnd5e/icons/svg/statuses/flying.svg"
+            },
+            {
+              "id": "frightened",
+              "name": "Frightened",
+              "icon": "systems/dnd5e/icons/svg/statuses/frightened.svg"
+            },
+            {
+              "id": "grappled",
+              "name": "Grappled",
+              "icon": "systems/dnd5e/icons/svg/statuses/grappled.svg"
+            },
+            {
+              "id": "heavilyEncumbered",
+              "name": "Heavily Encumbered",
+              "icon": "systems/dnd5e/icons/svg/statuses/heavily-encumbered.svg"
+            },
+            {
+              "id": "hiding",
+              "name": "Hiding",
+              "icon": "systems/dnd5e/icons/svg/statuses/hiding.svg"
+            },
+            {
+              "id": "hovering",
+              "name": "Hovering",
+              "icon": "systems/dnd5e/icons/svg/statuses/hovering.svg"
+            },
+            {
+              "id": "incapacitated",
+              "name": "Incapacitated",
+              "icon": "systems/dnd5e/icons/svg/statuses/incapacitated.svg"
+            },
+            {
+              "id": "invisible",
+              "name": "Invisible",
+              "icon": "systems/dnd5e/icons/svg/statuses/invisible.svg"
+            },
+            {
+              "id": "malnutrition",
+              "name": "Malnutrition",
+              "icon": "systems/dnd5e/icons/svg/statuses/malnutrition.svg"
+            },
+            {
+              "id": "marked",
+              "name": "Marked",
+              "icon": "systems/dnd5e/icons/svg/statuses/marked.svg"
+            },
+            {
+              "id": "paralyzed",
+              "name": "Paralyzed",
+              "icon": "systems/dnd5e/icons/svg/statuses/paralyzed.svg"
+            },
+            {
+              "id": "petrified",
+              "name": "Petrified",
+              "icon": "systems/dnd5e/icons/svg/statuses/petrified.svg"
+            },
+            {
+              "id": "poisoned",
+              "name": "Poisoned",
+              "icon": "systems/dnd5e/icons/svg/statuses/poisoned.svg"
+            },
+            {
+              "id": "prone",
+              "name": "Prone",
+              "icon": "systems/dnd5e/icons/svg/statuses/prone.svg"
+            },
+            {
+              "id": "restrained",
+              "name": "Restrained",
+              "icon": "systems/dnd5e/icons/svg/statuses/restrained.svg"
+            },
+            {
+              "id": "silenced",
+              "name": "Silenced",
+              "icon": "systems/dnd5e/icons/svg/statuses/silenced.svg"
+            },
+            {
+              "id": "sleeping",
+              "name": "Sleeping",
+              "icon": "systems/dnd5e/icons/svg/statuses/sleeping.svg"
+            },
+            {
+              "id": "stable",
+              "name": "Stable",
+              "icon": "systems/dnd5e/icons/svg/statuses/stable.svg"
+            },
+            {
+              "id": "stunned",
+              "name": "Stunned",
+              "icon": "systems/dnd5e/icons/svg/statuses/stunned.svg"
+            },
+            {
+              "id": "suffocation",
+              "name": "Suffocation",
+              "icon": "systems/dnd5e/icons/svg/statuses/suffocation.svg"
+            },
+            {
+              "id": "surprised",
+              "name": "Surprised",
+              "icon": "systems/dnd5e/icons/svg/statuses/surprised.svg"
+            },
+            {
+              "id": "transformed",
+              "name": "Transformed",
+              "icon": "systems/dnd5e/icons/svg/statuses/transformed.svg"
+            },
+            {
+              "id": "unconscious",
+              "name": "Unconscious",
+              "icon": "systems/dnd5e/icons/svg/statuses/unconscious.svg"
+            }
+          ]
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/effects/list';\nconst params = {\n  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/effects/list?clientId=foundry-testing-r6bXhB7k9cXa3cif' \\\n  -H \"x-api-key: 702fc3316ac88039ff83024cf3d44cb4\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/effects/list'\nparams = {\n    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/effects/list';\n  const params = {\n    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/effects/list🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /effects/list🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 702fc3316ac88039ff83024cf3d44cb4❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "messageType": "subscribe-hooks",
+    "description": "Subscribe to hooks channel",
+    "request": {
+      "channel": "hooks"
+    },
+    "response": {
+      "channel": "hooks",
+      "requestId": "test_1778884120978_l1u83t",
+      "type": "subscribed"
+    },
+    "codeExamples": {
+      "javascript": "const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"hooks\",\n      \"type\": \"subscribe-hooks\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-hooks-result') {\n    console.log(data);\n  }\n};",
+      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"channel\":\"hooks\",\"type\":\"subscribe-hooks\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
+      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"hooks\",\n      \"type\": \"subscribe-hooks\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-hooks-result') {\n    console.log(data);\n  }\n}):"
+    }
+  },
+  {
+    "messageType": "hook-event",
+    "description": "Hook event received",
+    "request": {},
+    "response": {
+      "data": {
+        "data": {
+          "args": [
+            {
+              "_id": "aGe7pgwk9nyCqGsR",
+              "_stats": {
+                "compendiumSource": null,
+                "coreVersion": "13.348",
+                "createdTime": 1778884121297,
+                "duplicateSource": null,
+                "exportSource": null,
+                "lastModifiedBy": "r6bXhB7k9cXa3cif",
+                "modifiedTime": 1778884121297,
+                "systemId": "dnd5e",
+                "systemVersion": "5.0.4"
+              },
+              "effects": [],
+              "flags": {},
+              "folder": null,
+              "img": "icons/svg/mystery-man.svg",
+              "items": [],
+              "name": "hook-test-actor",
+              "ownership": {
+                "default": 0,
+                "r6bXhB7k9cXa3cif": 3
+              },
+              "prototypeToken": {
+                "actorLink": false,
+                "alpha": 1,
+                "appendNumber": false,
+                "bar1": {
+                  "attribute": "attributes.hp"
+                },
+                "bar2": {
+                  "attribute": null
+                },
+                "detectionModes": [],
+                "displayBars": 0,
+                "displayName": 0,
+                "disposition": -1,
+                "flags": {},
+                "height": 1,
+                "light": {
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "animation": {
+                    "intensity": 5,
+                    "reverse": false,
+                    "speed": 5,
+                    "type": null
+                  },
+                  "attenuation": 0.5,
+                  "bright": 0,
+                  "color": null,
+                  "coloration": 1,
+                  "contrast": 0,
+                  "darkness": {
+                    "max": 1,
+                    "min": 0
+                  },
+                  "dim": 0,
+                  "luminosity": 0.5,
+                  "negative": false,
+                  "priority": 0,
+                  "saturation": 0,
+                  "shadows": 0
+                },
+                "lockRotation": false,
+                "movementAction": null,
+                "name": "hook-test-actor",
+                "occludable": {
+                  "radius": 0
+                },
+                "prependAdjective": false,
+                "randomImg": false,
+                "ring": {
+                  "colors": {
+                    "background": null,
+                    "ring": null
+                  },
+                  "effects": 1,
+                  "enabled": false,
+                  "subject": {
+                    "scale": 1,
+                    "texture": null
+                  }
+                },
+                "rotation": 0,
+                "sight": {
+                  "angle": 360,
+                  "attenuation": 0.1,
+                  "brightness": 0,
+                  "color": null,
+                  "contrast": 0,
+                  "enabled": false,
+                  "range": 0,
+                  "saturation": 0,
+                  "visionMode": "basic"
+                },
+                "texture": {
+                  "alphaThreshold": 0.75,
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "fit": "contain",
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "src": "icons/svg/mystery-man.svg",
+                  "tint": "#ffffff"
+                },
+                "turnMarker": {
+                  "animation": null,
+                  "disposition": false,
+                  "mode": 1,
+                  "src": null
+                },
+                "width": 1
+              },
+              "sort": 0,
+              "system": {},
+              "type": "base"
+            },
+            {
+              "action": "create",
+              "modifiedTime": 1778884121297,
+              "parent": null,
+              "render": true,
+              "renderSheet": false
+            },
+            "r6bXhB7k9cXa3cif"
+          ],
+          "hook": "createActor"
+        },
+        "type": "hook-event"
+      },
+      "hook": "createActor",
+      "type": "hook-event"
+    },
+    "codeExamples": {
+      "javascript": "const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"hook-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'hook-event-result') {\n    console.log(data);\n  }\n};",
+      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"type\":\"hook-event\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
+      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"hook-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'hook-event-result') {\n    console.log(data);\n  }\n}):"
+    }
+  }
+]

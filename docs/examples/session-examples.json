@@ -1,0 +1,102 @@
+[
+  {
+    "endpoint": "/start-session",
+    "method": "POST",
+    "description": "/start-session",
+    "request": {
+      "url": "http://localhost:3010/start-session",
+      "method": "POST",
+      "headers": {
+        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+      },
+      "body": {
+        "handshakeToken": "89acd526dd815bd7632722402324d76292682ef37209b1639ab99df2c48eaff4",
+        "encryptedPassword": "v6Ldn76kcEs6AoEZA1Znoc+0iq7/TDPr7ineWHcMKCXU40VBYPjhmRFiexAmCk+JjQgCcVgKzaieauLcVuzaoYU2Fs0pnYyXSF10DQUcM1lCKmrmLAMwiMaUTcHXcNqPyNB8AQuGaEZmeoYf6HFwTMXHBt+wSMe5W/E8OdElYzundzNnJkVAHeDKpQiRuO5v4ogcsZCMWFYcSB7RQcCavAp4h2BQ6H1ZpmKbHXKhKcRRJ+YJ4QE8bfaFHaDK6y2MD/mEn2YgCKeUAxDyqzFV2iDOKTTyeCEPw1roOop6GhZM06senSjM52CV1cqKKSeKKfAY6hK5wZHw5PzLxTui4Q==",
+        "captureBrowserConsole": "warn",
+        "foundryVersion": "13"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "clientId": "fvtt_099ad17ea199e7e3",
+        "sessionId": "254a2b27-80cf-443d-a1b9-b1168d40136b",
+        "success": true
+      }
+    },
+    "codeExamples": {
+      "javascript": "// Step 1: Get handshake credentials\nconst baseUrl = 'http://localhost:3010';\nconst apiKey = 'your-api-key';\n\nconst handshakeResponse = await fetch(`${baseUrl}/session-handshake`, {\n  method: 'POST',\n  headers: {\n    'x-api-key': apiKey,\n    'x-foundry-url': 'http://localhost:30000',\n    'x-world-name': 'my-world',\n    'x-username': 'Gamemaster'\n  }\n});\nconst { token, publicKey, nonce } = await handshakeResponse.json();\n\n// Step 2: Encrypt password using Web Crypto API (RSA-OAEP with SHA-256)\nconst password = 'your-password';\nconst payload = JSON.stringify({ password, nonce });\n\n// Import the public key\nconst pemContents = publicKey\n  .replace('-----BEGIN PUBLIC KEY-----', '')\n  .replace('-----END PUBLIC KEY-----', '')\n  .replace(/\\n/g, '');\nconst binaryKey = Uint8Array.from(atob(pemContents), c => c.charCodeAt(0));\n\nconst cryptoKey = await crypto.subtle.importKey(\n  'spki',\n  binaryKey,\n  { name: 'RSA-OAEP', hash: 'SHA-256' },\n  false,\n  ['encrypt']\n);\n\n// Encrypt the payload\nconst encrypted = await crypto.subtle.encrypt(\n  { name: 'RSA-OAEP' },\n  cryptoKey,\n  new TextEncoder().encode(payload)\n);\nconst encryptedPassword = btoa(String.fromCharCode(...new Uint8Array(encrypted)));\n\n// Step 3: Start the session\nconst sessionResponse = await fetch(`${baseUrl}/start-session`, {\n  method: 'POST',\n  headers: {\n    'x-api-key': apiKey,\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({ handshakeToken: token, encryptedPassword })\n});\nconst { sessionId, clientId } = await sessionResponse.json();\nconsole.log('Session started:', { sessionId, clientId });",
+      "curl": "# Session creation requires encryption - use the JavaScript, Python, or TypeScript examples.\n# \n# The flow is:\n# 1. POST /session-handshake to get token, publicKey, nonce\n# 2. Encrypt JSON payload { password, nonce } with RSA-OAEP using publicKey\n# 3. POST /start-session with { handshakeToken, encryptedPassword }\n#\n# Example handshake request:\ncurl -X POST 'http://localhost:3010/session-handshake' \\\n  -H \"x-api-key: your-api-key\" \\\n  -H \"x-foundry-url: http://localhost:30000\" \\\n  -H \"x-world-name: my-world\" \\\n  -H \"x-username: Gamemaster\"",
+      "python": "import requests\nfrom cryptography.hazmat.primitives import serialization, hashes\nfrom cryptography.hazmat.primitives.asymmetric import padding\nimport base64\nimport json\n\nbase_url = 'http://localhost:3010'\napi_key = 'your-api-key'\n\n# Step 1: Get handshake credentials\nhandshake_response = requests.post(\n    f'{base_url}/session-handshake',\n    headers={\n        'x-api-key': api_key,\n        'x-foundry-url': 'http://localhost:30000',\n        'x-world-name': 'my-world',\n        'x-username': 'Gamemaster'\n    }\n)\nhandshake_data = handshake_response.json()\ntoken = handshake_data['token']\npublic_key_pem = handshake_data['publicKey']\nnonce = handshake_data['nonce']\n\n# Step 2: Encrypt password using RSA-OAEP with SHA-256\npassword = 'your-password'\npayload = json.dumps({'password': password, 'nonce': nonce})\n\npublic_key = serialization.load_pem_public_key(public_key_pem.encode())\nencrypted = public_key.encrypt(\n    payload.encode(),\n    padding.OAEP(\n        mgf=padding.MGF1(algorithm=hashes.SHA256()),\n        algorithm=hashes.SHA256(),\n        label=None\n    )\n)\nencrypted_password = base64.b64encode(encrypted).decode()\n\n# Step 3: Start the session\nsession_response = requests.post(\n    f'{base_url}/start-session',\n    headers={'x-api-key': api_key},\n    json={'handshakeToken': token, 'encryptedPassword': encrypted_password}\n)\nsession_data = session_response.json()\nprint('Session started:', session_data)",
+      "typescript": "import crypto from 'crypto';\n\n// Step 1: Get handshake credentials\nconst baseUrl = 'http://localhost:3010';\nconst apiKey = 'your-api-key';\n\nconst handshakeResponse = await fetch(`${baseUrl}/session-handshake`, {\n  method: 'POST',\n  headers: {\n    'x-api-key': apiKey,\n    'x-foundry-url': 'http://localhost:30000',\n    'x-world-name': 'my-world',\n    'x-username': 'Gamemaster'\n  }\n});\nconst { token, publicKey, nonce } = await handshakeResponse.json();\n\n// Step 2: Encrypt password using Node.js crypto (RSA-OAEP with SHA-256)\nconst password = 'your-password';\nconst payload = JSON.stringify({ password, nonce });\nconst encryptedPassword = crypto.publicEncrypt(\n  { key: publicKey, padding: crypto.constants.RSA_PKCS1_OAEP_PADDING, oaepHash: 'sha256' },\n  Buffer.from(payload, 'utf8')\n).toString('base64');\n\n// Step 3: Start the session\nconst sessionResponse = await fetch(`${baseUrl}/start-session`, {\n  method: 'POST',\n  headers: {\n    'x-api-key': apiKey,\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({ handshakeToken: token, encryptedPassword })\n});\nconst { sessionId, clientId } = await sessionResponse.json();\nconsole.log('Session started:', { sessionId, clientId });",
+      "emojicode": "Just don't 😂"
+    }
+  },
+  {
+    "endpoint": "/session",
+    "method": "GET",
+    "description": "/session",
+    "request": {
+      "url": "http://localhost:3010/session",
+      "method": "GET",
+      "headers": {
+        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "activeSessions": [
+          {
+            "clientId": "fvtt_099ad17ea199e7e3",
+            "foundryUrl": "http://localhost:30013",
+            "foundryVersion": "13.348",
+            "lastActivity": 1778884091879,
+            "sessionId": "254a2b27-80cf-443d-a1b9-b1168d40136b",
+            "startedAt": 1778884091879,
+            "systemId": "dnd5e",
+            "systemTitle": "Dungeons & Dragons Fifth Edition",
+            "systemVersion": "5.0.4",
+            "username": "tester",
+            "worldId": "testing",
+            "worldName": "testing",
+            "worldTitle": "testing"
+          }
+        ]
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/session';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/session' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/session'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/session';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/session🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /session HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/end-session",
+    "method": "DELETE",
+    "description": "/end-session",
+    "request": {
+      "url": "http://localhost:3010/end-session",
+      "method": "DELETE",
+      "headers": {
+        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "message": "Session ended",
+        "status": "ok"
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/end-session';\nconst params = {\n  sessionId: '254a2b27-80cf-443d-a1b9-b1168d40136b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3010/end-session?sessionId=254a2b27-80cf-443d-a1b9-b1168d40136b' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/end-session'\nparams = {\n    'sessionId': '254a2b27-80cf-443d-a1b9-b1168d40136b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/end-session';\n  const params = {\n    sessionId: '254a2b27-80cf-443d-a1b9-b1168d40136b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/end-session🔤 ➡️ path\n\n  💭 Query parameters\n  🔤sessionId=254a2b27-80cf-443d-a1b9-b1168d40136b🔤 ➡️ sessionId\n  🔤?🧲sessionId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /end-session🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  }
+]

@@ -1,0 +1,219 @@
+[
+  {
+    "endpoint": "/roll",
+    "method": "POST",
+    "description": "/roll",
+    "request": {
+      "url": "http://localhost:3010/roll",
+      "method": "POST",
+      "headers": {
+        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+      },
+      "body": {
+        "formula": "2d20kh",
+        "flavor": "Test Roll",
+        "createChatMessage": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "roll-result",
+        "requestId": "roll_1778884104689",
+        "success": true,
+        "data": {
+          "id": "manual_1778884104697_yr0u1afs9x",
+          "chatMessageCreated": true,
+          "roll": {
+            "formula": "2d20kh",
+            "total": 19,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 19,
+                    "active": true
+                  },
+                  {
+                    "result": 12,
+                    "active": false
+                  }
+                ]
+              }
+            ],
+            "timestamp": 1778884104697
+          }
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/roll';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"formula\": \"2d20kh\",\n      \"flavor\": \"Test Roll\",\n      \"createChatMessage\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/roll?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"formula\":\"2d20kh\",\"flavor\":\"Test Roll\",\"createChatMessage\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/roll'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    json={\n      \"formula\": \"2d20kh\",\n      \"flavor\": \"Test Roll\",\n      \"createChatMessage\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/roll';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"formula\": \"2d20kh\",\n        \"flavor\": \"Test Roll\",\n        \"createChatMessage\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/roll🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"formula\":\"2d20kh\",\"flavor\":\"Test Roll\",\"createChatMessage\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /roll🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/rolls",
+    "method": "GET",
+    "description": "/rolls",
+    "request": {
+      "url": "http://localhost:3010/rolls",
+      "method": "GET",
+      "headers": {
+        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "rolls-result",
+        "requestId": "rolls_1778884105202",
+        "data": [
+          {
+            "id": "manual_1778884104697_yr0u1afs9x",
+            "messageId": "manual_1778884104697_yr0u1afs9x",
+            "user": null,
+            "speaker": {},
+            "flavor": "Test Roll",
+            "rollTotal": 19,
+            "formula": "2d20kh",
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 19,
+                    "active": true
+                  },
+                  {
+                    "result": 12,
+                    "active": false
+                  }
+                ]
+              }
+            ],
+            "timestamp": 1778884104697
+          },
+          {
+            "id": "manual_1778884093640_21kpmq2onnl",
+            "messageId": null,
+            "user": null,
+            "speaker": {},
+            "flavor": "",
+            "rollTotal": 13,
+            "formula": "1d20",
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 13,
+                    "active": true
+                  }
+                ]
+              }
+            ],
+            "timestamp": 1778884093640
+          }
+        ]
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/rolls';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  limit: '20'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_099ad17ea199e7e3&limit=20' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/rolls'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'limit': '20'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/rolls';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    limit: '20'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/rolls🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤limit=20🔤 ➡️ limit\n  🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /rolls🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/lastroll",
+    "method": "GET",
+    "description": "/lastroll",
+    "request": {
+      "url": "http://localhost:3010/lastroll",
+      "method": "GET",
+      "headers": {
+        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "last-roll-result",
+        "requestId": "last-roll_1778884105205",
+        "data": {
+          "id": "manual_1778884104697_yr0u1afs9x",
+          "messageId": "manual_1778884104697_yr0u1afs9x",
+          "user": null,
+          "speaker": {},
+          "flavor": "Test Roll",
+          "rollTotal": 19,
+          "formula": "2d20kh",
+          "isCritical": false,
+          "isFumble": false,
+          "dice": [
+            {
+              "faces": 20,
+              "results": [
+                {
+                  "result": 19,
+                  "active": true
+                },
+                {
+                  "result": 12,
+                  "active": false
+                }
+              ]
+            }
+          ],
+          "timestamp": 1778884104697
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/lastroll';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/lastroll'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/lastroll';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/lastroll🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /lastroll🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/rolls/subscribe",
+    "method": "GET",
+    "description": "/rolls/subscribe",
+    "request": {
+      "url": "http://localhost:3010/rolls/subscribe?clientId=fvtt_099ad17ea199e7e3",
+      "method": "GET",
+      "headers": {
+        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "event": "connected",
+        "data": {
+          "clientId": "fvtt_099ad17ea199e7e3"
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const { EventSource } = require('eventsource'); // npm install eventsource\n\nconst baseUrl = 'http://localhost:3010';\nconst apiKey = 'your-api-key-here';\nconst url = `${baseUrl}/rolls/subscribe?clientId=your-client-id`;\n\n// eventsource v4 uses a custom fetch function to inject headers\nconst eventSource = new EventSource(url, {\n  fetch: (input, init) => fetch(input, {\n    ...init,\n    headers: { ...init?.headers, 'x-api-key': apiKey }\n  })\n});\n\neventSource.addEventListener('connected', (event) => {\n  const data = JSON.parse(event.data);\n  console.log('Connected:', data.clientId);\n});\n\neventSource.addEventListener('roll', (event) => {\n  const roll = JSON.parse(event.data);\n  const dice = roll.dice?.map(d =>\n    `${d.results.map(r => `${r.result}${r.active ? '' : '(dropped)'}`).join(', ')} (d${d.faces})`\n  ).join(' + ') || '';\n  console.log(`[${roll.user?.name}] ${roll.formula} = ${roll.rollTotal}${roll.isCritical ? ' CRITICAL!' : ''}${roll.isFumble ? ' FUMBLE!' : ''}`);\n  if (roll.flavor) console.log(`  Flavor: ${roll.flavor}`);\n  if (dice) console.log(`  Dice: ${dice}`);\n});\n\neventSource.onerror = (error) => {\n  console.error('SSE error:', error);\n};\n\n// To disconnect later:\n// eventSource.close();",
+      "curl": "# Connect to the roll SSE stream (streams events until interrupted with Ctrl+C)\ncurl -N 'http://localhost:3010/rolls/subscribe?clientId=your-client-id' \\\n  -H \"x-api-key: your-api-key-here\" \\\n  -H \"Accept: text/event-stream\"\n\n# Example output:\n# event: connected\n# data: {\"clientId\":\"your-client-id\"}\n#\n# event: roll\n# data: {\"id\":\"abc123\",\"user\":{\"id\":\"xyz\",\"name\":\"GM\"},\"formula\":\"1d20+5\",\"rollTotal\":18,\"isCritical\":false,\"isFumble\":false,\"dice\":[{\"faces\":20,\"results\":[{\"result\":13,\"active\":true}]}],\"flavor\":\"Attack Roll\",\"timestamp\":1234567890}",
+      "python": "import sseclient  # pip install sseclient-py\nimport requests\nimport json\n\nbase_url = 'http://localhost:3010'\nurl = f'{base_url}/rolls/subscribe'\nparams = {'clientId': 'your-client-id'}\nheaders = {\n    'x-api-key': 'your-api-key-here',\n    'Accept': 'text/event-stream'\n}\n\n# Connect to the SSE stream\nresponse = requests.get(url, params=params, headers=headers, stream=True)\nclient = sseclient.SSEClient(response)\n\nfor event in client.events():\n    data = json.loads(event.data)\n\n    if event.event == 'connected':\n        print(f'Connected: {data[\"clientId\"]}')\n    elif event.event == 'roll':\n        user = (data.get('user') or {}).get('name', '?')\n        crit = ' CRITICAL!' if data.get('isCritical') else ''\n        fumble = ' FUMBLE!' if data.get('isFumble') else ''\n        print(f'[{user}] {data[\"formula\"]} = {data[\"rollTotal\"]}{crit}{fumble}')\n        if data.get('flavor'):\n            print(f'  Flavor: {data[\"flavor\"]}')\n        for d in data.get('dice', []):\n            results = ', '.join(\n                f'{r[\"result\"]}{\"\" if r.get(\"active\", True) else \"(dropped)\"}'\n                for r in d.get('results', [])\n            )\n            print(f'  Dice: {results} (d{d[\"faces\"]})')",
+      "typescript": "// npm install eventsource\nimport { EventSource } from 'eventsource';\n\nconst baseUrl = 'http://localhost:3010';\nconst apiKey = 'your-api-key-here';\nconst url = `${baseUrl}/rolls/subscribe?clientId=your-client-id`;\n\n// eventsource v4 uses a custom fetch function to inject headers\nconst eventSource = new EventSource(url, {\n  fetch: (input, init) => fetch(input, {\n    ...init,\n    headers: { ...init?.headers, 'x-api-key': apiKey }\n  })\n});\n\ninterface RollEvent {\n  id: string;\n  messageId: string;\n  user: { id: string; name: string };\n  speaker: any;\n  flavor: string;\n  rollTotal: number;\n  formula: string;\n  isCritical: boolean;\n  isFumble: boolean;\n  dice: { faces: number; results: { result: number; active: boolean }[] }[];\n  timestamp: number;\n}\n\neventSource.addEventListener('connected', (event: MessageEvent) => {\n  const data = JSON.parse(event.data);\n  console.log('Connected:', data.clientId);\n});\n\neventSource.addEventListener('roll', (event: MessageEvent) => {\n  const roll: RollEvent = JSON.parse(event.data);\n  const dice = roll.dice?.map(d =>\n    `${d.results.map(r => `${r.result}${r.active ? '' : '(dropped)'}`).join(', ')} (d${d.faces})`\n  ).join(' + ') || '';\n  console.log(`[${roll.user?.name}] ${roll.formula} = ${roll.rollTotal}${roll.isCritical ? ' CRITICAL!' : ''}${roll.isFumble ? ' FUMBLE!' : ''}`);\n  if (roll.flavor) console.log(`  Flavor: ${roll.flavor}`);\n  if (dice) console.log(`  Dice: ${dice}`);\n});\n\neventSource.onerror = (error) => {\n  console.error('SSE error:', error);\n};\n\n// To disconnect: eventSource.close();",
+      "emojicode": "Just don't 😂"
+    }
+  }
+]

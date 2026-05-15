@@ -1,0 +1,35 @@
+[
+  {
+    "endpoint": "/auth/register",
+    "method": "POST",
+    "description": "/auth/register - with email verification",
+    "request": {
+      "url": "http://localhost:3010/auth/register",
+      "method": "POST",
+      "headers": {},
+      "body": {
+        "email": "verify-test-1778884125157@example.com",
+        "password": "TestPassword123!"
+      }
+    },
+    "response": {
+      "status": 201,
+      "data": {
+        "createdAt": "2026-05-15T22:28:45Z",
+        "email": "verify-test-1778884125157@example.com",
+        "emailVerified": true,
+        "id": 793,
+        "sessionExpiresAt": "2026-06-14T22:28:45Z",
+        "sessionToken": "6024a179774777642460a5c82f00cb28e429912b1ff3bf108c7dce16afa9514f",
+        "subscriptionStatus": "free"
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/register';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"verify-test-1778884125157@example.com\",\n      \"password\": \"TestPassword123!\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/register' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"verify-test-1778884125157@example.com\",\"password\":\"TestPassword123!\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/register'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"verify-test-1778884125157@example.com\",\n      \"password\": \"TestPassword123!\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/register';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"verify-test-1778884125157@example.com\",\n        \"password\": \"TestPassword123!\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/register🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"verify-test-1778884125157@example.com\",\"password\":\"TestPassword123!\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/register HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 79❌r❌n❌r❌n{\"email\":\"verify-test-1778884125157@example.com\",\"password\":\"TestPassword123!\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "endpoint": "/dnd5e/equip-item",
+    "method": "POST",
+    "description": "/dnd5e/equip-item - Equip an item",
+    "request": {
+      "url": "http://localhost:3010/dnd5e/equip-item",
+      "method": "POST",
+      "headers": {
+        "x-api-key": "702fc3316ac88039ff83024cf3d44cb4"
+      },
+      "body": {
+        "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+        "itemName": "Dart",
+        "equipped": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "equip-item-result",
+        "requestId": "equip-item_1775271949843",
+        "data": {
+          "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+          "itemUuid": "Actor.4zp7DW9DaguOqWcZ.Item.WeKJI3gPUAU52WAX",
+          "itemName": "Dart",
+          "equipped": true
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/dnd5e/equip-item';\nconst params = {\n  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"itemName\": \"Dart\",\n      \"equipped\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/dnd5e/equip-item?clientId=foundry-testing-r6bXhB7k9cXa3cif' \\\n  -H \"x-api-key: 702fc3316ac88039ff83024cf3d44cb4\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"itemName\":\"Dart\",\"equipped\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/dnd5e/equip-item'\nparams = {\n    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    },\n    json={\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"itemName\": \"Dart\",\n      \"equipped\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/dnd5e/equip-item';\n  const params = {\n    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n        \"itemName\": \"Dart\",\n        \"equipped\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/dnd5e/equip-item🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"itemName\":\"Dart\",\"equipped\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /dnd5e/equip-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 702fc3316ac88039ff83024cf3d44cb4❌r❌nContent-Type: application/json❌r❌nContent-Length: 72❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/dnd5e/attune-item",
+    "method": "POST",
+    "description": "/dnd5e/attune-item - Attune an item",
+    "request": {
+      "url": "http://localhost:3010/dnd5e/attune-item",
+      "method": "POST",
+      "headers": {
+        "x-api-key": "702fc3316ac88039ff83024cf3d44cb4"
+      },
+      "body": {
+        "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+        "itemName": "Dart",
+        "attuned": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "attune-item-result",
+        "requestId": "attune-item_1775271949848",
+        "data": {
+          "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+          "itemUuid": "Actor.4zp7DW9DaguOqWcZ.Item.WeKJI3gPUAU52WAX",
+          "itemName": "Dart",
+          "attuned": true
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/dnd5e/attune-item';\nconst params = {\n  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"itemName\": \"Dart\",\n      \"attuned\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/dnd5e/attune-item?clientId=foundry-testing-r6bXhB7k9cXa3cif' \\\n  -H \"x-api-key: 702fc3316ac88039ff83024cf3d44cb4\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"itemName\":\"Dart\",\"attuned\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/dnd5e/attune-item'\nparams = {\n    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    },\n    json={\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"itemName\": \"Dart\",\n      \"attuned\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/dnd5e/attune-item';\n  const params = {\n    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n        \"itemName\": \"Dart\",\n        \"attuned\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/dnd5e/attune-item🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"itemName\":\"Dart\",\"attuned\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /dnd5e/attune-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 702fc3316ac88039ff83024cf3d44cb4❌r❌nContent-Type: application/json❌r❌nContent-Length: 71❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/dnd5e/transfer-currency",
+    "method": "POST",
+    "description": "/dnd5e/transfer-currency - Transfer currency between actors",
+    "request": {
+      "url": "http://localhost:3010/dnd5e/transfer-currency",
+      "method": "POST",
+      "headers": {
+        "x-api-key": "702fc3316ac88039ff83024cf3d44cb4"
+      },
+      "body": {
+        "sourceActorUuid": "Actor.4zp7DW9DaguOqWcZ",
+        "targetActorUuid": "Actor.IXHFdLwZhCMTTUxV",
+        "currency": {
+          "gp": 1
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "transfer-currency-result",
+        "requestId": "transfer-currency_1775271949961",
+        "data": {
+          "sourceActorUuid": "Actor.4zp7DW9DaguOqWcZ",
+          "targetActorUuid": "Actor.IXHFdLwZhCMTTUxV",
+          "transferred": {
+            "gp": 1
+          },
+          "sourceBalance": {
+            "pp": 0,
+            "gp": 14,
+            "ep": 0,
+            "sp": 0,
+            "cp": 0
+          },
+          "targetBalance": {
+            "pp": 0,
+            "gp": 16,
+            "ep": 0,
+            "sp": 0,
+            "cp": 0
+          }
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/dnd5e/transfer-currency';\nconst params = {\n  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sourceActorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"targetActorUuid\": \"Actor.IXHFdLwZhCMTTUxV\",\n      \"currency\": {\n        \"gp\": 1\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/dnd5e/transfer-currency?clientId=foundry-testing-r6bXhB7k9cXa3cif' \\\n  -H \"x-api-key: 702fc3316ac88039ff83024cf3d44cb4\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sourceActorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"targetActorUuid\":\"Actor.IXHFdLwZhCMTTUxV\",\"currency\":{\"gp\":1}}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/dnd5e/transfer-currency'\nparams = {\n    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    },\n    json={\n      \"sourceActorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"targetActorUuid\": \"Actor.IXHFdLwZhCMTTUxV\",\n      \"currency\": {\n        \"gp\": 1\n      }\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/dnd5e/transfer-currency';\n  const params = {\n    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sourceActorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n        \"targetActorUuid\": \"Actor.IXHFdLwZhCMTTUxV\",\n        \"currency\": {\n          \"gp\": 1\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/dnd5e/transfer-currency🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sourceActorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"targetActorUuid\":\"Actor.IXHFdLwZhCMTTUxV\",\"currency\":{\"gp\":1}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /dnd5e/transfer-currency🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 702fc3316ac88039ff83024cf3d44cb4❌r❌nContent-Type: application/json❌r❌nContent-Length: 107❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  }
+]

@@ -1,0 +1,106 @@
+[
+  {
+    "endpoint": "/dnd5e/concentration",
+    "method": "GET",
+    "description": "/dnd5e/concentration - Check concentration status",
+    "request": {
+      "url": "http://localhost:3010/dnd5e/concentration",
+      "method": "GET",
+      "headers": {
+        "x-api-key": "702fc3316ac88039ff83024cf3d44cb4"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "get-concentration-result",
+        "requestId": "get-concentration_1775271948942",
+        "data": {
+          "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+          "isConcentrating": false,
+          "effect": null,
+          "spell": null
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/dnd5e/concentration';\nconst params = {\n  clientId: 'foundry-testing-r6bXhB7k9cXa3cif',\n  actorUuid: 'Actor.4zp7DW9DaguOqWcZ'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/dnd5e/concentration?clientId=foundry-testing-r6bXhB7k9cXa3cif&actorUuid=Actor.4zp7DW9DaguOqWcZ' \\\n  -H \"x-api-key: 702fc3316ac88039ff83024cf3d44cb4\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/dnd5e/concentration'\nparams = {\n    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif',\n    'actorUuid': 'Actor.4zp7DW9DaguOqWcZ'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/dnd5e/concentration';\n  const params = {\n    clientId: 'foundry-testing-r6bXhB7k9cXa3cif',\n    actorUuid: 'Actor.4zp7DW9DaguOqWcZ'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/dnd5e/concentration🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId\n  🔤actorUuid=Actor.4zp7DW9DaguOqWcZ🔤 ➡️ actorUuid\n  🔤?🧲clientId🧲&🧲actorUuid🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /dnd5e/concentration🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 702fc3316ac88039ff83024cf3d44cb4❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/dnd5e/concentration-save",
+    "method": "POST",
+    "description": "/dnd5e/concentration-save - Roll concentration save",
+    "request": {
+      "url": "http://localhost:3010/dnd5e/concentration-save",
+      "method": "POST",
+      "headers": {
+        "x-api-key": "702fc3316ac88039ff83024cf3d44cb4"
+      },
+      "body": {
+        "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+        "damage": 15
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "concentration-save-result",
+        "requestId": "concentration-save_1775271949070",
+        "data": {
+          "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+          "dc": 10,
+          "total": 14,
+          "formula": "1d20 + 1",
+          "result": "13 + 1",
+          "maintained": true
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/dnd5e/concentration-save';\nconst params = {\n  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"damage\": 15\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/dnd5e/concentration-save?clientId=foundry-testing-r6bXhB7k9cXa3cif' \\\n  -H \"x-api-key: 702fc3316ac88039ff83024cf3d44cb4\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"damage\":15}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/dnd5e/concentration-save'\nparams = {\n    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    },\n    json={\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n      \"damage\": 15\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/dnd5e/concentration-save';\n  const params = {\n    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\",\n        \"damage\": 15\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/dnd5e/concentration-save🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\",\"damage\":15}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /dnd5e/concentration-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 702fc3316ac88039ff83024cf3d44cb4❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  },
+  {
+    "endpoint": "/dnd5e/break-concentration",
+    "method": "POST",
+    "description": "/dnd5e/break-concentration - Break concentration",
+    "request": {
+      "url": "http://localhost:3010/dnd5e/break-concentration",
+      "method": "POST",
+      "headers": {
+        "x-api-key": "702fc3316ac88039ff83024cf3d44cb4"
+      },
+      "body": {
+        "actorUuid": "Actor.4zp7DW9DaguOqWcZ"
+      }
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "type": "break-concentration-result",
+        "requestId": "break-concentration_1775271949089",
+        "data": {
+          "actorUuid": "Actor.4zp7DW9DaguOqWcZ",
+          "broken": true,
+          "removedEffectId": "3FsIj4AHk1ohdeQ1"
+        }
+      }
+    },
+    "codeExamples": {
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/dnd5e/break-concentration';\nconst params = {\n  clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/dnd5e/break-concentration?clientId=foundry-testing-r6bXhB7k9cXa3cif' \\\n  -H \"x-api-key: 702fc3316ac88039ff83024cf3d44cb4\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/dnd5e/break-concentration'\nparams = {\n    'clientId': 'foundry-testing-r6bXhB7k9cXa3cif'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '702fc3316ac88039ff83024cf3d44cb4'\n    },\n    json={\n      \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/dnd5e/break-concentration';\n  const params = {\n    clientId: 'foundry-testing-r6bXhB7k9cXa3cif'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '702fc3316ac88039ff83024cf3d44cb4',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"actorUuid\": \"Actor.4zp7DW9DaguOqWcZ\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/dnd5e/break-concentration🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=foundry-testing-r6bXhB7k9cXa3cif🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"actorUuid\":\"Actor.4zp7DW9DaguOqWcZ\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /dnd5e/break-concentration🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 702fc3316ac88039ff83024cf3d44cb4❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+    }
+  }
+]
