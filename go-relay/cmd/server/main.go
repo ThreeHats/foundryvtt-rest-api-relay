@@ -21,7 +21,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-const version = "3.2.2"
+const version = "3.2.3"
 
 func main() {
 	// Load .env file (silent fail if not found)
