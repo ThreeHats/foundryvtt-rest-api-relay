@@ -174,7 +174,7 @@ import axios from 'axios';
 ```json
 {
   "type": "get-scene-result",
-  "requestId": "get-scene_1778812420086",
+  "requestId": "get-scene_1778884098407",
   "data": [
     {
       "name": "Scene",
@@ -407,6 +407,123 @@ import axios from 'axios';
         "systemVersion": "5.0.4",
         "createdTime": 1778789514438,
         "modifiedTime": 1778789514438,
+        "lastModifiedBy": "r6bXhB7k9cXa3cif"
+      }
+    },
+    {
+      "name": "test",
+      "_id": "9AxQS1AJfhieexNT",
+      "active": false,
+      "navigation": true,
+      "navOrder": 0,
+      "background": {
+        "src": null,
+        "anchorX": 0,
+        "anchorY": 0,
+        "offsetX": 0,
+        "offsetY": 0,
+        "fit": "fill",
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotation": 0,
+        "tint": "#ffffff",
+        "alphaThreshold": 0
+      },
+      "foreground": null,
+      "foregroundElevation": null,
+      "thumb": null,
+      "width": 4000,
+      "height": 3000,
+      "padding": 0.25,
+      "initial": {
+        "x": null,
+        "y": null,
+        "scale": null
+      },
+      "backgroundColor": "#999999",
+      "grid": {
+        "type": 1,
+        "size": 100,
+        "style": "solidLines",
+        "thickness": 1,
+        "color": "#000000",
+        "alpha": 0.2,
+        "distance": 5,
+        "units": "ft"
+      },
+      "tokenVision": true,
+      "fog": {
+        "exploration": true,
+        "overlay": null,
+        "colors": {
+          "explored": null,
+          "unexplored": null
+        }
+      },
+      "environment": {
+        "darknessLevel": 0,
+        "darknessLock": false,
+        "globalLight": {
+          "enabled": false,
+          "alpha": 0.5,
+          "bright": false,
+          "color": null,
+          "coloration": 1,
+          "luminosity": 0,
+          "saturation": 0,
+          "contrast": 0,
+          "shadows": 0,
+          "darkness": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "cycle": true,
+        "base": {
+          "hue": 0,
+          "intensity": 0,
+          "luminosity": 0,
+          "saturation": 0,
+          "shadows": 0
+        },
+        "dark": {
+          "hue": 0.7138888888888889,
+          "intensity": 0,
+          "luminosity": -0.25,
+          "saturation": 0,
+          "shadows": 0
+        }
+      },
+      "drawings": [],
+      "tokens": [],
+      "lights": [],
+      "notes": [],
+      "sounds": [],
+      "regions": [],
+      "templates": [],
+      "tiles": [],
+      "walls": [],
+      "playlist": null,
+      "playlistSound": null,
+      "journal": null,
+      "journalEntryPage": null,
+      "weather": "",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "r6bXhB7k9cXa3cif": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "dnd5e",
+        "systemVersion": "5.0.4",
+        "createdTime": 1778878339415,
+        "modifiedTime": 1778878339415,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -1402,6 +1519,123 @@ import axios from 'axios';
       "weather": "",
       "width": 2221,
       "folder": null
+    },
+    {
+      "name": "test",
+      "_id": "X914jr7smFaAxr72",
+      "active": false,
+      "navigation": true,
+      "navOrder": 0,
+      "background": {
+        "src": null,
+        "anchorX": 0,
+        "anchorY": 0,
+        "offsetX": 0,
+        "offsetY": 0,
+        "fit": "fill",
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotation": 0,
+        "tint": "#ffffff",
+        "alphaThreshold": 0
+      },
+      "foreground": null,
+      "foregroundElevation": null,
+      "thumb": null,
+      "width": 4000,
+      "height": 3000,
+      "padding": 0.25,
+      "initial": {
+        "x": null,
+        "y": null,
+        "scale": null
+      },
+      "backgroundColor": "#999999",
+      "grid": {
+        "type": 1,
+        "size": 100,
+        "style": "solidLines",
+        "thickness": 1,
+        "color": "#000000",
+        "alpha": 0.2,
+        "distance": 5,
+        "units": "ft"
+      },
+      "tokenVision": true,
+      "fog": {
+        "exploration": true,
+        "overlay": null,
+        "colors": {
+          "explored": null,
+          "unexplored": null
+        }
+      },
+      "environment": {
+        "darknessLevel": 0,
+        "darknessLock": false,
+        "globalLight": {
+          "enabled": false,
+          "alpha": 0.5,
+          "bright": false,
+          "color": null,
+          "coloration": 1,
+          "luminosity": 0,
+          "saturation": 0,
+          "contrast": 0,
+          "shadows": 0,
+          "darkness": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "cycle": true,
+        "base": {
+          "hue": 0,
+          "intensity": 0,
+          "luminosity": 0,
+          "saturation": 0,
+          "shadows": 0
+        },
+        "dark": {
+          "hue": 0.7138888888888889,
+          "intensity": 0,
+          "luminosity": -0.25,
+          "saturation": 0,
+          "shadows": 0
+        }
+      },
+      "drawings": [],
+      "tokens": [],
+      "lights": [],
+      "notes": [],
+      "sounds": [],
+      "regions": [],
+      "templates": [],
+      "tiles": [],
+      "walls": [],
+      "playlist": null,
+      "playlistSound": null,
+      "journal": null,
+      "journalEntryPage": null,
+      "weather": "",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "r6bXhB7k9cXa3cif": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "dnd5e",
+        "systemVersion": "5.0.4",
+        "createdTime": 1778812415693,
+        "modifiedTime": 1778812415693,
+        "lastModifiedBy": "r6bXhB7k9cXa3cif"
+      }
     },
     {
       "name": "test",
@@ -3917,6 +4151,232 @@ import axios from 'axios';
           "_movementHistory": [],
           "_regions": [],
           "flags": {}
+        },
+        {
+          "name": "test",
+          "shape": 4,
+          "_id": "bgCZWfkgY05XHyll",
+          "displayName": 0,
+          "actorId": null,
+          "actorLink": false,
+          "delta": {
+            "_id": "MmaXMA5YP4YnAwm8",
+            "system": {},
+            "items": [],
+            "effects": [],
+            "flags": {},
+            "name": null,
+            "type": null,
+            "img": null,
+            "ownership": null
+          },
+          "width": 1,
+          "height": 1,
+          "texture": {
+            "src": "icons/svg/mystery-man.svg",
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "contain",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0.75
+          },
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "sort": 9,
+          "locked": false,
+          "lockRotation": false,
+          "rotation": 0,
+          "alpha": 1,
+          "hidden": false,
+          "disposition": -1,
+          "displayBars": 0,
+          "bar1": {
+            "attribute": "attributes.hp"
+          },
+          "bar2": {
+            "attribute": null
+          },
+          "light": {
+            "negative": false,
+            "priority": 0,
+            "alpha": 0.5,
+            "angle": 360,
+            "bright": 0,
+            "color": null,
+            "coloration": 1,
+            "dim": 0,
+            "attenuation": 0.5,
+            "luminosity": 0.5,
+            "saturation": 0,
+            "contrast": 0,
+            "shadows": 0,
+            "animation": {
+              "type": null,
+              "speed": 5,
+              "intensity": 5,
+              "reverse": false
+            },
+            "darkness": {
+              "min": 0,
+              "max": 1
+            }
+          },
+          "sight": {
+            "enabled": false,
+            "range": 0,
+            "angle": 360,
+            "visionMode": "basic",
+            "color": null,
+            "attenuation": 0.1,
+            "brightness": 0,
+            "saturation": 0,
+            "contrast": 0
+          },
+          "detectionModes": [],
+          "occludable": {
+            "radius": 0
+          },
+          "ring": {
+            "enabled": false,
+            "colors": {
+              "ring": null,
+              "background": null
+            },
+            "effects": 1,
+            "subject": {
+              "scale": 1,
+              "texture": null
+            }
+          },
+          "turnMarker": {
+            "mode": 1,
+            "animation": null,
+            "src": null,
+            "disposition": false
+          },
+          "movementAction": null,
+          "_movementHistory": [],
+          "_regions": [],
+          "flags": {}
+        },
+        {
+          "name": "test",
+          "shape": 4,
+          "_id": "DRjFVQgfwWBkqlcG",
+          "displayName": 0,
+          "actorId": null,
+          "actorLink": false,
+          "delta": {
+            "_id": "LaVPgqD95KumJRGB",
+            "system": {},
+            "items": [],
+            "effects": [],
+            "flags": {},
+            "name": null,
+            "type": null,
+            "img": null,
+            "ownership": null
+          },
+          "width": 1,
+          "height": 1,
+          "texture": {
+            "src": "icons/svg/mystery-man.svg",
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "contain",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0.75
+          },
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "sort": 10,
+          "locked": false,
+          "lockRotation": false,
+          "rotation": 0,
+          "alpha": 1,
+          "hidden": false,
+          "disposition": -1,
+          "displayBars": 0,
+          "bar1": {
+            "attribute": "attributes.hp"
+          },
+          "bar2": {
+            "attribute": null
+          },
+          "light": {
+            "negative": false,
+            "priority": 0,
+            "alpha": 0.5,
+            "angle": 360,
+            "bright": 0,
+            "color": null,
+            "coloration": 1,
+            "dim": 0,
+            "attenuation": 0.5,
+            "luminosity": 0.5,
+            "saturation": 0,
+            "contrast": 0,
+            "shadows": 0,
+            "animation": {
+              "type": null,
+              "speed": 5,
+              "intensity": 5,
+              "reverse": false
+            },
+            "darkness": {
+              "min": 0,
+              "max": 1
+            }
+          },
+          "sight": {
+            "enabled": false,
+            "range": 0,
+            "angle": 360,
+            "visionMode": "basic",
+            "color": null,
+            "attenuation": 0.1,
+            "brightness": 0,
+            "saturation": 0,
+            "contrast": 0
+          },
+          "detectionModes": [],
+          "occludable": {
+            "radius": 0
+          },
+          "ring": {
+            "enabled": false,
+            "colors": {
+              "ring": null,
+              "background": null
+            },
+            "effects": 1,
+            "subject": {
+              "scale": 1,
+              "texture": null
+            }
+          },
+          "turnMarker": {
+            "mode": 1,
+            "animation": null,
+            "src": null,
+            "disposition": false
+          },
+          "movementAction": null,
+          "_movementHistory": [],
+          "_regions": [],
+          "flags": {}
         }
       ],
       "lights": [
@@ -4207,6 +4667,78 @@ import axios from 'axios';
           },
           "hidden": false,
           "flags": {}
+        },
+        {
+          "_id": "7eXjK2HpiILxPq91",
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "rotation": 0,
+          "walls": true,
+          "vision": false,
+          "config": {
+            "negative": false,
+            "priority": 0,
+            "alpha": 0.5,
+            "angle": 360,
+            "bright": 0,
+            "color": null,
+            "coloration": 1,
+            "dim": 0,
+            "attenuation": 0.5,
+            "luminosity": 0.5,
+            "saturation": 0,
+            "contrast": 0,
+            "shadows": 0,
+            "animation": {
+              "type": null,
+              "speed": 5,
+              "intensity": 5,
+              "reverse": false
+            },
+            "darkness": {
+              "min": 0,
+              "max": 1
+            }
+          },
+          "hidden": false,
+          "flags": {}
+        },
+        {
+          "_id": "zW7B0qwoyQAu4b6q",
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "rotation": 0,
+          "walls": true,
+          "vision": false,
+          "config": {
+            "negative": false,
+            "priority": 0,
+            "alpha": 0.5,
+            "angle": 360,
+            "bright": 0,
+            "color": null,
+            "coloration": 1,
+            "dim": 0,
+            "attenuation": 0.5,
+            "luminosity": 0.5,
+            "saturation": 0,
+            "contrast": 0,
+            "shadows": 0,
+            "animation": {
+              "type": null,
+              "speed": 5,
+              "intensity": 5,
+              "reverse": false
+            },
+            "darkness": {
+              "min": 0,
+              "max": 1
+            }
+          },
+          "hidden": false,
+          "flags": {}
         }
       ],
       "notes": [
@@ -4441,6 +4973,64 @@ import axios from 'axios';
           "textColor": "#ffffff",
           "global": false,
           "flags": {}
+        },
+        {
+          "_id": "dpLvpy6yj61pQ2Bi",
+          "entryId": null,
+          "pageId": null,
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "sort": 8,
+          "texture": {
+            "src": "icons/svg/book.svg",
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "contain",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "iconSize": 40,
+          "fontFamily": "Signika",
+          "fontSize": 32,
+          "textAnchor": 1,
+          "textColor": "#ffffff",
+          "global": false,
+          "flags": {}
+        },
+        {
+          "_id": "A9uq2gPCHg7LlxZJ",
+          "entryId": null,
+          "pageId": null,
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "sort": 9,
+          "texture": {
+            "src": "icons/svg/book.svg",
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "contain",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "iconSize": 40,
+          "fontFamily": "Signika",
+          "fontSize": 32,
+          "textAnchor": 1,
+          "textColor": "#ffffff",
+          "global": false,
+          "flags": {}
         }
       ],
       "sounds": [
@@ -4651,6 +5241,58 @@ import axios from 'axios';
             }
           },
           "flags": {}
+        },
+        {
+          "_id": "EAprdAOfdvx9nzsD",
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "radius": 0,
+          "path": null,
+          "repeat": false,
+          "volume": 0.5,
+          "walls": true,
+          "easing": true,
+          "hidden": false,
+          "darkness": {
+            "min": 0,
+            "max": 1
+          },
+          "effects": {
+            "base": {
+              "intensity": 5
+            },
+            "muffled": {
+              "intensity": 5
+            }
+          },
+          "flags": {}
+        },
+        {
+          "_id": "JvRs9A6YWT34JbBT",
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "radius": 0,
+          "path": null,
+          "repeat": false,
+          "volume": 0.5,
+          "walls": true,
+          "easing": true,
+          "hidden": false,
+          "darkness": {
+            "min": 0,
+            "max": 1
+          },
+          "effects": {
+            "base": {
+              "intensity": 5
+            },
+            "muffled": {
+              "intensity": 5
+            }
+          },
+          "flags": {}
         }
       ],
       "regions": [],
@@ -4798,6 +5440,42 @@ import axios from 'axios';
           "texture": null,
           "hidden": false,
           "flags": {}
+        },
+        {
+          "_id": "m7hFbmbEhDQSuyZe",
+          "author": "r6bXhB7k9cXa3cif",
+          "t": "circle",
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "sort": 8,
+          "distance": 0,
+          "direction": 0,
+          "angle": 0,
+          "width": 0,
+          "borderColor": "#000000",
+          "fillColor": "#cc2829",
+          "texture": null,
+          "hidden": false,
+          "flags": {}
+        },
+        {
+          "_id": "nI7SRRGPm3yTKTnQ",
+          "author": "r6bXhB7k9cXa3cif",
+          "t": "circle",
+          "x": 0,
+          "y": 0,
+          "elevation": 0,
+          "sort": 9,
+          "distance": 0,
+          "direction": 0,
+          "angle": 0,
+          "width": 0,
+          "borderColor": "#000000",
+          "fillColor": "#cc2829",
+          "texture": null,
+          "hidden": false,
+          "flags": {}
         }
       ],
       "tiles": [],
@@ -4822,7 +5500,7 @@ import axios from 'axios';
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
         "createdTime": 1777969049357,
-        "modifiedTime": 1778810383401,
+        "modifiedTime": 1778878377986,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -5650,7 +6328,7 @@ import axios from 'axios';
     },
     {
       "name": "test",
-      "_id": "X914jr7smFaAxr72",
+      "_id": "v5E3y16p9juupLJS",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -5760,8 +6438,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1778812415693,
-        "modifiedTime": 1778812415693,
+        "createdTime": 1778884093752,
+        "modifiedTime": 1778884093752,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -5779,7 +6457,7 @@ import axios from 'axios';
       "height": 1000,
       "name": "test-scene",
       "width": 1000,
-      "_id": "VVHJuBK05DRVblnX",
+      "_id": "3wAQ0udFopemLTti",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -5877,8 +6555,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1778812420070,
-        "modifiedTime": 1778812420070,
+        "createdTime": 1778884098388,
+        "modifiedTime": 1778884098388,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     },
@@ -5886,7 +6564,7 @@ import axios from 'axios';
       "height": 500,
       "name": "test-scene-expendable",
       "width": 500,
-      "_id": "J01Q0P3dUH35ZHme",
+      "_id": "6HZhpFnUrR9je5fa",
       "active": false,
       "navigation": true,
       "navOrder": 0,
@@ -5994,8 +6672,8 @@ import axios from 'axios';
         "coreVersion": "13.348",
         "systemId": "dnd5e",
         "systemVersion": "5.0.4",
-        "createdTime": 1778812420079,
-        "modifiedTime": 1778812420079,
+        "createdTime": 1778884098401,
+        "modifiedTime": 1778884098401,
         "lastModifiedBy": "r6bXhB7k9cXa3cif"
       }
     }
@@ -6229,7 +6907,7 @@ import axios from 'axios';
 ```json
 {
   "type": "create-scene-result",
-  "requestId": "create-scene_1778812420069",
+  "requestId": "create-scene_1778884098386",
   "data": {
     "grid": {
       "size": 100,
@@ -6244,7 +6922,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene",
     "width": 1000,
-    "_id": "VVHJuBK05DRVblnX",
+    "_id": "3wAQ0udFopemLTti",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -6342,8 +7020,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1778812420070,
-      "modifiedTime": 1778812420070,
+      "createdTime": 1778884098388,
+      "modifiedTime": 1778884098388,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -6403,7 +7081,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "VVHJuBK05DRVblnX",
+      "sceneId": "3wAQ0udFopemLTti",
       "data": {
         "name": "test-scene-updated"
       }
@@ -6420,7 +7098,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"VVHJuBK05DRVblnX","data":{"name":"test-scene-updated"}}'
+  -d '{"sceneId":"3wAQ0udFopemLTti","data":{"name":"test-scene-updated"}}'
 ```
 
 </TabItem>
@@ -6443,7 +7121,7 @@ response = requests.put(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "VVHJuBK05DRVblnX",
+      "sceneId": "3wAQ0udFopemLTti",
       "data": {
         "name": "test-scene-updated"
       }
@@ -6476,7 +7154,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "VVHJuBK05DRVblnX",
+        "sceneId": "3wAQ0udFopemLTti",
         "data": {
           "name": "test-scene-updated"
         }
@@ -6508,7 +7186,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"VVHJuBK05DRVblnX","data":{"name":"test-scene-updated"}}🔤 ➡️ body
+  🔤{"sceneId":"3wAQ0udFopemLTti","data":{"name":"test-scene-updated"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -6536,7 +7214,7 @@ import axios from 'axios';
 ```json
 {
   "type": "update-scene-result",
-  "requestId": "update-scene_1778812420099",
+  "requestId": "update-scene_1778884098419",
   "data": {
     "grid": {
       "size": 100,
@@ -6551,7 +7229,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene-updated",
     "width": 1000,
-    "_id": "VVHJuBK05DRVblnX",
+    "_id": "3wAQ0udFopemLTti",
     "active": false,
     "navigation": true,
     "navOrder": 0,
@@ -6649,8 +7327,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1778812420070,
-      "modifiedTime": 1778812420100,
+      "createdTime": 1778884098388,
+      "modifiedTime": 1778884098420,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }
@@ -6697,7 +7375,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/scene';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  sceneId: 'J01Q0P3dUH35ZHme'
+  sceneId: '6HZhpFnUrR9je5fa'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -6716,7 +7394,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&sceneId=J01Q0P3dUH35ZHme' \
+curl -X DELETE 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&sceneId=6HZhpFnUrR9je5fa' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -6730,7 +7408,7 @@ base_url = 'http://localhost:3010'
 path = '/scene'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'sceneId': 'J01Q0P3dUH35ZHme'
+    'sceneId': '6HZhpFnUrR9je5fa'
 }
 url = f'{base_url}{path}'
 
@@ -6756,7 +7434,7 @@ import axios from 'axios';
   const path = '/scene';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    sceneId: 'J01Q0P3dUH35ZHme'
+    sceneId: '6HZhpFnUrR9je5fa'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -6791,7 +7469,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤sceneId=J01Q0P3dUH35ZHme🔤 ➡️ sceneId
+  🔤sceneId=6HZhpFnUrR9je5fa🔤 ➡️ sceneId
   🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -6820,7 +7498,7 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-scene-result",
-  "requestId": "delete-scene_1778812425131",
+  "requestId": "delete-scene_1778884103453",
   "success": true
 }
 ```
@@ -6876,7 +7554,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sceneId": "VVHJuBK05DRVblnX"
+      "sceneId": "3wAQ0udFopemLTti"
     })
 });
 const data = await response.json();
@@ -6890,7 +7568,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/switch-scene?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sceneId":"VVHJuBK05DRVblnX"}'
+  -d '{"sceneId":"3wAQ0udFopemLTti"}'
 ```
 
 </TabItem>
@@ -6913,7 +7591,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sceneId": "VVHJuBK05DRVblnX"
+      "sceneId": "3wAQ0udFopemLTti"
     }
 )
 data = response.json()
@@ -6943,7 +7621,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sceneId": "VVHJuBK05DRVblnX"
+        "sceneId": "3wAQ0udFopemLTti"
       }
   });
   const data = response.data;
@@ -6972,7 +7650,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sceneId":"VVHJuBK05DRVblnX"}🔤 ➡️ body
+  🔤{"sceneId":"3wAQ0udFopemLTti"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -7000,7 +7678,7 @@ import axios from 'axios';
 ```json
 {
   "type": "switch-scene-result",
-  "requestId": "switch-scene_1778812420104",
+  "requestId": "switch-scene_1778884098425",
   "success": true,
   "data": {
     "grid": {
@@ -7016,7 +7694,7 @@ import axios from 'axios';
     "height": 1000,
     "name": "test-scene-updated",
     "width": 1000,
-    "_id": "VVHJuBK05DRVblnX",
+    "_id": "3wAQ0udFopemLTti",
     "active": true,
     "navigation": true,
     "navOrder": 0,
@@ -7114,8 +7792,8 @@ import axios from 'axios';
       "coreVersion": "13.348",
       "systemId": "dnd5e",
       "systemVersion": "5.0.4",
-      "createdTime": 1778812420070,
-      "modifiedTime": 1778812420106,
+      "createdTime": 1778884098388,
+      "modifiedTime": 1778884098428,
       "lastModifiedBy": "r6bXhB7k9cXa3cif"
     }
   }

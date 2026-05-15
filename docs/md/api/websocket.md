@@ -1151,6 +1151,28 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
 
 ---
 
+## Search
+
+### `search`
+
+Search entities
+
+This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | no | Search query string (omit to browse all entities matching filter) |
+| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
+| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
+| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
+| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
+| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
 ## FileSystem
 
 ### `file-system`
@@ -1568,28 +1590,6 @@ Uses a specific item for an actor, optionally targeting another entity
 
 ---
 
-## Search
-
-### `search`
-
-Search entities
-
-This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `query` | string | no | Search query string (omit to browse all entities matching filter) |
-| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
-| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
-| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
-| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
-| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
 ## Cross-World Operations
 
 ### `remote-request`
@@ -1712,7 +1712,7 @@ ws.on('message', (raw: string) => {
 {
   "clientId": "fvtt_099ad17ea199e7e3",
   "query": "test",
-  "requestId": "test_1778812442222_urm2yx",
+  "requestId": "test_1778884121710_8mjzdt",
   "results": [
     {
       "documentType": "Scene",
@@ -1728,6 +1728,21 @@ ws.on('message', (raw: string) => {
       "subType": "",
       "tagline": "Scenes Directory",
       "uuid": "Scene.2xFy4d19bDsP08Aw"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "9AxQS1AJfhieexNT",
+      "journalLink": "@UUID[Scene.9AxQS1AJfhieexNT]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.9AxQS1AJfhieexNT"
     },
     {
       "documentType": "Scene",
@@ -1794,6 +1809,21 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>",
       "icon": "",
+      "id": "X914jr7smFaAxr72",
+      "journalLink": "@UUID[Scene.X914jr7smFaAxr72]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.X914jr7smFaAxr72"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
       "id": "azpFAQYHh0s3yHML",
       "journalLink": "@UUID[Scene.azpFAQYHh0s3yHML]{test}",
       "name": "test",
@@ -1839,15 +1869,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>",
       "icon": "",
-      "id": "X914jr7smFaAxr72",
-      "journalLink": "@UUID[Scene.X914jr7smFaAxr72]{test}",
+      "id": "v5E3y16p9juupLJS",
+      "journalLink": "@UUID[Scene.v5E3y16p9juupLJS]{test}",
       "name": "test",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.X914jr7smFaAxr72"
+      "uuid": "Scene.v5E3y16p9juupLJS"
     },
     {
       "documentType": "JournalEntry",
@@ -1884,15 +1914,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-journalentry",
       "icon": "",
-      "id": "l3KDguqD0NFi36jX",
-      "journalLink": "@UUID[JournalEntry.l3KDguqD0NFi36jX]{test-journalentry}",
+      "id": "B9JCaRGrRpp9P4cs",
+      "journalLink": "@UUID[JournalEntry.B9JCaRGrRpp9P4cs]{test-journalentry}",
       "name": "test-journalentry",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Journal Directory",
-      "uuid": "JournalEntry.l3KDguqD0NFi36jX"
+      "uuid": "JournalEntry.B9JCaRGrRpp9P4cs"
     },
     {
       "documentType": "Macro",
@@ -1929,15 +1959,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-macro",
       "icon": "icons/svg/dice-target.svg",
-      "id": "bD06DOxoafykpG5l",
-      "journalLink": "@UUID[Macro.bD06DOxoafykpG5l]{test-macro}",
+      "id": "293Cjp31Rco5QRPa",
+      "journalLink": "@UUID[Macro.293Cjp31Rco5QRPa]{test-macro}",
       "name": "test-macro",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "script",
       "tagline": "Macros Directory",
-      "uuid": "Macro.bD06DOxoafykpG5l"
+      "uuid": "Macro.293Cjp31Rco5QRPa"
     },
     {
       "documentType": "Actor",
@@ -1959,15 +1989,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-perrin (halfling monk)",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "SbB5EcL8HTQkj7cs",
-      "journalLink": "@UUID[Actor.SbB5EcL8HTQkj7cs]{test-perrin (halfling monk)}",
+      "id": "qfCi3te6el0eM10e",
+      "journalLink": "@UUID[Actor.qfCi3te6el0eM10e]{test-perrin (halfling monk)}",
       "name": "test-perrin (halfling monk)",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.SbB5EcL8HTQkj7cs"
+      "uuid": "Actor.qfCi3te6el0eM10e"
     },
     {
       "documentType": "Scene",
@@ -2064,15 +2094,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "VVHJuBK05DRVblnX",
-      "journalLink": "@UUID[Scene.VVHJuBK05DRVblnX]{test-scene-updated}",
+      "id": "3wAQ0udFopemLTti",
+      "journalLink": "@UUID[Scene.3wAQ0udFopemLTti]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.VVHJuBK05DRVblnX"
+      "uuid": "Scene.3wAQ0udFopemLTti"
     },
     {
       "documentType": "Item",
@@ -2094,15 +2124,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-studded leather armor +3",
       "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
-      "id": "nrxWiu6F4heoe4hg",
-      "journalLink": "@UUID[Item.nrxWiu6F4heoe4hg]{test-studded leather armor +3}",
+      "id": "HWt9BHemiQKWi9Ji",
+      "journalLink": "@UUID[Item.HWt9BHemiQKWi9Ji]{test-studded leather armor +3}",
       "name": "test-studded leather armor +3",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "equipment",
       "tagline": "Items Directory",
-      "uuid": "Item.nrxWiu6F4heoe4hg"
+      "uuid": "Item.HWt9BHemiQKWi9Ji"
     },
     {
       "documentType": "JournalEntry",
@@ -2154,15 +2184,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "Updated <strong>Test</strong> Actor",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "6UDs3ImYMaNIIRMk",
-      "journalLink": "@UUID[Actor.6UDs3ImYMaNIIRMk]{Updated Test Actor}",
+      "id": "YrS70qhkRwwM0tiu",
+      "journalLink": "@UUID[Actor.YrS70qhkRwwM0tiu]{Updated Test Actor}",
       "name": "Updated Test Actor",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.6UDs3ImYMaNIIRMk"
+      "uuid": "Actor.YrS70qhkRwwM0tiu"
     },
     {
       "documentType": "Item",
@@ -4743,7 +4773,7 @@ ws.on('message', (raw: string) => {
         "content": "WS chat-event test",
         "flags": {},
         "flavor": "",
-        "id": "RZ9Zga5gU99HapPf",
+        "id": "N01zgtRkKqk0BuLf",
         "isRoll": false,
         "rolls": [],
         "speaker": {
@@ -4751,9 +4781,9 @@ ws.on('message', (raw: string) => {
           "scene": null,
           "token": null
         },
-        "timestamp": 1778812442288,
+        "timestamp": 1778884121778,
         "type": "base",
-        "uuid": "ChatMessage.RZ9Zga5gU99HapPf",
+        "uuid": "ChatMessage.N01zgtRkKqk0BuLf",
         "whisper": []
       },
       "eventType": "create"
@@ -4862,24 +4892,24 @@ ws.on('message', (raw: string) => {
           "results": [
             {
               "active": true,
-              "result": 2
+              "result": 1
             }
           ]
         }
       ],
       "flavor": "WS roll-event test",
       "formula": "1d6",
-      "id": "COGIOqG3Z9ejjGiB",
+      "id": "SGxriQ4z65YnAkDk",
       "isCritical": false,
       "isFumble": false,
-      "messageId": "COGIOqG3Z9ejjGiB",
-      "rollTotal": 2,
+      "messageId": "SGxriQ4z65YnAkDk",
+      "rollTotal": 1,
       "speaker": {
         "actor": null,
         "scene": null,
         "token": null
       },
-      "timestamp": 1778812442313,
+      "timestamp": 1778884121801,
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"

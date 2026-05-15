@@ -166,21 +166,21 @@ import axios from 'axios';
 ```json
 {
   "type": "get-canvas-documents-result",
-  "requestId": "get-canvas-documents_1778812425398",
-  "sceneId": "VVHJuBK05DRVblnX",
+  "requestId": "get-canvas-documents_1778884103758",
+  "sceneId": "3wAQ0udFopemLTti",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "6UDs3ImYMaNIIRMk",
+      "actorId": "YrS70qhkRwwM0tiu",
       "x": 400,
       "y": 400,
       "shape": 4,
-      "_id": "hWowGLxoMdSTJB4Y",
+      "_id": "FjkGbFJ8xjRwzOkI",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "BiGBPf8tLJxyeujz",
+        "_id": "z4uU9AfccQu9pNUr",
         "system": {},
         "items": [],
         "effects": [],
@@ -467,7 +467,7 @@ import axios from 'axios';
 ```json
 {
   "type": "measure-distance-result",
-  "requestId": "measure-distance_1778812425731",
+  "requestId": "measure-distance_1778884104102",
   "data": {
     "distance": 25,
     "units": "ft",
@@ -479,7 +479,7 @@ import axios from 'axios';
       "x": 500,
       "y": 500
     },
-    "sceneId": "VVHJuBK05DRVblnX"
+    "sceneId": "3wAQ0udFopemLTti"
   }
 }
 ```
@@ -539,7 +539,7 @@ const response = await fetch(url, {
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "6UDs3ImYMaNIIRMk"
+        "actorId": "YrS70qhkRwwM0tiu"
       }
     })
 });
@@ -554,7 +554,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"data":{"x":400,"y":400,"actorId":"6UDs3ImYMaNIIRMk"}}'
+  -d '{"data":{"x":400,"y":400,"actorId":"YrS70qhkRwwM0tiu"}}'
 ```
 
 </TabItem>
@@ -581,7 +581,7 @@ response = requests.post(
       "data": {
         "x": 400,
         "y": 400,
-        "actorId": "6UDs3ImYMaNIIRMk"
+        "actorId": "YrS70qhkRwwM0tiu"
       }
     }
 )
@@ -615,7 +615,7 @@ import axios from 'axios';
         "data": {
           "x": 400,
           "y": 400,
-          "actorId": "6UDs3ImYMaNIIRMk"
+          "actorId": "YrS70qhkRwwM0tiu"
         }
       }
   });
@@ -645,7 +645,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"data":{"x":400,"y":400,"actorId":"6UDs3ImYMaNIIRMk"}}🔤 ➡️ body
+  🔤{"data":{"x":400,"y":400,"actorId":"YrS70qhkRwwM0tiu"}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 55❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -673,21 +673,21 @@ import axios from 'axios';
 ```json
 {
   "type": "create-canvas-document-result",
-  "requestId": "create-canvas-document_1778812425313",
-  "sceneId": "VVHJuBK05DRVblnX",
+  "requestId": "create-canvas-document_1778884103660",
+  "sceneId": "3wAQ0udFopemLTti",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "6UDs3ImYMaNIIRMk",
+      "actorId": "YrS70qhkRwwM0tiu",
       "x": 400,
       "y": 400,
       "shape": 4,
-      "_id": "hWowGLxoMdSTJB4Y",
+      "_id": "FjkGbFJ8xjRwzOkI",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "BiGBPf8tLJxyeujz",
+        "_id": "z4uU9AfccQu9pNUr",
         "system": {},
         "items": [],
         "effects": [],
@@ -843,7 +843,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "documentId": "hWowGLxoMdSTJB4Y",
+      "documentId": "FjkGbFJ8xjRwzOkI",
       "data": {
         "x": 450,
         "y": 450
@@ -861,7 +861,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"documentId":"hWowGLxoMdSTJB4Y","data":{"x":450,"y":450}}'
+  -d '{"documentId":"FjkGbFJ8xjRwzOkI","data":{"x":450,"y":450}}'
 ```
 
 </TabItem>
@@ -885,7 +885,7 @@ response = requests.put(
         'Content-Type': 'application/json'
     },
     json={
-      "documentId": "hWowGLxoMdSTJB4Y",
+      "documentId": "FjkGbFJ8xjRwzOkI",
       "data": {
         "x": 450,
         "y": 450
@@ -919,7 +919,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "documentId": "hWowGLxoMdSTJB4Y",
+        "documentId": "FjkGbFJ8xjRwzOkI",
         "data": {
           "x": 450,
           "y": 450
@@ -952,7 +952,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"documentId":"hWowGLxoMdSTJB4Y","data":{"x":450,"y":450}}🔤 ➡️ body
+  🔤{"documentId":"FjkGbFJ8xjRwzOkI","data":{"x":450,"y":450}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -980,21 +980,21 @@ import axios from 'axios';
 ```json
 {
   "type": "update-canvas-document-result",
-  "requestId": "update-canvas-document_1778812425411",
-  "sceneId": "VVHJuBK05DRVblnX",
+  "requestId": "update-canvas-document_1778884103773",
+  "sceneId": "3wAQ0udFopemLTti",
   "documentType": "tokens",
   "data": [
     {
-      "actorId": "6UDs3ImYMaNIIRMk",
+      "actorId": "YrS70qhkRwwM0tiu",
       "x": 450,
       "y": 450,
       "shape": 4,
-      "_id": "hWowGLxoMdSTJB4Y",
+      "_id": "FjkGbFJ8xjRwzOkI",
       "name": "",
       "displayName": 0,
       "actorLink": false,
       "delta": {
-        "_id": "BiGBPf8tLJxyeujz",
+        "_id": "z4uU9AfccQu9pNUr",
         "system": {},
         "items": [],
         "effects": [],
@@ -1138,7 +1138,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/canvas/tokens';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  documentId: 'hWowGLxoMdSTJB4Y'
+  documentId: 'FjkGbFJ8xjRwzOkI'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1157,7 +1157,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3&documentId=hWowGLxoMdSTJB4Y' \
+curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=fvtt_099ad17ea199e7e3&documentId=FjkGbFJ8xjRwzOkI' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1171,7 +1171,7 @@ base_url = 'http://localhost:3010'
 path = '/canvas/tokens'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'documentId': 'hWowGLxoMdSTJB4Y'
+    'documentId': 'FjkGbFJ8xjRwzOkI'
 }
 url = f'{base_url}{path}'
 
@@ -1197,7 +1197,7 @@ import axios from 'axios';
   const path = '/canvas/tokens';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    documentId: 'hWowGLxoMdSTJB4Y'
+    documentId: 'FjkGbFJ8xjRwzOkI'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1232,7 +1232,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤documentId=hWowGLxoMdSTJB4Y🔤 ➡️ documentId
+  🔤documentId=FjkGbFJ8xjRwzOkI🔤 ➡️ documentId
   🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1261,8 +1261,8 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-canvas-document-result",
-  "requestId": "delete-canvas-document_1778812425439",
-  "sceneId": "VVHJuBK05DRVblnX",
+  "requestId": "delete-canvas-document_1778884103800",
+  "sceneId": "3wAQ0udFopemLTti",
   "documentType": "tokens",
   "success": true
 }
@@ -1326,7 +1326,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "uuid": "Actor.6UDs3ImYMaNIIRMk",
+      "uuid": "Actor.YrS70qhkRwwM0tiu",
       "x": 200,
       "y": 200,
       "animate": false
@@ -1343,7 +1343,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/move-token?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"uuid":"Actor.6UDs3ImYMaNIIRMk","x":200,"y":200,"animate":false}'
+  -d '{"uuid":"Actor.YrS70qhkRwwM0tiu","x":200,"y":200,"animate":false}'
 ```
 
 </TabItem>
@@ -1367,7 +1367,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "uuid": "Actor.6UDs3ImYMaNIIRMk",
+      "uuid": "Actor.YrS70qhkRwwM0tiu",
       "x": 200,
       "y": 200,
       "animate": False
@@ -1400,7 +1400,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "uuid": "Actor.6UDs3ImYMaNIIRMk",
+        "uuid": "Actor.YrS70qhkRwwM0tiu",
         "x": 200,
         "y": 200,
         "animate": false
@@ -1432,7 +1432,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"uuid":"Actor.6UDs3ImYMaNIIRMk","x":200,"y":200,"animate":false}🔤 ➡️ body
+  🔤{"uuid":"Actor.YrS70qhkRwwM0tiu","x":200,"y":200,"animate":false}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /move-token🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 65❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -1460,13 +1460,13 @@ import axios from 'axios';
 ```json
 {
   "type": "move-token-result",
-  "requestId": "move-token_1778812425709",
+  "requestId": "move-token_1778884104080",
   "data": {
-    "tokenUuid": "Scene.VVHJuBK05DRVblnX.Token.tHvwcGYl13GMDL98",
+    "tokenUuid": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46",
     "name": "Updated Test Actor",
     "x": 200,
     "y": 200,
-    "sceneId": "VVHJuBK05DRVblnX"
+    "sceneId": "3wAQ0udFopemLTti"
   }
 }
 ```

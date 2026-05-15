@@ -165,11 +165,11 @@ import axios from 'axios';
 ```json
 {
   "type": "get-playlists-result",
-  "requestId": "get-playlists_1778812441267",
+  "requestId": "get-playlists_1778884120739",
   "data": {
     "playlists": [
       {
-        "id": "ssC5DbHheCOtsAbX",
+        "id": "rZZ2Tg7KwIUJl8nJ",
         "name": "test-rest-api-playlist",
         "description": "",
         "playing": false,
@@ -178,7 +178,7 @@ import axios from 'axios';
         "sorting": "a",
         "sounds": [
           {
-            "id": "cYnYyhl2rQQbPRI9",
+            "id": "XYeYGBI4nyC9GAyO",
             "name": "test-sound",
             "path": "sounds/dice.wav",
             "playing": false,
@@ -372,10 +372,10 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-play-result",
-  "requestId": "playlist-play_1778812441272",
+  "requestId": "playlist-play_1778884120746",
   "data": {
     "playlist": {
-      "id": "ssC5DbHheCOtsAbX",
+      "id": "rZZ2Tg7KwIUJl8nJ",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": true,
@@ -384,7 +384,7 @@ import axios from 'axios';
       "sorting": "a",
       "sounds": [
         {
-          "id": "cYnYyhl2rQQbPRI9",
+          "id": "XYeYGBI4nyC9GAyO",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": true,
@@ -575,10 +575,10 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-stop-result",
-  "requestId": "playlist-stop_1778812441286",
+  "requestId": "playlist-stop_1778884120758",
   "data": {
     "playlist": {
-      "id": "ssC5DbHheCOtsAbX",
+      "id": "rZZ2Tg7KwIUJl8nJ",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": false,
@@ -587,7 +587,7 @@ import axios from 'axios';
       "sorting": "a",
       "sounds": [
         {
-          "id": "cYnYyhl2rQQbPRI9",
+          "id": "XYeYGBI4nyC9GAyO",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": false,
@@ -778,10 +778,10 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-next-result",
-  "requestId": "playlist-next_1778812441279",
+  "requestId": "playlist-next_1778884120751",
   "data": {
     "playlist": {
-      "id": "ssC5DbHheCOtsAbX",
+      "id": "rZZ2Tg7KwIUJl8nJ",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": true,
@@ -790,7 +790,7 @@ import axios from 'axios';
       "sorting": "a",
       "sounds": [
         {
-          "id": "cYnYyhl2rQQbPRI9",
+          "id": "XYeYGBI4nyC9GAyO",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": true,
@@ -987,10 +987,10 @@ import axios from 'axios';
 ```json
 {
   "type": "playlist-volume-result",
-  "requestId": "playlist-volume_1778812441284",
+  "requestId": "playlist-volume_1778884120756",
   "data": {
     "playlist": {
-      "id": "ssC5DbHheCOtsAbX",
+      "id": "rZZ2Tg7KwIUJl8nJ",
       "name": "test-rest-api-playlist",
       "description": "",
       "playing": true,
@@ -999,7 +999,7 @@ import axios from 'axios';
       "sorting": "a",
       "sounds": [
         {
-          "id": "cYnYyhl2rQQbPRI9",
+          "id": "XYeYGBI4nyC9GAyO",
           "name": "test-sound",
           "path": "sounds/dice.wav",
           "playing": true,
@@ -1189,7 +1189,7 @@ import axios from 'axios';
 ```json
 {
   "type": "stop-sound-result",
-  "requestId": "stop-sound_1778812441293",
+  "requestId": "stop-sound_1778884120766",
   "data": {
     "stopped": 0,
     "src": "sounds/dice.wav"

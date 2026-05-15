@@ -184,9 +184,9 @@ import axios from 'axios';
 
 ```json
 {
-  "approvalUrl": "http://localhost:3010/approve/EH789F",
-  "code": "EH789F",
-  "expiresAt": "2026-05-14T21:44:06-05:00",
+  "approvalUrl": "http://localhost:3010/approve/YPC9RV",
+  "code": "YPC9RV",
+  "expiresAt": "2026-05-15T17:38:45-05:00",
   "expiresIn": 600
 }
 ```
@@ -225,7 +225,7 @@ Returns the current status of a pending key request. When `status` is `approved`
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/auth/key-request/EH789F/status';
+const path = '/auth/key-request/YPC9RV/status';
 const url = `${baseUrl}${path}`;
 
 const response = await fetch(url, {
@@ -239,7 +239,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/auth/key-request/EH789F/status'
+curl -X GET 'http://localhost:3010/auth/key-request/YPC9RV/status'
 ```
 
 </TabItem>
@@ -249,7 +249,7 @@ curl -X GET 'http://localhost:3010/auth/key-request/EH789F/status'
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/auth/key-request/EH789F/status'
+path = '/auth/key-request/YPC9RV/status'
 url = f'{base_url}{path}'
 
 response = requests.get(
@@ -267,7 +267,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/auth/key-request/EH789F/status';
+  const path = '/auth/key-request/YPC9RV/status';
   const url = `${baseUrl}${path}`;
 
   const response = await axios({
@@ -293,10 +293,10 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/auth/key-request/EH789F/status🔤 ➡️ path
+  🔤/auth/key-request/YPC9RV/status🔤 ➡️ path
 
   💭 Build HTTP request
-  🔤GET /auth/key-request/EH789F/status HTTP/1.1❌r❌nHost: localhost:3010❌r❌n❌r❌n🔤 ➡️ request
+  🔤GET /auth/key-request/YPC9RV/status HTTP/1.1❌r❌nHost: localhost:3010❌r❌n❌r❌n🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
