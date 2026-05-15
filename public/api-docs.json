@@ -4890,7 +4890,7 @@
           "type": "string"
         },
         {
-          "description": "URL to redirect to after approval (web flow)",
+          "description": "Enables web flow: URL the dashboard redirects to after approval, with a `code` query parameter containing the exchange code",
           "location": "body",
           "name": "callbackUrl",
           "type": "string"
@@ -4939,6 +4939,20 @@
         {
           "description": "The code returned by POST /auth/key-request",
           "location": "path",
+          "name": "code",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "description": "Exchange approval code for API key (web flow)",
+      "method": "POST",
+      "optionalParameters": [],
+      "path": "/auth/key-request/exchange",
+      "requiredParameters": [
+        {
+          "description": "The exchange code delivered to your callbackUrl",
+          "location": "body",
           "name": "code",
           "type": "string"
         }

@@ -61,6 +61,8 @@ type routeInfo struct {
 	IsSSE         bool
 	IsManual      bool   // not built with CreateAPIRoute/h()
 	RequiredScope string // scope constant value, e.g. "entity:read"
+	NoAuth        bool   // override global security with empty requirement (public endpoint)
+	Has410        bool   // endpoint can return 410 Gone (e.g. single-use code already consumed)
 }
 
 // ---------------------------------------------------------------------------
@@ -1390,6 +1392,10 @@ func buildOpenAPIPaths(routes []routeInfo) map[string]interface{} {
 			}
 		}
 
+		if r.NoAuth {
+			operation["security"] = []interface{}{}
+		}
+
 		if _, ok := paths[oaPath]; !ok {
 			paths[oaPath] = make(map[string]interface{})
 		}
@@ -1444,6 +1450,22 @@ func buildResponses(r routeInfo) map[string]interface{} {
 				},
 			},
 		},
+	}
+
+	if r.Has410 {
+		responses["410"] = map[string]interface{}{
+			"description": "Gone - exchange code has already been used (single-use only)",
+			"content": map[string]interface{}{
+				"application/json": map[string]interface{}{
+					"schema": map[string]interface{}{
+						"type": "object",
+						"properties": map[string]interface{}{
+							"error": map[string]string{"type": "string"},
+						},
+					},
+				},
+			},
+		}
 	}
 
 	// SSE endpoints return event-stream
@@ -2194,7 +2216,7 @@ func buildAuthRoutes() []routeInfo {
 			Method:      "POST",
 			Path:        "/auth/key-request",
 			Summary:     "Request a scoped API key",
-			Description: "Initiates the device-flow key request. The response contains an `approvalUrl` the user must visit to review and approve the requested scopes. Poll `GET /auth/key-request/{code}/status` until `status` is `approved` or `denied`.",
+			Description: "Initiates a key request that a user must approve in the dashboard. Supports two flows:\n\n**Device flow (no `callbackUrl`)** — for CLI tools, scripts, and desktop apps. The response contains an `approvalUrl` to direct the user to. Poll `GET /auth/key-request/{code}/status` until `status` is `approved`, then read `apiKey` from the response.\n\n**Web flow (`callbackUrl` provided)** — for web apps that can receive an HTTP redirect. After the user approves, the dashboard redirects to your `callbackUrl` with a `code` query parameter containing the exchange code. POST that code to `POST /auth/key-request/exchange` to retrieve the API key.",
 			Tag:         "Auth",
 			Returns:     "`code`, `approvalUrl`, `expiresIn`, `expiresAt`",
 			IsManual:    true,
@@ -2205,7 +2227,7 @@ func buildAuthRoutes() []routeInfo {
 			Optional: []paramDef{
 				{Name: "appDescription", Type: "string", From: []string{"body"}, Description: "Short description of what the application does"},
 				{Name: "appUrl", Type: "string", From: []string{"body"}, Description: "Homepage or docs URL for the application"},
-				{Name: "callbackUrl", Type: "string", From: []string{"body"}, Description: "URL to redirect to after approval (web flow)"},
+				{Name: "callbackUrl", Type: "string", From: []string{"body"}, Description: "Enables web flow: URL the dashboard redirects to after approval, with a `code` query parameter containing the exchange code"},
 				{Name: "clientIds", Type: "array", ItemType: "string", From: []string{"body"}, Description: "Foundry client IDs to restrict the key to"},
 				{Name: "suggestedMonthlyLimit", Type: "number", From: []string{"body"}, Description: "Suggested per-key monthly request cap (user may override)"},
 				{Name: "suggestedExpiry", Type: "string", From: []string{"body"}, Description: "Suggested expiry date ISO 8601 (user may override)"},
@@ -2215,12 +2237,26 @@ func buildAuthRoutes() []routeInfo {
 			Method:      "GET",
 			Path:        "/auth/key-request/{code}/status",
 			Summary:     "Poll key request status",
-			Description: "Returns the current status of a pending key request. When `status` is `approved`, the response includes the newly created `key`. Once the key has been retrieved, the code is invalidated.",
+			Description: "Returns the current status of a pending key request. When `status` is `approved`, the response includes the newly created `apiKey`. Once the key has been retrieved, the status becomes `exchanged` and the key is no longer returned.",
 			Tag:         "Auth",
-			Returns:     "`status` (`pending` | `approved` | `denied` | `expired`), `key` (when approved)",
+			Returns:     "`status` (`pending` | `approved` | `denied` | `expired` | `exchanged`), `apiKey`, `scopes`, `clientIds` (when approved)",
 			IsManual:    true,
 			Required: []paramDef{
 				{Name: "code", Type: "string", From: []string{"params"}, Required: true, Description: "The code returned by POST /auth/key-request"},
+			},
+		},
+		{
+			Method:      "POST",
+			Path:        "/auth/key-request/exchange",
+			Summary:     "Exchange approval code for API key (web flow)",
+			Description: "Web flow only. After the user approves the request in the dashboard, the relay redirects to the `callbackUrl` with a one-time `code` query parameter. POST that code here to receive the API key. The code is single-use — a second call returns 410.",
+			Tag:         "Auth",
+			Returns:     "`apiKey`, `scopes`, `clientIds`",
+			IsManual:    true,
+			NoAuth:      true,
+			Has410:      true,
+			Required: []paramDef{
+				{Name: "code", Type: "string", From: []string{"body"}, Required: true, Description: "The exchange code delivered to your callbackUrl"},
 			},
 		},
 	}

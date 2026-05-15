@@ -52,7 +52,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/sheet';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  uuid: 'Actor.gHjoe9z270YfSCno',
+  uuid: 'Actor.6UDs3ImYMaNIIRMk',
   format: 'png'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -72,7 +72,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/sheet?clientId=fvtt_099ad17ea199e7e3&uuid=Actor.gHjoe9z270YfSCno&format=png' \
+curl -X GET 'http://localhost:3010/sheet?clientId=fvtt_099ad17ea199e7e3&uuid=Actor.6UDs3ImYMaNIIRMk&format=png' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -86,7 +86,7 @@ base_url = 'http://localhost:3010'
 path = '/sheet'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'uuid': 'Actor.gHjoe9z270YfSCno',
+    'uuid': 'Actor.6UDs3ImYMaNIIRMk',
     'format': 'png'
 }
 url = f'{base_url}{path}'
@@ -113,7 +113,7 @@ import axios from 'axios';
   const path = '/sheet';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    uuid: 'Actor.gHjoe9z270YfSCno',
+    uuid: 'Actor.6UDs3ImYMaNIIRMk',
     format: 'png'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -149,7 +149,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤uuid=Actor.gHjoe9z270YfSCno🔤 ➡️ uuid
+  🔤uuid=Actor.6UDs3ImYMaNIIRMk🔤 ➡️ uuid
   🔤format=png🔤 ➡️ format
   🔤?🧲clientId🧲&🧲uuid🧲&🧲format🧲🔤 ➡️ queryString
 

@@ -265,7 +265,7 @@
                     "type": "string"
                   },
                   "callbackUrl": {
-                    "description": "URL to redirect to after approval (web flow)",
+                    "description": "Enables web flow: URL the dashboard redirects to after approval, with a `code` query parameter containing the exchange code",
                     "type": "string"
                   },
                   "clientIds": {
@@ -352,6 +352,95 @@
         ]
       }
     },
+    "/auth/key-request/exchange": {
+      "post": {
+        "operationId": "post_auth_key_request_exchange",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "code": {
+                    "description": "The exchange code delivered to your callbackUrl",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "`apiKey`, `scopes`, `clientIds`"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Client ID is required",
+                  "howToUse": "Add ?clientId=yourClientId to your request"
+                },
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - missing or invalid parameters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Gone - exchange code has already been used (single-use only)"
+          }
+        },
+        "security": [],
+        "summary": "Exchange approval code for API key (web flow)",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
     "/auth/key-request/{code}/status": {
       "get": {
         "operationId": "get_auth_key_request_code_status",
@@ -375,7 +464,7 @@
                 }
               }
             },
-            "description": "`status` (`pending` | `approved` | `denied` | `expired`), `key` (when approved)"
+            "description": "`status` (`pending` | `approved` | `denied` | `expired` | `exchanged`), `apiKey`, `scopes`, `clientIds` (when approved)"
           },
           "400": {
             "content": {

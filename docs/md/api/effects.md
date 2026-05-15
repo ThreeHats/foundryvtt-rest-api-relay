@@ -47,7 +47,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/effects';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  uuid: 'Actor.gHjoe9z270YfSCno'
+  uuid: 'Actor.6UDs3ImYMaNIIRMk'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -66,7 +66,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/effects?clientId=fvtt_099ad17ea199e7e3&uuid=Actor.gHjoe9z270YfSCno' \
+curl -X GET 'http://localhost:3010/effects?clientId=fvtt_099ad17ea199e7e3&uuid=Actor.6UDs3ImYMaNIIRMk' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -80,7 +80,7 @@ base_url = 'http://localhost:3010'
 path = '/effects'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'uuid': 'Actor.gHjoe9z270YfSCno'
+    'uuid': 'Actor.6UDs3ImYMaNIIRMk'
 }
 url = f'{base_url}{path}'
 
@@ -106,7 +106,7 @@ import axios from 'axios';
   const path = '/effects';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    uuid: 'Actor.gHjoe9z270YfSCno'
+    uuid: 'Actor.6UDs3ImYMaNIIRMk'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -141,7 +141,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤uuid=Actor.gHjoe9z270YfSCno🔤 ➡️ uuid
+  🔤uuid=Actor.6UDs3ImYMaNIIRMk🔤 ➡️ uuid
   🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -170,9 +170,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-effects-result",
-  "requestId": "get-effects_1778789886935",
+  "requestId": "get-effects_1778812443603",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
     "effects": []
   }
 }
@@ -337,7 +337,7 @@ import axios from 'axios';
 ```json
 {
   "type": "get-status-effects-result",
-  "requestId": "get-status-effects_1778789886929",
+  "requestId": "get-status-effects_1778812443599",
   "data": {
     "effects": [
       {
@@ -614,7 +614,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "uuid": "Actor.gHjoe9z270YfSCno",
+      "uuid": "Actor.6UDs3ImYMaNIIRMk",
       "effectData": {
         "name": "Test Effect",
         "icon": "icons/svg/aura.svg",
@@ -633,7 +633,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/effects?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"uuid":"Actor.gHjoe9z270YfSCno","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}'
+  -d '{"uuid":"Actor.6UDs3ImYMaNIIRMk","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}'
 ```
 
 </TabItem>
@@ -657,7 +657,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "uuid": "Actor.gHjoe9z270YfSCno",
+      "uuid": "Actor.6UDs3ImYMaNIIRMk",
       "effectData": {
         "name": "Test Effect",
         "icon": "icons/svg/aura.svg",
@@ -692,7 +692,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "uuid": "Actor.gHjoe9z270YfSCno",
+        "uuid": "Actor.6UDs3ImYMaNIIRMk",
         "effectData": {
           "name": "Test Effect",
           "icon": "icons/svg/aura.svg",
@@ -726,7 +726,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"uuid":"Actor.gHjoe9z270YfSCno","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}🔤 ➡️ body
+  🔤{"uuid":"Actor.6UDs3ImYMaNIIRMk","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 110❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -754,12 +754,12 @@ import axios from 'axios';
 ```json
 {
   "type": "add-effect-result",
-  "requestId": "add-effect_1778789886937",
+  "requestId": "add-effect_1778812443605",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
     "effect": {
-      "id": "xDQG0ZoZ5QiKEMhe",
-      "uuid": "Actor.gHjoe9z270YfSCno.ActiveEffect.xDQG0ZoZ5QiKEMhe",
+      "id": "Q9Laq2CQCTtiVvmU",
+      "uuid": "Actor.6UDs3ImYMaNIIRMk.ActiveEffect.Q9Laq2CQCTtiVvmU",
       "name": "Test Effect",
       "icon": "icons/svg/aura.svg",
       "statuses": []
@@ -822,8 +822,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "uuid": "Actor.gHjoe9z270YfSCno",
-      "effectId": "xDQG0ZoZ5QiKEMhe"
+      "uuid": "Actor.6UDs3ImYMaNIIRMk",
+      "effectId": "Q9Laq2CQCTtiVvmU"
     })
 });
 const data = await response.json();
@@ -837,7 +837,7 @@ console.log(data);
 curl -X DELETE 'http://localhost:3010/effects?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"uuid":"Actor.gHjoe9z270YfSCno","effectId":"xDQG0ZoZ5QiKEMhe"}'
+  -d '{"uuid":"Actor.6UDs3ImYMaNIIRMk","effectId":"Q9Laq2CQCTtiVvmU"}'
 ```
 
 </TabItem>
@@ -861,8 +861,8 @@ response = requests.delete(
         'Content-Type': 'application/json'
     },
     json={
-      "uuid": "Actor.gHjoe9z270YfSCno",
-      "effectId": "xDQG0ZoZ5QiKEMhe"
+      "uuid": "Actor.6UDs3ImYMaNIIRMk",
+      "effectId": "Q9Laq2CQCTtiVvmU"
     }
 )
 data = response.json()
@@ -892,8 +892,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "uuid": "Actor.gHjoe9z270YfSCno",
-        "effectId": "xDQG0ZoZ5QiKEMhe"
+        "uuid": "Actor.6UDs3ImYMaNIIRMk",
+        "effectId": "Q9Laq2CQCTtiVvmU"
       }
   });
   const data = response.data;
@@ -922,7 +922,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"uuid":"Actor.gHjoe9z270YfSCno","effectId":"xDQG0ZoZ5QiKEMhe"}🔤 ➡️ body
+  🔤{"uuid":"Actor.6UDs3ImYMaNIIRMk","effectId":"Q9Laq2CQCTtiVvmU"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤DELETE /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 63❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -950,10 +950,10 @@ import axios from 'axios';
 ```json
 {
   "type": "remove-effect-result",
-  "requestId": "remove-effect_1778789887005",
+  "requestId": "remove-effect_1778812443676",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
-    "removedEffectId": "xDQG0ZoZ5QiKEMhe"
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
+    "removedEffectId": "Q9Laq2CQCTtiVvmU"
   }
 }
 ```

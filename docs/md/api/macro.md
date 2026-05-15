@@ -165,7 +165,7 @@ import axios from 'axios';
 ```json
 {
   "type": "macros-result",
-  "requestId": "macros_1778789881036",
+  "requestId": "macros_1778812437383",
   "macros": [
     {
       "uuid": "Macro.BZmzcTiPJm3brbfb",
@@ -201,8 +201,8 @@ import axios from 'axios';
       "canExecute": true
     },
     {
-      "uuid": "Macro.gz1JZKVhw7tS4NLi",
-      "id": "gz1JZKVhw7tS4NLi",
+      "uuid": "Macro.bD06DOxoafykpG5l",
+      "id": "bD06DOxoafykpG5l",
       "name": "test-macro",
       "type": "script",
       "author": "tester",
@@ -254,7 +254,7 @@ Executes a specific macro in the Foundry world by its UUID.
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/macro/Macro.gz1JZKVhw7tS4NLi/execute';
+const path = '/macro/Macro.bD06DOxoafykpG5l/execute';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3'
 };
@@ -283,7 +283,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/macro/Macro.gz1JZKVhw7tS4NLi/execute?clientId=fvtt_099ad17ea199e7e3' \
+curl -X POST 'http://localhost:3010/macro/Macro.bD06DOxoafykpG5l/execute?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}'
@@ -296,7 +296,7 @@ curl -X POST 'http://localhost:3010/macro/Macro.gz1JZKVhw7tS4NLi/execute?clientI
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/macro/Macro.gz1JZKVhw7tS4NLi/execute'
+path = '/macro/Macro.bD06DOxoafykpG5l/execute'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3'
 }
@@ -328,7 +328,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/macro/Macro.gz1JZKVhw7tS4NLi/execute';
+  const path = '/macro/Macro.bD06DOxoafykpG5l/execute';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3'
   };
@@ -369,7 +369,7 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/macro/Macro.gz1JZKVhw7tS4NLi/execute🔤 ➡️ path
+  🔤/macro/Macro.bD06DOxoafykpG5l/execute🔤 ➡️ path
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
@@ -379,7 +379,7 @@ import axios from 'axios';
   🔤{"args":{"targetName":"Goblin","damage":100000,"effect":"poison"}}🔤 ➡️ body
 
   💭 Build HTTP request
-  🔤POST /macro/Macro.gz1JZKVhw7tS4NLi/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+  🔤POST /macro/Macro.bD06DOxoafykpG5l/execute🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -404,8 +404,8 @@ import axios from 'axios';
 ```json
 {
   "type": "macro-execute-result",
-  "requestId": "macro-execute_1778789881039",
-  "uuid": "Macro.gz1JZKVhw7tS4NLi",
+  "requestId": "macro-execute_1778812437386",
+  "uuid": "Macro.bD06DOxoafykpG5l",
   "success": true,
   "result": {
     "success": true,

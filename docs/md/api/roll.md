@@ -171,15 +171,15 @@ import axios from 'axios';
 ```json
 {
   "type": "rolls-result",
-  "requestId": "rolls_1778789870469",
+  "requestId": "rolls_1778812426777",
   "data": [
     {
-      "id": "manual_1778789869964_ajyjaer8vyn",
-      "messageId": "manual_1778789869964_ajyjaer8vyn",
+      "id": "manual_1778812426274_wpwvlqvfiy",
+      "messageId": "manual_1778812426274_wpwvlqvfiy",
       "user": null,
       "speaker": {},
       "flavor": "Test Roll",
-      "rollTotal": 14,
+      "rollTotal": 15,
       "formula": "2d20kh",
       "isCritical": false,
       "isFumble": false,
@@ -188,40 +188,40 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 10,
-              "active": false
+              "result": 15,
+              "active": true
             },
             {
-              "result": 14,
-              "active": true
+              "result": 13,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1778789869965
+      "timestamp": 1778812426274
     },
     {
-      "id": "manual_1778789859262_sjuejbtun28",
+      "id": "manual_1778812415581_v34e3vr4zy",
       "messageId": null,
       "user": null,
       "speaker": {},
       "flavor": "",
-      "rollTotal": 1,
+      "rollTotal": 19,
       "formula": "1d20",
       "isCritical": false,
-      "isFumble": true,
+      "isFumble": false,
       "dice": [
         {
           "faces": 20,
           "results": [
             {
-              "result": 1,
+              "result": 19,
               "active": true
             }
           ]
         }
       ],
-      "timestamp": 1778789859262
+      "timestamp": 1778812415581
     }
   ]
 }
@@ -386,14 +386,14 @@ import axios from 'axios';
 ```json
 {
   "type": "last-roll-result",
-  "requestId": "last-roll_1778789870472",
+  "requestId": "last-roll_1778812426780",
   "data": {
-    "id": "manual_1778789869964_ajyjaer8vyn",
-    "messageId": "manual_1778789869964_ajyjaer8vyn",
+    "id": "manual_1778812426274_wpwvlqvfiy",
+    "messageId": "manual_1778812426274_wpwvlqvfiy",
     "user": null,
     "speaker": {},
     "flavor": "Test Roll",
-    "rollTotal": 14,
+    "rollTotal": 15,
     "formula": "2d20kh",
     "isCritical": false,
     "isFumble": false,
@@ -402,17 +402,17 @@ import axios from 'axios';
         "faces": 20,
         "results": [
           {
-            "result": 10,
-            "active": false
+            "result": 15,
+            "active": true
           },
           {
-            "result": 14,
-            "active": true
+            "result": 13,
+            "active": false
           }
         ]
       }
     ],
-    "timestamp": 1778789869965
+    "timestamp": 1778812426274
   }
 }
 ```
@@ -603,14 +603,14 @@ import axios from 'axios';
 ```json
 {
   "type": "roll-result",
-  "requestId": "roll_1778789869958",
+  "requestId": "roll_1778812426268",
   "success": true,
   "data": {
-    "id": "manual_1778789869964_ajyjaer8vyn",
+    "id": "manual_1778812426274_wpwvlqvfiy",
     "chatMessageCreated": true,
     "roll": {
       "formula": "2d20kh",
-      "total": 14,
+      "total": 15,
       "isCritical": false,
       "isFumble": false,
       "dice": [
@@ -618,17 +618,17 @@ import axios from 'axios';
           "faces": 20,
           "results": [
             {
-              "result": 10,
-              "active": false
+              "result": 15,
+              "active": true
             },
             {
-              "result": 14,
-              "active": true
+              "result": 13,
+              "active": false
             }
           ]
         }
       ],
-      "timestamp": 1778789869965
+      "timestamp": 1778812426274
     }
   }
 }

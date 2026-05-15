@@ -12,6 +12,8 @@
  */
 function sanitizeString(str) {
   return str
+    // Replace exchange codes in "code" fields before the generic hex sweep
+    .replace(/"code":\s*"([a-f0-9]{32,})"/gi, '"code": "your-exchange-code-here"')
     // Replace 32+ char hex API keys
     .replace(/[a-f0-9]{32,}/gi, 'your-api-key-here')
     // Replace client IDs

@@ -1151,6 +1151,38 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
 
 ---
 
+## FileSystem
+
+### `file-system`
+
+Get file system structure
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | no | The path to retrieve (relative to source) |
+| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
+| `recursive` | boolean | no | Whether to recursively list all subdirectories |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="file-system" parameters={[{"name":"path","type":"string","required":false,"description":"The path to retrieve (relative to source)"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"recursive","type":"boolean","required":false,"description":"Whether to recursively list all subdirectories"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
+### `download-file`
+
+Download a file from Foundry's file system
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | no | The full path to the file to download |
+| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
+| `format` | string | no | The format to return the file in (binary, base64) |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="download-file" parameters={[{"name":"path","type":"string","required":false,"description":"The full path to the file to download"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"format","type":"string","required":false,"description":"The format to return the file in (binary, base64)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
 ## Dnd5e
 
 ### `get-actor-details`
@@ -1558,38 +1590,6 @@ This endpoint allows searching for entities in the Foundry world based on a quer
 
 ---
 
-## FileSystem
-
-### `file-system`
-
-Get file system structure
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `path` | string | no | The path to retrieve (relative to source) |
-| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
-| `recursive` | boolean | no | Whether to recursively list all subdirectories |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="file-system" parameters={[{"name":"path","type":"string","required":false,"description":"The path to retrieve (relative to source)"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"recursive","type":"boolean","required":false,"description":"Whether to recursively list all subdirectories"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
-### `download-file`
-
-Download a file from Foundry's file system
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `path` | string | no | The full path to the file to download |
-| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
-| `format` | string | no | The format to return the file in (binary, base64) |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="download-file" parameters={[{"name":"path","type":"string","required":false,"description":"The full path to the file to download"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"format","type":"string","required":false,"description":"The format to return the file in (binary, base64)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
 ## Cross-World Operations
 
 ### `remote-request`
@@ -1712,7 +1712,7 @@ ws.on('message', (raw: string) => {
 {
   "clientId": "fvtt_099ad17ea199e7e3",
   "query": "test",
-  "requestId": "test_1778789885658_q2klm1",
+  "requestId": "test_1778812442222_urm2yx",
   "results": [
     {
       "documentType": "Scene",
@@ -1728,6 +1728,36 @@ ws.on('message', (raw: string) => {
       "subType": "",
       "tagline": "Scenes Directory",
       "uuid": "Scene.2xFy4d19bDsP08Aw"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "E216rK2779fPDqiH",
+      "journalLink": "@UUID[Scene.E216rK2779fPDqiH]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.E216rK2779fPDqiH"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "FIqMGxtWklfvb80c",
+      "journalLink": "@UUID[Scene.FIqMGxtWklfvb80c]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.FIqMGxtWklfvb80c"
     },
     {
       "documentType": "Scene",
@@ -1764,6 +1794,36 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>",
       "icon": "",
+      "id": "azpFAQYHh0s3yHML",
+      "journalLink": "@UUID[Scene.azpFAQYHh0s3yHML]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.azpFAQYHh0s3yHML"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
+      "id": "nsoLECqbXXs1PrBZ",
+      "journalLink": "@UUID[Scene.nsoLECqbXXs1PrBZ]{test}",
+      "name": "test",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.nsoLECqbXXs1PrBZ"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>",
+      "icon": "",
       "id": "uisZmFzI2Tjh1xSA",
       "journalLink": "@UUID[Scene.uisZmFzI2Tjh1xSA]{test}",
       "name": "test",
@@ -1779,15 +1839,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>",
       "icon": "",
-      "id": "azpFAQYHh0s3yHML",
-      "journalLink": "@UUID[Scene.azpFAQYHh0s3yHML]{test}",
+      "id": "X914jr7smFaAxr72",
+      "journalLink": "@UUID[Scene.X914jr7smFaAxr72]{test}",
       "name": "test",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.azpFAQYHh0s3yHML"
+      "uuid": "Scene.X914jr7smFaAxr72"
     },
     {
       "documentType": "JournalEntry",
@@ -1824,15 +1884,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-journalentry",
       "icon": "",
-      "id": "IBOue8Wue7z6fHN0",
-      "journalLink": "@UUID[JournalEntry.IBOue8Wue7z6fHN0]{test-journalentry}",
+      "id": "l3KDguqD0NFi36jX",
+      "journalLink": "@UUID[JournalEntry.l3KDguqD0NFi36jX]{test-journalentry}",
       "name": "test-journalentry",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Journal Directory",
-      "uuid": "JournalEntry.IBOue8Wue7z6fHN0"
+      "uuid": "JournalEntry.l3KDguqD0NFi36jX"
     },
     {
       "documentType": "Macro",
@@ -1869,15 +1929,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-macro",
       "icon": "icons/svg/dice-target.svg",
-      "id": "gz1JZKVhw7tS4NLi",
-      "journalLink": "@UUID[Macro.gz1JZKVhw7tS4NLi]{test-macro}",
+      "id": "bD06DOxoafykpG5l",
+      "journalLink": "@UUID[Macro.bD06DOxoafykpG5l]{test-macro}",
       "name": "test-macro",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "script",
       "tagline": "Macros Directory",
-      "uuid": "Macro.gz1JZKVhw7tS4NLi"
+      "uuid": "Macro.bD06DOxoafykpG5l"
     },
     {
       "documentType": "Actor",
@@ -1899,15 +1959,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-perrin (halfling monk)",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "VVwNwxGSnT6OiYcP",
-      "journalLink": "@UUID[Actor.VVwNwxGSnT6OiYcP]{test-perrin (halfling monk)}",
+      "id": "SbB5EcL8HTQkj7cs",
+      "journalLink": "@UUID[Actor.SbB5EcL8HTQkj7cs]{test-perrin (halfling monk)}",
       "name": "test-perrin (halfling monk)",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.VVwNwxGSnT6OiYcP"
+      "uuid": "Actor.SbB5EcL8HTQkj7cs"
     },
     {
       "documentType": "Scene",
@@ -2004,15 +2064,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-scene-updated",
       "icon": "",
-      "id": "Jz0KV1jlNI0jdQp0",
-      "journalLink": "@UUID[Scene.Jz0KV1jlNI0jdQp0]{test-scene-updated}",
+      "id": "VVHJuBK05DRVblnX",
+      "journalLink": "@UUID[Scene.VVHJuBK05DRVblnX]{test-scene-updated}",
       "name": "test-scene-updated",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "",
       "tagline": "Scenes Directory",
-      "uuid": "Scene.Jz0KV1jlNI0jdQp0"
+      "uuid": "Scene.VVHJuBK05DRVblnX"
     },
     {
       "documentType": "Item",
@@ -2034,15 +2094,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "<strong>test</strong>-studded leather armor +3",
       "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
-      "id": "PKPTCIGV6jL9tJvq",
-      "journalLink": "@UUID[Item.PKPTCIGV6jL9tJvq]{test-studded leather armor +3}",
+      "id": "nrxWiu6F4heoe4hg",
+      "journalLink": "@UUID[Item.nrxWiu6F4heoe4hg]{test-studded leather armor +3}",
       "name": "test-studded leather armor +3",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "equipment",
       "tagline": "Items Directory",
-      "uuid": "Item.PKPTCIGV6jL9tJvq"
+      "uuid": "Item.nrxWiu6F4heoe4hg"
     },
     {
       "documentType": "JournalEntry",
@@ -2094,15 +2154,15 @@ ws.on('message', (raw: string) => {
       "folder": null,
       "formattedMatch": "Updated <strong>Test</strong> Actor",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "id": "gHjoe9z270YfSCno",
-      "journalLink": "@UUID[Actor.gHjoe9z270YfSCno]{Updated Test Actor}",
+      "id": "6UDs3ImYMaNIIRMk",
+      "journalLink": "@UUID[Actor.6UDs3ImYMaNIIRMk]{Updated Test Actor}",
       "name": "Updated Test Actor",
       "package": null,
       "packageName": null,
       "resultType": "WorldEntity",
       "subType": "character",
       "tagline": "Actors Directory",
-      "uuid": "Actor.gHjoe9z270YfSCno"
+      "uuid": "Actor.6UDs3ImYMaNIIRMk"
     },
     {
       "documentType": "Item",
@@ -4683,7 +4743,7 @@ ws.on('message', (raw: string) => {
         "content": "WS chat-event test",
         "flags": {},
         "flavor": "",
-        "id": "jihYvXPiJb0V9IDb",
+        "id": "RZ9Zga5gU99HapPf",
         "isRoll": false,
         "rolls": [],
         "speaker": {
@@ -4691,9 +4751,9 @@ ws.on('message', (raw: string) => {
           "scene": null,
           "token": null
         },
-        "timestamp": 1778789885720,
+        "timestamp": 1778812442288,
         "type": "base",
-        "uuid": "ChatMessage.jihYvXPiJb0V9IDb",
+        "uuid": "ChatMessage.RZ9Zga5gU99HapPf",
         "whisper": []
       },
       "eventType": "create"
@@ -4802,24 +4862,24 @@ ws.on('message', (raw: string) => {
           "results": [
             {
               "active": true,
-              "result": 1
+              "result": 2
             }
           ]
         }
       ],
       "flavor": "WS roll-event test",
       "formula": "1d6",
-      "id": "6eZiLkXok7LQuMRL",
+      "id": "COGIOqG3Z9ejjGiB",
       "isCritical": false,
       "isFumble": false,
-      "messageId": "6eZiLkXok7LQuMRL",
-      "rollTotal": 1,
+      "messageId": "COGIOqG3Z9ejjGiB",
+      "rollTotal": 2,
       "speaker": {
         "actor": null,
         "scene": null,
         "token": null
       },
-      "timestamp": 1778789885741,
+      "timestamp": 1778812442313,
       "user": {
         "id": "r6bXhB7k9cXa3cif",
         "name": "tester"

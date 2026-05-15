@@ -42,21 +42,22 @@ function noAuthConfig(method: string, urlPath: string, body?: any): ApiRequestCo
   };
 }
 
+// Module-level teardown — runs after ALL describe blocks so every describe
+// has a chance to push examples before the file is written.
+afterAll(async () => {
+  if (capturedExamples.length > 0) {
+    const outputPath = path.join(__dirname, '../../../docs/examples/key-request-examples.json');
+    saveExamples(capturedExamples, outputPath);
+    console.log(`\nSaved ${capturedExamples.length} examples to ${outputPath}`);
+  }
+
+  for (const id of keysToCleanup) {
+    await makeRequest(replaceVariables(authConfig('DELETE', `/auth/api-keys/${id}`), testVariables)).catch(() => {});
+  }
+});
+
 describe('Device Flow', () => {
   let requestCode = '';
-
-  afterAll(async () => {
-    // Save captured examples for documentation
-    if (capturedExamples.length > 0) {
-      const outputPath = path.join(__dirname, '../../../docs/examples/key-request-examples.json');
-      saveExamples(capturedExamples, outputPath);
-      console.log(`\nSaved ${capturedExamples.length} examples to ${outputPath}`);
-    }
-
-    for (const id of keysToCleanup) {
-      await makeRequest(replaceVariables(authConfig('DELETE', `/auth/api-keys/${id}`), testVariables)).catch(() => {});
-    }
-  });
 
   test('POST /auth/key-request creates pending request with code', async () => {
     const captured = await captureExample(
@@ -157,6 +158,46 @@ describe('Device Flow', () => {
     expect(response.status).toBe(200);
     expect(response.data).toHaveProperty('status', 'exchanged');
     expect(response.data).not.toHaveProperty('apiKey');
+  });
+});
+
+describe('Web Flow', () => {
+  test('POST /auth/key-request/exchange returns apiKey after callback approval', async () => {
+    // Create a key request with a callbackUrl (web flow)
+    const createResponse = await makeRequest(replaceVariables(noAuthConfig('POST', '/auth/key-request', {
+      appName: 'Web App Integration',
+      scopes: ['entity:read'],
+      callbackUrl: 'https://example.com/foundry/callback',
+    }), testVariables));
+    expect(createResponse.status).toBe(201);
+    const code = createResponse.data.code;
+
+    // Dashboard user approves — response includes exchangeCode for web flow
+    const approveResponse = await makeRequest(replaceVariables(authConfig('POST', `/auth/key-request/${code}/approve`, {
+      scopes: ['entity:read'],
+    }), testVariables));
+    expect(approveResponse.status).toBe(200);
+    expect(approveResponse.data).toHaveProperty('exchangeCode');
+    const exchangeCode = approveResponse.data.exchangeCode;
+    keysToCleanup.push(String(approveResponse.data.keyId));
+
+    // Integration exchanges the code for the API key (no auth)
+    const captured = await captureExample(
+      noAuthConfig('POST', '/auth/key-request/exchange', { code: exchangeCode }),
+      testVariables,
+      '/auth/key-request/exchange - Exchange code for API key'
+    );
+
+    expect(captured.response.status).toBe(200);
+    expect(captured.response.data).toHaveProperty('apiKey');
+    expect(captured.response.data).toHaveProperty('scopes');
+    expect(captured.response.data.scopes).toContain('entity:read');
+
+    capturedExamples.push(captured);
+
+    // Second exchange attempt should fail (one-time use)
+    const reuse = await makeRequest(replaceVariables(noAuthConfig('POST', '/auth/key-request/exchange', { code: exchangeCode }), testVariables));
+    expect(reuse.status).toBe(410);
   });
 });
 

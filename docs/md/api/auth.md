@@ -13,7 +13,11 @@ import ApiTester from '@site/src/components/ApiTester';
 
 Request a scoped API key
 
-Initiates the device-flow key request. The response contains an `approvalUrl` the user must visit to review and approve the requested scopes. Poll `GET /auth/key-request/{code}/status` until `status` is `approved` or `denied`.
+Initiates a key request that a user must approve in the dashboard. Supports two flows:
+
+**Device flow (no `callbackUrl`)** — for CLI tools, scripts, and desktop apps. The response contains an `approvalUrl` to direct the user to. Poll `GET /auth/key-request/{code}/status` until `status` is `approved`, then read `apiKey` from the response.
+
+**Web flow (`callbackUrl` provided)** — for web apps that can receive an HTTP redirect. After the user approves, the dashboard redirects to your `callbackUrl` with a `code` query parameter containing the exchange code. POST that code to `POST /auth/key-request/exchange` to retrieve the API key.
 
 ### Parameters
 
@@ -23,7 +27,7 @@ Initiates the device-flow key request. The response contains an `approvalUrl` th
 | scopes | array | ✓ | body | List of permission scopes the key requires |
 | appDescription | string |  | body | Short description of what the application does |
 | appUrl | string |  | body | Homepage or docs URL for the application |
-| callbackUrl | string |  | body | URL to redirect to after approval (web flow) |
+| callbackUrl | string |  | body | Enables web flow: URL the dashboard redirects to after approval, with a `code` query parameter containing the exchange code |
 | clientIds | array |  | body | Foundry client IDs to restrict the key to |
 | suggestedMonthlyLimit | number |  | body | Suggested per-key monthly request cap (user may override) |
 | suggestedExpiry | string |  | body | Suggested expiry date ISO 8601 (user may override) |
@@ -180,9 +184,9 @@ import axios from 'axios';
 
 ```json
 {
-  "approvalUrl": "http://localhost:3010/approve/F4JQJX",
-  "code": "F4JQJX",
-  "expiresAt": "2026-05-14T15:28:09-05:00",
+  "approvalUrl": "http://localhost:3010/approve/EH789F",
+  "code": "EH789F",
+  "expiresAt": "2026-05-14T21:44:06-05:00",
   "expiresIn": 600
 }
 ```
@@ -194,7 +198,7 @@ import axios from 'axios';
 
 Poll key request status
 
-Returns the current status of a pending key request. When `status` is `approved`, the response includes the newly created `key`. Once the key has been retrieved, the code is invalidated.
+Returns the current status of a pending key request. When `status` is `approved`, the response includes the newly created `apiKey`. Once the key has been retrieved, the status becomes `exchanged` and the key is no longer returned.
 
 ### Parameters
 
@@ -204,7 +208,7 @@ Returns the current status of a pending key request. When `status` is `approved`
 
 ### Returns
 
-**object** - `status` (`pending` | `approved` | `denied` | `expired`), `key` (when approved)
+**object** - `status` (`pending` | `approved` | `denied` | `expired` | `exchanged`), `apiKey`, `scopes`, `clientIds` (when approved)
 
 ### Try It Out
 
@@ -221,7 +225,7 @@ Returns the current status of a pending key request. When `status` is `approved`
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/auth/key-request/F4JQJX/status';
+const path = '/auth/key-request/EH789F/status';
 const url = `${baseUrl}${path}`;
 
 const response = await fetch(url, {
@@ -235,7 +239,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/auth/key-request/F4JQJX/status'
+curl -X GET 'http://localhost:3010/auth/key-request/EH789F/status'
 ```
 
 </TabItem>
@@ -245,7 +249,7 @@ curl -X GET 'http://localhost:3010/auth/key-request/F4JQJX/status'
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/auth/key-request/F4JQJX/status'
+path = '/auth/key-request/EH789F/status'
 url = f'{base_url}{path}'
 
 response = requests.get(
@@ -263,7 +267,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/auth/key-request/F4JQJX/status';
+  const path = '/auth/key-request/EH789F/status';
   const url = `${baseUrl}${path}`;
 
   const response = await axios({
@@ -289,10 +293,10 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/auth/key-request/F4JQJX/status🔤 ➡️ path
+  🔤/auth/key-request/EH789F/status🔤 ➡️ path
 
   💭 Build HTTP request
-  🔤GET /auth/key-request/F4JQJX/status HTTP/1.1❌r❌nHost: localhost:3010❌r❌n❌r❌n🔤 ➡️ request
+  🔤GET /auth/key-request/EH789F/status HTTP/1.1❌r❌nHost: localhost:3010❌r❌n❌r❌n🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -323,6 +327,163 @@ import axios from 'axios';
     "roll:read"
   ],
   "status": "approved"
+}
+```
+
+
+---
+
+## POST /auth/key-request/exchange
+
+Exchange approval code for API key (web flow)
+
+Web flow only. After the user approves the request in the dashboard, the relay redirects to the `callbackUrl` with a one-time `code` query parameter. POST that code here to receive the API key. The code is single-use — a second call returns 410.
+
+### Parameters
+
+| Name | Type | Required | Source | Description |
+|------|------|----------|--------|-------------|
+| code | string | ✓ | body | The exchange code delivered to your callbackUrl |
+
+### Returns
+
+**object** - `apiKey`, `scopes`, `clientIds`
+
+### Try It Out
+
+<ApiTester
+  method="POST"
+  path="/auth/key-request/exchange"
+  parameters={[{"name":"code","type":"string","required":true,"source":"body"}]}
+/>
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/auth/key-request/exchange';
+const url = `${baseUrl}${path}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "code": "your-exchange-code-here"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/auth/key-request/exchange' \
+  -H "Content-Type: application/json" \
+  -d '{"code": "your-exchange-code-here"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/auth/key-request/exchange'
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    json={
+      "code": "your-exchange-code-here"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/auth/key-request/exchange';
+  const url = `${baseUrl}${path}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "code": "your-exchange-code-here"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/auth/key-request/exchange🔤 ➡️ path
+
+  💭 Request body
+  🔤{"code": "your-exchange-code-here"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /auth/key-request/exchange HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n{"code": "your-exchange-code-here"}🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "apiKey": "your-api-key-here",
+  "clientIds": null,
+  "scopes": [
+    "entity:read"
+  ]
 }
 ```
 

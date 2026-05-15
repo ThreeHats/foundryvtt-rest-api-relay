@@ -168,12 +168,8 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 
 			ctx := r.Context()
 
-			// Find by exchange code
-			// We need to iterate — for now we search by the exchange code
-			// This is a simple approach; in production you'd index this
-			req, err := db.KeyRequestStore().FindByCode(ctx, body.Code)
-			if err != nil || req == nil || !req.ExchangeCode.Valid || req.ExchangeCode.String != body.Code {
-				// Try finding by exchange code via status scan
+			req, err := db.KeyRequestStore().FindByExchangeCode(ctx, body.Code)
+			if err != nil || req == nil {
 				helpers.WriteError(w, http.StatusNotFound, "Invalid exchange code")
 				return
 			}

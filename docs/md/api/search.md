@@ -179,7 +179,7 @@ import axios from 'axios';
 ```json
 {
   "type": "search-result",
-  "requestId": "search_1778789869774",
+  "requestId": "search_1778812426090",
   "filter": "documentType:Actor",
   "results": [
     {
@@ -230,14 +230,14 @@ import axios from 'axios';
     {
       "documentType": "Actor",
       "folder": null,
-      "id": "VVwNwxGSnT6OiYcP",
+      "id": "SbB5EcL8HTQkj7cs",
       "name": "test-perrin (halfling monk)",
       "package": null,
       "packageName": null,
       "subType": "character",
-      "uuid": "Actor.VVwNwxGSnT6OiYcP",
+      "uuid": "Actor.SbB5EcL8HTQkj7cs",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "journalLink": "@UUID[Actor.VVwNwxGSnT6OiYcP]{test-perrin (halfling monk)}",
+      "journalLink": "@UUID[Actor.SbB5EcL8HTQkj7cs]{test-perrin (halfling monk)}",
       "tagline": "Actors Directory",
       "formattedMatch": "test-perrin (halfling monk)",
       "resultType": "WorldEntity"
@@ -275,14 +275,14 @@ import axios from 'axios';
     {
       "documentType": "Actor",
       "folder": null,
-      "id": "gHjoe9z270YfSCno",
+      "id": "6UDs3ImYMaNIIRMk",
       "name": "Updated Test Actor",
       "package": null,
       "packageName": null,
       "subType": "character",
-      "uuid": "Actor.gHjoe9z270YfSCno",
+      "uuid": "Actor.6UDs3ImYMaNIIRMk",
       "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-      "journalLink": "@UUID[Actor.gHjoe9z270YfSCno]{Updated Test Actor}",
+      "journalLink": "@UUID[Actor.6UDs3ImYMaNIIRMk]{Updated Test Actor}",
       "tagline": "Actors Directory",
       "formattedMatch": "Updated Test Actor",
       "resultType": "WorldEntity"

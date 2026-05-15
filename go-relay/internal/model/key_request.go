@@ -40,6 +40,7 @@ type KeyRequest struct {
 // KeyRequestStore defines operations on key requests.
 type KeyRequestStore interface {
 	FindByCode(ctx context.Context, code string) (*KeyRequest, error)
+	FindByExchangeCode(ctx context.Context, exchangeCode string) (*KeyRequest, error)
 	Create(ctx context.Context, req *KeyRequest) error
 	UpdateStatus(ctx context.Context, id int64, status string, updates map[string]interface{}) error
 	CleanupExpired(ctx context.Context) (int64, error)
@@ -65,6 +66,15 @@ func (s *SQLKeyRequestStore) col(name string) string {
 func (s *SQLKeyRequestStore) FindByCode(ctx context.Context, code string) (*KeyRequest, error) {
 	var r KeyRequest
 	err := s.DB.GetContext(ctx, &r, fmt.Sprintf("SELECT * FROM %s WHERE code = $1", s.tableName()), code)
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	return &r, err
+}
+
+func (s *SQLKeyRequestStore) FindByExchangeCode(ctx context.Context, exchangeCode string) (*KeyRequest, error) {
+	var r KeyRequest
+	err := s.DB.GetContext(ctx, &r, fmt.Sprintf("SELECT * FROM %s WHERE %s = $1", s.tableName(), s.col("exchange_code")), exchangeCode)
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}

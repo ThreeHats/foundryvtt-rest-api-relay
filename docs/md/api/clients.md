@@ -151,16 +151,16 @@ import axios from 'axios';
     {
       "clientId": "fvtt_099ad17ea199e7e3",
       "instanceId": "local",
-      "lastSeen": 1778789856924,
-      "connectedSince": 1778789856923,
+      "lastSeen": 1778812413853,
+      "connectedSince": 1778812413852,
       "worldId": "testing",
       "worldTitle": "testing",
       "foundryVersion": "13.348",
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
       "systemVersion": "5.0.4",
-      "ipAddress": "[::1]:56872",
-      "tokenName": "headless session 2026-05-14 15:17",
+      "ipAddress": "[::1]:40970",
+      "tokenName": "headless session 2026-05-14 21:33",
       "isOnline": true
     }
   ],

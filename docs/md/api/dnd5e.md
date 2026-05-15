@@ -48,7 +48,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/get-actor-details';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  actorUuid: 'Actor.gHjoe9z270YfSCno',
+  actorUuid: 'Actor.6UDs3ImYMaNIIRMk',
   details: '["resources","items","features","spells"]'
 };
 const queryString = new URLSearchParams(params).toString();
@@ -68,7 +68,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.gHjoe9z270YfSCno&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
+curl -X GET 'http://localhost:3010/dnd5e/get-actor-details?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.6UDs3ImYMaNIIRMk&details=%5B%22resources%22%2C%22items%22%2C%22features%22%2C%22spells%22%5D' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -82,7 +82,7 @@ base_url = 'http://localhost:3010'
 path = '/dnd5e/get-actor-details'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'actorUuid': 'Actor.gHjoe9z270YfSCno',
+    'actorUuid': 'Actor.6UDs3ImYMaNIIRMk',
     'details': '["resources","items","features","spells"]'
 }
 url = f'{base_url}{path}'
@@ -109,7 +109,7 @@ import axios from 'axios';
   const path = '/dnd5e/get-actor-details';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    actorUuid: 'Actor.gHjoe9z270YfSCno',
+    actorUuid: 'Actor.6UDs3ImYMaNIIRMk',
     details: '["resources","items","features","spells"]'
   };
   const queryString = new URLSearchParams(params).toString();
@@ -145,7 +145,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤actorUuid=Actor.gHjoe9z270YfSCno🔤 ➡️ actorUuid
+  🔤actorUuid=Actor.6UDs3ImYMaNIIRMk🔤 ➡️ actorUuid
   🔤details=["resources","items","features","spells"]🔤 ➡️ details
   🔤?🧲clientId🧲&🧲actorUuid🧲&🧲details🧲🔤 ➡️ queryString
 
@@ -175,9 +175,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-actor-details-result",
-  "requestId": "get-actor-details_1778789887530",
+  "requestId": "get-actor-details_1778812444201",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
     "resources": {
       "primary": {
         "value": null,
@@ -386,11 +386,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1778789887344,
-          "modifiedTime": 1778789887344,
+          "createdTime": 1778812444015,
+          "modifiedTime": 1778812444015,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "f1rI2peZOad3wbbB"
+        "_id": "orGrzWzoH40tpGq2"
       }
     ],
     "items": [
@@ -2684,11 +2684,11 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1778789887468,
-          "modifiedTime": 1778789887468,
+          "createdTime": 1778812444139,
+          "modifiedTime": 1778812444139,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
-        "_id": "T7vArmQELWX85SUN"
+        "_id": "abOCfv73qJSXmFXv"
       }
     ],
     "features": [
@@ -4016,7 +4016,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "itemName": "Waterskin",
       "amount": -1
     })
@@ -4032,7 +4032,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/modify-item-charges?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Waterskin","amount":-1}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","itemName":"Waterskin","amount":-1}'
 ```
 
 </TabItem>
@@ -4056,7 +4056,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "itemName": "Waterskin",
       "amount": -1
     }
@@ -4088,7 +4088,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "itemName": "Waterskin",
         "amount": -1
       }
@@ -4119,7 +4119,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Waterskin","amount":-1}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","itemName":"Waterskin","amount":-1}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-item-charges🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4147,9 +4147,9 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-item-charges-result",
-  "requestId": "modify-item-charges_1778789887680",
+  "requestId": "modify-item-charges_1778812444355",
   "data": {
-    "itemUuid": "Actor.gHjoe9z270YfSCno.Item.5skKSSB4ShHbKoc8",
+    "itemUuid": "Actor.6UDs3ImYMaNIIRMk.Item.5skKSSB4ShHbKoc8",
     "oldCharges": 4,
     "newCharges": 3
   }
@@ -4211,7 +4211,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno"
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
     })
 });
 const data = await response.json();
@@ -4225,7 +4225,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/short-rest?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk"}'
 ```
 
 </TabItem>
@@ -4249,7 +4249,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno"
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
     }
 )
 data = response.json()
@@ -4279,7 +4279,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno"
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
       }
   });
   const data = response.data;
@@ -4308,7 +4308,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/short-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -4336,9 +4336,9 @@ import axios from 'axios';
 ```json
 {
   "type": "short-rest-result",
-  "requestId": "short-rest_1778789888154",
+  "requestId": "short-rest_1778812444836",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "result": {
       "type": "short",
       "deltas": {
@@ -4353,7 +4353,7 @@ import axios from 'axios';
             }
           }
         },
-        "_id": "gHjoe9z270YfSCno",
+        "_id": "6UDs3ImYMaNIIRMk",
         "type": "character"
       },
       "updateItems": [],
@@ -4389,8 +4389,8 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778789888028,
-              "modifiedTime": 1778789888028,
+              "createdTime": 1778812444706,
+              "modifiedTime": 1778812444706,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
@@ -5952,7 +5952,7 @@ import axios from 'axios';
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
               "lastModifiedBy": "r6bXhB7k9cXa3cif",
-              "modifiedTime": 1778789887758
+              "modifiedTime": 1778812444435
             },
             "effects": [],
             "flags": {
@@ -8299,11 +8299,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778789887344,
-              "modifiedTime": 1778789887344,
+              "createdTime": 1778812444015,
+              "modifiedTime": 1778812444015,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "f1rI2peZOad3wbbB"
+            "_id": "orGrzWzoH40tpGq2"
           },
           {
             "effects": [],
@@ -8461,11 +8461,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778789887468,
-              "modifiedTime": 1778789887468,
+              "createdTime": 1778812444139,
+              "modifiedTime": 1778812444139,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "T7vArmQELWX85SUN"
+            "_id": "abOCfv73qJSXmFXv"
           }
         ],
         "name": "Updated Test Actor",
@@ -9261,8 +9261,8 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1778789858019,
-          "modifiedTime": 1778789888090,
+          "createdTime": 1778812414493,
+          "modifiedTime": 1778812444774,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
@@ -9329,7 +9329,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "newDay": true
     })
 });
@@ -9344,7 +9344,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/long-rest?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","newDay":true}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","newDay":true}'
 ```
 
 </TabItem>
@@ -9368,7 +9368,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "newDay": True
     }
 )
@@ -9399,7 +9399,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "newDay": true
       }
   });
@@ -9429,7 +9429,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","newDay":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","newDay":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/long-rest🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -9457,9 +9457,9 @@ import axios from 'axios';
 ```json
 {
   "type": "long-rest-result",
-  "requestId": "long-rest_1778789888193",
+  "requestId": "long-rest_1778812444875",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "result": {
       "type": "long",
       "deltas": {
@@ -9510,7 +9510,7 @@ import axios from 'axios';
             }
           }
         },
-        "_id": "gHjoe9z270YfSCno",
+        "_id": "6UDs3ImYMaNIIRMk",
         "type": "character"
       },
       "updateItems": [],
@@ -9546,8 +9546,8 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778789888028,
-              "modifiedTime": 1778789888028,
+              "createdTime": 1778812444706,
+              "modifiedTime": 1778812444706,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
@@ -11109,7 +11109,7 @@ import axios from 'axios';
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
               "lastModifiedBy": "r6bXhB7k9cXa3cif",
-              "modifiedTime": 1778789887758
+              "modifiedTime": 1778812444435
             },
             "effects": [],
             "flags": {
@@ -13456,11 +13456,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778789887344,
-              "modifiedTime": 1778789887344,
+              "createdTime": 1778812444015,
+              "modifiedTime": 1778812444015,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "f1rI2peZOad3wbbB"
+            "_id": "orGrzWzoH40tpGq2"
           },
           {
             "effects": [],
@@ -13618,11 +13618,11 @@ import axios from 'axios';
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778789887468,
-              "modifiedTime": 1778789887468,
+              "createdTime": 1778812444139,
+              "modifiedTime": 1778812444139,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             },
-            "_id": "T7vArmQELWX85SUN"
+            "_id": "abOCfv73qJSXmFXv"
           }
         ],
         "name": "Updated Test Actor",
@@ -14418,8 +14418,8 @@ import axios from 'axios';
           "coreVersion": "13.348",
           "systemId": "dnd5e",
           "systemVersion": "5.0.4",
-          "createdTime": 1778789858019,
-          "modifiedTime": 1778789888090,
+          "createdTime": 1778812414493,
+          "modifiedTime": 1778812444774,
           "lastModifiedBy": "r6bXhB7k9cXa3cif"
         },
         "_id": null
@@ -14489,7 +14489,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "skill": "prc"
     })
 });
@@ -14504,7 +14504,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/skill-check?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","skill":"prc"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","skill":"prc"}'
 ```
 
 </TabItem>
@@ -14528,7 +14528,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "skill": "prc"
     }
 )
@@ -14559,7 +14559,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "skill": "prc"
       }
   });
@@ -14589,7 +14589,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","skill":"prc"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","skill":"prc"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/skill-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 52❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -14617,13 +14617,13 @@ import axios from 'axios';
 ```json
 {
   "type": "skill-check-result",
-  "requestId": "skill-check_1778789887871",
+  "requestId": "skill-check_1778812444552",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "skill": "prc",
-    "total": 17,
+    "total": 20,
     "formula": "1d20 + 2",
-    "result": "15 + 2"
+    "result": "18 + 2"
   }
 }
 ```
@@ -14685,7 +14685,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "ability": "dex"
     })
 });
@@ -14700,7 +14700,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/ability-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"dex"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","ability":"dex"}'
 ```
 
 </TabItem>
@@ -14724,7 +14724,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "ability": "dex"
     }
 )
@@ -14755,7 +14755,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "ability": "dex"
       }
   });
@@ -14785,7 +14785,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"dex"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","ability":"dex"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -14813,9 +14813,9 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-save-result",
-  "requestId": "ability-save_1778789887899",
+  "requestId": "ability-save_1778812444578",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "ability": "dex",
     "total": 19,
     "formula": "1d20 + 3 + 2 + 0",
@@ -14881,7 +14881,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "ability": "str"
     })
 });
@@ -14896,7 +14896,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/ability-check?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"str"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","ability":"str"}'
 ```
 
 </TabItem>
@@ -14920,7 +14920,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "ability": "str"
     }
 )
@@ -14951,7 +14951,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "ability": "str"
       }
   });
@@ -14981,7 +14981,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","ability":"str"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","ability":"str"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/ability-check🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 54❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15009,13 +15009,13 @@ import axios from 'axios';
 ```json
 {
   "type": "ability-check-result",
-  "requestId": "ability-check_1778789887911",
+  "requestId": "ability-check_1778812444592",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "ability": "str",
-    "total": 10,
+    "total": 5,
     "formula": "1d20 - 1",
-    "result": "11 - 1"
+    "result": "6 - 1"
   }
 }
 ```
@@ -15074,7 +15074,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno"
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
     })
 });
 const data = await response.json();
@@ -15088,7 +15088,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/death-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk"}'
 ```
 
 </TabItem>
@@ -15112,7 +15112,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno"
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
     }
 )
 data = response.json()
@@ -15142,7 +15142,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno"
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
       }
   });
   const data = response.data;
@@ -15171,7 +15171,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/death-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15199,12 +15199,12 @@ import axios from 'axios';
 ```json
 {
   "type": "death-save-result",
-  "requestId": "death-save_1778789888022",
+  "requestId": "death-save_1778812444700",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
-    "total": 11,
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
+    "total": 14,
     "formula": "1d20",
-    "result": "11",
+    "result": "14",
     "deathSaves": {
       "success": 1,
       "failure": 0
@@ -15267,7 +15267,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "amount": 100
     })
 });
@@ -15282,7 +15282,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/modify-experience?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","amount":100}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","amount":100}'
 ```
 
 </TabItem>
@@ -15306,7 +15306,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "amount": 100
     }
 )
@@ -15337,7 +15337,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "amount": 100
       }
   });
@@ -15367,7 +15367,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","amount":100}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","amount":100}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/modify-experience🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 51❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15395,9 +15395,9 @@ import axios from 'axios';
 ```json
 {
   "type": "modify-experience-result",
-  "requestId": "modify-experience_1778789887539",
+  "requestId": "modify-experience_1778812444210",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "oldXp": 0,
     "newXp": 100
   }
@@ -15446,7 +15446,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/dnd5e/concentration';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  actorUuid: 'Actor.gHjoe9z270YfSCno'
+  actorUuid: 'Actor.6UDs3ImYMaNIIRMk'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -15465,7 +15465,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/dnd5e/concentration?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.gHjoe9z270YfSCno' \
+curl -X GET 'http://localhost:3010/dnd5e/concentration?clientId=fvtt_099ad17ea199e7e3&actorUuid=Actor.6UDs3ImYMaNIIRMk' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -15479,7 +15479,7 @@ base_url = 'http://localhost:3010'
 path = '/dnd5e/concentration'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'actorUuid': 'Actor.gHjoe9z270YfSCno'
+    'actorUuid': 'Actor.6UDs3ImYMaNIIRMk'
 }
 url = f'{base_url}{path}'
 
@@ -15505,7 +15505,7 @@ import axios from 'axios';
   const path = '/dnd5e/concentration';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    actorUuid: 'Actor.gHjoe9z270YfSCno'
+    actorUuid: 'Actor.6UDs3ImYMaNIIRMk'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -15540,7 +15540,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤actorUuid=Actor.gHjoe9z270YfSCno🔤 ➡️ actorUuid
+  🔤actorUuid=Actor.6UDs3ImYMaNIIRMk🔤 ➡️ actorUuid
   🔤?🧲clientId🧲&🧲actorUuid🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -15569,9 +15569,9 @@ import axios from 'axios';
 ```json
 {
   "type": "get-concentration-result",
-  "requestId": "get-concentration_1778789888357",
+  "requestId": "get-concentration_1778812445029",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "isConcentrating": false,
     "effect": null,
     "spell": null
@@ -15632,7 +15632,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno"
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
     })
 });
 const data = await response.json();
@@ -15646,7 +15646,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/break-concentration?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk"}'
 ```
 
 </TabItem>
@@ -15669,7 +15669,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno"
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
     }
 )
 data = response.json()
@@ -15699,7 +15699,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno"
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk"
       }
   });
   const data = response.data;
@@ -15728,7 +15728,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/break-concentration🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15756,11 +15756,11 @@ import axios from 'axios';
 ```json
 {
   "type": "break-concentration-result",
-  "requestId": "break-concentration_1778789888565",
+  "requestId": "break-concentration_1778812445237",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "broken": true,
-    "removedEffectId": "cHLIrJYI0LFITL2j"
+    "removedEffectId": "ihkHKXc9rKpcrWms"
   }
 }
 ```
@@ -15823,7 +15823,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "damage": 15
     })
 });
@@ -15838,7 +15838,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/concentration-save?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","damage":15}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","damage":15}'
 ```
 
 </TabItem>
@@ -15861,7 +15861,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "damage": 15
     }
 )
@@ -15892,7 +15892,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "damage": 15
       }
   });
@@ -15922,7 +15922,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","damage":15}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","damage":15}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/concentration-save🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -15950,13 +15950,13 @@ import axios from 'axios';
 ```json
 {
   "type": "concentration-save-result",
-  "requestId": "concentration-save_1778789888428",
+  "requestId": "concentration-save_1778812445103",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
     "dc": 10,
-    "total": 6,
+    "total": 5,
     "formula": "1d20 + 1",
-    "result": "5 + 1",
+    "result": "4 + 1",
     "maintained": false
   }
 }
@@ -16018,7 +16018,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "itemName": "Dart",
       "equipped": true
     })
@@ -16034,7 +16034,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/equip-item?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","equipped":true}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","itemName":"Dart","equipped":true}'
 ```
 
 </TabItem>
@@ -16057,7 +16057,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "itemName": "Dart",
       "equipped": True
     }
@@ -16089,7 +16089,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "itemName": "Dart",
         "equipped": true
       }
@@ -16120,7 +16120,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","equipped":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","itemName":"Dart","equipped":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/equip-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 72❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16148,10 +16148,10 @@ import axios from 'axios';
 ```json
 {
   "type": "equip-item-result",
-  "requestId": "equip-item_1778789888637",
+  "requestId": "equip-item_1778812445302",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
-    "itemUuid": "Actor.gHjoe9z270YfSCno.Item.WeKJI3gPUAU52WAX",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
+    "itemUuid": "Actor.6UDs3ImYMaNIIRMk.Item.WeKJI3gPUAU52WAX",
     "itemName": "Dart",
     "equipped": true
   }
@@ -16214,7 +16214,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "itemName": "Dart",
       "attuned": true
     })
@@ -16230,7 +16230,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/attune-item?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","attuned":true}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","itemName":"Dart","attuned":true}'
 ```
 
 </TabItem>
@@ -16253,7 +16253,7 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "itemName": "Dart",
       "attuned": True
     }
@@ -16285,7 +16285,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "itemName": "Dart",
         "attuned": true
       }
@@ -16316,7 +16316,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","itemName":"Dart","attuned":true}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","itemName":"Dart","attuned":true}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/attune-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 71❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16344,10 +16344,10 @@ import axios from 'axios';
 ```json
 {
   "type": "attune-item-result",
-  "requestId": "attune-item_1778789888640",
+  "requestId": "attune-item_1778812445304",
   "data": {
-    "actorUuid": "Actor.gHjoe9z270YfSCno",
-    "itemUuid": "Actor.gHjoe9z270YfSCno.Item.WeKJI3gPUAU52WAX",
+    "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
+    "itemUuid": "Actor.6UDs3ImYMaNIIRMk.Item.WeKJI3gPUAU52WAX",
     "itemName": "Dart",
     "attuned": true
   }
@@ -16410,8 +16410,8 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
-      "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
+      "sourceActorUuid": "Actor.6UDs3ImYMaNIIRMk",
+      "targetActorUuid": "Actor.SbB5EcL8HTQkj7cs",
       "currency": {
         "gp": 1
       }
@@ -16428,7 +16428,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/transfer-currency?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"sourceActorUuid":"Actor.gHjoe9z270YfSCno","targetActorUuid":"Actor.VVwNwxGSnT6OiYcP","currency":{"gp":1}}'
+  -d '{"sourceActorUuid":"Actor.6UDs3ImYMaNIIRMk","targetActorUuid":"Actor.SbB5EcL8HTQkj7cs","currency":{"gp":1}}'
 ```
 
 </TabItem>
@@ -16451,8 +16451,8 @@ response = requests.post(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
-      "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
+      "sourceActorUuid": "Actor.6UDs3ImYMaNIIRMk",
+      "targetActorUuid": "Actor.SbB5EcL8HTQkj7cs",
       "currency": {
         "gp": 1
       }
@@ -16485,8 +16485,8 @@ import axios from 'axios';
     },
     url,
     data: {
-        "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
-        "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
+        "sourceActorUuid": "Actor.6UDs3ImYMaNIIRMk",
+        "targetActorUuid": "Actor.SbB5EcL8HTQkj7cs",
         "currency": {
           "gp": 1
         }
@@ -16518,7 +16518,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"sourceActorUuid":"Actor.gHjoe9z270YfSCno","targetActorUuid":"Actor.VVwNwxGSnT6OiYcP","currency":{"gp":1}}🔤 ➡️ body
+  🔤{"sourceActorUuid":"Actor.6UDs3ImYMaNIIRMk","targetActorUuid":"Actor.SbB5EcL8HTQkj7cs","currency":{"gp":1}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/transfer-currency🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 107❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16546,10 +16546,10 @@ import axios from 'axios';
 ```json
 {
   "type": "transfer-currency-result",
-  "requestId": "transfer-currency_1778789888704",
+  "requestId": "transfer-currency_1778812445364",
   "data": {
-    "sourceActorUuid": "Actor.gHjoe9z270YfSCno",
-    "targetActorUuid": "Actor.VVwNwxGSnT6OiYcP",
+    "sourceActorUuid": "Actor.6UDs3ImYMaNIIRMk",
+    "targetActorUuid": "Actor.SbB5EcL8HTQkj7cs",
     "transferred": {
       "gp": 1
     },
@@ -16691,7 +16691,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "Hammer"
     })
 });
@@ -16706,7 +16706,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-ability?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -16730,7 +16730,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "Hammer"
     }
 )
@@ -16761,7 +16761,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "abilityName": "Hammer"
       }
   });
@@ -16791,7 +16791,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-ability🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -16819,11 +16819,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-ability-result",
-  "requestId": "use-ability_1778789887860",
+  "requestId": "use-ability_1778812444542",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
     "ability": "Hammer",
-    "result": "N6v1qlVVxD9v0RMb"
+    "result": "bXPc9wzg6TKLU5kq"
   }
 }
 ```
@@ -16884,7 +16884,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "Priest"
     })
 });
@@ -16899,7 +16899,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-feature?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Priest"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"Priest"}'
 ```
 
 </TabItem>
@@ -16923,7 +16923,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "Priest"
     }
 )
@@ -16954,7 +16954,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "abilityName": "Priest"
       }
   });
@@ -16984,7 +16984,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Priest"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"Priest"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-feature🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -17012,11 +17012,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-feature-result",
-  "requestId": "use-feature_1778789887832",
+  "requestId": "use-feature_1778812444518",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
     "ability": "Priest",
-    "result": "vgRwieNmkvpMVK3r"
+    "result": "k0Zo0J8aLRhFcc4k"
   }
 }
 ```
@@ -17077,7 +17077,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "test-polymorph"
     })
 });
@@ -17092,7 +17092,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-spell?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"test-polymorph"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"test-polymorph"}'
 ```
 
 </TabItem>
@@ -17116,7 +17116,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "test-polymorph"
     }
 )
@@ -17147,7 +17147,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "abilityName": "test-polymorph"
       }
   });
@@ -17177,7 +17177,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"test-polymorph"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"test-polymorph"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-spell🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 69❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -17205,9 +17205,9 @@ import axios from 'axios';
 ```json
 {
   "type": "use-spell-result",
-  "requestId": "use-spell_1778789887846",
+  "requestId": "use-spell_1778812444529",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
     "ability": "test-polymorph",
     "result": null
   }
@@ -17270,7 +17270,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "Hammer"
     })
 });
@@ -17285,7 +17285,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/dnd5e/use-item?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}'
+  -d '{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"Hammer"}'
 ```
 
 </TabItem>
@@ -17309,7 +17309,7 @@ response = requests.post(
         'Content-Type': 'application/json'
     },
     json={
-      "actorUuid": "Actor.gHjoe9z270YfSCno",
+      "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
       "abilityName": "Hammer"
     }
 )
@@ -17340,7 +17340,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "actorUuid": "Actor.gHjoe9z270YfSCno",
+        "actorUuid": "Actor.6UDs3ImYMaNIIRMk",
         "abilityName": "Hammer"
       }
   });
@@ -17370,7 +17370,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"actorUuid":"Actor.gHjoe9z270YfSCno","abilityName":"Hammer"}🔤 ➡️ body
+  🔤{"actorUuid":"Actor.6UDs3ImYMaNIIRMk","abilityName":"Hammer"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /dnd5e/use-item🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 61❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -17398,11 +17398,11 @@ import axios from 'axios';
 ```json
 {
   "type": "use-item-result",
-  "requestId": "use-item_1778789887816",
+  "requestId": "use-item_1778812444498",
   "data": {
-    "uuid": "Actor.gHjoe9z270YfSCno",
+    "uuid": "Actor.6UDs3ImYMaNIIRMk",
     "ability": "Hammer",
-    "result": "rjDUmrTT5tquQest"
+    "result": "D6bM91QxCTIU0Yrz"
   }
 }
 ```
