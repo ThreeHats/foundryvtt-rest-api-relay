@@ -22,7 +22,7 @@ import (
 // Version
 // ---------------------------------------------------------------------------
 
-const apiVersion = "3.2.3"
+const apiVersion = "3.2.7"
 
 // ---------------------------------------------------------------------------
 // Data types that mirror the runtime helpers.ParamDef / helpers.APIRouteConfig
