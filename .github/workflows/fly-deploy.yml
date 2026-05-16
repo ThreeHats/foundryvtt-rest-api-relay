@@ -71,13 +71,8 @@ jobs:
           sed -i "s/const apiVersion = .*/const apiVersion = \"$VERSION\"/" go-relay/cmd/docgen/main.go
 
           # Regenerate OpenAPI / AsyncAPI / api-docs JSON with the new version
-          # This also regenerates docs/md/api/*.md from scratch (no examples yet)
+          # Also regenerates docs/md/api/*.md — example injection runs inside the Docker build
           cd go-relay && go run ./cmd/docgen/ && cd ..
-
-          # Re-inject captured code examples into the freshly-regenerated markdown.
-          # docs/examples/*.json are committed to the repo so they're available here.
-          corepack enable && pnpm install --ignore-workspace --ignore-scripts
-          pnpm run docs:examples
 
           # Configure git
           git config --global user.name 'github-actions[bot]'
