@@ -14,10 +14,12 @@ function sanitizeString(str) {
   return str
     // Replace exchange codes in "code" fields before the generic hex sweep
     .replace(/"code":\s*"([a-f0-9]{32,})"/gi, '"code": "your-exchange-code-here"')
-    // Replace 32+ char hex API keys
+    // Replace 32+ char hex API keys (covers x-api-key values and Bearer tokens)
     .replace(/[a-f0-9]{32,}/gi, 'your-api-key-here')
     // Replace client IDs
-    .replace(/foundry-[a-zA-Z0-9]{16}/g, 'your-client-id');
+    .replace(/foundry-[a-zA-Z0-9]{16}/g, 'your-client-id')
+    // Replace password fields (foundryPassword, password) with placeholder
+    .replace(/"(foundryPassword|password)":\s*"[^"]*"/gi, '"$1": "your-password-here"');
 }
 
 /**

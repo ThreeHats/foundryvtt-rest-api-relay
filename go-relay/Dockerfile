@@ -36,14 +36,29 @@ ARG ALGOLIA_APP_ID
 ARG ALGOLIA_SEARCH_API_KEY
 ARG ALGOLIA_INDEX_NAME
 
-WORKDIR /docs
-# Install deps before copying content so this layer is cached on content-only changes
-COPY docs/package.json docs/pnpm-lock.yaml ./
+WORKDIR /workspace
+
+# Install root deps first (provides tsx for example injection)
+COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=cache,target=/root/.cache/node/corepack \
     --mount=type=cache,target=/root/.local/share/pnpm/store \
-    corepack enable && pnpm install --frozen-lockfile
-COPY docs/ .
-RUN pnpm run build
+    corepack enable && pnpm install --frozen-lockfile --ignore-scripts
+
+# Install docs deps
+COPY docs/package.json docs/pnpm-lock.yaml docs/
+RUN --mount=type=cache,target=/root/.cache/node/corepack \
+    --mount=type=cache,target=/root/.local/share/pnpm/store \
+    cd docs && pnpm install --frozen-lockfile
+
+# Copy content after deps so content changes don't bust the install cache
+COPY docs/ docs/
+COPY scripts/ scripts/
+
+# Inject captured code examples into the docs markdown before building
+RUN node_modules/.bin/tsx scripts/updateDocsWithExamples.ts
+
+# Build Docusaurus
+RUN cd docs && pnpm run build
 
 # Runtime stage: Ubuntu 24.04 (glibc) for NVIDIA GPU support.
 # Alpine's musl libc cannot load NVIDIA's glibc-compiled EGL driver
@@ -98,7 +113,7 @@ COPY public/*.json /app/static/public/
 COPY --from=frontend /public-dist/ /app/static/public-dist/
 
 # Copy docs build output
-COPY --from=docs /docs/build/ /app/static/docs/build/
+COPY --from=docs /workspace/docs/build/ /app/static/docs/build/
 
 # Chrome path for headless sessions (google-chrome-stable is found by findChromeBinary() too)
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
