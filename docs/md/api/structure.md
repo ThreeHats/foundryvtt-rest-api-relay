@@ -182,12 +182,12 @@ import axios from 'axios';
 ```json
 {
   "type": "structure-result",
-  "requestId": "structure_1778884104286",
+  "requestId": "structure_1778896423682",
   "data": {
     "folders": {
       "test-folder": {
-        "id": "cAzAxtjsO38mLaH0",
-        "uuid": "Folder.cAzAxtjsO38mLaH0",
+        "id": "qVncHkNOxAuctXy2",
+        "uuid": "Folder.qVncHkNOxAuctXy2",
         "type": "Scene"
       }
     },
@@ -2000,6 +2000,123 @@ import axios from 'axios';
             "systemVersion": "5.0.4",
             "createdTime": 1778718765802,
             "modifiedTime": 1778718765802,
+            "lastModifiedBy": "r6bXhB7k9cXa3cif",
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        },
+        {
+          "_id": "v5E3y16p9juupLJS",
+          "name": "test",
+          "active": false,
+          "navigation": true,
+          "navOrder": 0,
+          "background": {
+            "src": null,
+            "anchorX": 0,
+            "anchorY": 0,
+            "offsetX": 0,
+            "offsetY": 0,
+            "fit": "fill",
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "tint": "#ffffff",
+            "alphaThreshold": 0
+          },
+          "foreground": null,
+          "foregroundElevation": 20,
+          "thumb": null,
+          "width": 4000,
+          "height": 3000,
+          "padding": 0.25,
+          "initial": {
+            "x": null,
+            "y": null,
+            "scale": null
+          },
+          "backgroundColor": "#999999",
+          "grid": {
+            "type": 1,
+            "size": 100,
+            "style": "solidLines",
+            "thickness": 1,
+            "color": "#000000",
+            "alpha": 0.2,
+            "distance": 5,
+            "units": "ft"
+          },
+          "tokenVision": true,
+          "fog": {
+            "exploration": true,
+            "overlay": null,
+            "colors": {
+              "explored": null,
+              "unexplored": null
+            }
+          },
+          "environment": {
+            "darknessLevel": 0,
+            "darknessLock": false,
+            "globalLight": {
+              "enabled": false,
+              "alpha": 0.5,
+              "bright": false,
+              "color": null,
+              "coloration": 1,
+              "luminosity": 0,
+              "saturation": 0,
+              "contrast": 0,
+              "shadows": 0,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            "cycle": true,
+            "base": {
+              "hue": 0,
+              "intensity": 0,
+              "luminosity": 0,
+              "saturation": 0,
+              "shadows": 0
+            },
+            "dark": {
+              "hue": 0.7138888888888889,
+              "intensity": 0,
+              "luminosity": -0.25,
+              "saturation": 0,
+              "shadows": 0
+            }
+          },
+          "drawings": [],
+          "tokens": [],
+          "lights": [],
+          "notes": [],
+          "sounds": [],
+          "regions": [],
+          "templates": [],
+          "tiles": [],
+          "walls": [],
+          "playlist": null,
+          "playlistSound": null,
+          "journal": null,
+          "journalEntryPage": null,
+          "weather": "",
+          "folder": null,
+          "sort": 0,
+          "ownership": {
+            "default": 0,
+            "r6bXhB7k9cXa3cif": 3
+          },
+          "flags": {},
+          "_stats": {
+            "coreVersion": "13.348",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1778884093752,
+            "modifiedTime": 1778884093752,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -8046,6 +8163,115 @@ import axios from 'axios';
               "_movementHistory": [],
               "_regions": [],
               "flags": {}
+            },
+            {
+              "_id": "IdTS49lsUW6JzIsH",
+              "name": "test",
+              "displayName": 0,
+              "actorId": null,
+              "actorLink": false,
+              "delta": {
+                "_id": "idQljZZpsp6TgbR1",
+                "system": {},
+                "items": [],
+                "effects": [],
+                "flags": {}
+              },
+              "width": 1,
+              "height": 1,
+              "texture": {
+                "src": "icons/svg/mystery-man.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "shape": 4,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 11,
+              "locked": false,
+              "lockRotation": false,
+              "rotation": 0,
+              "alpha": 1,
+              "hidden": false,
+              "disposition": -1,
+              "displayBars": 0,
+              "bar1": {
+                "attribute": "attributes.hp"
+              },
+              "bar2": {
+                "attribute": null
+              },
+              "light": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "sight": {
+                "enabled": false,
+                "range": 0,
+                "angle": 360,
+                "visionMode": "basic",
+                "color": null,
+                "attenuation": 0.1,
+                "brightness": 0,
+                "saturation": 0,
+                "contrast": 0
+              },
+              "detectionModes": [],
+              "occludable": {
+                "radius": 0
+              },
+              "ring": {
+                "enabled": false,
+                "colors": {
+                  "ring": null,
+                  "background": null
+                },
+                "effects": 1,
+                "subject": {
+                  "scale": 1,
+                  "texture": null
+                }
+              },
+              "turnMarker": {
+                "mode": 1,
+                "animation": null,
+                "src": null,
+                "disposition": false
+              },
+              "movementAction": "walk",
+              "_movementHistory": [],
+              "_regions": [],
+              "flags": {}
             }
           ],
           "lights": [
@@ -8408,6 +8634,42 @@ import axios from 'axios';
               },
               "hidden": false,
               "flags": {}
+            },
+            {
+              "_id": "Dn8jycsQG4hKhjXX",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "rotation": 0,
+              "walls": true,
+              "vision": false,
+              "config": {
+                "negative": false,
+                "priority": 0,
+                "alpha": 0.5,
+                "angle": 360,
+                "bright": 0,
+                "color": null,
+                "coloration": 1,
+                "dim": 0,
+                "attenuation": 0.5,
+                "luminosity": 0.5,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "animation": {
+                  "type": null,
+                  "speed": 5,
+                  "intensity": 5,
+                  "reverse": false
+                },
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "hidden": false,
+              "flags": {}
             }
           ],
           "notes": [
@@ -8700,6 +8962,35 @@ import axios from 'axios';
               "textColor": "#ffffff",
               "global": false,
               "flags": {}
+            },
+            {
+              "_id": "fcQD4GHs8EVDC1XH",
+              "entryId": null,
+              "pageId": null,
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 10,
+              "texture": {
+                "src": "icons/svg/book.svg",
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "contain",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "tint": "#ffffff",
+                "alphaThreshold": 0
+              },
+              "iconSize": 40,
+              "fontFamily": "Signika",
+              "fontSize": 32,
+              "textAnchor": 1,
+              "textColor": "#ffffff",
+              "global": false,
+              "flags": {}
             }
           ],
           "sounds": [
@@ -8962,6 +9253,32 @@ import axios from 'axios';
                 }
               },
               "flags": {}
+            },
+            {
+              "_id": "NWBXDs1MULeGaaqD",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "radius": 0,
+              "path": null,
+              "repeat": false,
+              "volume": 0.5,
+              "walls": true,
+              "easing": true,
+              "hidden": false,
+              "darkness": {
+                "min": 0,
+                "max": 1
+              },
+              "effects": {
+                "base": {
+                  "intensity": 5
+                },
+                "muffled": {
+                  "intensity": 5
+                }
+              },
+              "flags": {}
             }
           ],
           "regions": [],
@@ -9145,6 +9462,24 @@ import axios from 'axios';
               "texture": null,
               "hidden": false,
               "flags": {}
+            },
+            {
+              "_id": "dvytsVdA6agkd7UR",
+              "author": "r6bXhB7k9cXa3cif",
+              "t": "circle",
+              "x": 0,
+              "y": 0,
+              "elevation": 0,
+              "sort": 10,
+              "distance": 0,
+              "direction": 0,
+              "angle": 0,
+              "width": 0,
+              "borderColor": "#000000",
+              "fillColor": "#cc2829",
+              "texture": null,
+              "hidden": false,
+              "flags": {}
             }
           ],
           "tiles": [],
@@ -9166,7 +9501,7 @@ import axios from 'axios';
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
             "createdTime": 1777969049357,
-            "modifiedTime": 1778884098428,
+            "modifiedTime": 1778896417833,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -10000,7 +10335,7 @@ import axios from 'axios';
           }
         },
         {
-          "_id": "v5E3y16p9juupLJS",
+          "_id": "InuAccGQ1wWqwPfm",
           "name": "test",
           "active": false,
           "navigation": true,
@@ -10108,8 +10443,8 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1778884093752,
-            "modifiedTime": 1778884093752,
+            "createdTime": 1778896413295,
+            "modifiedTime": 1778896413295,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -10117,7 +10452,7 @@ import axios from 'axios';
           }
         },
         {
-          "_id": "3wAQ0udFopemLTti",
+          "_id": "tgYnjCnq6EFiREjl",
           "name": "test-scene-updated",
           "active": true,
           "navigation": true,
@@ -10203,13 +10538,13 @@ import axios from 'axios';
           "drawings": [],
           "tokens": [
             {
-              "_id": "MF83hx4RRMhaTv46",
+              "_id": "TOInpAfNZ6GRAJaG",
               "name": "Updated Test Actor",
               "displayName": 0,
-              "actorId": "YrS70qhkRwwM0tiu",
+              "actorId": "S6Nh5SfYPcyyUhRg",
               "actorLink": false,
               "delta": {
-                "_id": "cSE0cXMIDRj21SRP",
+                "_id": "xFsLxQX7Lmyc4TaG",
                 "type": "character",
                 "system": {},
                 "items": [
@@ -14046,8 +14381,8 @@ import axios from 'axios';
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1778884098388,
-            "modifiedTime": 1778884098428,
+            "createdTime": 1778896417797,
+            "modifiedTime": 1778896417833,
             "lastModifiedBy": "r6bXhB7k9cXa3cif",
             "compendiumSource": null,
             "duplicateSource": null,
@@ -14222,10 +14557,10 @@ import axios from 'axios';
 ```json
 {
   "type": "get-folder-result",
-  "requestId": "get-folder_1778884104316",
+  "requestId": "get-folder_1778896423713",
   "data": {
-    "id": "cAzAxtjsO38mLaH0",
-    "uuid": "Folder.cAzAxtjsO38mLaH0",
+    "id": "qVncHkNOxAuctXy2",
+    "uuid": "Folder.qVncHkNOxAuctXy2",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null,
@@ -14402,10 +14737,10 @@ import axios from 'axios';
 ```json
 {
   "type": "create-folder-result",
-  "requestId": "create-folder_1778884104278",
+  "requestId": "create-folder_1778896423673",
   "data": {
-    "id": "cAzAxtjsO38mLaH0",
-    "uuid": "Folder.cAzAxtjsO38mLaH0",
+    "id": "qVncHkNOxAuctXy2",
+    "uuid": "Folder.qVncHkNOxAuctXy2",
     "name": "test-folder",
     "type": "Scene",
     "parentFolder": null
@@ -14453,7 +14788,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/delete-folder';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  folderId: 'cAzAxtjsO38mLaH0'
+  folderId: 'qVncHkNOxAuctXy2'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -14472,7 +14807,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/delete-folder?clientId=fvtt_099ad17ea199e7e3&folderId=cAzAxtjsO38mLaH0' \
+curl -X DELETE 'http://localhost:3010/delete-folder?clientId=fvtt_099ad17ea199e7e3&folderId=qVncHkNOxAuctXy2' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -14486,7 +14821,7 @@ base_url = 'http://localhost:3010'
 path = '/delete-folder'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'folderId': 'cAzAxtjsO38mLaH0'
+    'folderId': 'qVncHkNOxAuctXy2'
 }
 url = f'{base_url}{path}'
 
@@ -14512,7 +14847,7 @@ import axios from 'axios';
   const path = '/delete-folder';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    folderId: 'cAzAxtjsO38mLaH0'
+    folderId: 'qVncHkNOxAuctXy2'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -14547,7 +14882,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤folderId=cAzAxtjsO38mLaH0🔤 ➡️ folderId
+  🔤folderId=qVncHkNOxAuctXy2🔤 ➡️ folderId
   🔤?🧲clientId🧲&🧲folderId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -14576,10 +14911,10 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-folder-result",
-  "requestId": "delete-folder_1778884104318",
+  "requestId": "delete-folder_1778896423715",
   "data": {
     "deleted": true,
-    "folderId": "cAzAxtjsO38mLaH0",
+    "folderId": "qVncHkNOxAuctXy2",
     "entitiesDeleted": 0,
     "foldersDeleted": 1
   }

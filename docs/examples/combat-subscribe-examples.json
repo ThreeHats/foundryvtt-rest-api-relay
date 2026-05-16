@@ -7,7 +7,7 @@
     },
     "response": {
       "channel": "combat-events",
-      "requestId": "test_1778884121469_c8vshx",
+      "requestId": "test_1778896440837_fzgjxc",
       "type": "subscribed"
     },
     "codeExamples": {
@@ -25,7 +25,7 @@
     "response": {
       "channel": "combat-events",
       "removed": 1,
-      "requestId": "test_1778884121482_mupko5",
+      "requestId": "test_1778896440850_bq2rd3",
       "type": "unsubscribed"
     },
     "codeExamples": {
@@ -42,7 +42,7 @@
       "data": {
         "data": {
           "combatants": [],
-          "encounterId": "xAcGdppwuZY2RmKO",
+          "encounterId": "PbIOACTW3voyLYpC",
           "eventType": "start",
           "round": 0,
           "turn": null

@@ -7,14 +7,14 @@
       "url": "http://localhost:3010/search",
       "method": "GET",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "search-result",
-        "requestId": "search_1778884104494",
+        "requestId": "search_1778896423893",
         "filter": "documentType:Actor",
         "results": [
           {
@@ -65,14 +65,14 @@
           {
             "documentType": "Actor",
             "folder": null,
-            "id": "qfCi3te6el0eM10e",
+            "id": "7QAOIsAAOiZ97ocq",
             "name": "test-perrin (halfling monk)",
             "package": null,
             "packageName": null,
             "subType": "character",
-            "uuid": "Actor.qfCi3te6el0eM10e",
+            "uuid": "Actor.7QAOIsAAOiZ97ocq",
             "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-            "journalLink": "@UUID[Actor.qfCi3te6el0eM10e]{test-perrin (halfling monk)}",
+            "journalLink": "@UUID[Actor.7QAOIsAAOiZ97ocq]{test-perrin (halfling monk)}",
             "tagline": "Actors Directory",
             "formattedMatch": "test-perrin (halfling monk)",
             "resultType": "WorldEntity"
@@ -110,14 +110,14 @@
           {
             "documentType": "Actor",
             "folder": null,
-            "id": "YrS70qhkRwwM0tiu",
+            "id": "S6Nh5SfYPcyyUhRg",
             "name": "Updated Test Actor",
             "package": null,
             "packageName": null,
             "subType": "character",
-            "uuid": "Actor.YrS70qhkRwwM0tiu",
+            "uuid": "Actor.S6Nh5SfYPcyyUhRg",
             "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
-            "journalLink": "@UUID[Actor.YrS70qhkRwwM0tiu]{Updated Test Actor}",
+            "journalLink": "@UUID[Actor.S6Nh5SfYPcyyUhRg]{Updated Test Actor}",
             "tagline": "Actors Directory",
             "formattedMatch": "Updated Test Actor",
             "resultType": "WorldEntity"
@@ -126,11 +126,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/search';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  filter: 'documentType:Actor',\n  excludeCompendiums: 'true'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/search?clientId=fvtt_099ad17ea199e7e3&filter=documentType%3AActor&excludeCompendiums=true' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/search'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'filter': 'documentType:Actor',\n    'excludeCompendiums': 'true'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/search';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    filter: 'documentType:Actor',\n    excludeCompendiums: 'true'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/search🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤filter=documentType:Actor🔤 ➡️ filter\n  🔤excludeCompendiums=true🔤 ➡️ excludeCompendiums\n  🔤?🧲clientId🧲&🧲filter🧲&🧲excludeCompendiums🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /search🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/search';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  filter: 'documentType:Actor',\n  excludeCompendiums: 'true'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/search?clientId=fvtt_099ad17ea199e7e3&filter=documentType%3AActor&excludeCompendiums=true' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/search'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'filter': 'documentType:Actor',\n    'excludeCompendiums': 'true'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/search';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    filter: 'documentType:Actor',\n    excludeCompendiums: 'true'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/search🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤filter=documentType:Actor🔤 ➡️ filter\n  🔤excludeCompendiums=true🔤 ➡️ excludeCompendiums\n  🔤?🧲clientId🧲&🧲filter🧲&🧲excludeCompendiums🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /search🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

@@ -165,21 +165,21 @@ import axios from 'axios';
 ```json
 {
   "type": "encounters-result",
-  "requestId": "encounters_1778884117133",
+  "requestId": "encounters_1778896436545",
   "encounters": [
     {
-      "id": "vIquF4UYTMPJXvxM",
+      "id": "PB0vvGNb0h66rsIi",
       "round": 1,
       "turn": 0,
       "current": true,
       "combatants": [
         {
-          "id": "fYEdFnnmMJqKrXCR",
+          "id": "cz7UTEFcph3f7axg",
           "name": "Updated Test Actor",
-          "tokenUuid": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46",
-          "actorUuid": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46.Actor.YrS70qhkRwwM0tiu",
+          "tokenUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
+          "actorUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
           "img": "icons/svg/mystery-man.svg",
-          "initiative": 7,
+          "initiative": 4,
           "hidden": false,
           "defeated": false
         }
@@ -373,20 +373,20 @@ import axios from 'axios';
 ```json
 {
   "type": "start-encounter-result",
-  "requestId": "start-encounter_1778884117083",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "start-encounter_1778896436492",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "encounter": {
-    "id": "vIquF4UYTMPJXvxM",
+    "id": "PB0vvGNb0h66rsIi",
     "round": 1,
     "turn": 0,
     "combatants": [
       {
-        "id": "fYEdFnnmMJqKrXCR",
+        "id": "cz7UTEFcph3f7axg",
         "name": "Updated Test Actor",
-        "tokenUuid": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46",
-        "actorUuid": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46.Actor.YrS70qhkRwwM0tiu",
+        "tokenUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
+        "actorUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
         "img": "icons/svg/mystery-man.svg",
-        "initiative": 7,
+        "initiative": 4,
         "hidden": false,
         "defeated": false
       }
@@ -436,7 +436,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/next-turn';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  encounterId: 'vIquF4UYTMPJXvxM'
+  encounterId: 'PB0vvGNb0h66rsIi'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -455,7 +455,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/next-turn?clientId=fvtt_099ad17ea199e7e3&encounterId=vIquF4UYTMPJXvxM' \
+curl -X POST 'http://localhost:3010/next-turn?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -469,7 +469,7 @@ base_url = 'http://localhost:3010'
 path = '/next-turn'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'encounterId': 'vIquF4UYTMPJXvxM'
+    'encounterId': 'PB0vvGNb0h66rsIi'
 }
 url = f'{base_url}{path}'
 
@@ -495,7 +495,7 @@ import axios from 'axios';
   const path = '/next-turn';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    encounterId: 'vIquF4UYTMPJXvxM'
+    encounterId: 'PB0vvGNb0h66rsIi'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -530,7 +530,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤encounterId=vIquF4UYTMPJXvxM🔤 ➡️ encounterId
+  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -559,15 +559,15 @@ import axios from 'axios';
 ```json
 {
   "type": "next-turn-result",
-  "requestId": "next-turn_1778884117137",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "next-turn_1778896436560",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "action": "nextTurn",
   "currentTurn": 0,
   "currentRound": 2,
-  "actorTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46.Actor.YrS70qhkRwwM0tiu",
-  "tokenTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46",
+  "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
+  "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
   "encounter": {
-    "id": "vIquF4UYTMPJXvxM",
+    "id": "PB0vvGNb0h66rsIi",
     "round": 2,
     "turn": 0
   }
@@ -615,7 +615,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/next-round';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  encounterId: 'vIquF4UYTMPJXvxM'
+  encounterId: 'PB0vvGNb0h66rsIi'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -634,7 +634,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/next-round?clientId=fvtt_099ad17ea199e7e3&encounterId=vIquF4UYTMPJXvxM' \
+curl -X POST 'http://localhost:3010/next-round?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -648,7 +648,7 @@ base_url = 'http://localhost:3010'
 path = '/next-round'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'encounterId': 'vIquF4UYTMPJXvxM'
+    'encounterId': 'PB0vvGNb0h66rsIi'
 }
 url = f'{base_url}{path}'
 
@@ -674,7 +674,7 @@ import axios from 'axios';
   const path = '/next-round';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    encounterId: 'vIquF4UYTMPJXvxM'
+    encounterId: 'PB0vvGNb0h66rsIi'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -709,7 +709,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤encounterId=vIquF4UYTMPJXvxM🔤 ➡️ encounterId
+  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -738,15 +738,15 @@ import axios from 'axios';
 ```json
 {
   "type": "next-round-result",
-  "requestId": "next-round_1778884117169",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "next-round_1778896436575",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "action": "nextRound",
   "currentTurn": 0,
   "currentRound": 3,
-  "actorTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46.Actor.YrS70qhkRwwM0tiu",
-  "tokenTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46",
+  "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
+  "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
   "encounter": {
-    "id": "vIquF4UYTMPJXvxM",
+    "id": "PB0vvGNb0h66rsIi",
     "round": 3,
     "turn": 0
   }
@@ -794,7 +794,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/last-turn';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  encounterId: 'vIquF4UYTMPJXvxM'
+  encounterId: 'PB0vvGNb0h66rsIi'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -813,7 +813,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/last-turn?clientId=fvtt_099ad17ea199e7e3&encounterId=vIquF4UYTMPJXvxM' \
+curl -X POST 'http://localhost:3010/last-turn?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -827,7 +827,7 @@ base_url = 'http://localhost:3010'
 path = '/last-turn'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'encounterId': 'vIquF4UYTMPJXvxM'
+    'encounterId': 'PB0vvGNb0h66rsIi'
 }
 url = f'{base_url}{path}'
 
@@ -853,7 +853,7 @@ import axios from 'axios';
   const path = '/last-turn';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    encounterId: 'vIquF4UYTMPJXvxM'
+    encounterId: 'PB0vvGNb0h66rsIi'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -888,7 +888,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤encounterId=vIquF4UYTMPJXvxM🔤 ➡️ encounterId
+  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -917,15 +917,15 @@ import axios from 'axios';
 ```json
 {
   "type": "last-turn-result",
-  "requestId": "last-turn_1778884117180",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "last-turn_1778896436584",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "action": "previousTurn",
   "currentTurn": 0,
   "currentRound": 2,
-  "actorTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46.Actor.YrS70qhkRwwM0tiu",
-  "tokenTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46",
+  "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
+  "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
   "encounter": {
-    "id": "vIquF4UYTMPJXvxM",
+    "id": "PB0vvGNb0h66rsIi",
     "round": 2,
     "turn": 0
   }
@@ -973,7 +973,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/last-round';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  encounterId: 'vIquF4UYTMPJXvxM'
+  encounterId: 'PB0vvGNb0h66rsIi'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -992,7 +992,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/last-round?clientId=fvtt_099ad17ea199e7e3&encounterId=vIquF4UYTMPJXvxM' \
+curl -X POST 'http://localhost:3010/last-round?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1006,7 +1006,7 @@ base_url = 'http://localhost:3010'
 path = '/last-round'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'encounterId': 'vIquF4UYTMPJXvxM'
+    'encounterId': 'PB0vvGNb0h66rsIi'
 }
 url = f'{base_url}{path}'
 
@@ -1032,7 +1032,7 @@ import axios from 'axios';
   const path = '/last-round';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    encounterId: 'vIquF4UYTMPJXvxM'
+    encounterId: 'PB0vvGNb0h66rsIi'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1067,7 +1067,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤encounterId=vIquF4UYTMPJXvxM🔤 ➡️ encounterId
+  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1096,15 +1096,15 @@ import axios from 'axios';
 ```json
 {
   "type": "last-round-result",
-  "requestId": "last-round_1778884117192",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "last-round_1778896436595",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "action": "previousRound",
   "currentTurn": 0,
   "currentRound": 1,
-  "actorTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46.Actor.YrS70qhkRwwM0tiu",
-  "tokenTurn": "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46",
+  "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
+  "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
   "encounter": {
-    "id": "vIquF4UYTMPJXvxM",
+    "id": "PB0vvGNb0h66rsIi",
     "round": 1,
     "turn": 0
   }
@@ -1152,7 +1152,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/end-encounter';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  encounterId: 'vIquF4UYTMPJXvxM'
+  encounterId: 'PB0vvGNb0h66rsIi'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1171,7 +1171,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/end-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=vIquF4UYTMPJXvxM' \
+curl -X POST 'http://localhost:3010/end-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -1185,7 +1185,7 @@ base_url = 'http://localhost:3010'
 path = '/end-encounter'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'encounterId': 'vIquF4UYTMPJXvxM'
+    'encounterId': 'PB0vvGNb0h66rsIi'
 }
 url = f'{base_url}{path}'
 
@@ -1211,7 +1211,7 @@ import axios from 'axios';
   const path = '/end-encounter';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    encounterId: 'vIquF4UYTMPJXvxM'
+    encounterId: 'PB0vvGNb0h66rsIi'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1246,7 +1246,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤encounterId=vIquF4UYTMPJXvxM🔤 ➡️ encounterId
+  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -1275,8 +1275,8 @@ import axios from 'axios';
 ```json
 {
   "type": "end-encounter-result",
-  "requestId": "end-encounter_1778884117218",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "end-encounter_1778896436617",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "message": "Encounter successfully ended"
 }
 ```
@@ -1325,7 +1325,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/add-to-encounter';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  encounterId: 'vIquF4UYTMPJXvxM'
+  encounterId: 'PB0vvGNb0h66rsIi'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1350,7 +1350,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/add-to-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=vIquF4UYTMPJXvxM' \
+curl -X POST 'http://localhost:3010/add-to-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"selected":true,"uuids":[],"rollInitiative":true}'
@@ -1366,7 +1366,7 @@ base_url = 'http://localhost:3010'
 path = '/add-to-encounter'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'encounterId': 'vIquF4UYTMPJXvxM'
+    'encounterId': 'PB0vvGNb0h66rsIi'
 }
 url = f'{base_url}{path}'
 
@@ -1397,7 +1397,7 @@ import axios from 'axios';
   const path = '/add-to-encounter';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    encounterId: 'vIquF4UYTMPJXvxM'
+    encounterId: 'PB0vvGNb0h66rsIi'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1438,7 +1438,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤encounterId=vIquF4UYTMPJXvxM🔤 ➡️ encounterId
+  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1470,10 +1470,10 @@ import axios from 'axios';
 ```json
 {
   "type": "add-to-encounter-result",
-  "requestId": "add-to-encounter_1778884117207",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "add-to-encounter_1778896436611",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "added": [
-    "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46"
+    "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG"
   ],
   "failed": []
 }
@@ -1522,7 +1522,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/remove-from-encounter';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  encounterId: 'vIquF4UYTMPJXvxM'
+  encounterId: 'PB0vvGNb0h66rsIi'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -1545,7 +1545,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=vIquF4UYTMPJXvxM' \
+curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
   -d '{"selected":true}'
@@ -1561,7 +1561,7 @@ base_url = 'http://localhost:3010'
 path = '/remove-from-encounter'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'encounterId': 'vIquF4UYTMPJXvxM'
+    'encounterId': 'PB0vvGNb0h66rsIi'
 }
 url = f'{base_url}{path}'
 
@@ -1590,7 +1590,7 @@ import axios from 'axios';
   const path = '/remove-from-encounter';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    encounterId: 'vIquF4UYTMPJXvxM'
+    encounterId: 'PB0vvGNb0h66rsIi'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -1629,7 +1629,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤encounterId=vIquF4UYTMPJXvxM🔤 ➡️ encounterId
+  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId
   🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
 
   💭 Request body
@@ -1661,10 +1661,10 @@ import axios from 'axios';
 ```json
 {
   "type": "remove-from-encounter-result",
-  "requestId": "remove-from-encounter_1778884117202",
-  "encounterId": "vIquF4UYTMPJXvxM",
+  "requestId": "remove-from-encounter_1778896436602",
+  "encounterId": "PB0vvGNb0h66rsIi",
   "removed": [
-    "Scene.3wAQ0udFopemLTti.Token.MF83hx4RRMhaTv46"
+    "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG"
   ],
   "failed": []
 }

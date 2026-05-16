@@ -7,7 +7,7 @@
       "url": "http://localhost:3010/roll",
       "method": "POST",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       },
       "body": {
         "formula": "2d20kh",
@@ -19,14 +19,14 @@
       "status": 200,
       "data": {
         "type": "roll-result",
-        "requestId": "roll_1778884104689",
+        "requestId": "roll_1778896424096",
         "success": true,
         "data": {
-          "id": "manual_1778884104697_yr0u1afs9x",
+          "id": "manual_1778896424102_l0jfemg94sh",
           "chatMessageCreated": true,
           "roll": {
             "formula": "2d20kh",
-            "total": 19,
+            "total": 16,
             "isCritical": false,
             "isFumble": false,
             "dice": [
@@ -34,27 +34,27 @@
                 "faces": 20,
                 "results": [
                   {
-                    "result": 19,
+                    "result": 16,
                     "active": true
                   },
                   {
-                    "result": 12,
+                    "result": 14,
                     "active": false
                   }
                 ]
               }
             ],
-            "timestamp": 1778884104697
+            "timestamp": 1778896424102
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/roll';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"formula\": \"2d20kh\",\n      \"flavor\": \"Test Roll\",\n      \"createChatMessage\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/roll?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"formula\":\"2d20kh\",\"flavor\":\"Test Roll\",\"createChatMessage\":true}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/roll'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    json={\n      \"formula\": \"2d20kh\",\n      \"flavor\": \"Test Roll\",\n      \"createChatMessage\": True\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/roll';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"formula\": \"2d20kh\",\n        \"flavor\": \"Test Roll\",\n        \"createChatMessage\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/roll🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"formula\":\"2d20kh\",\"flavor\":\"Test Roll\",\"createChatMessage\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /roll🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/roll';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"formula\": \"2d20kh\",\n      \"flavor\": \"Test Roll\",\n      \"createChatMessage\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/roll?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"formula\":\"2d20kh\",\"flavor\":\"Test Roll\",\"createChatMessage\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/roll'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    json={\n      \"formula\": \"2d20kh\",\n      \"flavor\": \"Test Roll\",\n      \"createChatMessage\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/roll';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"formula\": \"2d20kh\",\n        \"flavor\": \"Test Roll\",\n        \"createChatMessage\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/roll🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"formula\":\"2d20kh\",\"flavor\":\"Test Roll\",\"createChatMessage\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /roll🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌nContent-Type: application/json❌r❌nContent-Length: 66❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -65,22 +65,22 @@
       "url": "http://localhost:3010/rolls",
       "method": "GET",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "rolls-result",
-        "requestId": "rolls_1778884105202",
+        "requestId": "rolls_1778896424608",
         "data": [
           {
-            "id": "manual_1778884104697_yr0u1afs9x",
-            "messageId": "manual_1778884104697_yr0u1afs9x",
+            "id": "manual_1778896424102_l0jfemg94sh",
+            "messageId": "manual_1778896424102_l0jfemg94sh",
             "user": null,
             "speaker": {},
             "flavor": "Test Roll",
-            "rollTotal": 19,
+            "rollTotal": 16,
             "formula": "2d20kh",
             "isCritical": false,
             "isFumble": false,
@@ -89,25 +89,25 @@
                 "faces": 20,
                 "results": [
                   {
-                    "result": 19,
+                    "result": 16,
                     "active": true
                   },
                   {
-                    "result": 12,
+                    "result": 14,
                     "active": false
                   }
                 ]
               }
             ],
-            "timestamp": 1778884104697
+            "timestamp": 1778896424102
           },
           {
-            "id": "manual_1778884093640_21kpmq2onnl",
+            "id": "manual_1778896413186_z1jrn5ycr6",
             "messageId": null,
             "user": null,
             "speaker": {},
             "flavor": "",
-            "rollTotal": 13,
+            "rollTotal": 11,
             "formula": "1d20",
             "isCritical": false,
             "isFumble": false,
@@ -116,23 +116,23 @@
                 "faces": 20,
                 "results": [
                   {
-                    "result": 13,
+                    "result": 11,
                     "active": true
                   }
                 ]
               }
             ],
-            "timestamp": 1778884093640
+            "timestamp": 1778896413186
           }
         ]
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/rolls';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  limit: '20'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_099ad17ea199e7e3&limit=20' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/rolls'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'limit': '20'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/rolls';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    limit: '20'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/rolls🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤limit=20🔤 ➡️ limit\n  🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /rolls🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/rolls';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  limit: '20'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/rolls?clientId=fvtt_099ad17ea199e7e3&limit=20' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/rolls'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'limit': '20'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/rolls';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    limit: '20'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/rolls🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤limit=20🔤 ➡️ limit\n  🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /rolls🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -143,21 +143,21 @@
       "url": "http://localhost:3010/lastroll",
       "method": "GET",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "last-roll-result",
-        "requestId": "last-roll_1778884105205",
+        "requestId": "last-roll_1778896424612",
         "data": {
-          "id": "manual_1778884104697_yr0u1afs9x",
-          "messageId": "manual_1778884104697_yr0u1afs9x",
+          "id": "manual_1778896424102_l0jfemg94sh",
+          "messageId": "manual_1778896424102_l0jfemg94sh",
           "user": null,
           "speaker": {},
           "flavor": "Test Roll",
-          "rollTotal": 19,
+          "rollTotal": 16,
           "formula": "2d20kh",
           "isCritical": false,
           "isFumble": false,
@@ -166,26 +166,26 @@
               "faces": 20,
               "results": [
                 {
-                  "result": 19,
+                  "result": 16,
                   "active": true
                 },
                 {
-                  "result": 12,
+                  "result": 14,
                   "active": false
                 }
               ]
             }
           ],
-          "timestamp": 1778884104697
+          "timestamp": 1778896424102
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/lastroll';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/lastroll'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/lastroll';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/lastroll🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /lastroll🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/lastroll';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/lastroll?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/lastroll'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/lastroll';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/lastroll🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /lastroll🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -196,7 +196,7 @@
       "url": "http://localhost:3010/rolls/subscribe?clientId=fvtt_099ad17ea199e7e3",
       "method": "GET",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       }
     },
     "response": {

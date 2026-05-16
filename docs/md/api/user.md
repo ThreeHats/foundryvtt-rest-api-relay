@@ -165,7 +165,7 @@ import axios from 'axios';
 ```json
 {
   "type": "get-users-result",
-  "requestId": "get-users_1778884122887",
+  "requestId": "get-users_1778896442204",
   "data": [
     {
       "id": "5ypAoBvOiyjDKiaZ",
@@ -263,7 +263,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  id: '4Z7NzibqgPbppgLa'
+  id: '7odiSNcQcQ6jG68g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -282,7 +282,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X GET 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=4Z7NzibqgPbppgLa' \
+curl -X GET 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=7odiSNcQcQ6jG68g' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -296,7 +296,7 @@ base_url = 'http://localhost:3010'
 path = '/user'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'id': '4Z7NzibqgPbppgLa'
+    'id': '7odiSNcQcQ6jG68g'
 }
 url = f'{base_url}{path}'
 
@@ -322,7 +322,7 @@ import axios from 'axios';
   const path = '/user';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    id: '4Z7NzibqgPbppgLa'
+    id: '7odiSNcQcQ6jG68g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -357,7 +357,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤id=4Z7NzibqgPbppgLa🔤 ➡️ id
+  🔤id=7odiSNcQcQ6jG68g🔤 ➡️ id
   🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -386,14 +386,14 @@ import axios from 'axios';
 ```json
 {
   "type": "get-user-result",
-  "requestId": "get-user_1778884122926",
+  "requestId": "get-user_1778896442215",
   "data": {
-    "id": "4Z7NzibqgPbppgLa",
+    "id": "7odiSNcQcQ6jG68g",
     "name": "test-api-user",
     "role": 1,
     "isGM": false,
     "active": false,
-    "color": "#2866cc",
+    "color": "#28cc4c",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -456,7 +456,7 @@ const response = await fetch(url, {
   body: JSON.stringify({
       "name": "test-api-user",
       "role": 1,
-      "password": "testpassword123"
+      "password": "your-password-here"
     })
 });
 const data = await response.json();
@@ -470,7 +470,7 @@ console.log(data);
 curl -X POST 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"name":"test-api-user","role":1,"password":"testpassword123"}'
+  -d '{"name":"test-api-user","role":1,"password": "your-password-here"}'
 ```
 
 </TabItem>
@@ -495,7 +495,7 @@ response = requests.post(
     json={
       "name": "test-api-user",
       "role": 1,
-      "password": "testpassword123"
+      "password": "your-password-here"
     }
 )
 data = response.json()
@@ -527,7 +527,7 @@ import axios from 'axios';
     data: {
         "name": "test-api-user",
         "role": 1,
-        "password": "testpassword123"
+        "password": "your-password-here"
       }
   });
   const data = response.data;
@@ -556,7 +556,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"name":"test-api-user","role":1,"password":"testpassword123"}🔤 ➡️ body
+  🔤{"name":"test-api-user","role":1,"password": "your-password-here"}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤POST /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 62❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -584,14 +584,14 @@ import axios from 'axios';
 ```json
 {
   "type": "create-user-result",
-  "requestId": "create-user_1778884122905",
+  "requestId": "create-user_1778896442206",
   "data": {
-    "id": "4Z7NzibqgPbppgLa",
+    "id": "7odiSNcQcQ6jG68g",
     "name": "test-api-user",
     "role": 1,
     "isGM": false,
     "active": false,
-    "color": "#2866cc",
+    "color": "#28cc4c",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -652,7 +652,7 @@ const response = await fetch(url, {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-      "id": "4Z7NzibqgPbppgLa",
+      "id": "7odiSNcQcQ6jG68g",
       "data": {
         "role": 2
       }
@@ -669,7 +669,7 @@ console.log(data);
 curl -X PUT 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here" \
   -H "Content-Type: application/json" \
-  -d '{"id":"4Z7NzibqgPbppgLa","data":{"role":2}}'
+  -d '{"id":"7odiSNcQcQ6jG68g","data":{"role":2}}'
 ```
 
 </TabItem>
@@ -692,7 +692,7 @@ response = requests.put(
         'x-api-key': 'your-api-key-here'
     },
     json={
-      "id": "4Z7NzibqgPbppgLa",
+      "id": "7odiSNcQcQ6jG68g",
       "data": {
         "role": 2
       }
@@ -725,7 +725,7 @@ import axios from 'axios';
     },
     url,
     data: {
-        "id": "4Z7NzibqgPbppgLa",
+        "id": "7odiSNcQcQ6jG68g",
         "data": {
           "role": 2
         }
@@ -757,7 +757,7 @@ import axios from 'axios';
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Request body
-  🔤{"id":"4Z7NzibqgPbppgLa","data":{"role":2}}🔤 ➡️ body
+  🔤{"id":"7odiSNcQcQ6jG68g","data":{"role":2}}🔤 ➡️ body
 
   💭 Build HTTP request
   🔤PUT /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
@@ -785,14 +785,14 @@ import axios from 'axios';
 ```json
 {
   "type": "update-user-result",
-  "requestId": "update-user_1778884122933",
+  "requestId": "update-user_1778896442218",
   "data": {
-    "id": "4Z7NzibqgPbppgLa",
+    "id": "7odiSNcQcQ6jG68g",
     "name": "test-api-user",
     "role": 2,
     "isGM": false,
     "active": false,
-    "color": "#2866cc",
+    "color": "#28cc4c",
     "avatar": "icons/svg/mystery-man.svg",
     "character": null
   }
@@ -841,7 +841,7 @@ const baseUrl = 'http://localhost:3010';
 const path = '/user';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3',
-  id: '4Z7NzibqgPbppgLa'
+  id: '7odiSNcQcQ6jG68g'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -860,7 +860,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=4Z7NzibqgPbppgLa' \
+curl -X DELETE 'http://localhost:3010/user?clientId=fvtt_099ad17ea199e7e3&id=7odiSNcQcQ6jG68g' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -874,7 +874,7 @@ base_url = 'http://localhost:3010'
 path = '/user'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3',
-    'id': '4Z7NzibqgPbppgLa'
+    'id': '7odiSNcQcQ6jG68g'
 }
 url = f'{base_url}{path}'
 
@@ -900,7 +900,7 @@ import axios from 'axios';
   const path = '/user';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3',
-    id: '4Z7NzibqgPbppgLa'
+    id: '7odiSNcQcQ6jG68g'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -935,7 +935,7 @@ import axios from 'axios';
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
-  🔤id=4Z7NzibqgPbppgLa🔤 ➡️ id
+  🔤id=7odiSNcQcQ6jG68g🔤 ➡️ id
   🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -964,7 +964,7 @@ import axios from 'axios';
 ```json
 {
   "type": "delete-user-result",
-  "requestId": "delete-user_1778884122948",
+  "requestId": "delete-user_1778896442232",
   "success": true
 }
 ```

@@ -7,7 +7,7 @@
       "url": "http://localhost:3010/clients",
       "method": "GET",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       }
     },
     "response": {
@@ -17,16 +17,16 @@
           {
             "clientId": "fvtt_099ad17ea199e7e3",
             "instanceId": "local",
-            "lastSeen": 1778884091426,
-            "connectedSince": 1778884091425,
+            "lastSeen": 1778896411377,
+            "connectedSince": 1778896411375,
             "worldId": "testing",
             "worldTitle": "testing",
             "foundryVersion": "13.348",
             "systemId": "dnd5e",
             "systemTitle": "Dungeons & Dragons Fifth Edition",
             "systemVersion": "5.0.4",
-            "ipAddress": "[::1]:33166",
-            "tokenName": "headless session 2026-05-15 17:28",
+            "ipAddress": "[::1]:36100",
+            "tokenName": "headless session 2026-05-15 20:53",
             "isOnline": true
           }
         ],
@@ -34,11 +34,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/clients';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/clients' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/clients'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/clients';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/clients🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /clients HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/clients';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/clients' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/clients'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/clients';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/clients🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /clients HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

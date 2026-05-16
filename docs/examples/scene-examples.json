@@ -7,7 +7,7 @@
       "url": "http://localhost:3010/scene",
       "method": "POST",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       },
       "body": {
         "data": {
@@ -24,7 +24,7 @@
       "status": 200,
       "data": {
         "type": "create-scene-result",
-        "requestId": "create-scene_1778884098386",
+        "requestId": "create-scene_1778896417795",
         "data": {
           "grid": {
             "size": 100,
@@ -39,7 +39,7 @@
           "height": 1000,
           "name": "test-scene",
           "width": 1000,
-          "_id": "3wAQ0udFopemLTti",
+          "_id": "tgYnjCnq6EFiREjl",
           "active": false,
           "navigation": true,
           "navOrder": 0,
@@ -137,19 +137,19 @@
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1778884098388,
-            "modifiedTime": 1778884098388,
+            "createdTime": 1778896417797,
+            "modifiedTime": 1778896417797,
             "lastModifiedBy": "r6bXhB7k9cXa3cif"
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    json={\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"data\": {\n          \"name\": \"test-scene\",\n          \"width\": 1000,\n          \"height\": 1000,\n          \"grid\": {\n            \"size\": 100\n          }\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌nContent-Type: application/json❌r❌nContent-Length: 77❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    json={\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"data\": {\n          \"name\": \"test-scene\",\n          \"width\": 1000,\n          \"height\": 1000,\n          \"grid\": {\n            \"size\": 100\n          }\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌nContent-Type: application/json❌r❌nContent-Length: 77❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -160,14 +160,14 @@
       "url": "http://localhost:3010/scene",
       "method": "GET",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "get-scene-result",
-        "requestId": "get-scene_1778884098407",
+        "requestId": "get-scene_1778896417813",
         "data": [
           {
             "name": "Scene",
@@ -1978,6 +1978,123 @@
               "systemVersion": "5.0.4",
               "createdTime": 1778718765802,
               "modifiedTime": 1778718765802,
+              "lastModifiedBy": "r6bXhB7k9cXa3cif"
+            }
+          },
+          {
+            "name": "test",
+            "_id": "v5E3y16p9juupLJS",
+            "active": false,
+            "navigation": true,
+            "navOrder": 0,
+            "background": {
+              "src": null,
+              "anchorX": 0,
+              "anchorY": 0,
+              "offsetX": 0,
+              "offsetY": 0,
+              "fit": "fill",
+              "scaleX": 1,
+              "scaleY": 1,
+              "rotation": 0,
+              "tint": "#ffffff",
+              "alphaThreshold": 0
+            },
+            "foreground": null,
+            "foregroundElevation": null,
+            "thumb": null,
+            "width": 4000,
+            "height": 3000,
+            "padding": 0.25,
+            "initial": {
+              "x": null,
+              "y": null,
+              "scale": null
+            },
+            "backgroundColor": "#999999",
+            "grid": {
+              "type": 1,
+              "size": 100,
+              "style": "solidLines",
+              "thickness": 1,
+              "color": "#000000",
+              "alpha": 0.2,
+              "distance": 5,
+              "units": "ft"
+            },
+            "tokenVision": true,
+            "fog": {
+              "exploration": true,
+              "overlay": null,
+              "colors": {
+                "explored": null,
+                "unexplored": null
+              }
+            },
+            "environment": {
+              "darknessLevel": 0,
+              "darknessLock": false,
+              "globalLight": {
+                "enabled": false,
+                "alpha": 0.5,
+                "bright": false,
+                "color": null,
+                "coloration": 1,
+                "luminosity": 0,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "cycle": true,
+              "base": {
+                "hue": 0,
+                "intensity": 0,
+                "luminosity": 0,
+                "saturation": 0,
+                "shadows": 0
+              },
+              "dark": {
+                "hue": 0.7138888888888889,
+                "intensity": 0,
+                "luminosity": -0.25,
+                "saturation": 0,
+                "shadows": 0
+              }
+            },
+            "drawings": [],
+            "tokens": [],
+            "lights": [],
+            "notes": [],
+            "sounds": [],
+            "regions": [],
+            "templates": [],
+            "tiles": [],
+            "walls": [],
+            "playlist": null,
+            "playlistSound": null,
+            "journal": null,
+            "journalEntryPage": null,
+            "weather": "",
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+              "default": 0,
+              "r6bXhB7k9cXa3cif": 3
+            },
+            "flags": {},
+            "_stats": {
+              "compendiumSource": null,
+              "duplicateSource": null,
+              "exportSource": null,
+              "coreVersion": "13.348",
+              "systemId": "dnd5e",
+              "systemVersion": "5.0.4",
+              "createdTime": 1778884093752,
+              "modifiedTime": 1778884093752,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           },
@@ -4370,6 +4487,119 @@
                 "_movementHistory": [],
                 "_regions": [],
                 "flags": {}
+              },
+              {
+                "name": "test",
+                "shape": 4,
+                "_id": "IdTS49lsUW6JzIsH",
+                "displayName": 0,
+                "actorId": null,
+                "actorLink": false,
+                "delta": {
+                  "_id": "idQljZZpsp6TgbR1",
+                  "system": {},
+                  "items": [],
+                  "effects": [],
+                  "flags": {},
+                  "name": null,
+                  "type": null,
+                  "img": null,
+                  "ownership": null
+                },
+                "width": 1,
+                "height": 1,
+                "texture": {
+                  "src": "icons/svg/mystery-man.svg",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "fit": "contain",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "rotation": 0,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "sort": 11,
+                "locked": false,
+                "lockRotation": false,
+                "rotation": 0,
+                "alpha": 1,
+                "hidden": false,
+                "disposition": -1,
+                "displayBars": 0,
+                "bar1": {
+                  "attribute": "attributes.hp"
+                },
+                "bar2": {
+                  "attribute": null
+                },
+                "light": {
+                  "negative": false,
+                  "priority": 0,
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 0,
+                  "color": null,
+                  "coloration": 1,
+                  "dim": 0,
+                  "attenuation": 0.5,
+                  "luminosity": 0.5,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": null,
+                    "speed": 5,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  }
+                },
+                "sight": {
+                  "enabled": false,
+                  "range": 0,
+                  "angle": 360,
+                  "visionMode": "basic",
+                  "color": null,
+                  "attenuation": 0.1,
+                  "brightness": 0,
+                  "saturation": 0,
+                  "contrast": 0
+                },
+                "detectionModes": [],
+                "occludable": {
+                  "radius": 0
+                },
+                "ring": {
+                  "enabled": false,
+                  "colors": {
+                    "ring": null,
+                    "background": null
+                  },
+                  "effects": 1,
+                  "subject": {
+                    "scale": 1,
+                    "texture": null
+                  }
+                },
+                "turnMarker": {
+                  "mode": 1,
+                  "animation": null,
+                  "src": null,
+                  "disposition": false
+                },
+                "movementAction": null,
+                "_movementHistory": [],
+                "_regions": [],
+                "flags": {}
               }
             ],
             "lights": [
@@ -4732,6 +4962,42 @@
                 },
                 "hidden": false,
                 "flags": {}
+              },
+              {
+                "_id": "Dn8jycsQG4hKhjXX",
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "rotation": 0,
+                "walls": true,
+                "vision": false,
+                "config": {
+                  "negative": false,
+                  "priority": 0,
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 0,
+                  "color": null,
+                  "coloration": 1,
+                  "dim": 0,
+                  "attenuation": 0.5,
+                  "luminosity": 0.5,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": null,
+                    "speed": 5,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  }
+                },
+                "hidden": false,
+                "flags": {}
               }
             ],
             "notes": [
@@ -5024,6 +5290,35 @@
                 "textColor": "#ffffff",
                 "global": false,
                 "flags": {}
+              },
+              {
+                "_id": "fcQD4GHs8EVDC1XH",
+                "entryId": null,
+                "pageId": null,
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "sort": 10,
+                "texture": {
+                  "src": "icons/svg/book.svg",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "fit": "contain",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "rotation": 0,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0
+                },
+                "iconSize": 40,
+                "fontFamily": "Signika",
+                "fontSize": 32,
+                "textAnchor": 1,
+                "textColor": "#ffffff",
+                "global": false,
+                "flags": {}
               }
             ],
             "sounds": [
@@ -5286,6 +5581,32 @@
                   }
                 },
                 "flags": {}
+              },
+              {
+                "_id": "NWBXDs1MULeGaaqD",
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "radius": 0,
+                "path": null,
+                "repeat": false,
+                "volume": 0.5,
+                "walls": true,
+                "easing": true,
+                "hidden": false,
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                },
+                "effects": {
+                  "base": {
+                    "intensity": 5
+                  },
+                  "muffled": {
+                    "intensity": 5
+                  }
+                },
+                "flags": {}
               }
             ],
             "regions": [],
@@ -5469,6 +5790,24 @@
                 "texture": null,
                 "hidden": false,
                 "flags": {}
+              },
+              {
+                "_id": "dvytsVdA6agkd7UR",
+                "author": "r6bXhB7k9cXa3cif",
+                "t": "circle",
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "sort": 10,
+                "distance": 0,
+                "direction": 0,
+                "angle": 0,
+                "width": 0,
+                "borderColor": "#000000",
+                "fillColor": "#cc2829",
+                "texture": null,
+                "hidden": false,
+                "flags": {}
               }
             ],
             "tiles": [],
@@ -5493,7 +5832,7 @@
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
               "createdTime": 1777969049357,
-              "modifiedTime": 1778878377986,
+              "modifiedTime": 1778884131956,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           },
@@ -6321,7 +6660,7 @@
           },
           {
             "name": "test",
-            "_id": "v5E3y16p9juupLJS",
+            "_id": "InuAccGQ1wWqwPfm",
             "active": false,
             "navigation": true,
             "navOrder": 0,
@@ -6431,8 +6770,8 @@
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778884093752,
-              "modifiedTime": 1778884093752,
+              "createdTime": 1778896413295,
+              "modifiedTime": 1778896413295,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           },
@@ -6450,7 +6789,7 @@
             "height": 1000,
             "name": "test-scene",
             "width": 1000,
-            "_id": "3wAQ0udFopemLTti",
+            "_id": "tgYnjCnq6EFiREjl",
             "active": false,
             "navigation": true,
             "navOrder": 0,
@@ -6548,8 +6887,8 @@
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778884098388,
-              "modifiedTime": 1778884098388,
+              "createdTime": 1778896417797,
+              "modifiedTime": 1778896417797,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           },
@@ -6557,7 +6896,7 @@
             "height": 500,
             "name": "test-scene-expendable",
             "width": 500,
-            "_id": "6HZhpFnUrR9je5fa",
+            "_id": "YlMB7AjPvDJfbNjh",
             "active": false,
             "navigation": true,
             "navOrder": 0,
@@ -6665,8 +7004,8 @@
               "coreVersion": "13.348",
               "systemId": "dnd5e",
               "systemVersion": "5.0.4",
-              "createdTime": 1778884098401,
-              "modifiedTime": 1778884098401,
+              "createdTime": 1778896417807,
+              "modifiedTime": 1778896417807,
               "lastModifiedBy": "r6bXhB7k9cXa3cif"
             }
           }
@@ -6674,11 +7013,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  all: 'true'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&all=true' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'all': 'true'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    all: 'true'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤all=true🔤 ➡️ all\n  🔤?🧲clientId🧲&🧲all🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  all: 'true'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&all=true' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'all': 'true'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    all: 'true'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤all=true🔤 ➡️ all\n  🔤?🧲clientId🧲&🧲all🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -6689,10 +7028,10 @@
       "url": "http://localhost:3010/scene",
       "method": "PUT",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       },
       "body": {
-        "sceneId": "3wAQ0udFopemLTti",
+        "sceneId": "tgYnjCnq6EFiREjl",
         "data": {
           "name": "test-scene-updated"
         }
@@ -6702,7 +7041,7 @@
       "status": 200,
       "data": {
         "type": "update-scene-result",
-        "requestId": "update-scene_1778884098419",
+        "requestId": "update-scene_1778896417824",
         "data": {
           "grid": {
             "size": 100,
@@ -6717,7 +7056,7 @@
           "height": 1000,
           "name": "test-scene-updated",
           "width": 1000,
-          "_id": "3wAQ0udFopemLTti",
+          "_id": "tgYnjCnq6EFiREjl",
           "active": false,
           "navigation": true,
           "navOrder": 0,
@@ -6815,19 +7154,19 @@
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1778884098388,
-            "modifiedTime": 1778884098420,
+            "createdTime": 1778896417797,
+            "modifiedTime": 1778896417825,
             "lastModifiedBy": "r6bXhB7k9cXa3cif"
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'PUT',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"3wAQ0udFopemLTti\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X PUT 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"3wAQ0udFopemLTti\",\"data\":{\"name\":\"test-scene-updated\"}}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.put(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    json={\n      \"sceneId\": \"3wAQ0udFopemLTti\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'put',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"3wAQ0udFopemLTti\",\n        \"data\": {\n          \"name\": \"test-scene-updated\"\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"3wAQ0udFopemLTti\",\"data\":{\"name\":\"test-scene-updated\"}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'PUT',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"tgYnjCnq6EFiREjl\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X PUT 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"tgYnjCnq6EFiREjl\",\"data\":{\"name\":\"test-scene-updated\"}}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.put(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    json={\n      \"sceneId\": \"tgYnjCnq6EFiREjl\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'put',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"tgYnjCnq6EFiREjl\",\n        \"data\": {\n          \"name\": \"test-scene-updated\"\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"tgYnjCnq6EFiREjl\",\"data\":{\"name\":\"test-scene-updated\"}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -6838,17 +7177,17 @@
       "url": "http://localhost:3010/switch-scene",
       "method": "POST",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       },
       "body": {
-        "sceneId": "3wAQ0udFopemLTti"
+        "sceneId": "tgYnjCnq6EFiREjl"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "switch-scene-result",
-        "requestId": "switch-scene_1778884098425",
+        "requestId": "switch-scene_1778896417830",
         "success": true,
         "data": {
           "grid": {
@@ -6864,7 +7203,7 @@
           "height": 1000,
           "name": "test-scene-updated",
           "width": 1000,
-          "_id": "3wAQ0udFopemLTti",
+          "_id": "tgYnjCnq6EFiREjl",
           "active": true,
           "navigation": true,
           "navOrder": 0,
@@ -6962,19 +7301,19 @@
             "coreVersion": "13.348",
             "systemId": "dnd5e",
             "systemVersion": "5.0.4",
-            "createdTime": 1778884098388,
-            "modifiedTime": 1778884098428,
+            "createdTime": 1778896417797,
+            "modifiedTime": 1778896417833,
             "lastModifiedBy": "r6bXhB7k9cXa3cif"
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/switch-scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"3wAQ0udFopemLTti\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/switch-scene?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"3wAQ0udFopemLTti\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/switch-scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    json={\n      \"sceneId\": \"3wAQ0udFopemLTti\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/switch-scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"3wAQ0udFopemLTti\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/switch-scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"3wAQ0udFopemLTti\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/switch-scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"tgYnjCnq6EFiREjl\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/switch-scene?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"tgYnjCnq6EFiREjl\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/switch-scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    json={\n      \"sceneId\": \"tgYnjCnq6EFiREjl\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/switch-scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"tgYnjCnq6EFiREjl\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/switch-scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"tgYnjCnq6EFiREjl\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -6985,23 +7324,23 @@
       "url": "http://localhost:3010/scene",
       "method": "DELETE",
       "headers": {
-        "x-api-key": "71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6"
+        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "delete-scene-result",
-        "requestId": "delete-scene_1778884103453",
+        "requestId": "delete-scene_1778896422861",
         "success": true
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  sceneId: '6HZhpFnUrR9je5fa'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&sceneId=6HZhpFnUrR9je5fa' \\\n  -H \"x-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'sceneId': '6HZhpFnUrR9je5fa'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    sceneId: '6HZhpFnUrR9je5fa'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': '71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤sceneId=6HZhpFnUrR9je5fa🔤 ➡️ sceneId\n  🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 71b732822801b28ea8d7083a5ba1a72c3ff9758810219dc8c1e051979e5048e6❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  sceneId: 'YlMB7AjPvDJfbNjh'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3010/scene?clientId=fvtt_099ad17ea199e7e3&sceneId=YlMB7AjPvDJfbNjh' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'sceneId': 'YlMB7AjPvDJfbNjh'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    sceneId: 'YlMB7AjPvDJfbNjh'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤sceneId=YlMB7AjPvDJfbNjh🔤 ➡️ sceneId\n  🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

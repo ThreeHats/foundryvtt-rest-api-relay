@@ -174,13 +174,13 @@ import axios from 'axios';
 ```json
 {
   "type": "chat-messages-result",
-  "requestId": "chat-messages_1778884117640",
+  "requestId": "chat-messages_1778896437015",
   "success": true,
   "data": {
     "messages": [
       {
-        "id": "SvYabAwIJ57X1r8q",
-        "uuid": "ChatMessage.SvYabAwIJ57X1r8q",
+        "id": "NxeXbOMYVd8AAnXV",
+        "uuid": "ChatMessage.NxeXbOMYVd8AAnXV",
         "content": "This is a whispered test message",
         "speaker": {
           "scene": null,
@@ -188,7 +188,7 @@ import axios from 'axios';
           "token": null,
           "alias": "API Test Bot"
         },
-        "timestamp": 1778884117634,
+        "timestamp": 1778896437007,
         "whisper": [],
         "type": "base",
         "author": {
@@ -201,15 +201,15 @@ import axios from 'axios';
         "flags": {}
       },
       {
-        "id": "etgQ0vylRmonxPov",
-        "uuid": "ChatMessage.etgQ0vylRmonxPov",
+        "id": "jeEuQHAjC0zWCCbJ",
+        "uuid": "ChatMessage.jeEuQHAjC0zWCCbJ",
         "content": "Hello from the REST API test suite!",
         "speaker": {
           "scene": null,
           "actor": null,
           "token": null
         },
-        "timestamp": 1778884117625,
+        "timestamp": 1778896436998,
         "whisper": [],
         "type": "base",
         "author": {
@@ -222,16 +222,16 @@ import axios from 'axios';
         "flags": {}
       },
       {
-        "id": "0mTWd9enow3UelYT",
-        "uuid": "ChatMessage.0mTWd9enow3UelYT",
-        "content": "6",
+        "id": "UT75dZcVLSzO1RJs",
+        "uuid": "ChatMessage.UT75dZcVLSzO1RJs",
+        "content": "17",
         "speaker": {
-          "scene": "3wAQ0udFopemLTti",
-          "actor": "YrS70qhkRwwM0tiu",
-          "token": "MF83hx4RRMhaTv46",
+          "scene": "tgYnjCnq6EFiREjl",
+          "actor": "S6Nh5SfYPcyyUhRg",
+          "token": "TOInpAfNZ6GRAJaG",
           "alias": "Updated Test Actor"
         },
-        "timestamp": 1778884117217,
+        "timestamp": 1778896436616,
         "whisper": [],
         "type": "base",
         "author": {
@@ -243,7 +243,7 @@ import axios from 'axios';
         "rolls": [
           {
             "formula": "1d20 + 3 + 0",
-            "total": 6,
+            "total": 17,
             "isCritical": false,
             "isFumble": false,
             "dice": [
@@ -251,7 +251,7 @@ import axios from 'axios';
                 "faces": 20,
                 "results": [
                   {
-                    "result": 3,
+                    "result": 14,
                     "active": true
                   }
                 ]
@@ -266,16 +266,16 @@ import axios from 'axios';
         }
       },
       {
-        "id": "wGgyrQEZjP7W6bji",
-        "uuid": "ChatMessage.wGgyrQEZjP7W6bji",
-        "content": "7",
+        "id": "7KFd4PrXKNTtFX2P",
+        "uuid": "ChatMessage.7KFd4PrXKNTtFX2P",
+        "content": "4",
         "speaker": {
-          "scene": "3wAQ0udFopemLTti",
-          "actor": "YrS70qhkRwwM0tiu",
-          "token": "MF83hx4RRMhaTv46",
+          "scene": "tgYnjCnq6EFiREjl",
+          "actor": "S6Nh5SfYPcyyUhRg",
+          "token": "TOInpAfNZ6GRAJaG",
           "alias": "Updated Test Actor"
         },
-        "timestamp": 1778884117103,
+        "timestamp": 1778896436512,
         "whisper": [],
         "type": "base",
         "author": {
@@ -287,7 +287,7 @@ import axios from 'axios';
         "rolls": [
           {
             "formula": "1d20 + 3 + 0",
-            "total": 7,
+            "total": 4,
             "isCritical": false,
             "isFumble": false,
             "dice": [
@@ -295,7 +295,7 @@ import axios from 'axios';
                 "faces": 20,
                 "results": [
                   {
-                    "result": 4,
+                    "result": 1,
                     "active": true
                   }
                 ]
@@ -310,8 +310,8 @@ import axios from 'axios';
         }
       },
       {
-        "id": "IGCDp3GXxpKQJoOB",
-        "uuid": "ChatMessage.IGCDp3GXxpKQJoOB",
+        "id": "e7lKCbYmaKCNLs5I",
+        "uuid": "ChatMessage.e7lKCbYmaKCNLs5I",
         "content": "<b>⚠ REST API execute-js:</b> <code>const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;</code>",
         "speaker": {
           "scene": null,
@@ -319,7 +319,7 @@ import axios from 'axios';
           "token": null,
           "alias": "REST API Module"
         },
-        "timestamp": 1778884116883,
+        "timestamp": 1778896436292,
         "whisper": [
           "r6bXhB7k9cXa3cif"
         ],
@@ -334,16 +334,16 @@ import axios from 'axios';
         "flags": {}
       },
       {
-        "id": "adyVhReF5i7BoCVA",
-        "uuid": "ChatMessage.adyVhReF5i7BoCVA",
-        "content": "<b>⚠ REST API macro-execute:</b> <code>test-macro</code> (Macro.293Cjp31Rco5QRPa)",
+        "id": "nNAUQAHGWHagqvTr",
+        "uuid": "ChatMessage.nNAUQAHGWHagqvTr",
+        "content": "<b>⚠ REST API macro-execute:</b> <code>test-macro</code> (Macro.6HET3CG6IBNcRxCB)",
         "speaker": {
           "scene": null,
           "actor": null,
           "token": null,
           "alias": "REST API Module"
         },
-        "timestamp": 1778884116705,
+        "timestamp": 1778896436103,
         "whisper": [
           "r6bXhB7k9cXa3cif"
         ],
@@ -358,15 +358,15 @@ import axios from 'axios';
         "flags": {}
       },
       {
-        "id": "VfuhWyPnirmeReyj",
-        "uuid": "ChatMessage.VfuhWyPnirmeReyj",
-        "content": "10",
+        "id": "jlMBcNHtszD1fvOE",
+        "uuid": "ChatMessage.jlMBcNHtszD1fvOE",
+        "content": "1",
         "speaker": {
           "scene": null,
           "actor": null,
           "token": null
         },
-        "timestamp": 1778884105211,
+        "timestamp": 1778896424618,
         "whisper": [],
         "type": "base",
         "author": {
@@ -378,7 +378,7 @@ import axios from 'axios';
         "rolls": [
           {
             "formula": "1d20",
-            "total": 10,
+            "total": 1,
             "isCritical": false,
             "isFumble": false,
             "dice": [
@@ -386,7 +386,7 @@ import axios from 'axios';
                 "faces": 20,
                 "results": [
                   {
-                    "result": 10,
+                    "result": 1,
                     "active": true
                   }
                 ]
@@ -397,15 +397,15 @@ import axios from 'axios';
         "flags": {}
       },
       {
-        "id": "jMBuCBS3GoxfXVUy",
-        "uuid": "ChatMessage.jMBuCBS3GoxfXVUy",
-        "content": "19",
+        "id": "LCVEz0PI5RIH3KWJ",
+        "uuid": "ChatMessage.LCVEz0PI5RIH3KWJ",
+        "content": "16",
         "speaker": {
           "scene": null,
           "actor": null,
           "token": null
         },
-        "timestamp": 1778884104691,
+        "timestamp": 1778896424097,
         "whisper": [],
         "type": "base",
         "author": {
@@ -417,7 +417,7 @@ import axios from 'axios';
         "rolls": [
           {
             "formula": "2d20kh",
-            "total": 19,
+            "total": 16,
             "isCritical": false,
             "isFumble": false,
             "dice": [
@@ -425,11 +425,11 @@ import axios from 'axios';
                 "faces": 20,
                 "results": [
                   {
-                    "result": 19,
+                    "result": 16,
                     "active": true
                   },
                   {
-                    "result": 12,
+                    "result": 14,
                     "active": false
                   }
                 ]
@@ -631,18 +631,18 @@ import axios from 'axios';
 ```json
 {
   "type": "chat-send-result",
-  "requestId": "chat-send_1778884117624",
+  "requestId": "chat-send_1778896436998",
   "success": true,
   "data": {
-    "id": "etgQ0vylRmonxPov",
-    "uuid": "ChatMessage.etgQ0vylRmonxPov",
+    "id": "jeEuQHAjC0zWCCbJ",
+    "uuid": "ChatMessage.jeEuQHAjC0zWCCbJ",
     "content": "Hello from the REST API test suite!",
     "speaker": {
       "scene": null,
       "actor": null,
       "token": null
     },
-    "timestamp": 1778884117625,
+    "timestamp": 1778896436998,
     "whisper": [],
     "type": "base",
     "author": {
@@ -695,7 +695,7 @@ Deletes a chat message by its ID. Only the message author or a GM can delete mes
 
 ```javascript
 const baseUrl = 'http://localhost:3010';
-const path = '/chat/etgQ0vylRmonxPov';
+const path = '/chat/jeEuQHAjC0zWCCbJ';
 const params = {
   clientId: 'fvtt_099ad17ea199e7e3'
 };
@@ -716,7 +716,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/chat/etgQ0vylRmonxPov?clientId=fvtt_099ad17ea199e7e3' \
+curl -X DELETE 'http://localhost:3010/chat/jeEuQHAjC0zWCCbJ?clientId=fvtt_099ad17ea199e7e3' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -727,7 +727,7 @@ curl -X DELETE 'http://localhost:3010/chat/etgQ0vylRmonxPov?clientId=fvtt_099ad1
 import requests
 
 base_url = 'http://localhost:3010'
-path = '/chat/etgQ0vylRmonxPov'
+path = '/chat/jeEuQHAjC0zWCCbJ'
 params = {
     'clientId': 'fvtt_099ad17ea199e7e3'
 }
@@ -752,7 +752,7 @@ import axios from 'axios';
 
 (async () => {
   const baseUrl = 'http://localhost:3010';
-  const path = '/chat/etgQ0vylRmonxPov';
+  const path = '/chat/jeEuQHAjC0zWCCbJ';
   const params = {
     clientId: 'fvtt_099ad17ea199e7e3'
   };
@@ -785,14 +785,14 @@ import axios from 'axios';
   💭 Connection settings
   🔤localhost🔤 ➡️ host
   3010 ➡️ port
-  🔤/chat/etgQ0vylRmonxPov🔤 ➡️ path
+  🔤/chat/jeEuQHAjC0zWCCbJ🔤 ➡️ path
 
   💭 Query parameters
   🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId
   🔤?🧲clientId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
-  🔤DELETE /chat/etgQ0vylRmonxPov🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+  🔤DELETE /chat/jeEuQHAjC0zWCCbJ🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
 
   💭 Connect and send
   🍺 🆕📞 host port❗ ➡️ socket
@@ -817,10 +817,10 @@ import axios from 'axios';
 ```json
 {
   "type": "chat-delete-result",
-  "requestId": "chat-delete_1778884117649",
+  "requestId": "chat-delete_1778896437023",
   "success": true,
   "data": {
-    "messageId": "etgQ0vylRmonxPov"
+    "messageId": "jeEuQHAjC0zWCCbJ"
   }
 }
 ```
@@ -984,7 +984,7 @@ import axios from 'axios';
 ```json
 {
   "type": "chat-flush-result",
-  "requestId": "chat-flush_1778884117666",
+  "requestId": "chat-flush_1778896437041",
   "success": true,
   "data": {
     "message": "All chat messages have been deleted"

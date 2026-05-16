@@ -7,23 +7,23 @@
       "url": "http://localhost:3010/auth/connection-tokens",
       "method": "POST",
       "headers": {
-        "Authorization": "Bearer 6782dfcaa7e7f88621b4e6116d2de78e81b7ca8287b17ed01649684ec277aed3"
+        "Authorization": "Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9"
       }
     },
     "response": {
       "status": 201,
       "data": {
-        "code": "DMJWKC",
-        "expiresAt": "2026-05-15T17:38:45-05:00",
+        "code": "PL8VQ9",
+        "expiresAt": "2026-05-15T21:04:04-05:00",
         "expiresIn": 600
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/connection-tokens';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 6782dfcaa7e7f88621b4e6116d2de78e81b7ca8287b17ed01649684ec277aed3'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/connection-tokens' \\\n  -H \"Authorization: Bearer 6782dfcaa7e7f88621b4e6116d2de78e81b7ca8287b17ed01649684ec277aed3\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/connection-tokens'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 6782dfcaa7e7f88621b4e6116d2de78e81b7ca8287b17ed01649684ec277aed3'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/connection-tokens';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 6782dfcaa7e7f88621b4e6116d2de78e81b7ca8287b17ed01649684ec277aed3'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/connection-tokens🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/connection-tokens HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 6782dfcaa7e7f88621b4e6116d2de78e81b7ca8287b17ed01649684ec277aed3❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/connection-tokens';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/connection-tokens' \\\n  -H \"Authorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/connection-tokens'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/connection-tokens';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/connection-tokens🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/connection-tokens HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -35,7 +35,7 @@
       "method": "POST",
       "headers": {},
       "body": {
-        "code": "DMJWKC",
+        "code": "PL8VQ9",
         "worldId": "test-world-integration",
         "worldTitle": "Test World"
       }
@@ -43,17 +43,17 @@
     "response": {
       "status": 200,
       "data": {
-        "clientId": "fvtt_f0fdaedff314d21a",
+        "clientId": "fvtt_9c4b6c1669dc8027",
         "relayUrl": "ws://localhost:3010/relay",
-        "token": "a16cbb2fe4e9c19d7e242a52f8e744d5b80f5ec4db2018968385b0ae8e1722f7"
+        "token": "956c16f6e42ed95fc504fa0f63e06c2e313fde25a864a3f0bf4277f42f780068"
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/pair';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"code\": \"DMJWKC\",\n      \"worldId\": \"test-world-integration\",\n      \"worldTitle\": \"Test World\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/pair' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code\":\"DMJWKC\",\"worldId\":\"test-world-integration\",\"worldTitle\":\"Test World\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/pair'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"code\": \"DMJWKC\",\n      \"worldId\": \"test-world-integration\",\n      \"worldTitle\": \"Test World\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/pair';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"code\": \"DMJWKC\",\n        \"worldId\": \"test-world-integration\",\n        \"worldTitle\": \"Test World\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/pair🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"code\":\"DMJWKC\",\"worldId\":\"test-world-integration\",\"worldTitle\":\"Test World\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/pair HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 78❌r❌n❌r❌n{\"code\":\"DMJWKC\",\"worldId\":\"test-world-integration\",\"worldTitle\":\"Test World\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/pair';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"code\": \"PL8VQ9\",\n      \"worldId\": \"test-world-integration\",\n      \"worldTitle\": \"Test World\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/pair' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code\":\"PL8VQ9\",\"worldId\":\"test-world-integration\",\"worldTitle\":\"Test World\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/pair'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"code\": \"PL8VQ9\",\n      \"worldId\": \"test-world-integration\",\n      \"worldTitle\": \"Test World\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/pair';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"code\": \"PL8VQ9\",\n        \"worldId\": \"test-world-integration\",\n        \"worldTitle\": \"Test World\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/pair🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"code\":\"PL8VQ9\",\"worldId\":\"test-world-integration\",\"worldTitle\":\"Test World\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/pair HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 78❌r❌n❌r❌n{\"code\":\"PL8VQ9\",\"worldId\":\"test-world-integration\",\"worldTitle\":\"Test World\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

@@ -257,7 +257,7 @@ Just don't 😂
 ```json
 {
   "clientId": "fvtt_099ad17ea199e7e3",
-  "sessionId": "254a2b27-80cf-443d-a1b9-b1168d40136b",
+  "sessionId": "030a1249-70e5-41a8-8bd3-26cfeb39faab",
   "success": true
 }
 ```
@@ -299,7 +299,7 @@ Stop a headless Foundry session
 const baseUrl = 'http://localhost:3010';
 const path = '/end-session';
 const params = {
-  sessionId: '254a2b27-80cf-443d-a1b9-b1168d40136b'
+  sessionId: '030a1249-70e5-41a8-8bd3-26cfeb39faab'
 };
 const queryString = new URLSearchParams(params).toString();
 const url = `${baseUrl}${path}?${queryString}`;
@@ -318,7 +318,7 @@ console.log(data);
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl -X DELETE 'http://localhost:3010/end-session?sessionId=254a2b27-80cf-443d-a1b9-b1168d40136b' \
+curl -X DELETE 'http://localhost:3010/end-session?sessionId=030a1249-70e5-41a8-8bd3-26cfeb39faab' \
   -H "x-api-key: your-api-key-here"
 ```
 
@@ -331,7 +331,7 @@ import requests
 base_url = 'http://localhost:3010'
 path = '/end-session'
 params = {
-    'sessionId': '254a2b27-80cf-443d-a1b9-b1168d40136b'
+    'sessionId': '030a1249-70e5-41a8-8bd3-26cfeb39faab'
 }
 url = f'{base_url}{path}'
 
@@ -356,7 +356,7 @@ import axios from 'axios';
   const baseUrl = 'http://localhost:3010';
   const path = '/end-session';
   const params = {
-    sessionId: '254a2b27-80cf-443d-a1b9-b1168d40136b'
+    sessionId: '030a1249-70e5-41a8-8bd3-26cfeb39faab'
   };
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}${path}?${queryString}`;
@@ -390,7 +390,7 @@ import axios from 'axios';
   🔤/end-session🔤 ➡️ path
 
   💭 Query parameters
-  🔤sessionId=254a2b27-80cf-443d-a1b9-b1168d40136b🔤 ➡️ sessionId
+  🔤sessionId=030a1249-70e5-41a8-8bd3-26cfeb39faab🔤 ➡️ sessionId
   🔤?🧲sessionId🧲🔤 ➡️ queryString
 
   💭 Build HTTP request
@@ -567,9 +567,9 @@ import axios from 'axios';
       "clientId": "fvtt_099ad17ea199e7e3",
       "foundryUrl": "http://localhost:30013",
       "foundryVersion": "13.348",
-      "lastActivity": 1778884091879,
-      "sessionId": "254a2b27-80cf-443d-a1b9-b1168d40136b",
-      "startedAt": 1778884091879,
+      "lastActivity": 1778896411477,
+      "sessionId": "030a1249-70e5-41a8-8bd3-26cfeb39faab",
+      "startedAt": 1778896411477,
       "systemId": "dnd5e",
       "systemTitle": "Dungeons & Dragons Fifth Edition",
       "systemVersion": "5.0.4",
