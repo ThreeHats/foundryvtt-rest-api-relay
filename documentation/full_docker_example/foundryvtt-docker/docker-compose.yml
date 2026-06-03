@@ -117,19 +117,12 @@ services:
     # Intel / AMD — expose the DRI device (render group resolved automatically):
     # devices:
     #   - /dev/dri:/dev/dri
-    # shm_size: "1g"
-    # environment:
-    #   - CHROME_ENABLE_SHM=true
     #
     # NVIDIA — Option A (recommended): set nvidia as the default Docker runtime:
     #   sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
     #   sudo systemctl restart docker
-    # Then uncomment:
-    # shm_size: "1g"
-    # environment:
-    #   - CHROME_ENABLE_SHM=true
-    #   - NVIDIA_VISIBLE_DEVICES=all
-    #   - NVIDIA_DRIVER_CAPABILITIES=graphics,utility
+    # The image already sets NVIDIA_VISIBLE_DEVICES and NVIDIA_DRIVER_CAPABILITIES,
+    # so no extra config is needed once nvidia is the default runtime.
     #
     # NVIDIA — Option B: CDI (no default runtime change needed):
     #   sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
@@ -137,9 +130,6 @@ services:
     # Then uncomment:
     # devices:
     #   - "nvidia.com/gpu=all"
-    # shm_size: "1g"
-    # environment:
-    #   - CHROME_ENABLE_SHM=true
     # ─────────────────────────────────────────────────────────────────────────
     volumes:
       - ./data/relay:/app/data

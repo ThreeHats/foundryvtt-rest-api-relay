@@ -15,7 +15,7 @@ import { testVariables } from '../../helpers/testVariables';
 import { adminLogin, makeAdminRequest, AdminSession } from '../../helpers/adminAuth';
 
 const hasAdminCredentials = testVariables.adminEmail !== '' && testVariables.adminPassword !== '';
-const describeAdmin = hasAdminCredentials ? describe : describe.skip;
+const describeAdmin = hasAdminCredentials && process.env.TEST_SKIP_ADMIN !== 'true' ? describe : describe.skip;
 
 describeAdmin('Admin User Management', () => {
   let session: AdminSession;

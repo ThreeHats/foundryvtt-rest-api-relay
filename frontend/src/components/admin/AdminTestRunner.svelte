@@ -212,6 +212,7 @@
     FOUNDRY_USERNAME: '', FOUNDRY_PASSWORD: '',
     TEST_USER_EMAIL: '', TEST_USER_PASSWORD: '',
     TEST_ADMIN_EMAIL: '', TEST_ADMIN_PASSWORD: '',
+    TEST_SKIP_ADMIN: '',
     CAPTURE_BROWSER_CONSOLE: '',
   };
 
@@ -270,6 +271,7 @@
     { key: 'TEST_USER_PASSWORD',      label: 'Test User Password',   section: 'Auth', secret: true },
     { key: 'TEST_ADMIN_EMAIL',        label: 'Admin Email',          section: 'Auth' },
     { key: 'TEST_ADMIN_PASSWORD',     label: 'Admin Password',       section: 'Auth', secret: true },
+    { key: 'TEST_SKIP_ADMIN',         label: 'Skip Admin Tests',     section: 'Auth', hint: 'true to skip admin-panel suites (e.g. staging without admin creds)' },
     { key: 'CAPTURE_BROWSER_CONSOLE', label: 'Browser Console Log',  section: 'Misc', hint: 'error / warn / debug' },
   ];
 

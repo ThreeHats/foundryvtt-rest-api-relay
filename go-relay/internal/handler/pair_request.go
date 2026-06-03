@@ -26,15 +26,16 @@ import (
 //  5. Module exchanges pairingCode via the existing POST /auth/pair endpoint
 //
 // Upgrade-only flow (upgradeOnly=true):
-//  - Same steps 1–4, but step 5 is skipped — no new token is created.
-//  - The approval handler updates the already-paired world's KnownClient directly.
-//  - The status poll returns {status:"approved", upgraded:true} without a pairingCode.
+//   - Same steps 1–4, but step 5 is skipped — no new token is created.
+//   - The approval handler updates the already-paired world's KnownClient directly.
+//   - The status poll returns {status:"approved", upgraded:true} without a pairingCode.
 func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config, manager *ws.ClientManager) {
 	r.Route("/pair-request", func(r chi.Router) {
 
 		// POST /auth/pair-request — Create pending pair request (NO AUTH, RATE LIMITED)
 		r.With(middleware.KeyRequestRateLimiter.Middleware).Post("/", func(w http.ResponseWriter, r *http.Request) {
 			var body struct {
+				ClientID               string   `json:"clientId"`
 				WorldID                string   `json:"worldId"`
 				WorldTitle             string   `json:"worldTitle"`
 				SystemID               string   `json:"systemId"`
@@ -59,6 +60,18 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 				helpers.WriteError(w, http.StatusBadRequest, "Invalid scope: "+invalid)
 				return
 			}
+			// Strip wildcard from requestedTargetClients — a pairing module should never
+			// be able to pre-select "all worlds" in the approval UI. Only the account
+			// owner can grant wildcard access through the dashboard's own settings editor.
+			{
+				filtered := body.RequestedTargetClients[:0]
+				for _, t := range body.RequestedTargetClients {
+					if t != "*" {
+						filtered = append(filtered, t)
+					}
+				}
+				body.RequestedTargetClients = filtered
+			}
 
 			code, err := generateKeyRequestCode(8)
 			if err != nil {
@@ -69,6 +82,7 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 			expiresAt := time.Now().Add(10 * time.Minute)
 			req := &model.PairRequest{
 				Code:           code,
+				ClientID:       body.ClientID,
 				WorldID:        body.WorldID,
 				WorldTitle:     body.WorldTitle,
 				SystemID:       body.SystemID,
@@ -156,17 +170,7 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 
 		// Authenticated routes — require a valid session token
 		r.Group(func(r chi.Router) {
-			r.Use(middleware.AuthMiddleware(db, nil))
-			r.Use(func(next http.Handler) http.Handler {
-				return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-					reqCtx := helpers.GetRequestContext(r)
-					if reqCtx == nil || !reqCtx.IsSessionAuth {
-						helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-						return
-					}
-					next.ServeHTTP(w, r)
-				})
-			})
+			r.Use(middleware.SessionOnlyMiddleware(db))
 
 			// GET /auth/pair-request/{code} — Fetch details for the approval page.
 			// Also returns all known clients so the UI can render target world checkboxes.
@@ -184,35 +188,81 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 				// Fetch known clients for target-world selection in the UI.
 				// Flatten sql.NullString fields so the frontend receives plain strings.
 				knownClients := make([]map[string]interface{}, 0)
+				var currentAllowedTargetClients []string
+				var currentRemoteScopes []string
+				var currentRemoteRequestsPerHour int
+				// resolvedClientID is the clientId of the world being paired. The
+				// upgrade flow sends only worldId, so req.ClientID is empty and we
+				// resolve it from the matching KnownClient. The approval UI uses it
+				// to exclude this world from its own target list.
+				var resolvedClientID string
 				if user != nil {
 					if clients, err := db.KnownClientStore().FindAllByUser(r.Context(), user.ID); err == nil {
+						var settingsCapturedByClientID bool
+						var settingsCapturedByWorldID bool
 						for _, c := range clients {
 							knownClients = append(knownClients, map[string]interface{}{
-								"id":          c.ID,
-								"clientId":    c.ClientID,
-								"worldId":     c.WorldID.String,
-								"worldTitle":  c.WorldTitle.String,
-								"customName":  c.CustomName.String,
-								"isOnline":    manager.IsClientOnlineAnywhere(r.Context(), c.ClientID),
+								"id":         c.ID,
+								"clientId":   c.ClientID,
+								"worldId":    c.WorldID.String,
+								"worldTitle": c.WorldTitle.String,
+								"customName": c.CustomName.String,
+								"isOnline":   manager.IsClientOnlineAnywhere(r.Context(), c.ClientID),
 							})
+							// Pre-populate cross-world settings for the approval UI: prefer an
+							// exact clientId match, else the FIRST worldId match. Locking the
+							// first worldId match keeps the result independent of iteration
+							// order when two worlds share a worldId slug.
+							if req.ClientID != "" && c.ClientID == req.ClientID {
+								currentAllowedTargetClients = c.GetAllowedTargets()
+								currentRemoteScopes = c.GetRemoteScopes()
+								currentRemoteRequestsPerHour = c.RemoteRequestsPerHour
+								resolvedClientID = c.ClientID
+								settingsCapturedByClientID = true
+							} else if !settingsCapturedByClientID && !settingsCapturedByWorldID && c.WorldID.String == req.WorldID {
+								currentAllowedTargetClients = c.GetAllowedTargets()
+								currentRemoteScopes = c.GetRemoteScopes()
+								currentRemoteRequestsPerHour = c.RemoteRequestsPerHour
+								resolvedClientID = c.ClientID
+								settingsCapturedByWorldID = true
+							}
 						}
 					}
 				}
+				if resolvedClientID == "" {
+					resolvedClientID = req.ClientID
+				}
+
+				// A world can't target itself: strip self from the pre-populated
+				// targets so the approval UI never shows it selected or counted.
+				if resolvedClientID != "" && len(currentAllowedTargetClients) > 0 {
+					filtered := currentAllowedTargetClients[:0]
+					for _, t := range currentAllowedTargetClients {
+						if t != resolvedClientID {
+							filtered = append(filtered, t)
+						}
+					}
+					currentAllowedTargetClients = filtered
+				}
 
 				helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{
-					"code":                   req.Code,
-					"worldId":                req.WorldID,
-					"worldTitle":             req.WorldTitle,
-					"systemId":               req.SystemID,
-					"systemTitle":            req.SystemTitle,
-					"systemVersion":          req.SystemVersion,
-					"foundryVersion":         req.FoundryVersion,
-					"requestedRemoteScopes":  model.ParseScopes(req.RequestedRemoteScopes.String),
-					"requestedTargetClients": model.ParseScopes(req.RequestedTargetClients.String),
-					"upgradeOnly":            req.UpgradeOnly,
-					"status":                 req.Status,
-					"expiresAt":              req.ExpiresAt,
-					"knownClients":           knownClients,
+					"code":                         req.Code,
+					"clientId":                     resolvedClientID,
+					"worldId":                      req.WorldID,
+					"worldTitle":                   req.WorldTitle,
+					"systemId":                     req.SystemID,
+					"systemTitle":                  req.SystemTitle,
+					"systemVersion":                req.SystemVersion,
+					"foundryVersion":               req.FoundryVersion,
+					"requestedRemoteScopes":        model.ParseScopes(req.RequestedRemoteScopes.String),
+					"requestedTargetClients":       model.ParseScopes(req.RequestedTargetClients.String),
+					"currentAllowedTargetClients":  currentAllowedTargetClients,
+					"currentRemoteScopes":          currentRemoteScopes,
+					"currentRemoteRequestsPerHour": currentRemoteRequestsPerHour,
+					"upgradeOnly":                  req.UpgradeOnly,
+					"status":                       req.Status,
+					"expiresAt":                    req.ExpiresAt,
+					"knownClients":                 knownClients,
 				})
 			})
 
@@ -244,17 +294,47 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 
 				// Parse approved cross-world settings from the approval body.
 				var approveBody struct {
-					RemoteScopes         []string `json:"remoteScopes"`
-					AllowedTargetClients []string `json:"allowedTargetClients"`
-					RemoteRequestsPerHour int     `json:"remoteRequestsPerHour"`
+					RemoteScopes          []string `json:"remoteScopes"`
+					AllowedTargetClients  []string `json:"allowedTargetClients"`
+					RemoteRequestsPerHour int      `json:"remoteRequestsPerHour"`
 				}
 				json.NewDecoder(r.Body).Decode(&approveBody)
 
+				// Look up whether the world is already registered.
+				// Prefer clientId lookup (relay-assigned, used by WS handler) so we update
+				// the exact same record that get-known-clients reads. Fall back to worldId.
+				var existing *model.KnownClient
+				if pairReq.ClientID != "" {
+					existing, _ = db.KnownClientStore().FindByClientID(ctx, user.ID, pairReq.ClientID)
+				}
+				if existing == nil {
+					existing, _ = db.KnownClientStore().FindByWorldID(ctx, user.ID, pairReq.WorldID)
+				}
+
+				// A world can never be granted cross-world access to itself. Strip
+				// any self-reference before persisting (the approval UI already hides
+				// self; this guards direct API calls and legacy data). The upgrade
+				// flow sends only worldId, so pairReq.ClientID is empty — use the
+				// resolved KnownClient's clientId as the authoritative self id too.
+				selfIDs := map[string]bool{}
+				if pairReq.ClientID != "" {
+					selfIDs[pairReq.ClientID] = true
+				}
+				if existing != nil {
+					selfIDs[existing.ClientID] = true
+				}
+				if len(selfIDs) > 0 {
+					filtered := approveBody.AllowedTargetClients[:0]
+					for _, t := range approveBody.AllowedTargetClients {
+						if !selfIDs[t] {
+							filtered = append(filtered, t)
+						}
+					}
+					approveBody.AllowedTargetClients = filtered
+				}
+
 				approvedScopes := model.ScopesString(approveBody.RemoteScopes)
 				approvedTargets := model.ScopesString(approveBody.AllowedTargetClients)
-
-				// Look up whether the world is already registered.
-				existing, _ := db.KnownClientStore().FindByWorldID(ctx, user.ID, pairReq.WorldID)
 
 				// ── Upgrade-only: world is already paired, just update cross-world settings ──
 				if pairReq.UpgradeOnly {
@@ -279,10 +359,12 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 				}
 
 				// ── Normal pairing: create a PairingCode the module exchanges ──
+				// Do NOT pre-bind clientId from existing KnownClient here. The module
+				// sends its stored clientId at exchange time (existingClientId field in
+				// POST /auth/pair), which is the correct signal for "re-pair same server".
+				// Binding by worldId would wrongly assign the same clientId to a different
+				// Foundry server that happens to share the same worldId.
 				var clientID sql.NullString
-				if existing != nil {
-					clientID = sql.NullString{String: existing.ClientID, Valid: true}
-				}
 
 				pCode, err := generatePairingCode(6)
 				if err != nil {
@@ -302,7 +384,8 @@ func RegisterPairRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config
 					RemoteScopes: sql.NullString{
 						String: approvedScopes, Valid: approvedScopes != "",
 					},
-					ExpiresAt: model.NewSQLiteTime(time.Now().Add(5 * time.Minute)),
+					RemoteRequestsPerHour: approveBody.RemoteRequestsPerHour,
+					ExpiresAt:             model.NewSQLiteTime(time.Now().Add(5 * time.Minute)),
 				}
 				if err := db.PairingCodeStore().Create(ctx, pairingCode); err != nil {
 					log.Error().Err(err).Msg("Failed to create pairing code for pair request")

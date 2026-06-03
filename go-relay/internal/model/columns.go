@@ -6,11 +6,17 @@ import "strings"
 // use in SQL queries. Sequelize creates camelCase columns in both SQLite and
 // PostgreSQL, so any snake_case name passed here is converted algorithmically.
 //
-// Names with no underscores (id, email, password, name, etc.) are returned
-// as-is — they are identical in both conventions.
+// All-lowercase names with no underscores (id, email, status, etc.) are
+// returned as-is — they are identical in both conventions. CamelCase names
+// MUST be quoted: Postgres case-folds unquoted identifiers to lowercase and
+// the column is not found, while SQLite's case-insensitive identifiers mask
+// the bug locally (this silently broke key-request approval on Postgres).
 func Col(dbType, name string) string {
 	if !strings.Contains(name, "_") {
-		return name
+		if name == strings.ToLower(name) {
+			return name
+		}
+		return `"` + name + `"`
 	}
 	parts := strings.Split(name, "_")
 	result := parts[0]

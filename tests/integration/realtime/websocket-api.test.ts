@@ -48,19 +48,22 @@ describe('WebSocket API (/ws/api)', () => {
     // ═══════════════════════════════════════════
 
     describe(`Authentication (v${version})`, () => {
+      // Rejection timeouts are 10s, not 3s: the server closes immediately, but
+      // through a TLS proxy (e.g. Fly.io staging) the close takes ~5s to reach
+      // the client. Locally it is near-instant either way.
       test('should reject connection without token', async () => {
         const client = createClient();
         await expect(
           client.connect(`${baseUrl}/ws/api`, '', getClientId())
         ).rejects.toThrow();
-      }, 3000);
+      }, 10000);
 
       test('should reject connection with invalid token', async () => {
         const client = createClient();
         await expect(
           client.connect(`${baseUrl}/ws/api`, 'invalid-key-12345', getClientId())
         ).rejects.toThrow();
-      }, 3000);
+      }, 10000);
 
       test('should reject connection without clientId', async () => {
         const client = createClient();

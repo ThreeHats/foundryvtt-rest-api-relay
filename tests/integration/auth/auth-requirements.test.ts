@@ -130,7 +130,13 @@ describe('Authentication Requirements', () => {
           const resp = await axios.get(`${baseUrl}/clients`, {
             headers: { 'x-api-key': apiKey },
           });
-          connectedClientCount = resp.data?.total ?? 0;
+          // Count ONLINE clients only — that is the denominator the server's
+          // clientId auto-resolve uses. /clients `total` also includes offline
+          // KnownClients rows, which would put us in the "ambiguous → expect
+          // 400" branch while the relay happily auto-resolves the single
+          // connected client and returns 200.
+          const clients: any[] = resp.data?.clients ?? [];
+          connectedClientCount = clients.filter(c => c.isOnline).length;
         } catch {
           connectedClientCount = 0;
         }

@@ -1,5 +1,42 @@
 # Changelog
 
+## [3.3.0] - 2026-06-03
+
+### Added
+- **Per-server identity for pairing**: worlds sharing a `worldId` slug on different Foundry servers no longer collide. The module sends a stable per-server fingerprint and its server origin when pairing; the relay matches fingerprint → stored clientId → worldId+origin to reuse the right `clientId` on re-pair (preserving cross-world settings, credentials, and notification config) and only mints a fresh id for a genuinely different server. The v3.0 `UNIQUE(userId, worldId)` constraint is retired accordingly.
+- **`publicUrl` on known clients**: the browser `Origin` header is captured at pair/connect time and returned in `get-known-clients`, so modules can redirect players to the correct server address after a cross-server transfer without manual URL configuration.
+- **Wildcard cross-world target**: "Allow all worlds" (`*`) can be granted from the dashboard's cross-world editors; mixed `["*", <id>, …]` selections collapse to just `["*"]`.
+- **Cross-world approval page**: pre-populates the world's current scopes, targets, and rate limit; already-granted scopes are shown with a badge (and remain deselectable); warns when scopes are selected without targets or vice versa.
+- Notification settings: new **"Cross-world activity occurs"** toggle — opt out of cross-world request notifications without disabling the activity log (previously always-on).
+- New remote-request scope mappings (previously denied by default): `get-canvas-documents` (`canvas:read`); `create-canvas-document`, `update-canvas-document`, `delete-canvas-document`, `move-token` (`canvas:write`); `server-url` (`world:info`).
+- **Docker-based integration testing** via `scripts/test-docker.sh [11|12|13|14]`: builds the relay image and spins up a quicksilvervtt-lite-managed Foundry (module pre-installed, passwordless GM) and runs the full suite against the stack — no manually-run Foundry needed. Configs in `test/foundry-configs/`; credentials via `.env.test.docker` (see `.env.test.docker.example`); host port configurable via `RELAY_HOST_PORT`.
+
+### Changed
+- Dashboard routes (`/auth/credentials`, `/auth/connection-tokens`, `/auth/api-keys`, approvals, audit logs, etc.) now use a dedicated session-only middleware: Bearer session tokens only, no x-api-key fallback, and invalid sessions return `"Invalid or expired session. Please log in again."` instead of the misleading `"API key is required"`. `AuthMiddleware` likewise rejects an invalid Bearer outright instead of falling through to x-api-key (integrations that send only `x-api-key` are unaffected).
+- Dashboard logs out automatically when any authenticated request returns 401, instead of appearing logged-in with a dead session.
+- Entity `create`: renamed the `s2sSync` request field and document option to `fullSync` (it was S2S-specific naming for a generic operation).
+- Connections tab polish: world cards wrap on narrow screens, action buttons are smaller and stay inside the card, expanding one world's inactive browsers no longer re-renders all cards, and the Cross-world button shows a `●` when configured instead of a target count.
+- Removed the redundant `shm_size`/`CHROME_ENABLE_SHM` guidance from compose files and GPU docs — Chrome runs with `--disable-dev-shm-usage` by default, so `/dev/shm` was never required for GPU acceleration.
+
+### Security
+- Wildcard `["*"]` in `requestedTargetClients` from the unauthenticated `POST /auth/pair-request` is stripped before storage — only the account owner can grant "all worlds" via the dashboard.
+- `publicUrl` (browser Origin) is validated to a bare `http(s)` origin (no path/query/fragment, ≤ 512 chars) before storage, so a non-browser client can't plant an arbitrary redirect URL.
+- A world can no longer send a cross-world remote request to its own clientId (a `*` allow-list would otherwise match the source itself).
+
+### Fixed
+- **Key-request approval was broken on PostgreSQL**: the approve UPDATE referenced camelCase columns unquoted, which Postgres case-folds to lowercase — the device flow stayed `"pending"` after a "successful" approval and web-flow exchange codes were never persisted, with the error silently swallowed. Identifier quoting is fixed in the shared `Col()` mapper and all key-request status updates now surface errors. (SQLite was unaffected; verified against both backends.)
+- **Passwordless GMs can now log in headlessly**: the worker POSTs `/join` directly instead of submitting Foundry's login form, which drops an empty password field on submit.
+- Cross-world rate limits chosen during pair-request approval are persisted through the pairing exchange instead of being reset to 0 (unlimited).
+- Reconnects no longer blank out stored client metadata: the KnownClient upsert preserves existing values when an incoming field is empty (e.g. a connect that omits the custom name).
+- Notification settings no longer overwrite `created_at` on every save.
+- Deleting a world from the dashboard now removes its clientId from every sibling world's cross-world allow-list (wildcard lists are left untouched).
+- Auto-start (`autoStartIfOffline`) hardening: concurrent requests for the same offline target join the in-flight launch instead of spawning parallel browsers; failures impose a 2-minute per-client cooldown that reports the original error; wrong world, unknown user, already-logged-in user, and rejected logins fail fast instead of burning the poll timeout (now 60s, down from 5 minutes).
+
+### Testing
+- The integration suite now runs cleanly against a remote/staging relay in pre-provisioned mode: session-only suites log in with `TEST_USER_EMAIL`/`TEST_USER_PASSWORD` (token cached across files), existing-session runs resolve `systemId`/`worldId` from `GET /clients`, `TEST_SKIP_ADMIN=true` (editable in the admin test-runner) skips the admin suites, a failed admin login stops retrying before tripping the login lockout, and WS rejection tests tolerate TLS-proxy close latency. Assorted test-correctness fixes (vacuous assertions, empty-password handling, auto-resolve client counting).
+
+---
+
 ## [3.1.1] - 2026-05-06
 
 - Updated deploy workflow version bump step to update docgen version number

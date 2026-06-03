@@ -1,0 +1,85 @@
+# Integration test environment.
+# Used by scripts/test-docker.sh — do not start manually.
+#
+# Model: quicksilvervtt-lite runs the Foundry SERVER (with the REST API module
+# installed + enabled). The relay launches a headless browser against it via its
+# /start-session flow; the module (in that browser) connects back to the relay.
+#
+# Required env vars (set by test-docker.sh):
+#   FOUNDRY_MAJOR               — Foundry major version, selects the qsl-lite image (e.g. 13)
+#   FOUNDRY_USERNAME            — foundryvtt.com account email (for Foundry download)
+#   FOUNDRY_PASSWORD            — foundryvtt.com account password
+#   FOUNDRY_TEST_CONFIG_FILE    — host path to the per-version quicksilvervtt-lite config
+#   MODULE_SOURCE_PATH          — host path to the built REST API module (dist/)
+#   CREDENTIALS_ENCRYPTION_KEY  — AES-256 key for relay SQLite store
+#   ADMIN_JWT_SECRET            — JWT signing secret for relay admin
+
+services:
+  foundry:
+    # Major tag tracks that Foundry major's latest build (with matching Node).
+    # FOUNDRY_VERSION is intentionally NOT set here — the image's baked version
+    # drives the download, so there is no version-mismatch warning.
+    image: threehats/quicksilvervtt-lite:${FOUNDRY_MAJOR:-13}
+    environment:
+      # foundryvtt.com account (for Foundry download) — NOT the world GM login.
+      # The world GM login is "Gamemaster" (passwordless by default), used only by
+      # the test process, so there is no collision with these download credentials.
+      - FOUNDRY_USERNAME=${FOUNDRY_USERNAME}
+      - FOUNDRY_PASSWORD=${FOUNDRY_PASSWORD}
+      - FOUNDRY_ADMIN_KEY=testpassword
+      - FOUNDRY_WORLD=test-world
+    volumes:
+      - foundry-data:/data
+      - ${FOUNDRY_TEST_CONFIG_FILE}:/foundry-config.json:ro
+      - ${MODULE_SOURCE_PATH}:/dev-modules/foundry-rest-api:ro
+    # No host port published — the relay reaches Foundry over the Docker network
+    # (foundry:30000), so the test doesn't collide with native Foundry servers on
+    # the host. To access the UI while debugging, publish a port here or `exec` in.
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:30000/api/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 24
+      start_period: 180s
+
+  relay:
+    build:
+      context: .
+      dockerfile: go-relay/Dockerfile
+    environment:
+      - DB_TYPE=sqlite
+      - APP_ENV=development
+      - CREDENTIALS_ENCRYPTION_KEY
+      - ADMIN_JWT_SECRET
+      # Disable all rate limits — the suite fires far faster than real usage and
+      # would otherwise hit 429s (tests expect the real 4xx, not rate-limit errors).
+      - MONTHLY_REQUEST_LIMIT=0
+      - PER_MINUTE_REQUEST_LIMIT=0
+      - AUTH_RATE_LIMIT=0
+      - ACCOUNT_MGMT_RATE_LIMIT=0
+      - PASSWORD_RESET_RATE_LIMIT=0
+      - PAIRING_RATE_LIMIT=0
+      - KEY_REQUEST_RATE_LIMIT=0
+      - PROBE_RATE_LIMIT=0
+      - ADMIN_LOGIN_RATE_LIMIT=0
+    volumes:
+      - relay-data:/app/data
+    ports:
+      # Host port is configurable so the test stack can run alongside a local
+      # dev server (e.g. `air`) that already holds 3010. Container port is 3010.
+      - "${RELAY_HOST_PORT:-3010}:3010"
+    # GPU acceleration for headless Chrome. The relay image sets NVIDIA_VISIBLE_DEVICES
+    # and NVIDIA_DRIVER_CAPABILITIES, so this activates automatically when the NVIDIA
+    # container runtime is the Docker default. For Intel/AMD, expose /dev/dri instead:
+    #   devices:
+    #     - /dev/dri:/dev/dri
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:3010/api/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 30s
+
+volumes:
+  foundry-data:
+  relay-data:

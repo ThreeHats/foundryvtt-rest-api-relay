@@ -6,9 +6,10 @@
  *   POST /auth/key-request/:code/deny, POST /auth/key-request/exchange
  */
 
-import { describe, test, expect, afterAll } from '@jest/globals';
+import { describe, test, expect, afterAll, beforeAll } from '@jest/globals';
 import { ApiRequestConfig, makeRequest, replaceVariables } from '../../helpers/apiRequest';
 import { testVariables } from '../../helpers/testVariables';
+import { ensureSessionToken } from '../../helpers/sessionAuth';
 import { captureExample, saveExamples } from '../../helpers/captureExample';
 import * as path from 'path';
 
@@ -54,6 +55,12 @@ afterAll(async () => {
   for (const id of keysToCleanup) {
     await makeRequest(replaceVariables(authConfig('DELETE', `/auth/api-keys/${id}`), testVariables)).catch(() => {});
   }
+});
+
+// Session-only routes need a Bearer token; in pre-provisioned mode this logs
+// in with TEST_USER_EMAIL/PASSWORD once and caches it for the whole run.
+beforeAll(async () => {
+  await ensureSessionToken();
 });
 
 describe('Device Flow', () => {

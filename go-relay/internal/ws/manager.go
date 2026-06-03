@@ -81,7 +81,7 @@ func NewClientManager(redis *config.RedisClient, instanceID string) *ClientManag
 }
 
 // AddClient registers a new Foundry client connection.
-func (m *ClientManager) AddClient(conn *websocket.Conn, id, token, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName string) (*Client, error) {
+func (m *ClientManager) AddClient(conn *websocket.Conn, id, token, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName, publicUrl string) (*Client, error) {
 	m.mu.Lock()
 
 	// Handle duplicate connections: evict if same IP (reconnect after network drop),
@@ -124,7 +124,7 @@ func (m *ClientManager) AddClient(conn *websocket.Conn, id, token, tokenName, wo
 		}
 	}
 
-	client := NewClient(conn, id, token, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName)
+	client := NewClient(conn, id, token, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName, publicUrl)
 	m.clients[id] = client
 
 	// Add to token group

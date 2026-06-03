@@ -10,9 +10,9 @@ import (
 // PairingCode represents a short-lived code used to pair a Foundry module with a user account.
 // db tags use camelCase to match Sequelize-created SQLite columns.
 type PairingCode struct {
-	ID        int64      `db:"id" json:"id"`
-	UserID    int64      `db:"userId" json:"userId"`
-	Code      string     `db:"code" json:"code"`
+	ID     int64  `db:"id" json:"id"`
+	UserID int64  `db:"userId" json:"userId"`
+	Code   string `db:"code" json:"code"`
 	// ClientID, when non-null, makes this pairing code reuse an existing
 	// known clientId instead of minting a fresh one. Used by the "add this
 	// browser" flow where a second GM joins an already-paired world.
@@ -24,9 +24,12 @@ type PairingCode struct {
 	// RemoteScopes is a CSV of scope strings the resulting connection token
 	// will hold for cross-world operations. Empty = no cross-world access.
 	RemoteScopes sql.NullString `db:"remoteScopes" json:"remoteScopes"`
-	ExpiresAt    SQLiteTime     `db:"expiresAt" json:"expiresAt"`
-	Used         bool           `db:"used" json:"used"`
-	CreatedAt    SQLiteTime     `db:"createdAt" json:"createdAt"`
+	// RemoteRequestsPerHour carries the approver's cross-world rate limit through
+	// to POST /auth/pair, which applies it to the KnownClient. 0 = unlimited.
+	RemoteRequestsPerHour int        `db:"remoteRequestsPerHour" json:"remoteRequestsPerHour"`
+	ExpiresAt             SQLiteTime `db:"expiresAt" json:"expiresAt"`
+	Used                  bool       `db:"used" json:"used"`
+	CreatedAt             SQLiteTime `db:"createdAt" json:"createdAt"`
 }
 
 // PairingCodeStore defines operations on pairing codes.
@@ -89,13 +92,14 @@ func (s *SQLPairingCodeStore) FindByCode(ctx context.Context, code string) (*Pai
 
 func (s *SQLPairingCodeStore) Create(ctx context.Context, code *PairingCode) error {
 	now := time.Now()
-	query := fmt.Sprintf(`INSERT INTO %s (%s, code, %s, %s, %s, %s, used, %s)
-		VALUES ($1, $2, $3, $4, $5, $6, %s, $7)`,
+	query := fmt.Sprintf(`INSERT INTO %s (%s, code, %s, %s, %s, %s, %s, used, %s)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, %s, $8)`,
 		s.tableName(),
 		s.col("user_id"),
 		s.col("client_id"),
 		s.col("allowed_target_clients"),
 		s.col("remote_scopes"),
+		s.col("remote_requests_per_hour"),
 		s.col("expires_at"),
 		s.col("created_at"),
 		s.boolFalse())
@@ -104,13 +108,13 @@ func (s *SQLPairingCodeStore) Create(ctx context.Context, code *PairingCode) err
 		query += " RETURNING id"
 		return s.DB.QueryRowContext(ctx, query,
 			code.UserID, code.Code, code.ClientID, code.AllowedTargetClients,
-			code.RemoteScopes, code.ExpiresAt, now,
+			code.RemoteScopes, code.RemoteRequestsPerHour, code.ExpiresAt, now,
 		).Scan(&code.ID)
 	}
 
 	result, err := s.DB.ExecContext(ctx, query,
 		code.UserID, code.Code, code.ClientID, code.AllowedTargetClients,
-		code.RemoteScopes, code.ExpiresAt, now)
+		code.RemoteScopes, code.RemoteRequestsPerHour, code.ExpiresAt, now)
 	if err != nil {
 		return err
 	}

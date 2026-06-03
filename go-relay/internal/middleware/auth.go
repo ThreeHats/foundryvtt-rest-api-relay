@@ -86,6 +86,43 @@ func InvalidateCachedAuthForUser(userID int64) {
 	authCacheMu.Unlock()
 }
 
+// SessionOnlyMiddleware authenticates requests exclusively via Bearer session tokens.
+// It never falls back to x-api-key auth. Use this for all dashboard/website routes
+// that must be accessed only by logged-in users (not external API consumers).
+func SessionOnlyMiddleware(db *database.DB) func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			user, ok := tryBearerAuth(r, db)
+			if !ok {
+				metrics.AuthFailuresTotal.WithLabelValues("invalid_session").Inc()
+				helpers.WriteError(w, http.StatusUnauthorized, "Invalid or expired session. Please log in again.")
+				return
+			}
+			backfillAccessLog(r, user.ID, "")
+			if user.Disabled {
+				helpers.WriteError(w, http.StatusForbidden, "Account disabled")
+				return
+			}
+			if !user.EmailVerified {
+				helpers.WriteError(w, http.StatusForbidden, "Please verify your email address before using the API.")
+				return
+			}
+			if user.APIKeyRotationRequired {
+				helpers.WriteError(w, http.StatusForbidden, "Your relay key must be rotated for security. Please log in to the dashboard and regenerate your relay key.")
+				return
+			}
+			reqCtx := &helpers.RequestContext{
+				User:               user,
+				MasterAPIKey:       user.APIKeyHash.String,
+				SubscriptionStatus: user.GetSubscriptionStatus(),
+				IsSessionAuth:      true,
+			}
+			rCtx := context.WithValue(r.Context(), helpers.RequestContextKey, reqCtx)
+			next.ServeHTTP(w, r.WithContext(rCtx))
+		})
+	}
+}
+
 // AuthMiddleware validates API keys (scoped) and session tokens and sets request context.
 //
 // Security note: Connection tokens are stored as SHA-256 hashes in
@@ -96,30 +133,36 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Try session-token auth first (Authorization: Bearer <token>).
-			// Dashboard and management routes use this path; API calls use
-			// x-api-key with a scoped key.
-			if user, ok := tryBearerAuth(r, db); ok {
-				backfillAccessLog(r, user.ID, "")
-				if user.Disabled {
-					helpers.WriteError(w, http.StatusForbidden, "Account disabled")
+			// Dashboard users may hit some of these routes (e.g. /api/subscriptions).
+			// External integrations (Discord bots, etc.) use x-api-key with a scoped key.
+			if hasBearerHeader(r) {
+				if user, ok := tryBearerAuth(r, db); ok {
+					backfillAccessLog(r, user.ID, "")
+					if user.Disabled {
+						helpers.WriteError(w, http.StatusForbidden, "Account disabled")
+						return
+					}
+					if !user.EmailVerified {
+						helpers.WriteError(w, http.StatusForbidden, "Please verify your email address before using the API.")
+						return
+					}
+					if user.APIKeyRotationRequired {
+						helpers.WriteError(w, http.StatusForbidden, "Your relay key must be rotated for security. Please log in to the dashboard and regenerate your relay key.")
+						return
+					}
+					reqCtx := &helpers.RequestContext{
+						User:               user,
+						MasterAPIKey:       user.APIKeyHash.String,
+						SubscriptionStatus: user.GetSubscriptionStatus(),
+						IsSessionAuth:      true,
+					}
+					rCtx := context.WithValue(r.Context(), helpers.RequestContextKey, reqCtx)
+					next.ServeHTTP(w, r.WithContext(rCtx))
 					return
 				}
-				if !user.EmailVerified {
-					helpers.WriteError(w, http.StatusForbidden, "Please verify your email address before using the API.")
-					return
-				}
-				if user.APIKeyRotationRequired {
-					helpers.WriteError(w, http.StatusForbidden, "Your relay key must be rotated for security. Please log in to the dashboard and regenerate your relay key.")
-					return
-				}
-				reqCtx := &helpers.RequestContext{
-					User:               user,
-					MasterAPIKey:       user.APIKeyHash.String,
-					SubscriptionStatus: user.GetSubscriptionStatus(),
-					IsSessionAuth:      true,
-				}
-				rCtx := context.WithValue(r.Context(), helpers.RequestContextKey, reqCtx)
-				next.ServeHTTP(w, r.WithContext(rCtx))
+				// Invalid Bearer = 401. External integrations send x-api-key only.
+				metrics.AuthFailuresTotal.WithLabelValues("invalid_session").Inc()
+				helpers.WriteError(w, http.StatusUnauthorized, "Invalid or expired session. Please log in again.")
 				return
 			}
 
@@ -392,10 +435,16 @@ func backfillAccessLog(r *http.Request, userID int64, kp string) {
 	}
 }
 
+// hasBearerHeader reports whether the request carries an Authorization: Bearer header.
+func hasBearerHeader(r *http.Request) bool {
+	h := r.Header.Get("Authorization")
+	return len(h) > len("Bearer ") && h[:len("Bearer ")] == "Bearer "
+}
+
 // tryBearerAuth attempts to authenticate the request via Authorization: Bearer
-// <session-token>. Returns (user, true) on success, (nil, false) if no Bearer
-// header is present or the token is invalid/expired. Used by AuthMiddleware to
-// support session-based dashboard auth alongside the legacy x-api-key path.
+// <session-token>. Returns (user, true) on success, (nil, false) if the token
+// is invalid or expired. Callers should first call hasBearerHeader to detect
+// whether a Bearer token was actually sent.
 func tryBearerAuth(r *http.Request, db *database.DB) (*model.User, bool) {
 	header := r.Header.Get("Authorization")
 	if header == "" {

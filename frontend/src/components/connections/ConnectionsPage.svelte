@@ -100,11 +100,10 @@
   }
 
   // ── Inactive browser collapse ─────────────────────────────────────────────
-  let expandedInactive = $state(new Set<number>());
+  let expandedInactive = $state<Record<number, boolean>>({});
 
   function toggleInactive(clientId: number) {
-    if (expandedInactive.has(clientId)) expandedInactive.delete(clientId);
-    else expandedInactive.add(clientId);
+    expandedInactive[clientId] = !expandedInactive[clientId];
   }
 
   // ── World notification settings (per-world, lazy-loaded) ─────────────────
@@ -194,6 +193,10 @@
   let editScopes      = $state<string[]>([]);
   let editRateLimit   = $state(0);             // 0 = unlimited
   let editLoading     = $state(false);
+  let editError       = $state('');
+  let editHasWildcard    = $derived(editTargets.includes('*'));
+  let editMissingTargets = $derived(editScopes.length > 0 && editTargets.length === 0);
+  let editMissingScopes  = $derived(editTargets.length > 0 && editScopes.length === 0);
 
   // Scopes that can be enforced via cross-world remote-request tunneling.
   // These are the unique values from ActionToScopeRequired in scopes.go —
@@ -418,9 +421,12 @@
   function openCrossWorldModal(client: KnownClient) {
     editWorldClient = client;
     editTargets = [...(client.allowedTargetClients || [])];
+    // "*" (all worlds) supersedes specific targets — don't keep a mixed list.
+    if (editTargets.includes('*')) editTargets = ['*'];
     editScopes = [...(client.remoteScopes || [])];
     editRateLimit = client.remoteRequestsPerHour ?? 0;
     editLoading = false;
+    editError = '';
   }
 
   function toggleScope(scope: string) {
@@ -433,6 +439,14 @@
     editTargets = editTargets.includes(clientId)
       ? editTargets.filter(id => id !== clientId)
       : [...editTargets, clientId];
+  }
+
+  function toggleWildcardTarget() {
+    if (editTargets.includes('*')) {
+      editTargets = editTargets.filter(id => id !== '*');
+    } else {
+      editTargets = ['*'];
+    }
   }
 
   async function handleSaveCrossWorld() {
@@ -452,7 +466,7 @@
         remoteRequestsPerHour: editRateLimit,
       } : c);
       editWorldClient = null;
-    } else { message = r.error; messageType = 'error'; }
+    } else { editError = r.error; }
   }
 
   // ── Audit log pagination ──────────────────────────────────────────────────
@@ -618,7 +632,7 @@
               + Add Browser
             </button>
             <button class="btn btn-sm btn-secondary" onclick={() => openCrossWorldModal(client)} title="Configure cross-world tunneling for this world">
-              Cross-world{#if client.allowedTargetClients?.length} ({client.allowedTargetClients.length}){/if}
+              Cross-world{#if client.allowedTargetClients?.length || client.remoteScopes?.length} ●{/if}
             </button>
             <button class="btn btn-sm btn-secondary" onclick={() => toggleWorldNotif(client.id)} title="Per-world notification settings">
               Notifications{worldNotifOpen.has(client.id) ? ' ▾' : ' ▸'}
@@ -699,9 +713,9 @@
         {#if inactiveTokens.length > 0}
           <button class="inactive-toggle" onclick={() => toggleInactive(client.id)}>
             {inactiveTokens.length} inactive {inactiveTokens.length === 1 ? 'browser' : 'browsers'}
-            {expandedInactive.has(client.id) ? ' ▾' : ' ▸'}
+            {expandedInactive[client.id] ? ' ▾' : ' ▸'}
           </button>
-          {#if expandedInactive.has(client.id)}
+          {#if expandedInactive[client.id]}
             {#each inactiveTokens as token (token.id)}
               {@render tokenRow(token, client.activeTokenId)}
             {/each}
@@ -814,15 +828,19 @@
 
       <fieldset class="form-fieldset">
         <legend>Allowed target worlds</legend>
+        <label class="scope-label" style="margin-bottom: 0.5rem; font-weight: 600;">
+          <input type="checkbox" checked={editHasWildcard} onchange={toggleWildcardTarget} />
+          Allow all worlds
+        </label>
         {#if clients.filter(c => c.clientId !== editWorldClient?.clientId).length === 0}
-          <p class="text-muted" style="font-size: 0.8rem;">No other worlds paired yet. Pair another world first to enable cross-world access.</p>
+          <p class="text-muted" style="font-size: 0.8rem;">No other worlds paired yet.</p>
         {:else}
-          <p class="text-muted" style="font-size: 0.8rem;">This world may send remote-request operations to the selected worlds.</p>
-          <div class="scope-grid">
+          <div class="scope-grid" class:disabled-list={editHasWildcard}>
             {#each clients.filter(c => c.clientId !== editWorldClient?.clientId) as target}
-              <label class="scope-label">
+              <label class="scope-label" class:muted={editHasWildcard}>
                 <input type="checkbox"
                   checked={editTargets.includes(target.clientId)}
+                  disabled={editHasWildcard}
                   onchange={() => toggleTarget(target.clientId)} />
                 <span>
                   {target.customName || target.worldTitle || target.clientId}
@@ -832,6 +850,11 @@
             {/each}
           </div>
         {/if}
+        {#if editMissingTargets}
+          <p class="warn-inline">⚠ Scopes are selected but no target worlds — this world won't be able to make cross-world requests.</p>
+        {:else if editMissingScopes}
+          <p class="warn-inline">⚠ Target worlds are selected but no scopes — this world won't be able to perform any actions on them.</p>
+        {/if}
       </fieldset>
 
       <label class="form-label">
@@ -839,6 +862,10 @@
         <input class="input" type="number" min="0" bind:value={editRateLimit} placeholder="0 = unlimited" />
         <span class="text-muted" style="font-size: 0.75rem;">Max cross-world requests per hour from this world. 0 = no limit.</span>
       </label>
+
+      {#if editError}
+        <p class="text-error" style="font-size: 0.85rem;">{editError}</p>
+      {/if}
 
       <div class="modal-actions">
         <button class="btn btn-secondary" onclick={() => editWorldClient = null} disabled={editLoading}>Cancel</button>
@@ -861,11 +888,12 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
     padding: 0.75rem 1rem;
     background: var(--color-bg-raised);
   }
-  .world-info { flex: 1; min-width: 0; }
+  .world-info { flex: 1 1 260px; min-width: 0; }
   .world-name {
     display: flex;
     align-items: center;
@@ -881,12 +909,18 @@
     gap: 0.5rem;
     flex-wrap: wrap;
     flex-shrink: 0;
+    max-width: 100%;
+  }
+  .world-actions :global(.btn) {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
   }
   .token-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
     padding: 0.4rem 1rem 0.4rem 1.75rem;
     border-top: 1px solid var(--color-border, #e5e7eb);
     background: var(--color-bg-sunken);
@@ -897,9 +931,14 @@
     align-items: center;
     gap: 0.5rem;
     flex-wrap: wrap;
-    flex: 1;
+    flex: 1 1 220px;
+    min-width: 0;
   }
-  .token-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+  .token-actions { display: flex; gap: 0.4rem; flex-shrink: 0; flex-wrap: wrap; }
+  .token-actions :global(.btn) {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+  }
   .inactive-toggle {
     display: flex;
     align-items: center;
@@ -980,6 +1019,9 @@
   .scope-label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; cursor: pointer; }
   .scope-label.dangerous { color: var(--color-error); }
   .modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem; }
+  .warn-inline { font-size: 0.8rem; color: var(--color-warning, #f59e0b); margin-top: 0.4rem; }
+  .disabled-list { opacity: 0.4; pointer-events: none; }
+  .muted { color: var(--color-text-muted); }
   .world-notif-panel {
     border-top: 1px solid var(--color-border, #e5e7eb);
     background: var(--color-bg-sunken);

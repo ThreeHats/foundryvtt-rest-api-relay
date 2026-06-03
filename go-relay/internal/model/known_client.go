@@ -23,7 +23,7 @@ type KnownClient struct {
 	LastSeenAt     *SQLiteTime    `db:"lastSeenAt" json:"lastSeenAt"`
 	// IsOnline uses LooseBool so corrupted SQLite data (timestamps, strings)
 	// from earlier param-binding bugs doesn't break the entire endpoint.
-	IsOnline       LooseBool      `db:"isOnline" json:"isOnline"`
+	IsOnline LooseBool `db:"isOnline" json:"isOnline"`
 	// AutoStartOnRemoteRequest, when true, lets the relay spawn a headless
 	// session for this clientId in response to an incoming remote-request from
 	// a sibling client (when this client is currently offline). Default false:
@@ -34,6 +34,14 @@ type KnownClient struct {
 	// NULL, the auto-start falls back to the user's first credential — works
 	// for the common single-Foundry-server deployment.
 	CredentialID sql.NullInt64 `db:"credentialId" json:"credentialId"`
+	// ServerFingerprint is a random stable ID generated once per world on first
+	// pair and stored as a world-scoped Foundry setting. It lets the relay
+	// distinguish "same server re-pairing" (reuse clientId) from "different
+	// server with the same worldId slug" (mint a new clientId).
+	ServerFingerprint sql.NullString `db:"serverFingerprint" json:"-"`
+	// PublicUrl is the browser Origin header captured at WebSocket connection time.
+	// Populated when the Foundry module connects to /relay.
+	PublicUrl sql.NullString `db:"publicUrl" json:"publicUrl"`
 	// AllowedTargetClients lists the clientIds this world may invoke
 	// remote-request operations against. CSV. Empty = no cross-world access.
 	AllowedTargetClients sql.NullString `db:"allowedTargetClients" json:"allowedTargetClients"`
@@ -42,9 +50,9 @@ type KnownClient struct {
 	RemoteScopes sql.NullString `db:"remoteScopes" json:"remoteScopes"`
 	// RemoteRequestsPerHour is the per-world rate limit for cross-world
 	// remote-request operations. 0 = unlimited.
-	RemoteRequestsPerHour int `db:"remoteRequestsPerHour" json:"remoteRequestsPerHour"`
-	CreatedAt      SQLiteTime     `db:"createdAt" json:"createdAt"`
-	UpdatedAt      SQLiteTime     `db:"updatedAt" json:"updatedAt"`
+	RemoteRequestsPerHour int        `db:"remoteRequestsPerHour" json:"remoteRequestsPerHour"`
+	CreatedAt             SQLiteTime `db:"createdAt" json:"createdAt"`
+	UpdatedAt             SQLiteTime `db:"updatedAt" json:"updatedAt"`
 }
 
 // GetAllowedTargets returns the parsed list of clientIds this world can target.
@@ -63,12 +71,13 @@ func (c *KnownClient) GetAllowedTargets() []string {
 }
 
 // CanTarget returns true if the given clientId is in this world's allow-list.
+// The special value "*" grants access to all target clients.
 func (c *KnownClient) CanTarget(clientID string) bool {
 	if clientID == "" {
 		return false
 	}
 	for _, allowed := range c.GetAllowedTargets() {
-		if allowed == clientID {
+		if allowed == "*" || allowed == clientID {
 			return true
 		}
 	}
@@ -118,6 +127,14 @@ type KnownClientStore interface {
 	// pairing time to reuse the existing clientId for a world that has been
 	// paired before.
 	FindByWorldID(ctx context.Context, userID int64, worldID string) (*KnownClient, error)
+	// FindByWorldIDAndPublicUrl looks up a known client by (userId, worldId, publicUrl).
+	// More precise than FindByWorldID: differentiates two Foundry instances that share
+	// a worldId slug but run on different servers (e.g. localhost:30000 vs :30001).
+	FindByWorldIDAndPublicUrl(ctx context.Context, userID int64, worldID, publicUrl string) (*KnownClient, error)
+	// FindByServerFingerprint looks up a known client by (userId, serverFingerprint).
+	// Used at pairing time to reuse the existing clientId when the same physical
+	// Foundry server re-pairs (even if its worldId slug is shared by another server).
+	FindByServerFingerprint(ctx context.Context, userID int64, fingerprint string) (*KnownClient, error)
 	// FindByWorldIDCrossUser finds any known client with this worldId belonging
 	// to a different user. Used to detect multi-account abuse.
 	FindByWorldIDCrossUser(ctx context.Context, worldID string, excludeUserID int64) (*KnownClient, error)
@@ -153,41 +170,60 @@ func (s *SQLKnownClientStore) col(name string) string {
 func (s *SQLKnownClientStore) Upsert(ctx context.Context, client *KnownClient) error {
 	now := NewSQLiteTime(time.Now())
 
-	if s.DBType == "sqlite" {
-		// $1=user_id  $2=client_id  $3=world_id  $4=world_title  $5=system_id  $6=system_title
-		// $7=system_version  $8=foundry_version  $9=custom_name  $10=is_online
-		// $11=created_at  $12=updated_at  $13=last_seen_at
-		query := fmt.Sprintf(`INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-			ON CONFLICT(%s, %s) DO UPDATE SET
-				%s=excluded.%s, %s=excluded.%s, %s=excluded.%s,
-				%s=excluded.%s, %s=excluded.%s, %s=excluded.%s,
-				%s=excluded.%s, %s=excluded.%s, %s=excluded.%s,
-				%s=excluded.%s`,
-			s.tableName(),
-			s.col("user_id"), s.col("client_id"), s.col("world_id"), s.col("world_title"),
-			s.col("system_id"), s.col("system_title"), s.col("system_version"),
-			s.col("foundry_version"), s.col("custom_name"), s.col("is_online"),
-			s.col("created_at"), s.col("updated_at"), s.col("last_seen_at"),
-			// conflict columns
-			s.col("user_id"), s.col("client_id"),
-			// update set — use excluded.<col> for everything to keep parameter binding clean
-			s.col("world_id"), s.col("world_id"),
-			s.col("world_title"), s.col("world_title"),
-			s.col("system_id"), s.col("system_id"),
-			s.col("system_title"), s.col("system_title"),
-			s.col("system_version"), s.col("system_version"),
-			s.col("foundry_version"), s.col("foundry_version"),
-			s.col("custom_name"), s.col("custom_name"),
-			s.col("is_online"), s.col("is_online"),
-			s.col("updated_at"), s.col("updated_at"),
-			s.col("last_seen_at"), s.col("last_seen_at"))
+	// Insert column order MUST stay in lockstep with the args slice below.
+	insertCols := []string{
+		"user_id", "client_id", "world_id", "world_title", "system_id", "system_title",
+		"system_version", "foundry_version", "custom_name", "server_fingerprint",
+		"is_online", "created_at", "updated_at", "last_seen_at", "public_url",
+	}
+	args := []interface{}{
+		client.UserID, client.ClientID, client.WorldID, client.WorldTitle, client.SystemID, client.SystemTitle,
+		client.SystemVersion, client.FoundryVersion, client.CustomName, client.ServerFingerprint,
+		bool(client.IsOnline), now, now, now, client.PublicUrl,
+	}
 
-		result, err := s.DB.ExecContext(ctx, query,
-			client.UserID, client.ClientID, client.WorldID, client.WorldTitle,
-			client.SystemID, client.SystemTitle, client.SystemVersion,
-			client.FoundryVersion, client.CustomName, client.IsOnline,
-			now, now, now)
+	colList := make([]string, len(insertCols))
+	placeholders := make([]string, len(insertCols))
+	for i, c := range insertCols {
+		colList[i] = s.col(c)
+		placeholders[i] = fmt.Sprintf("$%d", i+1)
+	}
+
+	keyword := "EXCLUDED"
+	if s.DBType == "sqlite" {
+		keyword = "excluded"
+	}
+
+	// Preserve the stored value when the incoming column is empty: the WS-connect
+	// upsert carries no serverFingerprint and "add browser" carries no world/system
+	// metadata, so an unconditional overwrite would null them out. Non-empty updates.
+	preserveOnEmpty := map[string]bool{
+		"world_id": true, "world_title": true, "system_id": true, "system_title": true,
+		"system_version": true, "foundry_version": true, "custom_name": true,
+		"server_fingerprint": true, "public_url": true,
+	}
+	setClauses := make([]string, 0, len(insertCols))
+	for _, c := range insertCols {
+		// Conflict keys and the immutable created_at are never updated.
+		if c == "user_id" || c == "client_id" || c == "created_at" {
+			continue
+		}
+		col := s.col(c)
+		if preserveOnEmpty[c] {
+			// The existing-row reference must be table-qualified: Postgres rejects
+			// bare column names in DO UPDATE as ambiguous vs EXCLUDED (42702).
+			setClauses = append(setClauses, fmt.Sprintf("%s=COALESCE(NULLIF(%s.%s, ''), %s.%s)", col, keyword, col, s.tableName(), col))
+		} else {
+			setClauses = append(setClauses, fmt.Sprintf("%s=%s.%s", col, keyword, col))
+		}
+	}
+
+	query := fmt.Sprintf("INSERT INTO %s (%s) VALUES (%s) ON CONFLICT (%s, %s) DO UPDATE SET %s",
+		s.tableName(), strings.Join(colList, ", "), strings.Join(placeholders, ", "),
+		s.col("user_id"), s.col("client_id"), strings.Join(setClauses, ", "))
+
+	if s.DBType == "sqlite" {
+		result, err := s.DB.ExecContext(ctx, query, args...)
 		if err != nil {
 			return err
 		}
@@ -204,37 +240,7 @@ func (s *SQLKnownClientStore) Upsert(ctx context.Context, client *KnownClient) e
 	}
 
 	// PostgreSQL
-	query := fmt.Sprintf(`INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-		ON CONFLICT (%s, %s) DO UPDATE SET
-			%s=EXCLUDED.%s, %s=EXCLUDED.%s, %s=EXCLUDED.%s,
-			%s=EXCLUDED.%s, %s=EXCLUDED.%s, %s=EXCLUDED.%s,
-			%s=EXCLUDED.%s, %s=EXCLUDED.%s, %s=$12, %s=$13
-		RETURNING id`,
-		s.tableName(),
-		s.col("user_id"), s.col("client_id"), s.col("world_id"), s.col("world_title"),
-		s.col("system_id"), s.col("system_title"), s.col("system_version"),
-		s.col("foundry_version"), s.col("custom_name"), s.col("is_online"),
-		s.col("created_at"), s.col("updated_at"), s.col("last_seen_at"),
-		// conflict columns
-		s.col("user_id"), s.col("client_id"),
-		// update set
-		s.col("world_id"), s.col("world_id"),
-		s.col("world_title"), s.col("world_title"),
-		s.col("system_id"), s.col("system_id"),
-		s.col("system_title"), s.col("system_title"),
-		s.col("system_version"), s.col("system_version"),
-		s.col("foundry_version"), s.col("foundry_version"),
-		s.col("custom_name"), s.col("custom_name"),
-		s.col("is_online"), s.col("is_online"),
-		s.col("updated_at"), s.col("last_seen_at"))
-
-	return s.DB.QueryRowContext(ctx, query,
-		client.UserID, client.ClientID, client.WorldID, client.WorldTitle,
-		client.SystemID, client.SystemTitle, client.SystemVersion,
-		client.FoundryVersion, client.CustomName, bool(client.IsOnline),
-		now, now, now,
-	).Scan(&client.ID)
+	return s.DB.QueryRowContext(ctx, query+" RETURNING id", args...).Scan(&client.ID)
 }
 
 func (s *SQLKnownClientStore) FindAllByUser(ctx context.Context, userID int64) ([]*KnownClient, error) {
@@ -279,6 +285,26 @@ func (s *SQLKnownClientStore) FindByWorldID(ctx context.Context, userID int64, w
 	var c KnownClient
 	err := s.DB.GetContext(ctx, &c, fmt.Sprintf("SELECT * FROM %s WHERE %s = $1 AND %s = $2 LIMIT 1",
 		s.tableName(), s.col("user_id"), s.col("world_id")), userID, worldID)
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	return &c, err
+}
+
+func (s *SQLKnownClientStore) FindByWorldIDAndPublicUrl(ctx context.Context, userID int64, worldID, publicUrl string) (*KnownClient, error) {
+	var c KnownClient
+	err := s.DB.GetContext(ctx, &c, fmt.Sprintf("SELECT * FROM %s WHERE %s = $1 AND %s = $2 AND %s = $3 LIMIT 1",
+		s.tableName(), s.col("user_id"), s.col("world_id"), s.col("public_url")), userID, worldID, publicUrl)
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	return &c, err
+}
+
+func (s *SQLKnownClientStore) FindByServerFingerprint(ctx context.Context, userID int64, fingerprint string) (*KnownClient, error) {
+	var c KnownClient
+	err := s.DB.GetContext(ctx, &c, fmt.Sprintf("SELECT * FROM %s WHERE %s = $1 AND %s = $2 LIMIT 1",
+		s.tableName(), s.col("user_id"), s.col("server_fingerprint")), userID, fingerprint)
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}

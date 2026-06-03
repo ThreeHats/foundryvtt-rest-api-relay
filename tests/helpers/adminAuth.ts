@@ -7,6 +7,7 @@
 
 import axios, { AxiosRequestConfig, Method } from 'axios';
 import { testVariables } from './testVariables';
+import { getGlobalVariable, setGlobalVariable } from './globalVariables';
 
 export interface AdminSession {
   cookie: string; // raw Cookie header value (e.g. "__Host-admin_token=...")
@@ -48,12 +49,29 @@ export async function adminLogin(
   if (!email || !password) {
     throw new Error('TEST_ADMIN_EMAIL and TEST_ADMIN_PASSWORD must be set in .env.test');
   }
+  // If the configured admin credentials already failed once this run, fail fast
+  // instead of re-attempting: repeated failures from every admin test file would
+  // trip the server's 15-minute admin-login IP lockout (and 429 everything).
+  // The marker lives in the global-vars file so it spans test files.
+  const usingDefaultCreds = email === testVariables.adminEmail && password === testVariables.adminPassword;
+  if (usingDefaultCreds) {
+    const priorFailure = getGlobalVariable('adminAuth', 'loginFailed');
+    if (priorFailure) {
+      throw new Error(
+        `Admin login previously failed this run (${priorFailure}); skipping further attempts ` +
+        'to avoid the admin-login IP lockout. Fix TEST_ADMIN_EMAIL/TEST_ADMIN_PASSWORD or set TEST_SKIP_ADMIN=true.'
+      );
+    }
+  }
   const response = await axios.post(
     `${testVariables.baseUrl}/admin/auth/login`,
     { email, password },
     { validateStatus: () => true, timeout: 30000 }
   );
   if (response.status !== 200) {
+    if (usingDefaultCreds) {
+      setGlobalVariable('adminAuth', 'loginFailed', `${response.status} ${JSON.stringify(response.data)}`);
+    }
     throw new Error(`Admin login failed: ${response.status} ${JSON.stringify(response.data)}`);
   }
   const setCookie = response.headers['set-cookie'];

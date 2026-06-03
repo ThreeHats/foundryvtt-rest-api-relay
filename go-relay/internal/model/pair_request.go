@@ -22,6 +22,7 @@ const (
 type PairRequest struct {
 	ID             int64          `db:"id" json:"id"`
 	Code           string         `db:"code" json:"code"`
+	ClientID       string         `db:"clientId" json:"clientId"`
 	WorldID        string         `db:"worldId" json:"worldId"`
 	WorldTitle     string         `db:"worldTitle" json:"worldTitle"`
 	SystemID       string         `db:"systemId" json:"systemId"`
@@ -85,9 +86,10 @@ func (s *SQLPairRequestStore) FindByCode(ctx context.Context, code string) (*Pai
 func (s *SQLPairRequestStore) Create(ctx context.Context, req *PairRequest) error {
 	now := time.Now()
 	query := fmt.Sprintf(
-		`INSERT INTO %s (code, %s, %s, %s, %s, %s, %s, %s, %s, %s, status, %s, %s)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+		`INSERT INTO %s (code, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, status, %s, %s)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
 		s.tableName(),
+		s.col("client_id"),
 		s.col("world_id"), s.col("world_title"),
 		s.col("system_id"), s.col("system_title"),
 		s.col("system_version"), s.col("foundry_version"),
@@ -98,7 +100,7 @@ func (s *SQLPairRequestStore) Create(ctx context.Context, req *PairRequest) erro
 	if s.DBType != "sqlite" {
 		query += " RETURNING id"
 		return s.DB.QueryRowContext(ctx, query,
-			req.Code, req.WorldID, req.WorldTitle,
+			req.Code, req.ClientID, req.WorldID, req.WorldTitle,
 			req.SystemID, req.SystemTitle, req.SystemVersion, req.FoundryVersion,
 			req.RequestedRemoteScopes, req.RequestedTargetClients, req.UpgradeOnly,
 			req.Status, req.ExpiresAt, now,
@@ -106,7 +108,7 @@ func (s *SQLPairRequestStore) Create(ctx context.Context, req *PairRequest) erro
 	}
 
 	result, err := s.DB.ExecContext(ctx, query,
-		req.Code, req.WorldID, req.WorldTitle,
+		req.Code, req.ClientID, req.WorldID, req.WorldTitle,
 		req.SystemID, req.SystemTitle, req.SystemVersion, req.FoundryVersion,
 		req.RequestedRemoteScopes, req.RequestedTargetClients, req.UpgradeOnly,
 		req.Status, req.ExpiresAt, now)

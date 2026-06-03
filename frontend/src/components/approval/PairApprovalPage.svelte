@@ -31,8 +31,16 @@
     loading = false;
     if (result.ok) {
       request = result.data;
-      selectedScopes = [...(request.requestedRemoteScopes || [])];
-      selectedTargets = [...(request.requestedTargetClients || [])];
+      // Union requested + already-approved so existing selections are preserved.
+      const requestedScopes = request.requestedRemoteScopes || [];
+      const currentScopes = request.currentRemoteScopes || [];
+      selectedScopes = [...new Set([...currentScopes, ...requestedScopes])];
+      const requestedTargets = request.requestedTargetClients || [];
+      const currentTargets = request.currentAllowedTargetClients || [];
+      selectedTargets = [...new Set([...currentTargets, ...requestedTargets])];
+      // "*" (all worlds) supersedes specific targets — don't persist a mixed list.
+      if (selectedTargets.includes('*')) selectedTargets = ['*'];
+      rateLimit = request.currentRemoteRequestsPerHour ?? 0;
       // Pre-expand cross-world section if the world requested any permissions.
       showCrossWorld = selectedScopes.length > 0 || selectedTargets.length > 0;
     } else {
@@ -56,6 +64,32 @@
       selectedTargets = [...selectedTargets, clientId];
     }
   }
+
+  function toggleWildcardTarget() {
+    if (selectedTargets.includes('*')) {
+      selectedTargets = selectedTargets.filter(t => t !== '*');
+    } else {
+      selectedTargets = ['*'];
+    }
+  }
+
+  let hasWildcard      = $derived(selectedTargets.includes('*'));
+  let missingTargets   = $derived(selectedScopes.length > 0 && selectedTargets.length === 0);
+  let missingScopes    = $derived(selectedTargets.length > 0 && selectedScopes.length === 0);
+  let displayClients   = $derived(
+    request
+      ? (request.knownClients || []).filter(c => c.clientId !== request.clientId)
+      : []
+  );
+  // Show a checkbox for every scope that will be persisted (current ∪ requested),
+  // so already-granted scopes aren't selected-but-invisible.
+  let displayScopes  = $derived([
+    ...new Set([...(request?.currentRemoteScopes || []), ...(request?.requestedRemoteScopes || [])]),
+  ]);
+  // Scopes carried over from a prior grant (not in this request) — flagged in the UI.
+  let preApprovedScopes = $derived(new Set(
+    (request?.currentRemoteScopes || []).filter(s => !(request?.requestedRemoteScopes || []).includes(s))
+  ));
 
   function clientLabel(client: KnownClient): string {
     return client.customName || client.worldTitle || client.clientId;
@@ -182,7 +216,7 @@
         {#if selectedScopes.length > 0 || selectedTargets.length > 0}
           <span class="badge badge-active" style="margin-left: 0.5rem; font-size: 0.7rem; vertical-align: middle;">
             {selectedScopes.length} scope{selectedScopes.length !== 1 ? 's' : ''},
-            {selectedTargets.length} target{selectedTargets.length !== 1 ? 's' : ''}
+            {hasWildcard ? 'all worlds' : `${selectedTargets.length} target${selectedTargets.length !== 1 ? 's' : ''}`}
           </span>
         {:else}
           <span class="badge" style="margin-left: 0.5rem; font-size: 0.7rem; vertical-align: middle; background: var(--color-border); color: var(--color-text-muted);">
@@ -205,35 +239,22 @@
         <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0.5rem;">
           Which of your other worlds may this world send remote requests to?
         </p>
-        {#if (request.requestedTargetClients || []).length > 0}
-          {@const requestedClients = (request.knownClients || []).filter(c => (request.requestedTargetClients || []).includes(c.clientId))}
-          {#if requestedClients.length === 0}
-            <p class="text-muted" style="font-size: 0.875rem;">No matching paired worlds found.</p>
-          {:else}
-            <div class="checkbox-list">
-              {#each requestedClients as client (client.id)}
-                <label class="checkbox-label">
-                  <input type="checkbox"
-                    checked={selectedTargets.includes(client.clientId)}
-                    onchange={() => toggleTarget(client.clientId)} />
-                  <span>
-                    {clientLabel(client)}
-                    {#if client.isOnline}
-                      <span class="badge badge-active" style="margin-left: 0.25rem; font-size: 0.7rem;">online</span>
-                    {/if}
-                  </span>
-                </label>
-              {/each}
-            </div>
-          {/if}
-        {:else if (request.knownClients || []).filter(c => c.clientId !== request?.worldId).length === 0}
+
+        <!-- Wildcard option -->
+        <label class="checkbox-label" style="font-weight: 600; margin-bottom: 0.4rem;">
+          <input type="checkbox" checked={hasWildcard} onchange={toggleWildcardTarget} />
+          Allow all worlds
+        </label>
+
+        {#if displayClients.length === 0}
           <p class="text-muted" style="font-size: 0.875rem;">No other paired worlds found.</p>
         {:else}
-          <div class="checkbox-list">
-            {#each (request.knownClients || []).filter(c => c.clientId !== request?.worldId) as client (client.id)}
-              <label class="checkbox-label">
+          <div class="checkbox-list" class:disabled-list={hasWildcard}>
+            {#each displayClients as client (client.id)}
+              <label class="checkbox-label" class:muted={hasWildcard}>
                 <input type="checkbox"
                   checked={selectedTargets.includes(client.clientId)}
+                  disabled={hasWildcard}
                   onchange={() => toggleTarget(client.clientId)} />
                 <span>
                   {clientLabel(client)}
@@ -246,16 +267,22 @@
           </div>
         {/if}
 
+        {#if missingTargets}
+          <p class="warn-inline">⚠ Scopes are selected but no target worlds — this world won't be able to make cross-world requests.</p>
+        {:else if missingScopes}
+          <p class="warn-inline">⚠ Target worlds are selected but no scopes — this world won't be able to perform any actions on them.</p>
+        {/if}
+
         <!-- Allowed scopes -->
         <div class="section-label" style="margin-top: 1rem;">Allowed scopes</div>
         <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0.5rem;">
           Operations this world may invoke on its allowed target worlds.
         </p>
-        {#if (request.requestedRemoteScopes || []).length === 0}
+        {#if displayScopes.length === 0}
           <p class="text-muted" style="font-size: 0.875rem;">No specific scopes were requested.</p>
         {:else}
           <div class="scope-list">
-            {#each (request.requestedRemoteScopes || []) as scope}
+            {#each displayScopes as scope}
               {@const isDangerous = scope in dangerDetails}
               <label class="scope-label" class:dangerous={isDangerous}>
                 <input type="checkbox"
@@ -265,6 +292,9 @@
                   {scope}
                   {#if isDangerous}
                     <span class="badge badge-expired" style="margin-left: 0.25rem; font-size: 0.65rem;">dangerous</span>
+                  {/if}
+                  {#if preApprovedScopes.has(scope)}
+                    <span class="badge badge-active" style="margin-left: 0.25rem; font-size: 0.65rem;">already granted</span>
                   {/if}
                 </span>
               </label>
@@ -451,4 +481,13 @@
     padding: 0.5rem 0.75rem;
     color: var(--color-text);
   }
+
+  .warn-inline {
+    font-size: 0.8rem;
+    color: var(--color-warning, #f59e0b);
+    margin-top: 0.4rem;
+  }
+
+  .disabled-list { opacity: 0.4; pointer-events: none; }
+  .muted { color: var(--color-text-muted); }
 </style>

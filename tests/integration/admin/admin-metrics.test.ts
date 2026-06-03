@@ -11,7 +11,7 @@ import { testVariables } from '../../helpers/testVariables';
 import { adminLogin, makeAdminRequest, AdminSession } from '../../helpers/adminAuth';
 
 const hasAdminCredentials = testVariables.adminEmail !== '' && testVariables.adminPassword !== '';
-const describeAdmin = hasAdminCredentials ? describe : describe.skip;
+const describeAdmin = hasAdminCredentials && process.env.TEST_SKIP_ADMIN !== 'true' ? describe : describe.skip;
 
 describeAdmin('Admin In-App Metrics', () => {
   let session: AdminSession;
@@ -101,7 +101,9 @@ describe('Prometheus /metrics endpoint', () => {
     expect(response.status).toBe(200);
     // PII safety: never expose emails or API keys in metric labels
     expect(response.data).not.toContain('@');
-    expect(response.data).not.toContain(testVariables.adminEmail);
+    if (testVariables.adminEmail) {
+      expect(response.data).not.toContain(testVariables.adminEmail);
+    }
     if (testVariables.apiKey.length >= 16) {
       expect(response.data).not.toContain(testVariables.apiKey);
     }

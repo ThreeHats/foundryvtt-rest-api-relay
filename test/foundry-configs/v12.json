@@ -1,0 +1,30 @@
+{
+  "world": {
+    "id": "test-world",
+    "title": "Test World",
+    "system": "dnd5e"
+  },
+  "system": {
+    "manifest": "https://github.com/foundryvtt/dnd5e/releases/download/release-4.3.8/system.json"
+  },
+  "modules": [],
+  "users": [
+    {
+      "name": "Gamemaster",
+      "role": 4
+    }
+  ],
+  "settings": {
+    "foundry-rest-api.wsRelayUrl": "ws://relay:3010",
+    "foundry-rest-api.pairedRelayUrl": "ws://relay:3010",
+    "foundry-rest-api.clientId": "qsl-integration-test",
+    "core.moduleConfiguration": {
+      "foundry-rest-api": true
+    },
+    "core.nue.shownTips": true,
+    "foundry-rest-api.allowExecuteJs": true,
+    "foundry-rest-api.allowMacroExecute": true,
+    "foundry-rest-api.allowMacroWrite": true,
+    "foundry-rest-api.codeExecutionPermission": 4
+  }
+}

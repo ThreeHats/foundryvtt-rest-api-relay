@@ -80,13 +80,18 @@ export function getClientId(version?: string): string {
  */
 export function getSystemId(version?: string): string {
   const targetVersion = version || getConfiguredVersions()[0];
-  
-  // TODO: will need to add this to the .env.test.example file
-  // If using existing session, get systemId from env
+
+  // Optional explicit override for existing-session runs.
   if (useExistingSession) {
-    return process.env[`TEST_SYSTEM_ID_V${targetVersion}`] || '';
+    const override = process.env[`TEST_SYSTEM_ID_V${targetVersion}`];
+    if (override) {
+      return override;
+    }
+    // Otherwise fall through: the session-endpoints bootstrap resolves the
+    // systemId from GET /clients (matched by TEST_CLIENT_ID) and stores it
+    // in globalVariables, same as the headless-session flow does.
   }
-  
+
   return getGlobalVariable(targetVersion, 'systemId') || '';
 }
 

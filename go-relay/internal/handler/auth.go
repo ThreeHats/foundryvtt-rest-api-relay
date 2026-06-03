@@ -974,17 +974,7 @@ a{display:inline-block;margin-top:16px;padding:10px 24px;background:%s;color:#ff
 
 	// Scoped API Key CRUD — requires dashboard session (not API key)
 	r.Route("/api-keys", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "API key management requires dashboard login.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		// POST /auth/api-keys
 		r.Post("/", func(w http.ResponseWriter, r *http.Request) {

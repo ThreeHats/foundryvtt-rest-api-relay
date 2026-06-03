@@ -24,7 +24,6 @@ services:
       - ./data:/app/data
     ports:
       - "3010:3010"
-    shm_size: "1g"
     restart: unless-stopped
     # ── GPU acceleration ─────────────────────────────────────────────────────
     # Requires Docker Engine (CE) on Linux. Docker Desktop does not support

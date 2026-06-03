@@ -8,6 +8,7 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { ApiRequestConfig, makeRequest, replaceVariables } from '../../helpers/apiRequest';
 import { testVariables } from '../../helpers/testVariables';
+import { ensureSessionToken } from '../../helpers/sessionAuth';
 import { forEachVersion } from '../../helpers/multiVersion';
 
 // Track keys created for cleanup
@@ -85,20 +86,7 @@ async function apiRequest(method: string, endpoint: string, apiKey: string, quer
 describe('Action Scopes', () => {
 
   beforeAll(async () => {
-    if (testVariables.sessionToken) {
-      sessionToken = testVariables.sessionToken;
-      return;
-    }
-    const loginResponse = await makeRequest({
-      url: { raw: `${testVariables.baseUrl}/auth/login`, host: [testVariables.baseUrl], path: ['auth', 'login'] },
-      method: 'POST',
-      header: [],
-      body: { mode: 'raw', raw: JSON.stringify({ email: testVariables.userEmail, password: testVariables.userPassword }) },
-    });
-    if (loginResponse.status !== 200) {
-      throw new Error(`Failed to get session token for scopes tests: ${loginResponse.status}`);
-    }
-    sessionToken = loginResponse.data.sessionToken as string;
+    sessionToken = await ensureSessionToken();
   });
 
   forEachVersion((version, getClientId) => {

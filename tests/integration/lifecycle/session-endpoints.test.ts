@@ -6,10 +6,10 @@
  */
 
 import { describe, test, expect, afterAll } from '@jest/globals';
-import { ApiRequestConfig } from '../../helpers/apiRequest';
+import { ApiRequestConfig, makeRequest } from '../../helpers/apiRequest';
 import { testVariables, setVariable } from '../../helpers/testVariables';
 import { captureExample, saveExamples } from '../../helpers/captureExample';
-import { forEachVersion } from '../../helpers/multiVersion';
+import { forEachVersion, getConfiguredVersions } from '../../helpers/multiVersion';
 import { setGlobalVariable } from '../../helpers/globalVariables';
 import * as path from 'path';
 import crypto from 'crypto';
@@ -24,6 +24,49 @@ const capturedExamples: any[] = [];
 const handshakeData: Record<string, { token: string; publicKey: string; nonce: string }> = {};
 
 const describeOrSkip = useExistingSession ? describe.skip : describe;
+
+// In existing-session mode the /start-session flow below is skipped, so the
+// global variables it normally captures (systemId, worldId, foundryVersion)
+// are never set — and system-gated suites (e.g. dnd5e) would silently skip.
+// Resolve them from GET /clients by matching each version's TEST_CLIENT_ID.
+const describeExistingSessionOnly = useExistingSession ? describe : describe.skip;
+describeExistingSessionOnly('Existing-session metadata bootstrap', () => {
+  test('GET /clients resolves systemId/worldId for configured clientIds', async () => {
+    const response = await makeRequest({
+      url: {
+        raw: `${testVariables.baseUrl}/clients`,
+        host: [testVariables.baseUrl],
+        path: ['clients'],
+      },
+      method: 'GET',
+      header: [{ key: 'x-api-key', value: testVariables.apiKey, type: 'text' }],
+    });
+    expect(response.status).toBe(200);
+    const clients: any[] = response.data?.clients || [];
+
+    for (const version of getConfiguredVersions()) {
+      const clientId = process.env[`TEST_CLIENT_ID_V${version}`];
+      if (!clientId) continue; // forEachVersion already warns about missing ids
+      const match = clients.find(c => c.clientId === clientId);
+      if (!match) {
+        throw new Error(
+          `TEST_CLIENT_ID_V${version}=${clientId} is not connected to the relay ` +
+          `(connected: ${clients.map(c => c.clientId).join(', ') || 'none'})`
+        );
+      }
+      if (match.systemId) {
+        setGlobalVariable(version, 'systemId', match.systemId);
+        console.log(`✅ Resolved systemId=${match.systemId} for v${version} from /clients`);
+      }
+      if (match.worldId) {
+        setGlobalVariable(version, 'worldId', match.worldId);
+      }
+      if (match.foundryVersion) {
+        setGlobalVariable(version, 'foundryVersion', match.foundryVersion);
+      }
+    }
+  });
+});
 
 /**
  * Generate code examples that show the complete session flow:
@@ -254,8 +297,9 @@ describeOrSkip('Session', () => {
         const hs = handshakeData[version];
         expect(hs).toBeTruthy();
         
-        // Encrypt password with nonce using RSA-OAEP
-        const password = process.env.FOUNDRY_PASSWORD || 'password';
+        // Encrypt password with nonce using RSA-OAEP.
+        // ?? not || so an explicitly empty FOUNDRY_PASSWORD (passwordless GM) is sent as-is.
+        const password = process.env.FOUNDRY_PASSWORD ?? 'password';
         const payload = JSON.stringify({ password, nonce: hs.nonce });
         const encryptedPassword = crypto.publicEncrypt(
           { key: hs.publicKey, padding: crypto.constants.RSA_PKCS1_OAEP_PADDING, oaepHash: 'sha256' },

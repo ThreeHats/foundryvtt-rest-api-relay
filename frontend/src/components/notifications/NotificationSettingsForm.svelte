@@ -10,6 +10,7 @@
   let notifyOnExecuteJs = $state(false);
   let notifyOnMacroExecute = $state(false);
   let logCrossWorldRequests = $state(true);
+  let notifyOnCrossWorldRequests = $state(true);
   let discordWebhookUrl = $state('');
   let notifyEmail = $state('');
   let notificationDebounceWindowSecs = $state(0);
@@ -39,6 +40,7 @@
       notifyOnExecuteJs = result.data.notifyOnExecuteJs;
       notifyOnMacroExecute = result.data.notifyOnMacroExecute;
       logCrossWorldRequests = result.data.logCrossWorldRequests ?? true;
+      notifyOnCrossWorldRequests = result.data.notifyOnCrossWorldRequests ?? true;
       discordWebhookUrl = result.data.discordWebhookUrl || '';
       notifyEmail = result.data.notifyEmail || '';
       notificationDebounceWindowSecs = result.data.notificationDebounceWindowSecs ?? 0;
@@ -61,6 +63,7 @@
       notifyOnExecuteJs,
       notifyOnMacroExecute,
       logCrossWorldRequests,
+      notifyOnCrossWorldRequests,
       discordWebhookUrl: discordWebhookUrl.trim() || '',
       notifyEmail: notifyEmail.trim() || '',
       notificationDebounceWindowSecs,
@@ -128,7 +131,7 @@
           </label>
           <label class="checkbox-label">
             <input type="checkbox" bind:checked={notifyOnMetadataMismatch} />
-            <span>A suspicious connection occurs (metadata mismatch)</span>
+            <span>A suspicious connection occurs</span>
           </label>
           <label class="checkbox-label">
             <input type="checkbox" bind:checked={notifyOnSettingsChange} />
@@ -141,6 +144,10 @@
           <label class="checkbox-label">
             <input type="checkbox" bind:checked={notifyOnMacroExecute} />
             <span>A macro-execute call is made</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" bind:checked={notifyOnCrossWorldRequests} />
+            <span>Cross-world activity occurs</span>
           </label>
         </div>
       </div>

@@ -8,6 +8,7 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { ApiRequestConfig, makeRequest } from '../../helpers/apiRequest';
 import { testVariables, setVariable } from '../../helpers/testVariables';
+import { ensureSessionToken } from '../../helpers/sessionAuth';
 import { captureExample, appendExamples } from '../../helpers/captureExample';
 import { forEachVersion } from '../../helpers/multiVersion';
 import * as path from 'path';
@@ -27,32 +28,9 @@ const createdKeyIds: string[] = [];
 
 describe('Scoped API Keys', () => {
   beforeAll(async () => {
-    // Get a session token for key management operations.
-    // In ephemeral mode testVariables.sessionToken is set from registration.
-    // In pre-provisioned mode we login with TEST_USER_EMAIL/PASSWORD.
-    if (testVariables.sessionToken) {
-      sessionToken = testVariables.sessionToken;
-      return;
-    }
-
-    const loginResponse = await makeRequest({
-      url: {
-        raw: `${testVariables.baseUrl}/auth/login`,
-        host: [testVariables.baseUrl],
-        path: ['auth', 'login'],
-      },
-      method: 'POST',
-      header: [],
-      body: {
-        mode: 'raw',
-        raw: JSON.stringify({ email: testVariables.userEmail, password: testVariables.userPassword }),
-      },
-    });
-
-    if (loginResponse.status !== 200) {
-      throw new Error(`Failed to get session token for key management tests: ${loginResponse.status}`);
-    }
-    sessionToken = loginResponse.data.sessionToken as string;
+    // Ephemeral mode: token comes from registration. Pre-provisioned mode:
+    // logs in once with TEST_USER_EMAIL/PASSWORD and caches for the whole run.
+    sessionToken = await ensureSessionToken();
   });
 
   afterAll(async () => {

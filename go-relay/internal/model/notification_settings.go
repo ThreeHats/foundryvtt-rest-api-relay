@@ -37,6 +37,7 @@ type NotificationSettings struct {
 	NotificationDebounceWindowSecs int            `db:"notificationDebounceWindowSecs" json:"notificationDebounceWindowSecs"`
 	RemoteRequestBatchWindowSecs   int            `db:"remoteRequestBatchWindowSecs" json:"remoteRequestBatchWindowSecs"`
 	LogCrossWorldRequests          bool           `db:"logCrossWorldRequests" json:"logCrossWorldRequests"`
+	NotifyOnCrossWorldRequests     bool           `db:"notifyOnCrossWorldRequests" json:"notifyOnCrossWorldRequests"`
 	CreatedAt                      SQLiteTime     `db:"createdAt" json:"createdAt"`
 	UpdatedAt                      SQLiteTime     `db:"updatedAt" json:"updatedAt"`
 }
@@ -90,10 +91,11 @@ func (s *SQLNotificationSettingsStore) Upsert(ctx context.Context, settings *Not
 		s.col("notification_debounce_window_secs"),
 		s.col("remote_request_batch_window_secs"),
 		s.col("log_cross_world_requests"),
+		s.col("notify_on_cross_world_requests"),
 		s.col("created_at"),
 		s.col("updated_at"),
 	}
-	placeholders := "$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15"
+	placeholders := "$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16"
 	args := []interface{}{
 		settings.UserID,
 		settings.DiscordWebhookURL,
@@ -108,6 +110,7 @@ func (s *SQLNotificationSettingsStore) Upsert(ctx context.Context, settings *Not
 		settings.NotificationDebounceWindowSecs,
 		settings.RemoteRequestBatchWindowSecs,
 		settings.LogCrossWorldRequests,
+		settings.NotifyOnCrossWorldRequests,
 		now,
 		now,
 	}
@@ -121,7 +124,7 @@ func (s *SQLNotificationSettingsStore) Upsert(ctx context.Context, settings *Not
 	}
 
 	// Build the UPDATE SET clause for ON CONFLICT
-	updateCols := cols[1:14] // skip user_id (conflict column) and created_at; include updated_at separately below
+	updateCols := cols[1:14] // skip user_id (index 0, conflict column) and created_at (index 14); updated_at added separately below
 	upsertSet := ""
 	keyword := "EXCLUDED"
 	if s.DBType == "sqlite" {
@@ -134,7 +137,7 @@ func (s *SQLNotificationSettingsStore) Upsert(ctx context.Context, settings *Not
 		upsertSet += fmt.Sprintf("%s=%s.%s", c, keyword, c)
 	}
 	// Always touch updated_at
-	upsertSet += fmt.Sprintf(", %s=$15", s.col("updated_at"))
+	upsertSet += fmt.Sprintf(", %s=$16", s.col("updated_at"))
 
 	if s.DBType == "sqlite" {
 		query := fmt.Sprintf(`INSERT INTO %s (%s)

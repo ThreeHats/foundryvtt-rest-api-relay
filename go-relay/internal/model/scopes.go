@@ -156,6 +156,12 @@ var ActionToScopeRequired = map[string]string{
 	"play-sound":            ScopePlaylistControl,
 	"stop-sound":            ScopePlaylistControl,
 	"world-info":            ScopeWorldInfo,
+	"server-url":            ScopeWorldInfo,
+	"get-canvas-documents":  ScopeCanvasRead,
+	"create-canvas-document": ScopeCanvasWrite,
+	"update-canvas-document": ScopeCanvasWrite,
+	"delete-canvas-document": ScopeCanvasWrite,
+	"move-token":            ScopeCanvasWrite,
 	"execute-js":            ScopeExecuteJS,
 }
 

@@ -235,6 +235,7 @@ export interface Credential {
 
 export interface PairRequestDetails {
   code: string;
+  clientId: string;
   worldId: string;
   worldTitle: string;
   systemId: string;
@@ -243,6 +244,9 @@ export interface PairRequestDetails {
   foundryVersion: string;
   requestedRemoteScopes: string[];
   requestedTargetClients: string[];
+  currentAllowedTargetClients: string[];
+  currentRemoteScopes: string[];
+  currentRemoteRequestsPerHour: number;
   upgradeOnly: boolean;
   status: string;
   expiresAt: string;
@@ -276,6 +280,7 @@ export interface NotificationSettings {
   notificationDebounceWindowSecs: number;
   remoteRequestBatchWindowSecs: number;
   logCrossWorldRequests: boolean;
+  notifyOnCrossWorldRequests: boolean;
   smtpAvailable: boolean;
 }
 

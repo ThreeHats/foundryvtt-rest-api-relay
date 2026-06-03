@@ -93,6 +93,11 @@ func RegisterKnownClientsHandler(cfg KnownClientsConfig) {
 				systemID = kc.SystemID.String
 			}
 
+			publicUrl := ""
+			if kc.PublicUrl.Valid {
+				publicUrl = kc.PublicUrl.String
+			}
+
 			clientList = append(clientList, map[string]interface{}{
 				"clientId":     kc.ClientID,
 				"worldTitle":   worldTitle,
@@ -101,6 +106,7 @@ func RegisterKnownClientsHandler(cfg KnownClientsConfig) {
 				"systemId":     systemID,
 				"isOnline":     isOnline,
 				"canAutoStart": bool(kc.AutoStartOnRemoteRequest),
+				"publicUrl":    publicUrl,
 			})
 		}
 

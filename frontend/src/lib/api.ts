@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { sessionToken } from './auth';
+import { sessionToken, clearUser } from './auth';
 import type { AuthResponse, UserData, ScopedKey, ConnectedClient, Player, ConnectionToken, KnownClient, KnownUser, Credential, NotificationSettings, ApiKeyNotificationSettings, KnownClientNotificationSettings, ConnectionLog, KeyRequestDetails, PairRequestDetails, RemoteRequestLog, ActivityEvent } from './types';
 
 // Dashboard requests authenticate via Authorization: Bearer <session-token>.
@@ -25,6 +25,9 @@ async function handleResponse<T>(response: Response): Promise<{ ok: true; data: 
   const data = await response.json().catch(() => ({ error: 'Failed to parse response' }));
   if (response.ok) {
     return { ok: true, data: data as T };
+  }
+  if (response.status === 401 && get(sessionToken)) {
+    clearUser();
   }
   return { ok: false, error: data.error || `Request failed (${response.status})`, status: response.status };
 }

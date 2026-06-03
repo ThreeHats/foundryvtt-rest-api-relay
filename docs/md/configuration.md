@@ -252,9 +252,6 @@ services:
     # ... your existing config ...
     devices:
       - /dev/dri:/dev/dri
-    shm_size: "256m"
-    environment:
-      - CHROME_ENABLE_SHM=true
 ```
 
 ### NVIDIA (Linux)
@@ -272,16 +269,7 @@ sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
 sudo systemctl restart docker
 ```
 
-The relay image already sets `NVIDIA_VISIBLE_DEVICES=all` and `NVIDIA_DRIVER_CAPABILITIES=graphics,utility` via `ENV` in the Dockerfile — no compose variables required. Just enable shared memory:
-
-```yaml
-services:
-  relay:
-    # ... your existing config ...
-    shm_size: "256m"
-    environment:
-      - CHROME_ENABLE_SHM=true
-```
+The relay image already sets `NVIDIA_VISIBLE_DEVICES=all` and `NVIDIA_DRIVER_CAPABILITIES=graphics,utility` via `ENV` in the Dockerfile — no compose changes are required once nvidia is the default runtime.
 
 `CHROME_GPU_MODE=auto` (default) detects the NVIDIA GPU automatically. Chrome uses ANGLE Vulkan with the native NVIDIA Vulkan ICD for hardware-accelerated WebGL.
 
@@ -303,9 +291,6 @@ services:
     # ... your existing config ...
     devices:
       - "nvidia.com/gpu=all"
-    shm_size: "256m"
-    environment:
-      - CHROME_ENABLE_SHM=true
 ```
 
 `CHROME_GPU_MODE=auto` detects the GPU automatically once it is exposed — no additional relay configuration needed.

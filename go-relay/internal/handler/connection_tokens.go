@@ -33,17 +33,7 @@ import (
 func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Config, manager *ws.ClientManager) {
 	// Authenticated routes (require dashboard session)
 	r.Route("/connection-tokens", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		// POST /auth/connection-tokens — Generate a pairing code.
 		// Body (optional):
@@ -267,9 +257,16 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 	// POST /auth/pair — Exchange pairing code for connection token (NO AUTH, RATE LIMITED)
 	r.With(middleware.PairingRateLimiter.Middleware).Post("/pair", func(w http.ResponseWriter, r *http.Request) {
 		var body struct {
-			Code       string `json:"code"`
-			WorldID    string `json:"worldId"`
-			WorldTitle string `json:"worldTitle"`
+			Code              string `json:"code"`
+			WorldID           string `json:"worldId"`
+			WorldTitle        string `json:"worldTitle"`
+			ServerFingerprint string `json:"serverFingerprint"`
+			// ExistingClientID: clientId the module already has stored. Primary
+			// re-pair signal — reused if owned by this user.
+			ExistingClientID string `json:"existingClientId"`
+			// ServerOrigin: window.location.origin (e.g. "http://localhost:30000").
+			// Distinguishes instances sharing a worldId on different ports.
+			ServerOrigin string `json:"serverOrigin"`
 		}
 		if err := json.NewDecoder(r.Body).Decode(&body); err != nil || body.Code == "" {
 			helpers.WriteError(w, http.StatusBadRequest, "Code is required")
@@ -325,23 +322,81 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 		hash := sha256.Sum256([]byte(rawToken))
 		tokenHash := hex.EncodeToString(hash[:])
 
-		// Determine clientId:
-		//   - "add browser" flow: reuse the pairing code's bound clientId
-		//   - First-pair/new-world: look up by (userId, worldId); reuse if found,
-		//     otherwise generate a deterministic clientId from (userId, worldId)
+		// Determine clientId, in priority order:
+		//  1. "add browser": clientId bound to the pairing code.
+		//  2. existingClientId sent by the module.
+		//  3. serverFingerprint (stable ID in world settings).
+		//  4. worldId(+origin) fallback.
+		//  5. random new ID.
+		// Paths 2–4 reuse a candidate only if its stored origin matches the
+		// re-pairing serverOrigin (see originConsistent), so instances sharing a
+		// worldId on different ports don't collapse onto one ID; a mis-merged ID
+		// self-heals when its origin no longer matches.
 		var clientID string
 		if isAddBrowser {
 			clientID = pairingCode.ClientID.String
-		} else {
-			existing, lookupErr := db.KnownClientStore().FindByWorldID(ctx, pairingCode.UserID, body.WorldID)
+		} else if body.ExistingClientID != "" {
+			// Reuse the module-supplied clientId if it belongs to this user
+			// (FindByClientID enforces the userId check) and its origin matches.
+			existing, lookupErr := db.KnownClientStore().FindByClientID(ctx, pairingCode.UserID, body.ExistingClientID)
 			if lookupErr != nil {
-				log.Warn().Err(lookupErr).Msg("Failed to look up known client by worldId")
+				log.Warn().Err(lookupErr).Msg("Failed to validate existing clientId on re-pair")
+			}
+			if existing != nil && originConsistent(existing, body.ServerOrigin) {
+				clientID = existing.ClientID
+				log.Info().Str("clientId", clientID).Msg("Re-pair: reusing existing clientId provided by module")
+			} else if existing != nil {
+				log.Warn().Str("requestedClientId", body.ExistingClientID).
+					Str("storedOrigin", existing.PublicUrl.String).Str("requestOrigin", body.ServerOrigin).
+					Msg("Re-pair: existing clientId belongs to a different server origin — minting fresh ID")
+			}
+		}
+		if clientID == "" && body.ServerFingerprint != "" {
+			existing, lookupErr := db.KnownClientStore().FindByServerFingerprint(ctx, pairingCode.UserID, body.ServerFingerprint)
+			if lookupErr != nil {
+				log.Warn().Err(lookupErr).Msg("Failed to look up known client by server fingerprint")
+			}
+			if existing != nil && originConsistent(existing, body.ServerOrigin) {
+				clientID = existing.ClientID
+				log.Info().Str("clientId", clientID).Msg("Re-pair: reusing clientId via server fingerprint")
+			}
+		}
+		if clientID == "" && body.WorldID != "" {
+			// worldId fallback. Prefer (worldId+origin) to keep same-worldId
+			// instances on different ports distinct.
+			var existing *model.KnownClient
+			var lookupErr error
+			if body.ServerOrigin != "" {
+				existing, lookupErr = db.KnownClientStore().FindByWorldIDAndPublicUrl(ctx, pairingCode.UserID, body.WorldID, body.ServerOrigin)
+				if lookupErr != nil {
+					log.Warn().Err(lookupErr).Msg("Failed to look up known client by worldId+origin")
+				}
+			}
+			if existing == nil && lookupErr == nil {
+				// Origin-blind lookup, guarded by originConsistent below: rows whose
+				// stored origin is unknown (legacy, pre-publicUrl) may be reused —
+				// otherwise every legacy world re-pairing with a new module would
+				// mint a fresh clientId and orphan its settings. A row with a
+				// DIFFERENT stored origin is never reused.
+				existing, lookupErr = db.KnownClientStore().FindByWorldID(ctx, pairingCode.UserID, body.WorldID)
+				if lookupErr != nil {
+					log.Warn().Err(lookupErr).Msg("Failed to look up known client by worldId (fingerprint absent)")
+				}
+				if existing != nil && !originConsistent(existing, body.ServerOrigin) {
+					log.Info().Str("candidateClientId", existing.ClientID).
+						Str("storedOrigin", existing.PublicUrl.String).Str("requestOrigin", body.ServerOrigin).
+						Msg("Re-pair: worldId match belongs to a different server origin — minting fresh ID")
+					existing = nil
+				}
 			}
 			if existing != nil {
 				clientID = existing.ClientID
-			} else {
-				clientID = deterministicClientID(pairingCode.UserID, body.WorldID)
+				log.Info().Str("clientId", clientID).Str("origin", body.ServerOrigin).Msg("Re-pair: reusing clientId via worldId fallback")
 			}
+		}
+		if clientID == "" {
+			clientID = randomClientID()
+			log.Info().Str("clientId", clientID).Str("worldId", body.WorldID).Str("origin", body.ServerOrigin).Msg("Pair: minting new clientId")
 		}
 
 		// Store connection token. Cross-world permissions are world-level (KnownClient)
@@ -370,6 +425,14 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 			knownClient.WorldID = sql.NullString{String: body.WorldID, Valid: true}
 			knownClient.WorldTitle = sql.NullString{String: body.WorldTitle, Valid: body.WorldTitle != ""}
 		}
+		if body.ServerFingerprint != "" {
+			knownClient.ServerFingerprint = sql.NullString{String: body.ServerFingerprint, Valid: true}
+		}
+		// Store origin at pair time so the worldId+origin fallback works on
+		// later re-pairs before the WS connection is established.
+		if body.ServerOrigin != "" {
+			knownClient.PublicUrl = sql.NullString{String: body.ServerOrigin, Valid: true}
+		}
 		if err := db.KnownClientStore().Upsert(ctx, knownClient); err != nil {
 			log.Warn().Err(err).Msg("Failed to upsert known client entry")
 		}
@@ -380,7 +443,7 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 			if kc, err := db.KnownClientStore().FindByClientID(ctx, pairingCode.UserID, clientID); err == nil && kc != nil {
 				_ = db.KnownClientStore().SetCrossWorldSettings(ctx, kc.ID,
 					pairingCode.AllowedTargetClients,
-					pairingCode.RemoteScopes, 0)
+					pairingCode.RemoteScopes, pairingCode.RemoteRequestsPerHour)
 			}
 		}
 
@@ -399,17 +462,7 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 
 	// GET /auth/remote-request-logs — View cross-world audit log (session required)
 	r.Route("/remote-request-logs", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
@@ -463,17 +516,7 @@ func RegisterConnectionTokenRoutes(r chi.Router, db *database.DB, cfg *config.Co
 
 	// GET /auth/connection-logs — View connection audit log (session required)
 	r.Route("/connection-logs", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
@@ -566,12 +609,30 @@ func generatePairingCode(length int) (string, error) {
 	return string(code), nil
 }
 
-// deterministicClientID generates a stable client ID derived from the user ID
-// and world ID. The same (userId, worldId) pair always produces the same clientId,
-// which prevents duplicate KnownClient rows across re-pairings.
-func deterministicClientID(userID int64, worldID string) string {
-	h := sha256.Sum256([]byte(fmt.Sprintf("%d:%s", userID, worldID)))
-	return "fvtt_" + hex.EncodeToString(h[:])[:16]
+// originConsistent reports whether candidate may be reused for a re-pair from
+// serverOrigin. True unless both origins are known and differ (i.e. the
+// candidate belongs to an instance at a different server/port). Empty
+// serverOrigin or empty stored publicUrl is treated as unknown and allowed.
+func originConsistent(candidate *model.KnownClient, serverOrigin string) bool {
+	if serverOrigin == "" {
+		return true
+	}
+	stored := strings.TrimSpace(candidate.PublicUrl.String)
+	if !candidate.PublicUrl.Valid || stored == "" {
+		return true
+	}
+	return stored == serverOrigin
+}
+
+// randomClientID generates a random client ID for new Foundry world pairings.
+// Using a random ID prevents collisions when two different Foundry servers happen
+// to share the same worldId under the same relay account.
+func randomClientID() string {
+	b := make([]byte, 8)
+	if _, err := rand.Read(b); err != nil {
+		return fmt.Sprintf("fvtt_%d", time.Now().UnixNano())
+	}
+	return "fvtt_" + hex.EncodeToString(b)
 }
 
 // parseUAName extracts a human-readable "Browser on OS" string from a User-Agent
@@ -665,17 +726,7 @@ func buildRelayWSURL(r *http.Request, frontendURL string) string {
 // force-disconnect any active WebSocket connection for that client.
 func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config, manager *ws.ClientManager) {
 	r.Route("/credentials", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		// POST /auth/credentials — Create credential set
 		r.Post("/", func(w http.ResponseWriter, r *http.Request) {
@@ -871,17 +922,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 
 	// Known Clients routes
 	r.Route("/known-clients", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		// GET /auth/known-clients — List all known clients with online/offline status,
 		// their connection tokens, and which token is currently active.
@@ -1073,8 +1114,26 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				return
 			}
 
+			// A world can never be a cross-world target of itself. Strip any
+			// self-reference before validating/persisting so it can't be stored.
+			// The dashboard already hides self from the target picker; this
+			// guards direct API calls and heals legacy rows on next edit.
+			if body.AllowedTargetClients != nil {
+				cleaned := make([]string, 0, len(body.AllowedTargetClients))
+				for _, tcid := range body.AllowedTargetClients {
+					if tcid != known.ClientID {
+						cleaned = append(cleaned, tcid)
+					}
+				}
+				body.AllowedTargetClients = cleaned
+			}
+
 			// Validate allowedTargetClients all belong to this user.
+			// "*" is a wildcard meaning all worlds — skip the lookup for it.
 			for _, tcid := range body.AllowedTargetClients {
+				if tcid == "*" {
+					continue
+				}
 				kc, err := db.KnownClientStore().FindByClientID(r.Context(), user.ID, tcid)
 				if err != nil || kc == nil {
 					helpers.WriteError(w, http.StatusBadRequest, fmt.Sprintf("allowedTargetClient %q not found in your known clients", tcid))
@@ -1207,6 +1266,48 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				return
 			}
 
+			// Revoke cross-world permissions that reference the deleted client from
+			// all sibling worlds owned by the same user. Worlds with a wildcard ("*")
+			// allow-list are intentionally unrestricted and are left untouched.
+			if siblings, sibErr := db.KnownClientStore().FindAllByUser(ctx, user.ID); sibErr != nil {
+				log.Warn().Err(sibErr).Str("deletedClientId", known.ClientID).Msg("Failed to fetch sibling clients for permission cleanup")
+			} else {
+				for _, sibling := range siblings {
+					targets := sibling.GetAllowedTargets()
+					if len(targets) == 0 {
+						continue
+					}
+					hasWildcard := false
+					for _, t := range targets {
+						if t == "*" {
+							hasWildcard = true
+							break
+						}
+					}
+					if hasWildcard {
+						continue
+					}
+					filtered := targets[:0]
+					for _, t := range targets {
+						if t != known.ClientID {
+							filtered = append(filtered, t)
+						}
+					}
+					if len(filtered) == len(targets) {
+						continue // this sibling didn't reference the deleted client
+					}
+					var newTargets sql.NullString
+					if len(filtered) > 0 {
+						newTargets = sql.NullString{String: strings.Join(filtered, ","), Valid: true}
+					}
+					if cleanErr := db.KnownClientStore().SetCrossWorldSettings(ctx, sibling.ID, newTargets, sibling.RemoteScopes, sibling.RemoteRequestsPerHour); cleanErr != nil {
+						log.Warn().Err(cleanErr).Int64("siblingId", sibling.ID).Str("deletedClientId", known.ClientID).Msg("Failed to clean up cross-world permission reference")
+					} else {
+						log.Info().Int64("siblingId", sibling.ID).Str("deletedClientId", known.ClientID).Msg("Removed cross-world permission reference to deleted client")
+					}
+				}
+			}
+
 			helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{
 				"success":      true,
 				"message":      "Known client removed",
@@ -1217,17 +1318,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 
 	// Notification Settings routes
 	r.Route("/notification-settings", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		// GET /auth/notification-settings
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
@@ -1259,6 +1350,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 					"notificationDebounceWindowSecs": 0,
 					"remoteRequestBatchWindowSecs":   300,
 					"logCrossWorldRequests":          true,
+					"notifyOnCrossWorldRequests":     true,
 					"smtpAvailable":                  cfg.SMTPHost != "",
 				})
 				return
@@ -1277,6 +1369,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				"notificationDebounceWindowSecs": settings.NotificationDebounceWindowSecs,
 				"remoteRequestBatchWindowSecs":   settings.RemoteRequestBatchWindowSecs,
 				"logCrossWorldRequests":          settings.LogCrossWorldRequests,
+				"notifyOnCrossWorldRequests":     settings.NotifyOnCrossWorldRequests,
 				"smtpAvailable":                  cfg.SMTPHost != "",
 			})
 		})
@@ -1303,6 +1396,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				NotificationDebounceWindowSecs *int   `json:"notificationDebounceWindowSecs"`
 				RemoteRequestBatchWindowSecs   *int   `json:"remoteRequestBatchWindowSecs"`
 				LogCrossWorldRequests          *bool  `json:"logCrossWorldRequests"`
+				NotifyOnCrossWorldRequests     *bool  `json:"notifyOnCrossWorldRequests"`
 			}
 			if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 				helpers.WriteError(w, http.StatusBadRequest, "Invalid request body")
@@ -1336,6 +1430,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				NotificationDebounceWindowSecs: intPtrOr(body.NotificationDebounceWindowSecs, 0),
 				RemoteRequestBatchWindowSecs:   intPtrOr(body.RemoteRequestBatchWindowSecs, 300),
 				LogCrossWorldRequests:          boolPtrOr(body.LogCrossWorldRequests, true),
+				NotifyOnCrossWorldRequests:     boolPtrOr(body.NotifyOnCrossWorldRequests, true),
 			}
 
 			if err := db.NotificationSettingsStore().Upsert(r.Context(), settings); err != nil {
@@ -1355,6 +1450,8 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				"notifyOnNewClientConnect":       settings.NotifyOnNewClientConnect,
 				"notificationDebounceWindowSecs": settings.NotificationDebounceWindowSecs,
 				"remoteRequestBatchWindowSecs":   settings.RemoteRequestBatchWindowSecs,
+				"logCrossWorldRequests":          settings.LogCrossWorldRequests,
+				"notifyOnCrossWorldRequests":     settings.NotifyOnCrossWorldRequests,
 			})
 		})
 
@@ -1425,17 +1522,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 	// DELETE /auth/api-keys/:id/notification-settings
 	// POST   /auth/api-keys/:id/notification-settings/test
 	r.Route("/api-keys/{id}/notification-settings", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		// Helper to look up the key + verify ownership
 		lookupKey := func(w http.ResponseWriter, r *http.Request) (*model.User, *model.ApiKey, bool) {
@@ -1588,17 +1675,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 
 	// GET /auth/known-clients/{id}/users — stored Foundry users for this world
 	r.Route("/known-clients/{id}/users", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			reqCtx := helpers.GetRequestContext(r)
@@ -1632,17 +1709,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 	// DELETE /auth/known-clients/{id}/notification-settings
 	// POST   /auth/known-clients/{id}/notification-settings/test
 	r.Route("/known-clients/{id}/notification-settings", func(r chi.Router) {
-		r.Use(middleware.AuthMiddleware(db, nil))
-		r.Use(func(next http.Handler) http.Handler {
-			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				reqCtx := helpers.GetRequestContext(r)
-				if reqCtx == nil || !reqCtx.IsSessionAuth {
-					helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-					return
-				}
-				next.ServeHTTP(w, r)
-			})
-		})
+		r.Use(middleware.SessionOnlyMiddleware(db))
 
 		lookupWorld := func(w http.ResponseWriter, r *http.Request) (*model.User, *model.KnownClient, bool) {
 			reqCtx := helpers.GetRequestContext(r)

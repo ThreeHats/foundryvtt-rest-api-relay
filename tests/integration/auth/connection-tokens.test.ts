@@ -5,9 +5,10 @@
  *   DELETE /auth/connection-tokens/:id, GET /auth/connection-logs
  */
 
-import { describe, test, expect, afterAll } from '@jest/globals';
+import { describe, test, expect, afterAll, beforeAll } from '@jest/globals';
 import { ApiRequestConfig, makeRequest, replaceVariables } from '../../helpers/apiRequest';
 import { testVariables } from '../../helpers/testVariables';
+import { ensureSessionToken } from '../../helpers/sessionAuth';
 import { captureExample, saveExamples } from '../../helpers/captureExample';
 import * as path from 'path';
 
@@ -28,6 +29,12 @@ function authConfig(method: string, urlPath: string, body?: any): ApiRequestConf
     body: body ? { mode: 'raw', raw: JSON.stringify(body) } : undefined,
   };
 }
+
+// Session-only routes need a Bearer token; in pre-provisioned mode this logs
+// in with TEST_USER_EMAIL/PASSWORD once and caches it for the whole run.
+beforeAll(async () => {
+  await ensureSessionToken();
+});
 
 describe('Pairing Flow', () => {
   let pairingCode = '';

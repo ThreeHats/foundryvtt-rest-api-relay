@@ -16,27 +16,29 @@ import (
 	"sync"
 	"time"
 
-	cdp "github.com/chromedp/cdproto/cdp"
-	"github.com/chromedp/cdproto/page"
-	"github.com/chromedp/cdproto/runtime"
-	"github.com/chromedp/cdproto/target"
-	"github.com/chromedp/chromedp"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/alerts"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/config"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/database"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/model"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/service"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/ws"
+	cdp "github.com/chromedp/cdproto/cdp"
+	"github.com/chromedp/cdproto/page"
+	"github.com/chromedp/cdproto/runtime"
+	"github.com/chromedp/cdproto/target"
+	"github.com/chromedp/chromedp"
 	"github.com/google/uuid"
 	"github.com/rs/zerolog/log"
 )
 
 const (
-	pendingSessionTimeout  = 5 * time.Minute
-	clientPollInterval     = 500 * time.Millisecond
-	clientPollTimeout      = 5 * time.Minute
-	browserNavigateTimeout = 180 * time.Second
-	gameLoadTimeout        = 30 * time.Second
+	pendingSessionTimeout   = 5 * time.Minute
+	clientPollInterval      = 500 * time.Millisecond
+	clientPollTimeout       = 5 * time.Minute
+	autoStartPollTimeout    = 60 * time.Second // tighter poll for auto-start path
+	autoStartCooldownOnFail = 2 * time.Minute  // backoff after a failed auto-start
+	browserNavigateTimeout  = 180 * time.Second
+	gameLoadTimeout         = 30 * time.Second
 )
 
 // webGLSpoof is injected via Page.addScriptToEvaluateOnNewDocument before Foundry
@@ -45,6 +47,7 @@ const (
 //     Foundry's hardware-acceleration check doesn't see "SwiftShader"/"llvmpipe".
 //  2. WebGL context is null (unavailable in this container) — returns a full stub
 //     context so PIXI.js doesn't crash before the login form renders.
+//
 // Foundry checks gl.RENDERER (0x1F01), gl.VENDOR (0x1F00), and the
 // WEBGL_debug_renderer_info unmasked values (0x9246 / 0x9245) for known software
 // renderer substrings ("SwiftShader", "llvmpipe", "softpipe", etc.).
@@ -180,12 +183,14 @@ type SessionInfo struct {
 // minCreateTarget sends Target.createTarget with only the essential fields.
 // Chrome 146 rejects CreateTarget with extra fields (forTab, hidden) when browserContextId is set.
 type minCreateTarget struct {
-	URL string                   `json:"url"`
-	BCI cdp.BrowserContextID     `json:"browserContextId,omitempty"`
+	URL string               `json:"url"`
+	BCI cdp.BrowserContextID `json:"browserContextId,omitempty"`
 }
 
 func (p *minCreateTarget) Do(ctx context.Context) (target.ID, error) {
-	var res struct{ TargetID target.ID `json:"targetId"` }
+	var res struct {
+		TargetID target.ID `json:"targetId"`
+	}
 	err := cdp.Execute(ctx, "Target.createTarget", p, &res)
 	return res.TargetID, err
 }
@@ -202,22 +207,22 @@ type HeadlessDeps struct {
 
 // HeadlessManager manages a shared Chrome browser with isolated contexts per session.
 type HeadlessManager struct {
-	mu                    sync.RWMutex
-	sessions              map[string]*HeadlessSession // sessionID -> session
-	pending               map[string]*PendingHeadless // sessionID -> pending
-	clientManager         *ws.ClientManager
-	redis                 *config.RedisClient
-	maxSessions           int
-	inactiveTimeout       time.Duration
-	chromePath            string
-	resolvedChrome        string
-	dataDir               string // absolute path to the data directory (for browser logs)
-	userDataDir           string // persistent Chrome profile dir (V8 bytecode + HTTP cache)
-	jsHeapMB              int    // max V8 old-space heap in MB
-	windowWidth           int    // viewport width
-	windowHeight          int    // viewport height
-	enableSHM             bool   // allow Chrome to use /dev/shm
-	renderMode            string // configured render mode (auto|gpu|xvfb|swiftshader)
+	mu              sync.RWMutex
+	sessions        map[string]*HeadlessSession // sessionID -> session
+	pending         map[string]*PendingHeadless // sessionID -> pending
+	clientManager   *ws.ClientManager
+	redis           *config.RedisClient
+	maxSessions     int
+	inactiveTimeout time.Duration
+	chromePath      string
+	resolvedChrome  string
+	dataDir         string // absolute path to the data directory (for browser logs)
+	userDataDir     string // persistent Chrome profile dir (V8 bytecode + HTTP cache)
+	jsHeapMB        int    // max V8 old-space heap in MB
+	windowWidth     int    // viewport width
+	windowHeight    int    // viewport height
+	enableSHM       bool   // allow Chrome to use /dev/shm
+	renderMode      string // configured render mode (auto|gpu|xvfb|swiftshader)
 
 	// headlessDeps is set after construction by SetDeps. Used by
 	// AutoStartForKnownClient (the remote-request auto-start path) to look
@@ -234,6 +239,15 @@ type HeadlessManager struct {
 	// Request queuing: tracks in-flight launches per clientID
 	launchQueues   map[string]*launchQueue // clientID -> queue
 	launchQueuesMu sync.Mutex
+
+	// Failure cooldowns: blocks rapid retries after a failed auto-start
+	failureCooldowns   map[string]autoStartCooldown
+	failureCooldownsMu sync.Mutex
+}
+
+type autoStartCooldown struct {
+	Until  time.Time
+	Reason string // original failure message, surfaced in subsequent "on cooldown" errors
 }
 
 // SetDeps wires the database + config dependencies needed by
@@ -245,9 +259,9 @@ func (m *HeadlessManager) SetDeps(deps *HeadlessDeps) {
 
 // launchQueue tracks an in-flight headless launch and waiters.
 type launchQueue struct {
-	done     chan string // receives clientID when session connects
-	err      chan error  // receives error if launch fails
-	clientID string     // populated once connected
+	done     chan string // closed when the launch resolves (success or failure)
+	errVal   error       // set before done is closed on failure; safe for all waiters to read after <-done
+	clientID string      // set before done is closed on success
 }
 
 // NewHeadlessManager creates a new headless session manager.
@@ -262,21 +276,22 @@ func NewHeadlessManager(clientManager *ws.ClientManager, redis *config.RedisClie
 		inactiveTimeout = time.Duration(cfg.HeadlessInactiveTimeoutSecs) * time.Second
 	}
 	return &HeadlessManager{
-		sessions:        make(map[string]*HeadlessSession),
-		pending:         make(map[string]*PendingHeadless),
-		clientManager:   clientManager,
-		redis:           redis,
-		maxSessions:     cfg.MaxHeadlessSessions,
-		inactiveTimeout: inactiveTimeout,
-		chromePath:      cfg.ChromePath,
-		dataDir:         cfg.DataDir,
-		userDataDir:     userDataDir,
-		jsHeapMB:        cfg.ChromeJSHeapMB,
-		windowWidth:     cfg.ChromeWindowWidth,
-		windowHeight:    cfg.ChromeWindowHeight,
-		enableSHM:       cfg.ChromeEnableSHM,
-		renderMode:      cfg.ChromeGPUMode,
-		launchQueues:    make(map[string]*launchQueue),
+		sessions:         make(map[string]*HeadlessSession),
+		pending:          make(map[string]*PendingHeadless),
+		clientManager:    clientManager,
+		redis:            redis,
+		maxSessions:      cfg.MaxHeadlessSessions,
+		inactiveTimeout:  inactiveTimeout,
+		chromePath:       cfg.ChromePath,
+		dataDir:          cfg.DataDir,
+		userDataDir:      userDataDir,
+		jsHeapMB:         cfg.ChromeJSHeapMB,
+		windowWidth:      cfg.ChromeWindowWidth,
+		windowHeight:     cfg.ChromeWindowHeight,
+		enableSHM:        cfg.ChromeEnableSHM,
+		renderMode:       cfg.ChromeGPUMode,
+		launchQueues:     make(map[string]*launchQueue),
+		failureCooldowns: make(map[string]autoStartCooldown),
 	}
 }
 
@@ -288,16 +303,20 @@ func (m *HeadlessManager) IsLaunching(clientID string) bool {
 	return exists
 }
 
-// RegisterLaunch marks the start of a headless launch for a client.
-func (m *HeadlessManager) RegisterLaunch(clientID string) {
+// tryRegisterLaunch atomically registers a new launch slot for clientID.
+// Returns (true, nil) when this caller owns the slot.
+// Returns (false, q) when a launch is already in flight — caller should wait on q.done.
+func (m *HeadlessManager) tryRegisterLaunch(clientID string) (bool, *launchQueue) {
 	m.launchQueuesMu.Lock()
 	defer m.launchQueuesMu.Unlock()
-	if _, exists := m.launchQueues[clientID]; !exists {
-		m.launchQueues[clientID] = &launchQueue{
-			done: make(chan string, 1),
-			err:  make(chan error, 1),
-		}
+	if q, exists := m.launchQueues[clientID]; exists {
+		return false, q
 	}
+	q := &launchQueue{
+		done: make(chan string, 1),
+	}
+	m.launchQueues[clientID] = q
+	return true, nil
 }
 
 // CompleteLaunch signals that a headless launch completed successfully.
@@ -317,7 +336,7 @@ func (m *HeadlessManager) FailLaunch(clientID string, err error) {
 	m.launchQueuesMu.Lock()
 	q, exists := m.launchQueues[clientID]
 	if exists {
-		q.err <- err
+		q.errVal = err // set before close so every waiter sees it
 		close(q.done)
 		delete(m.launchQueues, clientID)
 	}
@@ -340,12 +359,10 @@ func (m *HeadlessManager) WaitForLaunch(clientID string, timeout time.Duration) 
 		if q.clientID != "" {
 			return q.clientID, nil
 		}
-		select {
-		case err := <-q.err:
-			return "", err
-		default:
-			return "", fmt.Errorf("launch failed for client %s", clientID)
+		if q.errVal != nil {
+			return "", q.errVal
 		}
+		return "", fmt.Errorf("launch failed for client %s", clientID)
 	case <-time.After(timeout):
 		return "", fmt.Errorf("timed out waiting for headless session (client %s)", clientID)
 	}
@@ -949,7 +966,6 @@ func (m *HeadlessManager) checkGlobalSessionCap() error {
 	return nil
 }
 
-
 // EndSession closes an isolated browser context for a session.
 func (m *HeadlessManager) EndSession(sessionID string) error {
 	m.mu.Lock()
@@ -1023,30 +1039,80 @@ func (m *HeadlessManager) ValidateHeadlessSession(clientID, token string) (bool,
 // It launches a headless session for a specific (userId, clientId) pair, used
 // by the remote-request handler when a target client is offline.
 //
+// Concurrent calls for the same clientId join the in-flight launch rather than
+// spawning a parallel browser. A per-client cooldown (autoStartCooldownOnFail)
+// blocks rapid retries after a failure.
+func (m *HeadlessManager) AutoStartForKnownClient(ctx context.Context, userID int64, clientID string) (string, error) {
+	// Reject immediately if we're still cooling down from a recent failure.
+	m.failureCooldownsMu.Lock()
+	if cd, ok := m.failureCooldowns[clientID]; ok {
+		if time.Now().Before(cd.Until) {
+			remaining := time.Until(cd.Until).Round(time.Second)
+			reason := cd.Reason
+			m.failureCooldownsMu.Unlock()
+			return "", fmt.Errorf("%s (auto-start blocked for %s, retry after cooldown)", reason, remaining)
+		}
+		delete(m.failureCooldowns, clientID)
+	}
+	m.failureCooldownsMu.Unlock()
+
+	// Deduplicate: if a launch is already in flight, wait for its result.
+	registered, existingQ := m.tryRegisterLaunch(clientID)
+	if !registered {
+		log.Info().Str("clientId", clientID).Msg("Auto-start already in flight; joining result")
+		select {
+		case <-existingQ.done:
+			if existingQ.clientID != "" {
+				return existingQ.clientID, nil
+			}
+			if existingQ.errVal != nil {
+				return "", existingQ.errVal
+			}
+			return "", fmt.Errorf("in-flight auto-start failed for %s", clientID)
+		case <-ctx.Done():
+			return "", ctx.Err()
+		}
+	}
+
+	// We own the slot. Recover panics into an error so it's always resolved
+	// below — a leaked launchQueues entry would block this client forever.
+	resultID, err := func() (rid string, rerr error) {
+		defer func() {
+			if p := recover(); p != nil {
+				rerr = fmt.Errorf("auto-start panicked: %v", p)
+			}
+		}()
+		return m.doAutoStartForKnownClient(ctx, userID, clientID)
+	}()
+	if err != nil {
+		m.FailLaunch(clientID, err)
+		m.failureCooldownsMu.Lock()
+		m.failureCooldowns[clientID] = autoStartCooldown{
+			Until:  time.Now().Add(autoStartCooldownOnFail),
+			Reason: err.Error(),
+		}
+		m.failureCooldownsMu.Unlock()
+		return "", err
+	}
+	m.CompleteLaunch(clientID, resultID)
+	return resultID, nil
+}
+
+// doAutoStartForKnownClient is the core auto-start logic.
+//
 // Flow:
 //  1. Look up the user (FindByID) to get apiKeyHash for ClientManager registration
 //  2. Look up the KnownClient row, verify ownership, get its credentialId
-//     (or fall back to the user's first Credential if credentialId is unset)
 //  3. Decrypt the stored Foundry password
 //  4. Mint a fresh ConnectionToken in the DB with source = "headless"
 //  5. Spawn an isolated ChromeDP tab
-//  6. Inject `Page.addScriptToEvaluateOnNewDocument` to seed
-//     `window.localStorage` with the connection token BEFORE Foundry's
-//     module init runs. The Foundry module reads its connection token from
-//     a `scope: "client"` setting, which lives in localStorage at
-//     `<moduleId>.connectionToken` as a JSON-stringified value.
+//  6. Inject `Page.addScriptToEvaluateOnNewDocument` to seed localStorage
 //  7. Navigate to Foundry, log in, wait for game canvas
 //  8. Poll for the EXACT target clientId to appear in ClientManager
-//     (not the legacy `foundry-{userId}` format LaunchSession uses)
 //  9. Return the connected clientId
 //
-// On any error, the seed token is revoked from the DB so a partial failure
-// doesn't leak credentials.
-//
-// Requires: the user must have at least one Credential row, OR the
-// KnownClient must explicitly reference a Credential via credentialId. The
-// KnownClient must already exist (someone paired this world before).
-func (m *HeadlessManager) AutoStartForKnownClient(ctx context.Context, userID int64, clientID string) (string, error) {
+// On any error, the seed token is revoked from the DB.
+func (m *HeadlessManager) doAutoStartForKnownClient(ctx context.Context, userID int64, clientID string) (string, error) {
 	if m.headlessDeps == nil || m.headlessDeps.DB == nil {
 		return "", fmt.Errorf("headless manager has no DB wired; cannot auto-start")
 	}
@@ -1128,8 +1194,9 @@ func (m *HeadlessManager) AutoStartForKnownClient(ctx context.Context, userID in
 		FoundryURL:        credential.FoundryURL,
 		Username:          credential.FoundryUsername,
 		Password:          password,
-		WorldName:         "", // empty = let Foundry use the active world
+		WorldName:         "",
 		ExpectedClientID:  clientID,
+		ExpectedWorldID:   known.WorldID.String,
 		SeedToken:         rawToken,
 		FoundryVersion:    known.FoundryVersion.String,
 	})
@@ -1157,6 +1224,7 @@ type launchSeededOpts struct {
 	Password          string
 	WorldName         string // optional
 	ExpectedClientID  string // poll for this exact clientId in ClientManager
+	ExpectedWorldID   string // if set, abort immediately if Foundry is in a different world
 	SeedToken         string // raw connection token to inject into localStorage
 	FoundryVersion    string // known Foundry version (for log filename), empty if unknown
 }
@@ -1286,6 +1354,22 @@ func (m *HeadlessManager) launchHeadlessWithSeededToken(ctx context.Context, opt
 		return "", fmt.Errorf("game canvas did not load: %w", err)
 	}
 
+	// Wrong-world fast fail: if we know which world we need, verify it immediately
+	// after canvas load rather than burning the full poll timeout on a world that
+	// will never produce the expected clientId.
+	if opts.ExpectedWorldID != "" {
+		var loadedWorld string
+		if err := chromedp.Run(tabCtx, chromedp.Evaluate(`
+			(function(){ try { return game?.world?.id ?? ''; } catch(e) { return ''; } })()
+		`, &loadedWorld)); err != nil {
+			log.Warn().Err(err).Msg("Wrong-world check eval failed; skipping fast-fail")
+		}
+		if loadedWorld != "" && loadedWorld != opts.ExpectedWorldID {
+			tabCancel()
+			return "", fmt.Errorf("wrong world loaded: server is running %q, expected %q", loadedWorld, opts.ExpectedWorldID)
+		}
+	}
+
 	// Now poll for the EXACT clientId we expect to register. The Foundry
 	// module reads our seeded token from localStorage and connects with the
 	// existing world clientId, so the resulting WS client should appear under
@@ -1301,7 +1385,7 @@ func (m *HeadlessManager) launchHeadlessWithSeededToken(ctx context.Context, opt
 	}
 	m.mu.Unlock()
 
-	pollCtx, pollCancel := context.WithTimeout(context.Background(), clientPollTimeout)
+	pollCtx, pollCancel := context.WithTimeout(context.Background(), autoStartPollTimeout)
 	defer pollCancel()
 	ticker := time.NewTicker(clientPollInterval)
 	defer ticker.Stop()
@@ -1342,7 +1426,7 @@ func (m *HeadlessManager) launchHeadlessWithSeededToken(ctx context.Context, opt
 			delete(m.pending, sessionID)
 			m.mu.Unlock()
 			tabCancel()
-			return "", fmt.Errorf("seeded headless client did not register within %s", clientPollTimeout)
+			return "", fmt.Errorf("seeded headless client did not register within %s", autoStartPollTimeout)
 		}
 	}
 }
@@ -1629,42 +1713,78 @@ func loginToFoundry(ctx context.Context, username, password string) (string, err
 		return "", fmt.Errorf("login form not found: %w", err)
 	}
 
-	js := fmt.Sprintf(`
+	// Pre-submit: if a user-select dropdown is present, verify the target user
+	// exists and is not already active (disabled/greyed = already logged in).
+	var preCheck string
+	if err := chromedp.Run(loginCtx, chromedp.Evaluate(fmt.Sprintf(`
 		(function() {
+			const sel = document.querySelector('select[name="userid"]');
+			if (!sel) return 'ok'; // single-user or password-only form
+			const opts = Array.from(sel.options);
+			const match = opts.find(o => o.textContent.trim().toLowerCase() === %q);
+			if (!match) return 'not-found';
+			if (match.disabled) return 'already-active';
+			return 'ok';
+		})()
+	`, strings.ToLower(username)), &preCheck)); err != nil {
+		log.Warn().Err(err).Msg("Pre-submit user check eval failed; proceeding without pre-check")
+	}
+	switch preCheck {
+	case "not-found":
+		return "", fmt.Errorf("configured Foundry user not found on this server (check credential settings)")
+	case "already-active":
+		return "", fmt.Errorf("configured Foundry user is already logged in (another active session may be holding the slot)")
+	}
+
+	// POST /join with an explicit password instead of filling the form: Foundry's
+	// form drops an empty password field on submit, so a passwordless GM (stored as
+	// createPassword("")) can never log in through it. Posting ourselves guarantees
+	// the password — including "" — reaches the server.
+	js := fmt.Sprintf(`
+		(async function() {
 			var userId = %q;
 			const sel = document.querySelector('select[name="userid"]');
 			if (sel) {
-				const options = Array.from(sel.options);
-				const match = options.find(o => o.textContent.trim().toLowerCase() === %q);
-				if (match) {
-					sel.value = match.value;
-					sel.dispatchEvent(new Event('change', {bubbles: true}));
-					userId = match.value;
+				const match = Array.from(sel.options).find(o => o.textContent.trim().toLowerCase() === %q);
+				if (match) userId = match.value;
+			}
+			try {
+				const resp = await fetch('/join', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ action: 'join', userid: userId, password: %q })
+				});
+				if (resp.ok) {
+					let data = {};
+					try { data = await resp.json(); } catch (e) {}
+					if (!data || data.status !== 'success') return 'fail:' + ((data && data.message) || 'join was not accepted');
+					setTimeout(function() { window.location.href = data.redirect || '/game'; }, 0);
+					return 'ok:' + userId;
 				}
+				const t = (await resp.text()).replace(/\s+/g, ' ').trim().substring(0, 120);
+				return 'fail:' + t;
+			} catch (e) {
+				return 'fail:' + (e && e.message ? e.message : 'join request failed');
 			}
-			const pwInput = document.querySelector('input[name="password"]');
-			if (pwInput) {
-				const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-				nativeInputValueSetter.call(pwInput, %q);
-				pwInput.dispatchEvent(new Event('input', {bubbles: true}));
-				pwInput.dispatchEvent(new Event('change', {bubbles: true}));
-			}
-			const submitBtn = document.querySelector('button[type="submit"], button[name="join"], form button');
-			if (submitBtn) { submitBtn.click(); }
-			else { const form = document.querySelector('form'); if (form) form.submit(); }
-			return userId;
 		})()
 	`, username, strings.ToLower(username), password)
 
-	var userID string
-	if err := chromedp.Run(loginCtx, chromedp.Evaluate(js, &userID)); err != nil {
+	var result string
+	if err := chromedp.Run(loginCtx, chromedp.Evaluate(js, &result,
+		func(p *runtime.EvaluateParams) *runtime.EvaluateParams { return p.WithAwaitPromise(true) },
+	)); err != nil {
 		return "", fmt.Errorf("login eval: %w", err)
 	}
+	if strings.HasPrefix(result, "fail:") {
+		return "", fmt.Errorf("login rejected by Foundry: %s", strings.TrimPrefix(result, "fail:"))
+	}
+	userID := strings.TrimPrefix(result, "ok:")
 	if userID == "" {
 		userID = username
 	}
-	log.Info().Str("userId", userID).Msg("Login submitted, waiting for page transition")
-	time.Sleep(1 * time.Second)
+	// The POST already returned Foundry's authoritative verdict; the caller waits
+	// for the game canvas to confirm the world finished loading.
+	log.Info().Str("userId", userID).Msg("Headless login succeeded via POST /join")
 	return userID, nil
 }
 

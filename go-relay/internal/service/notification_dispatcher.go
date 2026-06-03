@@ -206,9 +206,11 @@ func (d *Dispatcher) accountEventEnabled(s *model.NotificationSettings, event No
 		return s.NotifyOnDisconnect
 	case EventMetadataMismatch:
 		return s.NotifyOnMetadataMismatch
-	case EventDuplicateConnectionRejected, EventRemoteRequest:
-		// Always-on for security-critical events — no per-event toggle.
+	case EventDuplicateConnectionRejected:
+		// Always-on — security-critical, no per-event toggle.
 		return true
+	case EventRemoteRequest:
+		return s.NotifyOnCrossWorldRequests
 	case EventSettingsChange:
 		return s.NotifyOnSettingsChange
 	case EventExecuteJs:

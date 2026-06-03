@@ -171,6 +171,7 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 			"clientId" TEXT,
 			"allowedTargetClients" TEXT DEFAULT '',
 			"remoteScopes" TEXT DEFAULT '',
+			"remoteRequestsPerHour" INTEGER DEFAULT 0,
 			"expiresAt" TEXT NOT NULL,
 			used INTEGER DEFAULT 0,
 			"createdAt" TEXT DEFAULT (datetime('now'))
@@ -221,6 +222,8 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 			"allowedTargetClients" TEXT DEFAULT '',
 			"remoteScopes" TEXT DEFAULT '',
 			"remoteRequestsPerHour" INTEGER DEFAULT 0,
+			"serverFingerprint" TEXT,
+			"publicUrl" TEXT DEFAULT '',
 			"createdAt" TEXT DEFAULT (datetime('now')),
 			"updatedAt" TEXT DEFAULT (datetime('now')),
 			UNIQUE("userId", "clientId")
@@ -381,6 +384,7 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 		`ALTER TABLE PairingCodes ADD COLUMN "clientId" TEXT`,
 		`ALTER TABLE PairingCodes ADD COLUMN "allowedTargetClients" TEXT DEFAULT ''`,
 		`ALTER TABLE PairingCodes ADD COLUMN "remoteScopes" TEXT DEFAULT ''`,
+		`ALTER TABLE PairingCodes ADD COLUMN "remoteRequestsPerHour" INTEGER DEFAULT 0`,
 		// KnownClients can opt-in to auto-start headless on incoming remote-request
 		`ALTER TABLE KnownClients ADD COLUMN "autoStartOnRemoteRequest" INTEGER DEFAULT 0`,
 		// Optional explicit link to a stored Credential. When set, the headless
@@ -398,6 +402,8 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 		`ALTER TABLE PairRequests ADD COLUMN "requestedRemoteScopes" TEXT`,
 		`ALTER TABLE PairRequests ADD COLUMN "requestedTargetClients" TEXT`,
 		`ALTER TABLE PairRequests ADD COLUMN "upgradeOnly" INTEGER DEFAULT 0`,
+		// PairRequests relay clientId — used to exclude the source world from allowed target worlds on the approval page
+		`ALTER TABLE PairRequests ADD COLUMN "clientId" TEXT DEFAULT ''`,
 		// Extended notification toggles for account-level NotificationSettings
 		`ALTER TABLE NotificationSettings ADD COLUMN "notifyOnDisconnect" INTEGER DEFAULT 1`,
 		`ALTER TABLE NotificationSettings ADD COLUMN "notifyOnMetadataMismatch" INTEGER DEFAULT 1`,
@@ -490,6 +496,8 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 		)`,
 		// Log cross-world request toggle
 		`ALTER TABLE NotificationSettings ADD COLUMN "logCrossWorldRequests" INTEGER NOT NULL DEFAULT 1`,
+		// Notify on cross-world requests toggle (opt-out; default on)
+		`ALTER TABLE NotificationSettings ADD COLUMN "notifyOnCrossWorldRequests" INTEGER NOT NULL DEFAULT 1`,
 		// Drop credential columns from ApiKeys — credentials moved to KnownClients
 		`ALTER TABLE ApiKeys DROP COLUMN "foundryUrl"`,
 		`ALTER TABLE ApiKeys DROP COLUMN "foundryUsername"`,
@@ -505,6 +513,17 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 		`ALTER TABLE ApiKeys RENAME COLUMN "requestsToday" TO "requestsThisMonth"`,
 		`ALTER TABLE ApiKeys RENAME COLUMN "lastRequestDate" TO "lastResetDate"`,
 		`ALTER TABLE KeyRequests RENAME COLUMN "suggestedDailyLimit" TO "suggestedMonthlyLimit"`,
+		// Server fingerprint: stable per-server identity for re-pair matching.
+		// Allows the relay to reuse clientIds across re-pairings from the same
+		// physical Foundry server, even when worldId slugs collide.
+		`ALTER TABLE KnownClients ADD COLUMN "serverFingerprint" TEXT`,
+		// Public URL: browser Origin header captured at WebSocket connect time.
+		`ALTER TABLE KnownClients ADD COLUMN "publicUrl" TEXT DEFAULT ''`,
+		// Retire the v3.0 UNIQUE(userId, worldId) index: two Foundry servers may
+		// now share a worldId under one account, each with its own clientId. A
+		// plain index replaces it for lookup performance.
+		`DROP INDEX IF EXISTS idx_kc_user_world`,
+		`CREATE INDEX IF NOT EXISTS idx_kc_user_world_lookup ON KnownClients("userId", "worldId")`,
 	}
 	for _, m := range sqliteAlterMigrations {
 		_, _ = db.sqlDB.ExecContext(ctx, m) // ignore "duplicate column" errors
@@ -536,8 +555,9 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 	// NULL in scopes (which sqlx cannot scan into a non-nullable string).
 	fixNullScopesInApiKeys(ctx, db.sqlDB, "sqlite")
 
-	// v3.0: purge unknown-world rows and enforce UNIQUE(userId, worldId).
-	addWorldIdUniqueConstraint(ctx, db.sqlDB, "sqlite")
+	// v3.0: purge unknown-world rows (the UNIQUE(userId, worldId) index this
+	// once created is retired — see the alter migrations).
+	purgeUnknownWorldRows(ctx, db.sqlDB, "sqlite")
 
 	// v3.1: grandfather existing accounts — mark all unverified users as verified
 	// since email verification was introduced after these accounts were created.
@@ -844,12 +864,13 @@ func backfillUserAPIKeyHashes(ctx context.Context, sqlDB *sqlx.DB, dbType string
 	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`INSERT INTO %s (name) VALUES ($1)`, smTable), migrationName)
 }
 
-// addWorldIdUniqueConstraint is the v3.0 migration that:
-//  1. Deletes all KnownClients rows with NULL worldId (unknown-world orphans from v2.x)
-//  2. Creates a UNIQUE index on (userId, worldId) so each world can only have one row per user
-//
-// Idempotent via SchemaMigrations tracking.
-func addWorldIdUniqueConstraint(ctx context.Context, sqlDB *sqlx.DB, dbType string) {
+// purgeUnknownWorldRows is the v3.0 migration that deletes all KnownClients
+// rows with NULL worldId (unknown-world orphans from v2.x). It originally also
+// created a UNIQUE index on (userId, worldId); that index is retired — two
+// Foundry servers may now share a worldId under one account, each with its own
+// clientId — and is dropped by the always-run alter migrations above. The
+// historical migration marker name is kept for idempotency.
+func purgeUnknownWorldRows(ctx context.Context, sqlDB *sqlx.DB, dbType string) {
 	const migrationName = "add_world_id_unique_constraint_v3"
 	smTable := "SchemaMigrations"
 	kcTable := "KnownClients"
@@ -864,27 +885,15 @@ func addWorldIdUniqueConstraint(ctx context.Context, sqlDB *sqlx.DB, dbType stri
 		return
 	}
 
-	// Step 1: delete unknown-world rows
 	result, err := sqlDB.ExecContext(ctx, fmt.Sprintf(`DELETE FROM %s WHERE "worldId" IS NULL`, kcTable))
 	if err != nil {
-		log.Warn().Err(err).Msg("addWorldIdUniqueConstraint: failed to delete NULL worldId rows")
+		log.Warn().Err(err).Msg("purgeUnknownWorldRows: failed to delete NULL worldId rows")
 	} else if n, _ := result.RowsAffected(); n > 0 {
 		log.Info().Int64("count", n).Msg("Deleted unknown-world KnownClients rows (v3.0 migration)")
 	}
 
-	// Step 2: create unique index on (userId, worldId)
-	var indexSQL string
-	if dbType == "sqlite" {
-		indexSQL = `CREATE UNIQUE INDEX IF NOT EXISTS idx_kc_user_world ON KnownClients("userId", "worldId")`
-	} else {
-		indexSQL = `CREATE UNIQUE INDEX IF NOT EXISTS idx_kc_user_world ON "KnownClients"("userId", "worldId")`
-	}
-	if _, err := sqlDB.ExecContext(ctx, indexSQL); err != nil {
-		log.Warn().Err(err).Msg("addWorldIdUniqueConstraint: failed to create unique index")
-	}
-
 	_, _ = sqlDB.ExecContext(ctx, fmt.Sprintf(`INSERT INTO %s (name) VALUES ($1)`, smTable), migrationName)
-	log.Info().Msg("addWorldIdUniqueConstraint migration applied")
+	log.Info().Msg("purgeUnknownWorldRows migration applied")
 }
 
 // forceRotationIfNeeded sets apiKeyRotationRequired=1 for all existing users on first run.
@@ -1008,6 +1017,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			"clientId" VARCHAR(255),
 			"allowedTargetClients" TEXT DEFAULT '',
 			"remoteScopes" TEXT DEFAULT '',
+			"remoteRequestsPerHour" INTEGER DEFAULT 0,
 			expires_at TIMESTAMPTZ NOT NULL,
 			used BOOLEAN DEFAULT FALSE,
 			created_at TIMESTAMPTZ DEFAULT NOW()
@@ -1058,6 +1068,8 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			"allowedTargetClients" TEXT DEFAULT '',
 			"remoteScopes" TEXT DEFAULT '',
 			"remoteRequestsPerHour" INTEGER DEFAULT 0,
+			"serverFingerprint" TEXT,
+			"publicUrl" TEXT DEFAULT '',
 			created_at TIMESTAMPTZ DEFAULT NOW(),
 			updated_at TIMESTAMPTZ DEFAULT NOW(),
 			UNIQUE(user_id, client_id)
@@ -1084,6 +1096,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		`CREATE TABLE IF NOT EXISTS "PairRequests" (
 			id SERIAL PRIMARY KEY,
 			code VARCHAR(255) NOT NULL UNIQUE,
+			"clientId" VARCHAR(255) NOT NULL DEFAULT '',
 			world_id VARCHAR(255) NOT NULL,
 			world_title VARCHAR(255) NOT NULL DEFAULT '',
 			system_id VARCHAR(255) NOT NULL DEFAULT '',
@@ -1213,6 +1226,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "clientId" VARCHAR(255)`,
 		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "allowedTargetClients" TEXT DEFAULT ''`,
 		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "remoteScopes" TEXT DEFAULT ''`,
+		`ALTER TABLE "PairingCodes" ADD COLUMN IF NOT EXISTS "remoteRequestsPerHour" INTEGER DEFAULT 0`,
 		// KnownClients can opt-in to auto-start headless on incoming remote-request
 		`ALTER TABLE "KnownClients" ADD COLUMN IF NOT EXISTS "autoStartOnRemoteRequest" BOOLEAN DEFAULT FALSE`,
 		`ALTER TABLE "KnownClients" ADD COLUMN IF NOT EXISTS "credentialId" INTEGER`,
@@ -1313,6 +1327,8 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		)`,
 		// Log cross-world request toggle
 		`ALTER TABLE "NotificationSettings" ADD COLUMN IF NOT EXISTS "logCrossWorldRequests" BOOLEAN NOT NULL DEFAULT TRUE`,
+		// Notify on cross-world requests toggle (opt-out; default on)
+		`ALTER TABLE "NotificationSettings" ADD COLUMN IF NOT EXISTS "notifyOnCrossWorldRequests" BOOLEAN NOT NULL DEFAULT TRUE`,
 		// Drop credential columns from ApiKeys — credentials moved to KnownClients
 		`ALTER TABLE "ApiKeys" DROP COLUMN IF EXISTS "foundryUrl"`,
 		`ALTER TABLE "ApiKeys" DROP COLUMN IF EXISTS "foundryUsername"`,
@@ -1322,6 +1338,18 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		`ALTER TABLE "ApiKeys" DROP COLUMN IF EXISTS "credentialId"`,
 		// Per-client user scoping: JSON map of clientId → userId
 		`ALTER TABLE "ApiKeys" ADD COLUMN IF NOT EXISTS "scopedUserIds" TEXT`,
+		// Server fingerprint: stable per-server identity for re-pair matching.
+		`ALTER TABLE "KnownClients" ADD COLUMN IF NOT EXISTS "serverFingerprint" TEXT`,
+		// Public URL: browser Origin header captured at WebSocket connect time.
+		`ALTER TABLE "KnownClients" ADD COLUMN IF NOT EXISTS "publicUrl" TEXT DEFAULT ''`,
+		// PairRequests relay clientId — the CREATE TABLE only covers fresh installs;
+		// existing databases need this ALTER (staging 500'd without it).
+		`ALTER TABLE "PairRequests" ADD COLUMN IF NOT EXISTS "clientId" VARCHAR(255) NOT NULL DEFAULT ''`,
+		// Retire the v3.0 UNIQUE(userId, worldId) index: two Foundry servers may
+		// now share a worldId under one account, each with its own clientId. A
+		// plain index replaces it for lookup performance.
+		`DROP INDEX IF EXISTS idx_kc_user_world`,
+		`CREATE INDEX IF NOT EXISTS idx_kc_user_world_lookup ON "KnownClients"("userId", "worldId")`,
 		// Drop snake_case orphan columns left behind by earlier migrations that added
 		// camelCase duplicates via ALTER TABLE before the rename could run. Safe to
 		// re-run — IF EXISTS means they no-op once the column is gone.
@@ -1455,6 +1483,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		{"RemoteRequestLogs", "source_ip", "sourceIp"},
 		{"RemoteRequestLogs", "created_at", "createdAt"},
 		// PairRequests table
+		{"PairRequests", "client_id", "clientId"},
 		{"PairRequests", "world_id", "worldId"},
 		{"PairRequests", "world_title", "worldTitle"},
 		{"PairRequests", "system_id", "systemId"},
@@ -1504,8 +1533,9 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 	// One-time data fix: recover NULL scopes caused by a prior INSERT column-order bug.
 	fixNullScopesInApiKeys(ctx, db.sqlDB, "postgres")
 
-	// v3.0: purge unknown-world rows and enforce UNIQUE(userId, worldId).
-	addWorldIdUniqueConstraint(ctx, db.sqlDB, "postgres")
+	// v3.0: purge unknown-world rows (the UNIQUE(userId, worldId) index this
+	// once created is retired — see the alter migrations).
+	purgeUnknownWorldRows(ctx, db.sqlDB, "postgres")
 
 	// v3.1: grandfather existing accounts — mark all unverified users as verified
 	// since email verification was introduced after these accounts were created.

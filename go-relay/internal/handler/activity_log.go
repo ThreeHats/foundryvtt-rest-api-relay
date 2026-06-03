@@ -17,15 +17,10 @@ import (
 // ActivityRouter mounts GET /auth/activity for the authenticated user.
 func ActivityRouter(db *database.DB) chi.Router {
 	r := chi.NewRouter()
-	r.Use(middleware.AuthMiddleware(db, nil))
+	r.Use(middleware.SessionOnlyMiddleware(db))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		reqCtx := helpers.GetRequestContext(r)
-		if reqCtx == nil || !reqCtx.IsSessionAuth {
-			helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-			return
-		}
-
 		user, ok := reqCtx.User.(*model.User)
 		if !ok || user == nil {
 			helpers.WriteError(w, http.StatusUnauthorized, "Unauthorized")

@@ -27,14 +27,14 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 		// POST /auth/key-request — Create pending request (NO AUTH, RATE LIMITED)
 		r.With(middleware.KeyRequestRateLimiter.Middleware).Post("/", func(w http.ResponseWriter, r *http.Request) {
 			var body struct {
-				AppName            string   `json:"appName"`
-				AppDescription     string   `json:"appDescription"`
-				AppURL             string   `json:"appUrl"`
-				Scopes             []string `json:"scopes"`
-				ClientIDs          []string `json:"clientIds"`
-				CallbackURL        string   `json:"callbackUrl"`
-				SuggestedMonthlyLimit *int64  `json:"suggestedMonthlyLimit"`
-				SuggestedExpiry    string   `json:"suggestedExpiry"`
+				AppName               string   `json:"appName"`
+				AppDescription        string   `json:"appDescription"`
+				AppURL                string   `json:"appUrl"`
+				Scopes                []string `json:"scopes"`
+				ClientIDs             []string `json:"clientIds"`
+				CallbackURL           string   `json:"callbackUrl"`
+				SuggestedMonthlyLimit *int64   `json:"suggestedMonthlyLimit"`
+				SuggestedExpiry       string   `json:"suggestedExpiry"`
 			}
 			if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 				helpers.WriteError(w, http.StatusBadRequest, "Invalid request body")
@@ -60,12 +60,12 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 			expiresAt := time.Now().Add(10 * time.Minute)
 
 			req := &model.KeyRequest{
-				Code:               code,
-				AppName:            body.AppName,
-				AppDescription:     body.AppDescription,
-				RequestedScopes:    model.ScopesString(body.Scopes),
-				Status:             "pending",
-				ExpiresAt:          model.NewSQLiteTime(expiresAt),
+				Code:            code,
+				AppName:         body.AppName,
+				AppDescription:  body.AppDescription,
+				RequestedScopes: model.ScopesString(body.Scopes),
+				Status:          "pending",
+				ExpiresAt:       model.NewSQLiteTime(expiresAt),
 			}
 			if body.AppURL != "" {
 				if err := validateWebURL(body.AppURL); err != nil {
@@ -136,7 +136,11 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 					return
 				}
 
-				db.KeyRequestStore().UpdateStatus(ctx, req.ID, "exchanged", nil)
+				// The key is still returned on failure, but losing the "exchanged"
+				// transition would let it be retrieved repeatedly — log loudly.
+				if err := db.KeyRequestStore().UpdateStatus(ctx, req.ID, "exchanged", nil); err != nil {
+					log.Error().Err(err).Int64("requestId", req.ID).Msg("Failed to mark key request exchanged")
+				}
 
 				helpers.WriteJSONUnsanitized(w, http.StatusOK, map[string]interface{}{
 					"status":    "approved",
@@ -185,28 +189,20 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 				return
 			}
 
-			db.KeyRequestStore().UpdateStatus(ctx, req.ID, "exchanged", nil)
+			if err := db.KeyRequestStore().UpdateStatus(ctx, req.ID, "exchanged", nil); err != nil {
+				log.Error().Err(err).Int64("requestId", req.ID).Msg("Failed to mark key request exchanged")
+			}
 
 			helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{
 				"apiKey":    key.Key,
-				"scopes":   key.GetScopes(),
+				"scopes":    key.GetScopes(),
 				"clientIds": key.GetScopedClientIDs(),
 			})
 		})
 
 		// Authenticated routes for approval
 		r.Group(func(r chi.Router) {
-			r.Use(middleware.AuthMiddleware(db, nil))
-			r.Use(func(next http.Handler) http.Handler {
-				return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-					reqCtx := helpers.GetRequestContext(r)
-					if reqCtx == nil || !reqCtx.IsSessionAuth {
-						helpers.WriteError(w, http.StatusUnauthorized, "Session required.")
-						return
-					}
-					next.ServeHTTP(w, r)
-				})
-			})
+			r.Use(middleware.SessionOnlyMiddleware(db))
 
 			// GET /auth/key-request/:code — Get details for approval page
 			r.Get("/{code}", func(w http.ResponseWriter, r *http.Request) {
@@ -218,17 +214,17 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 				}
 
 				helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{
-					"code":               req.Code,
-					"appName":            req.AppName,
-					"appDescription":     req.AppDescription,
-					"appUrl":             req.AppURL.String,
-					"requestedScopes":    model.ParseScopes(req.RequestedScopes),
-					"requestedClientIds": model.ParseScopes(req.RequestedClientIDs),
-					"callbackUrl":        req.CallbackURL.String,
+					"code":                  req.Code,
+					"appName":               req.AppName,
+					"appDescription":        req.AppDescription,
+					"appUrl":                req.AppURL.String,
+					"requestedScopes":       model.ParseScopes(req.RequestedScopes),
+					"requestedClientIds":    model.ParseScopes(req.RequestedClientIDs),
+					"callbackUrl":           req.CallbackURL.String,
 					"suggestedMonthlyLimit": req.SuggestedMonthlyLimit.Int64,
-					"suggestedExpiry":    req.SuggestedExpiry.String,
-					"status":            req.Status,
-					"expiresAt":         req.ExpiresAt,
+					"suggestedExpiry":       req.SuggestedExpiry.String,
+					"status":                req.Status,
+					"expiresAt":             req.ExpiresAt,
 				})
 			})
 
@@ -262,10 +258,10 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 
 				// Parse approval body
 				var body struct {
-					Scopes     []string `json:"scopes"`
-					ClientIDs  []string `json:"clientIds"`
+					Scopes       []string `json:"scopes"`
+					ClientIDs    []string `json:"clientIds"`
 					MonthlyLimit *int64   `json:"monthlyLimit"`
-					ExpiresAt  string   `json:"expiresAt"`
+					ExpiresAt    string   `json:"expiresAt"`
 				}
 				json.NewDecoder(r.Body).Decode(&body)
 
@@ -333,7 +329,13 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 					updates["exchangeCode"] = exchangeCode
 				}
 
-				db.KeyRequestStore().UpdateStatus(ctx, keyReq.ID, "approved", updates)
+				if err := db.KeyRequestStore().UpdateStatus(ctx, keyReq.ID, "approved", updates); err != nil {
+					// Without this update the request stays "pending" and the web-flow
+					// exchange code is never persisted — fail loudly, never silently.
+					log.Error().Err(err).Str("code", code).Msg("Failed to mark key request approved")
+					helpers.WriteError(w, http.StatusInternalServerError, "Failed to record approval")
+					return
+				}
 
 				response := map[string]interface{}{
 					"success": true,
@@ -369,7 +371,11 @@ func RegisterKeyRequestRoutes(r chi.Router, db *database.DB, cfg *config.Config)
 					return
 				}
 
-				db.KeyRequestStore().UpdateStatus(r.Context(), keyReq.ID, "denied", nil)
+				if err := db.KeyRequestStore().UpdateStatus(r.Context(), keyReq.ID, "denied", nil); err != nil {
+					log.Error().Err(err).Str("code", code).Msg("Failed to mark key request denied")
+					helpers.WriteError(w, http.StatusInternalServerError, "Failed to record denial")
+					return
+				}
 
 				helpers.WriteJSON(w, http.StatusOK, map[string]interface{}{
 					"success": true,
@@ -414,4 +420,3 @@ func generateExchangeCode() (string, error) {
 	}
 	return hex.EncodeToString(b), nil
 }
-

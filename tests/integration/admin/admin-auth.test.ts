@@ -14,7 +14,7 @@ import { adminLogin, adminLogout, makeAdminRequest, AdminSession } from '../../h
 
 const hasAdminCredentials = testVariables.adminEmail !== '' && testVariables.adminPassword !== '';
 
-const describeAdmin = hasAdminCredentials ? describe : describe.skip;
+const describeAdmin = hasAdminCredentials && process.env.TEST_SKIP_ADMIN !== 'true' ? describe : describe.skip;
 
 describeAdmin('Admin Authentication', () => {
   let session: AdminSession | null = null;

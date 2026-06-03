@@ -27,6 +27,7 @@ type Client struct {
 	systemTitle       string
 	systemVersion     string
 	customName        string
+	publicUrl         string // browser Origin header at connection time (e.g. "https://myserver.example.com")
 	ipAddress         string
 	sendCh            chan []byte
 	done              chan struct{}
@@ -45,12 +46,13 @@ type ClientInfo struct {
 	SystemTitle    string `json:"systemTitle,omitempty"`
 	SystemVersion  string `json:"systemVersion,omitempty"`
 	CustomName     string `json:"customName,omitempty"`
+	PublicUrl      string `json:"publicUrl,omitempty"`
 	IPAddress      string `json:"ipAddress,omitempty"`
 	TokenName      string `json:"tokenName,omitempty"`
 }
 
 // NewClient creates a new Client and starts its write goroutine.
-func NewClient(conn *websocket.Conn, id, apiKey, tokenName string, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName string) *Client {
+func NewClient(conn *websocket.Conn, id, apiKey, tokenName string, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName, publicUrl string) *Client {
 	remoteAddr := ""
 	if conn.RemoteAddr() != nil {
 		remoteAddr = conn.RemoteAddr().String()
@@ -71,6 +73,7 @@ func NewClient(conn *websocket.Conn, id, apiKey, tokenName string, worldID, worl
 		systemTitle:    systemTitle,
 		systemVersion:  systemVersion,
 		customName:     customName,
+		publicUrl:      publicUrl,
 		ipAddress:      remoteAddr,
 		sendCh:         make(chan []byte, 1024),
 		done:           make(chan struct{}),
@@ -198,6 +201,7 @@ func (c *Client) SystemID() string          { return c.systemID }
 func (c *Client) SystemTitle() string       { return c.systemTitle }
 func (c *Client) SystemVersion() string     { return c.systemVersion }
 func (c *Client) CustomName() string        { return c.customName }
+func (c *Client) PublicUrl() string         { return c.publicUrl }
 func (c *Client) TokenName() string         { return c.tokenName }
 func (c *Client) LastSeen() time.Time       { return c.lastSeen }
 func (c *Client) ConnectedSince() time.Time { return c.connectedSince }
@@ -217,6 +221,7 @@ func (c *Client) Info(instanceID string) ClientInfo {
 		SystemTitle:    c.systemTitle,
 		SystemVersion:  c.systemVersion,
 		CustomName:     c.customName,
+		PublicUrl:      c.publicUrl,
 		IPAddress:      c.ipAddress,
 		TokenName:      c.tokenName,
 	}

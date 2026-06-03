@@ -64,12 +64,13 @@ func (t *ConnectionToken) GetAllowedTargets() []string {
 }
 
 // CanTarget returns true if the given clientId is in this token's allow-list.
+// The special value "*" grants access to all target clients.
 func (t *ConnectionToken) CanTarget(clientID string) bool {
 	if clientID == "" {
 		return false
 	}
 	for _, allowed := range t.GetAllowedTargets() {
-		if allowed == clientID {
+		if allowed == "*" || allowed == clientID {
 			return true
 		}
 	}

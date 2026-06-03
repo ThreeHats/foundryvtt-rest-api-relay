@@ -222,6 +222,14 @@ func handleRemoteRequest(cfg RemoteRequestConfig, source *Client, data map[strin
 		return
 	}
 
+	// A world can never remote-request itself (a wildcard "*" allow-list would
+	// otherwise let CanTarget match the source's own clientId).
+	if targetClientID == source.ID() {
+		respond(false, "cannot send a remote request to the source world itself", nil)
+		finishLog(false, "self-target rejected")
+		return
+	}
+
 	// Permission check 1: target must be in allowedTargetClients.
 	if !sourceKC.CanTarget(targetClientID) {
 		respond(false, fmt.Sprintf("target %q not in allowed clients for this world", targetClientID), nil)
@@ -320,8 +328,9 @@ func handleRemoteRequest(cfg RemoteRequestConfig, source *Client, data map[strin
 		_, err := cfg.Headless.AutoStartForKnownClient(startCtx, sourceToken.UserID, targetClientID)
 		startCancel()
 		if err != nil {
-			respond(false, fmt.Sprintf("auto-start failed: %s", err), nil)
-			finishLog(false, "auto-start failed")
+			errMsg := fmt.Sprintf("auto-start failed: %s", err)
+			respond(false, errMsg, nil)
+			finishLog(false, errMsg)
 			return
 		}
 

@@ -1,9 +1,9 @@
 package server
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"net"
@@ -11,7 +11,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/rs/zerolog/log"
@@ -42,11 +41,11 @@ type Server struct {
 	ctx     context.Context // shutdown context passed in from main; stops background goroutines
 
 	// WebSocket infrastructure
-	ClientManager   *ws.ClientManager
-	PendingReqs     *ws.PendingRequests
-	SSEManager      *helpers.SSEManager
-	InteractiveSessions   *ws.InteractiveSessionManager
-	Headless        *worker.HeadlessManager
+	ClientManager       *ws.ClientManager
+	PendingReqs         *ws.PendingRequests
+	SSEManager          *helpers.SSEManager
+	InteractiveSessions *ws.InteractiveSessionManager
+	Headless            *worker.HeadlessManager
 
 	// Notification dispatcher (account + per-key routing)
 	Dispatcher *service.Dispatcher
@@ -63,15 +62,15 @@ type Server struct {
 // (cleanup loops, Redis subscriber) stop cleanly on SIGTERM.
 func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config.RedisClient, version string) *Server {
 	s := &Server{
-		cfg:           cfg,
-		db:            db,
-		redis:         redis,
-		version:       version,
-		ctx:           ctx,
-		ClientManager: ws.NewClientManager(redis, cfg.InstanceID()),
-		PendingReqs:    ws.NewPendingRequests(),
-		SSEManager:     helpers.NewSSEManager(), // callback wired below
-		InteractiveSessions:  ws.NewInteractiveSessionManager(cfg.MaxInteractiveSessionsPerKey),
+		cfg:                 cfg,
+		db:                  db,
+		redis:               redis,
+		version:             version,
+		ctx:                 ctx,
+		ClientManager:       ws.NewClientManager(redis, cfg.InstanceID()),
+		PendingReqs:         ws.NewPendingRequests(),
+		SSEManager:          helpers.NewSSEManager(), // callback wired below
+		InteractiveSessions: ws.NewInteractiveSessionManager(cfg.MaxInteractiveSessionsPerKey),
 	}
 	// Notify the Foundry module whenever subscriber counts change so it can
 	// enable/disable event hooks on demand rather than always streaming everything.
@@ -248,7 +247,7 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 				}
 			}
 
-			db.KnownClientStore().Upsert(ctx, &model.KnownClient{
+			if err := db.KnownClientStore().Upsert(ctx, &model.KnownClient{
 				UserID:         user.ID,
 				ClientID:       clientID,
 				WorldID:        sql.NullString{String: metadata.WorldID, Valid: metadata.WorldID != ""},
@@ -258,8 +257,14 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 				SystemVersion:  sql.NullString{String: metadata.SystemVersion, Valid: metadata.SystemVersion != ""},
 				FoundryVersion: sql.NullString{String: metadata.FoundryVersion, Valid: metadata.FoundryVersion != ""},
 				CustomName:     sql.NullString{String: metadata.CustomName, Valid: metadata.CustomName != ""},
+				PublicUrl:      sql.NullString{String: metadata.PublicUrl, Valid: metadata.PublicUrl != ""},
 				IsOnline:       true,
-			})
+			}); err != nil {
+				// Don't fail the connection, but never swallow this: a failed upsert
+				// means the dashboard shows the world offline/missing and cross-world
+				// permission lookups can't find the source world.
+				log.Error().Err(err).Str("clientId", clientID).Int64("userId", user.ID).Msg("Failed to upsert known client on connect")
+			}
 
 			// Detect same worldId connecting under a different user account (multi-account abuse signal).
 			if metadata.WorldID != "" {
@@ -569,30 +574,6 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 
 	// Set up auto-start using world-side credentials (KnownClient.credentialId)
 	if s.Headless != nil {
-		var autoStartMu sync.Mutex
-		autoStartCooldowns := make(map[string]time.Time) // clientID -> cooldown until
-
-		// Evict expired cooldown entries so the map doesn't grow unbounded.
-		go func() {
-			ticker := time.NewTicker(5 * time.Minute)
-			defer ticker.Stop()
-			for {
-				select {
-				case <-ticker.C:
-					autoStartMu.Lock()
-					now := time.Now()
-					for id, until := range autoStartCooldowns {
-						if now.After(until) {
-							delete(autoStartCooldowns, id)
-						}
-					}
-					autoStartMu.Unlock()
-				case <-s.ctx.Done():
-					return
-				}
-			}
-		}()
-
 		autoStart := func(userID int64, targetClientID string) string {
 			if targetClientID == "" {
 				return ""
@@ -606,25 +587,14 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 				}
 				return clientID
 			}
-			autoStartMu.Lock()
-			if until, ok := autoStartCooldowns[targetClientID]; ok && time.Now().Before(until) {
-				autoStartMu.Unlock()
-				return ""
-			}
-			autoStartMu.Unlock()
-			s.Headless.RegisterLaunch(targetClientID)
+			// AutoStartForKnownClient enforces the per-client failure cooldown itself.
 			startCtx, cancel := context.WithTimeout(context.Background(), 90*time.Second)
 			defer cancel()
 			clientID, err := s.Headless.AutoStartForKnownClient(startCtx, userID, targetClientID)
 			if err != nil {
 				log.Warn().Err(err).Str("clientId", targetClientID).Msg("Auto-start headless failed")
-				s.Headless.FailLaunch(targetClientID, err)
-				autoStartMu.Lock()
-				autoStartCooldowns[targetClientID] = time.Now().Add(60 * time.Second)
-				autoStartMu.Unlock()
 				return ""
 			}
-			s.Headless.CompleteLaunch(targetClientID, clientID)
 			return clientID
 		}
 
@@ -778,10 +748,10 @@ func (s *Server) setupRouter() *chi.Mux {
 
 	// WebSocket routes — registered before API route group to avoid catch-all conflict
 	relayCfg := &ws.RelayConfig{
-		PingInterval:             time.Duration(s.cfg.WSPingIntervalMs) * time.Millisecond,
-		CleanupInterval:          time.Duration(s.cfg.ClientCleanupIntervalMs) * time.Millisecond,
-		ValidateAPIKey:           service.MakeWSValidateAPIKey(s.db),
-		ValidateConnectionToken:  service.MakeWSValidateConnectionToken(s.db),
+		PingInterval:            time.Duration(s.cfg.WSPingIntervalMs) * time.Millisecond,
+		CleanupInterval:         time.Duration(s.cfg.ClientCleanupIntervalMs) * time.Millisecond,
+		ValidateAPIKey:          service.MakeWSValidateAPIKey(s.db),
+		ValidateConnectionToken: service.MakeWSValidateConnectionToken(s.db),
 		ValidateHeadless: func(clientID, token string) (bool, error) {
 			if s.Headless == nil {
 				return true, nil
@@ -818,8 +788,8 @@ func (s *Server) setupRouter() *chi.Mux {
 			}
 			return s.headlessAutoStart(masterAPIKey, scopedClientID)
 		},
-		SSEManager:     s.SSEManager,
-		InteractiveSessions:  s.InteractiveSessions,
+		SSEManager:          s.SSEManager,
+		InteractiveSessions: s.InteractiveSessions,
 	})
 	r.HandleFunc("/ws/api", clientWSHandler)
 
@@ -863,9 +833,9 @@ func (s *Server) setupRouter() *chi.Mux {
 	// Docusaurus documentation — check multiple locations
 	docsDir := ""
 	for _, candidate := range []string{
-		filepath.Join(baseDir, "docs/build"),                             // standard layout (main repo)
-		filepath.Join(baseDir, "..", "..", "..", "docs/build"),           // worktree (.claude/worktrees/X/) → main repo
-		filepath.Join(baseDir, "..", "..", "..", "..", "docs/build"),     // deeper nesting
+		filepath.Join(baseDir, "docs/build"),                         // standard layout (main repo)
+		filepath.Join(baseDir, "..", "..", "..", "docs/build"),       // worktree (.claude/worktrees/X/) → main repo
+		filepath.Join(baseDir, "..", "..", "..", "..", "docs/build"), // deeper nesting
 	} {
 		if info, err := os.Stat(candidate); err == nil && info.IsDir() {
 			docsDir = candidate

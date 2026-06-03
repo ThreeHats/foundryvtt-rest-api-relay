@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 
@@ -188,6 +189,19 @@ func HandleRelayConnection(manager *ClientManager, cfg *RelayConfig) http.Handle
 		systemTitle := query.Get("systemTitle")
 		systemVersion := query.Get("systemVersion")
 		customName := query.Get("customName")
+		// Capture the browser Origin header — this is the server's public URL
+		// (e.g. "https://myserver.example.com" or "http://localhost:30000").
+		// Sent automatically by browsers for all WebSocket connections.
+		// Validate: must be http/https with a host and no path/query (bare origin only).
+		publicUrl := ""
+		if raw := r.Header.Get("Origin"); raw != "" {
+			if u, err := url.Parse(raw); err == nil &&
+				(u.Scheme == "http" || u.Scheme == "https") &&
+				u.Host != "" && u.Path == "" && u.RawQuery == "" && u.Fragment == "" &&
+				len(raw) <= 512 {
+				publicUrl = raw
+			}
+		}
 
 		if id == "" {
 			log.Warn().Str("ip", r.RemoteAddr).Msg("Rejecting WebSocket connection: missing id")
@@ -269,7 +283,7 @@ func HandleRelayConnection(manager *ClientManager, cfg *RelayConfig) http.Handle
 		// All validation passed — send auth-success before starting client pumps
 		sendWSJSON(conn, map[string]interface{}{"type": "auth-success"})
 
-		startRelayClient(manager, cfg, conn, id, registrationToken, authMsg.Token, tokenName, tokenID, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName)
+		startRelayClient(manager, cfg, conn, id, registrationToken, authMsg.Token, tokenName, tokenID, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName, publicUrl)
 	}
 }
 
@@ -278,9 +292,11 @@ func HandleRelayConnection(manager *ClientManager, cfg *RelayConfig) http.Handle
 // it is recorded on the Client so DELETE /auth/connection-tokens/:id can target this connection.
 // tokenName is the human-readable name of the connection token (e.g. "Firefox on Linux"),
 // stored on the client for inclusion in connection log entries.
-func startRelayClient(manager *ClientManager, cfg *RelayConfig, conn *websocket.Conn, id, registrationToken, rawToken, tokenName string, tokenID int64, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName string) {
+// publicUrl is the browser Origin header (e.g. "https://myserver.example.com"), used to
+// redirect players to the target server after a cross-server player transfer.
+func startRelayClient(manager *ClientManager, cfg *RelayConfig, conn *websocket.Conn, id, registrationToken, rawToken, tokenName string, tokenID int64, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName, publicUrl string) {
 	// Register client
-	client, err := manager.AddClient(conn, id, registrationToken, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName)
+	client, err := manager.AddClient(conn, id, registrationToken, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName, publicUrl)
 	if err != nil {
 		return
 	}
