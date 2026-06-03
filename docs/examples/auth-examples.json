@@ -8,28 +8,28 @@
       "method": "POST",
       "headers": {},
       "body": {
-        "email": "auth-test-1778896413939@example.com",
+        "email": "auth-test-1780520743284@example.com",
         "password": "TestPassword1"
       }
     },
     "response": {
       "status": 201,
       "data": {
-        "createdAt": "2026-05-16T01:53:34Z",
-        "email": "auth-test-1778896413939@example.com",
+        "createdAt": "2026-06-03T21:05:43Z",
+        "email": "auth-test-1780520743284@example.com",
         "emailVerified": true,
-        "id": 797,
-        "sessionExpiresAt": "2026-06-15T01:53:34Z",
-        "sessionToken": "8f5dae88c7aaecfd0dc8b0be0e37f39542a47ee978f9c1f9f39f6875b3d20cc9",
+        "id": 840,
+        "sessionExpiresAt": "2026-07-03T21:05:43Z",
+        "sessionToken": "e5dd085568fc26468d3111e3e792492b69a29b6a61b95bd3f0697565fbad10be",
         "subscriptionStatus": "free"
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/register';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"auth-test-1778896413939@example.com\",\n      \"password\": \"TestPassword1\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/register' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/register'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"auth-test-1778896413939@example.com\",\n      \"password\": \"TestPassword1\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/register';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"auth-test-1778896413939@example.com\",\n        \"password\": \"TestPassword1\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/register🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/register HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{\"email\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/register';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"auth-test-1780520743284@example.com\",\n      \"password\": \"TestPassword1\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/register' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/register'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"auth-test-1780520743284@example.com\",\n      \"password\": \"TestPassword1\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/register';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"auth-test-1780520743284@example.com\",\n        \"password\": \"TestPassword1\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/register🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/register HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{\"email\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -41,7 +41,7 @@
       "method": "POST",
       "headers": {},
       "body": {
-        "email": "relay-test-1778896406534@example.com",
+        "email": "relay-test-1780520728051@example.com",
         "password": "TestPassword123!"
       }
     },
@@ -49,22 +49,22 @@
       "status": 200,
       "data": {
         "apiKeyRotationRequired": false,
-        "createdAt": "2026-05-16T01:53:26Z",
-        "email": "relay-test-1778896406534@example.com",
+        "createdAt": "2026-06-03T21:05:28Z",
+        "email": "relay-test-1780520728051@example.com",
         "emailVerified": true,
-        "id": 796,
-        "requestsThisMonth": 142,
+        "id": 839,
+        "requestsThisMonth": 426,
         "role": "user",
-        "sessionExpiresAt": "2026-06-15T01:53:34Z",
-        "sessionToken": "1cfbc6a13bc5b071539c6879ef1c8f5183a75f0aa1ae4072448adc8d45ebf2a5"
+        "sessionExpiresAt": "2026-07-03T21:05:44Z",
+        "sessionToken": "35eb76943ccbead8277205962fd8d6bb31e6731da3e8fd1641e7645eb53413ed"
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/login';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"relay-test-1778896406534@example.com\",\n      \"password\": \"TestPassword123!\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/login' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"relay-test-1778896406534@example.com\",\"password\":\"TestPassword123!\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/login'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"relay-test-1778896406534@example.com\",\n      \"password\": \"TestPassword123!\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/login';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"relay-test-1778896406534@example.com\",\n        \"password\": \"TestPassword123!\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/login🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"relay-test-1778896406534@example.com\",\"password\":\"TestPassword123!\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/login HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 78❌r❌n❌r❌n{\"email\":\"relay-test-1778896406534@example.com\",\"password\":\"TestPassword123!\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/login';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"relay-test-1780520728051@example.com\",\n      \"password\": \"TestPassword123!\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/login' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"relay-test-1780520728051@example.com\",\"password\":\"TestPassword123!\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/login'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"relay-test-1780520728051@example.com\",\n      \"password\": \"TestPassword123!\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/login';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"relay-test-1780520728051@example.com\",\n        \"password\": \"TestPassword123!\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/login🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"relay-test-1780520728051@example.com\",\"password\":\"TestPassword123!\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/login HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 78❌r❌n❌r❌n{\"email\":\"relay-test-1780520728051@example.com\",\"password\":\"TestPassword123!\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -75,16 +75,16 @@
       "url": "http://localhost:3010/auth/user-data",
       "method": "GET",
       "headers": {
-        "Authorization": "Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c"
+        "Authorization": "Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "apiKeyRotationRequired": false,
-        "email": "auth-test-1778896413939@example.com",
+        "email": "auth-test-1780520743284@example.com",
         "emailVerified": true,
-        "id": 797,
+        "id": 840,
         "limits": {
           "monthlyLimit": 1000000,
           "unlimitedMonthly": false
@@ -95,11 +95,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/user-data';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/auth/user-data' \\\n  -H \"Authorization: Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/user-data'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/user-data';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/user-data🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/user-data HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/user-data';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/auth/user-data' \\\n  -H \"Authorization: Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/user-data'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/user-data';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/user-data🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/user-data HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -110,7 +110,7 @@
       "url": "http://localhost:3010/auth/export-data",
       "method": "GET",
       "headers": {
-        "Authorization": "Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c"
+        "Authorization": "Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff"
       }
     },
     "response": {
@@ -119,7 +119,7 @@
         "apiAccess": {
           "hasMasterKey": true
         },
-        "exportDate": "2026-05-16T01:53:34Z",
+        "exportDate": "2026-06-03T21:05:44Z",
         "scopedKeys": [],
         "subscription": {
           "status": "free",
@@ -131,19 +131,19 @@
           "requestsToday": 0
         },
         "user": {
-          "createdAt": "2026-05-16T01:53:34Z",
-          "email": "auth-test-1778896413939@example.com",
-          "id": 797,
-          "updatedAt": "2026-05-16T01:53:34Z"
+          "createdAt": "2026-06-03T21:05:43Z",
+          "email": "auth-test-1780520743284@example.com",
+          "id": 840,
+          "updatedAt": "2026-06-03T21:05:43Z"
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/export-data';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/auth/export-data' \\\n  -H \"Authorization: Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/export-data'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/export-data';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/export-data🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/export-data HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer e00aa63b4757f0bcbd24508a3121bb253e99f401a21a65cec3a4f8c966d9c76c❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/export-data';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/auth/export-data' \\\n  -H \"Authorization: Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/export-data'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/export-data';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/export-data🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/export-data HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 76d9ed2c506ba589ff5766c4e37c1186c769d70b170f0bb2fc560ecc8e5b8eff❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -154,7 +154,7 @@
       "url": "http://localhost:3010/auth/change-password",
       "method": "POST",
       "headers": {
-        "Authorization": "Bearer a6da5cd599166582cf9b0a237842ad2b4498bfb63a81025388836e97a5b070d2"
+        "Authorization": "Bearer 311c3a00da3b2e1053a1170b768b300cbb6fcac8d4faa996bfada0d24124b41a"
       },
       "body": {
         "currentPassword": "TestPassword123!",
@@ -168,11 +168,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/change-password';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer a6da5cd599166582cf9b0a237842ad2b4498bfb63a81025388836e97a5b070d2',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"currentPassword\": \"TestPassword123!\",\n      \"newPassword\": \"ChangedPassword2\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/change-password' \\\n  -H \"Authorization: Bearer a6da5cd599166582cf9b0a237842ad2b4498bfb63a81025388836e97a5b070d2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"currentPassword\":\"TestPassword123!\",\"newPassword\":\"ChangedPassword2\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/change-password'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer a6da5cd599166582cf9b0a237842ad2b4498bfb63a81025388836e97a5b070d2'\n    },\n    json={\n      \"currentPassword\": \"TestPassword123!\",\n      \"newPassword\": \"ChangedPassword2\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/change-password';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer a6da5cd599166582cf9b0a237842ad2b4498bfb63a81025388836e97a5b070d2',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"currentPassword\": \"TestPassword123!\",\n        \"newPassword\": \"ChangedPassword2\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/change-password🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"currentPassword\":\"TestPassword123!\",\"newPassword\":\"ChangedPassword2\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/change-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer a6da5cd599166582cf9b0a237842ad2b4498bfb63a81025388836e97a5b070d2❌r❌nContent-Type: application/json❌r❌nContent-Length: 71❌r❌n❌r❌n{\"currentPassword\":\"TestPassword123!\",\"newPassword\":\"ChangedPassword2\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/change-password';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 311c3a00da3b2e1053a1170b768b300cbb6fcac8d4faa996bfada0d24124b41a',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"currentPassword\": \"TestPassword123!\",\n      \"newPassword\": \"ChangedPassword2\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/change-password' \\\n  -H \"Authorization: Bearer 311c3a00da3b2e1053a1170b768b300cbb6fcac8d4faa996bfada0d24124b41a\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"currentPassword\":\"TestPassword123!\",\"newPassword\":\"ChangedPassword2\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/change-password'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 311c3a00da3b2e1053a1170b768b300cbb6fcac8d4faa996bfada0d24124b41a'\n    },\n    json={\n      \"currentPassword\": \"TestPassword123!\",\n      \"newPassword\": \"ChangedPassword2\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/change-password';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 311c3a00da3b2e1053a1170b768b300cbb6fcac8d4faa996bfada0d24124b41a',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"currentPassword\": \"TestPassword123!\",\n        \"newPassword\": \"ChangedPassword2\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/change-password🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"currentPassword\":\"TestPassword123!\",\"newPassword\":\"ChangedPassword2\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/change-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 311c3a00da3b2e1053a1170b768b300cbb6fcac8d4faa996bfada0d24124b41a❌r❌nContent-Type: application/json❌r❌nContent-Length: 71❌r❌n❌r❌n{\"currentPassword\":\"TestPassword123!\",\"newPassword\":\"ChangedPassword2\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -184,22 +184,22 @@
       "method": "POST",
       "headers": {},
       "body": {
-        "email": "auth-test-1778896413939@example.com",
+        "email": "auth-test-1780520743284@example.com",
         "password": "TestPassword1"
       }
     },
     "response": {
       "status": 200,
       "data": {
-        "apiKey": "ff9e2bbfd1a7bddd439bdb1fb4b828069d172f1fcfaf412c0160154114697944"
+        "apiKey": "f413130a5bca2133d5b1131661252ef5b0cf30bb7465083a8220cfc2b4fe4f00"
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/regenerate-key';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"auth-test-1778896413939@example.com\",\n      \"password\": \"TestPassword1\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/regenerate-key' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/regenerate-key'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"auth-test-1778896413939@example.com\",\n      \"password\": \"TestPassword1\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/regenerate-key';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"auth-test-1778896413939@example.com\",\n        \"password\": \"TestPassword1\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/regenerate-key🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/regenerate-key HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{\"email\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/regenerate-key';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"auth-test-1780520743284@example.com\",\n      \"password\": \"TestPassword1\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/regenerate-key' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/regenerate-key'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"auth-test-1780520743284@example.com\",\n      \"password\": \"TestPassword1\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/regenerate-key';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"auth-test-1780520743284@example.com\",\n        \"password\": \"TestPassword1\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/regenerate-key🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/regenerate-key HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 74❌r❌n❌r❌n{\"email\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -211,7 +211,7 @@
       "method": "POST",
       "headers": {},
       "body": {
-        "email": "auth-test-1778896413939@example.com"
+        "email": "auth-test-1780520743284@example.com"
       }
     },
     "response": {
@@ -221,11 +221,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/forgot-password';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"auth-test-1778896413939@example.com\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/forgot-password' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"auth-test-1778896413939@example.com\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/forgot-password'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"auth-test-1778896413939@example.com\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/forgot-password';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"auth-test-1778896413939@example.com\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/forgot-password🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"auth-test-1778896413939@example.com\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/forgot-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 47❌r❌n❌r❌n{\"email\":\"auth-test-1778896413939@example.com\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/forgot-password';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"email\": \"auth-test-1780520743284@example.com\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/forgot-password' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"email\":\"auth-test-1780520743284@example.com\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/forgot-password'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"email\": \"auth-test-1780520743284@example.com\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/forgot-password';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"email\": \"auth-test-1780520743284@example.com\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/forgot-password🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"email\":\"auth-test-1780520743284@example.com\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/forgot-password HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 47❌r❌n❌r❌n{\"email\":\"auth-test-1780520743284@example.com\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -236,7 +236,7 @@
       "url": "http://localhost:3010/auth/logout",
       "method": "POST",
       "headers": {
-        "Authorization": "Bearer 2689b3ee8d12f3b772c9106eb26013934a5b84b9f75a2e7ca7f511ee58331210"
+        "Authorization": "Bearer a892c7e30a760b52b77f4a91be59ef3c1ec9646810c140a05567051192995e64"
       }
     },
     "response": {
@@ -246,11 +246,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/logout';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 2689b3ee8d12f3b772c9106eb26013934a5b84b9f75a2e7ca7f511ee58331210'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/logout' \\\n  -H \"Authorization: Bearer 2689b3ee8d12f3b772c9106eb26013934a5b84b9f75a2e7ca7f511ee58331210\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/logout'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 2689b3ee8d12f3b772c9106eb26013934a5b84b9f75a2e7ca7f511ee58331210'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/logout';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 2689b3ee8d12f3b772c9106eb26013934a5b84b9f75a2e7ca7f511ee58331210'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/logout🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/logout HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 2689b3ee8d12f3b772c9106eb26013934a5b84b9f75a2e7ca7f511ee58331210❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/logout';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer a892c7e30a760b52b77f4a91be59ef3c1ec9646810c140a05567051192995e64'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/logout' \\\n  -H \"Authorization: Bearer a892c7e30a760b52b77f4a91be59ef3c1ec9646810c140a05567051192995e64\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/logout'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer a892c7e30a760b52b77f4a91be59ef3c1ec9646810c140a05567051192995e64'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/logout';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer a892c7e30a760b52b77f4a91be59ef3c1ec9646810c140a05567051192995e64'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/logout🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/logout HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer a892c7e30a760b52b77f4a91be59ef3c1ec9646810c140a05567051192995e64❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -261,7 +261,7 @@
       "url": "http://localhost:3010/auth/resend-verification",
       "method": "POST",
       "headers": {
-        "Authorization": "Bearer 672c5e6705f934ae08d6909b9e86e917265ba05b6012a80ed6f980e1ad76a859"
+        "Authorization": "Bearer 535892726022ca99a29c652e35f26f69ef1ce9e62f53fa1103bbffa802cdd888"
       }
     },
     "response": {
@@ -271,11 +271,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/resend-verification';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 672c5e6705f934ae08d6909b9e86e917265ba05b6012a80ed6f980e1ad76a859'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/resend-verification' \\\n  -H \"Authorization: Bearer 672c5e6705f934ae08d6909b9e86e917265ba05b6012a80ed6f980e1ad76a859\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/resend-verification'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 672c5e6705f934ae08d6909b9e86e917265ba05b6012a80ed6f980e1ad76a859'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/resend-verification';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 672c5e6705f934ae08d6909b9e86e917265ba05b6012a80ed6f980e1ad76a859'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/resend-verification🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/resend-verification HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 672c5e6705f934ae08d6909b9e86e917265ba05b6012a80ed6f980e1ad76a859❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/resend-verification';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 535892726022ca99a29c652e35f26f69ef1ce9e62f53fa1103bbffa802cdd888'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/resend-verification' \\\n  -H \"Authorization: Bearer 535892726022ca99a29c652e35f26f69ef1ce9e62f53fa1103bbffa802cdd888\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/resend-verification'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 535892726022ca99a29c652e35f26f69ef1ce9e62f53fa1103bbffa802cdd888'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/resend-verification';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 535892726022ca99a29c652e35f26f69ef1ce9e62f53fa1103bbffa802cdd888'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/resend-verification🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/resend-verification HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 535892726022ca99a29c652e35f26f69ef1ce9e62f53fa1103bbffa802cdd888❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -286,7 +286,7 @@
       "url": "http://localhost:3010/api/subscriptions/status",
       "method": "GET",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       }
     },
     "response": {
@@ -297,11 +297,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/api/subscriptions/status';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/api/subscriptions/status' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/api/subscriptions/status'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/api/subscriptions/status';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/api/subscriptions/status🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /api/subscriptions/status HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/api/subscriptions/status';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/api/subscriptions/status' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/api/subscriptions/status'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/api/subscriptions/status';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/api/subscriptions/status🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /api/subscriptions/status HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -312,7 +312,7 @@
       "url": "http://localhost:3010/auth/api-keys",
       "method": "POST",
       "headers": {
-        "Authorization": "Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9"
+        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
       },
       "body": {
         "name": "Test Scoped Key",
@@ -326,11 +326,11 @@
     "response": {
       "status": 201,
       "data": {
-        "createdAt": "2026-05-16T01:53:59Z",
+        "createdAt": "2026-06-03T21:06:41Z",
         "enabled": true,
         "expiresAt": null,
-        "id": 4030,
-        "key": "e1d6343b36cb30c63554f82d3577abed65352bd0cb97892a2144535c7cc7a568",
+        "id": 4274,
+        "key": "7f5888d0e0e956f23951ca6ca2e945f98388886e4e5ce3dd315a5e557061fe04",
         "monthlyLimit": 500,
         "name": "Test Scoped Key",
         "scopedClientId": "",
@@ -344,11 +344,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"name\": \"Test Scoped Key\",\n      \"scopes\": [\n        \"entity:read\",\n        \"structure:read\"\n      ],\n      \"monthlyLimit\": \"500\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/api-keys' \\\n  -H \"Authorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\":\"Test Scoped Key\",\"scopes\":[\"entity:read\",\"structure:read\"],\"monthlyLimit\":\"500\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    },\n    json={\n      \"name\": \"Test Scoped Key\",\n      \"scopes\": [\n        \"entity:read\",\n        \"structure:read\"\n      ],\n      \"monthlyLimit\": \"500\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"name\": \"Test Scoped Key\",\n        \"scopes\": [\n          \"entity:read\",\n          \"structure:read\"\n        ],\n        \"monthlyLimit\": \"500\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"name\":\"Test Scoped Key\",\"scopes\":[\"entity:read\",\"structure:read\"],\"monthlyLimit\":\"500\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/api-keys HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9❌r❌nContent-Type: application/json❌r❌nContent-Length: 89❌r❌n❌r❌n{\"name\":\"Test Scoped Key\",\"scopes\":[\"entity:read\",\"structure:read\"],\"monthlyLimit\":\"500\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"name\": \"Test Scoped Key\",\n      \"scopes\": [\n        \"entity:read\",\n        \"structure:read\"\n      ],\n      \"monthlyLimit\": \"500\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/auth/api-keys' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\":\"Test Scoped Key\",\"scopes\":[\"entity:read\",\"structure:read\"],\"monthlyLimit\":\"500\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    json={\n      \"name\": \"Test Scoped Key\",\n      \"scopes\": [\n        \"entity:read\",\n        \"structure:read\"\n      ],\n      \"monthlyLimit\": \"500\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"name\": \"Test Scoped Key\",\n        \"scopes\": [\n          \"entity:read\",\n          \"structure:read\"\n        ],\n        \"monthlyLimit\": \"500\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"name\":\"Test Scoped Key\",\"scopes\":[\"entity:read\",\"structure:read\"],\"monthlyLimit\":\"500\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/api-keys HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌nContent-Type: application/json❌r❌nContent-Length: 89❌r❌n❌r❌n{\"name\":\"Test Scoped Key\",\"scopes\":[\"entity:read\",\"structure:read\"],\"monthlyLimit\":\"500\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -359,7 +359,7 @@
       "url": "http://localhost:3010/auth/api-keys",
       "method": "GET",
       "headers": {
-        "Authorization": "Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9"
+        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
       }
     },
     "response": {
@@ -367,15 +367,15 @@
       "data": {
         "keys": [
           {
-            "createdAt": "2026-05-16T01:53:26Z",
+            "createdAt": "2026-06-03T21:05:28Z",
             "enabled": true,
             "expiresAt": null,
-            "id": 4029,
+            "id": 4273,
             "isExpired": false,
-            "key": "164f0657...",
+            "key": "a3cad234...",
             "monthlyLimit": 0,
             "name": "Test Key (all scopes)",
-            "requestsThisMonth": 376,
+            "requestsThisMonth": 1123,
             "scopedClientId": "",
             "scopedClientIds": null,
             "scopedUserId": "",
@@ -414,15 +414,15 @@
               "structure:write",
               "dnd5e"
             ],
-            "updatedAt": "2026-05-16T01:53:59Z"
+            "updatedAt": "2026-06-03T21:06:41Z"
           },
           {
-            "createdAt": "2026-05-16T01:53:59Z",
+            "createdAt": "2026-06-03T21:06:41Z",
             "enabled": true,
             "expiresAt": null,
-            "id": 4030,
+            "id": 4274,
             "isExpired": false,
-            "key": "e1d6343b...",
+            "key": "7f5888d0...",
             "monthlyLimit": 500,
             "name": "Test Scoped Key",
             "requestsThisMonth": 0,
@@ -434,28 +434,28 @@
               "entity:read",
               "structure:read"
             ],
-            "updatedAt": "2026-05-16T01:53:59Z"
+            "updatedAt": "2026-06-03T21:06:41Z"
           }
         ]
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/auth/api-keys' \\\n  -H \"Authorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/api-keys HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/auth/api-keys' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/api-keys HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/auth/api-keys/4030",
+    "endpoint": "/auth/api-keys/4274",
     "method": "PATCH",
     "description": "/auth/api-keys/:id",
     "request": {
-      "url": "http://localhost:3010/auth/api-keys/4030",
+      "url": "http://localhost:3010/auth/api-keys/4274",
       "method": "PATCH",
       "headers": {
-        "Authorization": "Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9"
+        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
       },
       "body": {
         "name": "Updated Scoped Key",
@@ -467,7 +467,7 @@
       "data": {
         "enabled": true,
         "expiresAt": null,
-        "id": 4030,
+        "id": 4274,
         "monthlyLimit": 1000,
         "name": "Updated Scoped Key",
         "scopedClientId": "",
@@ -478,26 +478,26 @@
           "entity:read",
           "structure:read"
         ],
-        "updatedAt": "2026-05-16T01:53:59Z"
+        "updatedAt": "2026-06-03T21:06:41Z"
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys/4030';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'PATCH',\n  headers: {\n    'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"name\": \"Updated Scoped Key\",\n      \"monthlyLimit\": 1000\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X PATCH 'http://localhost:3010/auth/api-keys/4030' \\\n  -H \"Authorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\":\"Updated Scoped Key\",\"monthlyLimit\":1000}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys/4030'\nurl = f'{base_url}{path}'\n\nresponse = requests.patch(\n    url,\n    headers={\n        'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    },\n    json={\n      \"name\": \"Updated Scoped Key\",\n      \"monthlyLimit\": 1000\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys/4030';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'patch',\n    headers: {\n      'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"name\": \"Updated Scoped Key\",\n        \"monthlyLimit\": 1000\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys/4030🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"name\":\"Updated Scoped Key\",\"monthlyLimit\":1000}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PATCH /auth/api-keys/4030 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9❌r❌nContent-Type: application/json❌r❌nContent-Length: 49❌r❌n❌r❌n{\"name\":\"Updated Scoped Key\",\"monthlyLimit\":1000}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys/4274';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'PATCH',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"name\": \"Updated Scoped Key\",\n      \"monthlyLimit\": 1000\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X PATCH 'http://localhost:3010/auth/api-keys/4274' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\":\"Updated Scoped Key\",\"monthlyLimit\":1000}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys/4274'\nurl = f'{base_url}{path}'\n\nresponse = requests.patch(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    json={\n      \"name\": \"Updated Scoped Key\",\n      \"monthlyLimit\": 1000\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys/4274';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'patch',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"name\": \"Updated Scoped Key\",\n        \"monthlyLimit\": 1000\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys/4274🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"name\":\"Updated Scoped Key\",\"monthlyLimit\":1000}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PATCH /auth/api-keys/4274 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌nContent-Type: application/json❌r❌nContent-Length: 49❌r❌n❌r❌n{\"name\":\"Updated Scoped Key\",\"monthlyLimit\":1000}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/auth/api-keys/4030",
+    "endpoint": "/auth/api-keys/4274",
     "method": "DELETE",
     "description": "/auth/api-keys/:id",
     "request": {
-      "url": "http://localhost:3010/auth/api-keys/4030",
+      "url": "http://localhost:3010/auth/api-keys/4274",
       "method": "DELETE",
       "headers": {
-        "Authorization": "Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9"
+        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
       }
     },
     "response": {
@@ -508,11 +508,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys/4030';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/auth/api-keys/4030' \\\n  -H \"Authorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys/4030'\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    headers={\n        'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys/4030';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'Authorization': 'Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys/4030🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤DELETE /auth/api-keys/4030 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer b07543de64ea5674029b1a4d694a6f62862f4fce49ce36486c922f08a44f07f9❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/api-keys/4274';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3010/auth/api-keys/4274' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/api-keys/4274'\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/api-keys/4274';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/api-keys/4274🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤DELETE /auth/api-keys/4274 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -523,25 +523,25 @@
       "url": "http://localhost:3010/structure",
       "method": "GET",
       "headers": {
-        "x-api-key": "a75c3d85f72d2523dd39aab31080400b36571768bf1a5312a80c579038e55bdd"
+        "x-api-key": "1f508ee0a80d48745f5a11573864b08f2db3cd9da8fdc70cdc2f452c0d3bebdc"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "structure-result",
-        "requestId": "structure_1778896439553",
+        "requestId": "structure_1780520801529",
         "data": {
           "folders": {}
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/structure';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a75c3d85f72d2523dd39aab31080400b36571768bf1a5312a80c579038e55bdd'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/structure' \\\n  -H \"x-api-key: a75c3d85f72d2523dd39aab31080400b36571768bf1a5312a80c579038e55bdd\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/structure'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': 'a75c3d85f72d2523dd39aab31080400b36571768bf1a5312a80c579038e55bdd'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/structure';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a75c3d85f72d2523dd39aab31080400b36571768bf1a5312a80c579038e55bdd'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/structure🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /structure HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a75c3d85f72d2523dd39aab31080400b36571768bf1a5312a80c579038e55bdd❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/structure';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '1f508ee0a80d48745f5a11573864b08f2db3cd9da8fdc70cdc2f452c0d3bebdc'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/structure' \\\n  -H \"x-api-key: 1f508ee0a80d48745f5a11573864b08f2db3cd9da8fdc70cdc2f452c0d3bebdc\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/structure'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': '1f508ee0a80d48745f5a11573864b08f2db3cd9da8fdc70cdc2f452c0d3bebdc'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/structure';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '1f508ee0a80d48745f5a11573864b08f2db3cd9da8fdc70cdc2f452c0d3bebdc'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/structure🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /structure HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 1f508ee0a80d48745f5a11573864b08f2db3cd9da8fdc70cdc2f452c0d3bebdc❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -552,10 +552,10 @@
       "url": "http://localhost:3010/auth/account",
       "method": "DELETE",
       "headers": {
-        "Authorization": "Bearer 278113eff6886523871bf8ae9f7271fda5fd2be352c519d7f677c2a43ed2f100"
+        "Authorization": "Bearer 7cbe3cc4fa80a356106cf77bad1231858e903658f4c6cefa32d1100411a13d07"
       },
       "body": {
-        "confirmEmail": "auth-test-1778896413939@example.com",
+        "confirmEmail": "auth-test-1780520743284@example.com",
         "password": "TestPassword1"
       }
     },
@@ -567,11 +567,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/account';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'Authorization': 'Bearer 278113eff6886523871bf8ae9f7271fda5fd2be352c519d7f677c2a43ed2f100',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"confirmEmail\": \"auth-test-1778896413939@example.com\",\n      \"password\": \"TestPassword1\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/auth/account' \\\n  -H \"Authorization: Bearer 278113eff6886523871bf8ae9f7271fda5fd2be352c519d7f677c2a43ed2f100\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"confirmEmail\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/account'\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    headers={\n        'Authorization': 'Bearer 278113eff6886523871bf8ae9f7271fda5fd2be352c519d7f677c2a43ed2f100'\n    },\n    json={\n      \"confirmEmail\": \"auth-test-1778896413939@example.com\",\n      \"password\": \"TestPassword1\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/account';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'Authorization': 'Bearer 278113eff6886523871bf8ae9f7271fda5fd2be352c519d7f677c2a43ed2f100',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"confirmEmail\": \"auth-test-1778896413939@example.com\",\n        \"password\": \"TestPassword1\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/account🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"confirmEmail\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤DELETE /auth/account HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 278113eff6886523871bf8ae9f7271fda5fd2be352c519d7f677c2a43ed2f100❌r❌nContent-Type: application/json❌r❌nContent-Length: 81❌r❌n❌r❌n{\"confirmEmail\":\"auth-test-1778896413939@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/account';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'Authorization': 'Bearer 7cbe3cc4fa80a356106cf77bad1231858e903658f4c6cefa32d1100411a13d07',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"confirmEmail\": \"auth-test-1780520743284@example.com\",\n      \"password\": \"TestPassword1\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3010/auth/account' \\\n  -H \"Authorization: Bearer 7cbe3cc4fa80a356106cf77bad1231858e903658f4c6cefa32d1100411a13d07\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"confirmEmail\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/account'\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    headers={\n        'Authorization': 'Bearer 7cbe3cc4fa80a356106cf77bad1231858e903658f4c6cefa32d1100411a13d07'\n    },\n    json={\n      \"confirmEmail\": \"auth-test-1780520743284@example.com\",\n      \"password\": \"TestPassword1\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/account';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'Authorization': 'Bearer 7cbe3cc4fa80a356106cf77bad1231858e903658f4c6cefa32d1100411a13d07',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"confirmEmail\": \"auth-test-1780520743284@example.com\",\n        \"password\": \"TestPassword1\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/account🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"confirmEmail\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤DELETE /auth/account HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 7cbe3cc4fa80a356106cf77bad1231858e903658f4c6cefa32d1100411a13d07❌r❌nContent-Type: application/json❌r❌nContent-Length: 81❌r❌n❌r❌n{\"confirmEmail\":\"auth-test-1780520743284@example.com\",\"password\":\"TestPassword1\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

@@ -7,7 +7,7 @@
     },
     "response": {
       "channel": "hooks",
-      "requestId": "test_1778896440341_yhfzlv",
+      "requestId": "test_1780520802718_24nie8",
       "type": "subscribed"
     },
     "codeExamples": {
@@ -25,17 +25,16 @@
         "data": {
           "args": [
             {
-              "_id": "adVl7XOX1DQTNczz",
+              "_id": "JUkUXUIzArEWZDcX",
               "_stats": {
                 "compendiumSource": null,
-                "coreVersion": "13.348",
-                "createdTime": 1778896440660,
+                "coreVersion": "12.331",
+                "createdTime": 1780520803041,
                 "duplicateSource": null,
-                "exportSource": null,
-                "lastModifiedBy": "r6bXhB7k9cXa3cif",
-                "modifiedTime": 1778896440660,
+                "lastModifiedBy": "fCfNJPT9Atc26yyv",
+                "modifiedTime": 1780520803041,
                 "systemId": "dnd5e",
-                "systemVersion": "5.0.4"
+                "systemVersion": "4.3.8"
               },
               "effects": [],
               "flags": {},
@@ -45,7 +44,7 @@
               "name": "hook-test-actor",
               "ownership": {
                 "default": 0,
-                "r6bXhB7k9cXa3cif": 3
+                "fCfNJPT9Atc26yyv": 3
               },
               "prototypeToken": {
                 "actorLink": false,
@@ -63,6 +62,7 @@
                 "disposition": -1,
                 "flags": {},
                 "height": 1,
+                "hexagonalShape": 0,
                 "light": {
                   "alpha": 0.5,
                   "angle": 360,
@@ -89,7 +89,6 @@
                   "shadows": 0
                 },
                 "lockRotation": false,
-                "movementAction": null,
                 "name": "hook-test-actor",
                 "occludable": {
                   "radius": 0
@@ -133,12 +132,6 @@
                   "src": "icons/svg/mystery-man.svg",
                   "tint": "#ffffff"
                 },
-                "turnMarker": {
-                  "animation": null,
-                  "disposition": false,
-                  "mode": 1,
-                  "src": null
-                },
                 "width": 1
               },
               "sort": 0,
@@ -146,13 +139,12 @@
               "type": "base"
             },
             {
-              "action": "create",
-              "modifiedTime": 1778896440660,
+              "modifiedTime": 1780520803041,
               "parent": null,
               "render": true,
               "renderSheet": false
             },
-            "r6bXhB7k9cXa3cif"
+            "fCfNJPT9Atc26yyv"
           ],
           "hook": "createActor"
         },

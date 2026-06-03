@@ -36,6 +36,160 @@ Retrieves a list of all currently active encounters in the Foundry world.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/encounters';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3010/encounters?clientId=fvtt_d3db244ce1d8af0b' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/encounters'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/encounters';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/encounters🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /encounters🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "encounters-result",
+  "requestId": "encounters_1780520795203",
+  "encounters": [
+    {
+      "id": "13P5zmmu7RxXitIC",
+      "round": 1,
+      "turn": 0,
+      "current": true,
+      "combatants": [
+        {
+          "id": "eR9eoqN80rPiGTE9",
+          "name": "Updated Test Actor",
+          "tokenUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+          "actorUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+          "img": "icons/svg/mystery-man.svg",
+          "initiative": 7,
+          "hidden": false,
+          "defeated": false
+        }
+      ]
+    }
+  ]
+}
+```
+
+
 ---
 
 ## POST /start-encounter
@@ -71,6 +225,177 @@ Initiates a new encounter in the Foundry world.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"tokens","type":"array","required":false,"source":"body"},{"name":"startWithSelected","type":"boolean","required":false,"source":"body"},{"name":"startWithPlayers","type":"boolean","required":false,"source":"body"},{"name":"rollNPC","type":"boolean","required":false,"source":"body"},{"name":"rollAll","type":"boolean","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/start-encounter';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "startWithSelected": true,
+      "rollAll": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/start-encounter?clientId=fvtt_d3db244ce1d8af0b' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"startWithSelected":true,"rollAll":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/start-encounter'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "startWithSelected": True,
+      "rollAll": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/start-encounter';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "startWithSelected": true,
+        "rollAll": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/start-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"startWithSelected":true,"rollAll":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /start-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 41❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "start-encounter-result",
+  "requestId": "start-encounter_1780520795168",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "encounter": {
+    "id": "13P5zmmu7RxXitIC",
+    "round": 1,
+    "turn": 0,
+    "combatants": [
+      {
+        "id": "eR9eoqN80rPiGTE9",
+        "name": "Updated Test Actor",
+        "tokenUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+        "actorUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+        "img": "icons/svg/mystery-man.svg",
+        "initiative": 7,
+        "hidden": false,
+        "defeated": false
+      }
+    ]
+  }
+}
+```
+
+
 ---
 
 ## POST /next-turn
@@ -100,6 +425,155 @@ Moves the encounter to the next turn.
   path="/next-turn"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/next-turn';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  encounterId: '13P5zmmu7RxXitIC'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/next-turn?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/next-turn'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'encounterId': '13P5zmmu7RxXitIC'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/next-turn';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    encounterId: '13P5zmmu7RxXitIC'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/next-turn🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /next-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "next-turn-result",
+  "requestId": "next-turn_1780520795207",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "action": "nextTurn",
+  "currentTurn": 0,
+  "currentRound": 2,
+  "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+  "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+  "encounter": {
+    "id": "13P5zmmu7RxXitIC",
+    "round": 2,
+    "turn": 0
+  }
+}
+```
+
 
 ---
 
@@ -131,6 +605,155 @@ Moves the encounter to the next round.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/next-round';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  encounterId: '13P5zmmu7RxXitIC'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/next-round?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/next-round'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'encounterId': '13P5zmmu7RxXitIC'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/next-round';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    encounterId: '13P5zmmu7RxXitIC'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/next-round🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /next-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "next-round-result",
+  "requestId": "next-round_1780520795214",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "action": "nextRound",
+  "currentTurn": 0,
+  "currentRound": 3,
+  "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+  "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+  "encounter": {
+    "id": "13P5zmmu7RxXitIC",
+    "round": 3,
+    "turn": 0
+  }
+}
+```
+
+
 ---
 
 ## POST /last-turn
@@ -160,6 +783,155 @@ Moves the encounter back to the last turn.
   path="/last-turn"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/last-turn';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  encounterId: '13P5zmmu7RxXitIC'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/last-turn?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/last-turn'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'encounterId': '13P5zmmu7RxXitIC'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/last-turn';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    encounterId: '13P5zmmu7RxXitIC'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/last-turn🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /last-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "last-turn-result",
+  "requestId": "last-turn_1780520795221",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "action": "previousTurn",
+  "currentTurn": 0,
+  "currentRound": 2,
+  "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+  "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+  "encounter": {
+    "id": "13P5zmmu7RxXitIC",
+    "round": 2,
+    "turn": 0
+  }
+}
+```
+
 
 ---
 
@@ -191,6 +963,155 @@ Moves the encounter back to the last round.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/last-round';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  encounterId: '13P5zmmu7RxXitIC'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/last-round?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/last-round'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'encounterId': '13P5zmmu7RxXitIC'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/last-round';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    encounterId: '13P5zmmu7RxXitIC'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/last-round🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /last-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "last-round-result",
+  "requestId": "last-round_1780520795225",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "action": "previousRound",
+  "currentTurn": 0,
+  "currentRound": 1,
+  "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+  "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+  "encounter": {
+    "id": "13P5zmmu7RxXitIC",
+    "round": 1,
+    "turn": 0
+  }
+}
+```
+
+
 ---
 
 ## POST /end-encounter
@@ -220,6 +1141,146 @@ Ends the current encounter in the Foundry world.
   path="/end-encounter"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/end-encounter';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  encounterId: '13P5zmmu7RxXitIC'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/end-encounter?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/end-encounter'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'encounterId': '13P5zmmu7RxXitIC'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/end-encounter';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    encounterId: '13P5zmmu7RxXitIC'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/end-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /end-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "end-encounter-result",
+  "requestId": "end-encounter_1780520795243",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "message": "Encounter successfully ended"
+}
+```
+
 
 ---
 
@@ -254,6 +1315,171 @@ Adds selected tokens or specified UUIDs to the current encounter.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"rollInitiative","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/add-to-encounter';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  encounterId: '13P5zmmu7RxXitIC'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "selected": true,
+      "uuids": [],
+      "rollInitiative": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/add-to-encounter?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"selected":true,"uuids":[],"rollInitiative":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/add-to-encounter'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'encounterId': '13P5zmmu7RxXitIC'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "selected": True,
+      "uuids": [],
+      "rollInitiative": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/add-to-encounter';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    encounterId: '13P5zmmu7RxXitIC'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "selected": true,
+        "uuids": [],
+        "rollInitiative": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/add-to-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"selected":true,"uuids":[],"rollInitiative":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /add-to-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "add-to-encounter-result",
+  "requestId": "add-to-encounter_1780520795237",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "added": [
+    "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm"
+  ],
+  "failed": []
+}
+```
+
+
 ---
 
 ## POST /remove-from-encounter
@@ -285,4 +1511,163 @@ Removes selected tokens or specified UUIDs from the current encounter.
   path="/remove-from-encounter"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/remove-from-encounter';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  encounterId: '13P5zmmu7RxXitIC'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "selected": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"selected":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/remove-from-encounter'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'encounterId': '13P5zmmu7RxXitIC'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "selected": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/remove-from-encounter';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    encounterId: '13P5zmmu7RxXitIC'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "selected": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/remove-from-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"selected":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /remove-from-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 17❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "remove-from-encounter-result",
+  "requestId": "remove-from-encounter_1780520795232",
+  "encounterId": "13P5zmmu7RxXitIC",
+  "removed": [
+    "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm"
+  ],
+  "failed": []
+}
+```
+
 

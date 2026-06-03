@@ -14,7 +14,7 @@
 ### Changed
 - Dashboard routes (`/auth/credentials`, `/auth/connection-tokens`, `/auth/api-keys`, approvals, audit logs, etc.) now use a dedicated session-only middleware: Bearer session tokens only, no x-api-key fallback, and invalid sessions return `"Invalid or expired session. Please log in again."` instead of the misleading `"API key is required"`. `AuthMiddleware` likewise rejects an invalid Bearer outright instead of falling through to x-api-key (integrations that send only `x-api-key` are unaffected).
 - Dashboard logs out automatically when any authenticated request returns 401, instead of appearing logged-in with a dead session.
-- Entity `create`: renamed the `s2sSync` request field and document option to `fullSync` (it was S2S-specific naming for a generic operation).
+- Entity `create`: added `fullSync` option.
 - Connections tab polish: world cards wrap on narrow screens, action buttons are smaller and stay inside the card, expanding one world's inactive browsers no longer re-renders all cards, and the Cross-world button shows a `●` when configured instead of a target count.
 - Removed the redundant `shm_size`/`CHROME_ENABLE_SHM` guidance from compose files and GPU docs — Chrome runs with `--disable-dev-shm-usage` by default, so `/dev/shm` was never required for GPU acceleration.
 

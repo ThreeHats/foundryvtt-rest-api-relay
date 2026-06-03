@@ -1,6 +1,9 @@
 ---
 tag: WebSocket
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 
 import WsTester from '@site/src/components/WsTester';
 import WsMessageTester, { WsConnectionBar } from '@site/src/components/WsMessageTester';
@@ -1148,60 +1151,6 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
 
 ---
 
-## FileSystem
-
-### `file-system`
-
-Get file system structure
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `path` | string | no | The path to retrieve (relative to source) |
-| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
-| `recursive` | boolean | no | Whether to recursively list all subdirectories |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="file-system" parameters={[{"name":"path","type":"string","required":false,"description":"The path to retrieve (relative to source)"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"recursive","type":"boolean","required":false,"description":"Whether to recursively list all subdirectories"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
-### `download-file`
-
-Download a file from Foundry's file system
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `path` | string | no | The full path to the file to download |
-| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
-| `format` | string | no | The format to return the file in (binary, base64) |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="download-file" parameters={[{"name":"path","type":"string","required":false,"description":"The full path to the file to download"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"format","type":"string","required":false,"description":"The format to return the file in (binary, base64)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
-## Search
-
-### `search`
-
-Search entities
-
-This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `query` | string | no | Search query string (omit to browse all entities matching filter) |
-| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
-| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
-| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
-| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
-| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
 ## Dnd5e
 
 ### `get-actor-details`
@@ -1587,6 +1536,60 @@ Uses a specific item for an actor, optionally targeting another entity
 
 ---
 
+## Search
+
+### `search`
+
+Search entities
+
+This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | no | Search query string (omit to browse all entities matching filter) |
+| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
+| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
+| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
+| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
+| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
+## FileSystem
+
+### `file-system`
+
+Get file system structure
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | no | The path to retrieve (relative to source) |
+| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
+| `recursive` | boolean | no | Whether to recursively list all subdirectories |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="file-system" parameters={[{"name":"path","type":"string","required":false,"description":"The path to retrieve (relative to source)"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"recursive","type":"boolean","required":false,"description":"Whether to recursively list all subdirectories"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
+### `download-file`
+
+Download a file from Foundry's file system
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | no | The full path to the file to download |
+| `source` | string | no | The source directory to use (data, systems, modules, etc.) |
+| `format` | string | no | The format to return the file in (binary, base64) |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="download-file" parameters={[{"name":"path","type":"string","required":false,"description":"The full path to the file to download"},{"name":"source","type":"string","required":false,"description":"The source directory to use (data, systems, modules, etc.)"},{"name":"format","type":"string","required":false,"description":"The format to return the file in (binary, base64)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
 ## Cross-World Operations
 
 ### `remote-request`
@@ -1613,3 +1616,2243 @@ The source connection token must list the target in allowedTargetClients and hol
 ## AsyncAPI Spec
 
 The full AsyncAPI specification is available at `/asyncapi.json`.
+
+## Code Examples
+
+### search
+
+Search for entities
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');
+
+ws.onopen = () => {
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify({
+      "query": "test",
+      "type": "search",
+      "requestId": "unique-id"
+    }));
+  }
+  if (data.type === 'search-result') {
+    console.log(data);
+  }
+};
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import asyncio
+import websockets
+import json
+
+async def main():
+    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'
+    async with websockets.connect(uri) as ws:
+        # Send auth message first — token must not be in the URL
+        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))
+        connected = json.loads(await ws.recv())
+        if connected.get('type') != 'connected':
+            raise Exception('Auth failed')
+        await ws.send(json.dumps({"query":"test","type":"search","requestId":"unique-id"}))
+        response = await ws.recv()
+        data = json.loads(response)
+        print(data)
+
+asyncio.run(main())
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import WebSocket from 'ws';
+
+const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');
+
+ws.on('open', () => {
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
+});
+
+ws.on('message', (raw: string) => {
+  const data = JSON.parse(raw);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify({
+      "query": "test",
+      "type": "search",
+      "requestId": "unique-id"
+    }));
+  }
+  if (data.type === 'search-result') {
+    console.log(data);
+  }
+}):
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+```json
+{
+  "clientId": "fvtt_d3db244ce1d8af0b",
+  "query": "test",
+  "requestId": "test_1780520804159_n854kq",
+  "results": [
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-journalentry",
+      "icon": "",
+      "id": "6L9nsr6SCiFbQ5qf",
+      "journalLink": "@UUID[JournalEntry.6L9nsr6SCiFbQ5qf]{test-journalentry}",
+      "name": "test-journalentry",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Journal Directory",
+      "uuid": "JournalEntry.6L9nsr6SCiFbQ5qf"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-journalentry",
+      "icon": "",
+      "id": "if96pqFRa1A183pJ",
+      "journalLink": "@UUID[JournalEntry.if96pqFRa1A183pJ]{test-journalentry}",
+      "name": "test-journalentry",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Journal Directory",
+      "uuid": "JournalEntry.if96pqFRa1A183pJ"
+    },
+    {
+      "documentType": "Macro",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-macro",
+      "icon": "icons/svg/dice-target.svg",
+      "id": "bRLMIJXvTs22CRK0",
+      "journalLink": "@UUID[Macro.bRLMIJXvTs22CRK0]{test-macro}",
+      "name": "test-macro",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "script",
+      "tagline": "Macros Directory",
+      "uuid": "Macro.bRLMIJXvTs22CRK0"
+    },
+    {
+      "documentType": "Macro",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-macro",
+      "icon": "icons/svg/dice-target.svg",
+      "id": "3bMxRd6G3ULP6qKD",
+      "journalLink": "@UUID[Macro.3bMxRd6G3ULP6qKD]{test-macro}",
+      "name": "test-macro",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "script",
+      "tagline": "Macros Directory",
+      "uuid": "Macro.3bMxRd6G3ULP6qKD"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-perrin (halfling monk)",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "id": "4f57kTea0R0ZTOta",
+      "journalLink": "@UUID[Actor.4f57kTea0R0ZTOta]{test-perrin (halfling monk)}",
+      "name": "test-perrin (halfling monk)",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "character",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.4f57kTea0R0ZTOta"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-perrin (halfling monk)",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "id": "3Uhyx1yXkrDR0IKP",
+      "journalLink": "@UUID[Actor.3Uhyx1yXkrDR0IKP]{test-perrin (halfling monk)}",
+      "name": "test-perrin (halfling monk)",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "character",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.3Uhyx1yXkrDR0IKP"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "AVBmSoK7PtJvvtVU",
+      "journalLink": "@UUID[Scene.AVBmSoK7PtJvvtVU]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.AVBmSoK7PtJvvtVU"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "D7u4piOGW6MssTg2",
+      "journalLink": "@UUID[Scene.D7u4piOGW6MssTg2]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.D7u4piOGW6MssTg2"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "HaoRAKtpNwkQnXch",
+      "journalLink": "@UUID[Scene.HaoRAKtpNwkQnXch]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.HaoRAKtpNwkQnXch"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "ZRzmXcZ7N3aq4DlC",
+      "journalLink": "@UUID[Scene.ZRzmXcZ7N3aq4DlC]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.ZRzmXcZ7N3aq4DlC"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "lIawgFuWnlgFq8e8",
+      "journalLink": "@UUID[Scene.lIawgFuWnlgFq8e8]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.lIawgFuWnlgFq8e8"
+    },
+    {
+      "documentType": "Scene",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-scene-updated",
+      "icon": "",
+      "id": "Lxz4vYKs8VE4gpcw",
+      "journalLink": "@UUID[Scene.Lxz4vYKs8VE4gpcw]{test-scene-updated}",
+      "name": "test-scene-updated",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "",
+      "tagline": "Scenes Directory",
+      "uuid": "Scene.Lxz4vYKs8VE4gpcw"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-studded leather armor +3",
+      "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
+      "id": "0yfwl3fLPgpM3oqy",
+      "journalLink": "@UUID[Item.0yfwl3fLPgpM3oqy]{test-studded leather armor +3}",
+      "name": "test-studded leather armor +3",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "equipment",
+      "tagline": "Items Directory",
+      "uuid": "Item.0yfwl3fLPgpM3oqy"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "<strong>test</strong>-studded leather armor +3",
+      "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
+      "id": "D93PIxs5khbE6wqm",
+      "journalLink": "@UUID[Item.D93PIxs5khbE6wqm]{test-studded leather armor +3}",
+      "name": "test-studded leather armor +3",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "equipment",
+      "tagline": "Items Directory",
+      "uuid": "Item.D93PIxs5khbE6wqm"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "2midVQ1laJFMrN4D",
+      "journalLink": "@UUID[Actor.2midVQ1laJFMrN4D]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.2midVQ1laJFMrN4D"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "IGDNKF9amHdCQYGX",
+      "journalLink": "@UUID[Actor.IGDNKF9amHdCQYGX]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.IGDNKF9amHdCQYGX"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "Q8f1DRjKZJmtZNvD",
+      "journalLink": "@UUID[Actor.Q8f1DRjKZJmtZNvD]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.Q8f1DRjKZJmtZNvD"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "V162ZiBjzf489Ekz",
+      "journalLink": "@UUID[Actor.V162ZiBjzf489Ekz]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.V162ZiBjzf489Ekz"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "Xp4mNa6B0fBeKAAF",
+      "journalLink": "@UUID[Actor.Xp4mNa6B0fBeKAAF]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.Xp4mNa6B0fBeKAAF"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "ZTJRxZIdnhFQalD0",
+      "journalLink": "@UUID[Actor.ZTJRxZIdnhFQalD0]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.ZTJRxZIdnhFQalD0"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "dKQ5TvZ1ySmZ5zC1",
+      "journalLink": "@UUID[Actor.dKQ5TvZ1ySmZ5zC1]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.dKQ5TvZ1ySmZ5zC1"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "haaLIgOLEYGT0nqK",
+      "journalLink": "@UUID[Actor.haaLIgOLEYGT0nqK]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.haaLIgOLEYGT0nqK"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "iOn5ZWzR0Hv1gN06",
+      "journalLink": "@UUID[Actor.iOn5ZWzR0Hv1gN06]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.iOn5ZWzR0Hv1gN06"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "liCyZwJ5BRnryiXU",
+      "journalLink": "@UUID[Actor.liCyZwJ5BRnryiXU]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.liCyZwJ5BRnryiXU"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "mNMNalBcWKhoQ8QE",
+      "journalLink": "@UUID[Actor.mNMNalBcWKhoQ8QE]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.mNMNalBcWKhoQ8QE"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "wZR5R8cIs1dUpKC7",
+      "journalLink": "@UUID[Actor.wZR5R8cIs1dUpKC7]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.wZR5R8cIs1dUpKC7"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "hook-<strong>test</strong>-actor",
+      "icon": "icons/svg/mystery-man.svg",
+      "id": "ywz3tLzEpjMCdXhK",
+      "journalLink": "@UUID[Actor.ywz3tLzEpjMCdXhK]{hook-test-actor}",
+      "name": "hook-test-actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "base",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.ywz3tLzEpjMCdXhK"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "Updated <strong>Test</strong> Actor",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "id": "yqVY0l6AY0HDtq7Z",
+      "journalLink": "@UUID[Actor.yqVY0l6AY0HDtq7Z]{Updated Test Actor}",
+      "name": "Updated Test Actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "character",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.yqVY0l6AY0HDtq7Z"
+    },
+    {
+      "documentType": "Actor",
+      "folder": null,
+      "formattedMatch": "Updated <strong>Test</strong> Actor",
+      "icon": "systems/dnd5e/tokens/heroes/MonkStaff.webp",
+      "id": "u3iSEGYdk5UNZy7X",
+      "journalLink": "@UUID[Actor.u3iSEGYdk5UNZy7X]{Updated Test Actor}",
+      "name": "Updated Test Actor",
+      "package": null,
+      "packageName": null,
+      "resultType": "WorldEntity",
+      "subType": "character",
+      "tagline": "Actors Directory",
+      "uuid": "Actor.u3iSEGYdk5UNZy7X"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Adamantine Breastplate",
+      "icon": "icons/equipment/chest/breastplate-collared-steel-grey.webp",
+      "id": "DevmObXWP9MfwE2c",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.DevmObXWP9MfwE2c]{Adamantine Breastplate}",
+      "name": "Adamantine Breastplate",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.DevmObXWP9MfwE2c"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Adamantine Chain Shirt",
+      "icon": "icons/equipment/chest/breastplate-scale-grey.webp",
+      "id": "kjTPoUeomTPWJ9h3",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.kjTPoUeomTPWJ9h3]{Adamantine Chain Shirt}",
+      "name": "Adamantine Chain Shirt",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.kjTPoUeomTPWJ9h3"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Adamantine Splint Armor",
+      "icon": "icons/equipment/chest/breastplate-layered-steel.webp",
+      "id": "LDuqUcosOK8Bf76S",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.LDuqUcosOK8Bf76S]{Adamantine Splint Armor}",
+      "name": "Adamantine Splint Armor",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.LDuqUcosOK8Bf76S"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Belt of Fire Giant Strength",
+      "icon": "icons/equipment/waist/belt-coiled-leather-steel.webp",
+      "id": "bq9YKwEHLQ7p7ric",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.bq9YKwEHLQ7p7ric]{Belt of Fire Giant Strength}",
+      "name": "Belt of Fire Giant Strength",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.bq9YKwEHLQ7p7ric"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Belt of Stone Giant Strength",
+      "icon": "icons/equipment/waist/belt-armored-steel.webp",
+      "id": "fCUZ7h8YYrs16UhX",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.fCUZ7h8YYrs16UhX]{Belt of Stone Giant Strength}",
+      "name": "Belt of Stone Giant Strength",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.fCUZ7h8YYrs16UhX"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Breastplate Armor of Resistance",
+      "icon": "icons/equipment/chest/breastplate-collared-steel-grey.webp",
+      "id": "lccm5AjIk91aIHbi",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.lccm5AjIk91aIHbi]{Breastplate Armor of Resistance}",
+      "name": "Breastplate Armor of Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.lccm5AjIk91aIHbi"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Carpenter's Tools",
+      "icon": "icons/tools/hand/saw-steel-grey.webp",
+      "id": "8NS6MSOdXtUqD7Ib",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.8NS6MSOdXtUqD7Ib]{Carpenter's Tools}",
+      "name": "Carpenter's Tools",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.8NS6MSOdXtUqD7Ib"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Cartographer's Tools",
+      "icon": "icons/tools/navigation/map-chart-tan.webp",
+      "id": "fC0lFK8P4RuhpfaU",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.fC0lFK8P4RuhpfaU]{Cartographer's Tools}",
+      "name": "Cartographer's Tools",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.fC0lFK8P4RuhpfaU"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Chain Shirt Armor of Resistance",
+      "icon": "icons/equipment/chest/breastplate-scale-grey.webp",
+      "id": "HF32aZSVw4P0MR4K",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.HF32aZSVw4P0MR4K]{Chain Shirt Armor of Resistance}",
+      "name": "Chain Shirt Armor of Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.HF32aZSVw4P0MR4K"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "Chapter 1: Beyond 1st Level",
+      "icon": "",
+      "id": "5LoAJLkfIYBAgWTW",
+      "journalLink": "@UUID[Compendium.dnd5e.rules.JournalEntry.5LoAJLkfIYBAgWTW]{Chapter 1: Beyond 1st Level}",
+      "name": "Chapter 1: Beyond 1st Level",
+      "package": "dnd5e.rules",
+      "packageName": "Rules (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules (SRD)",
+      "uuid": "Compendium.dnd5e.rules.JournalEntry.5LoAJLkfIYBAgWTW"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "Chapter 10: Spellcasting",
+      "icon": "",
+      "id": "QvPDSUsAiEn3hD8s",
+      "journalLink": "@UUID[Compendium.dnd5e.rules.JournalEntry.QvPDSUsAiEn3hD8s]{Chapter 10: Spellcasting}",
+      "name": "Chapter 10: Spellcasting",
+      "package": "dnd5e.rules",
+      "packageName": "Rules (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules (SRD)",
+      "uuid": "Compendium.dnd5e.rules.JournalEntry.QvPDSUsAiEn3hD8s"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "Chapter 4: Personality and Background",
+      "icon": "",
+      "id": "kWXplnmp5JXCo84x",
+      "journalLink": "@UUID[Compendium.dnd5e.rules.JournalEntry.kWXplnmp5JXCo84x]{Chapter 4: Personality and Background}",
+      "name": "Chapter 4: Personality and Background",
+      "package": "dnd5e.rules",
+      "packageName": "Rules (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules (SRD)",
+      "uuid": "Compendium.dnd5e.rules.JournalEntry.kWXplnmp5JXCo84x"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "Chapter 6: Customization Options",
+      "icon": "",
+      "id": "hgHJdp8lTiJ5TpN9",
+      "journalLink": "@UUID[Compendium.dnd5e.rules.JournalEntry.hgHJdp8lTiJ5TpN9]{Chapter 6: Customization Options}",
+      "name": "Chapter 6: Customization Options",
+      "package": "dnd5e.rules",
+      "packageName": "Rules (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules (SRD)",
+      "uuid": "Compendium.dnd5e.rules.JournalEntry.hgHJdp8lTiJ5TpN9"
+    },
+    {
+      "documentType": "JournalEntry",
+      "folder": null,
+      "formattedMatch": "Chapter 7: Using Ability Scores",
+      "icon": "",
+      "id": "0AGfrwZRzSG0vNKb",
+      "journalLink": "@UUID[Compendium.dnd5e.rules.JournalEntry.0AGfrwZRzSG0vNKb]{Chapter 7: Using Ability Scores}",
+      "name": "Chapter 7: Using Ability Scores",
+      "package": "dnd5e.rules",
+      "packageName": "Rules (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Rules (SRD)",
+      "uuid": "Compendium.dnd5e.rules.JournalEntry.0AGfrwZRzSG0vNKb"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Create or Destroy Water",
+      "icon": "icons/magic/air/wind-swirl-purple-blue.webp",
+      "id": "a3XtAO5n2GrqiAh5",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.a3XtAO5n2GrqiAh5]{Create or Destroy Water}",
+      "name": "Create or Destroy Water",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.a3XtAO5n2GrqiAh5"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Create Specter",
+      "icon": "icons/creatures/abilities/dragon-breath-purple.webp",
+      "id": "SlAF2AE4ZKoUvQql",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.SlAF2AE4ZKoUvQql]{Create Specter}",
+      "name": "Create Specter",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.SlAF2AE4ZKoUvQql"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Decanter of Endless Water",
+      "icon": "icons/consumables/potions/potion-flask-corked-blue.webp",
+      "id": "qXcUKfCVxEvV3VU8",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.qXcUKfCVxEvV3VU8]{Decanter of Endless Water}",
+      "name": "Decanter of Endless Water",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.qXcUKfCVxEvV3VU8"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Dominate Beast",
+      "icon": "icons/magic/air/air-burst-spiral-large-teal-green.webp",
+      "id": "LrPvWHBPmiMQQsKB",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.LrPvWHBPmiMQQsKB]{Dominate Beast}",
+      "name": "Dominate Beast",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.LrPvWHBPmiMQQsKB"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Dominate Monster",
+      "icon": "icons/magic/air/air-burst-spiral-large-pink.webp",
+      "id": "eEpy1ONlXumKS1mp",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.eEpy1ONlXumKS1mp]{Dominate Monster}",
+      "name": "Dominate Monster",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.eEpy1ONlXumKS1mp"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ethereal Sight",
+      "icon": "icons/magic/perception/eye-tendrils-web-purple.webp",
+      "id": "We6R4thWKYDRYlEc",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.We6R4thWKYDRYlEc]{Ethereal Sight}",
+      "name": "Ethereal Sight",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.We6R4thWKYDRYlEc"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ethereal Stride",
+      "icon": "icons/magic/lightning/orb-ball-purple.webp",
+      "id": "NfTCXq8eRrqjhvAo",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.NfTCXq8eRrqjhvAo]{Ethereal Stride}",
+      "name": "Ethereal Stride",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.NfTCXq8eRrqjhvAo"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Faultless Tracker",
+      "icon": "icons/creatures/mammals/wolf-howl-moon-forest-blue.webp",
+      "id": "E8SiDA7Z3Ybd6wt0",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.E8SiDA7Z3Ybd6wt0]{Faultless Tracker}",
+      "name": "Faultless Tracker",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.E8SiDA7Z3Ybd6wt0"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Feather Token Swan Boat",
+      "icon": "icons/commodities/materials/feather-blue-grey.webp",
+      "id": "UgnUJhu0tW1tLt7g",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.UgnUJhu0tW1tLt7g]{Feather Token Swan Boat}",
+      "name": "Feather Token Swan Boat",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.UgnUJhu0tW1tLt7g"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Flame Tongue Scimitar",
+      "icon": "icons/weapons/swords/sword-hooked-engraved.webp",
+      "id": "qVHCzgVvOZAtuk4N",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.qVHCzgVvOZAtuk4N]{Flame Tongue Scimitar}",
+      "name": "Flame Tongue Scimitar",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.qVHCzgVvOZAtuk4N"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Flame Tongue Shortsword",
+      "icon": "icons/weapons/swords/sword-guard-red-jewel.webp",
+      "id": "Z9FBwEoMi6daDGRj",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.Z9FBwEoMi6daDGRj]{Flame Tongue Shortsword}",
+      "name": "Flame Tongue Shortsword",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.Z9FBwEoMi6daDGRj"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Giant Slayer Scimitar",
+      "icon": "icons/weapons/swords/scimitar-broad.webp",
+      "id": "ZLpj1bpnWlAFUEHE",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.ZLpj1bpnWlAFUEHE]{Giant Slayer Scimitar}",
+      "name": "Giant Slayer Scimitar",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.ZLpj1bpnWlAFUEHE"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Giant Slayer Shortsword",
+      "icon": "icons/weapons/swords/sword-guard-red.webp",
+      "id": "tTqixDDmzAfs995G",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.tTqixDDmzAfs995G]{Giant Slayer Shortsword}",
+      "name": "Giant Slayer Shortsword",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.tTqixDDmzAfs995G"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Greater Invisibility",
+      "icon": "icons/magic/air/fog-gas-smoke-swirling-gray.webp",
+      "id": "tEpDmYZNGc9f5OhJ",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.tEpDmYZNGc9f5OhJ]{Greater Invisibility}",
+      "name": "Greater Invisibility",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.tEpDmYZNGc9f5OhJ"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Greater Restoration",
+      "icon": "icons/magic/life/heart-cross-strong-flame-blue.webp",
+      "id": "WzvJ7G3cqvIubsLk",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.WzvJ7G3cqvIubsLk]{Greater Restoration}",
+      "name": "Greater Restoration",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.WzvJ7G3cqvIubsLk"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Greatsword of Life Stealing",
+      "icon": "icons/weapons/swords/greatsword-crossguard-blue.webp",
+      "id": "sdHSbitJxgTX6aDG",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.sdHSbitJxgTX6aDG]{Greatsword of Life Stealing}",
+      "name": "Greatsword of Life Stealing",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.sdHSbitJxgTX6aDG"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Half Plate Armor of Resistance",
+      "icon": "icons/equipment/chest/breastplate-cuirass-steel-grey.webp",
+      "id": "lN1VbnGFo3HNZXNb",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.lN1VbnGFo3HNZXNb]{Half Plate Armor of Resistance}",
+      "name": "Half Plate Armor of Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.lN1VbnGFo3HNZXNb"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Innate Spellcasting",
+      "icon": "icons/magic/light/projectiles-star-purple.webp",
+      "id": "hkmTEk6klT6QL4K4",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.hkmTEk6klT6QL4K4]{Innate Spellcasting}",
+      "name": "Innate Spellcasting",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.hkmTEk6klT6QL4K4"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Absorption",
+      "icon": "icons/commodities/gems/gem-rough-ball-purple.webp",
+      "id": "NGVEouqK0I6J6jV5",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.NGVEouqK0I6J6jV5]{Ioun Stone of Absorption}",
+      "name": "Ioun Stone of Absorption",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.NGVEouqK0I6J6jV5"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Greater Absorption",
+      "icon": "icons/commodities/stone/ore-pile-green.webp",
+      "id": "7FEcfqz1piPHN1tV",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.7FEcfqz1piPHN1tV]{Ioun Stone of Greater Absorption}",
+      "name": "Ioun Stone of Greater Absorption",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.7FEcfqz1piPHN1tV"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Insight",
+      "icon": "icons/commodities/stone/ore-pile-teal.webp",
+      "id": "9jMQEm99q1ttAV1Q",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.9jMQEm99q1ttAV1Q]{Ioun Stone of Insight}",
+      "name": "Ioun Stone of Insight",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.9jMQEm99q1ttAV1Q"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Mastery",
+      "icon": "icons/commodities/gems/gem-rough-cushion-green.webp",
+      "id": "nk2MH16KcZmKp7FQ",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.nk2MH16KcZmKp7FQ]{Ioun Stone of Mastery}",
+      "name": "Ioun Stone of Mastery",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.nk2MH16KcZmKp7FQ"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Strength",
+      "icon": "icons/commodities/gems/gem-rough-cushion-blue.webp",
+      "id": "0G5LSgbb5NTV4XC7",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.0G5LSgbb5NTV4XC7]{Ioun Stone of Strength}",
+      "name": "Ioun Stone of Strength",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.0G5LSgbb5NTV4XC7"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ioun Stone of Sustenance",
+      "icon": "icons/commodities/stone/geode-raw-brown.webp",
+      "id": "6MDTnMG4Hcw7qZsy",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.6MDTnMG4Hcw7qZsy]{Ioun Stone of Sustenance}",
+      "name": "Ioun Stone of Sustenance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.6MDTnMG4Hcw7qZsy"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Leather Armor of Resistance",
+      "icon": "icons/equipment/chest/breastplate-scale-leather.webp",
+      "id": "dRtb9Tg34NKX9mGF",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.dRtb9Tg34NKX9mGF]{Leather Armor of Resistance}",
+      "name": "Leather Armor of Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.dRtb9Tg34NKX9mGF"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Leatherworker's Tools",
+      "icon": "icons/commodities/leather/leather-buckle-steel-tan.webp",
+      "id": "PUMfwyVUbtyxgYbD",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.PUMfwyVUbtyxgYbD]{Leatherworker's Tools}",
+      "name": "Leatherworker's Tools",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.PUMfwyVUbtyxgYbD"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Light Sensitivity",
+      "icon": "icons/magic/time/day-night-sunset-sunrise.webp",
+      "id": "2l557y06401lwsqs",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.2l557y06401lwsqs]{Light Sensitivity}",
+      "name": "Light Sensitivity",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.2l557y06401lwsqs"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Locate Animals or Plants",
+      "icon": "icons/magic/nature/leaf-glow-triple-orange-purple.webp",
+      "id": "Iv2qqSAT7OkXKPFx",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.Iv2qqSAT7OkXKPFx]{Locate Animals or Plants}",
+      "name": "Locate Animals or Plants",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.Iv2qqSAT7OkXKPFx"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Mantle of Spell Resistance",
+      "icon": "icons/equipment/back/cape-layered-violet-white-swirl.webp",
+      "id": "oxzUb5j1TMsccGW4",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.oxzUb5j1TMsccGW4]{Mantle of Spell Resistance}",
+      "name": "Mantle of Spell Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.oxzUb5j1TMsccGW4"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Mithral Breastplate",
+      "icon": "icons/equipment/chest/breastplate-collared-steel-grey.webp",
+      "id": "CcTGZzQHejxEVLK1",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.CcTGZzQHejxEVLK1]{Mithral Breastplate}",
+      "name": "Mithral Breastplate",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.CcTGZzQHejxEVLK1"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Nature's Sanctuary",
+      "icon": "icons/magic/control/encase-creature-humanoid-hold.webp",
+      "id": "EuX1kJNIw1F68yus",
+      "journalLink": "@UUID[Compendium.dnd5e.classfeatures.Item.EuX1kJNIw1F68yus]{Nature's Sanctuary}",
+      "name": "Nature's Sanctuary",
+      "package": "dnd5e.classfeatures",
+      "packageName": "Class & Subclass Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Class & Subclass Features (SRD)",
+      "uuid": "Compendium.dnd5e.classfeatures.Item.EuX1kJNIw1F68yus"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Nine Lives Stealer Scimitar",
+      "icon": "icons/weapons/swords/scimitar-guard.webp",
+      "id": "9Mdes2tKt0cqsNTw",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.9Mdes2tKt0cqsNTw]{Nine Lives Stealer Scimitar}",
+      "name": "Nine Lives Stealer Scimitar",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.9Mdes2tKt0cqsNTw"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Nine Lives Stealer Shortsword",
+      "icon": "icons/weapons/swords/shortsword-winged.webp",
+      "id": "2Lkub0qIwucWEfp3",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.2Lkub0qIwucWEfp3]{Nine Lives Stealer Shortsword}",
+      "name": "Nine Lives Stealer Shortsword",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.2Lkub0qIwucWEfp3"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Plate Armor of Resistance",
+      "icon": "icons/equipment/chest/breastplate-collared-steel.webp",
+      "id": "azxwKFHrNmG3HpVy",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.azxwKFHrNmG3HpVy]{Plate Armor of Resistance}",
+      "name": "Plate Armor of Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.azxwKFHrNmG3HpVy"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Acid Resistance",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-green.webp",
+      "id": "zgZkJAyFAfYmyn11",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.zgZkJAyFAfYmyn11]{Potion of Acid Resistance}",
+      "name": "Potion of Acid Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.zgZkJAyFAfYmyn11"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Cold Resistance",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-labeled-blue.webp",
+      "id": "34YKlIJVVWLeBv7R",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.34YKlIJVVWLeBv7R]{Potion of Cold Resistance}",
+      "name": "Potion of Cold Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.34YKlIJVVWLeBv7R"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Fire Giant Strength",
+      "icon": "icons/consumables/potions/bottle-round-corked-yellow.webp",
+      "id": "bEZOY6uvHRweMM56",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.bEZOY6uvHRweMM56]{Potion of Fire Giant Strength}",
+      "name": "Potion of Fire Giant Strength",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.bEZOY6uvHRweMM56"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Fire Resistance",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-glowing-red.webp",
+      "id": "Jj4iFQQGvckx8Wsj",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.Jj4iFQQGvckx8Wsj]{Potion of Fire Resistance}",
+      "name": "Potion of Fire Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.Jj4iFQQGvckx8Wsj"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Force Resistance",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-labeled-blue.webp",
+      "id": "kKGJjVVlJVoakWgQ",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.kKGJjVVlJVoakWgQ]{Potion of Force Resistance}",
+      "name": "Potion of Force Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.kKGJjVVlJVoakWgQ"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Lightning Resistance",
+      "icon": "icons/consumables/potions/bottle-round-corked-yellow.webp",
+      "id": "8MPnSrvEeZhPhtTi",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.8MPnSrvEeZhPhtTi]{Potion of Lightning Resistance}",
+      "name": "Potion of Lightning Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.8MPnSrvEeZhPhtTi"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Necrotic Resistance",
+      "icon": "icons/consumables/potions/bottle-round-corked-pink.webp",
+      "id": "xw99pcqPBVwtMOLw",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.xw99pcqPBVwtMOLw]{Potion of Necrotic Resistance}",
+      "name": "Potion of Necrotic Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.xw99pcqPBVwtMOLw"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Poison Resistance",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-green.webp",
+      "id": "f5chGcpQCi1HYPQw",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.f5chGcpQCi1HYPQw]{Potion of Poison Resistance}",
+      "name": "Potion of Poison Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.f5chGcpQCi1HYPQw"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Psychic Resistance",
+      "icon": "icons/consumables/potions/bottle-round-corked-pink.webp",
+      "id": "c0luemOP0iW8L23R",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.c0luemOP0iW8L23R]{Potion of Psychic Resistance}",
+      "name": "Potion of Psychic Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.c0luemOP0iW8L23R"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Radiant Resistance",
+      "icon": "icons/consumables/potions/bottle-round-corked-yellow.webp",
+      "id": "LBQWNqX6hZOKhQ8a",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.LBQWNqX6hZOKhQ8a]{Potion of Radiant Resistance}",
+      "name": "Potion of Radiant Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.LBQWNqX6hZOKhQ8a"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Potion of Resistance",
+      "icon": "icons/consumables/potions/bottle-conical-fumes-green.webp",
+      "id": "JzLOE4IxcmxjLLuz",
+      "journalLink": "@UUID[Compendium.dnd5e.tables.RollTable.JzLOE4IxcmxjLLuz]{Potion of Resistance}",
+      "name": "Potion of Resistance",
+      "package": "dnd5e.tables",
+      "packageName": "Tables (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Tables (SRD)",
+      "uuid": "Compendium.dnd5e.tables.RollTable.JzLOE4IxcmxjLLuz"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Stone Giant Strength",
+      "icon": "icons/consumables/potions/bottle-bulb-corked-green.webp",
+      "id": "4ZiJsDTRA1GgcWKP",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.4ZiJsDTRA1GgcWKP]{Potion of Stone Giant Strength}",
+      "name": "Potion of Stone Giant Strength",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.4ZiJsDTRA1GgcWKP"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potion of Thunder Resistance",
+      "icon": "icons/consumables/potions/bottle-round-corked-yellow.webp",
+      "id": "zBX8LLC2CjC89Dzl",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.zBX8LLC2CjC89Dzl]{Potion of Thunder Resistance}",
+      "name": "Potion of Thunder Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.zBX8LLC2CjC89Dzl"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Potter's Tools",
+      "icon": "icons/containers/kitchenware/vase-bottle-brown.webp",
+      "id": "hJS8yEVkqgJjwfWa",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.hJS8yEVkqgJjwfWa]{Potter's Tools}",
+      "name": "Potter's Tools",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.hJS8yEVkqgJjwfWa"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Private Sanctum",
+      "icon": "icons/magic/defensive/shield-barrier-flaming-diamond-orange.webp",
+      "id": "NJgxf7pmSsBArIG7",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.NJgxf7pmSsBArIG7]{Private Sanctum}",
+      "name": "Private Sanctum",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.NJgxf7pmSsBArIG7"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Quarterstaff",
+      "icon": "icons/weapons/staves/staff-simple.webp",
+      "id": "g2dWN7PQiMRYWzyk",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.g2dWN7PQiMRYWzyk]{Quarterstaff}",
+      "name": "Quarterstaff",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.g2dWN7PQiMRYWzyk"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Quarterstaff +1",
+      "icon": "icons/weapons/staves/staff-simple-carved.webp",
+      "id": "t8L7B0JWamsvxhui",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.t8L7B0JWamsvxhui]{Quarterstaff +1}",
+      "name": "Quarterstaff +1",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.t8L7B0JWamsvxhui"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Quarterstaff +2",
+      "icon": "icons/weapons/staves/staff-orb-feather.webp",
+      "id": "7kVZo4DLBq22406E",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.7kVZo4DLBq22406E]{Quarterstaff +2}",
+      "name": "Quarterstaff +2",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.7kVZo4DLBq22406E"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Quarterstaff +3",
+      "icon": "icons/weapons/staves/staff-ornate.webp",
+      "id": "BmWnprrj0QWQ1BL3",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.BmWnprrj0QWQ1BL3]{Quarterstaff +3}",
+      "name": "Quarterstaff +3",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.BmWnprrj0QWQ1BL3"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ring of Lightning Resistance",
+      "icon": "icons/equipment/finger/ring-cabochon-gold-orange.webp",
+      "id": "XJ8CG4UvLELCmOi2",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.XJ8CG4UvLELCmOi2]{Ring of Lightning Resistance}",
+      "name": "Ring of Lightning Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.XJ8CG4UvLELCmOi2"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ring of Necrotic Resistance",
+      "icon": "icons/equipment/finger/ring-band-engraved-scrolls-silver.webp",
+      "id": "qMGkmzfLHfXd7DiJ",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.qMGkmzfLHfXd7DiJ]{Ring of Necrotic Resistance}",
+      "name": "Ring of Necrotic Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.qMGkmzfLHfXd7DiJ"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ring of Radiant Resistance",
+      "icon": "icons/equipment/finger/ring-inlay-red.webp",
+      "id": "IrC5LPbWNxlAQoK7",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.IrC5LPbWNxlAQoK7]{Ring of Radiant Resistance}",
+      "name": "Ring of Radiant Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.IrC5LPbWNxlAQoK7"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Ring of Thunder Resistance",
+      "icon": "icons/equipment/finger/ring-faceted-silver-orange.webp",
+      "id": "IpBBqr0r7JanyVn0",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.IpBBqr0r7JanyVn0]{Ring of Thunder Resistance}",
+      "name": "Ring of Thunder Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.IpBBqr0r7JanyVn0"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Scimitar of Life Stealing",
+      "icon": "icons/weapons/swords/sword-hooked-worn.webp",
+      "id": "sfegfmo59MHJg2YC",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.sfegfmo59MHJg2YC]{Scimitar of Life Stealing}",
+      "name": "Scimitar of Life Stealing",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.sfegfmo59MHJg2YC"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Secret Chest",
+      "icon": "icons/magic/perception/eye-ringed-glow-angry-teal.webp",
+      "id": "8sgwRh8NUNkn9Vi0",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.8sgwRh8NUNkn9Vi0]{Secret Chest}",
+      "name": "Secret Chest",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.8sgwRh8NUNkn9Vi0"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Sentient Magic Items Alignment",
+      "icon": "icons/weapons/polearms/spear-flared-silver-pink.webp",
+      "id": "NdjHJMSSVWw5fHsL",
+      "journalLink": "@UUID[Compendium.dnd5e.tables.RollTable.NdjHJMSSVWw5fHsL]{Sentient Magic Items Alignment}",
+      "name": "Sentient Magic Items Alignment",
+      "package": "dnd5e.tables",
+      "packageName": "Tables (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Tables (SRD)",
+      "uuid": "Compendium.dnd5e.tables.RollTable.NdjHJMSSVWw5fHsL"
+    },
+    {
+      "documentType": "RollTable",
+      "folder": null,
+      "formattedMatch": "Sentient Magic Items Communication",
+      "icon": "icons/weapons/polearms/spear-flared-silver-pink.webp",
+      "id": "BHckoLKDwoL9d5p3",
+      "journalLink": "@UUID[Compendium.dnd5e.tables.RollTable.BHckoLKDwoL9d5p3]{Sentient Magic Items Communication}",
+      "name": "Sentient Magic Items Communication",
+      "package": "dnd5e.tables",
+      "packageName": "Tables (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "",
+      "tagline": "Tables (SRD)",
+      "uuid": "Compendium.dnd5e.tables.RollTable.BHckoLKDwoL9d5p3"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Shortsword of Life Stealing",
+      "icon": "icons/weapons/swords/sword-guard-worn.webp",
+      "id": "902yxeFDwavpm6cv",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.902yxeFDwavpm6cv]{Shortsword of Life Stealing}",
+      "name": "Shortsword of Life Stealing",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.902yxeFDwavpm6cv"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Speak with Beasts and Plants",
+      "icon": "icons/commodities/currency/coin-engraved-sun-smile-copper.webp",
+      "id": "59DUUDZet1J4PIlA",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.59DUUDZet1J4PIlA]{Speak with Beasts and Plants}",
+      "name": "Speak with Beasts and Plants",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.59DUUDZet1J4PIlA"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Splint Armor of Resistance",
+      "icon": "icons/equipment/chest/breastplate-layered-steel.webp",
+      "id": "JNkjtTxYmEC7W34O",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.JNkjtTxYmEC7W34O]{Splint Armor of Resistance}",
+      "name": "Splint Armor of Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.JNkjtTxYmEC7W34O"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Steadfast",
+      "icon": "icons/magic/defensive/illusion-evasion-echo-purple.webp",
+      "id": "4N7S29kDROQ932pG",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.4N7S29kDROQ932pG]{Steadfast}",
+      "name": "Steadfast",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.4N7S29kDROQ932pG"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Stone of Good Luck (Luckstone)",
+      "icon": "icons/commodities/gems/gem-rough-rectangle-red.webp",
+      "id": "296Zgo9RhltWShE1",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.296Zgo9RhltWShE1]{Stone of Good Luck (Luckstone)}",
+      "name": "Stone of Good Luck (Luckstone)",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.296Zgo9RhltWShE1"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Studded Leather Armor of Resistance",
+      "icon": "icons/equipment/chest/breastplate-rivited-red.webp",
+      "id": "W1kDsFekjroIywuz",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.W1kDsFekjroIywuz]{Studded Leather Armor of Resistance}",
+      "name": "Studded Leather Armor of Resistance",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.W1kDsFekjroIywuz"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Sunlight Sensitivity",
+      "icon": "icons/magic/light/explosion-star-glow-blue-purple.webp",
+      "id": "F14aW2Ke3I5ZtSg4",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.F14aW2Ke3I5ZtSg4]{Sunlight Sensitivity}",
+      "name": "Sunlight Sensitivity",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.F14aW2Ke3I5ZtSg4"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Thieves' Cant",
+      "icon": "icons/sundries/documents/document-torn-diagram-tan.webp",
+      "id": "ohwfuwnvuoBWlSQr",
+      "journalLink": "@UUID[Compendium.dnd5e.classfeatures.Item.ohwfuwnvuoBWlSQr]{Thieves' Cant}",
+      "name": "Thieves' Cant",
+      "package": "dnd5e.classfeatures",
+      "packageName": "Class & Subclass Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Class & Subclass Features (SRD)",
+      "uuid": "Compendium.dnd5e.classfeatures.Item.ohwfuwnvuoBWlSQr"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Thieves' Tools",
+      "icon": "icons/tools/hand/lockpicks-steel-grey.webp",
+      "id": "woWZ1sO5IUVGzo58",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.woWZ1sO5IUVGzo58]{Thieves' Tools}",
+      "name": "Thieves' Tools",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.woWZ1sO5IUVGzo58"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Time Stop",
+      "icon": "icons/magic/time/clock-stopwatch-white-blue.webp",
+      "id": "JYuRBwxpoFhXduvD",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.JYuRBwxpoFhXduvD]{Time Stop}",
+      "name": "Time Stop",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.JYuRBwxpoFhXduvD"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Tinker's Tools",
+      "icon": "icons/commodities/cloth/thread-spindle-white-needle.webp",
+      "id": "0d08g1i5WXnNrCNA",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.0d08g1i5WXnNrCNA]{Tinker's Tools}",
+      "name": "Tinker's Tools",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "tool",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.0d08g1i5WXnNrCNA"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Tome of Understanding",
+      "icon": "icons/sundries/books/book-turquoise-moon.webp",
+      "id": "WnKWD1FuAFUE7f4v",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.WnKWD1FuAFUE7f4v]{Tome of Understanding}",
+      "name": "Tome of Understanding",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "consumable",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.WnKWD1FuAFUE7f4v"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Traveler's Clothes",
+      "icon": "icons/equipment/back/cloak-brown-collared-fur-white-tied.webp",
+      "id": "SsAmWV6YBqeOFihT",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT]{Traveler's Clothes}",
+      "name": "Traveler's Clothes",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "equipment",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Tree Stride",
+      "icon": "icons/magic/nature/leaf-glow-maple-orange-purple.webp",
+      "id": "DUBgwHPakcLDkB6W",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.DUBgwHPakcLDkB6W]{Tree Stride}",
+      "name": "Tree Stride",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.DUBgwHPakcLDkB6W"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Tree Stride",
+      "icon": "icons/magic/nature/tree-spirit-green.webp",
+      "id": "g4V02wJbEstUpwi9",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.g4V02wJbEstUpwi9]{Tree Stride}",
+      "name": "Tree Stride",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.g4V02wJbEstUpwi9"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "True Resurrection",
+      "icon": "icons/magic/life/heart-cross-strong-flame-blue.webp",
+      "id": "qLeEXZDbW5y4bmLY",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.qLeEXZDbW5y4bmLY]{True Resurrection}",
+      "name": "True Resurrection",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.qLeEXZDbW5y4bmLY"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "True Strike",
+      "icon": "icons/magic/fire/dagger-rune-enchant-blue-gray.webp",
+      "id": "mGGlcLdggHwcL7MG",
+      "journalLink": "@UUID[Compendium.dnd5e.spells.Item.mGGlcLdggHwcL7MG]{True Strike}",
+      "name": "True Strike",
+      "package": "dnd5e.spells",
+      "packageName": "Spells (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "spell",
+      "tagline": "Spells (SRD)",
+      "uuid": "Compendium.dnd5e.spells.Item.mGGlcLdggHwcL7MG"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Turn Resistance",
+      "icon": "icons/magic/fire/flame-burning-creature-skeleton.webp",
+      "id": "r9aMLZ7F3gSRLgRr",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.r9aMLZ7F3gSRLgRr]{Turn Resistance}",
+      "name": "Turn Resistance",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.r9aMLZ7F3gSRLgRr"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Two-Person Tent",
+      "icon": "icons/environment/wilderness/camp-improvised.webp",
+      "id": "PanSr5EbqlfpSvwK",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.PanSr5EbqlfpSvwK]{Two-Person Tent}",
+      "name": "Two-Person Tent",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "loot",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.PanSr5EbqlfpSvwK"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Vicious Quarterstaff",
+      "icon": "icons/weapons/maces/mace-round-steel.webp",
+      "id": "Z7xno2zMzRtqqUIQ",
+      "journalLink": "@UUID[Compendium.dnd5e.items.Item.Z7xno2zMzRtqqUIQ]{Vicious Quarterstaff}",
+      "name": "Vicious Quarterstaff",
+      "package": "dnd5e.items",
+      "packageName": "Items (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "weapon",
+      "tagline": "Items (SRD)",
+      "uuid": "Compendium.dnd5e.items.Item.Z7xno2zMzRtqqUIQ"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Voice of the Chain Master",
+      "icon": "icons/creatures/mammals/humanoid-cat-skulking-teal.webp",
+      "id": "k5M8gsl7MMcdjOjs",
+      "journalLink": "@UUID[Compendium.dnd5e.classfeatures.Item.k5M8gsl7MMcdjOjs]{Voice of the Chain Master}",
+      "name": "Voice of the Chain Master",
+      "package": "dnd5e.classfeatures",
+      "packageName": "Class & Subclass Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Class & Subclass Features (SRD)",
+      "uuid": "Compendium.dnd5e.classfeatures.Item.k5M8gsl7MMcdjOjs"
+    },
+    {
+      "documentType": "Item",
+      "folder": null,
+      "formattedMatch": "Water Susceptibility",
+      "icon": "icons/magic/water/pseudopod-swirl-blue.webp",
+      "id": "5V7SCABXvIbnk2Zn",
+      "journalLink": "@UUID[Compendium.dnd5e.monsterfeatures.Item.5V7SCABXvIbnk2Zn]{Water Susceptibility}",
+      "name": "Water Susceptibility",
+      "package": "dnd5e.monsterfeatures",
+      "packageName": "Monster Features (SRD)",
+      "resultType": "CompendiumEntity",
+      "subType": "feat",
+      "tagline": "Monster Features (SRD)",
+      "uuid": "Compendium.dnd5e.monsterfeatures.Item.5V7SCABXvIbnk2Zn"
+    }
+  ],
+  "type": "search-result"
+}
+```
+
+### chat-event
+
+Received chat-event via WS subscription
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');
+
+ws.onopen = () => {
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify({
+      "type": "chat-event",
+      "requestId": "unique-id"
+    }));
+  }
+  if (data.type === 'chat-event-result') {
+    console.log(data);
+  }
+};
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import asyncio
+import websockets
+import json
+
+async def main():
+    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'
+    async with websockets.connect(uri) as ws:
+        # Send auth message first — token must not be in the URL
+        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))
+        connected = json.loads(await ws.recv())
+        if connected.get('type') != 'connected':
+            raise Exception('Auth failed')
+        await ws.send(json.dumps({"type":"chat-event","requestId":"unique-id"}))
+        response = await ws.recv()
+        data = json.loads(response)
+        print(data)
+
+asyncio.run(main())
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import WebSocket from 'ws';
+
+const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');
+
+ws.on('open', () => {
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
+});
+
+ws.on('message', (raw: string) => {
+  const data = JSON.parse(raw);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify({
+      "type": "chat-event",
+      "requestId": "unique-id"
+    }));
+  }
+  if (data.type === 'chat-event-result') {
+    console.log(data);
+  }
+}):
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+```json
+{
+  "data": {
+    "data": {
+      "data": {
+        "author": {
+          "id": "fCfNJPT9Atc26yyv",
+          "name": "tester"
+        },
+        "content": "WS chat-event test",
+        "flags": {},
+        "flavor": "",
+        "id": "sYutYiHLXyn4sOyx",
+        "isRoll": false,
+        "rolls": [],
+        "speaker": {
+          "actor": null,
+          "scene": null,
+          "token": null
+        },
+        "timestamp": 1780520804214,
+        "type": "base",
+        "uuid": "ChatMessage.sYutYiHLXyn4sOyx",
+        "whisper": []
+      },
+      "eventType": "create"
+    },
+    "type": "chat-event"
+  },
+  "event": "chat-create",
+  "type": "chat-event"
+}
+```
+
+### roll-event
+
+Received roll-event via WS subscription
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');
+
+ws.onopen = () => {
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify({
+      "type": "roll-event",
+      "requestId": "unique-id"
+    }));
+  }
+  if (data.type === 'roll-event-result') {
+    console.log(data);
+  }
+};
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import asyncio
+import websockets
+import json
+
+async def main():
+    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'
+    async with websockets.connect(uri) as ws:
+        # Send auth message first — token must not be in the URL
+        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))
+        connected = json.loads(await ws.recv())
+        if connected.get('type') != 'connected':
+            raise Exception('Auth failed')
+        await ws.send(json.dumps({"type":"roll-event","requestId":"unique-id"}))
+        response = await ws.recv()
+        data = json.loads(response)
+        print(data)
+
+asyncio.run(main())
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import WebSocket from 'ws';
+
+const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');
+
+ws.on('open', () => {
+  // Send auth message first — token must not be in the URL
+  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));
+});
+
+ws.on('message', (raw: string) => {
+  const data = JSON.parse(raw);
+  if (data.type === 'connected') {
+    // Now send your request
+    ws.send(JSON.stringify({
+      "type": "roll-event",
+      "requestId": "unique-id"
+    }));
+  }
+  if (data.type === 'roll-event-result') {
+    console.log(data);
+  }
+}):
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+```json
+{
+  "data": {
+    "data": {
+      "dice": [
+        {
+          "faces": 6,
+          "results": [
+            {
+              "active": true,
+              "result": 4
+            }
+          ]
+        }
+      ],
+      "flavor": "WS roll-event test",
+      "formula": "1d6",
+      "id": "fpZtJW2fScaVtKwT",
+      "isCritical": false,
+      "isFumble": false,
+      "messageId": "fpZtJW2fScaVtKwT",
+      "rollTotal": 4,
+      "speaker": {
+        "actor": null,
+        "scene": null,
+        "token": null
+      },
+      "timestamp": 1780520804234,
+      "user": {
+        "id": "fCfNJPT9Atc26yyv",
+        "name": "tester"
+      }
+    },
+    "type": "roll-data"
+  },
+  "type": "roll-event"
+}
+```
+

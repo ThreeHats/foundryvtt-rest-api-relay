@@ -7,7 +7,7 @@
       "url": "http://localhost:3010/start-encounter",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       },
       "body": {
         "startWithSelected": true,
@@ -18,20 +18,20 @@
       "status": 200,
       "data": {
         "type": "start-encounter-result",
-        "requestId": "start-encounter_1778896436492",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "start-encounter_1780520795168",
+        "encounterId": "13P5zmmu7RxXitIC",
         "encounter": {
-          "id": "PB0vvGNb0h66rsIi",
+          "id": "13P5zmmu7RxXitIC",
           "round": 1,
           "turn": 0,
           "combatants": [
             {
-              "id": "cz7UTEFcph3f7axg",
+              "id": "eR9eoqN80rPiGTE9",
               "name": "Updated Test Actor",
-              "tokenUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
-              "actorUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
+              "tokenUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+              "actorUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
               "img": "icons/svg/mystery-man.svg",
-              "initiative": 4,
+              "initiative": 7,
               "hidden": false,
               "defeated": false
             }
@@ -40,11 +40,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/start-encounter';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"startWithSelected\": true,\n      \"rollAll\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/start-encounter?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"startWithSelected\":true,\"rollAll\":true}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/start-encounter'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    json={\n      \"startWithSelected\": True,\n      \"rollAll\": True\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/start-encounter';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"startWithSelected\": true,\n        \"rollAll\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/start-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"startWithSelected\":true,\"rollAll\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /start-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌nContent-Type: application/json❌r❌nContent-Length: 41❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/start-encounter';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"startWithSelected\": true,\n      \"rollAll\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/start-encounter?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"startWithSelected\":true,\"rollAll\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/start-encounter'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"startWithSelected\": True,\n      \"rollAll\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/start-encounter';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"startWithSelected\": true,\n        \"rollAll\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/start-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"startWithSelected\":true,\"rollAll\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /start-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 41❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -55,28 +55,28 @@
       "url": "http://localhost:3010/encounters",
       "method": "GET",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "encounters-result",
-        "requestId": "encounters_1778896436545",
+        "requestId": "encounters_1780520795203",
         "encounters": [
           {
-            "id": "PB0vvGNb0h66rsIi",
+            "id": "13P5zmmu7RxXitIC",
             "round": 1,
             "turn": 0,
             "current": true,
             "combatants": [
               {
-                "id": "cz7UTEFcph3f7axg",
+                "id": "eR9eoqN80rPiGTE9",
                 "name": "Updated Test Actor",
-                "tokenUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
-                "actorUuid": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
+                "tokenUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+                "actorUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
                 "img": "icons/svg/mystery-man.svg",
-                "initiative": 4,
+                "initiative": 7,
                 "hidden": false,
                 "defeated": false
               }
@@ -86,11 +86,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/encounters';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/encounters?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/encounters'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/encounters';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/encounters🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /encounters🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/encounters';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3010/encounters?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/encounters'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/encounters';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/encounters🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /encounters🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -101,33 +101,33 @@
       "url": "http://localhost:3010/next-turn",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "next-turn-result",
-        "requestId": "next-turn_1778896436560",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "next-turn_1780520795207",
+        "encounterId": "13P5zmmu7RxXitIC",
         "action": "nextTurn",
         "currentTurn": 0,
         "currentRound": 2,
-        "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
-        "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
+        "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+        "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
         "encounter": {
-          "id": "PB0vvGNb0h66rsIi",
+          "id": "13P5zmmu7RxXitIC",
           "round": 2,
           "turn": 0
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/next-turn';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  encounterId: 'PB0vvGNb0h66rsIi'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/next-turn?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/next-turn'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'encounterId': 'PB0vvGNb0h66rsIi'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/next-turn';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    encounterId: 'PB0vvGNb0h66rsIi'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/next-turn🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /next-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/next-turn';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  encounterId: '13P5zmmu7RxXitIC'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/next-turn?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/next-turn'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'encounterId': '13P5zmmu7RxXitIC'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/next-turn';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    encounterId: '13P5zmmu7RxXitIC'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/next-turn🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /next-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -138,33 +138,33 @@
       "url": "http://localhost:3010/next-round",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "next-round-result",
-        "requestId": "next-round_1778896436575",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "next-round_1780520795214",
+        "encounterId": "13P5zmmu7RxXitIC",
         "action": "nextRound",
         "currentTurn": 0,
         "currentRound": 3,
-        "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
-        "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
+        "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+        "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
         "encounter": {
-          "id": "PB0vvGNb0h66rsIi",
+          "id": "13P5zmmu7RxXitIC",
           "round": 3,
           "turn": 0
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/next-round';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  encounterId: 'PB0vvGNb0h66rsIi'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/next-round?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/next-round'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'encounterId': 'PB0vvGNb0h66rsIi'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/next-round';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    encounterId: 'PB0vvGNb0h66rsIi'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/next-round🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /next-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/next-round';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  encounterId: '13P5zmmu7RxXitIC'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/next-round?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/next-round'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'encounterId': '13P5zmmu7RxXitIC'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/next-round';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    encounterId: '13P5zmmu7RxXitIC'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/next-round🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /next-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -175,33 +175,33 @@
       "url": "http://localhost:3010/last-turn",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "last-turn-result",
-        "requestId": "last-turn_1778896436584",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "last-turn_1780520795221",
+        "encounterId": "13P5zmmu7RxXitIC",
         "action": "previousTurn",
         "currentTurn": 0,
         "currentRound": 2,
-        "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
-        "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
+        "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+        "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
         "encounter": {
-          "id": "PB0vvGNb0h66rsIi",
+          "id": "13P5zmmu7RxXitIC",
           "round": 2,
           "turn": 0
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/last-turn';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  encounterId: 'PB0vvGNb0h66rsIi'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/last-turn?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/last-turn'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'encounterId': 'PB0vvGNb0h66rsIi'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/last-turn';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    encounterId: 'PB0vvGNb0h66rsIi'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/last-turn🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /last-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/last-turn';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  encounterId: '13P5zmmu7RxXitIC'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/last-turn?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/last-turn'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'encounterId': '13P5zmmu7RxXitIC'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/last-turn';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    encounterId: '13P5zmmu7RxXitIC'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/last-turn🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /last-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -212,33 +212,33 @@
       "url": "http://localhost:3010/last-round",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "last-round-result",
-        "requestId": "last-round_1778896436595",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "last-round_1780520795225",
+        "encounterId": "13P5zmmu7RxXitIC",
         "action": "previousRound",
         "currentTurn": 0,
         "currentRound": 1,
-        "actorTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG.Actor.S6Nh5SfYPcyyUhRg",
-        "tokenTurn": "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG",
+        "actorTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X",
+        "tokenTurn": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
         "encounter": {
-          "id": "PB0vvGNb0h66rsIi",
+          "id": "13P5zmmu7RxXitIC",
           "round": 1,
           "turn": 0
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/last-round';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  encounterId: 'PB0vvGNb0h66rsIi'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/last-round?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/last-round'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'encounterId': 'PB0vvGNb0h66rsIi'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/last-round';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    encounterId: 'PB0vvGNb0h66rsIi'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/last-round🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /last-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/last-round';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  encounterId: '13P5zmmu7RxXitIC'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/last-round?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/last-round'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'encounterId': '13P5zmmu7RxXitIC'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/last-round';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    encounterId: '13P5zmmu7RxXitIC'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/last-round🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /last-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -249,7 +249,7 @@
       "url": "http://localhost:3010/remove-from-encounter",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       },
       "body": {
         "selected": true
@@ -259,20 +259,20 @@
       "status": 200,
       "data": {
         "type": "remove-from-encounter-result",
-        "requestId": "remove-from-encounter_1778896436602",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "remove-from-encounter_1780520795232",
+        "encounterId": "13P5zmmu7RxXitIC",
         "removed": [
-          "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG"
+          "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm"
         ],
         "failed": []
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/remove-from-encounter';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  encounterId: 'PB0vvGNb0h66rsIi'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"selected\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"selected\":true}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/remove-from-encounter'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'encounterId': 'PB0vvGNb0h66rsIi'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    json={\n      \"selected\": True\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/remove-from-encounter';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    encounterId: 'PB0vvGNb0h66rsIi'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"selected\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/remove-from-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"selected\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /remove-from-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌nContent-Type: application/json❌r❌nContent-Length: 17❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/remove-from-encounter';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  encounterId: '13P5zmmu7RxXitIC'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"selected\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/remove-from-encounter?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"selected\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/remove-from-encounter'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'encounterId': '13P5zmmu7RxXitIC'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"selected\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/remove-from-encounter';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    encounterId: '13P5zmmu7RxXitIC'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"selected\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/remove-from-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"selected\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /remove-from-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 17❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -283,7 +283,7 @@
       "url": "http://localhost:3010/add-to-encounter",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       },
       "body": {
         "selected": true,
@@ -295,20 +295,20 @@
       "status": 200,
       "data": {
         "type": "add-to-encounter-result",
-        "requestId": "add-to-encounter_1778896436611",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "add-to-encounter_1780520795237",
+        "encounterId": "13P5zmmu7RxXitIC",
         "added": [
-          "Scene.tgYnjCnq6EFiREjl.Token.TOInpAfNZ6GRAJaG"
+          "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm"
         ],
         "failed": []
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/add-to-encounter';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  encounterId: 'PB0vvGNb0h66rsIi'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"selected\": true,\n      \"uuids\": [],\n      \"rollInitiative\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/add-to-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"selected\":true,\"uuids\":[],\"rollInitiative\":true}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/add-to-encounter'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'encounterId': 'PB0vvGNb0h66rsIi'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    json={\n      \"selected\": True,\n      \"uuids\": [],\n      \"rollInitiative\": True\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/add-to-encounter';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    encounterId: 'PB0vvGNb0h66rsIi'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"selected\": true,\n        \"uuids\": [],\n        \"rollInitiative\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/add-to-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"selected\":true,\"uuids\":[],\"rollInitiative\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /add-to-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/add-to-encounter';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  encounterId: '13P5zmmu7RxXitIC'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"selected\": true,\n      \"uuids\": [],\n      \"rollInitiative\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/add-to-encounter?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"selected\":true,\"uuids\":[],\"rollInitiative\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/add-to-encounter'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'encounterId': '13P5zmmu7RxXitIC'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"selected\": True,\n      \"uuids\": [],\n      \"rollInitiative\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/add-to-encounter';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    encounterId: '13P5zmmu7RxXitIC'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"selected\": true,\n        \"uuids\": [],\n        \"rollInitiative\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/add-to-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"selected\":true,\"uuids\":[],\"rollInitiative\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /add-to-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -319,24 +319,24 @@
       "url": "http://localhost:3010/end-encounter",
       "method": "POST",
       "headers": {
-        "x-api-key": "164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb"
+        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "end-encounter-result",
-        "requestId": "end-encounter_1778896436617",
-        "encounterId": "PB0vvGNb0h66rsIi",
+        "requestId": "end-encounter_1780520795243",
+        "encounterId": "13P5zmmu7RxXitIC",
         "message": "Encounter successfully ended"
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/end-encounter';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3',\n  encounterId: 'PB0vvGNb0h66rsIi'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/end-encounter?clientId=fvtt_099ad17ea199e7e3&encounterId=PB0vvGNb0h66rsIi' \\\n  -H \"x-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/end-encounter'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3',\n    'encounterId': 'PB0vvGNb0h66rsIi'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/end-encounter';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3',\n    encounterId: 'PB0vvGNb0h66rsIi'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': '164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/end-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤encounterId=PB0vvGNb0h66rsIi🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /end-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: 164f06577e3ec0f2f5aa51d36f0c651d179d04572e5ea2278c77eecc518d0abb❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/end-encounter';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  encounterId: '13P5zmmu7RxXitIC'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3010/end-encounter?clientId=fvtt_d3db244ce1d8af0b&encounterId=13P5zmmu7RxXitIC' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/end-encounter'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'encounterId': '13P5zmmu7RxXitIC'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/end-encounter';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    encounterId: '13P5zmmu7RxXitIC'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/end-encounter🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤encounterId=13P5zmmu7RxXitIC🔤 ➡️ encounterId\n  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤POST /end-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

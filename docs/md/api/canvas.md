@@ -37,6 +37,247 @@ Get canvas embedded documents
   parameters={[{"name":"documentType","type":"string","required":true,"source":"params"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"documentId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/canvas/tokens';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3010/canvas/tokens?clientId=fvtt_d3db244ce1d8af0b' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/canvas/tokens'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/canvas/tokens';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/canvas/tokens🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "get-canvas-documents-result",
+  "requestId": "get-canvas-documents_1780520762574",
+  "sceneId": "Lxz4vYKs8VE4gpcw",
+  "documentType": "tokens",
+  "data": [
+    {
+      "actorId": "u3iSEGYdk5UNZy7X",
+      "x": 400,
+      "y": 400,
+      "_id": "QURMNu3IQni6w1ZP",
+      "name": "",
+      "displayName": 0,
+      "actorLink": false,
+      "delta": {
+        "_id": "y1gXxQNmXCz5Slkd",
+        "system": {},
+        "items": [],
+        "effects": [],
+        "flags": {}
+      },
+      "appendNumber": false,
+      "prependAdjective": false,
+      "width": 1,
+      "height": 1,
+      "texture": {
+        "src": "icons/svg/mystery-man.svg",
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "offsetX": 0,
+        "offsetY": 0,
+        "fit": "contain",
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotation": 0,
+        "tint": "#ffffff",
+        "alphaThreshold": 0.75
+      },
+      "hexagonalShape": 0,
+      "elevation": 0,
+      "sort": 0,
+      "locked": false,
+      "lockRotation": false,
+      "rotation": 0,
+      "alpha": 1,
+      "hidden": false,
+      "disposition": -1,
+      "displayBars": 0,
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": null
+      },
+      "light": {
+        "negative": false,
+        "priority": 0,
+        "alpha": 0.5,
+        "angle": 360,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "dim": 0,
+        "attenuation": 0.5,
+        "luminosity": 0.5,
+        "saturation": 0,
+        "contrast": 0,
+        "shadows": 0,
+        "animation": {
+          "type": null,
+          "speed": 5,
+          "intensity": 5,
+          "reverse": false
+        },
+        "darkness": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "sight": {
+        "enabled": false,
+        "range": 0,
+        "angle": 360,
+        "visionMode": "basic",
+        "color": null,
+        "attenuation": 0.1,
+        "brightness": 0,
+        "saturation": 0,
+        "contrast": 0
+      },
+      "detectionModes": [],
+      "occludable": {
+        "radius": 0
+      },
+      "ring": {
+        "enabled": false,
+        "colors": {
+          "ring": null,
+          "background": null
+        },
+        "effects": 1,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "_regions": [],
+      "flags": {}
+    }
+  ]
+}
+```
+
+
 ---
 
 ## GET /measure-distance
@@ -75,6 +316,169 @@ Calculates the distance between two positions on the canvas, respecting the grid
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"originX","type":"number","required":false,"source":"body"},{"name":"originY","type":"number","required":false,"source":"body"},{"name":"targetX","type":"number","required":false,"source":"body"},{"name":"targetY","type":"number","required":false,"source":"body"},{"name":"originUuid","type":"string","required":false,"source":"body"},{"name":"originName","type":"string","required":false,"source":"body"},{"name":"targetUuid","type":"string","required":false,"source":"body"},{"name":"targetName","type":"string","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/measure-distance';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  originX: '0',
+  originY: '0',
+  targetX: '500',
+  targetY: '500'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3010/measure-distance?clientId=fvtt_d3db244ce1d8af0b&originX=0&originY=0&targetX=500&targetY=500' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/measure-distance'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'originX': '0',
+    'originY': '0',
+    'targetX': '500',
+    'targetY': '500'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/measure-distance';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    originX: '0',
+    originY: '0',
+    targetX: '500',
+    targetY: '500'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/measure-distance🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤originX=0🔤 ➡️ originX
+  🔤originY=0🔤 ➡️ originY
+  🔤targetX=500🔤 ➡️ targetX
+  🔤targetY=500🔤 ➡️ targetY
+  🔤?🧲clientId🧲&🧲originX🧲&🧲originY🧲&🧲targetX🧲&🧲targetY🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /measure-distance🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "measure-distance-result",
+  "requestId": "measure-distance_1780520763768",
+  "data": {
+    "distance": 35.35533905932738,
+    "units": "ft",
+    "origin": {
+      "x": 0,
+      "y": 0
+    },
+    "target": {
+      "x": 500,
+      "y": 500
+    },
+    "sceneId": "Lxz4vYKs8VE4gpcw"
+  }
+}
+```
+
+
 ---
 
 ## POST /canvas/:documentType
@@ -104,6 +508,276 @@ Create canvas embedded document(s)
   path="/canvas/:documentType"
   parameters={[{"name":"documentType","type":"string","required":true,"source":"params"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/canvas/tokens';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "data": {
+        "x": 400,
+        "y": 400,
+        "actorId": "u3iSEGYdk5UNZy7X"
+      }
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/canvas/tokens?clientId=fvtt_d3db244ce1d8af0b' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"data":{"x":400,"y":400,"actorId":"u3iSEGYdk5UNZy7X"}}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/canvas/tokens'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "data": {
+        "x": 400,
+        "y": 400,
+        "actorId": "u3iSEGYdk5UNZy7X"
+      }
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/canvas/tokens';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "data": {
+          "x": 400,
+          "y": 400,
+          "actorId": "u3iSEGYdk5UNZy7X"
+        }
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/canvas/tokens🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"data":{"x":400,"y":400,"actorId":"u3iSEGYdk5UNZy7X"}}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 55❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "create-canvas-document-result",
+  "requestId": "create-canvas-document_1780520762469",
+  "sceneId": "Lxz4vYKs8VE4gpcw",
+  "documentType": "tokens",
+  "data": [
+    {
+      "actorId": "u3iSEGYdk5UNZy7X",
+      "x": 400,
+      "y": 400,
+      "_id": "QURMNu3IQni6w1ZP",
+      "name": "",
+      "displayName": 0,
+      "actorLink": false,
+      "delta": {
+        "_id": "y1gXxQNmXCz5Slkd",
+        "system": {},
+        "items": [],
+        "effects": [],
+        "flags": {}
+      },
+      "appendNumber": false,
+      "prependAdjective": false,
+      "width": 1,
+      "height": 1,
+      "texture": {
+        "src": "icons/svg/mystery-man.svg",
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "offsetX": 0,
+        "offsetY": 0,
+        "fit": "contain",
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotation": 0,
+        "tint": "#ffffff",
+        "alphaThreshold": 0.75
+      },
+      "hexagonalShape": 0,
+      "elevation": 0,
+      "sort": 0,
+      "locked": false,
+      "lockRotation": false,
+      "rotation": 0,
+      "alpha": 1,
+      "hidden": false,
+      "disposition": -1,
+      "displayBars": 0,
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": null
+      },
+      "light": {
+        "negative": false,
+        "priority": 0,
+        "alpha": 0.5,
+        "angle": 360,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "dim": 0,
+        "attenuation": 0.5,
+        "luminosity": 0.5,
+        "saturation": 0,
+        "contrast": 0,
+        "shadows": 0,
+        "animation": {
+          "type": null,
+          "speed": 5,
+          "intensity": 5,
+          "reverse": false
+        },
+        "darkness": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "sight": {
+        "enabled": false,
+        "range": 0,
+        "angle": 360,
+        "visionMode": "basic",
+        "color": null,
+        "attenuation": 0.1,
+        "brightness": 0,
+        "saturation": 0,
+        "contrast": 0
+      },
+      "detectionModes": [],
+      "occludable": {
+        "radius": 0
+      },
+      "ring": {
+        "enabled": false,
+        "colors": {
+          "ring": null,
+          "background": null
+        },
+        "effects": 1,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "_regions": [],
+      "flags": {}
+    }
+  ]
+}
+```
+
 
 ---
 
@@ -136,6 +810,276 @@ Update a canvas embedded document
   parameters={[{"name":"documentType","type":"string","required":true,"source":"params"},{"name":"documentId","type":"string","required":true,"source":"body"},{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/canvas/tokens';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'PUT',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "documentId": "QURMNu3IQni6w1ZP",
+      "data": {
+        "x": 450,
+        "y": 450
+      }
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X PUT 'http://localhost:3010/canvas/tokens?clientId=fvtt_d3db244ce1d8af0b' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"documentId":"QURMNu3IQni6w1ZP","data":{"x":450,"y":450}}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/canvas/tokens'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b'
+}
+url = f'{base_url}{path}'
+
+response = requests.put(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "documentId": "QURMNu3IQni6w1ZP",
+      "data": {
+        "x": 450,
+        "y": 450
+      }
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/canvas/tokens';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'put',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "documentId": "QURMNu3IQni6w1ZP",
+        "data": {
+          "x": 450,
+          "y": 450
+        }
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/canvas/tokens🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"documentId":"QURMNu3IQni6w1ZP","data":{"x":450,"y":450}}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤PUT /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 58❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "update-canvas-document-result",
+  "requestId": "update-canvas-document_1780520762581",
+  "sceneId": "Lxz4vYKs8VE4gpcw",
+  "documentType": "tokens",
+  "data": [
+    {
+      "actorId": "u3iSEGYdk5UNZy7X",
+      "x": 450,
+      "y": 450,
+      "_id": "QURMNu3IQni6w1ZP",
+      "name": "",
+      "displayName": 0,
+      "actorLink": false,
+      "delta": {
+        "_id": "y1gXxQNmXCz5Slkd",
+        "system": {},
+        "items": [],
+        "effects": [],
+        "flags": {}
+      },
+      "appendNumber": false,
+      "prependAdjective": false,
+      "width": 1,
+      "height": 1,
+      "texture": {
+        "src": "icons/svg/mystery-man.svg",
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "offsetX": 0,
+        "offsetY": 0,
+        "fit": "contain",
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotation": 0,
+        "tint": "#ffffff",
+        "alphaThreshold": 0.75
+      },
+      "hexagonalShape": 0,
+      "elevation": 0,
+      "sort": 0,
+      "locked": false,
+      "lockRotation": false,
+      "rotation": 0,
+      "alpha": 1,
+      "hidden": false,
+      "disposition": -1,
+      "displayBars": 0,
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": null
+      },
+      "light": {
+        "negative": false,
+        "priority": 0,
+        "alpha": 0.5,
+        "angle": 360,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "dim": 0,
+        "attenuation": 0.5,
+        "luminosity": 0.5,
+        "saturation": 0,
+        "contrast": 0,
+        "shadows": 0,
+        "animation": {
+          "type": null,
+          "speed": 5,
+          "intensity": 5,
+          "reverse": false
+        },
+        "darkness": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "sight": {
+        "enabled": false,
+        "range": 0,
+        "angle": 360,
+        "visionMode": "basic",
+        "color": null,
+        "attenuation": 0.1,
+        "brightness": 0,
+        "saturation": 0,
+        "contrast": 0
+      },
+      "detectionModes": [],
+      "occludable": {
+        "radius": 0
+      },
+      "ring": {
+        "enabled": false,
+        "colors": {
+          "ring": null,
+          "background": null
+        },
+        "effects": 1,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "_regions": [],
+      "flags": {}
+    }
+  ]
+}
+```
+
+
 ---
 
 ## DELETE /canvas/:documentType
@@ -165,6 +1109,147 @@ Delete a canvas embedded document
   path="/canvas/:documentType"
   parameters={[{"name":"documentType","type":"string","required":true,"source":"params"},{"name":"documentId","type":"string","required":true,"source":"query"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"sceneId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/canvas/tokens';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b',
+  documentId: 'QURMNu3IQni6w1ZP'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'DELETE',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X DELETE 'http://localhost:3010/canvas/tokens?clientId=fvtt_d3db244ce1d8af0b&documentId=QURMNu3IQni6w1ZP' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/canvas/tokens'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b',
+    'documentId': 'QURMNu3IQni6w1ZP'
+}
+url = f'{base_url}{path}'
+
+response = requests.delete(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/canvas/tokens';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b',
+    documentId: 'QURMNu3IQni6w1ZP'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'delete',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/canvas/tokens🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤documentId=QURMNu3IQni6w1ZP🔤 ➡️ documentId
+  🔤?🧲clientId🧲&🧲documentId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤DELETE /canvas/tokens🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "delete-canvas-document-result",
+  "requestId": "delete-canvas-document_1780520762598",
+  "sceneId": "Lxz4vYKs8VE4gpcw",
+  "documentType": "tokens",
+  "success": true
+}
+```
+
 
 ---
 
@@ -201,4 +1286,171 @@ Moves a token on the canvas to the specified x,y position, optionally animating 
   path="/move-token"
   parameters={[{"name":"x","type":"number","required":true,"source":"body"},{"name":"y","type":"number","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"uuid","type":"string","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"waypoints","type":"array","required":false,"source":"body"},{"name":"animate","type":"boolean","required":false,"source":"body"},{"name":"sceneId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3010';
+const path = '/move-token';
+const params = {
+  clientId: 'fvtt_d3db244ce1d8af0b'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "uuid": "Actor.u3iSEGYdk5UNZy7X",
+      "x": 200,
+      "y": 200,
+      "animate": false
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3010/move-token?clientId=fvtt_d3db244ce1d8af0b' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"uuid":"Actor.u3iSEGYdk5UNZy7X","x":200,"y":200,"animate":false}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3010'
+path = '/move-token'
+params = {
+    'clientId': 'fvtt_d3db244ce1d8af0b'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "uuid": "Actor.u3iSEGYdk5UNZy7X",
+      "x": 200,
+      "y": 200,
+      "animate": False
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3010';
+  const path = '/move-token';
+  const params = {
+    clientId: 'fvtt_d3db244ce1d8af0b'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "uuid": "Actor.u3iSEGYdk5UNZy7X",
+        "x": 200,
+        "y": 200,
+        "animate": false
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3010 ➡️ port
+  🔤/move-token🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"uuid":"Actor.u3iSEGYdk5UNZy7X","x":200,"y":200,"animate":false}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /move-token🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 65❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "move-token-result",
+  "requestId": "move-token_1780520763702",
+  "data": {
+    "tokenUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
+    "name": "Updated Test Actor",
+    "x": 200,
+    "y": 200,
+    "sceneId": "Lxz4vYKs8VE4gpcw"
+  }
+}
+```
+
 
