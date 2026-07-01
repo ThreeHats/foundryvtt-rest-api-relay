@@ -24,7 +24,7 @@ Opens a persistent SSE connection for the specified event type. Supported event 
 | clientId | string |  | query | Client ID for the Foundry world |
 | hooks | string |  | query | Comma-separated hook names to filter (hooks type only) |
 | encounterId | string |  | query | Filter by encounter ID (combat type only) |
-| actorUuid | string |  | query | Actor UUID to subscribe to (actor type, required) |
+| actorUuid | string |  | query | Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client) |
 | sceneId | string |  | query | Scene ID to filter (scene type only) |
 
 ### Returns
@@ -55,7 +55,7 @@ Opens a persistent SSE connection for the specified event type. Supported event 
 | clientId | string |  | query | Client ID for the Foundry world |
 | hooks | string |  | query | Comma-separated hook names to filter (hooks type only) |
 | encounterId | string |  | query | Filter by encounter ID (combat type only) |
-| actorUuid | string |  | query | Actor UUID to subscribe to (actor type, required) |
+| actorUuid | string |  | query | Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client) |
 | sceneId | string |  | query | Scene ID to filter (scene type only) |
 
 ### Returns
@@ -86,7 +86,7 @@ Opens a persistent SSE connection for the specified event type. Supported event 
 | clientId | string |  | query | Client ID for the Foundry world |
 | hooks | string |  | query | Comma-separated hook names to filter (hooks type only) |
 | encounterId | string |  | query | Filter by encounter ID (combat type only) |
-| actorUuid | string |  | query | Actor UUID to subscribe to (actor type, required) |
+| actorUuid | string |  | query | Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client) |
 | sceneId | string |  | query | Scene ID to filter (scene type only) |
 
 ### Returns
@@ -117,7 +117,7 @@ Opens a persistent SSE connection for the specified event type. Supported event 
 | clientId | string |  | query | Client ID for the Foundry world |
 | hooks | string |  | query | Comma-separated hook names to filter (hooks type only) |
 | encounterId | string |  | query | Filter by encounter ID (combat type only) |
-| actorUuid | string |  | query | Actor UUID to subscribe to (actor type, required) |
+| actorUuid | string |  | query | Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client) |
 | sceneId | string |  | query | Scene ID to filter (scene type only) |
 
 ### Returns

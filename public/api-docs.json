@@ -3766,7 +3766,7 @@
           "type": "string"
         },
         {
-          "description": "Actor UUID to subscribe to (actor type, required)",
+          "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
           "location": "query",
           "name": "actorUuid",
           "type": "string"
@@ -3804,7 +3804,7 @@
           "type": "string"
         },
         {
-          "description": "Actor UUID to subscribe to (actor type, required)",
+          "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
           "location": "query",
           "name": "actorUuid",
           "type": "string"
@@ -3842,7 +3842,7 @@
           "type": "string"
         },
         {
-          "description": "Actor UUID to subscribe to (actor type, required)",
+          "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
           "location": "query",
           "name": "actorUuid",
           "type": "string"
@@ -3880,7 +3880,7 @@
           "type": "string"
         },
         {
-          "description": "Actor UUID to subscribe to (actor type, required)",
+          "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
           "location": "query",
           "name": "actorUuid",
           "type": "string"
@@ -4959,5 +4959,5 @@
       ]
     }
   ],
-  "version": "3.3.0"
+  "version": "3.4.0"
 }

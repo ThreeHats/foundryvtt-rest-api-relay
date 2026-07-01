@@ -1148,28 +1148,6 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
 
 ---
 
-## Search
-
-### `search`
-
-Search entities
-
-This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `query` | string | no | Search query string (omit to browse all entities matching filter) |
-| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
-| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
-| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
-| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
-| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
-| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
-
-<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
-
----
-
 ## FileSystem
 
 ### `file-system`
@@ -1584,6 +1562,28 @@ Uses a specific item for an actor, optionally targeting another entity
 | `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
 
 <WsMessageTester messageType="use-item" parameters={[{"name":"actorUuid","type":"string","required":true,"description":"UUID of the actor"},{"name":"abilityUuid","type":"string","required":false,"description":"The UUID of the specific ability (optional if abilityName provided)"},{"name":"abilityName","type":"string","required":false,"description":"The name of the ability if UUID not provided (optional if abilityUuid provided)"},{"name":"targetUuid","type":"string","required":false,"description":"The UUID of the target for the ability (optional)"},{"name":"targetName","type":"string","required":false,"description":"The name of the target if UUID not provided (optional)"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
+
+---
+
+## Search
+
+### `search`
+
+Search entities
+
+This endpoint allows searching for entities in the Foundry world based on a query string. Search world entities and compendiums using the native built-in search engine. No third-party modules required. Results are ranked by relevance: exact match, prefix match, substring match, word-prefix match, and subsequence match.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `query` | string | no | Search query string (omit to browse all entities matching filter) |
+| `filter` | string | no | Filter string — simple: filter="Actor"; compound: filter="documentType:Item,subType:weapon". Supported keys: documentType, subType, folder, package, resultType |
+| `excludeCompendiums` | boolean | no | Exclude compendium entries from results (default: false — compendiums are included by default) |
+| `limit` | number | no | Maximum number of results to return (default: 200, max: 500) |
+| `minified` | boolean | no | Return minimal fields only — uuid, id, name, img, documentType (default: false) |
+| `ownedByUserId` | string | no | Filter results to only documents the specified Foundry user (ID or username) has Owner permission on |
+| `userId` | string | no | Foundry user ID or username to scope permissions (omit for GM-level access) |
+
+<WsMessageTester messageType="search" parameters={[{"name":"query","type":"string","required":false,"description":"Search query string (omit to browse all entities matching filter)"},{"name":"filter","type":"string","required":false,"description":"Filter string — simple: filter=\"Actor\"; compound: filter=\"documentType:Item,subType:weapon\". Supported keys: documentType, subType, folder, package, resultType"},{"name":"excludeCompendiums","type":"boolean","required":false,"description":"Exclude compendium entries from results (default: false — compendiums are included by default)"},{"name":"limit","type":"number","required":false,"description":"Maximum number of results to return (default: 200, max: 500)"},{"name":"minified","type":"boolean","required":false,"description":"Return minimal fields only — uuid, id, name, img, documentType (default: false)"},{"name":"ownedByUserId","type":"string","required":false,"description":"Filter results to only documents the specified Foundry user (ID or username) has Owner permission on"},{"name":"userId","type":"string","required":false,"description":"Foundry user ID or username to scope permissions (omit for GM-level access)"}]} />
 
 ---
 

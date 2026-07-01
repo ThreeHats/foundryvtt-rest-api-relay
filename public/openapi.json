@@ -14,7 +14,7 @@
       "name": "MIT"
     },
     "title": "FoundryVTT REST API",
-    "version": "3.3.0"
+    "version": "3.4.0"
   },
   "openapi": "3.0.3",
   "paths": {
@@ -50,7 +50,7 @@
             }
           },
           {
-            "description": "Actor UUID to subscribe to (actor type, required)",
+            "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
             "in": "query",
             "name": "actorUuid",
             "required": false,
@@ -5913,7 +5913,7 @@
             }
           },
           {
-            "description": "Actor UUID to subscribe to (actor type, required)",
+            "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
             "in": "query",
             "name": "actorUuid",
             "required": false,
@@ -6698,7 +6698,7 @@
             }
           },
           {
-            "description": "Actor UUID to subscribe to (actor type, required)",
+            "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
             "in": "query",
             "name": "actorUuid",
             "required": false,
@@ -10068,7 +10068,7 @@
             }
           },
           {
-            "description": "Actor UUID to subscribe to (actor type, required)",
+            "description": "Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)",
             "in": "query",
             "name": "actorUuid",
             "required": false,
