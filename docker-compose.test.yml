@@ -51,6 +51,9 @@ services:
       - APP_ENV=development
       - CREDENTIALS_ENCRYPTION_KEY
       - ADMIN_JWT_SECRET
+      # Seed an admin user at startup so the admin-dashboard test suite can log in.
+      - ADMIN_EMAIL
+      - ADMIN_PASSWORD
       # Disable all rate limits — the suite fires far faster than real usage and
       # would otherwise hit 429s (tests expect the real 4xx, not rate-limit errors).
       - MONTHLY_REQUEST_LIMIT=0

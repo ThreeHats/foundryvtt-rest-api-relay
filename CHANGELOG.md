@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.4.0] 2026-07-01
+
+### Added
+- **Admin Users tab — search, filter, sort, and inline management**: the operator admin panel's Users tab now supports full-text search (matches email or user ID), server-side filtering by role, status, email-verified, rotation-required, and subscription, and click-to-sort on every column (id, email, role, status, verified, rotation, subscription, requests today/month). Subscription, email-verified, and account status are now editable inline per row, and a new **Send Reset** action emails the user a password-reset link (1-hour expiry, prior tokens invalidated). The email and subscription columns are width-capped (email truncates with a hover tooltip) so the per-row action buttons stay visible without horizontal scrolling. All new endpoints stay behind the existing admin JWT + IP allowlist, validate inputs server-side, only interpolate whitelisted sort columns (values are always parameterized), and write audit-log entries. Verified against both SQLite and PostgreSQL, with integration coverage for search/filter/sort, subscription/verified edits, and the password-reset action.
+- **Default world on stored credentials**: the Foundry Credentials page now has an optional **World** field (a world title or id). When a headless session auto-starts from a credential and Foundry is on the setup/world-list screen, the relay launches this world; if left blank it falls back to the world that Known Client last connected as. Closes the gap where auto-start had no world to select. World matching on the setup screen now accepts either the world's display title or its id.
+
+### Changed
+- **Actor SSE subscriptions can omit `actorUuid`**: subscribing to the `actor` SSE channel with no (or an empty) `actorUuid` now streams events for *all* actors on the client instead of returning `400 'actorUuid' is required`. Pass a specific `actorUuid` to filter to a single actor as before.
+
+### Fixed
+- **Headless auto-start never triggered for direct REST/SSE calls to an offline world** (e.g. a Discord bot using a scoped key). `AuthMiddleware` rejected a request whose `?clientId=` pointed at an offline client with a `404 Invalid client ID` *before* the handler's auto-start logic could run. It now lets the request through when the client is offline but owned by the account and flagged for auto-start, so the handler can spawn the headless session. The SSE subscribe endpoints (`/chat`, `/rolls`, `/encounters`, `/scene`, `/hooks`, `/actor` `…/subscribe`), which previously had no auto-start path at all, now attempt it too. Concurrent calls join the single in-flight launch.
+- **Timestamps showing `12/31/1969` in the dashboard** (credential "Created", and any other `SQLiteTime` date): `SQLiteTime.Scan` couldn't parse the formats actually stored in SQLite — Go's `time.Time.String()` output (with its `m=+…` monotonic-clock suffix, written when a `Create` binds a raw `time.Time`) and legacy Sequelize `… +00:00` strings — so they decoded to the zero time (epoch). `Scan` now strips the monotonic suffix and tries the real-world layouts, preserving each value's timezone offset. Read-side fix: existing rows render correctly with no migration.
+- **Combat SSE events were emitted with the module's wrapped envelope**: `fanoutCombatEvent` read `eventType`/`encounterId` from the outer `{type, data:{…}}` message instead of the nested `data`, so per-encounter SSE filtering never matched and subscribers received a doubly-nested payload. The relay now unwraps the inner payload so `eventType`/`encounterId` are top-level and encounter-scoped subscriptions filter correctly. (Companion to the module's combat-event changes — combatant names, `started` flag, and active-scene events.)
+
 ## [3.3.0] - 2026-06-03
 
 ### Added

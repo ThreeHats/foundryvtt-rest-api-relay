@@ -28,10 +28,35 @@ export interface UsersListResponse {
   limit: number;
 }
 
+export interface UsersListParams {
+  offset?: number;
+  limit?: number;
+  search?: string;
+  role?: string;
+  disabled?: boolean | null;
+  verified?: boolean | null;
+  rotation?: boolean | null;
+  subscription?: string;
+  sort?: string;
+  dir?: 'asc' | 'desc';
+}
+
 export const adminApi = {
   // Users
-  listUsers: (offset = 0, limit = 50) =>
-    adminGet<UsersListResponse>(`/admin/api/users?offset=${offset}&limit=${limit}`),
+  listUsers: (params: UsersListParams = {}) => {
+    const q = new URLSearchParams();
+    q.set('offset', String(params.offset ?? 0));
+    q.set('limit', String(params.limit ?? 50));
+    if (params.search) q.set('search', params.search);
+    if (params.role) q.set('role', params.role);
+    if (params.disabled != null) q.set('disabled', String(params.disabled));
+    if (params.verified != null) q.set('verified', String(params.verified));
+    if (params.rotation != null) q.set('rotation', String(params.rotation));
+    if (params.subscription) q.set('subscription', params.subscription);
+    if (params.sort) q.set('sort', params.sort);
+    if (params.dir) q.set('dir', params.dir);
+    return adminGet<UsersListResponse>(`/admin/api/users?${q}`);
+  },
   getUser: (id: number) => adminGet<AdminUserView>(`/admin/api/users/${id}`),
   updateUser: (id: number, body: Partial<AdminUserView>) =>
     adminMutate<AdminUserView>('PATCH', `/admin/api/users/${id}`, body),
@@ -41,6 +66,8 @@ export const adminApi = {
     adminMutate<{ message: string; keyPrefix: string }>('POST', `/admin/api/users/${id}/rotate-key`),
   flagUserRotation: (id: number) =>
     adminMutate<{ message: string }>('POST', `/admin/api/users/${id}/force-rotation`),
+  sendPasswordReset: (id: number) =>
+    adminMutate<{ message: string }>('POST', `/admin/api/users/${id}/send-password-reset`),
   deleteUser: (id: number) => adminMutate<{ message: string }>('DELETE', `/admin/api/users/${id}`),
 
   // API Keys

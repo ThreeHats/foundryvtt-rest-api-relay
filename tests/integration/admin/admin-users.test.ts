@@ -1,9 +1,13 @@
 /**
  * @file admin-users.test.ts
- * @description Admin user management endpoints — list, detail, disable/enable, rotate-key, delete.
- * @endpoints GET /admin/api/users, GET /admin/api/users/{id}, PATCH /admin/api/users/{id},
+ * @description Admin user management endpoints — list (search/filter/sort), detail,
+ *   disable/enable, subscription/verified edits, rotate-key, password reset, delete.
+ * @endpoints GET /admin/api/users (search, role/status/verified/rotation/subscription
+ *   filters, sortable columns), GET /admin/api/users/{id}, PATCH /admin/api/users/{id}
+ *   (role, emailVerified, subscriptionStatus, maxHeadlessSessions),
  *   POST /admin/api/users/{id}/disable, POST /admin/api/users/{id}/enable,
- *   POST /admin/api/users/{id}/rotate-key, DELETE /admin/api/users/{id}
+ *   POST /admin/api/users/{id}/rotate-key, POST /admin/api/users/{id}/send-password-reset,
+ *   DELETE /admin/api/users/{id}
  *
  * Includes PII safety checks: list responses must NOT contain password, full apiKey,
  * stripeCustomerId, or verificationTokenHash.
@@ -20,6 +24,7 @@ const describeAdmin = hasAdminCredentials && process.env.TEST_SKIP_ADMIN !== 'tr
 describeAdmin('Admin User Management', () => {
   let session: AdminSession;
   let throwawayUserId: number | null = null;
+  let throwawayEmail = '';
   let throwawayApiKey = '';
   let throwawaySessionToken = '';
 
@@ -36,6 +41,7 @@ describeAdmin('Admin User Management', () => {
     );
     if (response.status === 201) {
       throwawayUserId = response.data.id;
+      throwawayEmail = email;
       throwawayApiKey = response.data.apiKey;
       throwawaySessionToken = response.data.sessionToken;
     } else {
@@ -123,6 +129,115 @@ describeAdmin('Admin User Management', () => {
     expect(response.data).toHaveProperty('keyPrefix');
     // Should be truncated form, not full 64-char hex key
     expect((response.data.keyPrefix as string).length).toBeLessThan(20);
+  });
+
+  // --- Search / filter / sort (GET /admin/api/users query params) ---
+
+  test('GET /admin/api/users?search=<email> finds the user by email', async () => {
+    if (!throwawayUserId) return;
+    const response = await makeAdminRequest(
+      { method: 'GET', path: '/admin/api/users', query: { search: throwawayEmail } },
+      session
+    );
+    expect(response.status).toBe(200);
+    const match = response.data.users.find((u: any) => u.id === throwawayUserId);
+    expect(match).toBeDefined();
+    expect(match.email).toBe(throwawayEmail);
+    // PII stays stripped under filtered queries too.
+    expect(match).not.toHaveProperty('password');
+    expect(match).not.toHaveProperty('apiKey');
+  });
+
+  test('GET /admin/api/users?search=<id> matches the numeric id', async () => {
+    if (!throwawayUserId) return;
+    const response = await makeAdminRequest(
+      { method: 'GET', path: '/admin/api/users', query: { search: String(throwawayUserId) } },
+      session
+    );
+    expect(response.status).toBe(200);
+    expect(response.data.users.some((u: any) => u.id === throwawayUserId)).toBe(true);
+  });
+
+  test('GET /admin/api/users?role=user returns only non-admin users', async () => {
+    const response = await makeAdminRequest(
+      { method: 'GET', path: '/admin/api/users', query: { role: 'user', limit: 100 } },
+      session
+    );
+    expect(response.status).toBe(200);
+    for (const u of response.data.users) {
+      expect(u.role).toBe('user');
+    }
+  });
+
+  test('GET /admin/api/users?sort=id&dir=desc returns descending ids', async () => {
+    const response = await makeAdminRequest(
+      { method: 'GET', path: '/admin/api/users', query: { sort: 'id', dir: 'desc', limit: 100 } },
+      session
+    );
+    expect(response.status).toBe(200);
+    const ids = response.data.users.map((u: any) => u.id);
+    const sorted = [...ids].sort((a, b) => b - a);
+    expect(ids).toEqual(sorted);
+  });
+
+  test('GET /admin/api/users with an injection-y sort falls back safely (no 500)', async () => {
+    const response = await makeAdminRequest(
+      { method: 'GET', path: '/admin/api/users', query: { sort: 'id); DROP TABLE Users;--' } },
+      session
+    );
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.data.users)).toBe(true);
+  });
+
+  // --- Inline edits via PATCH ---
+
+  test('PATCH /admin/api/users/{id} updates subscriptionStatus', async () => {
+    if (!throwawayUserId) return;
+    const response = await makeAdminRequest(
+      { method: 'PATCH', path: `/admin/api/users/${throwawayUserId}`, body: { subscriptionStatus: 'active' } },
+      session
+    );
+    expect(response.status).toBe(200);
+    expect(response.data).toHaveProperty('subscriptionStatus', 'active');
+  });
+
+  test('PATCH /admin/api/users/{id} rejects an invalid subscriptionStatus', async () => {
+    if (!throwawayUserId) return;
+    const response = await makeAdminRequest(
+      { method: 'PATCH', path: `/admin/api/users/${throwawayUserId}`, body: { subscriptionStatus: 'not-a-real-status' } },
+      session
+    );
+    expect(response.status).toBe(400);
+  });
+
+  test('PATCH /admin/api/users/{id} can set emailVerified', async () => {
+    if (!throwawayUserId) return;
+    const response = await makeAdminRequest(
+      { method: 'PATCH', path: `/admin/api/users/${throwawayUserId}`, body: { emailVerified: true } },
+      session
+    );
+    expect(response.status).toBe(200);
+    expect(response.data).toHaveProperty('emailVerified', true);
+  });
+
+  // --- Admin-triggered password reset ---
+
+  test('POST /admin/api/users/{id}/send-password-reset succeeds', async () => {
+    if (!throwawayUserId) return;
+    const response = await makeAdminRequest(
+      { method: 'POST', path: `/admin/api/users/${throwawayUserId}/send-password-reset` },
+      session
+    );
+    expect(response.status).toBe(200);
+    expect(response.data).toHaveProperty('message');
+  });
+
+  test('POST /admin/api/users/{id}/send-password-reset 404s for an unknown user', async () => {
+    const response = await makeAdminRequest(
+      { method: 'POST', path: '/admin/api/users/999999999/send-password-reset' },
+      session
+    );
+    expect(response.status).toBe(404);
   });
 
   test('admin cannot disable themselves', async () => {

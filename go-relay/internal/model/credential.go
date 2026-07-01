@@ -10,16 +10,20 @@ import (
 
 // Credential represents stored Foundry VTT credentials for a user.
 type Credential struct {
-	ID                       int64      `db:"id" json:"id"`
-	UserID                   int64      `db:"userId" json:"userId"`
-	Name                     string     `db:"name" json:"name"`
-	FoundryURL               string     `db:"foundryUrl" json:"foundryUrl"`
-	FoundryUsername           string     `db:"foundryUsername" json:"foundryUsername"`
-	EncryptedFoundryPassword string     `db:"encryptedFoundryPassword" json:"-"`
-	PasswordIV               string     `db:"passwordIv" json:"-"`
-	PasswordAuthTag          string     `db:"passwordAuthTag" json:"-"`
-	CreatedAt                SQLiteTime `db:"createdAt" json:"createdAt"`
-	UpdatedAt                SQLiteTime `db:"updatedAt" json:"updatedAt"`
+	ID                       int64  `db:"id" json:"id"`
+	UserID                   int64  `db:"userId" json:"userId"`
+	Name                     string `db:"name" json:"name"`
+	FoundryURL               string `db:"foundryUrl" json:"foundryUrl"`
+	FoundryUsername          string `db:"foundryUsername" json:"foundryUsername"`
+	EncryptedFoundryPassword string `db:"encryptedFoundryPassword" json:"-"`
+	PasswordIV               string `db:"passwordIv" json:"-"`
+	PasswordAuthTag          string `db:"passwordAuthTag" json:"-"`
+	// World is the optional default world to launch for headless auto-start,
+	// matched case-insensitively against a world's title or id on Foundry's setup
+	// screen. Empty falls back to the world the known client last connected as.
+	World     string     `db:"world" json:"world"`
+	CreatedAt SQLiteTime `db:"createdAt" json:"createdAt"`
+	UpdatedAt SQLiteTime `db:"updatedAt" json:"updatedAt"`
 }
 
 // CredentialStore defines operations on stored Foundry credentials.
@@ -79,26 +83,26 @@ func (s *SQLCredentialStore) FindAllByUser(ctx context.Context, userID int64) ([
 
 func (s *SQLCredentialStore) Create(ctx context.Context, cred *Credential) error {
 	now := time.Now()
-	query := fmt.Sprintf(`INSERT INTO %s (%s, name, %s, %s, %s, %s, %s, %s, %s)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+	query := fmt.Sprintf(`INSERT INTO %s (%s, name, %s, %s, %s, %s, %s, %s, %s, %s)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
 		s.tableName(),
 		s.col("user_id"), s.col("foundry_url"), s.col("foundry_username"),
 		s.col("encrypted_foundry_password"), s.col("password_iv"), s.col("password_auth_tag"),
-		s.col("created_at"), s.col("updated_at"))
+		s.col("world"), s.col("created_at"), s.col("updated_at"))
 
 	if s.DBType != "sqlite" {
 		query += " RETURNING id"
 		return s.DB.QueryRowContext(ctx, query,
 			cred.UserID, cred.Name, cred.FoundryURL, cred.FoundryUsername,
 			cred.EncryptedFoundryPassword, cred.PasswordIV, cred.PasswordAuthTag,
-			now, now,
+			cred.World, now, now,
 		).Scan(&cred.ID)
 	}
 
 	result, err := s.DB.ExecContext(ctx, query,
 		cred.UserID, cred.Name, cred.FoundryURL, cred.FoundryUsername,
 		cred.EncryptedFoundryPassword, cred.PasswordIV, cred.PasswordAuthTag,
-		now, now)
+		cred.World, now, now)
 	if err != nil {
 		return err
 	}
@@ -115,16 +119,16 @@ func (s *SQLCredentialStore) Create(ctx context.Context, cred *Credential) error
 func (s *SQLCredentialStore) Update(ctx context.Context, cred *Credential) error {
 	cred.UpdatedAt = NewSQLiteTime(time.Now())
 	query := fmt.Sprintf(`UPDATE %s SET name=$1, %s=$2, %s=$3,
-		%s=$4, %s=$5, %s=$6, %s=$7
-		WHERE id=$8`,
+		%s=$4, %s=$5, %s=$6, %s=$7, %s=$8
+		WHERE id=$9`,
 		s.tableName(),
 		s.col("foundry_url"), s.col("foundry_username"),
 		s.col("encrypted_foundry_password"), s.col("password_iv"), s.col("password_auth_tag"),
-		s.col("updated_at"))
+		s.col("world"), s.col("updated_at"))
 	_, err := s.DB.ExecContext(ctx, query,
 		cred.Name, cred.FoundryURL, cred.FoundryUsername,
 		cred.EncryptedFoundryPassword, cred.PasswordIV, cred.PasswordAuthTag,
-		cred.UpdatedAt, cred.ID)
+		cred.World, cred.UpdatedAt, cred.ID)
 	return err
 }
 

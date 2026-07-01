@@ -13,6 +13,7 @@
   let foundryUrl = $state('');
   let foundryUsername = $state('');
   let foundryPassword = $state('');
+  let world = $state('');
   let saving = $state(false);
   let message = $state('');
   let messageType = $state<'success' | 'error'>('error');
@@ -38,6 +39,7 @@
     foundryUrl = '';
     foundryUsername = '';
     foundryPassword = '';
+    world = '';
     showForm = true;
     message = '';
   }
@@ -48,6 +50,7 @@
     foundryUrl = cred.foundryUrl;
     foundryUsername = cred.foundryUsername;
     foundryPassword = '';
+    world = cred.world ?? '';
     showForm = true;
     message = '';
   }
@@ -83,6 +86,7 @@
         foundryUrl: foundryUrl.trim(),
         foundryUsername: foundryUsername.trim(),
         foundryPassword,
+        world: world.trim(),
       };
       result = await updateCredential(editingCredential!.id, body);
     } else {
@@ -91,6 +95,7 @@
         foundryUrl: foundryUrl.trim(),
         foundryUsername: foundryUsername.trim(),
         foundryPassword,
+        world: world.trim(),
       });
     }
 
@@ -171,6 +176,12 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="form-label" for="cred-world">World</label>
+          <input class="form-input" type="text" id="cred-world" bind:value={world} placeholder="World title or id (optional)" />
+          <p class="form-hint">The world to launch when a headless session auto-starts from these credentials. Leave blank to use the world this connection last ran.</p>
+        </div>
+
         <div class="flex gap-1 mt-2">
           <button class="btn btn-primary" type="submit" disabled={saving}>
             {saving ? 'Saving...' : (isEdit ? 'Update' : 'Save')}
@@ -199,6 +210,7 @@
             <th>Name</th>
             <th>Foundry URL</th>
             <th>Username</th>
+            <th>World</th>
             <th>Created</th>
             <th>Actions</th>
           </tr>
@@ -209,6 +221,7 @@
               <td>{cred.name}</td>
               <td><code class="inline-code">{cred.foundryUrl}</code></td>
               <td>{cred.foundryUsername}</td>
+              <td>{cred.world || '—'}</td>
               <td>{new Date(cred.createdAt).toLocaleDateString()}</td>
               <td class="actions-cell">
                 <button class="btn btn-sm btn-ghost" onclick={() => handleEdit(cred)}>Edit</button>

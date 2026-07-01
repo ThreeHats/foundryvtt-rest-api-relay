@@ -229,6 +229,9 @@ export interface Credential {
   name: string;
   foundryUrl: string;
   foundryUsername: string;
+  // Optional default world (title or id) to launch when a headless session is
+  // auto-started from these credentials. Empty string means "not set".
+  world: string;
   createdAt: string;
   updatedAt: string;
 }

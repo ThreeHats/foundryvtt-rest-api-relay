@@ -24,6 +24,18 @@ func sseSubscribeHandler(w http.ResponseWriter, r *http.Request, mgr *ws.ClientM
 
 	client := mgr.GetClient(clientID)
 	if client == nil {
+		// World offline — attempt a headless auto-start, the same hook the
+		// generic REST helper uses. Scoped-key gated; AutoStartForKnownClient
+		// enforces ownership + the per-world auto-start toggle downstream.
+		reqCtx := helpers.GetRequestContext(r)
+		if helpers.AutoStartFunc != nil && reqCtx != nil && reqCtx.ScopedKey != nil {
+			if autoID := helpers.AutoStartFunc(reqCtx, clientID); autoID != "" {
+				clientID = autoID
+				client = mgr.GetClient(clientID)
+			}
+		}
+	}
+	if client == nil {
 		helpers.WriteError(w, http.StatusNotFound, "Invalid client ID")
 		return
 	}
@@ -130,10 +142,7 @@ func sseSubscribeHandler(w http.ResponseWriter, r *http.Request, mgr *ws.ClientM
 
 	case "actor":
 		actorUuid := r.URL.Query().Get("actorUuid")
-		if actorUuid == "" {
-			helpers.WriteError(w, http.StatusBadRequest, "'actorUuid' is required for actor event subscriptions")
-			return
-		}
+		// actorUuid is optional — empty string subscribes to all actor events for this client
 		conn := &helpers.ActorSSEConnection{
 			W: w, Flusher: flusher, ClientID: clientID, ActorUUID: actorUuid, Done: r.Context().Done(),
 		}

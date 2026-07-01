@@ -345,7 +345,7 @@ export async function fetchCredentials() {
   return handleResponse<{ credentials: Credential[] }>(res);
 }
 
-export async function createCredential(data: { name: string; foundryUrl: string; foundryUsername: string; foundryPassword: string }) {
+export async function createCredential(data: { name: string; foundryUrl: string; foundryUsername: string; foundryPassword: string; world?: string }) {
   const res = await fetch('/auth/credentials', {
     method: 'POST',
     headers: getHeaders(),

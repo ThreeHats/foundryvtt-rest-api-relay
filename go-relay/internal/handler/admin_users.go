@@ -1,17 +1,42 @@
 package handler
 
 import (
+	"crypto/sha256"
 	"database/sql"
+	"encoding/hex"
 	"net/http"
 	"strconv"
+	"strings"
+	"time"
 
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/config"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/database"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/handler/helpers"
 	appmw "github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/middleware"
 	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/model"
+	"github.com/ThreeHats/foundryvtt-rest-api-relay/go-relay/internal/service"
 	"github.com/go-chi/chi/v5"
 	"github.com/rs/zerolog/log"
 )
+
+// validSubscriptionStatuses are the statuses an admin may set manually.
+var validSubscriptionStatuses = map[string]bool{
+	"free": true, "active": true, "trialing": true, "past_due": true,
+	"canceled": true, "unpaid": true, "incomplete": true, "incomplete_expired": true,
+}
+
+// parseTriBool maps "true"/"false" query values to a pointer; anything else is nil (no filter).
+func parseTriBool(v string) *bool {
+	switch v {
+	case "true":
+		t := true
+		return &t
+	case "false":
+		f := false
+		return &f
+	}
+	return nil
+}
 
 // adminUserView is the PII-safe view of a user returned by admin endpoints.
 // It deliberately omits password, full apiKey, stripe customer ID, and verification token hash.
@@ -60,13 +85,30 @@ func newAdminUserView(u *model.User) adminUserView {
 
 // AdminUsersRouter exposes admin endpoints for managing users.
 // Mounted under /admin/api/users (RequireAdmin already applied at parent).
-func AdminUsersRouter(db *database.DB) chi.Router {
+func AdminUsersRouter(db *database.DB, cfg *config.Config) chi.Router {
 	r := chi.NewRouter()
 
-	// GET /admin/api/users — paginated list
+	// GET /admin/api/users — paginated list with search, filter, and sort
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		offset, limit := parsePagination(r)
-		users, total, err := db.UserStore().FindAllPaginated(r.Context(), offset, limit)
+		q := r.URL.Query()
+		role := q.Get("role")
+		if role != "" && role != "user" && role != "admin" {
+			role = ""
+		}
+		query := model.UserQuery{
+			Search:           strings.TrimSpace(q.Get("search")),
+			Role:             role,
+			Disabled:         parseTriBool(q.Get("disabled")),
+			EmailVerified:    parseTriBool(q.Get("verified")),
+			RotationRequired: parseTriBool(q.Get("rotation")),
+			Subscription:     q.Get("subscription"),
+			SortBy:           q.Get("sort"),
+			SortDesc:         q.Get("dir") == "desc",
+			Offset:           offset,
+			Limit:            limit,
+		}
+		users, total, err := db.UserStore().FindFilteredPaginated(r.Context(), query)
 		if err != nil {
 			log.Error().Err(err).Msg("admin users: list failed")
 			helpers.WriteError(w, http.StatusInternalServerError, "Failed to list users")
@@ -129,6 +171,14 @@ func AdminUsersRouter(db *database.DB) chi.Router {
 		}
 		if v, ok := body["emailVerified"].(bool); ok {
 			user.EmailVerified = v
+			changed = true
+		}
+		if v, ok := body["subscriptionStatus"].(string); ok && v != "" {
+			if !validSubscriptionStatuses[v] {
+				helpers.WriteError(w, http.StatusBadRequest, "Invalid subscription status")
+				return
+			}
+			user.SubscriptionStatus = sql.NullString{String: v, Valid: true}
 			changed = true
 		}
 		if !changed {
@@ -233,6 +283,41 @@ func AdminUsersRouter(db *database.DB) chi.Router {
 			"message":   "API key rotated",
 			"keyPrefix": prefix,
 		})
+	})
+
+	// POST /admin/api/users/{id}/send-password-reset
+	r.Post("/{id}/send-password-reset", func(w http.ResponseWriter, r *http.Request) {
+		id, ok := parseInt64Param(w, r, "id")
+		if !ok {
+			return
+		}
+		ctx := r.Context()
+		user, err := db.UserStore().FindByID(ctx, id)
+		if err != nil || user == nil {
+			helpers.WriteError(w, http.StatusNotFound, "User not found")
+			return
+		}
+		db.PasswordResetTokenStore().InvalidateForUser(ctx, user.ID)
+
+		rawToken, err := model.GenerateAPIKey()
+		if err != nil {
+			helpers.WriteError(w, http.StatusInternalServerError, "Failed to generate reset token")
+			return
+		}
+		sum := sha256.Sum256([]byte(rawToken))
+		token := &model.PasswordResetToken{
+			UserID:    user.ID,
+			TokenHash: hex.EncodeToString(sum[:]),
+			ExpiresAt: time.Now().Add(1 * time.Hour),
+		}
+		if err := db.PasswordResetTokenStore().Create(ctx, token); err != nil {
+			log.Error().Err(err).Msg("admin users: failed to store reset token")
+			helpers.WriteError(w, http.StatusInternalServerError, "Failed to create reset token")
+			return
+		}
+		service.SendPasswordResetEmail(cfg, user.Email, rawToken)
+		auditAdmin(r, db, "user.send_password_reset", "user", strconv.FormatInt(id, 10), "")
+		helpers.WriteJSON(w, http.StatusOK, map[string]string{"message": "Password reset email sent"})
 	})
 
 	// DELETE /admin/api/users/{id}

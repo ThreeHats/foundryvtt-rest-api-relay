@@ -201,6 +201,7 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 			"encryptedFoundryPassword" TEXT NOT NULL,
 			"passwordIv" TEXT NOT NULL,
 			"passwordAuthTag" TEXT NOT NULL,
+			world TEXT NOT NULL DEFAULT '',
 			"createdAt" TEXT DEFAULT (datetime('now')),
 			"updatedAt" TEXT DEFAULT (datetime('now'))
 		)`,
@@ -524,6 +525,11 @@ func (db *DB) migrateSQLite(ctx context.Context) error {
 		// plain index replaces it for lookup performance.
 		`DROP INDEX IF EXISTS idx_kc_user_world`,
 		`CREATE INDEX IF NOT EXISTS idx_kc_user_world_lookup ON KnownClients("userId", "worldId")`,
+		// Optional default world for headless auto-start.
+		`ALTER TABLE Credentials ADD COLUMN world TEXT NOT NULL DEFAULT ''`,
+		// An earlier build added the column without a default; normalize those
+		// NULLs to '' so they scan into the non-nullable Go string field.
+		`UPDATE Credentials SET world = '' WHERE world IS NULL`,
 	}
 	for _, m := range sqliteAlterMigrations {
 		_, _ = db.sqlDB.ExecContext(ctx, m) // ignore "duplicate column" errors
@@ -1047,6 +1053,7 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 			encrypted_foundry_password TEXT NOT NULL,
 			password_iv VARCHAR(255) NOT NULL,
 			password_auth_tag VARCHAR(255) NOT NULL,
+			world TEXT NOT NULL DEFAULT '',
 			created_at TIMESTAMPTZ DEFAULT NOW(),
 			updated_at TIMESTAMPTZ DEFAULT NOW()
 		)`,
@@ -1342,6 +1349,11 @@ func (db *DB) migratePostgres(ctx context.Context) error {
 		`ALTER TABLE "KnownClients" ADD COLUMN IF NOT EXISTS "serverFingerprint" TEXT`,
 		// Public URL: browser Origin header captured at WebSocket connect time.
 		`ALTER TABLE "KnownClients" ADD COLUMN IF NOT EXISTS "publicUrl" TEXT DEFAULT ''`,
+		// Optional default world for headless auto-start.
+		`ALTER TABLE "Credentials" ADD COLUMN IF NOT EXISTS world TEXT NOT NULL DEFAULT ''`,
+		// An earlier build added the column without a default; normalize those
+		// NULLs to '' so they scan into the non-nullable Go string field.
+		`UPDATE "Credentials" SET world = '' WHERE world IS NULL`,
 		// PairRequests relay clientId — the CREATE TABLE only covers fresh installs;
 		// existing databases need this ALTER (staging 500'd without it).
 		`ALTER TABLE "PairRequests" ADD COLUMN IF NOT EXISTS "clientId" VARCHAR(255) NOT NULL DEFAULT ''`,

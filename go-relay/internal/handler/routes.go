@@ -332,7 +332,7 @@ func sseChatSubscribe(mgr *ws.ClientManager, sseMgr *helpers.SSEManager) http.Ha
 // @param {string} clientId [query] Client ID for the Foundry world
 // @param {string} hooks [query] Comma-separated hook names to filter (hooks type only)
 // @param {string} encounterId [query] Filter by encounter ID (combat type only)
-// @param {string} actorUuid [query] Actor UUID to subscribe to (actor type, required)
+// @param {string} actorUuid [query] Actor UUID to subscribe to (actor type only; optional — omit to receive events for all actors on this client)
 // @param {string} sceneId [query] Scene ID to filter (scene type only)
 // @returns SSE event stream
 func sseEventSubscribe(mgr *ws.ClientManager, sseMgr *helpers.SSEManager, eventType string) http.HandlerFunc {

@@ -742,6 +742,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				FoundryURL      string `json:"foundryUrl"`
 				FoundryUsername string `json:"foundryUsername"`
 				FoundryPassword string `json:"foundryPassword"`
+				World           string `json:"world"`
 			}
 			if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 				helpers.WriteError(w, http.StatusBadRequest, "Invalid request body")
@@ -771,6 +772,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				EncryptedFoundryPassword: encrypted.Ciphertext,
 				PasswordIV:               encrypted.IV,
 				PasswordAuthTag:          encrypted.AuthTag,
+				World:                    strings.TrimSpace(body.World),
 			}
 
 			if err := db.CredentialStore().Create(r.Context(), cred); err != nil {
@@ -783,6 +785,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				"name":            cred.Name,
 				"foundryUrl":      cred.FoundryURL,
 				"foundryUsername": cred.FoundryUsername,
+				"world":           cred.World,
 				"createdAt":       cred.CreatedAt,
 			})
 		})
@@ -809,6 +812,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 					"name":            c.Name,
 					"foundryUrl":      c.FoundryURL,
 					"foundryUsername": c.FoundryUsername,
+					"world":           c.World,
 					"createdAt":       c.CreatedAt,
 					"updatedAt":       c.UpdatedAt,
 				})
@@ -854,6 +858,10 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 			if username, ok := body["foundryUsername"].(string); ok {
 				cred.FoundryUsername = username
 			}
+			// world is optional and clearable: an empty string unsets the default world.
+			if world, ok := body["world"].(string); ok {
+				cred.World = strings.TrimSpace(world)
+			}
 			pw, hasPw := body["foundryPassword"].(string)
 			if !hasPw || pw == "" {
 				helpers.WriteError(w, http.StatusBadRequest, "Password is required when updating a credential.")
@@ -882,6 +890,7 @@ func RegisterCredentialRoutes(r chi.Router, db *database.DB, cfg *config.Config,
 				"name":            cred.Name,
 				"foundryUrl":      cred.FoundryURL,
 				"foundryUsername": cred.FoundryUsername,
+				"world":           cred.World,
 				"updatedAt":       cred.UpdatedAt,
 			})
 		})

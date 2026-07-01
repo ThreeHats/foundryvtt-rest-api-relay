@@ -1088,14 +1088,21 @@ func (s *Server) fanoutHookEvent(clientID string, data map[string]interface{}) {
 
 // fanoutCombatEvent sends combat events to combat SSE and WS subscribers.
 func (s *Server) fanoutCombatEvent(clientID string, data map[string]interface{}) {
-	jsonBytes, err := json.Marshal(data)
+	// The Foundry module wraps its payload: {type:"combat-event", data:{eventType:..., ...}}
+	// Unwrap the inner "data" so eventType and encounterId are at the top level for SSE consumers.
+	payload := data
+	if nested, ok := data["data"].(map[string]interface{}); ok {
+		payload = nested
+	}
+
+	jsonBytes, err := json.Marshal(payload)
 	if err != nil {
 		return
 	}
 	jsonStr := string(jsonBytes)
 
-	eventType, _ := data["eventType"].(string)
-	encounterId, _ := data["encounterId"].(string)
+	eventType, _ := payload["eventType"].(string)
+	encounterId, _ := payload["encounterId"].(string)
 
 	for _, conn := range s.SSEManager.GetCombatSSE(clientID) {
 		if conn.EncounterID != "" && conn.EncounterID != encounterId {
@@ -1117,7 +1124,7 @@ func (s *Server) fanoutCombatEvent(clientID string, data map[string]interface{})
 		if conn.Channel != "combat-events" {
 			continue
 		}
-		conn.SendFunc(map[string]interface{}{"type": "combat-event", "event": "combat-" + eventType, "data": data})
+		conn.SendFunc(map[string]interface{}{"type": "combat-event", "event": "combat-" + eventType, "data": payload})
 	}
 }
 

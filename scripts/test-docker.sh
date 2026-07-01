@@ -74,6 +74,10 @@ echo "[1/4] Building Foundry REST API module..."
 export CREDENTIALS_ENCRYPTION_KEY="${CREDENTIALS_ENCRYPTION_KEY:-$(openssl rand -hex 32)}"
 export ADMIN_JWT_SECRET="${ADMIN_JWT_SECRET:-$(openssl rand -base64 32)}"
 
+# --- Admin user the relay seeds at startup, and that the admin test suite logs in as ---
+export ADMIN_EMAIL="${ADMIN_EMAIL:-admin@test.local}"
+export ADMIN_PASSWORD="${ADMIN_PASSWORD:-AdminTestPass1}"
+
 # --- Write .env.test for the Jest run ---
 # FOUNDRY_V{n}_URL is passed to the relay as x-foundry-url, so it must be the
 # relay's container-network view of Foundry (foundry:30000), not localhost.
@@ -87,6 +91,8 @@ USE_EXISTING_SESSION=false
 FOUNDRY_USERNAME=Gamemaster
 FOUNDRY_PASSWORD=${GM_PASSWORD}
 CAPTURE_BROWSER_CONSOLE=warn
+TEST_ADMIN_EMAIL=${ADMIN_EMAIL}
+TEST_ADMIN_PASSWORD=${ADMIN_PASSWORD}
 EOF
 
 # --- Start the stack ---

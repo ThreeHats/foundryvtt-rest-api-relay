@@ -8,6 +8,7 @@ import (
 	"database/sql/driver"
 	"encoding/hex"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -44,18 +45,34 @@ func (t *SQLiteTime) Scan(src interface{}) error {
 		t.Time = v
 		t.Valid = true
 	case string:
-		// Parse as UTC. SQLiteTime.Value() always formats in UTC, so when reading
-		// back from a SQLite TEXT column we know the bare "2006-01-02 15:04:05"
-		// string represents UTC. Using time.Parse() without ParseInLocation defaults
-		// to UTC, which is correct for our format. We previously had a timezone bug
-		// where Value() formatted in local time but Scan() parsed as UTC, causing
-		// timestamps to shift by the local UTC offset on every write→read roundtrip.
-		parsed, err := time.Parse("2006-01-02 15:04:05", v)
-		if err != nil {
-			parsed, err = time.Parse(time.RFC3339, v)
+		if v == "" {
+			t.Valid = false
+			return nil
 		}
-		if err != nil {
-			parsed, err = time.Parse("2006-01-02", v)
+		// Strip Go's monotonic-clock suffix (" m=+..."): some paths bind a raw
+		// time.Time, which the SQLite driver serializes via time.Time.String(),
+		// and time.Parse rejects the suffix as extra text.
+		if i := strings.Index(v, " m="); i >= 0 {
+			v = strings.TrimSpace(v[:i])
+		}
+		// Bare timestamps carry no offset and are parsed as UTC (Value() always
+		// writes UTC), so write→read roundtrips don't shift by the local offset.
+		layouts := []string{
+			"2006-01-02 15:04:05", // canonical Value() output (UTC)
+			time.RFC3339Nano,
+			time.RFC3339,
+			"2006-01-02 15:04:05.999999999 -0700 MST", // Go time.Time.String()
+			"2006-01-02 15:04:05 -0700 MST",
+			"2006-01-02 15:04:05.999999999 -07:00", // legacy Sequelize (Node backend)
+			"2006-01-02 15:04:05 -07:00",
+			"2006-01-02", // date only
+		}
+		var parsed time.Time
+		var err error
+		for _, layout := range layouts {
+			if parsed, err = time.Parse(layout, v); err == nil {
+				break
+			}
 		}
 		if err != nil {
 			t.Valid = false
@@ -254,6 +271,7 @@ type UserStore interface {
 	FindByAPIKeyHash(ctx context.Context, hash string) (*User, error)
 	FindByStripeCustomerID(ctx context.Context, customerID string) (*User, error)
 	FindAllPaginated(ctx context.Context, offset, limit int) ([]*User, int64, error)
+	FindFilteredPaginated(ctx context.Context, q UserQuery) ([]*User, int64, error)
 	Create(ctx context.Context, user *User) error
 	Update(ctx context.Context, user *User) error
 	Delete(ctx context.Context, id int64) error
@@ -447,6 +465,115 @@ func (s *SQLUserStore) FindAllPaginated(ctx context.Context, offset, limit int) 
 	}
 	var total int64
 	if err := s.DB.GetContext(ctx, &total, fmt.Sprintf(`SELECT COUNT(*) FROM %s`, s.tableName())); err != nil {
+		return nil, 0, err
+	}
+	return users, total, nil
+}
+
+// UserQuery describes search, filter, and sort options for listing users.
+// Pointer bools are tri-state: nil means "no filter".
+type UserQuery struct {
+	Search           string
+	Role             string
+	Disabled         *bool
+	EmailVerified    *bool
+	RotationRequired *bool
+	Subscription     string
+	SortBy           string
+	SortDesc         bool
+	Offset           int
+	Limit            int
+}
+
+// userSortColumns whitelists the columns users may sort by, mapping the API
+// sort key to its snake_case column name. Sort keys are never interpolated
+// directly into SQL — only values from this map reach the query.
+var userSortColumns = map[string]string{
+	"id":                     "id",
+	"email":                  "email",
+	"role":                   "role",
+	"disabled":               "disabled",
+	"emailVerified":          "email_verified",
+	"apiKeyRotationRequired": "api_key_rotation_required",
+	"subscriptionStatus":     "subscription_status",
+	"requestsToday":          "requests_today",
+	"requestsThisMonth":      "requests_this_month",
+	"createdAt":              "created_at",
+}
+
+// FindFilteredPaginated returns a filtered, sorted page of users plus the total
+// count matching the filters. All user-supplied values are bound as parameters;
+// only whitelisted column names are interpolated into the SQL.
+func (s *SQLUserStore) FindFilteredPaginated(ctx context.Context, q UserQuery) ([]*User, int64, error) {
+	limit := q.Limit
+	if limit <= 0 || limit > 500 {
+		limit = 50
+	}
+	offset := q.Offset
+	if offset < 0 {
+		offset = 0
+	}
+
+	where := []string{}
+	args := []interface{}{}
+	ph := func(v interface{}) string {
+		args = append(args, v)
+		return fmt.Sprintf("$%d", len(args))
+	}
+
+	if q.Search != "" {
+		pattern := "%" + strings.ToLower(q.Search) + "%"
+		where = append(where, fmt.Sprintf("(LOWER(email) LIKE %s OR CAST(id AS TEXT) LIKE %s)", ph(pattern), ph(pattern)))
+	}
+	if q.Role != "" {
+		where = append(where, "role = "+ph(q.Role))
+	}
+	if q.Disabled != nil {
+		where = append(where, "disabled = "+ph(*q.Disabled))
+	}
+	if q.EmailVerified != nil {
+		where = append(where, s.col("email_verified")+" = "+ph(*q.EmailVerified))
+	}
+	if q.RotationRequired != nil {
+		where = append(where, s.col("api_key_rotation_required")+" = "+ph(*q.RotationRequired))
+	}
+	if q.Subscription != "" {
+		col := s.col("subscription_status")
+		if q.Subscription == "free" {
+			where = append(where, "("+col+" = "+ph("free")+" OR "+col+" IS NULL)")
+		} else {
+			where = append(where, col+" = "+ph(q.Subscription))
+		}
+	}
+
+	whereSQL := ""
+	if len(where) > 0 {
+		whereSQL = " WHERE " + strings.Join(where, " AND ")
+	}
+
+	var total int64
+	countQuery := fmt.Sprintf("SELECT COUNT(*) FROM %s%s", s.tableName(), whereSQL)
+	if err := s.DB.GetContext(ctx, &total, countQuery, args...); err != nil {
+		return nil, 0, err
+	}
+
+	sortCol := userSortColumns[q.SortBy]
+	if sortCol == "" {
+		sortCol = "id"
+	}
+	dir := "ASC"
+	if q.SortDesc {
+		dir = "DESC"
+	}
+	orderSQL := fmt.Sprintf(" ORDER BY %s %s", s.col(sortCol), dir)
+	if sortCol != "id" {
+		orderSQL += ", id ASC"
+	}
+
+	listQuery := fmt.Sprintf("SELECT * FROM %s%s%s LIMIT %s OFFSET %s",
+		s.tableName(), whereSQL, orderSQL, ph(limit), ph(offset))
+	users := []*User{}
+	if err := s.DB.SelectContext(ctx, &users, listQuery, args...); err != nil {
 		return nil, 0, err
 	}
 	return users, total, nil

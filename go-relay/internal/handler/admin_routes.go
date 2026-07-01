@@ -56,7 +56,7 @@ func AdminRouter(deps *AdminDeps) chi.Router {
 			// Everything else requires admin auth.
 			apiRoutes.Group(func(protected chi.Router) {
 				protected.Use(appmw.RequireAdmin(deps.DB, authCfg))
-				protected.Mount("/users", AdminUsersRouter(deps.DB))
+				protected.Mount("/users", AdminUsersRouter(deps.DB, deps.Cfg))
 				protected.Mount("/keys", AdminKeysRouter(deps.DB))
 				protected.Mount("/clients", AdminClientsRouter(deps.DB, deps.ClientManager))
 				protected.Mount("/audit-logs", AdminAuditRouter(deps.DB))

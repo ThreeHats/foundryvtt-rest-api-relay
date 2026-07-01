@@ -194,10 +194,18 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 				if clientID != "" && manager != nil {
 					client := manager.GetClient(clientID)
 					if client == nil {
-						helpers.WriteError(w, http.StatusNotFound, "Invalid client ID")
-						return
-					}
-					if client.APIKey() != matchKey {
+						// Offline: let the request through if this account owns the
+						// client and has auto-start enabled, so the handler can spawn a
+						// headless session; otherwise keep the fast 404.
+						uid := int64(0)
+						if cached.user != nil {
+							uid = cached.user.ID
+						}
+						if !(helpers.AutoStartFunc != nil && isAutoStartableClient(ctx, db, uid, clientID)) {
+							helpers.WriteError(w, http.StatusNotFound, "Invalid client ID")
+							return
+						}
+					} else if client.APIKey() != matchKey {
 						helpers.WriteError(w, http.StatusUnauthorized, "Invalid API key for this client ID")
 						return
 					}
@@ -306,10 +314,14 @@ func AuthMiddleware(db *database.DB, manager *ws.ClientManager) func(http.Handle
 			if clientID != "" {
 				client := manager.GetClient(clientID)
 				if client == nil {
-					helpers.WriteError(w, http.StatusNotFound, "Invalid client ID")
-					return
-				}
-				if client.APIKey() != parentIdentifier {
+					// Offline: let the request through if this account owns the client
+					// and has auto-start enabled, so the handler can spawn a headless
+					// session; otherwise keep the fast 404.
+					if !(helpers.AutoStartFunc != nil && isAutoStartableClient(ctx, db, parentUser.ID, clientID)) {
+						helpers.WriteError(w, http.StatusNotFound, "Invalid client ID")
+						return
+					}
+				} else if client.APIKey() != parentIdentifier {
 					helpers.WriteError(w, http.StatusUnauthorized, "Invalid API key for this client ID")
 					return
 				}
@@ -439,6 +451,21 @@ func backfillAccessLog(r *http.Request, userID int64, kp string) {
 func hasBearerHeader(r *http.Request) bool {
 	h := r.Header.Get("Authorization")
 	return len(h) > len("Bearer ") && h[:len("Bearer ")] == "Bearer "
+}
+
+// isAutoStartableClient reports whether userID owns an offline client (per its
+// KnownClient record) that is flagged for headless auto-start. When true, the
+// auth middleware lets the request through instead of 404ing, so the route/SSE
+// handler can attempt the launch.
+func isAutoStartableClient(ctx context.Context, db *database.DB, userID int64, clientID string) bool {
+	if db == nil || userID == 0 || clientID == "" {
+		return false
+	}
+	known, err := db.KnownClientStore().FindByClientID(ctx, userID, clientID)
+	if err != nil || known == nil {
+		return false
+	}
+	return bool(known.AutoStartOnRemoteRequest)
 }
 
 // tryBearerAuth attempts to authenticate the request via Authorization: Bearer
