@@ -64,10 +64,9 @@ docker-compose up -d
                 <h2>Example API Call</h2>
                 <p>Search for entities in your FoundryVTT world:</p>
                 <pre className={styles.codeBlock}>
-                  <code>{`curl -X GET "http://localhost:3010/api/search" \\
+                  <code>{`curl -X GET "http://localhost:3010/search" \\
   -H "x-api-key: your-api-key" \\
-  -H "x-client-id: your-client-id" \\
-  -G -d "query=goblin" -d "type=Actor"`}</code>
+  -G -d "clientId=your-client-id" -d "query=goblin" -d "filter=Actor"`}</code>
                 </pre>
               </div>
             </div>

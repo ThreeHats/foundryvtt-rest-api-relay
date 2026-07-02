@@ -82,6 +82,8 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 		// remote-request handler. Done after construction to avoid an
 		// import cycle in the worker package.
 		s.Headless.SetDeps(&worker.HeadlessDeps{DB: db, Cfg: cfg})
+	} else {
+		log.Warn().Msg("Headless sessions disabled (ALLOW_HEADLESS=false); auto-start of offline worlds is unavailable")
 	}
 
 	// Build the unified notification dispatcher
@@ -578,6 +580,10 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 			if targetClientID == "" {
 				return ""
 			}
+			log.Info().
+				Str("clientId", targetClientID).
+				Int64("userId", userID).
+				Msg("Headless auto-start requested for offline world")
 			if s.Headless.IsLaunching(targetClientID) {
 				log.Info().Str("clientId", targetClientID).Msg("Headless session launching, queuing request")
 				clientID, err := s.Headless.WaitForLaunch(targetClientID, 5*time.Minute)
@@ -599,11 +605,16 @@ func New(ctx context.Context, cfg *config.Config, db *database.DB, redis *config
 		}
 
 		helpers.AutoStartFunc = func(reqCtx *helpers.RequestContext, targetClientID string) string {
-			if reqCtx == nil || targetClientID == "" {
+			if reqCtx == nil {
+				return ""
+			}
+			if targetClientID == "" {
+				log.Debug().Msg("Auto-start skipped: request has no target clientId (pass ?clientId=... or bind the scoped key to a client)")
 				return ""
 			}
 			user, ok := reqCtx.GetUser()
 			if !ok {
+				log.Warn().Str("clientId", targetClientID).Msg("Auto-start skipped: no authenticated user on request")
 				return ""
 			}
 			return autoStart(user.ID, targetClientID)

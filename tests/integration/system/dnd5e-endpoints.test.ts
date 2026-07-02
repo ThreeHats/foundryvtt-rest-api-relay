@@ -1295,6 +1295,25 @@ describe('Dnd5e', () => {
         expect(sourceActorUuid).toBeTruthy();
         expect(targetActorUuid).toBeTruthy();
 
+        // Fund the source actor first. dnd5e 5.x compendium heroes start with 0
+        // currency, so the transfer would otherwise fail the module's (correct)
+        // insufficient-funds check. Establish the precondition rather than assume it.
+        const fundConfig: ApiRequestConfig = {
+          url: {
+            raw: '{{baseUrl}}/dnd5e/modify-currency',
+            host: ['{{baseUrl}}'],
+            path: ['dnd5e', 'modify-currency'],
+            query: [{ key: 'clientId', value: '{{clientId}}' }]
+          },
+          method: 'POST',
+          header: [{ key: 'x-api-key', value: '{{apiKey}}', type: 'text' }],
+          body: {
+            mode: 'raw',
+            raw: JSON.stringify({ actorUuid: sourceActorUuid!, currency: 'gp', amount: 100 })
+          }
+        };
+        await makeRequest(replaceVariables(fundConfig, testVariables));
+
         const requestConfig: ApiRequestConfig = {
           url: {
             raw: '{{baseUrl}}/dnd5e/transfer-currency',

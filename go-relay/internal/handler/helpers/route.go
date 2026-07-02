@@ -197,6 +197,23 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 							break
 						}
 					}
+					// No client connected AND no clientId to target, so auto-start
+					// has nothing to launch. The clientId must be a ?clientId=<world> query
+					// param (the x-client-id header is NOT read), or the API key
+					// must be bound to a single client so the relay can infer it.
+					ev := log.Warn().
+						Str("method", r.Method).
+						Str("path", r.URL.Path).
+						Bool("hasAutoStart", AutoStartFunc != nil)
+					if reqCtx != nil && reqCtx.ScopedKey != nil {
+						ev = ev.Str("keyPrefix", reqCtx.ScopedKey.KeyPrefix).
+							Int("keyClientCount", len(reqCtx.ScopedKey.ScopedClientIDs)).
+							Bool("keyClientBound", reqCtx.ScopedKey.ScopedClientID != "")
+					}
+					if u, ok := reqCtx.GetUser(); ok {
+						ev = ev.Int64("userId", u.ID)
+					}
+					ev.Msg("No clients connected and no target clientId to auto-start; pass ?clientId=<world> or bind the API key to a single client")
 					WriteError(w, http.StatusNotFound, "No connected Foundry clients found")
 					return
 				default:
@@ -246,7 +263,15 @@ func CreateAPIRoute(manager *ws.ClientManager, pending *ws.PendingRequests, cfg 
 					clientID = autoID
 					params["clientId"] = clientID
 					client = manager.GetClient(clientID)
+				} else {
+					// Auto-start ran but produced no connected client.
+					log.Warn().Str("clientId", clientID).Msg("Auto-start did not produce a connected client; see preceding auto-start log for the cause")
 				}
+			} else if AutoStartFunc == nil {
+				log.Warn().Str("clientId", clientID).Msg("Client offline and auto-start unavailable (headless disabled via ALLOW_HEADLESS=false)")
+			} else {
+				// AutoStartFunc present but no scoped-key context (e.g. session/bearer auth).
+				log.Warn().Str("clientId", clientID).Msg("Client offline and auto-start skipped: request is not authenticated with an API key")
 			}
 		}
 		if client == nil {

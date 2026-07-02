@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.4.1] 2026-7-01
+
+### Added
+- **Diagnostic logging for headless auto-start**: when a request to an offline world doesn't spawn a headless session, the relay now logs exactly why at every decision point instead of silently returning `404 No connected Foundry clients found`. Covered cases: headless disabled (`ALLOW_HEADLESS=false`) logged at startup and per request; no `clientId` to target (the common trip-up — the `x-client-id` header is not read, so the id must be a `?clientId=<world>` query param or the API key must be bound to a single client); client not a known client for the account; auto-start not enabled in the Connections tab; no credential assigned; the assigned credential missing/unowned; and password decryption failing (e.g. `CREDENTIALS_ENCRYPTION_KEY` changed since the credential was saved). Each blocked reason is greppable via a stable `Headless auto-start blocked: …` message. Logs include `clientId`/`userId`/`credentialId` but never passwords, tokens, or API keys.
+
+### Fixed
+- **Docs: incorrect quick-start / permission-filtering examples**: the docs landing-page cURL example told users to pass the client id as an `x-client-id` header (never read by the relay) and hit `/api/search` (wrong — API routes have no `/api` prefix), which is what led self-hosters to get `404 No connected Foundry clients found`. It now uses `GET /search` with `clientId` as a query parameter (and `filter=Actor` instead of the non-existent `type` param). `permission-filtering.md` similarly used non-existent `/api/entity/get`, `/entity/get`, `/api/entity/update`, and `/api/utility/execute-js` paths; corrected to the real root-level routes (`/get`, `/update`, `/execute-js`).
+- **D&D 5e roll endpoints on Foundry v14 (dnd5e 5.x)**: `/dnd5e/skill-check`, `/ability-check`, `/ability-save`, `/death-save`, and `/concentration-save` returned no roll `total` (death-save errored) on the dnd5e 5.x system. Fixed in the module's dnd5e adapter (companion change — see the module changelog): rolls now branch on the dnd5e system version and use the 5.x config-based advantage API. The integration suite now runs green on Foundry **v12, v13, and v14**; the `transfer-currency` test funds the source actor first (dnd5e 5.x heroes start with no currency) rather than assuming a starting balance.
+
 ## [3.4.0] 2026-07-01
 
 ### Added
