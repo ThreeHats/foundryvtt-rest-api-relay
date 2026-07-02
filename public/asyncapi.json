@@ -7611,7 +7611,7 @@
       "name": "MIT"
     },
     "title": "FoundryVTT WebSocket API",
-    "version": "3.4.0"
+    "version": "3.4.1"
   },
   "servers": {
     "production": {
