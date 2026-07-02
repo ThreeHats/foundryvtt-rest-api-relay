@@ -12,7 +12,7 @@ All API endpoints support an optional `userId` parameter that scopes requests to
 Pass `userId` as a query parameter or in the request body:
 
 ```
-GET /entity/get?clientId=fvtt_3a9f1c2e4b7d8e0f&uuid=Actor.xyz&userId=playerUserId
+GET /get?clientId=fvtt_3a9f1c2e4b7d8e0f&uuid=Actor.xyz&userId=playerUserId
 ```
 
 The module resolves the user and checks Foundry's built-in document permission system before returning data or performing operations.
@@ -28,7 +28,7 @@ This is the recommended approach for player-facing integrations: create a key sc
 
 ```bash
 # Key is scoped to fvtt_3a9f1c2e4b7d8e0f and userId=playerOne — no params needed
-curl "https://your-relay/entity/get?uuid=Actor.xyz" \
+curl "https://your-relay/get?uuid=Actor.xyz" \
   -H "x-api-key: PLAYER_SCOPED_KEY"
 ```
 
@@ -92,25 +92,25 @@ File system endpoints check Foundry's user permissions:
 
 ```bash
 # Player has OBSERVER permission on this actor — returns full data
-curl "https://your-api/api/entity/get?clientId=abc&uuid=Actor.xyz&userId=playerOne"
+curl "https://your-api/get?clientId=abc&uuid=Actor.xyz&userId=playerOne"
 
 # Player has LIMITED permission — returns only name, uuid, type, img
-curl "https://your-api/api/entity/get?clientId=abc&uuid=Actor.npc123&userId=playerOne"
+curl "https://your-api/get?clientId=abc&uuid=Actor.npc123&userId=playerOne"
 
 # Player has no permission — returns permission error
-curl "https://your-api/api/entity/get?clientId=abc&uuid=Actor.secret&userId=playerOne"
+curl "https://your-api/get?clientId=abc&uuid=Actor.secret&userId=playerOne"
 ```
 
 ### Writing as a player
 
 ```bash
 # Player owns this actor — update succeeds
-curl -X PUT "https://your-api/api/entity/update?clientId=abc&uuid=Actor.xyz&userId=playerOne" \
+curl -X PUT "https://your-api/update?clientId=abc&uuid=Actor.xyz&userId=playerOne" \
   -H "Content-Type: application/json" \
   -d '{"data": {"name": "New Name"}}'
 
 # Player doesn't own this actor — returns permission error
-curl -X PUT "https://your-api/api/entity/update?clientId=abc&uuid=Actor.npc123&userId=playerOne" \
+curl -X PUT "https://your-api/update?clientId=abc&uuid=Actor.npc123&userId=playerOne" \
   -H "Content-Type: application/json" \
   -d '{"data": {"name": "New Name"}}'
 ```
@@ -119,7 +119,7 @@ curl -X PUT "https://your-api/api/entity/update?clientId=abc&uuid=Actor.npc123&u
 
 ```bash
 # Non-GM user tries to execute JavaScript — returns error
-curl -X POST "https://your-api/api/utility/execute-js?clientId=abc&userId=playerOne" \
+curl -X POST "https://your-api/execute-js?clientId=abc&userId=playerOne" \
   -H "Content-Type: application/json" \
   -d '{"script": "return game.actors.size"}'
 # Error: "User 'PlayerOne' must be a GM to execute JavaScript"
@@ -129,6 +129,6 @@ curl -X POST "https://your-api/api/utility/execute-js?clientId=abc&userId=player
 
 ```bash
 # No userId — full GM-level access (same as before)
-curl "https://your-api/api/entity/get?clientId=abc&uuid=Actor.secret"
+curl "https://your-api/get?clientId=abc&uuid=Actor.secret"
 # Returns full data regardless of permissions
 ```

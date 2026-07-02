@@ -4,23 +4,23 @@
     "method": "POST",
     "description": "/start-session",
     "request": {
-      "url": "http://localhost:3010/start-session",
+      "url": "http://localhost:3011/start-session",
       "method": "POST",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       },
       "body": {
-        "handshakeToken": "d8e6c74e009c4a4ad3488653f8561bff7ef81aa82bab1e4efafa3cf3df4557ac",
-        "encryptedPassword": "G422AaZmjfGei1hLsXBb5cfFBewRBpoUTOis30Zk5IpxSuloSR5kQQ5mU3KwsTRWN9TWRVK4ruJaR6gj7JVQESHHNdAsot7q3s/pyG9mlsbphvXV1wKPbmHH+7q64UmBCtfzhHyZpl4i/DzFQQiAM8pc3AjuOBEHG82dtTqPCYMpe16ctjqTFqaUVN8RbbjUz1yjf4Bt5ygIujGuMmtB+qJn2RUA2jPeZUKOCUl6LkCSubnORpGblG6lzm5ZRzKYpVrdc/xqIL/enqa37M0dRRk9xCZ9n+hlMGsOui8FWNFH0SPWy4h6mHIp2L+FUvqt1FV77j9XecyKsIk6iPAM4g==",
+        "handshakeToken": "9a9148c32874ba86d6d39e77d8a87bb66e42382fd01d3ec9b5ff183a6ac63ccd",
+        "encryptedPassword": "ZaXrzwZadHg3fol44QfdGlwp2afhZbvT1803ldXVYtMxCYlLHDVUHp9tAOINrTyJWURLBwQFkKR5xSGYDZ0SAecqVIHwNaw1iv4MuncYUpL26X9vt2ECZqLnQfGjB6Zb7GGfqhcdbN/9KvAklm/ph/aZ/RhXAuoy0sFlx+VhdlB5RUzc1bxH9DTnqvzTkjUj9beibJfn/jl9qy9ql3IHPkS4y+lHGZ/WXu+4kYGNmd8LiRjjd4nhwcE0JEnnEGXnZhxRhppoMu06MFsEzDJuUsTJeCLoOlfbtzdkkIKYkTvmuO1B4/48e5UDzBaAmAm3kYHNwQRVM/NwyMzBZv6zHg==",
         "captureBrowserConsole": "warn",
-        "foundryVersion": "12"
+        "foundryVersion": "14"
       }
     },
     "response": {
       "status": 200,
       "data": {
-        "clientId": "fvtt_d3db244ce1d8af0b",
-        "sessionId": "13b76929-381f-48b6-a7a6-ae9cd26e95cc",
+        "clientId": "qsl-integration-test",
+        "sessionId": "9f46f802-6798-4e6b-a587-3d3cf849336a",
         "success": true
       }
     },
@@ -37,10 +37,10 @@
     "method": "GET",
     "description": "/session",
     "request": {
-      "url": "http://localhost:3010/session",
+      "url": "http://localhost:3011/session",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
@@ -48,29 +48,29 @@
       "data": {
         "activeSessions": [
           {
-            "clientId": "fvtt_d3db244ce1d8af0b",
-            "foundryUrl": "http://localhost:30012",
-            "foundryVersion": "12.331",
-            "lastActivity": 1780520731794,
-            "sessionId": "13b76929-381f-48b6-a7a6-ae9cd26e95cc",
-            "startedAt": 1780520731794,
+            "clientId": "qsl-integration-test",
+            "foundryUrl": "http://foundry:30000",
+            "foundryVersion": "14.363",
+            "lastActivity": 1782956904314,
+            "sessionId": "9f46f802-6798-4e6b-a587-3d3cf849336a",
+            "startedAt": 1782956904314,
             "systemId": "dnd5e",
             "systemTitle": "Dungeons & Dragons Fifth Edition",
-            "systemVersion": "4.3.8",
-            "username": "tester",
-            "worldId": "rest-api",
-            "worldName": "rest-api",
-            "worldTitle": "rest-api"
+            "systemVersion": "5.0.4",
+            "username": "Gamemaster",
+            "worldId": "test-world",
+            "worldName": "test-world",
+            "worldTitle": "Test World"
           }
         ]
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/session';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/session' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/session'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/session';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/session🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /session HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/session';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/session' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/session'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/session';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/session🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /session HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -78,10 +78,10 @@
     "method": "DELETE",
     "description": "/end-session",
     "request": {
-      "url": "http://localhost:3010/end-session",
+      "url": "http://localhost:3011/end-session",
       "method": "DELETE",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
@@ -92,11 +92,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/end-session';\nconst params = {\n  sessionId: '13b76929-381f-48b6-a7a6-ae9cd26e95cc'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/end-session?sessionId=13b76929-381f-48b6-a7a6-ae9cd26e95cc' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/end-session'\nparams = {\n    'sessionId': '13b76929-381f-48b6-a7a6-ae9cd26e95cc'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/end-session';\n  const params = {\n    sessionId: '13b76929-381f-48b6-a7a6-ae9cd26e95cc'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/end-session🔤 ➡️ path\n\n  💭 Query parameters\n  🔤sessionId=13b76929-381f-48b6-a7a6-ae9cd26e95cc🔤 ➡️ sessionId\n  🔤?🧲sessionId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /end-session🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/end-session';\nconst params = {\n  sessionId: '9f46f802-6798-4e6b-a587-3d3cf849336a'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3011/end-session?sessionId=9f46f802-6798-4e6b-a587-3d3cf849336a' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/end-session'\nparams = {\n    'sessionId': '9f46f802-6798-4e6b-a587-3d3cf849336a'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/end-session';\n  const params = {\n    sessionId: '9f46f802-6798-4e6b-a587-3d3cf849336a'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/end-session🔤 ➡️ path\n\n  💭 Query parameters\n  🔤sessionId=9f46f802-6798-4e6b-a587-3d3cf849336a🔤 ➡️ sessionId\n  🔤?🧲sessionId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /end-session🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

@@ -7,13 +7,13 @@
     },
     "response": {
       "channel": "combat-events",
-      "requestId": "test_1780520803855_ywy6kl",
+      "requestId": "test_1782956933378_yeei54",
       "type": "subscribed"
     },
     "codeExamples": {
-      "javascript": "const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"subscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-combat-events-result') {\n    console.log(data);\n  }\n};",
-      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"channel\":\"combat-events\",\"type\":\"subscribe-combat-events\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
-      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"subscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-combat-events-result') {\n    console.log(data);\n  }\n}):"
+      "javascript": "const ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"subscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-combat-events-result') {\n    console.log(data);\n  }\n};",
+      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"channel\":\"combat-events\",\"type\":\"subscribe-combat-events\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
+      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"subscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-combat-events-result') {\n    console.log(data);\n  }\n}):"
     }
   },
   {
@@ -25,13 +25,13 @@
     "response": {
       "channel": "combat-events",
       "removed": 1,
-      "requestId": "test_1780520803867_6zrlyk",
+      "requestId": "test_1782956933403_8y3sw7",
       "type": "unsubscribed"
     },
     "codeExamples": {
-      "javascript": "const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"unsubscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'unsubscribe-combat-events-result') {\n    console.log(data);\n  }\n};",
-      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"channel\":\"combat-events\",\"type\":\"unsubscribe-combat-events\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
-      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"unsubscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'unsubscribe-combat-events-result') {\n    console.log(data);\n  }\n}):"
+      "javascript": "const ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"unsubscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'unsubscribe-combat-events-result') {\n    console.log(data);\n  }\n};",
+      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"channel\":\"combat-events\",\"type\":\"unsubscribe-combat-events\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
+      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"combat-events\",\n      \"type\": \"unsubscribe-combat-events\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'unsubscribe-combat-events-result') {\n    console.log(data);\n  }\n}):"
     }
   },
   {
@@ -40,22 +40,20 @@
     "request": {},
     "response": {
       "data": {
-        "data": {
-          "combatants": [],
-          "encounterId": "Pkcj8vytXH9iILCb",
-          "eventType": "start",
-          "round": 0,
-          "turn": null
-        },
-        "type": "combat-event"
+        "combatants": [],
+        "encounterId": "6L4rq89GbnlzTNLV",
+        "eventType": "start",
+        "round": 0,
+        "started": false,
+        "turn": null
       },
-      "event": "combat-",
+      "event": "combat-start",
       "type": "combat-event"
     },
     "codeExamples": {
-      "javascript": "const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"combat-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'combat-event-result') {\n    console.log(data);\n  }\n};",
-      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"type\":\"combat-event\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
-      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"combat-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'combat-event-result') {\n    console.log(data);\n  }\n}):"
+      "javascript": "const ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"combat-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'combat-event-result') {\n    console.log(data);\n  }\n};",
+      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"type\":\"combat-event\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
+      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"combat-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'combat-event-result') {\n    console.log(data);\n  }\n}):"
     }
   }
 ]

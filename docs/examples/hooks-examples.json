@@ -7,13 +7,13 @@
     },
     "response": {
       "channel": "hooks",
-      "requestId": "test_1780520802718_24nie8",
+      "requestId": "test_1782956932897_jsvtl3",
       "type": "subscribed"
     },
     "codeExamples": {
-      "javascript": "const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"hooks\",\n      \"type\": \"subscribe-hooks\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-hooks-result') {\n    console.log(data);\n  }\n};",
-      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"channel\":\"hooks\",\"type\":\"subscribe-hooks\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
-      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"hooks\",\n      \"type\": \"subscribe-hooks\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-hooks-result') {\n    console.log(data);\n  }\n}):"
+      "javascript": "const ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"hooks\",\n      \"type\": \"subscribe-hooks\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-hooks-result') {\n    console.log(data);\n  }\n};",
+      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"channel\":\"hooks\",\"type\":\"subscribe-hooks\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
+      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"channel\": \"hooks\",\n      \"type\": \"subscribe-hooks\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'subscribe-hooks-result') {\n    console.log(data);\n  }\n}):"
     }
   },
   {
@@ -25,16 +25,17 @@
         "data": {
           "args": [
             {
-              "_id": "JUkUXUIzArEWZDcX",
+              "_id": "ZvuKeF4QW6hHXdtv",
               "_stats": {
                 "compendiumSource": null,
-                "coreVersion": "12.331",
-                "createdTime": 1780520803041,
+                "coreVersion": "14.363",
+                "createdTime": 1782956933227,
                 "duplicateSource": null,
-                "lastModifiedBy": "fCfNJPT9Atc26yyv",
-                "modifiedTime": 1780520803041,
+                "exportSource": null,
+                "lastModifiedBy": "cpvaGKk3hgoBCzCS",
+                "modifiedTime": 1782956933228,
                 "systemId": "dnd5e",
-                "systemVersion": "4.3.8"
+                "systemVersion": "5.0.4"
               },
               "effects": [],
               "flags": {},
@@ -43,8 +44,8 @@
               "items": [],
               "name": "hook-test-actor",
               "ownership": {
-                "default": 0,
-                "fCfNJPT9Atc26yyv": 3
+                "cpvaGKk3hgoBCzCS": 3,
+                "default": 0
               },
               "prototypeToken": {
                 "actorLink": false,
@@ -56,13 +57,13 @@
                 "bar2": {
                   "attribute": null
                 },
-                "detectionModes": [],
+                "depth": 1,
+                "detectionModes": {},
                 "displayBars": 0,
                 "displayName": 0,
                 "disposition": -1,
                 "flags": {},
                 "height": 1,
-                "hexagonalShape": 0,
                 "light": {
                   "alpha": 0.5,
                   "angle": 360,
@@ -89,6 +90,7 @@
                   "shadows": 0
                 },
                 "lockRotation": false,
+                "movementAction": null,
                 "name": "hook-test-actor",
                 "occludable": {
                   "radius": 0
@@ -124,13 +126,16 @@
                   "anchorX": 0.5,
                   "anchorY": 0.5,
                   "fit": "contain",
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
                   "src": "icons/svg/mystery-man.svg",
                   "tint": "#ffffff"
+                },
+                "turnMarker": {
+                  "animation": null,
+                  "disposition": false,
+                  "mode": 1,
+                  "src": null
                 },
                 "width": 1
               },
@@ -139,12 +144,14 @@
               "type": "base"
             },
             {
-              "modifiedTime": 1780520803041,
+              "action": "create",
+              "documentName": "Actor",
+              "modifiedTime": 1782956933226,
               "parent": null,
               "render": true,
               "renderSheet": false
             },
-            "fCfNJPT9Atc26yyv"
+            "cpvaGKk3hgoBCzCS"
           ],
           "hook": "createActor"
         },
@@ -154,9 +161,9 @@
       "type": "hook-event"
     },
     "codeExamples": {
-      "javascript": "const ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"hook-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'hook-event-result') {\n    console.log(data);\n  }\n};",
-      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"type\":\"hook-event\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
-      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3010/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"hook-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'hook-event-result') {\n    console.log(data);\n  }\n}):"
+      "javascript": "const ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.onopen = () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n};\n\nws.onmessage = (event) => {\n  const data = JSON.parse(event.data);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"hook-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'hook-event-result') {\n    console.log(data);\n  }\n};",
+      "python": "import asyncio\nimport websockets\nimport json\n\nasync def main():\n    uri = 'ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID'\n    async with websockets.connect(uri) as ws:\n        # Send auth message first — token must not be in the URL\n        await ws.send(json.dumps({'type': 'auth', 'token': 'YOUR_API_KEY'}))\n        connected = json.loads(await ws.recv())\n        if connected.get('type') != 'connected':\n            raise Exception('Auth failed')\n        await ws.send(json.dumps({\"type\":\"hook-event\",\"requestId\":\"unique-id\"}))\n        response = await ws.recv()\n        data = json.loads(response)\n        print(data)\n\nasyncio.run(main())",
+      "typescript": "import WebSocket from 'ws';\n\nconst ws = new WebSocket('ws://localhost:3011/ws/api?clientId=YOUR_CLIENT_ID');\n\nws.on('open', () => {\n  // Send auth message first — token must not be in the URL\n  ws.send(JSON.stringify({ type: 'auth', token: 'YOUR_API_KEY' }));\n});\n\nws.on('message', (raw: string) => {\n  const data = JSON.parse(raw);\n  if (data.type === 'connected') {\n    // Now send your request\n    ws.send(JSON.stringify({\n      \"type\": \"hook-event\",\n      \"requestId\": \"unique-id\"\n    }));\n  }\n  if (data.type === 'hook-event-result') {\n    console.log(data);\n  }\n}):"
     }
   }
 ]

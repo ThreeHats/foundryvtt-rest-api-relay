@@ -37,6 +37,148 @@ Returns the collection of ActiveEffect documents currently applied to the specif
   parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/effects';
+const params = {
+  clientId: 'qsl-integration-test',
+  uuid: 'Actor.V5OF1QXHjaIy6iO8'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/effects?clientId=qsl-integration-test&uuid=Actor.V5OF1QXHjaIy6iO8' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/effects'
+params = {
+    'clientId': 'qsl-integration-test',
+    'uuid': 'Actor.V5OF1QXHjaIy6iO8'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/effects';
+  const params = {
+    clientId: 'qsl-integration-test',
+    uuid: 'Actor.V5OF1QXHjaIy6iO8'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/effects🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤uuid=Actor.V5OF1QXHjaIy6iO8🔤 ➡️ uuid
+  🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "get-effects-result",
+  "requestId": "get-effects_1782956935072",
+  "data": {
+    "uuid": "Actor.V5OF1QXHjaIy6iO8",
+    "effects": []
+  }
+}
+```
+
+
 ---
 
 ## GET /effects/list
@@ -65,6 +207,359 @@ Returns all status effects defined by the game system's configuration. Useful fo
   path="/effects/list"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/effects/list';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/effects/list?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/effects/list'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/effects/list';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/effects/list🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /effects/list🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "get-status-effects-result",
+  "requestId": "get-status-effects_1782956935066",
+  "data": {
+    "effects": [
+      {
+        "id": "dead",
+        "name": "Dead",
+        "icon": "systems/dnd5e/icons/svg/statuses/dead.svg"
+      },
+      {
+        "id": "coverHalf",
+        "name": "Half Cover",
+        "icon": "systems/dnd5e/icons/svg/statuses/cover-half.svg"
+      },
+      {
+        "id": "coverThreeQuarters",
+        "name": "Three-Quarters Cover",
+        "icon": "systems/dnd5e/icons/svg/statuses/cover-three-quarters.svg"
+      },
+      {
+        "id": "coverTotal",
+        "name": "Total Cover",
+        "icon": "systems/dnd5e/icons/svg/statuses/cover-total.svg"
+      },
+      {
+        "id": "bleeding",
+        "name": "Bleeding",
+        "icon": "systems/dnd5e/icons/svg/statuses/bleeding.svg"
+      },
+      {
+        "id": "blinded",
+        "name": "Blinded",
+        "icon": "systems/dnd5e/icons/svg/statuses/blinded.svg"
+      },
+      {
+        "id": "burning",
+        "name": "Burning",
+        "icon": "systems/dnd5e/icons/svg/statuses/burning.svg"
+      },
+      {
+        "id": "burrowing",
+        "name": "Burrowing",
+        "icon": "systems/dnd5e/icons/svg/statuses/burrowing.svg"
+      },
+      {
+        "id": "charmed",
+        "name": "Charmed",
+        "icon": "systems/dnd5e/icons/svg/statuses/charmed.svg"
+      },
+      {
+        "id": "concentrating",
+        "name": "Concentrating",
+        "icon": "systems/dnd5e/icons/svg/statuses/concentrating.svg"
+      },
+      {
+        "id": "cursed",
+        "name": "Cursed",
+        "icon": "systems/dnd5e/icons/svg/statuses/cursed.svg"
+      },
+      {
+        "id": "deafened",
+        "name": "Deafened",
+        "icon": "systems/dnd5e/icons/svg/statuses/deafened.svg"
+      },
+      {
+        "id": "dehydration",
+        "name": "Dehydration",
+        "icon": "systems/dnd5e/icons/svg/statuses/dehydration.svg"
+      },
+      {
+        "id": "diseased",
+        "name": "Diseased",
+        "icon": "systems/dnd5e/icons/svg/statuses/diseased.svg"
+      },
+      {
+        "id": "dodging",
+        "name": "Dodging",
+        "icon": "systems/dnd5e/icons/svg/statuses/dodging.svg"
+      },
+      {
+        "id": "encumbered",
+        "name": "Encumbered",
+        "icon": "systems/dnd5e/icons/svg/statuses/encumbered.svg"
+      },
+      {
+        "id": "ethereal",
+        "name": "Ethereal",
+        "icon": "systems/dnd5e/icons/svg/statuses/ethereal.svg"
+      },
+      {
+        "id": "exceedingCarryingCapacity",
+        "name": "Exceeding Carrying Capacity",
+        "icon": "systems/dnd5e/icons/svg/statuses/exceeding-carrying-capacity.svg"
+      },
+      {
+        "id": "exhaustion",
+        "name": "Exhaustion",
+        "icon": "systems/dnd5e/icons/svg/statuses/exhaustion.svg"
+      },
+      {
+        "id": "falling",
+        "name": "Falling",
+        "icon": "systems/dnd5e/icons/svg/statuses/falling.svg"
+      },
+      {
+        "id": "flying",
+        "name": "Flying",
+        "icon": "systems/dnd5e/icons/svg/statuses/flying.svg"
+      },
+      {
+        "id": "frightened",
+        "name": "Frightened",
+        "icon": "systems/dnd5e/icons/svg/statuses/frightened.svg"
+      },
+      {
+        "id": "grappled",
+        "name": "Grappled",
+        "icon": "systems/dnd5e/icons/svg/statuses/grappled.svg"
+      },
+      {
+        "id": "heavilyEncumbered",
+        "name": "Heavily Encumbered",
+        "icon": "systems/dnd5e/icons/svg/statuses/heavily-encumbered.svg"
+      },
+      {
+        "id": "hiding",
+        "name": "Hiding",
+        "icon": "systems/dnd5e/icons/svg/statuses/hiding.svg"
+      },
+      {
+        "id": "hovering",
+        "name": "Hovering",
+        "icon": "systems/dnd5e/icons/svg/statuses/hovering.svg"
+      },
+      {
+        "id": "incapacitated",
+        "name": "Incapacitated",
+        "icon": "systems/dnd5e/icons/svg/statuses/incapacitated.svg"
+      },
+      {
+        "id": "invisible",
+        "name": "Invisible",
+        "icon": "systems/dnd5e/icons/svg/statuses/invisible.svg"
+      },
+      {
+        "id": "malnutrition",
+        "name": "Malnutrition",
+        "icon": "systems/dnd5e/icons/svg/statuses/malnutrition.svg"
+      },
+      {
+        "id": "marked",
+        "name": "Marked",
+        "icon": "systems/dnd5e/icons/svg/statuses/marked.svg"
+      },
+      {
+        "id": "paralyzed",
+        "name": "Paralyzed",
+        "icon": "systems/dnd5e/icons/svg/statuses/paralyzed.svg"
+      },
+      {
+        "id": "petrified",
+        "name": "Petrified",
+        "icon": "systems/dnd5e/icons/svg/statuses/petrified.svg"
+      },
+      {
+        "id": "poisoned",
+        "name": "Poisoned",
+        "icon": "systems/dnd5e/icons/svg/statuses/poisoned.svg"
+      },
+      {
+        "id": "prone",
+        "name": "Prone",
+        "icon": "systems/dnd5e/icons/svg/statuses/prone.svg"
+      },
+      {
+        "id": "restrained",
+        "name": "Restrained",
+        "icon": "systems/dnd5e/icons/svg/statuses/restrained.svg"
+      },
+      {
+        "id": "silenced",
+        "name": "Silenced",
+        "icon": "systems/dnd5e/icons/svg/statuses/silenced.svg"
+      },
+      {
+        "id": "sleeping",
+        "name": "Sleeping",
+        "icon": "systems/dnd5e/icons/svg/statuses/sleeping.svg"
+      },
+      {
+        "id": "stable",
+        "name": "Stable",
+        "icon": "systems/dnd5e/icons/svg/statuses/stable.svg"
+      },
+      {
+        "id": "stunned",
+        "name": "Stunned",
+        "icon": "systems/dnd5e/icons/svg/statuses/stunned.svg"
+      },
+      {
+        "id": "suffocation",
+        "name": "Suffocation",
+        "icon": "systems/dnd5e/icons/svg/statuses/suffocation.svg"
+      },
+      {
+        "id": "surprised",
+        "name": "Surprised",
+        "icon": "systems/dnd5e/icons/svg/statuses/surprised.svg"
+      },
+      {
+        "id": "transformed",
+        "name": "Transformed",
+        "icon": "systems/dnd5e/icons/svg/statuses/transformed.svg"
+      },
+      {
+        "id": "unconscious",
+        "name": "Unconscious",
+        "icon": "systems/dnd5e/icons/svg/statuses/unconscious.svg"
+      }
+    ]
+  }
+}
+```
+
 
 ---
 
@@ -98,6 +593,182 @@ Adds a status condition (by statusId) or a custom ActiveEffect (via effectData) 
   parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"statusId","type":"string","required":false,"source":"body"},{"name":"effectData","type":"object","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/effects';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "uuid": "Actor.V5OF1QXHjaIy6iO8",
+      "effectData": {
+        "name": "Test Effect",
+        "icon": "icons/svg/aura.svg",
+        "changes": []
+      }
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/effects?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"uuid":"Actor.V5OF1QXHjaIy6iO8","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/effects'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "uuid": "Actor.V5OF1QXHjaIy6iO8",
+      "effectData": {
+        "name": "Test Effect",
+        "icon": "icons/svg/aura.svg",
+        "changes": []
+      }
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/effects';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "uuid": "Actor.V5OF1QXHjaIy6iO8",
+        "effectData": {
+          "name": "Test Effect",
+          "icon": "icons/svg/aura.svg",
+          "changes": []
+        }
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/effects🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"uuid":"Actor.V5OF1QXHjaIy6iO8","effectData":{"name":"Test Effect","icon":"icons/svg/aura.svg","changes":[]}}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 110❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "add-effect-result",
+  "requestId": "add-effect_1782956935074",
+  "data": {
+    "uuid": "Actor.V5OF1QXHjaIy6iO8",
+    "effect": {
+      "id": "pv5uXd6TH0Ujhzgq",
+      "uuid": "Actor.V5OF1QXHjaIy6iO8.ActiveEffect.pv5uXd6TH0Ujhzgq",
+      "name": "Test Effect",
+      "icon": "icons/svg/aura.svg",
+      "statuses": []
+    }
+  }
+}
+```
+
+
 ---
 
 ## DELETE /effects
@@ -129,4 +800,162 @@ Removes an effect by its document ID (effectId) or by status condition identifie
   path="/effects"
   parameters={[{"name":"uuid","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"effectId","type":"string","required":false,"source":"body"},{"name":"statusId","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/effects';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'DELETE',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "uuid": "Actor.V5OF1QXHjaIy6iO8",
+      "effectId": "pv5uXd6TH0Ujhzgq"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X DELETE 'http://localhost:3011/effects?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"uuid":"Actor.V5OF1QXHjaIy6iO8","effectId":"pv5uXd6TH0Ujhzgq"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/effects'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.delete(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here',
+        'Content-Type': 'application/json'
+    },
+    json={
+      "uuid": "Actor.V5OF1QXHjaIy6iO8",
+      "effectId": "pv5uXd6TH0Ujhzgq"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/effects';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'delete',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "uuid": "Actor.V5OF1QXHjaIy6iO8",
+        "effectId": "pv5uXd6TH0Ujhzgq"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/effects🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"uuid":"Actor.V5OF1QXHjaIy6iO8","effectId":"pv5uXd6TH0Ujhzgq"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤DELETE /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 63❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "remove-effect-result",
+  "requestId": "remove-effect_1782956935166",
+  "data": {
+    "uuid": "Actor.V5OF1QXHjaIy6iO8",
+    "removedEffectId": "pv5uXd6TH0Ujhzgq"
+  }
+}
+```
+
 

@@ -4,7 +4,7 @@
     "method": "POST",
     "description": "/auth/key-request - Create key request",
     "request": {
-      "url": "http://localhost:3010/auth/key-request",
+      "url": "http://localhost:3011/auth/key-request",
       "method": "POST",
       "headers": {},
       "body": {
@@ -20,29 +20,29 @@
     "response": {
       "status": 201,
       "data": {
-        "approvalUrl": "http://localhost:3010/approve/YMHVXR",
-        "code": "YMHVXR",
-        "expiresAt": "2026-06-03T16:16:53-05:00",
+        "approvalUrl": "https://foundryrestapi.com/approve/ANNTCM",
+        "code": "ANNTCM",
+        "expiresAt": "2026-07-02T01:58:57Z",
         "expiresIn": 600
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/key-request';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"appName\": \"Test Discord Bot\",\n      \"appDescription\": \"A test integration\",\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\",\n        \"chat:read\"\n      ]\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/key-request' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"appName\":\"Test Discord Bot\",\"appDescription\":\"A test integration\",\"scopes\":[\"entity:read\",\"roll:read\",\"chat:read\"]}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/key-request'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"appName\": \"Test Discord Bot\",\n      \"appDescription\": \"A test integration\",\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\",\n        \"chat:read\"\n      ]\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/key-request';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"appName\": \"Test Discord Bot\",\n        \"appDescription\": \"A test integration\",\n        \"scopes\": [\n          \"entity:read\",\n          \"roll:read\",\n          \"chat:read\"\n        ]\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/key-request🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"appName\":\"Test Discord Bot\",\"appDescription\":\"A test integration\",\"scopes\":[\"entity:read\",\"roll:read\",\"chat:read\"]}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 117❌r❌n❌r❌n{\"appName\":\"Test Discord Bot\",\"appDescription\":\"A test integration\",\"scopes\":[\"entity:read\",\"roll:read\",\"chat:read\"]}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/key-request';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"appName\": \"Test Discord Bot\",\n      \"appDescription\": \"A test integration\",\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\",\n        \"chat:read\"\n      ]\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/auth/key-request' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"appName\":\"Test Discord Bot\",\"appDescription\":\"A test integration\",\"scopes\":[\"entity:read\",\"roll:read\",\"chat:read\"]}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/key-request'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"appName\": \"Test Discord Bot\",\n      \"appDescription\": \"A test integration\",\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\",\n        \"chat:read\"\n      ]\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/key-request';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"appName\": \"Test Discord Bot\",\n        \"appDescription\": \"A test integration\",\n        \"scopes\": [\n          \"entity:read\",\n          \"roll:read\",\n          \"chat:read\"\n        ]\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/key-request🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"appName\":\"Test Discord Bot\",\"appDescription\":\"A test integration\",\"scopes\":[\"entity:read\",\"roll:read\",\"chat:read\"]}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request HTTP/1.1❌r❌nHost: localhost:3011❌r❌nContent-Type: application/json❌r❌nContent-Length: 117❌r❌n❌r❌n{\"appName\":\"Test Discord Bot\",\"appDescription\":\"A test integration\",\"scopes\":[\"entity:read\",\"roll:read\",\"chat:read\"]}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/auth/key-request/YMHVXR",
+    "endpoint": "/auth/key-request/ANNTCM",
     "method": "GET",
     "description": "/auth/key-request/:code - Get request details",
     "request": {
-      "url": "http://localhost:3010/auth/key-request/YMHVXR",
+      "url": "http://localhost:3011/auth/key-request/ANNTCM",
       "method": "GET",
       "headers": {
-        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
+        "Authorization": "Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b"
       }
     },
     "response": {
@@ -52,8 +52,8 @@
         "appName": "Test Discord Bot",
         "appUrl": "",
         "callbackUrl": "",
-        "code": "YMHVXR",
-        "expiresAt": "2026-06-03T21:16:53Z",
+        "code": "ANNTCM",
+        "expiresAt": "2026-07-02T01:58:57Z",
         "requestedClientIds": null,
         "requestedScopes": [
           "entity:read",
@@ -66,22 +66,22 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/key-request/YMHVXR';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/auth/key-request/YMHVXR' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/key-request/YMHVXR'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/key-request/YMHVXR';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/key-request/YMHVXR🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/key-request/YMHVXR HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/key-request/ANNTCM';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/auth/key-request/ANNTCM' \\\n  -H \"Authorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/key-request/ANNTCM'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/key-request/ANNTCM';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/key-request/ANNTCM🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/key-request/ANNTCM HTTP/1.1❌r❌nHost: localhost:3011❌r❌nAuthorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/auth/key-request/YMHVXR/approve",
+    "endpoint": "/auth/key-request/ANNTCM/approve",
     "method": "POST",
     "description": "/auth/key-request/:code/approve - Approve request",
     "request": {
-      "url": "http://localhost:3010/auth/key-request/YMHVXR/approve",
+      "url": "http://localhost:3011/auth/key-request/ANNTCM/approve",
       "method": "POST",
       "headers": {
-        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
+        "Authorization": "Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b"
       },
       "body": {
         "scopes": [
@@ -93,7 +93,7 @@
     "response": {
       "status": 200,
       "data": {
-        "keyId": 4314,
+        "keyId": 16,
         "scopes": [
           "entity:read",
           "roll:read"
@@ -102,26 +102,26 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/key-request/YMHVXR/approve';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\"\n      ]\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/key-request/YMHVXR/approve' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"scopes\":[\"entity:read\",\"roll:read\"]}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/key-request/YMHVXR/approve'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    json={\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\"\n      ]\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/key-request/YMHVXR/approve';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"scopes\": [\n          \"entity:read\",\n          \"roll:read\"\n        ]\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/key-request/YMHVXR/approve🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"scopes\":[\"entity:read\",\"roll:read\"]}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request/YMHVXR/approve HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n{\"scopes\":[\"entity:read\",\"roll:read\"]}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/key-request/ANNTCM/approve';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\"\n      ]\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/auth/key-request/ANNTCM/approve' \\\n  -H \"Authorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"scopes\":[\"entity:read\",\"roll:read\"]}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/key-request/ANNTCM/approve'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    },\n    json={\n      \"scopes\": [\n        \"entity:read\",\n        \"roll:read\"\n      ]\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/key-request/ANNTCM/approve';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"scopes\": [\n          \"entity:read\",\n          \"roll:read\"\n        ]\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/key-request/ANNTCM/approve🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"scopes\":[\"entity:read\",\"roll:read\"]}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request/ANNTCM/approve HTTP/1.1❌r❌nHost: localhost:3011❌r❌nAuthorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b❌r❌nContent-Type: application/json❌r❌nContent-Length: 38❌r❌n❌r❌n{\"scopes\":[\"entity:read\",\"roll:read\"]}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/auth/key-request/YMHVXR/status",
+    "endpoint": "/auth/key-request/ANNTCM/status",
     "method": "GET",
     "description": "/auth/key-request/:code/status - Poll status (approved)",
     "request": {
-      "url": "http://localhost:3010/auth/key-request/YMHVXR/status",
+      "url": "http://localhost:3011/auth/key-request/ANNTCM/status",
       "method": "GET",
       "headers": {}
     },
     "response": {
       "status": 200,
       "data": {
-        "apiKey": "41a2812fa0bee6a2523db577b15eb2aed7f77a6b217ff2f5db2aee1853e1e863",
+        "apiKey": "63b6501cc7597a4ed5e8d69fc08a8b3a31070d2e62f18cca8e71756e4bca5115",
         "clientIds": null,
         "scopes": [
           "entity:read",
@@ -131,11 +131,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/key-request/YMHVXR/status';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET'\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/auth/key-request/YMHVXR/status'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/key-request/YMHVXR/status'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/key-request/YMHVXR/status';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/key-request/YMHVXR/status🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/key-request/YMHVXR/status HTTP/1.1❌r❌nHost: localhost:3010❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/key-request/ANNTCM/status';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET'\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/auth/key-request/ANNTCM/status'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/key-request/ANNTCM/status'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/key-request/ANNTCM/status';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/key-request/ANNTCM/status🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/key-request/ANNTCM/status HTTP/1.1❌r❌nHost: localhost:3011❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -143,17 +143,17 @@
     "method": "POST",
     "description": "/auth/key-request/exchange - Exchange code for API key",
     "request": {
-      "url": "http://localhost:3010/auth/key-request/exchange",
+      "url": "http://localhost:3011/auth/key-request/exchange",
       "method": "POST",
       "headers": {},
       "body": {
-        "code": "e4913c622f868a6ccbc2a7bf416dcfc4"
+        "code": "01500928781afdf75b4b50d17e4f7c5b"
       }
     },
     "response": {
       "status": 200,
       "data": {
-        "apiKey": "97c129d4bd7ff1a81fc230af40f77c660286251c4a0b6e61a91106f9aafae19a",
+        "apiKey": "41c6aec93ccdcc6f36db8ec6b3b4bdd96fd8bf1c8de269c346ddb943d6179f8d",
         "clientIds": null,
         "scopes": [
           "entity:read"
@@ -161,22 +161,22 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/key-request/exchange';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"code\": \"e4913c622f868a6ccbc2a7bf416dcfc4\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/key-request/exchange' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code\":\"e4913c622f868a6ccbc2a7bf416dcfc4\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/key-request/exchange'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"code\": \"e4913c622f868a6ccbc2a7bf416dcfc4\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/key-request/exchange';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"code\": \"e4913c622f868a6ccbc2a7bf416dcfc4\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/key-request/exchange🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"code\":\"e4913c622f868a6ccbc2a7bf416dcfc4\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request/exchange HTTP/1.1❌r❌nHost: localhost:3010❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n{\"code\":\"e4913c622f868a6ccbc2a7bf416dcfc4\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/key-request/exchange';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"code\": \"01500928781afdf75b4b50d17e4f7c5b\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/auth/key-request/exchange' \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code\":\"01500928781afdf75b4b50d17e4f7c5b\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/key-request/exchange'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    json={\n      \"code\": \"01500928781afdf75b4b50d17e4f7c5b\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/key-request/exchange';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"code\": \"01500928781afdf75b4b50d17e4f7c5b\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/key-request/exchange🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"code\":\"01500928781afdf75b4b50d17e4f7c5b\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request/exchange HTTP/1.1❌r❌nHost: localhost:3011❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n{\"code\":\"01500928781afdf75b4b50d17e4f7c5b\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/auth/key-request/8VBULS/deny",
+    "endpoint": "/auth/key-request/TKBYWV/deny",
     "method": "POST",
     "description": "/auth/key-request/:code/deny - Deny request",
     "request": {
-      "url": "http://localhost:3010/auth/key-request/8VBULS/deny",
+      "url": "http://localhost:3011/auth/key-request/TKBYWV/deny",
       "method": "POST",
       "headers": {
-        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
+        "Authorization": "Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b"
       }
     },
     "response": {
@@ -187,11 +187,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/key-request/8VBULS/deny';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/auth/key-request/8VBULS/deny' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/key-request/8VBULS/deny'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/key-request/8VBULS/deny';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/key-request/8VBULS/deny🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request/8VBULS/deny HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/key-request/TKBYWV/deny';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/auth/key-request/TKBYWV/deny' \\\n  -H \"Authorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/key-request/TKBYWV/deny'\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    headers={\n        'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/key-request/TKBYWV/deny';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/key-request/TKBYWV/deny🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤POST /auth/key-request/TKBYWV/deny HTTP/1.1❌r❌nHost: localhost:3011❌r❌nAuthorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

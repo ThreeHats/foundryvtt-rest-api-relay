@@ -4,17 +4,17 @@
     "method": "GET",
     "description": "/effects/list",
     "request": {
-      "url": "http://localhost:3010/effects/list",
+      "url": "http://localhost:3011/effects/list",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "get-status-effects-result",
-        "requestId": "get-status-effects_1780520807043",
+        "requestId": "get-status-effects_1782956935066",
         "data": {
           "effects": [
             {
@@ -237,11 +237,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/effects/list';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/effects/list?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/effects/list'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/effects/list';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/effects/list🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /effects/list🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/effects/list';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/effects/list?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/effects/list'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/effects/list';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/effects/list🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /effects/list🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -249,29 +249,29 @@
     "method": "GET",
     "description": "/effects - list",
     "request": {
-      "url": "http://localhost:3010/effects",
+      "url": "http://localhost:3011/effects",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "get-effects-result",
-        "requestId": "get-effects_1780520807048",
+        "requestId": "get-effects_1782956935072",
         "data": {
-          "uuid": "Actor.u3iSEGYdk5UNZy7X",
+          "uuid": "Actor.V5OF1QXHjaIy6iO8",
           "effects": []
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/effects';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  uuid: 'Actor.u3iSEGYdk5UNZy7X'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/effects?clientId=fvtt_d3db244ce1d8af0b&uuid=Actor.u3iSEGYdk5UNZy7X' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/effects'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'uuid': 'Actor.u3iSEGYdk5UNZy7X'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/effects';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    uuid: 'Actor.u3iSEGYdk5UNZy7X'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/effects🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤uuid=Actor.u3iSEGYdk5UNZy7X🔤 ➡️ uuid\n  🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/effects';\nconst params = {\n  clientId: 'qsl-integration-test',\n  uuid: 'Actor.V5OF1QXHjaIy6iO8'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/effects?clientId=qsl-integration-test&uuid=Actor.V5OF1QXHjaIy6iO8' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/effects'\nparams = {\n    'clientId': 'qsl-integration-test',\n    'uuid': 'Actor.V5OF1QXHjaIy6iO8'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/effects';\n  const params = {\n    clientId: 'qsl-integration-test',\n    uuid: 'Actor.V5OF1QXHjaIy6iO8'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/effects🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤uuid=Actor.V5OF1QXHjaIy6iO8🔤 ➡️ uuid\n  🔤?🧲clientId🧲&🧲uuid🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -279,14 +279,14 @@
     "method": "POST",
     "description": "/effects - add custom",
     "request": {
-      "url": "http://localhost:3010/effects",
+      "url": "http://localhost:3011/effects",
       "method": "POST",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f",
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796",
         "Content-Type": "application/json"
       },
       "body": {
-        "uuid": "Actor.u3iSEGYdk5UNZy7X",
+        "uuid": "Actor.V5OF1QXHjaIy6iO8",
         "effectData": {
           "name": "Test Effect",
           "icon": "icons/svg/aura.svg",
@@ -298,12 +298,12 @@
       "status": 200,
       "data": {
         "type": "add-effect-result",
-        "requestId": "add-effect_1780520807051",
+        "requestId": "add-effect_1782956935074",
         "data": {
-          "uuid": "Actor.u3iSEGYdk5UNZy7X",
+          "uuid": "Actor.V5OF1QXHjaIy6iO8",
           "effect": {
-            "id": "pchhGxLxlRFJ8id6",
-            "uuid": "Actor.u3iSEGYdk5UNZy7X.ActiveEffect.pchhGxLxlRFJ8id6",
+            "id": "pv5uXd6TH0Ujhzgq",
+            "uuid": "Actor.V5OF1QXHjaIy6iO8.ActiveEffect.pv5uXd6TH0Ujhzgq",
             "name": "Test Effect",
             "icon": "icons/svg/aura.svg",
             "statuses": []
@@ -312,11 +312,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/effects';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"uuid\": \"Actor.u3iSEGYdk5UNZy7X\",\n      \"effectData\": {\n        \"name\": \"Test Effect\",\n        \"icon\": \"icons/svg/aura.svg\",\n        \"changes\": []\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/effects?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uuid\":\"Actor.u3iSEGYdk5UNZy7X\",\"effectData\":{\"name\":\"Test Effect\",\"icon\":\"icons/svg/aura.svg\",\"changes\":[]}}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/effects'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n        'Content-Type': 'application/json'\n    },\n    json={\n      \"uuid\": \"Actor.u3iSEGYdk5UNZy7X\",\n      \"effectData\": {\n        \"name\": \"Test Effect\",\n        \"icon\": \"icons/svg/aura.svg\",\n        \"changes\": []\n      }\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/effects';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"uuid\": \"Actor.u3iSEGYdk5UNZy7X\",\n        \"effectData\": {\n          \"name\": \"Test Effect\",\n          \"icon\": \"icons/svg/aura.svg\",\n          \"changes\": []\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/effects🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"uuid\":\"Actor.u3iSEGYdk5UNZy7X\",\"effectData\":{\"name\":\"Test Effect\",\"icon\":\"icons/svg/aura.svg\",\"changes\":[]}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 110❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/effects';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"uuid\": \"Actor.V5OF1QXHjaIy6iO8\",\n      \"effectData\": {\n        \"name\": \"Test Effect\",\n        \"icon\": \"icons/svg/aura.svg\",\n        \"changes\": []\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/effects?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uuid\":\"Actor.V5OF1QXHjaIy6iO8\",\"effectData\":{\"name\":\"Test Effect\",\"icon\":\"icons/svg/aura.svg\",\"changes\":[]}}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/effects'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n        'Content-Type': 'application/json'\n    },\n    json={\n      \"uuid\": \"Actor.V5OF1QXHjaIy6iO8\",\n      \"effectData\": {\n        \"name\": \"Test Effect\",\n        \"icon\": \"icons/svg/aura.svg\",\n        \"changes\": []\n      }\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/effects';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"uuid\": \"Actor.V5OF1QXHjaIy6iO8\",\n        \"effectData\": {\n          \"name\": \"Test Effect\",\n          \"icon\": \"icons/svg/aura.svg\",\n          \"changes\": []\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/effects🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"uuid\":\"Actor.V5OF1QXHjaIy6iO8\",\"effectData\":{\"name\":\"Test Effect\",\"icon\":\"icons/svg/aura.svg\",\"changes\":[]}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 110❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -324,34 +324,34 @@
     "method": "DELETE",
     "description": "/effects - remove",
     "request": {
-      "url": "http://localhost:3010/effects",
+      "url": "http://localhost:3011/effects",
       "method": "DELETE",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f",
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796",
         "Content-Type": "application/json"
       },
       "body": {
-        "uuid": "Actor.u3iSEGYdk5UNZy7X",
-        "effectId": "pchhGxLxlRFJ8id6"
+        "uuid": "Actor.V5OF1QXHjaIy6iO8",
+        "effectId": "pv5uXd6TH0Ujhzgq"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "remove-effect-result",
-        "requestId": "remove-effect_1780520807135",
+        "requestId": "remove-effect_1782956935166",
         "data": {
-          "uuid": "Actor.u3iSEGYdk5UNZy7X",
-          "removedEffectId": "pchhGxLxlRFJ8id6"
+          "uuid": "Actor.V5OF1QXHjaIy6iO8",
+          "removedEffectId": "pv5uXd6TH0Ujhzgq"
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/effects';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"uuid\": \"Actor.u3iSEGYdk5UNZy7X\",\n      \"effectId\": \"pchhGxLxlRFJ8id6\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/effects?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uuid\":\"Actor.u3iSEGYdk5UNZy7X\",\"effectId\":\"pchhGxLxlRFJ8id6\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/effects'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n        'Content-Type': 'application/json'\n    },\n    json={\n      \"uuid\": \"Actor.u3iSEGYdk5UNZy7X\",\n      \"effectId\": \"pchhGxLxlRFJ8id6\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/effects';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"uuid\": \"Actor.u3iSEGYdk5UNZy7X\",\n        \"effectId\": \"pchhGxLxlRFJ8id6\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/effects🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"uuid\":\"Actor.u3iSEGYdk5UNZy7X\",\"effectId\":\"pchhGxLxlRFJ8id6\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤DELETE /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 63❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/effects';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"uuid\": \"Actor.V5OF1QXHjaIy6iO8\",\n      \"effectId\": \"pv5uXd6TH0Ujhzgq\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3011/effects?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uuid\":\"Actor.V5OF1QXHjaIy6iO8\",\"effectId\":\"pv5uXd6TH0Ujhzgq\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/effects'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n        'Content-Type': 'application/json'\n    },\n    json={\n      \"uuid\": \"Actor.V5OF1QXHjaIy6iO8\",\n      \"effectId\": \"pv5uXd6TH0Ujhzgq\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/effects';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"uuid\": \"Actor.V5OF1QXHjaIy6iO8\",\n        \"effectId\": \"pv5uXd6TH0Ujhzgq\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/effects🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"uuid\":\"Actor.V5OF1QXHjaIy6iO8\",\"effectId\":\"pv5uXd6TH0Ujhzgq\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤DELETE /effects🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 63❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

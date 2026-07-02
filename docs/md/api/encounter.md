@@ -36,6 +36,161 @@ Retrieves a list of all currently active encounters in the Foundry world.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/encounters';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/encounters?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/encounters'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/encounters';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/encounters🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /encounters🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "encounters-result",
+  "requestId": "encounters_1782956929290",
+  "encounters": [
+    {
+      "id": "OsBeVLchZ1cMoIi3",
+      "name": "New Encounter",
+      "round": 1,
+      "turn": 0,
+      "current": true,
+      "combatants": [
+        {
+          "id": "xlDsyE2WEgWJpTUB",
+          "name": "Updated Test Actor",
+          "tokenUuid": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM",
+          "actorUuid": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM.Actor.V5OF1QXHjaIy6iO8",
+          "img": "icons/svg/mystery-man.svg",
+          "initiative": 13,
+          "hidden": false,
+          "defeated": false
+        }
+      ]
+    }
+  ]
+}
+```
+
+
 ---
 
 ## POST /start-encounter
@@ -71,6 +226,178 @@ Initiates a new encounter in the Foundry world.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"tokens","type":"array","required":false,"source":"body"},{"name":"startWithSelected","type":"boolean","required":false,"source":"body"},{"name":"startWithPlayers","type":"boolean","required":false,"source":"body"},{"name":"rollNPC","type":"boolean","required":false,"source":"body"},{"name":"rollAll","type":"boolean","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/start-encounter';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "startWithSelected": true,
+      "rollAll": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/start-encounter?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"startWithSelected":true,"rollAll":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/start-encounter'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "startWithSelected": True,
+      "rollAll": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/start-encounter';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "startWithSelected": true,
+        "rollAll": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/start-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"startWithSelected":true,"rollAll":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /start-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 41❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "start-encounter-result",
+  "requestId": "start-encounter_1782956929252",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "encounter": {
+    "id": "OsBeVLchZ1cMoIi3",
+    "name": "New Encounter",
+    "round": 1,
+    "turn": 0,
+    "combatants": [
+      {
+        "id": "xlDsyE2WEgWJpTUB",
+        "name": "Updated Test Actor",
+        "tokenUuid": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM",
+        "actorUuid": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM.Actor.V5OF1QXHjaIy6iO8",
+        "img": "icons/svg/mystery-man.svg",
+        "initiative": 13,
+        "hidden": false,
+        "defeated": false
+      }
+    ]
+  }
+}
+```
+
+
 ---
 
 ## POST /next-turn
@@ -100,6 +427,156 @@ Moves the encounter to the next turn.
   path="/next-turn"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/next-turn';
+const params = {
+  clientId: 'qsl-integration-test',
+  encounterId: 'OsBeVLchZ1cMoIi3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/next-turn?clientId=qsl-integration-test&encounterId=OsBeVLchZ1cMoIi3' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/next-turn'
+params = {
+    'clientId': 'qsl-integration-test',
+    'encounterId': 'OsBeVLchZ1cMoIi3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/next-turn';
+  const params = {
+    clientId: 'qsl-integration-test',
+    encounterId: 'OsBeVLchZ1cMoIi3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/next-turn🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤encounterId=OsBeVLchZ1cMoIi3🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /next-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "next-turn-result",
+  "requestId": "next-turn_1782956929294",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "action": "nextTurn",
+  "currentTurn": 0,
+  "currentRound": 2,
+  "actorTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM.Actor.V5OF1QXHjaIy6iO8",
+  "tokenTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM",
+  "encounter": {
+    "id": "OsBeVLchZ1cMoIi3",
+    "name": "New Encounter",
+    "round": 2,
+    "turn": 0
+  }
+}
+```
+
 
 ---
 
@@ -131,6 +608,156 @@ Moves the encounter to the next round.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/next-round';
+const params = {
+  clientId: 'qsl-integration-test',
+  encounterId: 'OsBeVLchZ1cMoIi3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/next-round?clientId=qsl-integration-test&encounterId=OsBeVLchZ1cMoIi3' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/next-round'
+params = {
+    'clientId': 'qsl-integration-test',
+    'encounterId': 'OsBeVLchZ1cMoIi3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/next-round';
+  const params = {
+    clientId: 'qsl-integration-test',
+    encounterId: 'OsBeVLchZ1cMoIi3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/next-round🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤encounterId=OsBeVLchZ1cMoIi3🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /next-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "next-round-result",
+  "requestId": "next-round_1782956929309",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "action": "nextRound",
+  "currentTurn": 0,
+  "currentRound": 3,
+  "actorTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM.Actor.V5OF1QXHjaIy6iO8",
+  "tokenTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM",
+  "encounter": {
+    "id": "OsBeVLchZ1cMoIi3",
+    "name": "New Encounter",
+    "round": 3,
+    "turn": 0
+  }
+}
+```
+
+
 ---
 
 ## POST /last-turn
@@ -160,6 +787,156 @@ Moves the encounter back to the last turn.
   path="/last-turn"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/last-turn';
+const params = {
+  clientId: 'qsl-integration-test',
+  encounterId: 'OsBeVLchZ1cMoIi3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/last-turn?clientId=qsl-integration-test&encounterId=OsBeVLchZ1cMoIi3' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/last-turn'
+params = {
+    'clientId': 'qsl-integration-test',
+    'encounterId': 'OsBeVLchZ1cMoIi3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/last-turn';
+  const params = {
+    clientId: 'qsl-integration-test',
+    encounterId: 'OsBeVLchZ1cMoIi3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/last-turn🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤encounterId=OsBeVLchZ1cMoIi3🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /last-turn🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "last-turn-result",
+  "requestId": "last-turn_1782956929317",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "action": "previousTurn",
+  "currentTurn": 0,
+  "currentRound": 2,
+  "actorTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM.Actor.V5OF1QXHjaIy6iO8",
+  "tokenTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM",
+  "encounter": {
+    "id": "OsBeVLchZ1cMoIi3",
+    "name": "New Encounter",
+    "round": 2,
+    "turn": 0
+  }
+}
+```
+
 
 ---
 
@@ -191,6 +968,156 @@ Moves the encounter back to the last round.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/last-round';
+const params = {
+  clientId: 'qsl-integration-test',
+  encounterId: 'OsBeVLchZ1cMoIi3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/last-round?clientId=qsl-integration-test&encounterId=OsBeVLchZ1cMoIi3' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/last-round'
+params = {
+    'clientId': 'qsl-integration-test',
+    'encounterId': 'OsBeVLchZ1cMoIi3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/last-round';
+  const params = {
+    clientId: 'qsl-integration-test',
+    encounterId: 'OsBeVLchZ1cMoIi3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/last-round🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤encounterId=OsBeVLchZ1cMoIi3🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /last-round🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "last-round-result",
+  "requestId": "last-round_1782956929326",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "action": "previousRound",
+  "currentTurn": 0,
+  "currentRound": 1,
+  "actorTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM.Actor.V5OF1QXHjaIy6iO8",
+  "tokenTurn": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM",
+  "encounter": {
+    "id": "OsBeVLchZ1cMoIi3",
+    "name": "New Encounter",
+    "round": 1,
+    "turn": 0
+  }
+}
+```
+
+
 ---
 
 ## POST /end-encounter
@@ -220,6 +1147,146 @@ Ends the current encounter in the Foundry world.
   path="/end-encounter"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/end-encounter';
+const params = {
+  clientId: 'qsl-integration-test',
+  encounterId: 'OsBeVLchZ1cMoIi3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/end-encounter?clientId=qsl-integration-test&encounterId=OsBeVLchZ1cMoIi3' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/end-encounter'
+params = {
+    'clientId': 'qsl-integration-test',
+    'encounterId': 'OsBeVLchZ1cMoIi3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/end-encounter';
+  const params = {
+    clientId: 'qsl-integration-test',
+    encounterId: 'OsBeVLchZ1cMoIi3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/end-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤encounterId=OsBeVLchZ1cMoIi3🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤POST /end-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "end-encounter-result",
+  "requestId": "end-encounter_1782956929342",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "message": "Encounter successfully ended"
+}
+```
+
 
 ---
 
@@ -254,6 +1321,171 @@ Adds selected tokens or specified UUIDs to the current encounter.
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"rollInitiative","type":"boolean","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/add-to-encounter';
+const params = {
+  clientId: 'qsl-integration-test',
+  encounterId: 'OsBeVLchZ1cMoIi3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "selected": true,
+      "uuids": [],
+      "rollInitiative": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/add-to-encounter?clientId=qsl-integration-test&encounterId=OsBeVLchZ1cMoIi3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"selected":true,"uuids":[],"rollInitiative":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/add-to-encounter'
+params = {
+    'clientId': 'qsl-integration-test',
+    'encounterId': 'OsBeVLchZ1cMoIi3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "selected": True,
+      "uuids": [],
+      "rollInitiative": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/add-to-encounter';
+  const params = {
+    clientId: 'qsl-integration-test',
+    encounterId: 'OsBeVLchZ1cMoIi3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "selected": true,
+        "uuids": [],
+        "rollInitiative": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/add-to-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤encounterId=OsBeVLchZ1cMoIi3🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"selected":true,"uuids":[],"rollInitiative":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /add-to-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 50❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "add-to-encounter-result",
+  "requestId": "add-to-encounter_1782956929335",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "added": [
+    "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM"
+  ],
+  "failed": []
+}
+```
+
+
 ---
 
 ## POST /remove-from-encounter
@@ -285,4 +1517,163 @@ Removes selected tokens or specified UUIDs from the current encounter.
   path="/remove-from-encounter"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"encounter","type":"string","required":false,"source":"body"},{"name":"selected","type":"boolean","required":false,"source":"query"},{"name":"uuids","type":"array","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/remove-from-encounter';
+const params = {
+  clientId: 'qsl-integration-test',
+  encounterId: 'OsBeVLchZ1cMoIi3'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "selected": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/remove-from-encounter?clientId=qsl-integration-test&encounterId=OsBeVLchZ1cMoIi3' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"selected":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/remove-from-encounter'
+params = {
+    'clientId': 'qsl-integration-test',
+    'encounterId': 'OsBeVLchZ1cMoIi3'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "selected": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/remove-from-encounter';
+  const params = {
+    clientId: 'qsl-integration-test',
+    encounterId: 'OsBeVLchZ1cMoIi3'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "selected": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/remove-from-encounter🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤encounterId=OsBeVLchZ1cMoIi3🔤 ➡️ encounterId
+  🔤?🧲clientId🧲&🧲encounterId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"selected":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /remove-from-encounter🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 17❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "remove-from-encounter-result",
+  "requestId": "remove-from-encounter_1782956929331",
+  "encounterId": "OsBeVLchZ1cMoIi3",
+  "removed": [
+    "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM"
+  ],
+  "failed": []
+}
+```
+
 

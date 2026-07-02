@@ -4,10 +4,10 @@
     "method": "POST",
     "description": "/chat - Send message",
     "request": {
-      "url": "http://localhost:3010/chat",
+      "url": "http://localhost:3011/chat",
       "method": "POST",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       },
       "body": {
         "content": "Hello from the REST API test suite!",
@@ -18,23 +18,23 @@
       "status": 200,
       "data": {
         "type": "chat-send-result",
-        "requestId": "chat-send_1780520795832",
+        "requestId": "chat-send_1782956929672",
         "success": true,
         "data": {
-          "id": "b4VlvhmspvAoORpv",
-          "uuid": "ChatMessage.b4VlvhmspvAoORpv",
+          "id": "iM6Dvf2zMmtKz6GY",
+          "uuid": "ChatMessage.iM6Dvf2zMmtKz6GY",
           "content": "Hello from the REST API test suite!",
           "speaker": {
             "scene": null,
             "actor": null,
             "token": null
           },
-          "timestamp": 1780520795832,
+          "timestamp": 1782956929673,
           "whisper": [],
           "type": "base",
           "author": {
-            "id": "fCfNJPT9Atc26yyv",
-            "name": "tester"
+            "id": "cpvaGKk3hgoBCzCS",
+            "name": "Gamemaster"
           },
           "flavor": "Test Message",
           "isRoll": false,
@@ -44,11 +44,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"content\": \"Hello from the REST API test suite!\",\n      \"flavor\": \"Test Message\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/chat?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"content\":\"Hello from the REST API test suite!\",\"flavor\":\"Test Message\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"content\": \"Hello from the REST API test suite!\",\n      \"flavor\": \"Test Message\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"content\": \"Hello from the REST API test suite!\",\n        \"flavor\": \"Test Message\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"content\":\"Hello from the REST API test suite!\",\"flavor\":\"Test Message\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/chat';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"content\": \"Hello from the REST API test suite!\",\n      \"flavor\": \"Test Message\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/chat?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"content\":\"Hello from the REST API test suite!\",\"flavor\":\"Test Message\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/chat'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    json={\n      \"content\": \"Hello from the REST API test suite!\",\n      \"flavor\": \"Test Message\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/chat';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"content\": \"Hello from the REST API test suite!\",\n        \"flavor\": \"Test Message\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/chat🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"content\":\"Hello from the REST API test suite!\",\"flavor\":\"Test Message\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -56,23 +56,23 @@
     "method": "GET",
     "description": "/chat - Get messages",
     "request": {
-      "url": "http://localhost:3010/chat",
+      "url": "http://localhost:3011/chat",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "chat-messages-result",
-        "requestId": "chat-messages_1780520795841",
+        "requestId": "chat-messages_1782956929682",
         "success": true,
         "data": {
           "messages": [
             {
-              "id": "ebqvMJ3htv8huIXU",
-              "uuid": "ChatMessage.ebqvMJ3htv8huIXU",
+              "id": "6378UGmZxjLze4HK",
+              "uuid": "ChatMessage.6378UGmZxjLze4HK",
               "content": "This is a whispered test message",
               "speaker": {
                 "scene": null,
@@ -80,12 +80,12 @@
                 "token": null,
                 "alias": "API Test Bot"
               },
-              "timestamp": 1780520795838,
+              "timestamp": 1782956929678,
               "whisper": [],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "",
               "isRoll": false,
@@ -93,20 +93,20 @@
               "flags": {}
             },
             {
-              "id": "b4VlvhmspvAoORpv",
-              "uuid": "ChatMessage.b4VlvhmspvAoORpv",
+              "id": "iM6Dvf2zMmtKz6GY",
+              "uuid": "ChatMessage.iM6Dvf2zMmtKz6GY",
               "content": "Hello from the REST API test suite!",
               "speaker": {
                 "scene": null,
                 "actor": null,
                 "token": null
               },
-              "timestamp": 1780520795832,
+              "timestamp": 1782956929673,
               "whisper": [],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "Test Message",
               "isRoll": false,
@@ -114,27 +114,27 @@
               "flags": {}
             },
             {
-              "id": "BTMIePPJJXh3ijZm",
-              "uuid": "ChatMessage.BTMIePPJJXh3ijZm",
+              "id": "2D1febYmjUQHZAD7",
+              "uuid": "ChatMessage.2D1febYmjUQHZAD7",
               "content": "12",
               "speaker": {
-                "scene": "Lxz4vYKs8VE4gpcw",
-                "actor": "u3iSEGYdk5UNZy7X",
-                "token": "IFvYJKPvTx9b6rNm",
+                "scene": "SM7AhDv5JgZh6IvK",
+                "actor": "V5OF1QXHjaIy6iO8",
+                "token": "h982FKt6QfxjSNkM",
                 "alias": "Updated Test Actor"
               },
-              "timestamp": 1780520795242,
+              "timestamp": 1782956929344,
               "whisper": [],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "Updated Test Actor rolls for Initiative!",
               "isRoll": true,
               "rolls": [
                 {
-                  "formula": "1d20 + 3 + 0",
+                  "formula": "1d20 + 0",
                   "total": 12,
                   "isCritical": false,
                   "isFumble": false,
@@ -143,7 +143,7 @@
                       "faces": 20,
                       "results": [
                         {
-                          "result": 9,
+                          "result": 12,
                           "active": true
                         }
                       ]
@@ -158,28 +158,28 @@
               }
             },
             {
-              "id": "IjEnQczHk5LOQYVm",
-              "uuid": "ChatMessage.IjEnQczHk5LOQYVm",
-              "content": "7",
+              "id": "DBB2LWByE7CDbLyG",
+              "uuid": "ChatMessage.DBB2LWByE7CDbLyG",
+              "content": "13",
               "speaker": {
-                "scene": "Lxz4vYKs8VE4gpcw",
-                "actor": "u3iSEGYdk5UNZy7X",
-                "token": "IFvYJKPvTx9b6rNm",
+                "scene": "SM7AhDv5JgZh6IvK",
+                "actor": "V5OF1QXHjaIy6iO8",
+                "token": "h982FKt6QfxjSNkM",
                 "alias": "Updated Test Actor"
               },
-              "timestamp": 1780520795182,
+              "timestamp": 1782956929272,
               "whisper": [],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "Updated Test Actor rolls for Initiative!",
               "isRoll": true,
               "rolls": [
                 {
-                  "formula": "1d20 + 3 + 0",
-                  "total": 7,
+                  "formula": "1d20 + 0",
+                  "total": 13,
                   "isCritical": false,
                   "isFumble": false,
                   "dice": [
@@ -187,7 +187,7 @@
                       "faces": 20,
                       "results": [
                         {
-                          "result": 4,
+                          "result": 13,
                           "active": true
                         }
                       ]
@@ -202,8 +202,8 @@
               }
             },
             {
-              "id": "ZUvdDikeTIHmIu3a",
-              "uuid": "ChatMessage.ZUvdDikeTIHmIu3a",
+              "id": "s6tlG0UaCYaDkjnS",
+              "uuid": "ChatMessage.s6tlG0UaCYaDkjnS",
               "content": "<b>⚠ REST API execute-js:</b> <code>const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;</code>",
               "speaker": {
                 "scene": null,
@@ -211,14 +211,14 @@
                 "token": null,
                 "alias": "REST API Module"
               },
-              "timestamp": 1780520794953,
+              "timestamp": 1782956929094,
               "whisper": [
-                "fCfNJPT9Atc26yyv"
+                "cpvaGKk3hgoBCzCS"
               ],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "",
               "isRoll": false,
@@ -226,23 +226,23 @@
               "flags": {}
             },
             {
-              "id": "UZt6KLsFGPFqlko9",
-              "uuid": "ChatMessage.UZt6KLsFGPFqlko9",
-              "content": "<b>⚠ REST API macro-execute:</b> <code>test-macro</code> (Macro.3bMxRd6G3ULP6qKD)",
+              "id": "MJLqSQ7or8rLJ3EC",
+              "uuid": "ChatMessage.MJLqSQ7or8rLJ3EC",
+              "content": "<b>⚠ REST API macro-execute:</b> <code>test-macro</code> (Macro.7zDXWfoXIJPrJ7uh)",
               "speaker": {
                 "scene": null,
                 "actor": null,
                 "token": null,
                 "alias": "REST API Module"
               },
-              "timestamp": 1780520794716,
+              "timestamp": 1782956928933,
               "whisper": [
-                "fCfNJPT9Atc26yyv"
+                "cpvaGKk3hgoBCzCS"
               ],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "",
               "isRoll": false,
@@ -250,20 +250,20 @@
               "flags": {}
             },
             {
-              "id": "EeNCkvN2wIqzOS8H",
-              "uuid": "ChatMessage.EeNCkvN2wIqzOS8H",
+              "id": "3L2eTdjND7lEQHkX",
+              "uuid": "ChatMessage.3L2eTdjND7lEQHkX",
               "content": "17",
               "speaker": {
                 "scene": null,
                 "actor": null,
                 "token": null
               },
-              "timestamp": 1780520764954,
+              "timestamp": 1782956919207,
               "whisper": [],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "SSE Test Roll",
               "isRoll": true,
@@ -289,27 +289,27 @@
               "flags": {}
             },
             {
-              "id": "KugA8IpsJwRIh2WW",
-              "uuid": "ChatMessage.KugA8IpsJwRIh2WW",
-              "content": "3",
+              "id": "IOINl0FJFZcwDwxD",
+              "uuid": "ChatMessage.IOINl0FJFZcwDwxD",
+              "content": "7",
               "speaker": {
                 "scene": null,
                 "actor": null,
                 "token": null
               },
-              "timestamp": 1780520764436,
+              "timestamp": 1782956918688,
               "whisper": [],
               "type": "base",
               "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
+                "id": "cpvaGKk3hgoBCzCS",
+                "name": "Gamemaster"
               },
               "flavor": "Test Roll",
               "isRoll": true,
               "rolls": [
                 {
                   "formula": "2d20kh",
-                  "total": 3,
+                  "total": 7,
                   "isCritical": false,
                   "isFumble": false,
                   "dice": [
@@ -318,74 +318,10 @@
                       "results": [
                         {
                           "result": 3,
-                          "active": true
+                          "active": false
                         },
                         {
-                          "result": 2,
-                          "active": false
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "flags": {}
-            },
-            {
-              "id": "Z2FI0RWHgB0bfBZY",
-              "uuid": "ChatMessage.Z2FI0RWHgB0bfBZY",
-              "content": "<i class=\"fas fa-link\"></i> REST API connected to <code>localhost:3010</code>",
-              "speaker": {
-                "scene": null,
-                "actor": null,
-                "token": null,
-                "alias": "REST API Module"
-              },
-              "timestamp": 1780520731407,
-              "whisper": [
-                "fCfNJPT9Atc26yyv"
-              ],
-              "type": "base",
-              "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
-              },
-              "flavor": "",
-              "isRoll": false,
-              "rolls": [],
-              "flags": {}
-            },
-            {
-              "id": "7rkUTfWPqEahRO0z",
-              "uuid": "ChatMessage.7rkUTfWPqEahRO0z",
-              "content": "",
-              "speaker": {
-                "scene": "O4QVJJohU6H30LWQ",
-                "actor": "kYYpu1p0lssxxmxL",
-                "token": "cjWr9mf2KGAwEquR",
-                "alias": "Updated Test Actor"
-              },
-              "timestamp": 1780519582153,
-              "whisper": [],
-              "type": "base",
-              "author": {
-                "id": "fCfNJPT9Atc26yyv",
-                "name": "tester"
-              },
-              "flavor": "Constitution Saving Throw",
-              "isRoll": true,
-              "rolls": [
-                {
-                  "formula": "1d20 + 1",
-                  "total": 14,
-                  "isCritical": false,
-                  "isFumble": false,
-                  "dice": [
-                    {
-                      "faces": 20,
-                      "results": [
-                        {
-                          "result": 13,
+                          "result": 7,
                           "active": true
                         }
                       ]
@@ -393,89 +329,81 @@
                   ]
                 }
               ],
-              "flags": {
-                "dnd5e": {
-                  "messageType": "roll",
-                  "roll": {
-                    "ability": "con",
-                    "type": "save"
-                  }
-                }
-              }
+              "flags": {}
             }
           ],
-          "total": 22,
+          "total": 8,
           "offset": 0,
           "limit": 10
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  limit: '10'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/chat?clientId=fvtt_d3db244ce1d8af0b&limit=10' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'limit': '10'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    limit: '10'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤limit=10🔤 ➡️ limit\n  🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/chat';\nconst params = {\n  clientId: 'qsl-integration-test',\n  limit: '10'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/chat?clientId=qsl-integration-test&limit=10' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/chat'\nparams = {\n    'clientId': 'qsl-integration-test',\n    'limit': '10'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/chat';\n  const params = {\n    clientId: 'qsl-integration-test',\n    limit: '10'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/chat🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤limit=10🔤 ➡️ limit\n  🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/chat/b4VlvhmspvAoORpv",
+    "endpoint": "/chat/iM6Dvf2zMmtKz6GY",
     "method": "DELETE",
     "description": "/chat/:messageId - Delete message",
     "request": {
-      "url": "http://localhost:3010/chat/b4VlvhmspvAoORpv",
+      "url": "http://localhost:3011/chat/iM6Dvf2zMmtKz6GY",
       "method": "DELETE",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "chat-delete-result",
-        "requestId": "chat-delete_1780520795849",
+        "requestId": "chat-delete_1782956929686",
         "success": true,
         "data": {
-          "messageId": "b4VlvhmspvAoORpv"
+          "messageId": "iM6Dvf2zMmtKz6GY"
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat/b4VlvhmspvAoORpv';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/chat/b4VlvhmspvAoORpv?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat/b4VlvhmspvAoORpv'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat/b4VlvhmspvAoORpv';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat/b4VlvhmspvAoORpv🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/b4VlvhmspvAoORpv🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/chat/iM6Dvf2zMmtKz6GY';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3011/chat/iM6Dvf2zMmtKz6GY?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/chat/iM6Dvf2zMmtKz6GY'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/chat/iM6Dvf2zMmtKz6GY';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/chat/iM6Dvf2zMmtKz6GY🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/iM6Dvf2zMmtKz6GY🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
-    "endpoint": "/chat/ebqvMJ3htv8huIXU",
+    "endpoint": "/chat/6378UGmZxjLze4HK",
     "method": "DELETE",
     "description": "/chat/:messageId - Delete whispered message",
     "request": {
-      "url": "http://localhost:3010/chat/ebqvMJ3htv8huIXU",
+      "url": "http://localhost:3011/chat/6378UGmZxjLze4HK",
       "method": "DELETE",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "chat-delete-result",
-        "requestId": "chat-delete_1780520795853",
+        "requestId": "chat-delete_1782956929690",
         "success": true,
         "data": {
-          "messageId": "ebqvMJ3htv8huIXU"
+          "messageId": "6378UGmZxjLze4HK"
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat/ebqvMJ3htv8huIXU';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/chat/ebqvMJ3htv8huIXU?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat/ebqvMJ3htv8huIXU'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat/ebqvMJ3htv8huIXU';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat/ebqvMJ3htv8huIXU🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/ebqvMJ3htv8huIXU🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/chat/6378UGmZxjLze4HK';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3011/chat/6378UGmZxjLze4HK?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/chat/6378UGmZxjLze4HK'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/chat/6378UGmZxjLze4HK';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/chat/6378UGmZxjLze4HK🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/6378UGmZxjLze4HK🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -483,17 +411,17 @@
     "method": "DELETE",
     "description": "/chat - Flush all messages",
     "request": {
-      "url": "http://localhost:3010/chat",
+      "url": "http://localhost:3011/chat",
       "method": "DELETE",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "chat-flush-result",
-        "requestId": "chat-flush_1780520795859",
+        "requestId": "chat-flush_1782956929695",
         "success": true,
         "data": {
           "message": "All chat messages have been deleted"
@@ -501,11 +429,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/chat?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/chat';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3011/chat?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/chat'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/chat';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/chat🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -513,10 +441,10 @@
     "method": "GET",
     "description": "/chat/subscribe",
     "request": {
-      "url": "http://localhost:3010/chat/subscribe?clientId=fvtt_d3db244ce1d8af0b",
+      "url": "http://localhost:3011/chat/subscribe?clientId=qsl-integration-test",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
@@ -524,7 +452,7 @@
       "data": {
         "event": "connected",
         "data": {
-          "clientId": "fvtt_d3db244ce1d8af0b"
+          "clientId": "qsl-integration-test"
         }
       }
     },
@@ -534,126 +462,6 @@
       "python": "import sseclient  # pip install sseclient-py\nimport requests\nimport json\n\nbase_url = 'http://localhost:3010'\nurl = f'{base_url}/chat/subscribe'\nparams = {'clientId': 'your-client-id'}\nheaders = {\n    'x-api-key': 'your-api-key-here',\n    'Accept': 'text/event-stream'\n}\n\n# Connect to the SSE stream\nresponse = requests.get(url, params=params, headers=headers, stream=True)\nclient = sseclient.SSEClient(response)\n\nfor event in client.events():\n    data = json.loads(event.data)\n\n    if event.event == 'connected':\n        print(f'Connected: {data[\"clientId\"]}')\n    elif event.event in ('chat-create', 'chat-update'):\n        prefix = 'new' if event.event == 'chat-create' else 'updated'\n        speaker = (data.get('author') or {}).get('name') or (data.get('speaker') or {}).get('alias') or '?'\n        print(f'[{prefix}] {speaker}: {data.get(\"content\", \"\")}')\n        if data.get('flavor'):\n            print(f'  Flavor: {data[\"flavor\"]}')\n        if data.get('isRoll') and data.get('rolls'):\n            for roll in data['rolls']:\n                dice_parts = []\n                for d in roll.get('dice', []):\n                    results = ', '.join(\n                        f'{r[\"result\"]}{\"\" if r.get(\"active\", True) else \"(dropped)\"}'\n                        for r in d.get('results', [])\n                    )\n                    dice_parts.append(f'{results} (d{d[\"faces\"]})')\n                crit = ' CRITICAL!' if roll.get('isCritical') else ''\n                fumble = ' FUMBLE!' if roll.get('isFumble') else ''\n                print(f'  Roll: {roll[\"formula\"]} = {roll[\"total\"]}{crit}{fumble}')\n                if dice_parts:\n                    print(f'  Dice: {\" + \".join(dice_parts)}')\n    elif event.event == 'chat-delete':\n        print(f'Message deleted: {json.dumps(data)}')",
       "typescript": "// npm install eventsource\nimport { EventSource } from 'eventsource';\n\nconst baseUrl = 'http://localhost:3010';\nconst apiKey = 'your-api-key-here';\nconst url = `${baseUrl}/chat/subscribe?clientId=your-client-id`;\n\n// eventsource v4 uses a custom fetch function to inject headers\nconst eventSource = new EventSource(url, {\n  fetch: (input, init) => fetch(input, {\n    ...init,\n    headers: { ...init?.headers, 'x-api-key': apiKey }\n  })\n});\n\ninterface ChatMessage {\n  id: string;\n  content: string;\n  type: string;\n  author: { id: string; name: string };\n  speaker: any;\n  timestamp: number;\n  flavor: string;\n  isRoll: boolean;\n  rolls: {\n    formula: string;\n    total: number;\n    isCritical: boolean;\n    isFumble: boolean;\n    dice: { faces: number; results: { result: number; active: boolean }[] }[];\n  }[];\n  whisper: string[];\n  flags: Record<string, any>;\n}\n\nfunction formatMessage(prefix: string, message: ChatMessage) {\n  const speaker = message.author?.name || message.speaker?.alias || '?';\n  console.log(`[${prefix}] ${speaker}: ${message.content}`);\n  if (message.flavor) console.log(`  Flavor: ${message.flavor}`);\n  if (message.isRoll && message.rolls?.length > 0) {\n    for (const roll of message.rolls) {\n      const dice = roll.dice?.map(d =>\n        `${d.results.map(r => `${r.result}${r.active ? '' : '(dropped)'}`).join(', ')} (d${d.faces})`\n      ).join(' + ') || '';\n      console.log(`  Roll: ${roll.formula} = ${roll.total}${roll.isCritical ? ' CRITICAL!' : ''}${roll.isFumble ? ' FUMBLE!' : ''}`);\n      if (dice) console.log(`  Dice: ${dice}`);\n    }\n  }\n}\n\neventSource.addEventListener('connected', (event: MessageEvent) => {\n  const data = JSON.parse(event.data);\n  console.log('Connected:', data.clientId);\n});\n\neventSource.addEventListener('chat-create', (event: MessageEvent) => {\n  const message: ChatMessage = JSON.parse(event.data);\n  formatMessage('new', message);\n});\n\neventSource.addEventListener('chat-update', (event: MessageEvent) => {\n  const message: ChatMessage = JSON.parse(event.data);\n  formatMessage('updated', message);\n});\n\neventSource.addEventListener('chat-delete', (event: MessageEvent) => {\n  const data = JSON.parse(event.data);\n  console.log('Message deleted:', JSON.stringify(data));\n});\n\neventSource.onerror = (error) => {\n  console.error('SSE error:', error);\n};\n\n// To disconnect: eventSource.close();",
       "emojicode": "Just don't 😂"
-    }
-  },
-  {
-    "endpoint": "/chat/oEhYWzM31r1jXIqp",
-    "method": "DELETE",
-    "description": "/chat/:messageId - Delete message",
-    "request": {
-      "url": "http://localhost:3010/chat/oEhYWzM31r1jXIqp",
-      "method": "DELETE",
-      "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
-      }
-    },
-    "response": {
-      "status": 200,
-      "data": {
-        "type": "chat-delete-result",
-        "requestId": "chat-delete_1780520795897",
-        "success": true,
-        "data": {
-          "messageId": "oEhYWzM31r1jXIqp"
-        }
-      }
-    },
-    "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat/oEhYWzM31r1jXIqp';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/chat/oEhYWzM31r1jXIqp?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat/oEhYWzM31r1jXIqp'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat/oEhYWzM31r1jXIqp';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat/oEhYWzM31r1jXIqp🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/oEhYWzM31r1jXIqp🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
-    }
-  },
-  {
-    "endpoint": "/chat/6I2TGrX3uPStbFib",
-    "method": "DELETE",
-    "description": "/chat/:messageId - Delete whispered message",
-    "request": {
-      "url": "http://localhost:3010/chat/6I2TGrX3uPStbFib",
-      "method": "DELETE",
-      "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
-      }
-    },
-    "response": {
-      "status": 200,
-      "data": {
-        "type": "chat-delete-result",
-        "requestId": "chat-delete_1780520795902",
-        "success": true,
-        "data": {
-          "messageId": "6I2TGrX3uPStbFib"
-        }
-      }
-    },
-    "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat/6I2TGrX3uPStbFib';\nconst params = {\n  clientId: 'fvtt_099ad17ea199e7e3'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/chat/6I2TGrX3uPStbFib?clientId=fvtt_099ad17ea199e7e3' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat/6I2TGrX3uPStbFib'\nparams = {\n    'clientId': 'fvtt_099ad17ea199e7e3'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat/6I2TGrX3uPStbFib';\n  const params = {\n    clientId: 'fvtt_099ad17ea199e7e3'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat/6I2TGrX3uPStbFib🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_099ad17ea199e7e3🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/6I2TGrX3uPStbFib🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
-    }
-  },
-  {
-    "endpoint": "/chat/kIpWr5hzfaCTe1Nj",
-    "method": "DELETE",
-    "description": "/chat/:messageId - Delete message",
-    "request": {
-      "url": "http://localhost:3010/chat/kIpWr5hzfaCTe1Nj",
-      "method": "DELETE",
-      "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
-      }
-    },
-    "response": {
-      "status": 200,
-      "data": {
-        "type": "chat-delete-result",
-        "requestId": "chat-delete_1780520795966",
-        "success": true,
-        "data": {
-          "messageId": "kIpWr5hzfaCTe1Nj"
-        }
-      }
-    },
-    "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat/kIpWr5hzfaCTe1Nj';\nconst params = {\n  clientId: 'fvtt_20b2e79d7d679516'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/chat/kIpWr5hzfaCTe1Nj?clientId=fvtt_20b2e79d7d679516' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat/kIpWr5hzfaCTe1Nj'\nparams = {\n    'clientId': 'fvtt_20b2e79d7d679516'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat/kIpWr5hzfaCTe1Nj';\n  const params = {\n    clientId: 'fvtt_20b2e79d7d679516'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat/kIpWr5hzfaCTe1Nj🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_20b2e79d7d679516🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/kIpWr5hzfaCTe1Nj🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
-    }
-  },
-  {
-    "endpoint": "/chat/GTsudUotBNzYsUOg",
-    "method": "DELETE",
-    "description": "/chat/:messageId - Delete whispered message",
-    "request": {
-      "url": "http://localhost:3010/chat/GTsudUotBNzYsUOg",
-      "method": "DELETE",
-      "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
-      }
-    },
-    "response": {
-      "status": 200,
-      "data": {
-        "type": "chat-delete-result",
-        "requestId": "chat-delete_1780520795971",
-        "success": true,
-        "data": {
-          "messageId": "GTsudUotBNzYsUOg"
-        }
-      }
-    },
-    "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/chat/GTsudUotBNzYsUOg';\nconst params = {\n  clientId: 'fvtt_20b2e79d7d679516'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/chat/GTsudUotBNzYsUOg?clientId=fvtt_20b2e79d7d679516' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/chat/GTsudUotBNzYsUOg'\nparams = {\n    'clientId': 'fvtt_20b2e79d7d679516'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/chat/GTsudUotBNzYsUOg';\n  const params = {\n    clientId: 'fvtt_20b2e79d7d679516'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/chat/GTsudUotBNzYsUOg🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_20b2e79d7d679516🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /chat/GTsudUotBNzYsUOg🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

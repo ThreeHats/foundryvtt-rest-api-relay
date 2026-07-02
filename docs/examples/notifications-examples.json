@@ -4,10 +4,10 @@
     "method": "GET",
     "description": "/auth/notification-settings - Get defaults",
     "request": {
-      "url": "http://localhost:3010/auth/notification-settings",
+      "url": "http://localhost:3011/auth/notification-settings",
       "method": "GET",
       "headers": {
-        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
+        "Authorization": "Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b"
       }
     },
     "response": {
@@ -30,11 +30,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/notification-settings';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/auth/notification-settings' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/notification-settings'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/notification-settings';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/notification-settings🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/notification-settings HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/notification-settings';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/auth/notification-settings' \\\n  -H \"Authorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/notification-settings'\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    headers={\n        'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/notification-settings';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/notification-settings🔤 ➡️ path\n\n  💭 Build HTTP request\n  🔤GET /auth/notification-settings HTTP/1.1❌r❌nHost: localhost:3011❌r❌nAuthorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -42,10 +42,10 @@
     "method": "PUT",
     "description": "/auth/notification-settings - Update webhook",
     "request": {
-      "url": "http://localhost:3010/auth/notification-settings",
+      "url": "http://localhost:3011/auth/notification-settings",
       "method": "PUT",
       "headers": {
-        "Authorization": "Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc"
+        "Authorization": "Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b"
       },
       "body": {
         "notifyOnConnect": true,
@@ -72,11 +72,11 @@
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/auth/notification-settings';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'PUT',\n  headers: {\n    'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"notifyOnConnect\": true,\n      \"discordWebhookUrl\": \"https://discord.com/api/webhooks/test/test\",\n      \"notifyEmail\": \"\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X PUT 'http://localhost:3010/auth/notification-settings' \\\n  -H \"Authorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"notifyOnConnect\":true,\"discordWebhookUrl\":\"https://discord.com/api/webhooks/test/test\",\"notifyEmail\":\"\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/auth/notification-settings'\nurl = f'{base_url}{path}'\n\nresponse = requests.put(\n    url,\n    headers={\n        'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc'\n    },\n    json={\n      \"notifyOnConnect\": True,\n      \"discordWebhookUrl\": \"https://discord.com/api/webhooks/test/test\",\n      \"notifyEmail\": \"\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/auth/notification-settings';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'put',\n    headers: {\n      'Authorization': 'Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"notifyOnConnect\": true,\n        \"discordWebhookUrl\": \"https://discord.com/api/webhooks/test/test\",\n        \"notifyEmail\": \"\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/auth/notification-settings🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"notifyOnConnect\":true,\"discordWebhookUrl\":\"https://discord.com/api/webhooks/test/test\",\"notifyEmail\":\"\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PUT /auth/notification-settings HTTP/1.1❌r❌nHost: localhost:3010❌r❌nAuthorization: Bearer 288adad9312ec64eff74b5bb706b29916ee70d053366d1def53f90cf74ff55cc❌r❌nContent-Type: application/json❌r❌nContent-Length: 106❌r❌n❌r❌n{\"notifyOnConnect\":true,\"discordWebhookUrl\":\"https://discord.com/api/webhooks/test/test\",\"notifyEmail\":\"\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/auth/notification-settings';\nconst url = `${baseUrl}${path}`;\n\nconst response = await fetch(url, {\n  method: 'PUT',\n  headers: {\n    'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"notifyOnConnect\": true,\n      \"discordWebhookUrl\": \"https://discord.com/api/webhooks/test/test\",\n      \"notifyEmail\": \"\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X PUT 'http://localhost:3011/auth/notification-settings' \\\n  -H \"Authorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"notifyOnConnect\":true,\"discordWebhookUrl\":\"https://discord.com/api/webhooks/test/test\",\"notifyEmail\":\"\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/auth/notification-settings'\nurl = f'{base_url}{path}'\n\nresponse = requests.put(\n    url,\n    headers={\n        'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b'\n    },\n    json={\n      \"notifyOnConnect\": True,\n      \"discordWebhookUrl\": \"https://discord.com/api/webhooks/test/test\",\n      \"notifyEmail\": \"\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/auth/notification-settings';\n  const url = `${baseUrl}${path}`;\n\n  const response = await axios({\n    method: 'put',\n    headers: {\n      'Authorization': 'Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"notifyOnConnect\": true,\n        \"discordWebhookUrl\": \"https://discord.com/api/webhooks/test/test\",\n        \"notifyEmail\": \"\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/auth/notification-settings🔤 ➡️ path\n\n  💭 Request body\n  🔤{\"notifyOnConnect\":true,\"discordWebhookUrl\":\"https://discord.com/api/webhooks/test/test\",\"notifyEmail\":\"\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PUT /auth/notification-settings HTTP/1.1❌r❌nHost: localhost:3011❌r❌nAuthorization: Bearer 63adfd8bea624ffab4373f63d5c0fe28e552beaa85e13f11e52d5c6f9e26793b❌r❌nContent-Type: application/json❌r❌nContent-Length: 106❌r❌n❌r❌n{\"notifyOnConnect\":true,\"discordWebhookUrl\":\"https://discord.com/api/webhooks/test/test\",\"notifyEmail\":\"\"}🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

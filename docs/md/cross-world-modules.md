@@ -184,12 +184,15 @@ With auto-start enabled on World B's Known Client row, the relay will:
 2. Detect that World B is offline
 3. Look up the user's stored Foundry credentials for World B
 4. Spawn a ChromeDP headless session, log into World B as the configured user
-5. Wait for the headless module to connect to the relay
-6. Forward the action to the now-connected headless module
-7. Return the response to World A's module
-8. Tear down the headless session after a configurable idle timeout
+5. If Foundry is sitting on the setup/world-list screen, launch the world — the credential's optional **World** field (a world title or id) if set, otherwise the world this Known Client last connected as
+6. Wait for the headless module to connect to the relay
+7. Forward the action to the now-connected headless module
+8. Return the response to World A's module
+9. Tear down the headless session after a configurable idle timeout
 
 This is fully relay-managed. The source module doesn't need to know how to start headless sessions or manage credentials.
+
+> Set the **World** field on a stored credential (Foundry Credentials page) when the credential's Foundry server hosts more than one world, so auto-start launches the right one. Leave it blank to let the relay reuse whatever world that connection last ran under.
 
 ## Security implications
 

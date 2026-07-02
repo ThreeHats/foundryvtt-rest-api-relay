@@ -41,6 +41,413 @@ Retrieves chat messages from the Foundry world with optional pagination and filt
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"limit","type":"number","required":false,"source":"query"},{"name":"offset","type":"number","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"},{"name":"chatType","type":"number","required":false,"source":"query"},{"name":"speaker","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/chat';
+const params = {
+  clientId: 'qsl-integration-test',
+  limit: '10'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/chat?clientId=qsl-integration-test&limit=10' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/chat'
+params = {
+    'clientId': 'qsl-integration-test',
+    'limit': '10'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/chat';
+  const params = {
+    clientId: 'qsl-integration-test',
+    limit: '10'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/chat🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤limit=10🔤 ➡️ limit
+  🔤?🧲clientId🧲&🧲limit🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "chat-messages-result",
+  "requestId": "chat-messages_1782956929682",
+  "success": true,
+  "data": {
+    "messages": [
+      {
+        "id": "6378UGmZxjLze4HK",
+        "uuid": "ChatMessage.6378UGmZxjLze4HK",
+        "content": "This is a whispered test message",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null,
+          "alias": "API Test Bot"
+        },
+        "timestamp": 1782956929678,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "",
+        "isRoll": false,
+        "rolls": [],
+        "flags": {}
+      },
+      {
+        "id": "iM6Dvf2zMmtKz6GY",
+        "uuid": "ChatMessage.iM6Dvf2zMmtKz6GY",
+        "content": "Hello from the REST API test suite!",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null
+        },
+        "timestamp": 1782956929673,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "Test Message",
+        "isRoll": false,
+        "rolls": [],
+        "flags": {}
+      },
+      {
+        "id": "2D1febYmjUQHZAD7",
+        "uuid": "ChatMessage.2D1febYmjUQHZAD7",
+        "content": "12",
+        "speaker": {
+          "scene": "SM7AhDv5JgZh6IvK",
+          "actor": "V5OF1QXHjaIy6iO8",
+          "token": "h982FKt6QfxjSNkM",
+          "alias": "Updated Test Actor"
+        },
+        "timestamp": 1782956929344,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "Updated Test Actor rolls for Initiative!",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20 + 0",
+            "total": 12,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 12,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {
+          "core": {
+            "initiativeRoll": true
+          }
+        }
+      },
+      {
+        "id": "DBB2LWByE7CDbLyG",
+        "uuid": "ChatMessage.DBB2LWByE7CDbLyG",
+        "content": "13",
+        "speaker": {
+          "scene": "SM7AhDv5JgZh6IvK",
+          "actor": "V5OF1QXHjaIy6iO8",
+          "token": "h982FKt6QfxjSNkM",
+          "alias": "Updated Test Actor"
+        },
+        "timestamp": 1782956929272,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "Updated Test Actor rolls for Initiative!",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20 + 0",
+            "total": 13,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 13,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {
+          "core": {
+            "initiativeRoll": true
+          }
+        }
+      },
+      {
+        "id": "s6tlG0UaCYaDkjnS",
+        "uuid": "ChatMessage.s6tlG0UaCYaDkjnS",
+        "content": "<b>⚠ REST API execute-js:</b> <code>const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;</code>",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null,
+          "alias": "REST API Module"
+        },
+        "timestamp": 1782956929094,
+        "whisper": [
+          "cpvaGKk3hgoBCzCS"
+        ],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "",
+        "isRoll": false,
+        "rolls": [],
+        "flags": {}
+      },
+      {
+        "id": "MJLqSQ7or8rLJ3EC",
+        "uuid": "ChatMessage.MJLqSQ7or8rLJ3EC",
+        "content": "<b>⚠ REST API macro-execute:</b> <code>test-macro</code> (Macro.7zDXWfoXIJPrJ7uh)",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null,
+          "alias": "REST API Module"
+        },
+        "timestamp": 1782956928933,
+        "whisper": [
+          "cpvaGKk3hgoBCzCS"
+        ],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "",
+        "isRoll": false,
+        "rolls": [],
+        "flags": {}
+      },
+      {
+        "id": "3L2eTdjND7lEQHkX",
+        "uuid": "ChatMessage.3L2eTdjND7lEQHkX",
+        "content": "17",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null
+        },
+        "timestamp": 1782956919207,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "SSE Test Roll",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "1d20",
+            "total": 17,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 17,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {}
+      },
+      {
+        "id": "IOINl0FJFZcwDwxD",
+        "uuid": "ChatMessage.IOINl0FJFZcwDwxD",
+        "content": "7",
+        "speaker": {
+          "scene": null,
+          "actor": null,
+          "token": null
+        },
+        "timestamp": 1782956918688,
+        "whisper": [],
+        "type": "base",
+        "author": {
+          "id": "cpvaGKk3hgoBCzCS",
+          "name": "Gamemaster"
+        },
+        "flavor": "Test Roll",
+        "isRoll": true,
+        "rolls": [
+          {
+            "formula": "2d20kh",
+            "total": 7,
+            "isCritical": false,
+            "isFumble": false,
+            "dice": [
+              {
+                "faces": 20,
+                "results": [
+                  {
+                    "result": 3,
+                    "active": false
+                  },
+                  {
+                    "result": 7,
+                    "active": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "flags": {}
+      }
+    ],
+    "total": 8,
+    "offset": 0,
+    "limit": 10
+  }
+}
+```
+
+
 ---
 
 ## POST /chat
@@ -76,6 +483,181 @@ Creates a new chat message in the Foundry world.
   parameters={[{"name":"content","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"whisper","type":"array","required":false,"source":"body"},{"name":"speaker","type":"string","required":false,"source":"body"},{"name":"alias","type":"string","required":false,"source":"body"},{"name":"chatType","type":"number","required":false,"source":"body"},{"name":"flavor","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/chat';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "content": "Hello from the REST API test suite!",
+      "flavor": "Test Message"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/chat?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"content":"Hello from the REST API test suite!","flavor":"Test Message"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/chat'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "content": "Hello from the REST API test suite!",
+      "flavor": "Test Message"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/chat';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "content": "Hello from the REST API test suite!",
+        "flavor": "Test Message"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/chat🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"content":"Hello from the REST API test suite!","flavor":"Test Message"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 73❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "chat-send-result",
+  "requestId": "chat-send_1782956929672",
+  "success": true,
+  "data": {
+    "id": "iM6Dvf2zMmtKz6GY",
+    "uuid": "ChatMessage.iM6Dvf2zMmtKz6GY",
+    "content": "Hello from the REST API test suite!",
+    "speaker": {
+      "scene": null,
+      "actor": null,
+      "token": null
+    },
+    "timestamp": 1782956929673,
+    "whisper": [],
+    "type": "base",
+    "author": {
+      "id": "cpvaGKk3hgoBCzCS",
+      "name": "Gamemaster"
+    },
+    "flavor": "Test Message",
+    "isRoll": false,
+    "rolls": [],
+    "flags": {}
+  }
+}
+```
+
+
 ---
 
 ## DELETE /chat/:messageId
@@ -106,6 +688,144 @@ Deletes a chat message by its ID. Only the message author or a GM can delete mes
   parameters={[{"name":"messageId","type":"string","required":true,"source":"params"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/chat/iM6Dvf2zMmtKz6GY';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'DELETE',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X DELETE 'http://localhost:3011/chat/iM6Dvf2zMmtKz6GY?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/chat/iM6Dvf2zMmtKz6GY'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.delete(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/chat/iM6Dvf2zMmtKz6GY';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'delete',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/chat/iM6Dvf2zMmtKz6GY🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤DELETE /chat/iM6Dvf2zMmtKz6GY🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "chat-delete-result",
+  "requestId": "chat-delete_1782956929686",
+  "success": true,
+  "data": {
+    "messageId": "iM6Dvf2zMmtKz6GY"
+  }
+}
+```
+
+
 ---
 
 ## DELETE /chat
@@ -134,6 +854,144 @@ Flushes all chat message history. Only GMs can perform this action.
   path="/chat"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/chat';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'DELETE',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X DELETE 'http://localhost:3011/chat?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/chat'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.delete(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/chat';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'delete',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/chat🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤DELETE /chat🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "chat-flush-result",
+  "requestId": "chat-flush_1782956929695",
+  "success": true,
+  "data": {
+    "message": "All chat messages have been deleted"
+  }
+}
+```
+
 
 ---
 
@@ -165,4 +1023,241 @@ Opens a persistent SSE connection that streams chat events (create, update, dele
   path="/chat/subscribe"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"speaker","type":"string","required":false,"source":"query"},{"name":"type","type":"number","required":false,"source":"query"},{"name":"whisperOnly","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const { EventSource } = require('eventsource'); // npm install eventsource
+
+const baseUrl = 'http://localhost:3010';
+const apiKey = 'your-api-key-here';
+const url = `${baseUrl}/chat/subscribe?clientId=your-client-id`;
+
+// eventsource v4 uses a custom fetch function to inject headers
+const eventSource = new EventSource(url, {
+  fetch: (input, init) => fetch(input, {
+    ...init,
+    headers: { ...init?.headers, 'x-api-key': apiKey }
+  })
+});
+
+function formatMessage(prefix, message) {
+  const speaker = message.author?.name || message.speaker?.alias || '?';
+  console.log(`[${prefix}] ${speaker}: ${message.content}`);
+  if (message.flavor) console.log(`  Flavor: ${message.flavor}`);
+  if (message.isRoll && message.rolls?.length > 0) {
+    for (const roll of message.rolls) {
+      const dice = roll.dice?.map(d =>
+        `${d.results.map(r => `${r.result}${r.active ? '' : '(dropped)'}`).join(', ')} (d${d.faces})`
+      ).join(' + ') || '';
+      console.log(`  Roll: ${roll.formula} = ${roll.total}${roll.isCritical ? ' CRITICAL!' : ''}${roll.isFumble ? ' FUMBLE!' : ''}`);
+      if (dice) console.log(`  Dice: ${dice}`);
+    }
+  }
+}
+
+eventSource.addEventListener('connected', (event) => {
+  const data = JSON.parse(event.data);
+  console.log('Connected:', data.clientId);
+});
+
+eventSource.addEventListener('chat-create', (event) => {
+  const message = JSON.parse(event.data);
+  formatMessage('new', message);
+});
+
+eventSource.addEventListener('chat-update', (event) => {
+  const message = JSON.parse(event.data);
+  formatMessage('updated', message);
+});
+
+eventSource.addEventListener('chat-delete', (event) => {
+  const data = JSON.parse(event.data);
+  console.log('Message deleted:', JSON.stringify(data));
+});
+
+eventSource.onerror = (error) => {
+  console.error('SSE error:', error);
+};
+
+// To disconnect later:
+// eventSource.close();
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+# Connect to the SSE stream (streams events until interrupted with Ctrl+C)
+curl -N 'http://localhost:3010/chat/subscribe?clientId=your-client-id' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Accept: text/event-stream"
+
+# Example output:
+# event: connected
+# data: {"clientId":"your-client-id"}
+#
+# event: chat-create
+# data: {"id":"abc123","content":"Hello!","author":{"id":"xyz","name":"GM"},"isRoll":false,...}
+#
+# event: chat-create (dice roll)
+# data: {"id":"def456","content":"16","flavor":"Attack Roll","isRoll":true,"rolls":[{"formula":"1d20+5","total":16,"isCritical":false,"isFumble":false,"dice":[{"faces":20,"results":[{"result":11,"active":true}]}]}],...}
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import sseclient  # pip install sseclient-py
+import requests
+import json
+
+base_url = 'http://localhost:3010'
+url = f'{base_url}/chat/subscribe'
+params = {'clientId': 'your-client-id'}
+headers = {
+    'x-api-key': 'your-api-key-here',
+    'Accept': 'text/event-stream'
+}
+
+# Connect to the SSE stream
+response = requests.get(url, params=params, headers=headers, stream=True)
+client = sseclient.SSEClient(response)
+
+for event in client.events():
+    data = json.loads(event.data)
+
+    if event.event == 'connected':
+        print(f'Connected: {data["clientId"]}')
+    elif event.event in ('chat-create', 'chat-update'):
+        prefix = 'new' if event.event == 'chat-create' else 'updated'
+        speaker = (data.get('author') or {}).get('name') or (data.get('speaker') or {}).get('alias') or '?'
+        print(f'[{prefix}] {speaker}: {data.get("content", "")}')
+        if data.get('flavor'):
+            print(f'  Flavor: {data["flavor"]}')
+        if data.get('isRoll') and data.get('rolls'):
+            for roll in data['rolls']:
+                dice_parts = []
+                for d in roll.get('dice', []):
+                    results = ', '.join(
+                        f'{r["result"]}{"" if r.get("active", True) else "(dropped)"}'
+                        for r in d.get('results', [])
+                    )
+                    dice_parts.append(f'{results} (d{d["faces"]})')
+                crit = ' CRITICAL!' if roll.get('isCritical') else ''
+                fumble = ' FUMBLE!' if roll.get('isFumble') else ''
+                print(f'  Roll: {roll["formula"]} = {roll["total"]}{crit}{fumble}')
+                if dice_parts:
+                    print(f'  Dice: {" + ".join(dice_parts)}')
+    elif event.event == 'chat-delete':
+        print(f'Message deleted: {json.dumps(data)}')
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+// npm install eventsource
+import { EventSource } from 'eventsource';
+
+const baseUrl = 'http://localhost:3010';
+const apiKey = 'your-api-key-here';
+const url = `${baseUrl}/chat/subscribe?clientId=your-client-id`;
+
+// eventsource v4 uses a custom fetch function to inject headers
+const eventSource = new EventSource(url, {
+  fetch: (input, init) => fetch(input, {
+    ...init,
+    headers: { ...init?.headers, 'x-api-key': apiKey }
+  })
+});
+
+interface ChatMessage {
+  id: string;
+  content: string;
+  type: string;
+  author: { id: string; name: string };
+  speaker: any;
+  timestamp: number;
+  flavor: string;
+  isRoll: boolean;
+  rolls: {
+    formula: string;
+    total: number;
+    isCritical: boolean;
+    isFumble: boolean;
+    dice: { faces: number; results: { result: number; active: boolean }[] }[];
+  }[];
+  whisper: string[];
+  flags: Record<string, any>;
+}
+
+function formatMessage(prefix: string, message: ChatMessage) {
+  const speaker = message.author?.name || message.speaker?.alias || '?';
+  console.log(`[${prefix}] ${speaker}: ${message.content}`);
+  if (message.flavor) console.log(`  Flavor: ${message.flavor}`);
+  if (message.isRoll && message.rolls?.length > 0) {
+    for (const roll of message.rolls) {
+      const dice = roll.dice?.map(d =>
+        `${d.results.map(r => `${r.result}${r.active ? '' : '(dropped)'}`).join(', ')} (d${d.faces})`
+      ).join(' + ') || '';
+      console.log(`  Roll: ${roll.formula} = ${roll.total}${roll.isCritical ? ' CRITICAL!' : ''}${roll.isFumble ? ' FUMBLE!' : ''}`);
+      if (dice) console.log(`  Dice: ${dice}`);
+    }
+  }
+}
+
+eventSource.addEventListener('connected', (event: MessageEvent) => {
+  const data = JSON.parse(event.data);
+  console.log('Connected:', data.clientId);
+});
+
+eventSource.addEventListener('chat-create', (event: MessageEvent) => {
+  const message: ChatMessage = JSON.parse(event.data);
+  formatMessage('new', message);
+});
+
+eventSource.addEventListener('chat-update', (event: MessageEvent) => {
+  const message: ChatMessage = JSON.parse(event.data);
+  formatMessage('updated', message);
+});
+
+eventSource.addEventListener('chat-delete', (event: MessageEvent) => {
+  const data = JSON.parse(event.data);
+  console.log('Message deleted:', JSON.stringify(data));
+});
+
+eventSource.onerror = (error) => {
+  console.error('SSE error:', error);
+};
+
+// To disconnect: eventSource.close();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+Just don't 😂
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "event": "connected",
+  "data": {
+    "clientId": "qsl-integration-test"
+  }
+}
+```
+
 

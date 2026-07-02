@@ -4,10 +4,10 @@
     "method": "POST",
     "description": "/select",
     "request": {
-      "url": "http://localhost:3010/select",
+      "url": "http://localhost:3011/select",
       "method": "POST",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       },
       "body": {
         "all": true,
@@ -18,21 +18,21 @@
       "status": 200,
       "data": {
         "type": "select-result",
-        "requestId": "select_1780520794944",
+        "requestId": "select_1782956929084",
         "success": true,
         "count": 1,
         "message": "1 entities selected",
         "selected": [
-          "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm"
+          "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM"
         ]
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/select';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"all\": true,\n      \"overwrite\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/select?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"all\":true,\"overwrite\":true}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/select'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"all\": True,\n      \"overwrite\": True\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/select';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"all\": true,\n        \"overwrite\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/select🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"all\":true,\"overwrite\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /select🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 29❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/select';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"all\": true,\n      \"overwrite\": true\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/select?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"all\":true,\"overwrite\":true}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/select'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    json={\n      \"all\": True,\n      \"overwrite\": True\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/select';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"all\": true,\n        \"overwrite\": true\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/select🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"all\":true,\"overwrite\":true}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /select🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 29❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -40,32 +40,32 @@
     "method": "GET",
     "description": "/selected",
     "request": {
-      "url": "http://localhost:3010/selected",
+      "url": "http://localhost:3011/selected",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "selected-result",
-        "requestId": "selected_1780520794949",
+        "requestId": "selected_1782956929088",
         "success": true,
         "selected": [
           {
-            "tokenUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm",
-            "actorUuid": "Scene.Lxz4vYKs8VE4gpcw.Token.IFvYJKPvTx9b6rNm.Actor.u3iSEGYdk5UNZy7X"
+            "tokenUuid": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM",
+            "actorUuid": "Scene.SM7AhDv5JgZh6IvK.Token.h982FKt6QfxjSNkM.Actor.V5OF1QXHjaIy6iO8"
           }
         ]
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/selected';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/selected?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/selected'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/selected';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/selected🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /selected🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/selected';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/selected?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/selected'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/selected';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/selected🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /selected🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -73,63 +73,45 @@
     "method": "GET",
     "description": "/players",
     "request": {
-      "url": "http://localhost:3010/players",
+      "url": "http://localhost:3011/players",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "players-result",
-        "requestId": "players_1780520794951",
+        "requestId": "players_1782956929091",
         "users": [
           {
-            "id": "vXdyKYLgpmko3kHx",
+            "id": "cpvaGKk3hgoBCzCS",
             "name": "Gamemaster",
             "role": 4,
             "isGM": true,
-            "active": false,
-            "color": "#becc28",
-            "avatar": "icons/svg/mystery-man.svg"
-          },
-          {
-            "id": "fCfNJPT9Atc26yyv",
-            "name": "tester",
-            "role": 4,
-            "isGM": true,
             "active": true,
-            "color": "#cc28b5",
+            "color": "#161068",
             "avatar": "icons/svg/mystery-man.svg"
           },
           {
-            "id": "mCIKww86Dh7ogc9v",
-            "name": "Player1",
-            "role": 1,
-            "isGM": false,
-            "active": false,
-            "color": "#cc8128",
-            "avatar": "icons/svg/mystery-man.svg"
-          },
-          {
-            "id": "0NqudQfTbKOdSgxB",
+            "id": "zi1MHwh4aJs4L2Mn",
             "name": "test",
             "role": 1,
             "isGM": false,
             "active": false,
-            "color": "#283dcc",
+            "color": "#ccad28",
             "avatar": "icons/svg/mystery-man.svg"
           }
         ]
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/players';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/players?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/players'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/players';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/players🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /players🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/players';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/players?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/players'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/players';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/players🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /players🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -137,10 +119,10 @@
     "method": "POST",
     "description": "/execute-js",
     "request": {
-      "url": "http://localhost:3010/execute-js",
+      "url": "http://localhost:3011/execute-js",
       "method": "POST",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       },
       "body": {
         "script": "const wsRelayUrl=game.settings.get(\"foundry-rest-api\", \"wsRelayUrl\");return wsRelayUrl;"
@@ -150,17 +132,17 @@
       "status": 200,
       "data": {
         "type": "execute-js-result",
-        "requestId": "execute-js_1780520794952",
+        "requestId": "execute-js_1782956929093",
         "success": true,
-        "result": "ws://localhost:3010/relay"
+        "result": "ws://relay:3010"
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/execute-js';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"script\": \"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/execute-js?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"script\":\"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/execute-js'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"script\": \"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/execute-js';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"script\": \"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/execute-js🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"script\":\"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /execute-js🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 104❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/execute-js';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"script\": \"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/execute-js?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"script\":\"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/execute-js'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    json={\n      \"script\": \"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/execute-js';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"script\": \"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/execute-js🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"script\":\"const wsRelayUrl=game.settings.get(\\\"foundry-rest-api\\\", \\\"wsRelayUrl\\\");return wsRelayUrl;\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /execute-js🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 104❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -168,375 +150,69 @@
     "method": "GET",
     "description": "/world-info",
     "request": {
-      "url": "http://localhost:3010/world-info",
+      "url": "http://localhost:3011/world-info",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "world-info-result",
-        "requestId": "world-info_1780520794973",
+        "requestId": "world-info_1782956929095",
         "data": {
           "world": {
-            "id": "rest-api",
-            "title": "rest-api"
+            "id": "test-world",
+            "title": "Test World"
           },
           "system": {
             "id": "dnd5e",
             "title": "Dungeons & Dragons Fifth Edition",
-            "version": "4.3.8"
+            "version": "5.0.4"
           },
-          "foundryVersion": "12.331",
+          "foundryVersion": "14.363",
           "modules": [
-            {
-              "id": "_CodeMirror",
-              "title": "CodeMirror",
-              "version": "5.58.3-fvtt5",
-              "active": false
-            },
-            {
-              "id": "about-face",
-              "title": "About Face",
-              "version": "3.26.5",
-              "active": false
-            },
-            {
-              "id": "aedifs-token-sounds",
-              "title": "Sound of Token",
-              "version": "2.1.0",
-              "active": false
-            },
-            {
-              "id": "barbrawl",
-              "title": "Bar Brawl",
-              "version": "1.8.9",
-              "active": false
-            },
-            {
-              "id": "barbrawl-profiles",
-              "title": "Bar Brawl Profiles",
-              "version": "1.0.0",
-              "active": false
-            },
-            {
-              "id": "boss-splash",
-              "title": "Boss Splash Screen",
-              "version": "1.1.11",
-              "active": false
-            },
-            {
-              "id": "colorsettings",
-              "title": "lib - Color Settings",
-              "version": "3.0.3",
-              "active": false
-            },
-            {
-              "id": "combat-enhancements",
-              "title": "Combat Enhancements",
-              "version": "1.2.4",
-              "active": false
-            },
-            {
-              "id": "combat-tracker-dock",
-              "title": "Carousel Combat Tracker",
-              "version": "3.1.8",
-              "active": false
-            },
-            {
-              "id": "combatbooster",
-              "title": "Combat Booster: Turn Marker, Recent Actions and more",
-              "version": "4.0.4",
-              "active": false
-            },
-            {
-              "id": "condition-lab-triggler",
-              "title": "Condition Lab & Triggler",
-              "version": "2.0.1",
-              "active": false
-            },
-            {
-              "id": "dae",
-              "title": "Dynamic effects using Active Effects (DAE)",
-              "version": "12.0.29",
-              "active": false
-            },
-            {
-              "id": "dd-import",
-              "title": "Universal Battlemap Importer",
-              "version": "4.0.0",
-              "active": true
-            },
-            {
-              "id": "df-architect",
-              "title": "DF Architect",
-              "version": "5.0.0",
-              "active": false
-            },
-            {
-              "id": "dice-calculator",
-              "title": "Dice Tray",
-              "version": "2.27",
-              "active": false
-            },
-            {
-              "id": "dice-so-nice",
-              "title": "Dice So Nice!",
-              "version": "5.1.8",
-              "active": false
-            },
-            {
-              "id": "find-the-culprit",
-              "title": "Find the Culprit",
-              "version": "3.1.2",
-              "active": false
-            },
-            {
-              "id": "forien-copy-environment",
-              "title": "Forien's Copy Environment",
-              "version": "v2.2.4",
-              "active": false
-            },
-            {
-              "id": "foundry-module-bundle-m93mw9jstj6rag9m88g",
-              "title": "Foundry Module Bundle",
-              "version": "1.0.0",
-              "active": false
-            },
             {
               "id": "foundry-rest-api",
               "title": "Foundry REST API",
-              "version": "3.0.3",
+              "version": "3.2.3",
               "active": true
-            },
-            {
-              "id": "foundry-server-to-server",
-              "title": "Server-to-Server Transfer",
-              "version": "0.1.0",
-              "active": false
-            },
-            {
-              "id": "fxmaster",
-              "title": "FXMaster",
-              "version": "4.1.0",
-              "active": false
-            },
-            {
-              "id": "illandril-token-hud-scale",
-              "title": "Illandril's Token HUD scaler",
-              "version": "3.0.0",
-              "active": false
-            },
-            {
-              "id": "image-hover",
-              "title": "Image Hover",
-              "version": "3.0.5",
-              "active": false
-            },
-            {
-              "id": "just-popcorn-initiative",
-              "title": "Just - Popcorn Initiative",
-              "version": "1.1.0",
-              "active": false
-            },
-            {
-              "id": "lib-wrapper",
-              "title": "libWrapper",
-              "version": "1.13.2.0",
-              "active": false
-            },
-            {
-              "id": "midi-qol",
-              "title": "Midi QOL",
-              "version": "12.4.64",
-              "active": false
-            },
-            {
-              "id": "monks-little-details",
-              "title": "Monk's Little Details",
-              "version": "12.04",
-              "active": false
-            },
-            {
-              "id": "pings",
-              "title": "Pings",
-              "version": "1.4.2",
-              "active": false
-            },
-            {
-              "id": "playerListStatus",
-              "title": "Playerlist Status - Lib for View status on Playerlist",
-              "version": "3.1.3",
-              "active": false
-            },
-            {
-              "id": "playerStatus",
-              "title": "Player Status",
-              "version": "3.1.4",
-              "active": false
-            },
-            {
-              "id": "quick-insert",
-              "title": "Quick Insert - Search Widget",
-              "version": "3.6.0",
-              "active": true
-            },
-            {
-              "id": "rounded-measurement-templates",
-              "title": "Rounded Measurement Templates",
-              "version": "1.0.0",
-              "active": false
-            },
-            {
-              "id": "settings-extender",
-              "title": "Settings Extender",
-              "version": "1.2.3",
-              "active": false
-            },
-            {
-              "id": "sidebar-resizer",
-              "title": "Sidebar and Windows Resizer",
-              "version": "0.8.0",
-              "active": false
-            },
-            {
-              "id": "smarttarget",
-              "title": "Smart Target",
-              "version": "2.0.0",
-              "active": false
-            },
-            {
-              "id": "socketlib",
-              "title": "socketlib",
-              "version": "1.1.2",
-              "active": false
-            },
-            {
-              "id": "soncraft-audio",
-              "title": "Soncraft Audio Module",
-              "version": "0.2.1",
-              "active": false
-            },
-            {
-              "id": "sorted-status-effects",
-              "title": "Sorted Status Effects",
-              "version": "#{VERSION}#",
-              "active": false
-            },
-            {
-              "id": "splatter",
-              "title": "Splatter",
-              "version": "4.0.5",
-              "active": false
-            },
-            {
-              "id": "spotlight-omnisearch",
-              "title": "Spotlight Omnisearch",
-              "version": "2.0.7",
-              "active": false
-            },
-            {
-              "id": "statuscounter",
-              "title": "Status Icon Counters",
-              "version": "3.0.2",
-              "active": false
-            },
-            {
-              "id": "token-aura-ring",
-              "title": "Token Aura Ring",
-              "version": "2.8.1",
-              "active": false
-            },
-            {
-              "id": "token-ease",
-              "title": "Token Ease",
-              "version": "1.3.0",
-              "active": false
-            },
-            {
-              "id": "token-mold",
-              "title": "Token Mold",
-              "version": "2.22.3",
-              "active": false
-            },
-            {
-              "id": "token-tooltip-alt",
-              "title": "Token Tooltip Alt",
-              "version": "3.3.4",
-              "active": false
-            },
-            {
-              "id": "token-variants",
-              "title": "Token Variant Art",
-              "version": "5.1.6",
-              "active": false
-            },
-            {
-              "id": "visual-active-effects",
-              "title": "Visual Active Effects",
-              "version": "12.1.5",
-              "active": false
-            },
-            {
-              "id": "what-the-flag",
-              "title": "WTF: What the Flag?",
-              "version": "1.0.5",
-              "active": false
             }
           ],
           "users": [
             {
-              "id": "vXdyKYLgpmko3kHx",
+              "id": "cpvaGKk3hgoBCzCS",
               "name": "Gamemaster",
               "role": 4,
               "isGM": true,
-              "active": false,
-              "color": "#becc28",
-              "avatar": "icons/svg/mystery-man.svg"
-            },
-            {
-              "id": "fCfNJPT9Atc26yyv",
-              "name": "tester",
-              "role": 4,
-              "isGM": true,
               "active": true,
-              "color": "#cc28b5",
+              "color": "#161068",
               "avatar": "icons/svg/mystery-man.svg"
             },
             {
-              "id": "mCIKww86Dh7ogc9v",
-              "name": "Player1",
-              "role": 1,
-              "isGM": false,
-              "active": false,
-              "color": "#cc8128",
-              "avatar": "icons/svg/mystery-man.svg"
-            },
-            {
-              "id": "0NqudQfTbKOdSgxB",
+              "id": "zi1MHwh4aJs4L2Mn",
               "name": "test",
               "role": 1,
               "isGM": false,
               "active": false,
-              "color": "#283dcc",
+              "color": "#ccad28",
               "avatar": "icons/svg/mystery-man.svg"
             }
           ],
           "activeScene": {
-            "id": "Lxz4vYKs8VE4gpcw",
+            "id": "SM7AhDv5JgZh6IvK",
             "name": "test-scene-updated"
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/world-info';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/world-info?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/world-info'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/world-info';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/world-info🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /world-info🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/world-info';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/world-info?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/world-info'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/world-info';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/world-info🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /world-info🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

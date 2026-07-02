@@ -37,6 +37,179 @@ Get file system structure
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"recursive","type":"boolean","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/file-system';
+const params = {
+  clientId: 'qsl-integration-test',
+  source: 'data',
+  recursive: 'false'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/file-system?clientId=qsl-integration-test&source=data&recursive=false' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/file-system'
+params = {
+    'clientId': 'qsl-integration-test',
+    'source': 'data',
+    'recursive': 'false'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/file-system';
+  const params = {
+    clientId: 'qsl-integration-test',
+    source: 'data',
+    recursive: 'false'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/file-system🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤source=data🔤 ➡️ source
+  🔤recursive=false🔤 ➡️ recursive
+  🔤?🧲clientId🧲&🧲source🧲&🧲recursive🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /file-system🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "file-system-result",
+  "requestId": "file-system_1782956929499",
+  "success": true,
+  "path": "",
+  "source": "data",
+  "results": [
+    {
+      "name": "assets",
+      "path": "assets",
+      "type": "directory"
+    },
+    {
+      "name": "modules",
+      "path": "modules",
+      "type": "directory"
+    },
+    {
+      "name": "rest-api-tests",
+      "path": "rest-api-tests",
+      "type": "directory"
+    },
+    {
+      "name": "systems",
+      "path": "systems",
+      "type": "directory"
+    },
+    {
+      "name": "worlds",
+      "path": "worlds",
+      "type": "directory"
+    }
+  ],
+  "recursive": false
+}
+```
+
+
 ---
 
 ## GET /download
@@ -66,6 +239,157 @@ Download a file from Foundry's file system
   path="/download"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"format","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/download';
+const params = {
+  clientId: 'qsl-integration-test',
+  path: 'rest-api-tests/test-file.txt',
+  source: 'data',
+  format: 'base64'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/download?clientId=qsl-integration-test&path=rest-api-tests%2Ftest-file.txt&source=data&format=base64' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/download'
+params = {
+    'clientId': 'qsl-integration-test',
+    'path': 'rest-api-tests/test-file.txt',
+    'source': 'data',
+    'format': 'base64'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/download';
+  const params = {
+    clientId: 'qsl-integration-test',
+    path: 'rest-api-tests/test-file.txt',
+    source: 'data',
+    format: 'base64'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/download🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤path=rest-api-tests/test-file.txt🔤 ➡️ path
+  🔤source=data🔤 ➡️ source
+  🔤format=base64🔤 ➡️ format
+  🔤?🧲clientId🧲&🧲path🧲&🧲source🧲&🧲format🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /download🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "fileData": "data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==",
+  "filename": "test-file.txt",
+  "mimeType": "text/plain",
+  "path": "rest-api-tests/test-file.txt",
+  "requestId": "download-file_1782956929502",
+  "success": true,
+  "type": "download-file-result"
+}
+```
+
 
 ---
 
@@ -99,4 +423,178 @@ Upload a file to Foundry's file system (handles both base64 and binary data)
   path="/upload"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"path","type":"string","required":false,"source":"query"},{"name":"filename","type":"string","required":false,"source":"query"},{"name":"source","type":"string","required":false,"source":"query"},{"name":"mimeType","type":"string","required":false,"source":"query"},{"name":"overwrite","type":"boolean","required":false,"source":"query"},{"name":"fileData","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/upload';
+const params = {
+  clientId: 'qsl-integration-test',
+  path: 'rest-api-tests',
+  source: 'data',
+  filename: 'test-file.txt',
+  mimeType: 'text/plain'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "fileData": "data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==",
+      "mimeType": "text/plain",
+      "overwrite": true
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/upload?clientId=qsl-integration-test&path=rest-api-tests&source=data&filename=test-file.txt&mimeType=text%2Fplain' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"fileData":"data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==","mimeType":"text/plain","overwrite":true}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/upload'
+params = {
+    'clientId': 'qsl-integration-test',
+    'path': 'rest-api-tests',
+    'source': 'data',
+    'filename': 'test-file.txt',
+    'mimeType': 'text/plain'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "fileData": "data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==",
+      "mimeType": "text/plain",
+      "overwrite": True
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/upload';
+  const params = {
+    clientId: 'qsl-integration-test',
+    path: 'rest-api-tests',
+    source: 'data',
+    filename: 'test-file.txt',
+    mimeType: 'text/plain'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "fileData": "data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==",
+        "mimeType": "text/plain",
+        "overwrite": true
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/upload🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤path=rest-api-tests🔤 ➡️ path
+  🔤source=data🔤 ➡️ source
+  🔤filename=test-file.txt🔤 ➡️ filename
+  🔤mimeType=text/plain🔤 ➡️ mimeType
+  🔤?🧲clientId🧲&🧲path🧲&🧲source🧲&🧲filename🧲&🧲mimeType🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"fileData":"data:text/plain;base64,SGVsbG8gZnJvbSBSRVNUIEFQSSB0ZXN0IQ==","mimeType":"text/plain","overwrite":true}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /upload🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 115❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "upload-file-result",
+  "requestId": "upload-file_1782956929486",
+  "success": true,
+  "path": "rest-api-tests/test-file.txt"
+}
+```
+
 

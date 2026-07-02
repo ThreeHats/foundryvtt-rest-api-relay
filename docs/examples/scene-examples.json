@@ -4,10 +4,10 @@
     "method": "POST",
     "description": "/scene - Create scene",
     "request": {
-      "url": "http://localhost:3010/scene",
+      "url": "http://localhost:3011/scene",
       "method": "POST",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       },
       "body": {
         "data": {
@@ -24,7 +24,7 @@
       "status": 200,
       "data": {
         "type": "create-scene-result",
-        "requestId": "create-scene_1780520747073",
+        "requestId": "create-scene_1782956912561",
         "data": {
           "grid": {
             "size": 100,
@@ -39,38 +39,23 @@
           "height": 1000,
           "name": "test-scene",
           "width": 1000,
-          "_id": "Lxz4vYKs8VE4gpcw",
+          "_id": "SM7AhDv5JgZh6IvK",
           "active": false,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
-          "background": {
-            "src": null,
-            "anchorX": 0,
-            "anchorY": 0,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "fill",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0
-          },
-          "foreground": null,
-          "foregroundElevation": null,
           "thumb": null,
           "padding": 0.25,
+          "shiftX": 0,
+          "shiftY": 0,
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
           },
-          "backgroundColor": "#999999",
+          "initialLevel": "defaultLevel0000",
           "tokenVision": true,
           "fog": {
-            "exploration": true,
-            "overlay": null,
+            "mode": 1,
             "colors": {
               "explored": null,
               "unexplored": null
@@ -110,13 +95,57 @@
               "shadows": 0
             }
           },
+          "transition": {
+            "type": null,
+            "duration": 1500,
+            "activeOnly": false
+          },
           "drawings": [],
           "tokens": [],
+          "levels": [
+            {
+              "_id": "defaultLevel0000",
+              "name": "Level",
+              "elevation": {
+                "bottom": 0,
+                "top": 20
+              },
+              "background": {
+                "color": "#999999",
+                "src": null,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "foreground": {
+                "src": null,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "fog": {
+                "src": null,
+                "tint": "#ffffff"
+              },
+              "textures": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "fill",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0
+              },
+              "visibility": {
+                "levels": []
+              },
+              "sort": 0,
+              "flags": {}
+            }
+          ],
           "lights": [],
           "notes": [],
           "sounds": [],
           "regions": [],
-          "templates": [],
           "tiles": [],
           "walls": [],
           "playlist": null,
@@ -128,28 +157,29 @@
           "sort": 0,
           "ownership": {
             "default": 0,
-            "fCfNJPT9Atc26yyv": 3
+            "cpvaGKk3hgoBCzCS": 3
           },
           "flags": {},
           "_stats": {
+            "coreVersion": "14.363",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1782956912564,
+            "modifiedTime": 1782956912564,
+            "lastModifiedBy": "cpvaGKk3hgoBCzCS",
             "compendiumSource": null,
             "duplicateSource": null,
-            "coreVersion": "12.331",
-            "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1780520747075,
-            "modifiedTime": 1780520747075,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv"
+            "exportSource": null
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/scene?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"data\": {\n          \"name\": \"test-scene\",\n          \"width\": 1000,\n          \"height\": 1000,\n          \"grid\": {\n            \"size\": 100\n          }\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 77❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/scene';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/scene?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/scene'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    json={\n      \"data\": {\n        \"name\": \"test-scene\",\n        \"width\": 1000,\n        \"height\": 1000,\n        \"grid\": {\n          \"size\": 100\n        }\n      }\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/scene';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"data\": {\n          \"name\": \"test-scene\",\n          \"width\": 1000,\n          \"height\": 1000,\n          \"grid\": {\n            \"size\": 100\n          }\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"data\":{\"name\":\"test-scene\",\"width\":1000,\"height\":1000,\"grid\":{\"size\":100}}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 77❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -157,50 +187,663 @@
     "method": "GET",
     "description": "/scene - Get all scenes",
     "request": {
-      "url": "http://localhost:3010/scene",
+      "url": "http://localhost:3011/scene",
       "method": "GET",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "get-scene-result",
-        "requestId": "get-scene_1780520747090",
+        "requestId": "get-scene_1782956912577",
         "data": [
           {
-            "name": "Scene",
-            "_id": "VMgXWxqpyTg9YMLM",
+            "_id": "NUEDEFAULTSCENE0",
+            "name": "Foundry Virtual Tabletop",
+            "navigation": true,
+            "navOrder": 0,
+            "thumb": "nue/defaultscene/thumb.webp",
+            "width": 3840,
+            "height": 1920,
+            "padding": 0,
+            "shiftX": 0,
+            "shiftY": 0,
+            "initial": {
+              "x": null,
+              "y": null,
+              "scale": null
+            },
+            "initialLevel": "defaultLevel0000",
+            "grid": {
+              "type": 0,
+              "size": 100,
+              "style": "solidLines",
+              "thickness": 1,
+              "color": "#000000",
+              "alpha": 0.2,
+              "distance": 1,
+              "units": ""
+            },
+            "tokenVision": false,
+            "fog": {
+              "mode": 0,
+              "colors": {
+                "explored": null,
+                "unexplored": null
+              },
+              "reset": 1660769143211
+            },
+            "environment": {
+              "darknessLevel": 0,
+              "darknessLock": false,
+              "globalLight": {
+                "enabled": false,
+                "alpha": 0.5,
+                "bright": false,
+                "color": null,
+                "coloration": 1,
+                "luminosity": 0,
+                "saturation": 0,
+                "contrast": 0,
+                "shadows": 0,
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                }
+              },
+              "cycle": true,
+              "base": {
+                "hue": 0,
+                "intensity": 0,
+                "luminosity": 0,
+                "saturation": 0,
+                "shadows": 0
+              },
+              "dark": {
+                "hue": 0.7138888888888889,
+                "intensity": 0,
+                "luminosity": -0.25,
+                "saturation": 0,
+                "shadows": 0
+              }
+            },
+            "transition": {
+              "type": null,
+              "duration": 1500,
+              "activeOnly": false
+            },
+            "drawings": [],
+            "tokens": [
+              {
+                "name": "test",
+                "shape": 4,
+                "level": "defaultLevel0000",
+                "_id": "3PipH5UTtbVhES7K",
+                "displayName": 0,
+                "actorId": null,
+                "actorLink": false,
+                "delta": null,
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "texture": {
+                  "src": "icons/svg/mystery-man.svg",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "fit": "contain",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "sort": 0,
+                "locked": false,
+                "lockRotation": false,
+                "rotation": 0,
+                "alpha": 1,
+                "hidden": false,
+                "disposition": -1,
+                "displayBars": 0,
+                "bar1": {
+                  "attribute": "attributes.hp"
+                },
+                "bar2": {
+                  "attribute": null
+                },
+                "light": {
+                  "negative": false,
+                  "priority": 0,
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 0,
+                  "color": null,
+                  "coloration": 1,
+                  "dim": 0,
+                  "attenuation": 0.5,
+                  "luminosity": 0.5,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": null,
+                    "speed": 5,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  }
+                },
+                "sight": {
+                  "enabled": false,
+                  "range": 0,
+                  "angle": 360,
+                  "visionMode": "basic",
+                  "color": null,
+                  "attenuation": 0.1,
+                  "brightness": 0,
+                  "saturation": 0,
+                  "contrast": 0
+                },
+                "detectionModes": {},
+                "occludable": {
+                  "radius": 0
+                },
+                "ring": {
+                  "enabled": false,
+                  "colors": {
+                    "ring": null,
+                    "background": null
+                  },
+                  "effects": 1,
+                  "subject": {
+                    "scale": 1,
+                    "texture": null
+                  }
+                },
+                "turnMarker": {
+                  "mode": 1,
+                  "animation": null,
+                  "src": null,
+                  "disposition": false
+                },
+                "movementAction": null,
+                "_movementHistory": [],
+                "_regions": [],
+                "flags": {}
+              }
+            ],
+            "levels": [
+              {
+                "_id": "defaultLevel0000",
+                "name": "Foundry Virtual Tabletop",
+                "elevation": {
+                  "bottom": 0,
+                  "top": 4
+                },
+                "background": {
+                  "color": "#25070d",
+                  "src": "nue/defaultscene/fvtt-background.webp",
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "foreground": {
+                  "src": null,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "fog": {
+                  "src": null,
+                  "tint": "#ffffff"
+                },
+                "textures": {
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "fit": "fill",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "rotation": 0
+                },
+                "visibility": {
+                  "levels": []
+                },
+                "sort": 0,
+                "flags": {}
+              }
+            ],
+            "lights": [
+              {
+                "_id": "d22Cax8HDPMG4F6I",
+                "x": 656,
+                "y": 1473,
+                "rotation": 0,
+                "walls": true,
+                "vision": false,
+                "config": {
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 4.27,
+                  "color": "#ff9072",
+                  "coloration": 1,
+                  "dim": 8.54,
+                  "attenuation": 0.5,
+                  "luminosity": 0,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": "fog",
+                    "speed": 2,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "negative": false,
+                  "priority": 0
+                },
+                "hidden": false,
+                "flags": {},
+                "elevation": 0,
+                "levels": [],
+                "locked": false
+              },
+              {
+                "x": 1826,
+                "y": 1891,
+                "rotation": 0,
+                "walls": true,
+                "vision": false,
+                "config": {
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 4.27,
+                  "color": "#ffffff",
+                  "coloration": 1,
+                  "dim": 8.54,
+                  "attenuation": 0.5,
+                  "luminosity": 0,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": "fog",
+                    "speed": 2,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "negative": false,
+                  "priority": 0
+                },
+                "hidden": false,
+                "flags": {},
+                "_id": "eGuMjw01vEYimWVX",
+                "elevation": 0,
+                "levels": [],
+                "locked": false
+              },
+              {
+                "x": 3057,
+                "y": 1439,
+                "rotation": 0,
+                "walls": true,
+                "vision": false,
+                "config": {
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 4.27,
+                  "color": "#ffffff",
+                  "coloration": 1,
+                  "dim": 8.54,
+                  "attenuation": 0.5,
+                  "luminosity": 0,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": "fog",
+                    "speed": 2,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "negative": false,
+                  "priority": 0
+                },
+                "hidden": false,
+                "flags": {},
+                "_id": "TCET4ZNPkl5oZukY",
+                "elevation": 0,
+                "levels": [],
+                "locked": false
+              },
+              {
+                "_id": "cOpD0Q4AuCGiKRCb",
+                "x": 2824,
+                "y": 772,
+                "rotation": 0,
+                "walls": true,
+                "vision": false,
+                "config": {
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 0.26,
+                  "color": "#ffed79",
+                  "coloration": 1,
+                  "dim": 0.53,
+                  "attenuation": 0.5,
+                  "luminosity": 0.5,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": "torch",
+                    "speed": 5,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "negative": false,
+                  "priority": 0
+                },
+                "hidden": false,
+                "flags": {},
+                "elevation": 0,
+                "levels": [],
+                "locked": false
+              },
+              {
+                "_id": "adhkydxURYamgKKF",
+                "x": 2822,
+                "y": 777,
+                "rotation": 179,
+                "walls": true,
+                "vision": false,
+                "config": {
+                  "alpha": 0.65,
+                  "angle": 30,
+                  "bright": 5,
+                  "color": "#ff976f",
+                  "coloration": 1,
+                  "dim": 5,
+                  "attenuation": 0.7,
+                  "luminosity": 0.3,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": "sunburst",
+                    "speed": 1,
+                    "intensity": 7,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "negative": false,
+                  "priority": 0
+                },
+                "hidden": false,
+                "flags": {},
+                "elevation": 0,
+                "levels": [],
+                "locked": false
+              },
+              {
+                "name": "test",
+                "_id": "mVCPXMBaIWRJAg6u",
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "levels": [],
+                "rotation": 0,
+                "walls": true,
+                "vision": false,
+                "config": {
+                  "negative": false,
+                  "priority": 0,
+                  "alpha": 0.5,
+                  "angle": 360,
+                  "bright": 0,
+                  "color": null,
+                  "coloration": 1,
+                  "dim": 0,
+                  "attenuation": 0.5,
+                  "luminosity": 0.5,
+                  "saturation": 0,
+                  "contrast": 0,
+                  "shadows": 0,
+                  "animation": {
+                    "type": null,
+                    "speed": 5,
+                    "intensity": 5,
+                    "reverse": false
+                  },
+                  "darkness": {
+                    "min": 0,
+                    "max": 1
+                  }
+                },
+                "hidden": false,
+                "locked": false,
+                "flags": {}
+              }
+            ],
+            "notes": [
+              {
+                "_id": "Xra5DWrNscar1diu",
+                "author": "cpvaGKk3hgoBCzCS",
+                "entryId": null,
+                "pageId": null,
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "levels": [],
+                "sort": 0,
+                "locked": false,
+                "texture": {
+                  "src": "icons/svg/book.svg",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "fit": "contain",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0
+                },
+                "iconSize": 40,
+                "fontFamily": "",
+                "fontSize": 32,
+                "textAnchor": 1,
+                "textColor": "#ffffff",
+                "global": false,
+                "flags": {}
+              }
+            ],
+            "sounds": [
+              {
+                "name": "test",
+                "_id": "8k8o4JbBVJ3n9epl",
+                "x": 0,
+                "y": 0,
+                "elevation": 0,
+                "levels": [],
+                "radius": 0,
+                "path": null,
+                "repeat": false,
+                "volume": 0.5,
+                "walls": true,
+                "easing": true,
+                "hidden": false,
+                "locked": false,
+                "darkness": {
+                  "min": 0,
+                  "max": 1
+                },
+                "effects": {
+                  "base": {
+                    "intensity": 5
+                  },
+                  "muffled": {
+                    "intensity": 5
+                  }
+                },
+                "flags": {}
+              }
+            ],
+            "regions": [
+              {
+                "_id": "8ofAU5wNntboYU8l",
+                "name": "Circle Template [Gamemaster]",
+                "color": "#161068",
+                "shapes": [
+                  {
+                    "type": "circle",
+                    "x": 0,
+                    "y": 0,
+                    "radius": 0,
+                    "gridBased": false,
+                    "hole": false
+                  }
+                ],
+                "elevation": {
+                  "bottom": 0,
+                  "top": null,
+                  "topInclusive": false
+                },
+                "levels": [],
+                "restriction": {
+                  "enabled": false,
+                  "type": "move",
+                  "priority": 0
+                },
+                "attachment": {
+                  "token": null
+                },
+                "behaviors": [],
+                "visibility": 2,
+                "highlightMode": "coverage",
+                "displayMeasurements": true,
+                "hidden": false,
+                "locked": false,
+                "ownership": {
+                  "default": 0,
+                  "cpvaGKk3hgoBCzCS": 3
+                },
+                "flags": {
+                  "core": {
+                    "MeasuredTemplate": true
+                  }
+                },
+                "_shapeConstraints": null
+              }
+            ],
+            "tiles": [
+              {
+                "texture": {
+                  "src": "nue/defaultscene/fvtt-logo.webp",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "tint": "#ffffff",
+                  "anchorX": 0,
+                  "anchorY": 0,
+                  "fit": "fill",
+                  "alphaThreshold": 0.75
+                },
+                "x": 1520,
+                "y": 480,
+                "width": 800,
+                "height": 800,
+                "_id": "mMxIUI1fXJmrR1zK",
+                "rotation": 0,
+                "alpha": 1,
+                "hidden": false,
+                "locked": false,
+                "occlusion": {
+                  "alpha": 0,
+                  "modes": []
+                },
+                "video": {
+                  "loop": true,
+                  "autoplay": true,
+                  "volume": 0
+                },
+                "flags": {},
+                "sort": 100,
+                "restrictions": {
+                  "light": false,
+                  "weather": false
+                },
+                "elevation": 0,
+                "levels": []
+              }
+            ],
+            "walls": [],
+            "playlist": null,
+            "playlistSound": null,
+            "journal": null,
+            "journalEntryPage": null,
+            "weather": "",
+            "folder": null,
+            "flags": {},
+            "navName": "",
+            "_stats": {
+              "coreVersion": "14.363",
+              "systemId": "dnd5e",
+              "systemVersion": "5.0.4",
+              "createdTime": 1782956902919,
+              "modifiedTime": 1782956902920,
+              "lastModifiedBy": "cpvaGKk3hgoBCzCS",
+              "compendiumSource": null,
+              "duplicateSource": null,
+              "exportSource": null
+            },
+            "active": true,
+            "sort": 0,
+            "ownership": {
+              "default": 0,
+              "cpvaGKk3hgoBCzCS": 3
+            }
+          },
+          {
+            "name": "test",
+            "_id": "UTjLwXV2Zl26XPRl",
             "active": false,
             "navigation": true,
             "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
             "thumb": null,
             "width": 4000,
             "height": 3000,
             "padding": 0.25,
+            "shiftX": 0,
+            "shiftY": 0,
             "initial": {
               "x": null,
               "y": null,
-              "scale": 0.5
+              "scale": null
             },
-            "backgroundColor": "#999999",
+            "initialLevel": "defaultLevel0000",
             "grid": {
               "type": 1,
               "size": 100,
@@ -213,8 +856,7 @@
             },
             "tokenVision": true,
             "fog": {
-              "exploration": true,
-              "overlay": null,
+              "mode": 1,
               "colors": {
                 "explored": null,
                 "unexplored": null
@@ -253,230 +895,51 @@
                 "saturation": 0,
                 "shadows": 0
               }
+            },
+            "transition": {
+              "type": null,
+              "duration": 1500,
+              "activeOnly": false
             },
             "drawings": [],
             "tokens": [],
-            "lights": [],
-            "notes": [],
-            "sounds": [],
-            "regions": [],
-            "templates": [],
-            "tiles": [],
-            "walls": [],
-            "playlist": null,
-            "playlistSound": null,
-            "journal": null,
-            "journalEntryPage": null,
-            "weather": "",
-            "folder": null,
-            "sort": 0,
-            "ownership": {
-              "default": 0,
-              "vXdyKYLgpmko3kHx": 3
-            },
-            "flags": {},
-            "_stats": {
-              "compendiumSource": null,
-              "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1776389540499,
-              "modifiedTime": 1776658014961,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
-            }
-          },
-          {
-            "grid": {
-              "size": 100,
-              "type": 1,
-              "style": "solidLines",
-              "thickness": 1,
-              "color": "#000000",
-              "alpha": 0.2,
-              "distance": 5,
-              "units": "ft"
-            },
-            "height": 1000,
-            "name": "test-scene-updated",
-            "width": 1000,
-            "_id": "AVBmSoK7PtJvvtVU",
-            "active": true,
-            "navigation": true,
-            "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
-            "thumb": null,
-            "padding": 0.25,
-            "initial": {
-              "x": null,
-              "y": null,
-              "scale": 0.5
-            },
-            "backgroundColor": "#999999",
-            "tokenVision": true,
-            "fog": {
-              "exploration": true,
-              "overlay": null,
-              "colors": {
-                "explored": null,
-                "unexplored": null
-              }
-            },
-            "environment": {
-              "darknessLevel": 0,
-              "darknessLock": false,
-              "globalLight": {
-                "enabled": false,
-                "alpha": 0.5,
-                "bright": false,
-                "color": null,
-                "coloration": 1,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "cycle": true,
-              "base": {
-                "hue": 0,
-                "intensity": 0,
-                "luminosity": 0,
-                "saturation": 0,
-                "shadows": 0
-              },
-              "dark": {
-                "hue": 0.7138888888888889,
-                "intensity": 0,
-                "luminosity": -0.25,
-                "saturation": 0,
-                "shadows": 0
-              }
-            },
-            "drawings": [],
-            "tokens": [
+            "levels": [
               {
-                "actorId": "buygXx2yxLXmmrjH",
-                "x": 200,
-                "y": 200,
-                "_id": "J70b8Sc9pBiP62Fa",
-                "name": "",
-                "displayName": 0,
-                "actorLink": false,
-                "delta": {
-                  "_id": "IpzQdn95oqV7dzZF",
-                  "system": {},
-                  "items": [],
-                  "effects": [],
-                  "flags": {},
-                  "name": null,
-                  "type": null,
-                  "img": null
+                "_id": "defaultLevel0000",
+                "name": "Level",
+                "elevation": {
+                  "bottom": 0,
+                  "top": 20
                 },
-                "appendNumber": false,
-                "prependAdjective": false,
-                "width": 1,
-                "height": 1,
-                "texture": {
-                  "src": "icons/svg/mystery-man.svg",
+                "background": {
+                  "color": "#999999",
+                  "src": null,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "foreground": {
+                  "src": null,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "fog": {
+                  "src": null,
+                  "tint": "#ffffff"
+                },
+                "textures": {
                   "anchorX": 0.5,
                   "anchorY": 0.5,
                   "offsetX": 0,
                   "offsetY": 0,
-                  "fit": "contain",
+                  "fit": "fill",
                   "scaleX": 1,
                   "scaleY": 1,
-                  "rotation": 0,
-                  "tint": "#ffffff",
-                  "alphaThreshold": 0.75
+                  "rotation": 0
                 },
-                "hexagonalShape": 0,
-                "elevation": 0,
+                "visibility": {
+                  "levels": []
+                },
                 "sort": 0,
-                "locked": false,
-                "lockRotation": false,
-                "rotation": 0,
-                "alpha": 1,
-                "hidden": false,
-                "disposition": -1,
-                "displayBars": 0,
-                "bar1": {
-                  "attribute": "attributes.hp"
-                },
-                "bar2": {
-                  "attribute": null
-                },
-                "light": {
-                  "negative": false,
-                  "priority": 0,
-                  "alpha": 0.5,
-                  "angle": 360,
-                  "bright": 0,
-                  "color": null,
-                  "coloration": 1,
-                  "dim": 0,
-                  "attenuation": 0.5,
-                  "luminosity": 0.5,
-                  "saturation": 0,
-                  "contrast": 0,
-                  "shadows": 0,
-                  "animation": {
-                    "type": null,
-                    "speed": 5,
-                    "intensity": 5,
-                    "reverse": false
-                  },
-                  "darkness": {
-                    "min": 0,
-                    "max": 1
-                  }
-                },
-                "sight": {
-                  "enabled": false,
-                  "range": 0,
-                  "angle": 360,
-                  "visionMode": "basic",
-                  "color": null,
-                  "attenuation": 0.1,
-                  "brightness": 0,
-                  "saturation": 0,
-                  "contrast": 0
-                },
-                "detectionModes": [],
-                "occludable": {
-                  "radius": 0
-                },
-                "ring": {
-                  "enabled": false,
-                  "colors": {
-                    "ring": null,
-                    "background": null
-                  },
-                  "effects": 1,
-                  "subject": {
-                    "scale": 1,
-                    "texture": null
-                  }
-                },
-                "_regions": [],
                 "flags": {}
               }
             ],
@@ -484,7 +947,6 @@
             "notes": [],
             "sounds": [],
             "regions": [],
-            "templates": [],
             "tiles": [],
             "walls": [],
             "playlist": null,
@@ -496,845 +958,19 @@
             "sort": 0,
             "ownership": {
               "default": 0,
-              "fCfNJPT9Atc26yyv": 3
+              "cpvaGKk3hgoBCzCS": 3
             },
             "flags": {},
             "_stats": {
+              "coreVersion": "14.363",
+              "systemId": "dnd5e",
+              "systemVersion": "5.0.4",
+              "createdTime": 1782956906426,
+              "modifiedTime": 1782956906427,
+              "lastModifiedBy": "cpvaGKk3hgoBCzCS",
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1780331026385,
-              "modifiedTime": 1780519593061,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
-            }
-          },
-          {
-            "grid": {
-              "size": 100,
-              "type": 1,
-              "style": "solidLines",
-              "thickness": 1,
-              "color": "#000000",
-              "alpha": 0.2,
-              "distance": 5,
-              "units": "ft"
-            },
-            "height": 1000,
-            "name": "test-scene-updated",
-            "width": 1000,
-            "_id": "D7u4piOGW6MssTg2",
-            "active": false,
-            "navigation": true,
-            "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
-            "thumb": null,
-            "padding": 0.25,
-            "initial": {
-              "x": null,
-              "y": null,
-              "scale": 0.5
-            },
-            "backgroundColor": "#999999",
-            "tokenVision": true,
-            "fog": {
-              "exploration": true,
-              "overlay": null,
-              "colors": {
-                "explored": null,
-                "unexplored": null
-              }
-            },
-            "environment": {
-              "darknessLevel": 0,
-              "darknessLock": false,
-              "globalLight": {
-                "enabled": false,
-                "alpha": 0.5,
-                "bright": false,
-                "color": null,
-                "coloration": 1,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "cycle": true,
-              "base": {
-                "hue": 0,
-                "intensity": 0,
-                "luminosity": 0,
-                "saturation": 0,
-                "shadows": 0
-              },
-              "dark": {
-                "hue": 0.7138888888888889,
-                "intensity": 0,
-                "luminosity": -0.25,
-                "saturation": 0,
-                "shadows": 0
-              }
-            },
-            "drawings": [],
-            "tokens": [],
-            "lights": [],
-            "notes": [],
-            "sounds": [],
-            "regions": [],
-            "templates": [],
-            "tiles": [],
-            "walls": [],
-            "playlist": null,
-            "playlistSound": null,
-            "journal": null,
-            "journalEntryPage": null,
-            "weather": "",
-            "folder": null,
-            "sort": 0,
-            "ownership": {
-              "default": 0,
-              "fCfNJPT9Atc26yyv": 3
-            },
-            "flags": {},
-            "_stats": {
-              "compendiumSource": null,
-              "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1776821582437,
-              "modifiedTime": 1776821582466,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
-            }
-          },
-          {
-            "grid": {
-              "size": 100,
-              "type": 1,
-              "style": "solidLines",
-              "thickness": 1,
-              "color": "#000000",
-              "alpha": 0.2,
-              "distance": 5,
-              "units": "ft"
-            },
-            "height": 1000,
-            "name": "test-scene-updated",
-            "width": 1000,
-            "_id": "HaoRAKtpNwkQnXch",
-            "active": false,
-            "navigation": true,
-            "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
-            "thumb": null,
-            "padding": 0.25,
-            "initial": {
-              "x": null,
-              "y": null,
-              "scale": 0.5
-            },
-            "backgroundColor": "#999999",
-            "tokenVision": true,
-            "fog": {
-              "exploration": true,
-              "overlay": null,
-              "colors": {
-                "explored": null,
-                "unexplored": null
-              }
-            },
-            "environment": {
-              "darknessLevel": 0,
-              "darknessLock": false,
-              "globalLight": {
-                "enabled": false,
-                "alpha": 0.5,
-                "bright": false,
-                "color": null,
-                "coloration": 1,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "cycle": true,
-              "base": {
-                "hue": 0,
-                "intensity": 0,
-                "luminosity": 0,
-                "saturation": 0,
-                "shadows": 0
-              },
-              "dark": {
-                "hue": 0.7138888888888889,
-                "intensity": 0,
-                "luminosity": -0.25,
-                "saturation": 0,
-                "shadows": 0
-              }
-            },
-            "drawings": [],
-            "tokens": [
-              {
-                "actorId": "yqVY0l6AY0HDtq7Z",
-                "x": 200,
-                "y": 200,
-                "_id": "EJ7NaSEFIDogkU8j",
-                "name": "",
-                "displayName": 0,
-                "actorLink": false,
-                "delta": {
-                  "_id": "Q6cPdjRdovxSVeqq",
-                  "system": {},
-                  "items": [],
-                  "effects": [],
-                  "flags": {},
-                  "name": null,
-                  "type": null,
-                  "img": null
-                },
-                "appendNumber": false,
-                "prependAdjective": false,
-                "width": 1,
-                "height": 1,
-                "texture": {
-                  "src": "icons/svg/mystery-man.svg",
-                  "anchorX": 0.5,
-                  "anchorY": 0.5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "fit": "contain",
-                  "scaleX": 1,
-                  "scaleY": 1,
-                  "rotation": 0,
-                  "tint": "#ffffff",
-                  "alphaThreshold": 0.75
-                },
-                "hexagonalShape": 0,
-                "elevation": 0,
-                "sort": 0,
-                "locked": false,
-                "lockRotation": false,
-                "rotation": 0,
-                "alpha": 1,
-                "hidden": false,
-                "disposition": -1,
-                "displayBars": 0,
-                "bar1": {
-                  "attribute": "attributes.hp"
-                },
-                "bar2": {
-                  "attribute": null
-                },
-                "light": {
-                  "negative": false,
-                  "priority": 0,
-                  "alpha": 0.5,
-                  "angle": 360,
-                  "bright": 0,
-                  "color": null,
-                  "coloration": 1,
-                  "dim": 0,
-                  "attenuation": 0.5,
-                  "luminosity": 0.5,
-                  "saturation": 0,
-                  "contrast": 0,
-                  "shadows": 0,
-                  "animation": {
-                    "type": null,
-                    "speed": 5,
-                    "intensity": 5,
-                    "reverse": false
-                  },
-                  "darkness": {
-                    "min": 0,
-                    "max": 1
-                  }
-                },
-                "sight": {
-                  "enabled": false,
-                  "range": 0,
-                  "angle": 360,
-                  "visionMode": "basic",
-                  "color": null,
-                  "attenuation": 0.1,
-                  "brightness": 0,
-                  "saturation": 0,
-                  "contrast": 0
-                },
-                "detectionModes": [],
-                "occludable": {
-                  "radius": 0
-                },
-                "ring": {
-                  "enabled": false,
-                  "colors": {
-                    "ring": null,
-                    "background": null
-                  },
-                  "effects": 1,
-                  "subject": {
-                    "scale": 1,
-                    "texture": null
-                  }
-                },
-                "_regions": [],
-                "flags": {}
-              }
-            ],
-            "lights": [],
-            "notes": [],
-            "sounds": [],
-            "regions": [],
-            "templates": [],
-            "tiles": [],
-            "walls": [],
-            "playlist": null,
-            "playlistSound": null,
-            "journal": null,
-            "journalEntryPage": null,
-            "weather": "",
-            "folder": null,
-            "sort": 0,
-            "ownership": {
-              "default": 0,
-              "fCfNJPT9Atc26yyv": 3
-            },
-            "flags": {},
-            "_stats": {
-              "compendiumSource": null,
-              "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777968649352,
-              "modifiedTime": 1777968649385,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
-            }
-          },
-          {
-            "grid": {
-              "size": 100,
-              "type": 1,
-              "style": "solidLines",
-              "thickness": 1,
-              "color": "#000000",
-              "alpha": 0.2,
-              "distance": 5,
-              "units": "ft"
-            },
-            "height": 1000,
-            "name": "test-scene-updated",
-            "width": 1000,
-            "_id": "ZRzmXcZ7N3aq4DlC",
-            "active": false,
-            "navigation": true,
-            "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
-            "thumb": null,
-            "padding": 0.25,
-            "initial": {
-              "x": null,
-              "y": null,
-              "scale": 0.5
-            },
-            "backgroundColor": "#999999",
-            "tokenVision": true,
-            "fog": {
-              "exploration": true,
-              "overlay": null,
-              "colors": {
-                "explored": null,
-                "unexplored": null
-              }
-            },
-            "environment": {
-              "darknessLevel": 0,
-              "darknessLock": false,
-              "globalLight": {
-                "enabled": false,
-                "alpha": 0.5,
-                "bright": false,
-                "color": null,
-                "coloration": 1,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "cycle": true,
-              "base": {
-                "hue": 0,
-                "intensity": 0,
-                "luminosity": 0,
-                "saturation": 0,
-                "shadows": 0
-              },
-              "dark": {
-                "hue": 0.7138888888888889,
-                "intensity": 0,
-                "luminosity": -0.25,
-                "saturation": 0,
-                "shadows": 0
-              }
-            },
-            "drawings": [],
-            "tokens": [
-              {
-                "actorId": "qo1N8GSsTt6zpDrl",
-                "x": 200,
-                "y": 200,
-                "_id": "fbTeCei84Xuju067",
-                "name": "",
-                "displayName": 0,
-                "actorLink": false,
-                "delta": {
-                  "_id": "LjgztE7JoG5WWAW5",
-                  "system": {},
-                  "items": [],
-                  "effects": [
-                    {
-                      "name": "Dead",
-                      "img": "systems/dnd5e/icons/svg/statuses/dead.svg",
-                      "_id": "dnd5edead0000000",
-                      "statuses": [
-                        "dead"
-                      ],
-                      "type": "base",
-                      "system": {},
-                      "changes": [],
-                      "disabled": false,
-                      "duration": {
-                        "startTime": 0,
-                        "seconds": null,
-                        "combat": null,
-                        "rounds": null,
-                        "turns": null,
-                        "startRound": null,
-                        "startTurn": null
-                      },
-                      "description": "",
-                      "origin": null,
-                      "tint": "#ffffff",
-                      "transfer": false,
-                      "sort": 0,
-                      "flags": {},
-                      "_stats": {
-                        "compendiumSource": null,
-                        "duplicateSource": null,
-                        "coreVersion": "12.331",
-                        "systemId": "dnd5e",
-                        "systemVersion": "4.3.8",
-                        "createdTime": 1776821645997,
-                        "modifiedTime": 1776821645997,
-                        "lastModifiedBy": "fCfNJPT9Atc26yyv"
-                      }
-                    }
-                  ],
-                  "flags": {},
-                  "name": null,
-                  "type": null,
-                  "img": null
-                },
-                "appendNumber": false,
-                "prependAdjective": false,
-                "width": 1,
-                "height": 1,
-                "texture": {
-                  "src": "icons/svg/mystery-man.svg",
-                  "anchorX": 0.5,
-                  "anchorY": 0.5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "fit": "contain",
-                  "scaleX": 1,
-                  "scaleY": 1,
-                  "rotation": 0,
-                  "tint": "#ffffff",
-                  "alphaThreshold": 0.75
-                },
-                "hexagonalShape": 0,
-                "elevation": 0,
-                "sort": 0,
-                "locked": false,
-                "lockRotation": false,
-                "rotation": 0,
-                "alpha": 1,
-                "hidden": false,
-                "disposition": -1,
-                "displayBars": 0,
-                "bar1": {
-                  "attribute": "attributes.hp"
-                },
-                "bar2": {
-                  "attribute": null
-                },
-                "light": {
-                  "negative": false,
-                  "priority": 0,
-                  "alpha": 0.5,
-                  "angle": 360,
-                  "bright": 0,
-                  "color": null,
-                  "coloration": 1,
-                  "dim": 0,
-                  "attenuation": 0.5,
-                  "luminosity": 0.5,
-                  "saturation": 0,
-                  "contrast": 0,
-                  "shadows": 0,
-                  "animation": {
-                    "type": null,
-                    "speed": 5,
-                    "intensity": 5,
-                    "reverse": false
-                  },
-                  "darkness": {
-                    "min": 0,
-                    "max": 1
-                  }
-                },
-                "sight": {
-                  "enabled": false,
-                  "range": 0,
-                  "angle": 360,
-                  "visionMode": "basic",
-                  "color": null,
-                  "attenuation": 0.1,
-                  "brightness": 0,
-                  "saturation": 0,
-                  "contrast": 0
-                },
-                "detectionModes": [],
-                "occludable": {
-                  "radius": 0
-                },
-                "ring": {
-                  "enabled": false,
-                  "colors": {
-                    "ring": null,
-                    "background": null
-                  },
-                  "effects": 1,
-                  "subject": {
-                    "scale": 1,
-                    "texture": null
-                  }
-                },
-                "_regions": [],
-                "flags": {}
-              }
-            ],
-            "lights": [],
-            "notes": [],
-            "sounds": [],
-            "regions": [],
-            "templates": [],
-            "tiles": [],
-            "walls": [],
-            "playlist": null,
-            "playlistSound": null,
-            "journal": null,
-            "journalEntryPage": null,
-            "weather": "",
-            "folder": null,
-            "sort": 0,
-            "ownership": {
-              "default": 0,
-              "fCfNJPT9Atc26yyv": 3
-            },
-            "flags": {},
-            "_stats": {
-              "compendiumSource": null,
-              "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1776821607325,
-              "modifiedTime": 1777909328299,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
-            }
-          },
-          {
-            "grid": {
-              "size": 100,
-              "type": 1,
-              "style": "solidLines",
-              "thickness": 1,
-              "color": "#000000",
-              "alpha": 0.2,
-              "distance": 5,
-              "units": "ft"
-            },
-            "height": 1000,
-            "name": "test-scene-updated",
-            "width": 1000,
-            "_id": "lIawgFuWnlgFq8e8",
-            "active": false,
-            "navigation": true,
-            "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
-            "thumb": null,
-            "padding": 0.25,
-            "initial": {
-              "x": null,
-              "y": null,
-              "scale": 0.5
-            },
-            "backgroundColor": "#999999",
-            "tokenVision": true,
-            "fog": {
-              "exploration": true,
-              "overlay": null,
-              "colors": {
-                "explored": null,
-                "unexplored": null
-              }
-            },
-            "environment": {
-              "darknessLevel": 0,
-              "darknessLock": false,
-              "globalLight": {
-                "enabled": false,
-                "alpha": 0.5,
-                "bright": false,
-                "color": null,
-                "coloration": 1,
-                "luminosity": 0,
-                "saturation": 0,
-                "contrast": 0,
-                "shadows": 0,
-                "darkness": {
-                  "min": 0,
-                  "max": 1
-                }
-              },
-              "cycle": true,
-              "base": {
-                "hue": 0,
-                "intensity": 0,
-                "luminosity": 0,
-                "saturation": 0,
-                "shadows": 0
-              },
-              "dark": {
-                "hue": 0.7138888888888889,
-                "intensity": 0,
-                "luminosity": -0.25,
-                "saturation": 0,
-                "shadows": 0
-              }
-            },
-            "drawings": [],
-            "tokens": [
-              {
-                "actorId": "KymJLHN2fza60IFj",
-                "x": 500,
-                "y": 500,
-                "_id": "Ls5jpphy0xa9ujJn",
-                "name": "",
-                "displayName": 0,
-                "actorLink": false,
-                "delta": {
-                  "_id": "z3kMyzO4HBCQLJA7",
-                  "system": {},
-                  "items": [],
-                  "effects": [],
-                  "flags": {},
-                  "name": null,
-                  "type": null,
-                  "img": null
-                },
-                "appendNumber": false,
-                "prependAdjective": false,
-                "width": 1,
-                "height": 1,
-                "texture": {
-                  "src": "icons/svg/mystery-man.svg",
-                  "anchorX": 0.5,
-                  "anchorY": 0.5,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "fit": "contain",
-                  "scaleX": 1,
-                  "scaleY": 1,
-                  "rotation": 0,
-                  "tint": "#ffffff",
-                  "alphaThreshold": 0.75
-                },
-                "hexagonalShape": 0,
-                "elevation": 0,
-                "sort": 0,
-                "locked": false,
-                "lockRotation": false,
-                "rotation": 0,
-                "alpha": 1,
-                "hidden": false,
-                "disposition": -1,
-                "displayBars": 0,
-                "bar1": {
-                  "attribute": "attributes.hp"
-                },
-                "bar2": {
-                  "attribute": null
-                },
-                "light": {
-                  "negative": false,
-                  "priority": 0,
-                  "alpha": 0.5,
-                  "angle": 360,
-                  "bright": 0,
-                  "color": null,
-                  "coloration": 1,
-                  "dim": 0,
-                  "attenuation": 0.5,
-                  "luminosity": 0.5,
-                  "saturation": 0,
-                  "contrast": 0,
-                  "shadows": 0,
-                  "animation": {
-                    "type": null,
-                    "speed": 5,
-                    "intensity": 5,
-                    "reverse": false
-                  },
-                  "darkness": {
-                    "min": 0,
-                    "max": 1
-                  }
-                },
-                "sight": {
-                  "enabled": false,
-                  "range": 0,
-                  "angle": 360,
-                  "visionMode": "basic",
-                  "color": null,
-                  "attenuation": 0.1,
-                  "brightness": 0,
-                  "saturation": 0,
-                  "contrast": 0
-                },
-                "detectionModes": [],
-                "occludable": {
-                  "radius": 0
-                },
-                "ring": {
-                  "enabled": false,
-                  "colors": {
-                    "ring": null,
-                    "background": null
-                  },
-                  "effects": 1,
-                  "subject": {
-                    "scale": 1,
-                    "texture": null
-                  }
-                },
-                "_regions": [],
-                "flags": {}
-              }
-            ],
-            "lights": [],
-            "notes": [],
-            "sounds": [],
-            "regions": [],
-            "templates": [],
-            "tiles": [],
-            "walls": [],
-            "playlist": null,
-            "playlistSound": null,
-            "journal": null,
-            "journalEntryPage": null,
-            "weather": "",
-            "folder": null,
-            "sort": 0,
-            "ownership": {
-              "default": 0,
-              "fCfNJPT9Atc26yyv": 3
-            },
-            "flags": {},
-            "_stats": {
-              "compendiumSource": null,
-              "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1777969044290,
-              "modifiedTime": 1777996650026,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "exportSource": null
             }
           },
           {
@@ -1351,38 +987,23 @@
             "height": 1000,
             "name": "test-scene",
             "width": 1000,
-            "_id": "Lxz4vYKs8VE4gpcw",
+            "_id": "SM7AhDv5JgZh6IvK",
             "active": false,
             "navigation": true,
             "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
             "thumb": null,
             "padding": 0.25,
+            "shiftX": 0,
+            "shiftY": 0,
             "initial": {
               "x": null,
               "y": null,
-              "scale": 0.5
+              "scale": null
             },
-            "backgroundColor": "#999999",
+            "initialLevel": "defaultLevel0000",
             "tokenVision": true,
             "fog": {
-              "exploration": true,
-              "overlay": null,
+              "mode": 1,
               "colors": {
                 "explored": null,
                 "unexplored": null
@@ -1422,13 +1043,57 @@
                 "shadows": 0
               }
             },
+            "transition": {
+              "type": null,
+              "duration": 1500,
+              "activeOnly": false
+            },
             "drawings": [],
             "tokens": [],
+            "levels": [
+              {
+                "_id": "defaultLevel0000",
+                "name": "Level",
+                "elevation": {
+                  "bottom": 0,
+                  "top": 20
+                },
+                "background": {
+                  "color": "#999999",
+                  "src": null,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "foreground": {
+                  "src": null,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "fog": {
+                  "src": null,
+                  "tint": "#ffffff"
+                },
+                "textures": {
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "fit": "fill",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "rotation": 0
+                },
+                "visibility": {
+                  "levels": []
+                },
+                "sort": 0,
+                "flags": {}
+              }
+            ],
             "lights": [],
             "notes": [],
             "sounds": [],
             "regions": [],
-            "templates": [],
             "tiles": [],
             "walls": [],
             "playlist": null,
@@ -1440,52 +1105,39 @@
             "sort": 0,
             "ownership": {
               "default": 0,
-              "fCfNJPT9Atc26yyv": 3
+              "cpvaGKk3hgoBCzCS": 3
             },
             "flags": {},
             "_stats": {
+              "coreVersion": "14.363",
+              "systemId": "dnd5e",
+              "systemVersion": "5.0.4",
+              "createdTime": 1782956912564,
+              "modifiedTime": 1782956912564,
+              "lastModifiedBy": "cpvaGKk3hgoBCzCS",
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1780520747075,
-              "modifiedTime": 1780520747075,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "exportSource": null
             }
           },
           {
             "height": 500,
             "name": "test-scene-expendable",
             "width": 500,
-            "_id": "2qQUvnbEhK3gO9eK",
+            "_id": "Hk2XrjCAU9pHZ7Gc",
             "active": false,
             "navigation": true,
             "navOrder": 0,
-            "navName": "",
-            "background": {
-              "src": null,
-              "anchorX": 0,
-              "anchorY": 0,
-              "offsetX": 0,
-              "offsetY": 0,
-              "fit": "fill",
-              "scaleX": 1,
-              "scaleY": 1,
-              "rotation": 0,
-              "tint": "#ffffff",
-              "alphaThreshold": 0
-            },
-            "foreground": null,
-            "foregroundElevation": null,
             "thumb": null,
             "padding": 0.25,
+            "shiftX": 0,
+            "shiftY": 0,
             "initial": {
               "x": null,
               "y": null,
-              "scale": 0.5
+              "scale": null
             },
-            "backgroundColor": "#999999",
+            "initialLevel": "defaultLevel0000",
             "grid": {
               "type": 1,
               "size": 100,
@@ -1498,8 +1150,7 @@
             },
             "tokenVision": true,
             "fog": {
-              "exploration": true,
-              "overlay": null,
+              "mode": 1,
               "colors": {
                 "explored": null,
                 "unexplored": null
@@ -1539,13 +1190,57 @@
                 "shadows": 0
               }
             },
+            "transition": {
+              "type": null,
+              "duration": 1500,
+              "activeOnly": false
+            },
             "drawings": [],
             "tokens": [],
+            "levels": [
+              {
+                "_id": "defaultLevel0000",
+                "name": "Level",
+                "elevation": {
+                  "bottom": 0,
+                  "top": 20
+                },
+                "background": {
+                  "color": "#999999",
+                  "src": null,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "foreground": {
+                  "src": null,
+                  "tint": "#ffffff",
+                  "alphaThreshold": 0.75
+                },
+                "fog": {
+                  "src": null,
+                  "tint": "#ffffff"
+                },
+                "textures": {
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "fit": "fill",
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "rotation": 0
+                },
+                "visibility": {
+                  "levels": []
+                },
+                "sort": 0,
+                "flags": {}
+              }
+            ],
             "lights": [],
             "notes": [],
             "sounds": [],
             "regions": [],
-            "templates": [],
             "tiles": [],
             "walls": [],
             "playlist": null,
@@ -1557,29 +1252,30 @@
             "sort": 0,
             "ownership": {
               "default": 0,
-              "fCfNJPT9Atc26yyv": 3
+              "cpvaGKk3hgoBCzCS": 3
             },
             "flags": {},
             "_stats": {
+              "coreVersion": "14.363",
+              "systemId": "dnd5e",
+              "systemVersion": "5.0.4",
+              "createdTime": 1782956912572,
+              "modifiedTime": 1782956912573,
+              "lastModifiedBy": "cpvaGKk3hgoBCzCS",
               "compendiumSource": null,
               "duplicateSource": null,
-              "coreVersion": "12.331",
-              "systemId": "dnd5e",
-              "systemVersion": "4.3.8",
-              "createdTime": 1780520747084,
-              "modifiedTime": 1780520747084,
-              "lastModifiedBy": "fCfNJPT9Atc26yyv"
+              "exportSource": null
             }
           }
         ]
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  all: 'true'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X GET 'http://localhost:3010/scene?clientId=fvtt_d3db244ce1d8af0b&all=true' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'all': 'true'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    all: 'true'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤all=true🔤 ➡️ all\n  🔤?🧲clientId🧲&🧲all🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/scene';\nconst params = {\n  clientId: 'qsl-integration-test',\n  all: 'true'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'GET',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X GET 'http://localhost:3011/scene?clientId=qsl-integration-test&all=true' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/scene'\nparams = {\n    'clientId': 'qsl-integration-test',\n    'all': 'true'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.get(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/scene';\n  const params = {\n    clientId: 'qsl-integration-test',\n    all: 'true'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'get',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤all=true🔤 ➡️ all\n  🔤?🧲clientId🧲&🧲all🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤GET /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -1587,13 +1283,13 @@
     "method": "PUT",
     "description": "/scene - Update scene",
     "request": {
-      "url": "http://localhost:3010/scene",
+      "url": "http://localhost:3011/scene",
       "method": "PUT",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       },
       "body": {
-        "sceneId": "Lxz4vYKs8VE4gpcw",
+        "sceneId": "SM7AhDv5JgZh6IvK",
         "data": {
           "name": "test-scene-updated"
         }
@@ -1603,7 +1299,7 @@
       "status": 200,
       "data": {
         "type": "update-scene-result",
-        "requestId": "update-scene_1780520747095",
+        "requestId": "update-scene_1782956912583",
         "data": {
           "grid": {
             "size": 100,
@@ -1618,38 +1314,23 @@
           "height": 1000,
           "name": "test-scene-updated",
           "width": 1000,
-          "_id": "Lxz4vYKs8VE4gpcw",
+          "_id": "SM7AhDv5JgZh6IvK",
           "active": false,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
-          "background": {
-            "src": null,
-            "anchorX": 0,
-            "anchorY": 0,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "fill",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0
-          },
-          "foreground": null,
-          "foregroundElevation": null,
           "thumb": null,
           "padding": 0.25,
+          "shiftX": 0,
+          "shiftY": 0,
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
           },
-          "backgroundColor": "#999999",
+          "initialLevel": "defaultLevel0000",
           "tokenVision": true,
           "fog": {
-            "exploration": true,
-            "overlay": null,
+            "mode": 1,
             "colors": {
               "explored": null,
               "unexplored": null
@@ -1689,13 +1370,57 @@
               "shadows": 0
             }
           },
+          "transition": {
+            "type": null,
+            "duration": 1500,
+            "activeOnly": false
+          },
           "drawings": [],
           "tokens": [],
+          "levels": [
+            {
+              "_id": "defaultLevel0000",
+              "name": "Level",
+              "elevation": {
+                "bottom": 0,
+                "top": 20
+              },
+              "background": {
+                "color": "#999999",
+                "src": null,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "foreground": {
+                "src": null,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "fog": {
+                "src": null,
+                "tint": "#ffffff"
+              },
+              "textures": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "fill",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0
+              },
+              "visibility": {
+                "levels": []
+              },
+              "sort": 0,
+              "flags": {}
+            }
+          ],
           "lights": [],
           "notes": [],
           "sounds": [],
           "regions": [],
-          "templates": [],
           "tiles": [],
           "walls": [],
           "playlist": null,
@@ -1707,28 +1432,29 @@
           "sort": 0,
           "ownership": {
             "default": 0,
-            "fCfNJPT9Atc26yyv": 3
+            "cpvaGKk3hgoBCzCS": 3
           },
           "flags": {},
           "_stats": {
+            "coreVersion": "14.363",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1782956912564,
+            "modifiedTime": 1782956912584,
+            "lastModifiedBy": "cpvaGKk3hgoBCzCS",
             "compendiumSource": null,
             "duplicateSource": null,
-            "coreVersion": "12.331",
-            "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1780520747075,
-            "modifiedTime": 1780520747096,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv"
+            "exportSource": null
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'PUT',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"Lxz4vYKs8VE4gpcw\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X PUT 'http://localhost:3010/scene?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"Lxz4vYKs8VE4gpcw\",\"data\":{\"name\":\"test-scene-updated\"}}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.put(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"sceneId\": \"Lxz4vYKs8VE4gpcw\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'put',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"Lxz4vYKs8VE4gpcw\",\n        \"data\": {\n          \"name\": \"test-scene-updated\"\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"Lxz4vYKs8VE4gpcw\",\"data\":{\"name\":\"test-scene-updated\"}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/scene';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'PUT',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"SM7AhDv5JgZh6IvK\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X PUT 'http://localhost:3011/scene?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"SM7AhDv5JgZh6IvK\",\"data\":{\"name\":\"test-scene-updated\"}}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/scene'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.put(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    json={\n      \"sceneId\": \"SM7AhDv5JgZh6IvK\",\n      \"data\": {\n        \"name\": \"test-scene-updated\"\n      }\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/scene';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'put',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"SM7AhDv5JgZh6IvK\",\n        \"data\": {\n          \"name\": \"test-scene-updated\"\n        }\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"SM7AhDv5JgZh6IvK\",\"data\":{\"name\":\"test-scene-updated\"}}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤PUT /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 67❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -1736,20 +1462,20 @@
     "method": "POST",
     "description": "/switch-scene - Activate scene",
     "request": {
-      "url": "http://localhost:3010/switch-scene",
+      "url": "http://localhost:3011/switch-scene",
       "method": "POST",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       },
       "body": {
-        "sceneId": "Lxz4vYKs8VE4gpcw"
+        "sceneId": "SM7AhDv5JgZh6IvK"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "switch-scene-result",
-        "requestId": "switch-scene_1780520747102",
+        "requestId": "switch-scene_1782956912588",
         "success": true,
         "data": {
           "grid": {
@@ -1765,38 +1491,23 @@
           "height": 1000,
           "name": "test-scene-updated",
           "width": 1000,
-          "_id": "Lxz4vYKs8VE4gpcw",
+          "_id": "SM7AhDv5JgZh6IvK",
           "active": true,
           "navigation": true,
           "navOrder": 0,
-          "navName": "",
-          "background": {
-            "src": null,
-            "anchorX": 0,
-            "anchorY": 0,
-            "offsetX": 0,
-            "offsetY": 0,
-            "fit": "fill",
-            "scaleX": 1,
-            "scaleY": 1,
-            "rotation": 0,
-            "tint": "#ffffff",
-            "alphaThreshold": 0
-          },
-          "foreground": null,
-          "foregroundElevation": null,
           "thumb": null,
           "padding": 0.25,
+          "shiftX": 0,
+          "shiftY": 0,
           "initial": {
             "x": null,
             "y": null,
-            "scale": 0.5
+            "scale": null
           },
-          "backgroundColor": "#999999",
+          "initialLevel": "defaultLevel0000",
           "tokenVision": true,
           "fog": {
-            "exploration": true,
-            "overlay": null,
+            "mode": 1,
             "colors": {
               "explored": null,
               "unexplored": null
@@ -1836,13 +1547,57 @@
               "shadows": 0
             }
           },
+          "transition": {
+            "type": null,
+            "duration": 1500,
+            "activeOnly": false
+          },
           "drawings": [],
           "tokens": [],
+          "levels": [
+            {
+              "_id": "defaultLevel0000",
+              "name": "Level",
+              "elevation": {
+                "bottom": 0,
+                "top": 20
+              },
+              "background": {
+                "color": "#999999",
+                "src": null,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "foreground": {
+                "src": null,
+                "tint": "#ffffff",
+                "alphaThreshold": 0.75
+              },
+              "fog": {
+                "src": null,
+                "tint": "#ffffff"
+              },
+              "textures": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "offsetX": 0,
+                "offsetY": 0,
+                "fit": "fill",
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0
+              },
+              "visibility": {
+                "levels": []
+              },
+              "sort": 0,
+              "flags": {}
+            }
+          ],
           "lights": [],
           "notes": [],
           "sounds": [],
           "regions": [],
-          "templates": [],
           "tiles": [],
           "walls": [],
           "playlist": null,
@@ -1854,28 +1609,29 @@
           "sort": 0,
           "ownership": {
             "default": 0,
-            "fCfNJPT9Atc26yyv": 3
+            "cpvaGKk3hgoBCzCS": 3
           },
           "flags": {},
           "_stats": {
+            "coreVersion": "14.363",
+            "systemId": "dnd5e",
+            "systemVersion": "5.0.4",
+            "createdTime": 1782956912564,
+            "modifiedTime": 1782956912596,
+            "lastModifiedBy": "cpvaGKk3hgoBCzCS",
             "compendiumSource": null,
             "duplicateSource": null,
-            "coreVersion": "12.331",
-            "systemId": "dnd5e",
-            "systemVersion": "4.3.8",
-            "createdTime": 1780520747075,
-            "modifiedTime": 1780520747103,
-            "lastModifiedBy": "fCfNJPT9Atc26yyv"
+            "exportSource": null
           }
         }
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/switch-scene';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"Lxz4vYKs8VE4gpcw\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X POST 'http://localhost:3010/switch-scene?clientId=fvtt_d3db244ce1d8af0b' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"Lxz4vYKs8VE4gpcw\"}'",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/switch-scene'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    json={\n      \"sceneId\": \"Lxz4vYKs8VE4gpcw\"\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/switch-scene';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"Lxz4vYKs8VE4gpcw\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/switch-scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"Lxz4vYKs8VE4gpcw\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/switch-scene';\nconst params = {\n  clientId: 'qsl-integration-test'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'POST',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n      \"sceneId\": \"SM7AhDv5JgZh6IvK\"\n    })\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X POST 'http://localhost:3011/switch-scene?clientId=qsl-integration-test' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sceneId\":\"SM7AhDv5JgZh6IvK\"}'",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/switch-scene'\nparams = {\n    'clientId': 'qsl-integration-test'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.post(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    json={\n      \"sceneId\": \"SM7AhDv5JgZh6IvK\"\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/switch-scene';\n  const params = {\n    clientId: 'qsl-integration-test'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'post',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796',\n      'Content-Type': 'application/json'\n    },\n    url,\n    data: {\n        \"sceneId\": \"SM7AhDv5JgZh6IvK\"\n      }\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/switch-scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤?🧲clientId🧲🔤 ➡️ queryString\n\n  💭 Request body\n  🔤{\"sceneId\":\"SM7AhDv5JgZh6IvK\"}🔤 ➡️ body\n\n  💭 Build HTTP request\n  🔤POST /switch-scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌nContent-Type: application/json❌r❌nContent-Length: 30❌r❌n❌r❌n🧲body🧲🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   },
   {
@@ -1883,26 +1639,26 @@
     "method": "DELETE",
     "description": "/scene - Delete scene",
     "request": {
-      "url": "http://localhost:3010/scene",
+      "url": "http://localhost:3011/scene",
       "method": "DELETE",
       "headers": {
-        "x-api-key": "a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f"
+        "x-api-key": "c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796"
       }
     },
     "response": {
       "status": 200,
       "data": {
         "type": "delete-scene-result",
-        "requestId": "delete-scene_1780520752116",
+        "requestId": "delete-scene_1782956917608",
         "success": true
       }
     },
     "codeExamples": {
-      "javascript": "const baseUrl = 'http://localhost:3010';\nconst path = '/scene';\nconst params = {\n  clientId: 'fvtt_d3db244ce1d8af0b',\n  sceneId: '2qQUvnbEhK3gO9eK'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
-      "curl": "curl -X DELETE 'http://localhost:3010/scene?clientId=fvtt_d3db244ce1d8af0b&sceneId=2qQUvnbEhK3gO9eK' \\\n  -H \"x-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f\"",
-      "python": "import requests\n\nbase_url = 'http://localhost:3010'\npath = '/scene'\nparams = {\n    'clientId': 'fvtt_d3db244ce1d8af0b',\n    'sceneId': '2qQUvnbEhK3gO9eK'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    }\n)\ndata = response.json()\nprint(data)",
-      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3010';\n  const path = '/scene';\n  const params = {\n    clientId: 'fvtt_d3db244ce1d8af0b',\n    sceneId: '2qQUvnbEhK3gO9eK'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
-      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3010 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=fvtt_d3db244ce1d8af0b🔤 ➡️ clientId\n  🔤sceneId=2qQUvnbEhK3gO9eK🔤 ➡️ sceneId\n  🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3010❌r❌nx-api-key: a3cad2343dc06dec39d967c1a836d426c754e7edec533be2ce5a3e8139d0a67f❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
+      "javascript": "const baseUrl = 'http://localhost:3011';\nconst path = '/scene';\nconst params = {\n  clientId: 'qsl-integration-test',\n  sceneId: 'Hk2XrjCAU9pHZ7Gc'\n};\nconst queryString = new URLSearchParams(params).toString();\nconst url = `${baseUrl}${path}?${queryString}`;\n\nconst response = await fetch(url, {\n  method: 'DELETE',\n  headers: {\n    'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n  }\n});\nconst data = await response.json();\nconsole.log(data);",
+      "curl": "curl -X DELETE 'http://localhost:3011/scene?clientId=qsl-integration-test&sceneId=Hk2XrjCAU9pHZ7Gc' \\\n  -H \"x-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796\"",
+      "python": "import requests\n\nbase_url = 'http://localhost:3011'\npath = '/scene'\nparams = {\n    'clientId': 'qsl-integration-test',\n    'sceneId': 'Hk2XrjCAU9pHZ7Gc'\n}\nurl = f'{base_url}{path}'\n\nresponse = requests.delete(\n    url,\n    params=params,\n    headers={\n        'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    }\n)\ndata = response.json()\nprint(data)",
+      "typescript": "import axios from 'axios';\n\n(async () => {\n  const baseUrl = 'http://localhost:3011';\n  const path = '/scene';\n  const params = {\n    clientId: 'qsl-integration-test',\n    sceneId: 'Hk2XrjCAU9pHZ7Gc'\n  };\n  const queryString = new URLSearchParams(params).toString();\n  const url = `${baseUrl}${path}?${queryString}`;\n\n  const response = await axios({\n    method: 'delete',\n    headers: {\n      'x-api-key': 'c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796'\n    },\n    url\n  });\n  const data = response.data;\n  console.log(data);\n})();",
+      "emojicode": "📦 sockets 🏠\n\n💭 Emojicode HTTP Client\n💭 Compile: emojicodec example.🍇 -o example\n💭 Run: ./example\n\n🏁 🍇\n  💭 Connection settings\n  🔤localhost🔤 ➡️ host\n  3011 ➡️ port\n  🔤/scene🔤 ➡️ path\n\n  💭 Query parameters\n  🔤clientId=qsl-integration-test🔤 ➡️ clientId\n  🔤sceneId=Hk2XrjCAU9pHZ7Gc🔤 ➡️ sceneId\n  🔤?🧲clientId🧲&🧲sceneId🧲🔤 ➡️ queryString\n\n  💭 Build HTTP request\n  🔤DELETE /scene🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: c2f25bfd78a7fe3e7b3294dbf5f026285989fa0d7f7b73b2108305e68f64b796❌r❌n❌r❌n🔤 ➡️ request\n\n  💭 Connect and send\n  🍺 🆕📞 host port❗ ➡️ socket\n  🍺 💬 socket 📇 request❗❗\n  \n  💭 Read and print response\n  🍺 👂 socket 4096❗ ➡️ data\n  😀 🍺 🔡 data❗❗\n  \n  💭 Close socket\n  🚪 socket❗\n🍉"
     }
   }
 ]

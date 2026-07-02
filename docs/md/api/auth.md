@@ -44,6 +44,154 @@ Initiates a key request that a user must approve in the dashboard. Supports two 
   parameters={[{"name":"appName","type":"string","required":true,"source":"body"},{"name":"scopes","type":"array","required":true,"source":"body"},{"name":"appDescription","type":"string","required":false,"source":"body"},{"name":"appUrl","type":"string","required":false,"source":"body"},{"name":"callbackUrl","type":"string","required":false,"source":"body"},{"name":"clientIds","type":"array","required":false,"source":"body"},{"name":"suggestedMonthlyLimit","type":"number","required":false,"source":"body"},{"name":"suggestedExpiry","type":"string","required":false,"source":"body"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/auth/key-request';
+const url = `${baseUrl}${path}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "appName": "Test Discord Bot",
+      "appDescription": "A test integration",
+      "scopes": [
+        "entity:read",
+        "roll:read",
+        "chat:read"
+      ]
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/auth/key-request' \
+  -H "Content-Type: application/json" \
+  -d '{"appName":"Test Discord Bot","appDescription":"A test integration","scopes":["entity:read","roll:read","chat:read"]}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/auth/key-request'
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    json={
+      "appName": "Test Discord Bot",
+      "appDescription": "A test integration",
+      "scopes": [
+        "entity:read",
+        "roll:read",
+        "chat:read"
+      ]
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/auth/key-request';
+  const url = `${baseUrl}${path}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "appName": "Test Discord Bot",
+        "appDescription": "A test integration",
+        "scopes": [
+          "entity:read",
+          "roll:read",
+          "chat:read"
+        ]
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/auth/key-request🔤 ➡️ path
+
+  💭 Request body
+  🔤{"appName":"Test Discord Bot","appDescription":"A test integration","scopes":["entity:read","roll:read","chat:read"]}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /auth/key-request HTTP/1.1❌r❌nHost: localhost:3011❌r❌nContent-Type: application/json❌r❌nContent-Length: 117❌r❌n❌r❌n{"appName":"Test Discord Bot","appDescription":"A test integration","scopes":["entity:read","roll:read","chat:read"]}🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 201
+
+```json
+{
+  "approvalUrl": "https://foundryrestapi.com/approve/ANNTCM",
+  "code": "ANNTCM",
+  "expiresAt": "2026-07-02T01:58:57Z",
+  "expiresIn": 600
+}
+```
+
+
 ---
 
 ## GET /auth/key-request/:code/status
@@ -70,6 +218,119 @@ Returns the current status of a pending key request. When `status` is `approved`
   parameters={[{"name":"code","type":"string","required":true,"source":"params"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/auth/key-request/ANNTCM/status';
+const url = `${baseUrl}${path}`;
+
+const response = await fetch(url, {
+  method: 'GET'
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/auth/key-request/ANNTCM/status'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/auth/key-request/ANNTCM/status'
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/auth/key-request/ANNTCM/status';
+  const url = `${baseUrl}${path}`;
+
+  const response = await axios({
+    method: 'get',
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/auth/key-request/ANNTCM/status🔤 ➡️ path
+
+  💭 Build HTTP request
+  🔤GET /auth/key-request/ANNTCM/status HTTP/1.1❌r❌nHost: localhost:3011❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "apiKey": "your-api-key-here",
+  "clientIds": null,
+  "scopes": [
+    "entity:read",
+    "roll:read"
+  ],
+  "status": "approved"
+}
+```
+
+
 ---
 
 ## POST /auth/key-request/exchange
@@ -95,4 +356,135 @@ Web flow only. After the user approves the request in the dashboard, the relay r
   path="/auth/key-request/exchange"
   parameters={[{"name":"code","type":"string","required":true,"source":"body"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/auth/key-request/exchange';
+const url = `${baseUrl}${path}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "code": "your-exchange-code-here"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/auth/key-request/exchange' \
+  -H "Content-Type: application/json" \
+  -d '{"code": "your-exchange-code-here"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/auth/key-request/exchange'
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    json={
+      "code": "your-exchange-code-here"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/auth/key-request/exchange';
+  const url = `${baseUrl}${path}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "code": "your-exchange-code-here"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/auth/key-request/exchange🔤 ➡️ path
+
+  💭 Request body
+  🔤{"code": "your-exchange-code-here"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /auth/key-request/exchange HTTP/1.1❌r❌nHost: localhost:3011❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n{"code": "your-exchange-code-here"}🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "apiKey": "your-api-key-here",
+  "clientIds": null,
+  "scopes": [
+    "entity:read"
+  ]
+}
+```
+
 

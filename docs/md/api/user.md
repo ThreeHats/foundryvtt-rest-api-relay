@@ -36,6 +36,162 @@ Retrieves a list of all users configured in the Foundry VTT world, including the
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/users';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/users?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/users'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/users';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/users🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /users🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "get-users-result",
+  "requestId": "get-users_1782956934910",
+  "data": [
+    {
+      "id": "cpvaGKk3hgoBCzCS",
+      "name": "Gamemaster",
+      "role": 4,
+      "isGM": true,
+      "active": true,
+      "color": "#161068",
+      "avatar": "icons/svg/mystery-man.svg",
+      "character": null
+    },
+    {
+      "id": "zi1MHwh4aJs4L2Mn",
+      "name": "test",
+      "role": 1,
+      "isGM": false,
+      "active": false,
+      "color": "#ccad28",
+      "avatar": "icons/svg/mystery-man.svg",
+      "character": null
+    }
+  ]
+}
+```
+
+
 ---
 
 ## GET /user
@@ -66,6 +222,154 @@ Retrieves a single user by their ID or name. This is a GM-only operation.
   path="/user"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"id","type":"string","required":false,"source":"query"},{"name":"name","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/user';
+const params = {
+  clientId: 'qsl-integration-test',
+  id: 'CVPbiFSd09YMMXrp'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X GET 'http://localhost:3011/user?clientId=qsl-integration-test&id=CVPbiFSd09YMMXrp' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/user'
+params = {
+    'clientId': 'qsl-integration-test',
+    'id': 'CVPbiFSd09YMMXrp'
+}
+url = f'{base_url}{path}'
+
+response = requests.get(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/user';
+  const params = {
+    clientId: 'qsl-integration-test',
+    id: 'CVPbiFSd09YMMXrp'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'get',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/user🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤id=CVPbiFSd09YMMXrp🔤 ➡️ id
+  🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤GET /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "get-user-result",
+  "requestId": "get-user_1782956934919",
+  "data": {
+    "id": "CVPbiFSd09YMMXrp",
+    "name": "test-api-user",
+    "role": 1,
+    "isGM": false,
+    "active": false,
+    "color": "#cc286f",
+    "avatar": "icons/svg/mystery-man.svg",
+    "character": null
+  }
+}
+```
+
 
 ---
 
@@ -99,6 +403,172 @@ Creates a new user in the Foundry VTT world with the specified name, role, and o
   parameters={[{"name":"name","type":"string","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"role","type":"number","required":false,"source":"body"},{"name":"password","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/user';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "name": "test-api-user",
+      "role": 1,
+      "password": "your-password-here"
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X POST 'http://localhost:3011/user?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"test-api-user","role":1,"password": "your-password-here"}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/user'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.post(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "name": "test-api-user",
+      "role": 1,
+      "password": "your-password-here"
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/user';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'post',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "name": "test-api-user",
+        "role": 1,
+        "password": "your-password-here"
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/user🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"name":"test-api-user","role":1,"password": "your-password-here"}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤POST /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 62❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "create-user-result",
+  "requestId": "create-user_1782956934912",
+  "data": {
+    "id": "CVPbiFSd09YMMXrp",
+    "name": "test-api-user",
+    "role": 1,
+    "isGM": false,
+    "active": false,
+    "color": "#cc286f",
+    "avatar": "icons/svg/mystery-man.svg",
+    "character": null
+  }
+}
+```
+
+
 ---
 
 ## PUT /user
@@ -131,6 +601,175 @@ Updates fields on an existing user. Identify the user by id or name, then pass t
   parameters={[{"name":"data","type":"object","required":true,"source":"body"},{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"id","type":"string","required":false,"source":"body"},{"name":"name","type":"string","required":false,"source":"body"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
 
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/user';
+const params = {
+  clientId: 'qsl-integration-test'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'PUT',
+  headers: {
+    'x-api-key': 'your-api-key-here',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+      "id": "CVPbiFSd09YMMXrp",
+      "data": {
+        "role": 2
+      }
+    })
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X PUT 'http://localhost:3011/user?clientId=qsl-integration-test' \
+  -H "x-api-key: your-api-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{"id":"CVPbiFSd09YMMXrp","data":{"role":2}}'
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/user'
+params = {
+    'clientId': 'qsl-integration-test'
+}
+url = f'{base_url}{path}'
+
+response = requests.put(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    },
+    json={
+      "id": "CVPbiFSd09YMMXrp",
+      "data": {
+        "role": 2
+      }
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/user';
+  const params = {
+    clientId: 'qsl-integration-test'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'put',
+    headers: {
+      'x-api-key': 'your-api-key-here',
+      'Content-Type': 'application/json'
+    },
+    url,
+    data: {
+        "id": "CVPbiFSd09YMMXrp",
+        "data": {
+          "role": 2
+        }
+      }
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/user🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤?🧲clientId🧲🔤 ➡️ queryString
+
+  💭 Request body
+  🔤{"id":"CVPbiFSd09YMMXrp","data":{"role":2}}🔤 ➡️ body
+
+  💭 Build HTTP request
+  🔤PUT /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌nContent-Type: application/json❌r❌nContent-Length: 43❌r❌n❌r❌n🧲body🧲🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "update-user-result",
+  "requestId": "update-user_1782956934921",
+  "data": {
+    "id": "CVPbiFSd09YMMXrp",
+    "name": "test-api-user",
+    "role": 2,
+    "isGM": false,
+    "active": false,
+    "color": "#cc286f",
+    "avatar": "icons/svg/mystery-man.svg",
+    "character": null
+  }
+}
+```
+
+
 ---
 
 ## DELETE /user
@@ -161,4 +800,143 @@ Permanently deletes a user from the Foundry VTT world. Cannot delete yourself or
   path="/user"
   parameters={[{"name":"clientId","type":"string","required":false,"source":"query"},{"name":"id","type":"string","required":false,"source":"query"},{"name":"name","type":"string","required":false,"source":"query"},{"name":"userId","type":"string","required":false,"source":"query"}]}
 />
+
+### Code Examples
+
+<Tabs groupId="programming-language">
+<TabItem value="javascript" label="JavaScript">
+
+```javascript
+const baseUrl = 'http://localhost:3011';
+const path = '/user';
+const params = {
+  clientId: 'qsl-integration-test',
+  id: 'CVPbiFSd09YMMXrp'
+};
+const queryString = new URLSearchParams(params).toString();
+const url = `${baseUrl}${path}?${queryString}`;
+
+const response = await fetch(url, {
+  method: 'DELETE',
+  headers: {
+    'x-api-key': 'your-api-key-here'
+  }
+});
+const data = await response.json();
+console.log(data);
+```
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl -X DELETE 'http://localhost:3011/user?clientId=qsl-integration-test&id=CVPbiFSd09YMMXrp' \
+  -H "x-api-key: your-api-key-here"
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+import requests
+
+base_url = 'http://localhost:3011'
+path = '/user'
+params = {
+    'clientId': 'qsl-integration-test',
+    'id': 'CVPbiFSd09YMMXrp'
+}
+url = f'{base_url}{path}'
+
+response = requests.delete(
+    url,
+    params=params,
+    headers={
+        'x-api-key': 'your-api-key-here'
+    }
+)
+data = response.json()
+print(data)
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+```typescript
+import axios from 'axios';
+
+(async () => {
+  const baseUrl = 'http://localhost:3011';
+  const path = '/user';
+  const params = {
+    clientId: 'qsl-integration-test',
+    id: 'CVPbiFSd09YMMXrp'
+  };
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}${path}?${queryString}`;
+
+  const response = await axios({
+    method: 'delete',
+    headers: {
+      'x-api-key': 'your-api-key-here'
+    },
+    url
+  });
+  const data = response.data;
+  console.log(data);
+})();
+```
+
+</TabItem>
+<TabItem value="emojicode" label="Emojicode">
+
+```emojicode
+📦 sockets 🏠
+
+💭 Emojicode HTTP Client
+💭 Compile: emojicodec example.🍇 -o example
+💭 Run: ./example
+
+🏁 🍇
+  💭 Connection settings
+  🔤localhost🔤 ➡️ host
+  3011 ➡️ port
+  🔤/user🔤 ➡️ path
+
+  💭 Query parameters
+  🔤clientId=qsl-integration-test🔤 ➡️ clientId
+  🔤id=CVPbiFSd09YMMXrp🔤 ➡️ id
+  🔤?🧲clientId🧲&🧲id🧲🔤 ➡️ queryString
+
+  💭 Build HTTP request
+  🔤DELETE /user🧲queryString🧲 HTTP/1.1❌r❌nHost: localhost:3011❌r❌nx-api-key: your-api-key-here❌r❌n❌r❌n🔤 ➡️ request
+
+  💭 Connect and send
+  🍺 🆕📞 host port❗ ➡️ socket
+  🍺 💬 socket 📇 request❗❗
+  
+  💭 Read and print response
+  🍺 👂 socket 4096❗ ➡️ data
+  😀 🍺 🔡 data❗❗
+  
+  💭 Close socket
+  🚪 socket❗
+🍉
+```
+
+</TabItem>
+</Tabs>
+
+#### Response
+
+**Status:** 200
+
+```json
+{
+  "type": "delete-user-result",
+  "requestId": "delete-user_1782956934925",
+  "success": true
+}
+```
+
 
