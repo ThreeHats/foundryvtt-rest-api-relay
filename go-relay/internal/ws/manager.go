@@ -23,13 +23,17 @@ type RawMessageHandler func(client *Client, message map[string]interface{}, rawB
 
 // ClientManager manages all connected Foundry clients.
 type ClientManager struct {
-	mu              sync.RWMutex
-	clients         map[string]*Client           // clientID -> Client
-	tokenGroups     map[string]map[string]bool    // apiKey -> set of clientIDs
+	// lifecycleMu protects lifecycleLocks, which serialize registration with
+	// disconnect cleanup per client ID.
+	lifecycleMu        sync.Mutex
+	lifecycleLocks     map[string]*clientLifecycleLock
+	mu                 sync.RWMutex
+	clients            map[string]*Client             // clientID -> Client
+	tokenGroups        map[string]map[string]bool     // apiKey -> set of clientIDs
 	messageHandlers    map[string][]MessageHandler    // messageType -> handlers
 	rawMessageHandlers map[string][]RawMessageHandler // messageType -> raw handlers
-	redis           *config.RedisClient
-	instanceID      string
+	redis              *config.RedisClient
+	instanceID         string
 	// OnClientRemoved is called when a client disconnects. Set by server after init.
 	// Receives clientID and the API key the client was registered under.
 	OnClientRemoved func(clientID, apiKey string)
@@ -75,13 +79,47 @@ func NewClientManager(redis *config.RedisClient, instanceID string) *ClientManag
 		tokenGroups:        make(map[string]map[string]bool),
 		messageHandlers:    make(map[string][]MessageHandler),
 		rawMessageHandlers: make(map[string][]RawMessageHandler),
-		redis:           redis,
-		instanceID:      instanceID,
+		lifecycleLocks:     make(map[string]*clientLifecycleLock),
+		redis:              redis,
+		instanceID:         instanceID,
+	}
+}
+
+type clientLifecycleLock struct {
+	mu   sync.Mutex
+	refs int
+}
+
+// lockClientLifecycle returns an unlock function for serializing state changes
+// and disconnect cleanup for one ID. Reference counting keeps the lock table
+// limited to IDs with an active or waiting lifecycle operation.
+func (m *ClientManager) lockClientLifecycle(id string) func() {
+	m.lifecycleMu.Lock()
+	lock := m.lifecycleLocks[id]
+	if lock == nil {
+		lock = &clientLifecycleLock{}
+		m.lifecycleLocks[id] = lock
+	}
+	lock.refs++
+	m.lifecycleMu.Unlock()
+
+	lock.mu.Lock()
+	return func() {
+		lock.mu.Unlock()
+		m.lifecycleMu.Lock()
+		lock.refs--
+		if lock.refs == 0 {
+			delete(m.lifecycleLocks, id)
+		}
+		m.lifecycleMu.Unlock()
 	}
 }
 
 // AddClient registers a new Foundry client connection.
 func (m *ClientManager) AddClient(conn *websocket.Conn, id, token, tokenName, worldID, worldTitle, foundryVersion, systemID, systemTitle, systemVersion, customName, publicUrl string) (*Client, error) {
+	unlockLifecycle := m.lockClientLifecycle(id)
+	defer unlockLifecycle()
+
 	m.mu.Lock()
 
 	// Handle duplicate connections: evict if same IP (reconnect after network drop),
@@ -241,6 +279,9 @@ func (m *ClientManager) LookupClientConnectionTokenID(ctx context.Context, clien
 
 // RemoveClient removes a client and cleans up state.
 func (m *ClientManager) RemoveClient(id string) {
+	unlockLifecycle := m.lockClientLifecycle(id)
+	defer unlockLifecycle()
+
 	m.mu.Lock()
 	client, exists := m.clients[id]
 	if !exists {
@@ -249,11 +290,6 @@ func (m *ClientManager) RemoveClient(id string) {
 	}
 
 	token := client.APIKey()
-
-	// Notify listeners (e.g., terminate interactive sessions)
-	if m.OnClientRemoved != nil {
-		m.OnClientRemoved(id, token)
-	}
 
 	// Clean up local state
 	delete(m.clients, id)
@@ -264,6 +300,14 @@ func (m *ClientManager) RemoveClient(id string) {
 		}
 	}
 	m.mu.Unlock()
+
+	// Notify listeners only after releasing the client-manager lock. Callbacks
+	// may acquire other locks and call back into the manager; invoking one here
+	// while holding m.mu can deadlock against code that holds those locks while
+	// reading the client manager.
+	if m.OnClientRemoved != nil {
+		m.OnClientRemoved(id, token)
+	}
 
 	// Close SSE connections on this instance and signal peer instances to do the same.
 	// This ensures SSE clients reconnect to the instance the module lands on next.
@@ -307,6 +351,9 @@ func (m *ClientManager) RemoveClient(id string) {
 // connection's deferred cleanup goroutine would otherwise remove the freshly
 // registered replacement client.
 func (m *ClientManager) RemoveClientIfMatch(id string, expected *Client) {
+	unlockLifecycle := m.lockClientLifecycle(id)
+	defer unlockLifecycle()
+
 	m.mu.Lock()
 	client, exists := m.clients[id]
 	if !exists || client != expected {
@@ -314,9 +361,6 @@ func (m *ClientManager) RemoveClientIfMatch(id string, expected *Client) {
 		return
 	}
 	token := client.APIKey()
-	if m.OnClientRemoved != nil {
-		m.OnClientRemoved(id, token)
-	}
 	delete(m.clients, id)
 	if group, ok := m.tokenGroups[token]; ok {
 		delete(group, id)
@@ -325,6 +369,10 @@ func (m *ClientManager) RemoveClientIfMatch(id string, expected *Client) {
 		}
 	}
 	m.mu.Unlock()
+
+	if m.OnClientRemoved != nil {
+		m.OnClientRemoved(id, token)
+	}
 
 	if m.OnSSEClose != nil {
 		m.OnSSEClose(id)
